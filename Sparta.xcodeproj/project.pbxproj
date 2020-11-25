@@ -3,27 +3,62 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */; };
-		D9BB534B256E8E6600AD2D1A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB534A256E8E6600AD2D1A /* SceneDelegate.swift */; };
-		D9BB534D256E8E6600AD2D1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB534C256E8E6600AD2D1A /* ViewController.swift */; };
-		D9BB5350256E8E6600AD2D1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BB534E256E8E6600AD2D1A /* Main.storyboard */; };
 		D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */; };
-		D9BB535F256EA12E00AD2D1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB535E256EA12E00AD2D1A /* Assets.xcassets */; };
+		D9BB536C256ECF5800AD2D1A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB536B256ECF5800AD2D1A /* Coordinator.swift */; };
+		D9BB536F256ECF7100AD2D1A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB536E256ECF7100AD2D1A /* AppCoordinator.swift */; };
+		D9BB5373256EF65D00AD2D1A /* BlurCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5372256EF65D00AD2D1A /* BlurCoordinator.swift */; };
+		D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */; };
+		D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */; };
+		D9BB537D256EF77500AD2D1A /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB537C256EF77500AD2D1A /* String+Utilities.swift */; };
+		D9BB5382256EF79D00AD2D1A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5381256EF79D00AD2D1A /* Then */; };
+		D9BB5385256EF7CA00AD2D1A /* UIView+SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5384256EF7CA00AD2D1A /* UIView+SnapKit.swift */; };
+		D9BB5389256EF80C00AD2D1A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5388256EF80C00AD2D1A /* SnapKit */; };
+		D9BB538D256EF83D00AD2D1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB538C256EF83D00AD2D1A /* Assets.xcassets */; };
+		D9BB5390256EF85600AD2D1A /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB538F256EF85600AD2D1A /* Colors.xcassets */; };
+		D9BB5393256EF8D700AD2D1A /* AuthenticationFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5392256EF8D700AD2D1A /* AuthenticationFlowCoordinator.swift */; };
+		D9BB539E256EF9B800AD2D1A /* UIColor+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539D256EF9B800AD2D1A /* UIColor+Assets.swift */; };
+		D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53A0256EF9E400AD2D1A /* Globals.swift */; };
+		D9BB53A5256EFA7E00AD2D1A /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53A4256EFA7E00AD2D1A /* App.swift */; };
+		D9BB53AA256EFB6F00AD2D1A /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53A9256EFB6F00AD2D1A /* SyncService.swift */; };
+		D9BB53AE256EFBAA00AD2D1A /* UserDefaults+Sparta.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53AD256EFBAA00AD2D1A /* UserDefaults+Sparta.swift */; };
+		D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB53B1256EFC6500AD2D1A /* KeychainAccess */; };
+		D9BB53B6256EFCAA00AD2D1A /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53B5256EFCAA00AD2D1A /* KeychainManager.swift */; };
+		D9BB53BA256EFCC400AD2D1A /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53B9256EFCC400AD2D1A /* Keychain+Keys.swift */; };
+		D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */; };
+		D9BB53C2256EFD7A00AD2D1A /* MainFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53C1256EFD7A00AD2D1A /* MainFlowCoordinator.swift */; };
+		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
+		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D9BB5345256E8E6600AD2D1A /* Sparta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sparta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D9BB534A256E8E6600AD2D1A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D9BB534C256E8E6600AD2D1A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D9BB534F256E8E6600AD2D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D9BB5354256E8E6800AD2D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9BB5356256E8E6800AD2D1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9BB535E256EA12E00AD2D1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D9BB536B256ECF5800AD2D1A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = ../../../CryptyTalk/Coordinator.swift; sourceTree = "<group>"; };
+		D9BB536E256ECF7100AD2D1A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppCoordinator.swift; path = ../../../CryptyTalk/AppCoordinator.swift; sourceTree = "<group>"; };
+		D9BB5372256EF65D00AD2D1A /* BlurCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlurCoordinator.swift; path = ../../../../CryptyTalk/BlurCoordinator.swift; sourceTree = "<group>"; };
+		D9BB537C256EF77500AD2D1A /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+Utilities.swift"; path = "../../../../CryptyTalk/String+Utilities.swift"; sourceTree = "<group>"; };
+		D9BB5384256EF7CA00AD2D1A /* UIView+SnapKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIView+SnapKit.swift"; path = "../../../../CryptyTalk/UIView+SnapKit.swift"; sourceTree = "<group>"; };
+		D9BB538C256EF83D00AD2D1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D9BB538F256EF85600AD2D1A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		D9BB5392256EF8D700AD2D1A /* AuthenticationFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthenticationFlowCoordinator.swift; path = ../../../../CryptyTalk/AuthenticationFlowCoordinator.swift; sourceTree = "<group>"; };
+		D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		D9BB539D256EF9B800AD2D1A /* UIColor+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Assets.swift"; path = "../../../../CryptyTalk/UIColor+Assets.swift"; sourceTree = "<group>"; };
+		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
+		D9BB53A4256EFA7E00AD2D1A /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = App.swift; path = ../../../CryptyTalk/App.swift; sourceTree = "<group>"; };
+		D9BB53A9256EFB6F00AD2D1A /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SyncService.swift; path = ../../../../CryptyTalk/SyncService.swift; sourceTree = "<group>"; };
+		D9BB53AD256EFBAA00AD2D1A /* UserDefaults+Sparta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserDefaults+Sparta.swift"; path = "../../../../CryptyTalk/UserDefaults+Sparta.swift"; sourceTree = "<group>"; };
+		D9BB53B5256EFCAA00AD2D1A /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeychainManager.swift; path = ../../../../../CryptyTalk/KeychainManager.swift; sourceTree = "<group>"; };
+		D9BB53B9256EFCC400AD2D1A /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Keychain+Keys.swift"; path = "../../../../../CryptyTalk/Keychain+Keys.swift"; sourceTree = "<group>"; };
+		D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../../../CryptyTalk/BaseViewController.swift; sourceTree = "<group>"; };
+		D9BB53C1256EFD7A00AD2D1A /* MainFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainFlowCoordinator.swift; path = ../../../../CryptyTalk/MainFlowCoordinator.swift; sourceTree = "<group>"; };
+		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +66,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */,
+				D9BB5389256EF80C00AD2D1A /* SnapKit in Frameworks */,
+				D9BB5382256EF79D00AD2D1A /* Then in Frameworks */,
+				D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */,
+				D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,14 +97,101 @@
 			isa = PBXGroup;
 			children = (
 				D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */,
-				D9BB534A256E8E6600AD2D1A /* SceneDelegate.swift */,
-				D9BB534C256E8E6600AD2D1A /* ViewController.swift */,
-				D9BB535E256EA12E00AD2D1A /* Assets.xcassets */,
-				D9BB534E256E8E6600AD2D1A /* Main.storyboard */,
-				D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */,
-				D9BB5356256E8E6800AD2D1A /* Info.plist */,
+				D9BB5368256ECEC600AD2D1A /* Kit */,
+				D9BB536A256ECF4A00AD2D1A /* Coordinators */,
+				D9BB5395256EF8F400AD2D1A /* Modules */,
+				D9BB5363256EC68800AD2D1A /* Sources */,
 			);
 			path = Sparta;
+			sourceTree = "<group>";
+		};
+		D9BB5363256EC68800AD2D1A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */,
+				D9BB538F256EF85600AD2D1A /* Colors.xcassets */,
+				D9BB538C256EF83D00AD2D1A /* Assets.xcassets */,
+				D9BB5356256E8E6800AD2D1A /* Info.plist */,
+				D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D9BB5368256ECEC600AD2D1A /* Kit */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB53A4256EFA7E00AD2D1A /* App.swift */,
+				D9BB53A0256EF9E400AD2D1A /* Globals.swift */,
+				D9BB537B256EF75C00AD2D1A /* Extensions */,
+				D9BB53A8256EFAD000AD2D1A /* Services */,
+			);
+			path = Kit;
+			sourceTree = "<group>";
+		};
+		D9BB536A256ECF4A00AD2D1A /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB536B256ECF5800AD2D1A /* Coordinator.swift */,
+				D9BB536E256ECF7100AD2D1A /* AppCoordinator.swift */,
+				D9BB5371256ECF8400AD2D1A /* Childs */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		D9BB5371256ECF8400AD2D1A /* Childs */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB5372256EF65D00AD2D1A /* BlurCoordinator.swift */,
+				D9BB5392256EF8D700AD2D1A /* AuthenticationFlowCoordinator.swift */,
+				D9BB53C1256EFD7A00AD2D1A /* MainFlowCoordinator.swift */,
+			);
+			path = Childs;
+			sourceTree = "<group>";
+		};
+		D9BB537B256EF75C00AD2D1A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB537C256EF77500AD2D1A /* String+Utilities.swift */,
+				D9BB5384256EF7CA00AD2D1A /* UIView+SnapKit.swift */,
+				D9BB539D256EF9B800AD2D1A /* UIColor+Assets.swift */,
+				D9BB53AD256EFBAA00AD2D1A /* UserDefaults+Sparta.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D9BB5395256EF8F400AD2D1A /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */,
+				D9BB5396256EF91E00AD2D1A /* Auth */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		D9BB5396256EF91E00AD2D1A /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		D9BB53A8256EFAD000AD2D1A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB53B4256EFCA100AD2D1A /* Keychain */,
+				D9BB53A9256EFB6F00AD2D1A /* SyncService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D9BB53B4256EFCA100AD2D1A /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB53B9256EFCC400AD2D1A /* Keychain+Keys.swift */,
+				D9BB53B5256EFCAA00AD2D1A /* KeychainManager.swift */,
+			);
+			path = Keychain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,12 +204,20 @@
 				D9BB5341256E8E6600AD2D1A /* Sources */,
 				D9BB5342256E8E6600AD2D1A /* Frameworks */,
 				D9BB5343256E8E6600AD2D1A /* Resources */,
+				D9C52E3E256F09C0007E3744 /* SwiftLint Check */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Sparta;
+			packageProductDependencies = (
+				D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */,
+				D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */,
+				D9BB5381256EF79D00AD2D1A /* Then */,
+				D9BB5388256EF80C00AD2D1A /* SnapKit */,
+				D9BB53B1256EFC6500AD2D1A /* KeychainAccess */,
+			);
 			productName = Sparta;
 			productReference = D9BB5345256E8E6600AD2D1A /* Sparta.app */;
 			productType = "com.apple.product-type.application";
@@ -110,6 +245,12 @@
 				Base,
 			);
 			mainGroup = D9BB533C256E8E6600AD2D1A;
+			packageReferences = (
+				D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
+				D9BB5380256EF79D00AD2D1A /* XCRemoteSwiftPackageReference "Then" */,
+				D9BB5387256EF80C00AD2D1A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				D9BB53B0256EFC6500AD2D1A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = D9BB5346256E8E6600AD2D1A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -124,36 +265,64 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */,
+				D9BB5390256EF85600AD2D1A /* Colors.xcassets in Resources */,
+				D9BB538D256EF83D00AD2D1A /* Assets.xcassets in Resources */,
 				D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */,
-				D9BB535F256EA12E00AD2D1A /* Assets.xcassets in Resources */,
-				D9BB5350256E8E6600AD2D1A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D9C52E3E256F09C0007E3744 /* SwiftLint Check */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Check";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D9BB5341256E8E6600AD2D1A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9BB534D256E8E6600AD2D1A /* ViewController.swift in Sources */,
+				D9BB53B6256EFCAA00AD2D1A /* KeychainManager.swift in Sources */,
+				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
+				D9BB537D256EF77500AD2D1A /* String+Utilities.swift in Sources */,
+				D9BB53AE256EFBAA00AD2D1A /* UserDefaults+Sparta.swift in Sources */,
+				D9BB5385256EF7CA00AD2D1A /* UIView+SnapKit.swift in Sources */,
+				D9BB53AA256EFB6F00AD2D1A /* SyncService.swift in Sources */,
+				D9BB53C2256EFD7A00AD2D1A /* MainFlowCoordinator.swift in Sources */,
+				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
+				D9BB539E256EF9B800AD2D1A /* UIColor+Assets.swift in Sources */,
+				D9BB53A5256EFA7E00AD2D1A /* App.swift in Sources */,
+				D9BB53BA256EFCC400AD2D1A /* Keychain+Keys.swift in Sources */,
+				D9BB536F256ECF7100AD2D1A /* AppCoordinator.swift in Sources */,
+				D9BB5393256EF8D700AD2D1A /* AuthenticationFlowCoordinator.swift in Sources */,
+				D9BB5373256EF65D00AD2D1A /* BlurCoordinator.swift in Sources */,
+				D9BB536C256ECF5800AD2D1A /* Coordinator.swift in Sources */,
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
-				D9BB534B256E8E6600AD2D1A /* SceneDelegate.swift in Sources */,
+				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D9BB534E256E8E6600AD2D1A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D9BB534F256E8E6600AD2D1A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -287,8 +456,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 64LSU2S2FL;
-				INFOPLIST_FILE = Sparta/Info.plist;
+				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -307,8 +477,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 64LSU2S2FL;
-				INFOPLIST_FILE = Sparta/Info.plist;
+				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -343,6 +514,69 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+		D9BB5380256EF79D00AD2D1A /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.0;
+			};
+		};
+		D9BB5387256EF80C00AD2D1A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		D9BB53B0256EFC6500AD2D1A /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
+		};
+		D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorViewExtended;
+		};
+		D9BB5381256EF79D00AD2D1A /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9BB5380256EF79D00AD2D1A /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		D9BB5388256EF80C00AD2D1A /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9BB5387256EF80C00AD2D1A /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		D9BB53B1256EFC6500AD2D1A /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9BB53B0256EFC6500AD2D1A /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D9BB533D256E8E6600AD2D1A /* Project object */;
 }
