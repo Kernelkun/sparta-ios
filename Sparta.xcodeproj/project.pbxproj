@@ -24,6 +24,14 @@
 		D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */; };
 		D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */; };
 		D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */; };
+		D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E06257180520018F3D7 /* Coordinator.swift */; };
+		D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0A257180800018F3D7 /* AppCoordinator.swift */; };
+		D9B50E0F257180A70018F3D7 /* AuthenticationFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0E257180A70018F3D7 /* AuthenticationFlowCoordinator.swift */; };
+		D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E12257180B70018F3D7 /* MainFlowCoordinator.swift */; };
+		D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E15257180D80018F3D7 /* BlurCoordinator.swift */; };
+		D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E182571818E0018F3D7 /* BaseVMViewController.swift */; };
+		D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E1C257184080018F3D7 /* SyncService.swift */; };
+		D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E21257184780018F3D7 /* MainTabsViewController.swift */; };
 		D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */; };
 		D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */; };
 		D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */; };
@@ -60,6 +68,14 @@
 		D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemFactory.swift; sourceTree = "<group>"; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
+		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		D9B50E0A257180800018F3D7 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		D9B50E0E257180A70018F3D7 /* AuthenticationFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationFlowCoordinator.swift; sourceTree = "<group>"; };
+		D9B50E12257180B70018F3D7 /* MainFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowCoordinator.swift; sourceTree = "<group>"; };
+		D9B50E15257180D80018F3D7 /* BlurCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurCoordinator.swift; sourceTree = "<group>"; };
+		D9B50E182571818E0018F3D7 /* BaseVMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVMViewController.swift; sourceTree = "<group>"; };
+		D9B50E1C257184080018F3D7 /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
+		D9B50E21257184780018F3D7 /* MainTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabsViewController.swift; sourceTree = "<group>"; };
 		D9BB5345256E8E6600AD2D1A /* Sparta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sparta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9BB5354256E8E6800AD2D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -144,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				D9B50DFD25717F230018F3D7 /* Keychain */,
+				D9B50E1C257184080018F3D7 /* SyncService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -160,8 +177,29 @@
 		D9B50E0525717FFA0018F3D7 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				D9B50E06257180520018F3D7 /* Coordinator.swift */,
+				D9B50E0A257180800018F3D7 /* AppCoordinator.swift */,
+				D9B50E0D257180970018F3D7 /* Childs */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		D9B50E0D257180970018F3D7 /* Childs */ = {
+			isa = PBXGroup;
+			children = (
+				D9B50E0E257180A70018F3D7 /* AuthenticationFlowCoordinator.swift */,
+				D9B50E12257180B70018F3D7 /* MainFlowCoordinator.swift */,
+				D9B50E15257180D80018F3D7 /* BlurCoordinator.swift */,
+			);
+			path = Childs;
+			sourceTree = "<group>";
+		};
+		D9B50E202571844F0018F3D7 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D9B50E21257184780018F3D7 /* MainTabsViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		D9BB533C256E8E6600AD2D1A = {
@@ -186,8 +224,8 @@
 			children = (
 				D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */,
 				D9BB5368256ECEC600AD2D1A /* Kit */,
-				D9BB5395256EF8F400AD2D1A /* Modules */,
 				D9B50E0525717FFA0018F3D7 /* Coordinators */,
+				D9BB5395256EF8F400AD2D1A /* Modules */,
 				D9BB5363256EC68800AD2D1A /* Sources */,
 			);
 			path = Sparta;
@@ -237,7 +275,9 @@
 			isa = PBXGroup;
 			children = (
 				D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */,
+				D9B50E182571818E0018F3D7 /* BaseVMViewController.swift */,
 				D9BB5396256EF91E00AD2D1A /* Auth */,
+				D9B50E202571844F0018F3D7 /* Main */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -361,14 +401,18 @@
 			files = (
 				D9A8043C257146BB000ADE6B /* ReusableView.swift in Sources */,
 				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
+				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9BB537D256EF77500AD2D1A /* String+Utilities.swift in Sources */,
+				D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */,
 				D9BB53AE256EFBAA00AD2D1A /* UserDefaults+Sparta.swift in Sources */,
 				D9BB5385256EF7CA00AD2D1A /* UIView+SnapKit.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
+				D9B50E0F257180A70018F3D7 /* AuthenticationFlowCoordinator.swift in Sources */,
 				D9A8043925714697000ADE6B /* TappableView.swift in Sources */,
 				D9A8044B2571475D000ADE6B /* UIView+Sparta.swift in Sources */,
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
+				D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
 				D9BB539E256EF9B800AD2D1A /* UIColor+Assets.swift in Sources */,
@@ -379,8 +423,12 @@
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
 				D9A8042225714420000ADE6B /* Alert.swift in Sources */,
+				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
 				D9A80432257145B4000ADE6B /* TappableButton.swift in Sources */,
 				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
+				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
+				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
+				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
 				D9A8042925714471000ADE6B /* UINavigationBar+Sizes.swift in Sources */,
 				D9A8042625714449000ADE6B /* UIViewController+Utilities.swift in Sources */,
 			);

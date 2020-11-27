@@ -76,19 +76,6 @@ enum UIBarButtonItemFactory {
         return UIBarButtonItem(customView: button)
     }
 
-    static func skipButton(onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
-
-        let button = TappableButton(type: .system).then { v in
-
-            v.setTitle("Skip", for: .normal)
-            v.setTitleColor(.primaryFirst, for: .normal)
-
-            v.onTap(completion: onTap)
-        }
-
-        return UIBarButtonItem(customView: button)
-    }
-
     static func fixedSpace(space: CGFloat) -> UIBarButtonItem {
         let spaceBarItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         spaceBarItem.width = space

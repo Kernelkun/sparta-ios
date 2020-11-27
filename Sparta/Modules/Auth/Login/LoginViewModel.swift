@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+protocol LoginViewModelDelegate: class {
+
+}
+
+class LoginViewModel: NSObject, BaseViewModel {
+
+
+    // MARK: - Public properties
+
+    weak var delegate: LoginViewModelDelegate?
+
+}

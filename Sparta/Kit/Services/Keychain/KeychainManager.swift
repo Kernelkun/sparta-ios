@@ -60,7 +60,7 @@ final class KeychainManager {
      */
     func retrieve(_ key: KeychainKey, from storage: KeychainStorage) -> String? {
         let storedData = Keychain(service: storage)
-        return try! storedData.getString(key)
+        return try? storedData.getString(key)
     }
 
     /**
