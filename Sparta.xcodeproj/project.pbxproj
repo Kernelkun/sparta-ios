@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889325700E95003ECB61 /* LoginViewController.swift */; };
+		D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889725700E9D003ECB61 /* LoginViewModel.swift */; };
+		D9A8041A25713DC2000ADE6B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D9A8041925713DC2000ADE6B /* Then */; };
+		D9A8042225714420000ADE6B /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8042125714420000ADE6B /* Alert.swift */; };
+		D9A8042625714449000ADE6B /* UIViewController+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8042525714449000ADE6B /* UIViewController+Utilities.swift */; };
+		D9A8042925714471000ADE6B /* UINavigationBar+Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8042825714471000ADE6B /* UINavigationBar+Sizes.swift */; };
+		D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8042D257145A3000ADE6B /* BiggerAreaButton.swift */; };
+		D9A80432257145B4000ADE6B /* TappableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A80431257145B4000ADE6B /* TappableButton.swift */; };
+		D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A80434257145E8000ADE6B /* Typealiases.swift */; };
+		D9A8043925714697000ADE6B /* TappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8043825714697000ADE6B /* TappableView.swift */; };
+		D9A8043C257146BB000ADE6B /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8043B257146BB000ADE6B /* ReusableView.swift */; };
+		D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A80440257146D1000ADE6B /* AvatarView.swift */; };
+		D9A80445257146FC000ADE6B /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = D9A80444257146FC000ADE6B /* Nuke */; };
+		D9A8044B2571475D000ADE6B /* UIView+Sparta.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8044A2571475D000ADE6B /* UIView+Sparta.swift */; };
+		D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */; };
 		D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */; };
 		D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */; };
 		D9BB536C256ECF5800AD2D1A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB536B256ECF5800AD2D1A /* Coordinator.swift */; };
@@ -15,7 +30,6 @@
 		D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */; };
 		D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */; };
 		D9BB537D256EF77500AD2D1A /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB537C256EF77500AD2D1A /* String+Utilities.swift */; };
-		D9BB5382256EF79D00AD2D1A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5381256EF79D00AD2D1A /* Then */; };
 		D9BB5385256EF7CA00AD2D1A /* UIView+SnapKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5384256EF7CA00AD2D1A /* UIView+SnapKit.swift */; };
 		D9BB5389256EF80C00AD2D1A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5388256EF80C00AD2D1A /* SnapKit */; };
 		D9BB538D256EF83D00AD2D1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB538C256EF83D00AD2D1A /* Assets.xcassets */; };
@@ -36,6 +50,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D93A889325700E95003ECB61 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D93A889725700E9D003ECB61 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D93A889E25713BA0003ECB61 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Networking; sourceTree = "<group>"; };
+		D9A8042125714420000ADE6B /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		D9A8042525714449000ADE6B /* UIViewController+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utilities.swift"; sourceTree = "<group>"; };
+		D9A8042825714471000ADE6B /* UINavigationBar+Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Sizes.swift"; sourceTree = "<group>"; };
+		D9A8042D257145A3000ADE6B /* BiggerAreaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerAreaButton.swift; sourceTree = "<group>"; };
+		D9A80431257145B4000ADE6B /* TappableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableButton.swift; sourceTree = "<group>"; };
+		D9A80434257145E8000ADE6B /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
+		D9A8043825714697000ADE6B /* TappableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableView.swift; sourceTree = "<group>"; };
+		D9A8043B257146BB000ADE6B /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		D9A80440257146D1000ADE6B /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		D9A8044A2571475D000ADE6B /* UIView+Sparta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Sparta.swift"; sourceTree = "<group>"; };
+		D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemFactory.swift; sourceTree = "<group>"; };
 		D9BB5345256E8E6600AD2D1A /* Sparta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sparta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9BB5354256E8E6800AD2D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -66,9 +94,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9A8041A25713DC2000ADE6B /* Then in Frameworks */,
 				D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */,
 				D9BB5389256EF80C00AD2D1A /* SnapKit in Frameworks */,
-				D9BB5382256EF79D00AD2D1A /* Then in Frameworks */,
+				D9A80445257146FC000ADE6B /* Nuke in Frameworks */,
 				D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */,
 				D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */,
 			);
@@ -77,9 +106,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D93A889225700E88003ECB61 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D93A889725700E9D003ECB61 /* LoginViewModel.swift */,
+				D93A889325700E95003ECB61 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D9A8041F25714404000ADE6B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9A8043825714697000ADE6B /* TappableView.swift */,
+				D9A8043B257146BB000ADE6B /* ReusableView.swift */,
+				D9A80440257146D1000ADE6B /* AvatarView.swift */,
+				D9A8042025714410000ADE6B /* Alert */,
+				D9A8042C25714595000ADE6B /* Buttons */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D9A8042025714410000ADE6B /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				D9A8042125714420000ADE6B /* Alert.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		D9A8042C25714595000ADE6B /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D9A8042D257145A3000ADE6B /* BiggerAreaButton.swift */,
+				D9A80431257145B4000ADE6B /* TappableButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		D9A8044E257147D8000ADE6B /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
 		D9BB533C256E8E6600AD2D1A = {
 			isa = PBXGroup;
 			children = (
+				D93A889E25713BA0003ECB61 /* Networking */,
 				D9BB5347256E8E6600AD2D1A /* Sparta */,
 				D9BB5346256E8E6600AD2D1A /* Products */,
 			);
@@ -122,8 +198,11 @@
 			children = (
 				D9BB53A4256EFA7E00AD2D1A /* App.swift */,
 				D9BB53A0256EF9E400AD2D1A /* Globals.swift */,
+				D9A80434257145E8000ADE6B /* Typealiases.swift */,
 				D9BB537B256EF75C00AD2D1A /* Extensions */,
 				D9BB53A8256EFAD000AD2D1A /* Services */,
+				D9A8041F25714404000ADE6B /* Views */,
+				D9A8044E257147D8000ADE6B /* Factories */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -155,6 +234,9 @@
 				D9BB5384256EF7CA00AD2D1A /* UIView+SnapKit.swift */,
 				D9BB539D256EF9B800AD2D1A /* UIColor+Assets.swift */,
 				D9BB53AD256EFBAA00AD2D1A /* UserDefaults+Sparta.swift */,
+				D9A8042525714449000ADE6B /* UIViewController+Utilities.swift */,
+				D9A8042825714471000ADE6B /* UINavigationBar+Sizes.swift */,
+				D9A8044A2571475D000ADE6B /* UIView+Sparta.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -172,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */,
+				D93A889225700E88003ECB61 /* Login */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -214,9 +297,10 @@
 			packageProductDependencies = (
 				D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */,
 				D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */,
-				D9BB5381256EF79D00AD2D1A /* Then */,
 				D9BB5388256EF80C00AD2D1A /* SnapKit */,
 				D9BB53B1256EFC6500AD2D1A /* KeychainAccess */,
+				D9A8041925713DC2000ADE6B /* Then */,
+				D9A80444257146FC000ADE6B /* Nuke */,
 			);
 			productName = Sparta;
 			productReference = D9BB5345256E8E6600AD2D1A /* Sparta.app */;
@@ -247,9 +331,10 @@
 			mainGroup = D9BB533C256E8E6600AD2D1A;
 			packageReferences = (
 				D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
-				D9BB5380256EF79D00AD2D1A /* XCRemoteSwiftPackageReference "Then" */,
 				D9BB5387256EF80C00AD2D1A /* XCRemoteSwiftPackageReference "SnapKit" */,
 				D9BB53B0256EFC6500AD2D1A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */,
+				D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = D9BB5346256E8E6600AD2D1A /* Products */;
 			projectDirPath = "";
@@ -300,23 +385,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9A8043C257146BB000ADE6B /* ReusableView.swift in Sources */,
 				D9BB53B6256EFCAA00AD2D1A /* KeychainManager.swift in Sources */,
 				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
+				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9BB537D256EF77500AD2D1A /* String+Utilities.swift in Sources */,
 				D9BB53AE256EFBAA00AD2D1A /* UserDefaults+Sparta.swift in Sources */,
 				D9BB5385256EF7CA00AD2D1A /* UIView+SnapKit.swift in Sources */,
+				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
+				D9A8043925714697000ADE6B /* TappableView.swift in Sources */,
+				D9A8044B2571475D000ADE6B /* UIView+Sparta.swift in Sources */,
+				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D9BB53AA256EFB6F00AD2D1A /* SyncService.swift in Sources */,
 				D9BB53C2256EFD7A00AD2D1A /* MainFlowCoordinator.swift in Sources */,
 				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
 				D9BB539E256EF9B800AD2D1A /* UIColor+Assets.swift in Sources */,
+				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
 				D9BB53A5256EFA7E00AD2D1A /* App.swift in Sources */,
 				D9BB53BA256EFCC400AD2D1A /* Keychain+Keys.swift in Sources */,
 				D9BB536F256ECF7100AD2D1A /* AppCoordinator.swift in Sources */,
 				D9BB5393256EF8D700AD2D1A /* AuthenticationFlowCoordinator.swift in Sources */,
 				D9BB5373256EF65D00AD2D1A /* BlurCoordinator.swift in Sources */,
+				D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */,
+				D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */,
 				D9BB536C256ECF5800AD2D1A /* Coordinator.swift in Sources */,
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
+				D9A8042225714420000ADE6B /* Alert.swift in Sources */,
+				D9A80432257145B4000ADE6B /* TappableButton.swift in Sources */,
 				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
+				D9A8042925714471000ADE6B /* UINavigationBar+Sizes.swift in Sources */,
+				D9A8042625714449000ADE6B /* UIViewController+Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,20 +614,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.0;
+			};
+		};
+		D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.3;
+			};
+		};
 		D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.1.1;
-			};
-		};
-		D9BB5380256EF79D00AD2D1A /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.0;
 			};
 		};
 		D9BB5387256EF80C00AD2D1A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -551,6 +657,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D9A8041925713DC2000ADE6B /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		D9A80444257146FC000ADE6B /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
 		D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
@@ -560,11 +676,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
 			productName = NVActivityIndicatorViewExtended;
-		};
-		D9BB5381256EF79D00AD2D1A /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D9BB5380256EF79D00AD2D1A /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
 		};
 		D9BB5388256EF80C00AD2D1A /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
