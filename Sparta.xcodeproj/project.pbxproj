@@ -32,6 +32,9 @@
 		D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E182571818E0018F3D7 /* BaseVMViewController.swift */; };
 		D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E1C257184080018F3D7 /* SyncService.swift */; };
 		D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E21257184780018F3D7 /* MainTabsViewController.swift */; };
+		D9B50E2725740F9B0018F3D7 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E2625740F9B0018F3D7 /* RoundedTextField.swift */; };
+		D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E2A25740FEB0018F3D7 /* LimitedTextField.swift */; };
+		D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */; };
 		D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */; };
 		D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */; };
 		D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */; };
@@ -76,6 +79,9 @@
 		D9B50E182571818E0018F3D7 /* BaseVMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVMViewController.swift; sourceTree = "<group>"; };
 		D9B50E1C257184080018F3D7 /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		D9B50E21257184780018F3D7 /* MainTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabsViewController.swift; sourceTree = "<group>"; };
+		D9B50E2625740F9B0018F3D7 /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
+		D9B50E2A25740FEB0018F3D7 /* LimitedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitedTextField.swift; sourceTree = "<group>"; };
+		D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTextViewController.swift; sourceTree = "<group>"; };
 		D9BB5345256E8E6600AD2D1A /* Sparta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sparta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9BB5354256E8E6800AD2D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 				D9A80440257146D1000ADE6B /* AvatarView.swift */,
 				D9A8042025714410000ADE6B /* Alert */,
 				D9A8042C25714595000ADE6B /* Buttons */,
+				D9B50E2525740F810018F3D7 /* Textfields */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,6 +209,23 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		D9B50E2525740F810018F3D7 /* Textfields */ = {
+			isa = PBXGroup;
+			children = (
+				D9B50E2A25740FEB0018F3D7 /* LimitedTextField.swift */,
+				D9B50E2625740F9B0018F3D7 /* RoundedTextField.swift */,
+			);
+			path = Textfields;
+			sourceTree = "<group>";
+		};
+		D9B50E2E257413630018F3D7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		D9BB533C256E8E6600AD2D1A = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +273,7 @@
 				D9BB53A4256EFA7E00AD2D1A /* App.swift */,
 				D9BB53A0256EF9E400AD2D1A /* Globals.swift */,
 				D9A80434257145E8000ADE6B /* Typealiases.swift */,
+				D9B50E2E257413630018F3D7 /* Controllers */,
 				D9BB537B256EF75C00AD2D1A /* Extensions */,
 				D9A8041F25714404000ADE6B /* Views */,
 				D9A8044E257147D8000ADE6B /* Factories */,
@@ -402,12 +427,15 @@
 				D9A8043C257146BB000ADE6B /* ReusableView.swift in Sources */,
 				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
+				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9BB537D256EF77500AD2D1A /* String+Utilities.swift in Sources */,
 				D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */,
 				D9BB53AE256EFBAA00AD2D1A /* UserDefaults+Sparta.swift in Sources */,
+				D9B50E2725740F9B0018F3D7 /* RoundedTextField.swift in Sources */,
 				D9BB5385256EF7CA00AD2D1A /* UIView+SnapKit.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
+				D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */,
 				D9B50E0F257180A70018F3D7 /* AuthenticationFlowCoordinator.swift in Sources */,
 				D9A8043925714697000ADE6B /* TappableView.swift in Sources */,
 				D9A8044B2571475D000ADE6B /* UIView+Sparta.swift in Sources */,
