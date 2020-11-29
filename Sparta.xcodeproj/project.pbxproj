@@ -35,6 +35,13 @@
 		D9B50E2725740F9B0018F3D7 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E2625740F9B0018F3D7 /* RoundedTextField.swift */; };
 		D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E2A25740FEB0018F3D7 /* LimitedTextField.swift */; };
 		D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */; };
+		D9B50E35257422A40018F3D7 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9B50E34257422A40018F3D7 /* OpenSans-Regular.ttf */; };
+		D9B50E38257422D00018F3D7 /* UIFont+Sparta.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E37257422D00018F3D7 /* UIFont+Sparta.swift */; };
+		D9B50E3B257423140018F3D7 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9B50E3A257423140018F3D7 /* OpenSans-LightItalic.ttf */; };
+		D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E3E257431F90018F3D7 /* BorderedButton.swift */; };
+		D9B50E42257433340018F3D7 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9B50E41257433340018F3D7 /* OpenSans-SemiBold.ttf */; };
+		D9B50E46257436240018F3D7 /* UIApplication+Sparta.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E45257436240018F3D7 /* UIApplication+Sparta.swift */; };
+		D9B50E492574377A0018F3D7 /* UIScreen+Sparta.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E482574377A0018F3D7 /* UIScreen+Sparta.swift */; };
 		D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */; };
 		D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */; };
 		D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */; };
@@ -82,6 +89,13 @@
 		D9B50E2625740F9B0018F3D7 /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		D9B50E2A25740FEB0018F3D7 /* LimitedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitedTextField.swift; sourceTree = "<group>"; };
 		D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTextViewController.swift; sourceTree = "<group>"; };
+		D9B50E34257422A40018F3D7 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		D9B50E37257422D00018F3D7 /* UIFont+Sparta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Sparta.swift"; sourceTree = "<group>"; };
+		D9B50E3A257423140018F3D7 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		D9B50E3E257431F90018F3D7 /* BorderedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
+		D9B50E41257433340018F3D7 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		D9B50E45257436240018F3D7 /* UIApplication+Sparta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Sparta.swift"; sourceTree = "<group>"; };
+		D9B50E482574377A0018F3D7 /* UIScreen+Sparta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Sparta.swift"; sourceTree = "<group>"; };
 		D9BB5345256E8E6600AD2D1A /* Sparta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sparta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9BB5354256E8E6800AD2D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -151,6 +165,7 @@
 			children = (
 				D9A8042D257145A3000ADE6B /* BiggerAreaButton.swift */,
 				D9A80431257145B4000ADE6B /* TappableButton.swift */,
+				D9B50E3E257431F90018F3D7 /* BorderedButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -226,6 +241,16 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		D9B50E332574228A0018F3D7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D9B50E3A257423140018F3D7 /* OpenSans-LightItalic.ttf */,
+				D9B50E34257422A40018F3D7 /* OpenSans-Regular.ttf */,
+				D9B50E41257433340018F3D7 /* OpenSans-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		D9BB533C256E8E6600AD2D1A = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +283,7 @@
 		D9BB5363256EC68800AD2D1A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D9B50E332574228A0018F3D7 /* Fonts */,
 				D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */,
 				D9BB538F256EF85600AD2D1A /* Colors.xcassets */,
 				D9BB538C256EF83D00AD2D1A /* Assets.xcassets */,
@@ -292,6 +318,9 @@
 				D9A8042525714449000ADE6B /* UIViewController+Utilities.swift */,
 				D9A8042825714471000ADE6B /* UINavigationBar+Sizes.swift */,
 				D9A8044A2571475D000ADE6B /* UIView+Sparta.swift */,
+				D9B50E37257422D00018F3D7 /* UIFont+Sparta.swift */,
+				D9B50E45257436240018F3D7 /* UIApplication+Sparta.swift */,
+				D9B50E482574377A0018F3D7 /* UIScreen+Sparta.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -389,7 +418,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9B50E35257422A40018F3D7 /* OpenSans-Regular.ttf in Resources */,
 				D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */,
+				D9B50E42257433340018F3D7 /* OpenSans-SemiBold.ttf in Resources */,
+				D9B50E3B257423140018F3D7 /* OpenSans-LightItalic.ttf in Resources */,
 				D9BB5390256EF85600AD2D1A /* Colors.xcassets in Resources */,
 				D9BB538D256EF83D00AD2D1A /* Assets.xcassets in Resources */,
 				D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */,
@@ -425,8 +457,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9A8043C257146BB000ADE6B /* ReusableView.swift in Sources */,
+				D9B50E38257422D00018F3D7 /* UIFont+Sparta.swift in Sources */,
 				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
+				D9B50E492574377A0018F3D7 /* UIScreen+Sparta.swift in Sources */,
 				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9BB537D256EF77500AD2D1A /* String+Utilities.swift in Sources */,
@@ -442,6 +476,7 @@
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
 				D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
+				D9B50E46257436240018F3D7 /* UIApplication+Sparta.swift in Sources */,
 				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
 				D9BB539E256EF9B800AD2D1A /* UIColor+Assets.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
@@ -454,6 +489,7 @@
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
 				D9A80432257145B4000ADE6B /* TappableButton.swift in Sources */,
 				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
+				D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,

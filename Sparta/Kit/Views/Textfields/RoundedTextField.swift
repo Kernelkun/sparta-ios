@@ -39,7 +39,8 @@ class RoundedTextField: UIView {
 
             textField.attributedPlaceholder = NSAttributedString(
                 string: placeholder,
-                attributes: [.foregroundColor: UIColor.secondaryText, .font: UIFont.systemFont(ofSize: 17)]
+                attributes: [.foregroundColor: UIColor.secondaryText,
+                             .font: UIFont.main(weight: .regular, size: 15)]
             )
         }
     }
@@ -158,7 +159,8 @@ class RoundedTextField: UIView {
             v.autocorrectionType = .no
             v.delegate = self
 
-            v.defaultTextAttributes = [.foregroundColor: UIColor.primaryText, .font: UIFont.systemFont(ofSize: 15)]
+            v.defaultTextAttributes = [.foregroundColor: UIColor.primaryText,
+                                       .font: UIFont.main(weight: .regular, size: 15)]
 
             //
 

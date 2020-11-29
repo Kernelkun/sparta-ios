@@ -7,6 +7,20 @@
 
 import UIKit
 
+enum UILoginConstants {
+
+    static let isSmall = UIScreen.isSmallDevice
+
+    static let logoOffset: CGFloat = 38
+    static let logoOffsetWithKeyboard: CGFloat = 0
+
+    static let loginFieldOffset: CGFloat = 80
+    static let loginFieldOffsetWithKeyboard: CGFloat = isSmall ? 20 : 40
+
+    static let signInButtonOffset: CGFloat = 50
+    static let signInButtonOffsetWithKeyboard: CGFloat = isSmall ? 21 : 50
+}
+
 protocol LoginViewCoordinatorDelegate: class {
 
 }
@@ -21,6 +35,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
     private var loginField: RoundedTextField!
     private var passwordField: RoundedTextField!
+    private var signInButton: BorderedButton!
     private var logoView: AvatarView!
 
     // MARK: - Lifecycle
@@ -29,6 +44,39 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
         super.viewDidLoad()
 
         setupUI()
+    }
+
+    //
+    // MARK: Keyboard Management
+
+    override func updateUIForKeyboardPresented(_ presented: Bool, frame: CGRect) {
+        super.updateUIForKeyboardPresented(presented, frame: frame)
+
+        let logoOffset, loginFieldOffset, signInButtonOffset: CGFloat
+
+        if !presented {
+            logoOffset = UILoginConstants.logoOffset
+            loginFieldOffset = UILoginConstants.loginFieldOffset
+            signInButtonOffset = UILoginConstants.signInButtonOffset
+        } else {
+            logoOffset = UILoginConstants.logoOffsetWithKeyboard
+            loginFieldOffset = UILoginConstants.loginFieldOffsetWithKeyboard
+            signInButtonOffset = UILoginConstants.signInButtonOffsetWithKeyboard
+        }
+
+        //
+
+        logoView.snp.updateConstraints {
+            $0.top.equalToSuperview().offset(topBarHeight + logoOffset)
+        }
+
+        loginField.snp.updateConstraints {
+            $0.top.equalTo(logoView.snp.bottom).offset(loginFieldOffset)
+        }
+
+        signInButton.snp.updateConstraints {
+            $0.top.equalTo(passwordField.snp.bottom).offset(signInButtonOffset)
+        }
     }
 
     // MARK: - Private methods
@@ -51,7 +99,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
             addSubview(view) {
                 $0.width.height.equalTo(150)
-                $0.top.equalToSuperview().offset(topBarHeight + 38)
+                $0.top.equalToSuperview().offset(topBarHeight + UILoginConstants.logoOffset)
                 $0.centerX.equalToSuperview()
             }
         }
@@ -62,7 +110,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
             field.placeholder = "Email"
 
             addSubview(field) {
-                $0.top.equalTo(logoView.snp.bottom).offset(80)
+                $0.top.equalTo(logoView.snp.bottom).offset(UILoginConstants.loginFieldOffset)
                 $0.left.right.equalToSuperview().inset(35)
                 $0.height.equalTo(48)
             }
@@ -78,6 +126,28 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
                 $0.top.equalTo(loginField.snp.bottom).offset(21)
                 $0.left.right.equalToSuperview().inset(35)
                 $0.height.equalTo(48)
+            }
+        }
+
+        signInButton = BorderedButton(type: .system).then { button in
+
+            button.setTitle("Sign in", for: .normal)
+
+            addSubview(button) {
+                $0.top.equalTo(passwordField.snp.bottom).offset(UILoginConstants.signInButtonOffset)
+                $0.left.right.equalToSuperview().inset(35)
+                $0.height.equalTo(50)
+            }
+        }
+
+        _ = TappableButton(type: .system).then { button in
+
+            button.setTitle("Forgot Password", for: .normal)
+            button.setTitleColor(.primaryText, for: .normal)
+
+            addSubview(button) {
+                $0.top.equalTo(signInButton.snp.bottom).offset(20)
+                $0.centerX.equalTo(signInButton)
             }
         }
     }
