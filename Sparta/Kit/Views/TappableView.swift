@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class TappableView: UIView {
 

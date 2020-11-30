@@ -164,13 +164,13 @@ public class SocketAPI: NSObject {
         // Don't add those events that actually can be duplicated.
         guard let event = Event(rawValue: data["cmd"].stringValue) else { return }
 
-        if event != .getUser, event != .login,
+        /*if event != .getUser, event != .login,
             event != .searchUsers, event != .searchContacts,
             event != .callsList, event != .missedCallsList,
             event != .masterRejectCall {
 
             ongoingQueue.append(data)
-        }
+        }*/
 
         print("*Websocket: Sending event: \(event.rawValue)*")
         //        print("*Websocket: Sending payload: \(data)*")
@@ -225,11 +225,11 @@ extension SocketAPI: WebSocketDelegate {
         //
         // Or clearing the queue in case of an error
 
-        if event == .error {
+        /*if event == .error {
             ongoingQueue.removeAll(keepingCapacity: true)
         } else if event == .newRoomExists {
             ongoingQueue.removeAll { $0["cmd"].stringValue == Event.newRoomSinglePrivate.rawValue }
-        }
+        }*/
 
         //
         // Notify observers about happened event

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NetworkingModels
 
 class NetworkLogger {
     
@@ -62,7 +63,7 @@ class NetworkLogger {
 //            print("- AUTHTOKEN: \(token)")
 //        }
         
-        print("MESSAGE: \(responseModel.errorMessage)")
+        print("MESSAGE(Status code): \(responseModel.statusCode)")
         print("MODEL: \(responseModel.model.debugDescription)")
         
     }

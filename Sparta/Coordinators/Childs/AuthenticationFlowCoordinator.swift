@@ -90,4 +90,7 @@ extension AuthenticationFlowCoordinator {
 
 extension AuthenticationFlowCoordinator: LoginViewCoordinatorDelegate {
 
+    func loginViewControllerDidFinish(_ controller: LoginViewController) {
+        appCoordinator.start()
+    }
 }

@@ -8,8 +8,9 @@
 
 import Foundation
 import SwiftyJSON
+import NetworkingModels
 
-class BaseNetworkManager {
+public class BaseNetworkManager {
     
     enum NetworkResponse: String {
         case success
@@ -33,10 +34,10 @@ class BaseNetworkManager {
     static func handleResponse<T: BackendModel>(data: Data?,
                                                 response: URLResponse?,
                                                 error: Error?,
-                                                modelPrimaryKey: String? = nil) -> Swift.Result<ResponseModel<T>, TalkGuardError> {
+                                                modelPrimaryKey: String? = nil) -> Swift.Result<ResponseModel<T>, SpartaError> {
         
         if error != nil {
-            return .failure(.checkNetworkConnection)
+            return .failure(.invalidNetworkConnection)
         }
         
         if let response = response as? HTTPURLResponse {
@@ -49,7 +50,6 @@ class BaseNetworkManager {
             NetworkLogger.log(responseData: responseData)
             
             let responseModel = ResponseModel<T>(json: JSON(responseData),
-                                                 statusCode: response.statusCode,
                                                  modelPrimaryKey: modelPrimaryKey)
             
             switch result {
@@ -60,17 +60,13 @@ class BaseNetworkManager {
                 if responseModel.model != nil {
                     return .success(responseModel)
                 } else {
-                    return .failure(.noError)
+                    return .failure(.unknown)
                 }
                 
-            case .failure(let networkFailureError):
-                guard let errorCode = responseModel.errorMessage else {
-                    return .failure(.custom(description: networkFailureError))
-                }
-                
-                return .failure(TalkGuardError(code: errorCode))
+            case .failure:
+                return .failure(SpartaError(code: responseModel.statusCode ?? -1))
             }
-        } else { return .failure(.noError) }
+        } else { return .failure(.unknown) }
     }
     
     static func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
@@ -86,7 +82,7 @@ class BaseNetworkManager {
     func handleResult<T: BackendModel>(data: Data?,
                                        response: URLResponse?,
                                        error: Error?,
-                                       modelPrimaryKey: String = "data") -> Swift.Result<ResponseModel<T>, TalkGuardError> {
+                                       modelPrimaryKey: String? = nil) -> Swift.Result<ResponseModel<T>, SpartaError> {
         
         BaseNetworkManager.handleResponse(data: data, response: response, error: error, modelPrimaryKey: modelPrimaryKey)
     }

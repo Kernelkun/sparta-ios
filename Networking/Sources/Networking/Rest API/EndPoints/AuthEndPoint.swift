@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import App
+import SpartaHelpers
 
 enum AuthEndPoint {
-    case authentication(phoneNumber: String)
-    case activation(phoneNumber: String, code: Int)
+    case auth(parameters: Parameters)
 }
 
 extension AuthEndPoint: EndPointType {
@@ -19,27 +20,20 @@ extension AuthEndPoint: EndPointType {
     
     var path: String {
         switch self {
-        case .authentication(let phoneNumber): return "/api/auth/\(phoneNumber)"
-        case .activation(let phoneNumber, _): return "/api/auth/\(phoneNumber)"
+        case .auth: return "/auth/local"
         }
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .authentication: return .get
-        case .activation: return .put
+        case .auth: return .post
         }
     }
     
     var task: HTTPTask {
         switch self {
-        case .authentication:
-            
-            let urlParameters: Parameters? = TalkGuard.instance.environmentType == .development ? ["skipSMS": true] : nil
-            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: urlParameters)
-            
-        case .activation(_, let code):
-            return .requestParameters(bodyParameters: ["code": code],
+        case .auth(parameters: let parameters):
+            return .requestParameters(bodyParameters: parameters,
                                       bodyEncoding: .jsonEncoding,
                                       urlParameters: nil)
         }

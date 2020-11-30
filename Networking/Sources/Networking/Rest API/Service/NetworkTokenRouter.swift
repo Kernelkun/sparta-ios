@@ -8,7 +8,7 @@
 import Foundation
 import SwiftyJSON
 
-class NetworkTokenRouter<EndPoint: EndPointType>: NetworkRouter<EndPoint> {
+/*class NetworkTokenRouter<EndPoint: EndPointType>: NetworkRouter<EndPoint> {
     
     // MARK: - Variables private
     
@@ -49,7 +49,7 @@ class NetworkTokenRouter<EndPoint: EndPointType>: NetworkRouter<EndPoint> {
     
     // MARK: - Private methods
     
-    private func refreshToken(completion: @escaping BoolClosure) {
+    /*private func refreshToken(completion: @escaping BoolClosure) {
         let session = URLSession.shared
         
         let endPoint = TokenEndPoint()
@@ -82,5 +82,5 @@ class NetworkTokenRouter<EndPoint: EndPointType>: NetworkRouter<EndPoint> {
         })
         
         self.tokenTask?.resume()
-    }
-}
+    }*/
+}*/

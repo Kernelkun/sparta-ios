@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 enum UILoginConstants {
 
@@ -22,7 +23,7 @@ enum UILoginConstants {
 }
 
 protocol LoginViewCoordinatorDelegate: class {
-
+    func loginViewControllerDidFinish(_ controller: LoginViewController)
 }
 
 class LoginViewController: BaseVMViewController<LoginViewModel> {
@@ -109,6 +110,10 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
             field.icon = UIImage(named: "ic_field_user")
             field.placeholder = "Email"
 
+            field.onTextChanged { [unowned self] text in
+                self.viewModel.loginText = text
+            }
+
             addSubview(field) {
                 $0.top.equalTo(logoView.snp.bottom).offset(UILoginConstants.loginFieldOffset)
                 $0.left.right.equalToSuperview().inset(35)
@@ -122,6 +127,10 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
             field.placeholder = "Password"
             field.textField.isSecureTextEntry = true
 
+            field.onTextChanged { [unowned self] text in
+                self.viewModel.passwordText = text
+            }
+
             addSubview(field) {
                 $0.top.equalTo(loginField.snp.bottom).offset(21)
                 $0.left.right.equalToSuperview().inset(35)
@@ -132,6 +141,10 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
         signInButton = BorderedButton(type: .system).then { button in
 
             button.setTitle("Sign in", for: .normal)
+
+            button.onTap { [unowned self] _ in
+                self.viewModel.userTappedLogin()
+            }
 
             addSubview(button) {
                 $0.top.equalTo(passwordField.snp.bottom).offset(UILoginConstants.signInButtonOffset)
@@ -150,5 +163,27 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
                 $0.centerX.equalTo(signInButton)
             }
         }
+
+        // When e-mail is entered, automatically jumps to password.
+        loginField.nextInput = passwordField.textField
+    }
+}
+
+extension LoginViewController: LoginViewModelDelegate {
+
+    func didChangeSendingState(_ isSending: Bool) {
+        signInButton.isEnabled = !isSending
+        signInButton.setIsLoading(isSending, animated: true)
+    }
+
+    func cleanupInputErrors() {
+    }
+
+    func didCatchAnError(_ description: String) {
+        Alert.showOk(title: "Error", message: description, show: self, completion: nil)
+    }
+
+    func didFinishSuccess() {
+        coordinatorDelegate?.loginViewControllerDidFinish(self)
     }
 }

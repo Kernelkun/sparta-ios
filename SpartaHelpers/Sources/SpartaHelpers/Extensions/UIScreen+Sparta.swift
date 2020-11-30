@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIScreen {
+public extension UIScreen {
 
     class var isSmallDevice: Bool {
         return UIScreen.main.bounds.height <= 667

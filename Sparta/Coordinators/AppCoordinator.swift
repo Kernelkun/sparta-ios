@@ -89,6 +89,8 @@ class AppCoordinator {
             return
         }
 
+        authenticationFlowCoordinator.finish()
+
         mainFlowCoordinator.start()
     }
 

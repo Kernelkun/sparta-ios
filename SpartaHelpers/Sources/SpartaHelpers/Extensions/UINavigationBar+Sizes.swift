@@ -7,7 +7,7 @@
 
 import UIKit.UINavigationBar
 
-extension UINavigationBar {
+public extension UINavigationBar {
 
     var wholeHeight: CGFloat {
         frame.height + UIApplication.shared.statusBarFrame.height

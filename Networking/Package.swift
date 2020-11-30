@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "Networking",
+    platforms: [
+        .iOS(.v13)
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -12,8 +15,10 @@ let package = Package(
             targets: ["Networking"]),
     ],
     dependencies: [
-        
-        .package(url: "https://github.com/ashleymills/Reachability.swift.git", from: "5.0.0"),
+        .package(path: "../NetworkingModels"),
+        .package(path: "../App"),
+        .package(path: "../SpartaHelpers"),
+        .package(name: "Reachability", url: "https://github.com/ashleymills/Reachability.swift.git", from: "5.0.0"),
         .package(url: "https://github.com/daltoniam/Starscream.git", from: "3.1.1"),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.1.0")
@@ -23,7 +28,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Networking",
-            dependencies: []),
+            dependencies: ["SwiftyJSON", "Starscream", "Reachability", "App", "NetworkingModels", "SpartaHelpers"]),
         .testTarget(
             name: "NetworkingTests",
             dependencies: ["Networking"]),

@@ -7,6 +7,7 @@
 
 import UIKit
 import Nuke
+import SpartaHelpers
 
 class AvatarView: UIButton {
 

@@ -7,28 +7,31 @@
 //
 
 import UIKit
-import SwiftyJSON
+import NetworkingModels
+import SpartaHelpers
 
-class AuthNetworkManager: BaseNetworkManager {
+public class AuthNetworkManager: BaseNetworkManager {
     
     // MARK: - Variables private
     
     private let router = NetworkRouter<AuthEndPoint>()
-    
+
+    // MARK: - Initializers
+
+    public override init() {
+        super.init()
+    }
+
     // MARK: - Public methods
     
-    func authentication(phoneNumber: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<RegistrationResponse>, TalkGuardError>>) {
+    public func auth(login: String, password: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<Login>, SpartaError>>) {
 
-        router.request(.authentication(phoneNumber: phoneNumber)) { [weak self] data, response, error in
-            guard let strongSelf = self else { return }
-            
-            completion(strongSelf.handleResult(data: data, response: response, error: error))
-        }
-    }
-    
-    func activate(phoneNumber: String, code: Int, completion: @escaping TypeClosure<Swift.Result<ResponseModel<TokenResponse>, TalkGuardError>>) {
+        let parameters: Parameters = [
+            "identifier": login,
+            "password": password
+        ]
 
-        router.request(.activation(phoneNumber: phoneNumber, code: code)) { [weak self] data, response, error in
+        router.request(.auth(parameters: parameters)) { [weak self] data, response, error in
             guard let strongSelf = self else { return }
             
             completion(strongSelf.handleResult(data: data, response: response, error: error))

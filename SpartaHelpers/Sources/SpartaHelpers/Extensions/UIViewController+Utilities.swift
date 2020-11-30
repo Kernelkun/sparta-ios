@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIViewController {
+public extension UIViewController {
 
     var topBarHeight: CGFloat {
         navigationController?.navigationBar.wholeHeight ?? 0.0
@@ -45,7 +45,7 @@ extension UIViewController {
 
 // MARK: - Childs
 
-extension UIViewController {
+public extension UIViewController {
 
     func add(_ child: UIViewController, to view: UIView? = nil) {
         addChild(child)

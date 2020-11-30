@@ -6,20 +6,14 @@
 //
 
 import UIKit
+import SpartaHelpers
+import Networking
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        UIFont.familyNames.forEach { familyName in
-            print("- \(familyName)")
-
-            UIFont.fontNames(forFamilyName: familyName).forEach { fontName in
-                print(" - \(fontName)")
-            }
-        }
 
         // launch settings
 
