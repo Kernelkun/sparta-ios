@@ -1,0 +1,187 @@
+
+included: # paths to include during linting.
+    - Sparta
+#    - Packages
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+#    - CryptyTalk-ios/Supporting Files/OpenTok.framework
+#    - Resources/R.generated.swift
+
+# COMMAND LINE RULES: ./swiftlint rules
+# RULES URL: https://github.com/realm/SwiftLint/blob/master/Rules.md
+# RULES CONFIG URL: https://github.com/realm/SwiftLint/tree/master/Source/SwiftLintFramework/Rules/RuleConfigurations
+
+disabled_rules: # rule identifiers to exclude from running
+    # Complexity of function bodies should be limited.
+    - cyclomatic_complexity
+
+    # An object should only remove itself as an observer in deinit.
+    - notification_center_detachment
+
+    - todo
+    - fixme
+
+opt_in_rules: # some rules are only opt-in
+    # The variable should be placed on the left, the constant on the right of a comparison operator.
+    - yoda_condition
+
+    # IBActions should be private.
+    - private_action
+
+    # Functions and methods parameters should be either on the same line, or one per line.
+    - multiline_parameters
+
+    # Chained function calls should be either on the same line, or one per line.
+    - multiline_function_chains
+
+    # Modifier order should be consistent.
+    - modifier_order
+
+    # Ensure definitions have a lower access control level than their enclosing parent
+    - lower_acl_than_parent
+
+    # Array and dictionary literal end should have the same indentation as the line that started it.
+    - literal_expression_end_indentation
+
+    # Discouraged explicit usage of the default separator.
+    - joined_default_parameter
+
+    # Fallthrough should be avoided.
+    - fallthrough
+
+    # Empty XCTest method should be avoided.
+    - empty_xctest_method
+
+    # Prefer checking isEmpty over comparing string to an empty string literal.
+    - empty_string
+
+    # Prefer initializers over object literals.
+    - discouraged_object_literal
+
+    # Types used for hosting only static members should be implemented as a caseless enum to avoid instantiation.
+    - convenience_type
+
+    # Prefer contains over first(where:) != nil
+    - contains_over_first_not_nil
+
+    # nil coalescing operator is only evaluated if the lhs is nil, coalescing operator with nil as rhs is redundant
+    - redundant_nil_coalescing
+
+    # Some methods should not call super
+    - prohibited_super_call
+
+    # Some overridden methods should always call super
+    - overridden_super_call
+
+    # Force unwrapping should be avoided.
+    - force_unwrapping
+
+    # Prefer using .first(where:) over .filter { }.first in collections.
+    - first_where
+
+    # Prefer checking isEmpty over comparing count to zero.
+    - empty_count
+
+    # Closure expressions should have a single space inside each brace.
+    - closure_spacing
+
+    # Closure end should have the same indentation as the line that started it.
+    - closure_end_indentation
+
+    # Operators should be surrounded by a single whitespace when they are being used.
+    - operator_usage_whitespace
+
+    # Explicitly calling .init() should be avoided.
+    - explicit_init
+
+    # Function parameters should be aligned vertically if they're in multiple lines in a method call.
+    - vertical_parameter_alignment_on_call
+
+    # IBOutlets should be private to avoid leaking UIKit to higher layers.
+    - private_outlet
+
+    # Closure parameters should be on the same line as opening brace.
+    - closure_parameter_position
+
+    # A fatalError call should have a message.
+    - fatal_error_message
+
+    # Limit vertical whitespace to a single empty line.
+    - vertical_whitespace
+
+    # Include a single empty line between switch cases.
+    - vertical_whitespace_between_cases
+
+    # Don’t include vertical whitespace (empty line) before closing braces.
+    - vertical_whitespace_closing_braces
+
+    # Parentheses are not needed when declaring closure arguments.
+    - unneeded_parentheses_in_closure_argument
+
+    # All imported modules should be required to make the file compile.
+    - unused_import
+
+    # Shorthand syntactic sugar should be used, i.e. [Int] instead of Array.
+    - syntactic_sugar
+
+    # Variables should not have redundant type annotation.
+    - redundant_type_annotation
+
+    # Objective-C attribute (@objc) is redundant in declaration.
+    - redundant_objc_attribute
+
+    # Specifies how the types within a file should be ordered.
+    - file_types_order
+
+#    # Specifies the order of subtypes, properties, methods & more within a type.
+#    - type_contents_order
+
+# configurations
+trailing_whitespace:
+    ignores_empty_lines: true
+    ignores_comments: true
+
+# Types should be nested at most 1 level deep, and statements should be nested at most 5 levels deep.
+nesting:
+    type_level: 2
+  
+private_outlet:
+    allow_private_set: true
+
+line_length:
+    warning: 130
+    error: 200
+    ignores_function_declarations: true
+    ignores_urls: true
+
+identifier_name:
+    min_length: 3
+    excluded:
+        - i
+        - j
+        - id
+        - ok
+        - v
+        - vc
+        - w
+        - x
+        - y
+
+file_length:
+    warning: 700
+    error: 1000
+    ignore_comment_only_lines: true
+
+large_tuple:
+    warning: 7
+
+function_parameter_count:
+    warning: 10
+    error: 12
+
+function_body_length:
+    warning: 80
+    error: 120
+
+type_body_length:
+    warning: 300
