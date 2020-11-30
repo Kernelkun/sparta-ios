@@ -108,7 +108,6 @@ extension LoginViewModel {
 
         isSending = true
 
-        auth(login: emailString!, password: passwordString!)
+        auth(login: emailString!, password: passwordString!) //swiftlint:disable:this force_unwrapping
     }
 }
-

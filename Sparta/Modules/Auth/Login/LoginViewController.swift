@@ -24,6 +24,7 @@ enum UILoginConstants {
 
 protocol LoginViewCoordinatorDelegate: class {
     func loginViewControllerDidFinish(_ controller: LoginViewController)
+    func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController)
 }
 
 class LoginViewController: BaseVMViewController<LoginViewModel> {
@@ -157,6 +158,10 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
             button.setTitle("Forgot Password", for: .normal)
             button.setTitleColor(.primaryText, for: .normal)
+
+            button.onTap { [unowned self] _ in
+                self.coordinatorDelegate?.loginViewControllerDidChooseForgotPassword(self)
+            }
 
             addSubview(button) {
                 $0.top.equalTo(signInButton.snp.bottom).offset(20)

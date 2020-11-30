@@ -37,4 +37,13 @@ public class AuthNetworkManager: BaseNetworkManager {
             completion(strongSelf.handleResult(data: data, response: response, error: error))
         }
     }
+
+    public func forgotPassword(for email: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<EmptyResponseModel>, SpartaError>>) {
+
+        router.request(.forgotPassword(email: email)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
 }

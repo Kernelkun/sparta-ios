@@ -93,4 +93,22 @@ extension AuthenticationFlowCoordinator: LoginViewCoordinatorDelegate {
     func loginViewControllerDidFinish(_ controller: LoginViewController) {
         appCoordinator.start()
     }
+
+    func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController) {
+        let vc = ForgotPasswordViewController()
+        vc.coordinatorDelegate = self
+
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension AuthenticationFlowCoordinator: ForgotPasswordViewCoordinatorDelegate {
+
+    func forgotPasswordViewControllerDidFinish(_ controller: ForgotPasswordViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+
+    func forgotPasswordViewControllerDidTapLogin(_ controller: ForgotPasswordViewController) {
+        navigationController?.popViewController(animated: true)
+    }
 }

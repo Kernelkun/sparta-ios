@@ -12,6 +12,7 @@ import SpartaHelpers
 
 enum AuthEndPoint {
     case auth(parameters: Parameters)
+    case forgotPassword(email: String)
 }
 
 extension AuthEndPoint: EndPointType {
@@ -21,12 +22,13 @@ extension AuthEndPoint: EndPointType {
     var path: String {
         switch self {
         case .auth: return "/auth/local"
+        case .forgotPassword: return "/auth/forgot-password"
         }
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .auth: return .post
+        case .auth, .forgotPassword: return .post
         }
     }
     
@@ -34,6 +36,11 @@ extension AuthEndPoint: EndPointType {
         switch self {
         case .auth(parameters: let parameters):
             return .requestParameters(bodyParameters: parameters,
+                                      bodyEncoding: .jsonEncoding,
+                                      urlParameters: nil)
+
+        case .forgotPassword(email: let email):
+            return .requestParameters(bodyParameters: ["email": email],
                                       bodyEncoding: .jsonEncoding,
                                       urlParameters: nil)
         }

@@ -28,13 +28,13 @@ class MainTabsViewController: UITabBarController {
             vc.tabBarItem.title = vc.title
 
 //            let configuration = UIImage.SymbolConfiguration(weight: .bold)
-            vc.tabBarItem.image = UIImage(named: imageName)
+//            vc.tabBarItem.image = UIImage(named: imageName)
         }
 
-        /*let first = MeMainViewController()
-        setTabBarItem(first, "Me", "ic_tab_me")
+        let first = TestViewController()
+        setTabBarItem(first, "Test", "ic_tab_me")
 
-        let second = StatViewController()
+        /*let second = StatViewController()
         setTabBarItem(second, "Stat", "ic_tab_stat")
 
         let third = LeaderbordViewController()
@@ -47,21 +47,21 @@ class MainTabsViewController: UITabBarController {
         setTabBarItem(fifth, "Coupon", "ic_tab_coupon")
 
 
-        tabBar.isTranslucent = false
+        tabBar.isTranslucent = false*/
 
         //
 
         viewControllers = [
-            UINavigationController(rootViewController: first),
-            UINavigationController(rootViewController: second),
-            UINavigationController(rootViewController: third),
-            UINavigationController(rootViewController: fourth),
-            UINavigationController(rootViewController: fifth)
+            UINavigationController(rootViewController: first)
+//            UINavigationController(rootViewController: second),
+//            UINavigationController(rootViewController: third),
+//            UINavigationController(rootViewController: fourth),
+//            UINavigationController(rootViewController: fifth)
         ]
 
-        if let navC = selectedViewController as? UINavigationController {
-            Router.instance.navigationViewController = navC
-        }*/
+//        if let navC = selectedViewController as? UINavigationController {
+//            Router.instance.navigationViewController = navC
+//        }
     }
 }
 
