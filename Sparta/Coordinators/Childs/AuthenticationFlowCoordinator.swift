@@ -80,7 +80,7 @@ extension AuthenticationFlowCoordinator {
 
         onMainThread(delay: 0.4) {
 
-            let loginVC = LoginViewController()
+            let loginVC = ChangePasswordViewController()
             loginVC.coordinatorDelegate = self
 
             rootVC.viewControllers = [loginVC]
@@ -91,6 +91,15 @@ extension AuthenticationFlowCoordinator {
 extension AuthenticationFlowCoordinator: LoginViewCoordinatorDelegate {
 
     func loginViewControllerDidFinish(_ controller: LoginViewController) {
+        guard App.instance.isAccountConfirmed else {
+
+            let vc = ChangePasswordViewController()
+            vc.coordinatorDelegate = self
+
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
+
         appCoordinator.start()
     }
 
@@ -111,4 +120,8 @@ extension AuthenticationFlowCoordinator: ForgotPasswordViewCoordinatorDelegate {
     func forgotPasswordViewControllerDidTapLogin(_ controller: ForgotPasswordViewController) {
         navigationController?.popViewController(animated: true)
     }
+}
+
+extension AuthenticationFlowCoordinator: ChangePasswordViewCoordinatorDelegate {
+
 }

@@ -24,9 +24,15 @@ class RoundedTextField: UIView {
 
     var icon: UIImage? {
         didSet {
-            leftViewIcon.image = icon
-            leftViewWithSpace.layoutIfNeeded()
-            textField.leftView = leftViewWithSpace
+            if icon != nil {
+                leftViewIcon.image = icon
+                leftViewWithSpace.layoutIfNeeded()
+                textField.leftView = leftViewWithSpace
+            } else {
+                leftViewIcon.image = nil
+                leftViewWithSpace.layoutIfNeeded()
+                textField.leftView = nil
+            }
         }
     }
 
@@ -149,7 +155,7 @@ class RoundedTextField: UIView {
 
         // general
 
-        backgroundColor = UIColor.white.withAlphaComponent(0.26)
+        backgroundColor = UIColor.accountFieldBackground
         layer.cornerRadius = 8
 
         // text field

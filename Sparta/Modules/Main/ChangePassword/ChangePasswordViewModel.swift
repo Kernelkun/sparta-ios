@@ -1,25 +1,25 @@
 //
-//  LoginViewModel.swift
+//  ChangePasswordViewModel.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 26.11.2020.
+//  Created by Yaroslav Babalich on 01.12.2020.
 //
 
 import Foundation
 import Networking
 
-protocol LoginViewModelDelegate: class {
+protocol ChangePasswordViewModelDelegate: class {
     func didChangeSendingState(_ isSending: Bool)
     func cleanupInputErrors()
     func didCatchAnError(_ description: String)
     func didFinishSuccess()
 }
 
-class LoginViewModel: NSObject, BaseViewModel {
+class ChangePasswordViewModel: NSObject, BaseViewModel {
 
     // MARK: - Public properties
 
-    weak var delegate: LoginViewModelDelegate?
+    weak var delegate: ChangePasswordViewModelDelegate?
 
     var loginText: String?
     var passwordText: String?
@@ -81,7 +81,7 @@ class LoginViewModel: NSObject, BaseViewModel {
 //
 // MARK: - User Interactions
 
-extension LoginViewModel {
+extension ChangePasswordViewModel {
 
     func userTappedLogin() {
 

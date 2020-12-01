@@ -12,6 +12,8 @@
 		D9264BED25751298001477DA /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = D9264BEC25751298001477DA /* Networking */; };
 		D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889325700E95003ECB61 /* LoginViewController.swift */; };
 		D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889725700E9D003ECB61 /* LoginViewModel.swift */; };
+		D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BE4257650B40038175A /* ChangePasswordViewController.swift */; };
+		D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BE8257650BF0038175A /* ChangePasswordViewModel.swift */; };
 		D99B2F3425753ADF0080B90B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3325753ADF0080B90B /* Validator.swift */; };
 		D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3725753B0C0080B90B /* EmailValidator.swift */; };
 		D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3A25753B200080B90B /* PasswordValidator.swift */; };
@@ -67,6 +69,8 @@
 		D93A889325700E95003ECB61 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D93A889725700E9D003ECB61 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D93A889E25713BA0003ECB61 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Networking; sourceTree = "<group>"; };
+		D96C8BE4257650B40038175A /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		D96C8BE8257650BF0038175A /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		D99B2F3325753ADF0080B90B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D99B2F3725753B0C0080B90B /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		D99B2F3A25753B200080B90B /* PasswordValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
@@ -154,6 +158,15 @@
 				D93A889325700E95003ECB61 /* LoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		D96C8BE32576509B0038175A /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				D96C8BE8257650BF0038175A /* ChangePasswordViewModel.swift */,
+				D96C8BE4257650B40038175A /* ChangePasswordViewController.swift */,
+			);
+			path = ChangePassword;
 			sourceTree = "<group>";
 		};
 		D99B2F3225753AC20080B90B /* Validators */ = {
@@ -248,6 +261,7 @@
 			children = (
 				D9B50E21257184780018F3D7 /* MainTabsViewController.swift */,
 				D99B2F3D2575477A0080B90B /* TestViewController.swift */,
+				D96C8BE32576509B0038175A /* ChangePassword */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -493,8 +507,10 @@
 				D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D99B2F3425753ADF0080B90B /* Validator.swift in Sources */,
+				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
 				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
+				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
 				D9BB53A5256EFA7E00AD2D1A /* App.swift in Sources */,
 				D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */,
 				D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */,

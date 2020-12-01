@@ -109,6 +109,7 @@ class ForgotPasswordViewController: BaseVMViewController<ForgotPasswordViewModel
 
             field.icon = UIImage(named: "ic_field_user")
             field.placeholder = "Email"
+            field.backgroundColor = .authFieldBackground
 
             field.onTextChanged { [unowned self] text in
                 self.viewModel.loginText = text
