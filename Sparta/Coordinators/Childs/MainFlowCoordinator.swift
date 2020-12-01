@@ -39,6 +39,8 @@ class MainFlowCoordinator: Coordinator {
         let vc = MainTabsViewController()
 //        vc.coordinatorDelegate = self
 
+
+
         navigationController = UINavigationController(rootViewController: vc).then { nc in
 
 //            Router.instance.navigationViewController = nc

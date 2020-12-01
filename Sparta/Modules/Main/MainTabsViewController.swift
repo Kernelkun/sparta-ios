@@ -28,36 +28,38 @@ class MainTabsViewController: UITabBarController {
             vc.tabBarItem.title = vc.title
 
 //            let configuration = UIImage.SymbolConfiguration(weight: .bold)
-//            vc.tabBarItem.image = UIImage(named: imageName)
+            vc.tabBarItem.image = UIImage(named: imageName)
         }
 
         let first = TestViewController()
-        setTabBarItem(first, "Test", "ic_tab_me")
+        setTabBarItem(first, "ARBs", "ic_tab_first")
 
-        /*let second = StatViewController()
-        setTabBarItem(second, "Stat", "ic_tab_stat")
+        let second = TestViewController()
+        setTabBarItem(second, "Blender", "ic_tab_second")
 
-        let third = LeaderbordViewController()
-        setTabBarItem(third, "Leaderboard", "ic_tab_leaderboard")
+        let third = TestViewController()
+        setTabBarItem(third, "Freight calculator", "ic_tab_third")
 
-        let fourth = MerchantsViewController()
-        setTabBarItem(fourth, "Rewards", "ic_tab_merchants")
-
-        let fifth = CouponsViewController()
-        setTabBarItem(fifth, "Coupon", "ic_tab_coupon")
+        let fourth = TestViewController()
+        setTabBarItem(fourth, "Settings", "ic_tab_fourth")
 
 
-        tabBar.isTranslucent = false*/
+        tabBar.isTranslucent = false
 
         //
 
         viewControllers = [
-            UINavigationController(rootViewController: first)
-//            UINavigationController(rootViewController: second),
-//            UINavigationController(rootViewController: third),
-//            UINavigationController(rootViewController: fourth),
-//            UINavigationController(rootViewController: fifth)
+            UINavigationController(rootViewController: first),
+            UINavigationController(rootViewController: second),
+            UINavigationController(rootViewController: third),
+            UINavigationController(rootViewController: fourth)
         ]
+
+        // style
+
+        UITabBar.appearance().tintColor = .tabBarTintActive
+        UITabBar.appearance().unselectedItemTintColor = .tabBarTintInactive
+        UITabBar.appearance().barTintColor = .barBackground
 
 //        if let navC = selectedViewController as? UINavigationController {
 //            Router.instance.navigationViewController = navC
@@ -72,4 +74,3 @@ class MainTabsViewController: UITabBarController {
         }
     }
 }*/
-
