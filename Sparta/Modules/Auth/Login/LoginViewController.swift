@@ -48,6 +48,12 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
         setupUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        loginField?.textField.becomeFirstResponder()
+    }
+
     //
     // MARK: Keyboard Management
 
@@ -110,6 +116,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
             field.icon = UIImage(named: "ic_field_user")
             field.placeholder = "Email"
+            field.backgroundColor = .authFieldBackground
 
             field.onTextChanged { [unowned self] text in
                 self.viewModel.loginText = text
@@ -127,6 +134,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
             field.icon = UIImage(named: "ic_field_lock")
             field.placeholder = "Password"
             field.textField.isSecureTextEntry = true
+            field.backgroundColor = .authFieldBackground
 
             field.onTextChanged { [unowned self] text in
                 self.viewModel.passwordText = text
@@ -145,6 +153,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
             button.onTap { [unowned self] _ in
                 self.viewModel.userTappedLogin()
+                self.view.endEditing(true)
             }
 
             addSubview(button) {

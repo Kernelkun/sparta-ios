@@ -11,9 +11,15 @@ public extension UIColor {
 
     static var primaryText: UIColor { .assetColor(named: #function) }
 
+    static var accountMainText: UIColor { .assetColor(named: #function) }
+
     static var secondaryText: UIColor { .assetColor(named: #function) }
 
     static var primaryFirst: UIColor { .assetColor(named: #function) }
+
+    static var authFieldBackground: UIColor { .assetColor(named: #function) }
+
+    static var accountFieldBackground: UIColor { .assetColor(named: #function) }
 
     static var mainButtonBackground: UIColor { .assetColor(named: #function) }
 
@@ -26,6 +32,12 @@ public extension UIColor {
     static var errorBackground: UIColor { .assetColor(named: #function) }
 
     static var tableSeparator: UIColor { .assetColor(named: #function) }
+
+    static var tabBarTintActive: UIColor { .assetColor(named: #function) }
+
+    static var tabBarTintInactive: UIColor { .assetColor(named: #function) }
+
+    static var barBackground: UIColor { .assetColor(named: #function) }
 }
 
 private extension UIColor {

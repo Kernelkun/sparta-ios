@@ -54,7 +54,7 @@ class LoginViewModel: NSObject, BaseViewModel {
                     return
                 }
 
-                App.instance.saveTokenData(model.jwt)
+                App.instance.saveLoginData(model)
 
                 onMainThread {
                     strongSelf.isSending = false

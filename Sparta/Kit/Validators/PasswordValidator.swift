@@ -13,7 +13,7 @@ class PasswordValidator: Validator {
 
     func isValid(value: String?) -> Bool {
 
-        guard let _ = value else {
+        guard value != nil else {
             errorMessage = "Password is required and can't be empty."
             return false
         }
@@ -21,5 +21,20 @@ class PasswordValidator: Validator {
         errorMessage = nil
         return true
     }
-}
 
+    func isValidForSetup(value: String?) -> Bool {
+
+        guard let value = value else {
+            errorMessage = "Password is required and can't be empty."
+            return false
+        }
+
+        guard isValidLength(value, range: 6 ... 100) else {
+            errorMessage = "Your password must be between 6 and 100 symbols."
+            return false
+        }
+
+        errorMessage = nil
+        return true
+    }
+}

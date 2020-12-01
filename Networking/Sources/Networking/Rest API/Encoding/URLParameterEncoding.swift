@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import SpartaHelpers
 
-struct URLParameterEncoder: ParameterEncoder {
+public struct URLParameterEncoder: ParameterEncoder {
     
-    func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
+    public func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
         
         guard let url = urlRequest.url else { throw NetworkError.missingURL }
         

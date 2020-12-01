@@ -9,22 +9,17 @@
 import UIKit
 import NetworkingModels
 import SpartaHelpers
+import Networking
 
-public class AuthNetworkManager: BaseNetworkManager {
+class AuthNetworkManager: BaseNetworkManager {
     
     // MARK: - Variables private
     
-    private let router = NetworkRouter<AuthEndPoint>()
-
-    // MARK: - Initializers
-
-    public override init() {
-        super.init()
-    }
+    private  let router = NetworkRouter<AuthEndPoint>()
 
     // MARK: - Public methods
     
-    public func auth(login: String, password: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<Login>, SpartaError>>) {
+    func auth(login: String, password: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<Login>, SpartaError>>) {
 
         let parameters: Parameters = [
             "identifier": login,
@@ -38,7 +33,7 @@ public class AuthNetworkManager: BaseNetworkManager {
         }
     }
 
-    public func forgotPassword(for email: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<EmptyResponseModel>, SpartaError>>) {
+    func forgotPassword(for email: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<EmptyResponseModel>, SpartaError>>) {
 
         router.request(.forgotPassword(email: email)) { [weak self] data, response, error in
             guard let strongSelf = self else { return }

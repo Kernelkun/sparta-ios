@@ -7,8 +7,9 @@
 //
 
 import Foundation
-import App
 import SpartaHelpers
+import Networking
+import App
 
 enum AuthEndPoint {
     case auth(parameters: Parameters)
