@@ -8,17 +8,17 @@
 
 import Foundation
 
-typealias HTTPHeaders = [String: String]
-typealias Parameters = [String: Any]
+public typealias HTTPHeaders = [String: String]
+public typealias Parameters = [String: Any]
 
-enum MimeType: String {
+public enum MimeType: String {
     case imageJPG = "image/jpg"
     case imagePNG = "image/png"
 }
 
-typealias FormDataPatameter = (parameterName: String, data: Data, fileName: String, mimeType: MimeType)
+public typealias FormDataPatameter = (parameterName: String, data: Data, fileName: String, mimeType: MimeType)
 
-enum HTTPTask {
+public enum HTTPTask {
     case request
     
     case requestParameters(bodyParameters: Parameters?,

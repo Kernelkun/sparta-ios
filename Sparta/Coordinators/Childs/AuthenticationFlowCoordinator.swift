@@ -45,14 +45,6 @@ class AuthenticationFlowCoordinator: Coordinator {
     override func finish() {
         guard isPresented else { return }
         super.finish()
-
-        UIView.animate(
-            withDuration: 0.2, delay: 0,
-            options: [.beginFromCurrentState],
-            animations: {
-            },
-            completion: { _ in if !self.isPresented { self.window.isHidden = true } }
-        )
     }
 
     // MARK: - Private methods
@@ -80,7 +72,7 @@ extension AuthenticationFlowCoordinator {
 
         onMainThread(delay: 0.4) {
 
-            let loginVC = ChangePasswordViewController()
+            let loginVC = LoginViewController()
             loginVC.coordinatorDelegate = self
 
             rootVC.viewControllers = [loginVC]
@@ -124,4 +116,7 @@ extension AuthenticationFlowCoordinator: ForgotPasswordViewCoordinatorDelegate {
 
 extension AuthenticationFlowCoordinator: ChangePasswordViewCoordinatorDelegate {
 
+    func changePasswordViewControllerDidFinish(_ controller: ChangePasswordViewController) {
+        appCoordinator.start()
+    }
 }

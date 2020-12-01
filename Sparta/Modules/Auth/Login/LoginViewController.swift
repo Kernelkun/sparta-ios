@@ -48,6 +48,12 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
         setupUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        loginField?.textField.becomeFirstResponder()
+    }
+
     //
     // MARK: Keyboard Management
 
@@ -147,6 +153,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
             button.onTap { [unowned self] _ in
                 self.viewModel.userTappedLogin()
+                self.view.endEditing(true)
             }
 
             addSubview(button) {

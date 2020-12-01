@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias NetworkRouterCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?) -> Void
+public typealias NetworkRouterCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?) -> Void
 
 protocol NetworkRouterProtocol: class {
     associatedtype EndPoint: EndPointType
@@ -16,15 +16,19 @@ protocol NetworkRouterProtocol: class {
     func cancel()
 }
 
-class NetworkRouter<EndPoint: EndPointType>: NetworkRouterProtocol {
+public class NetworkRouter<EndPoint: EndPointType>: NetworkRouterProtocol {
     
     // MARK: - Variables private
     
     private var task: URLSessionTask?
-    
+
+    public init() {
+        
+    }
+
     // MARK: - Public methods
     
-    func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
+    public func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
         let session = URLSession.shared
         do {
             let request = try buildRequest(from: route)
@@ -39,11 +43,11 @@ class NetworkRouter<EndPoint: EndPointType>: NetworkRouterProtocol {
         self.task?.resume()
     }
     
-    func cancel() {
+    public func cancel() {
         self.task?.cancel()
     }
     
-    func buildRequest(from route: EndPointType) throws -> URLRequest {
+    public func buildRequest(from route: EndPointType) throws -> URLRequest {
         
         var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path),
                                  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,

@@ -9,8 +9,9 @@
 import Foundation
 import SwiftyJSON
 import NetworkingModels
+import Networking
 
-public class BaseNetworkManager {
+class BaseNetworkManager {
     
     enum NetworkResponse: String {
         case success

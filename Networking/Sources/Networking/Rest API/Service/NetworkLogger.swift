@@ -9,9 +9,9 @@
 import Foundation
 import NetworkingModels
 
-class NetworkLogger {
+public class NetworkLogger {
     
-    static func log(request: URLRequest) {
+    public static func log(request: URLRequest) {
         
         print("\n - - - - - - - - - - OUTGOING - - - - - - - - - - \n")
         defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
@@ -39,9 +39,9 @@ class NetworkLogger {
         print(logOutput)
     }
     
-    static func log(response: URLResponse) {}
+    public static func log(response: URLResponse) {}
     
-    static func log(responseData: Data?) {
+    public static func log(responseData: Data?) {
         
         print("\n - - - - - - - - - - RESPONSE DATA - - - - - - - - - - \n")
         defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
@@ -54,7 +54,7 @@ class NetworkLogger {
         print(String(data: responseData, encoding: .utf8) ?? "NIL")
     }
     
-    static func log<T: BackendModel>(responseModel: ResponseModel<T>) {
+    public static func log<T: BackendModel>(responseModel: ResponseModel<T>) {
         
         print("\n - - - - - - - - - - RESPONSE MODEL - - - - - - - - - - \n")
         defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }

@@ -21,8 +21,9 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
 
     weak var delegate: ChangePasswordViewModelDelegate?
 
-    var loginText: String?
-    var passwordText: String?
+    var oldPasswordText: String?
+    var newPasswordText: String?
+    var reNewPasswordText: String?
 
     //
     // MARK: - Private properties
@@ -36,11 +37,20 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
     }
 
     private let authManager = AuthNetworkManager()
+    private let profileManager = ProfileNetworkManager()
 
     // MARK: - Private methods
 
-    private func auth(login: String, password: String) {
-        authManager.auth(login: login, password: password) { [weak self] result in
+    private func changePassword(oldPassword: String, newPassword: String) {
+
+        let currentUser = App.instance.currentUser
+
+        guard let login = currentUser?.email, let userId = currentUser?.id else {
+            delegate?.didCatchAnError("Something went wrong. Please re-login to the app.")
+            return
+        }
+
+        authManager.auth(login: login, password: oldPassword) { [weak self] result in
             guard let strongSelf = self else { return }
 
             switch result {
@@ -56,6 +66,47 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
 
                 App.instance.saveLoginData(model)
 
+                strongSelf.updateUser(id: userId, password: newPassword)
+
+            case .failure(let error):
+
+                var errorText = "Something went wrong"
+
+                if error == .error400 {
+                    errorText = "Old password is incorrect, please enter new one"
+                }
+
+                onMainThread {
+                    strongSelf.isSending = false
+                    strongSelf.delegate?.didCatchAnError(errorText)
+                }
+            }
+        }
+    }
+
+    private func updateUser(id: Int, password: String) {
+
+        let updateParameters: Parameters = [
+            "password": password,
+            "confirmed": true
+        ]
+
+        profileManager.updateUser(id: id, parameters: updateParameters) { [weak self] result in
+            guard let strongSelf = self else { return }
+
+            switch result {
+            case .success(let response):
+
+                guard let model = response.model else {
+                    onMainThread {
+                        strongSelf.isSending = false
+                        strongSelf.delegate?.didCatchAnError("Can't parse response from server")
+                    }
+                    return
+                }
+
+                App.instance.saveUser(model)
+
                 onMainThread {
                     strongSelf.isSending = false
                     strongSelf.delegate?.didFinishSuccess()
@@ -66,7 +117,7 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
                 var errorText = "Something went wrong"
 
                 if error == .error400 {
-                    errorText = "Invalid creds, please enter new one"
+                    errorText = "Old password is incorrect, please enter new one"
                 }
 
                 onMainThread {
@@ -83,23 +134,46 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
 
 extension ChangePasswordViewModel {
 
-    func userTappedLogin() {
+    func userTappedChangePassword() {
 
-        let emailString = loginText?.trimmed.nullable
-        let passwordString = passwordText?.trimmed.nullable
+        let passwordString = oldPasswordText?.trimmed.nullable
+        let newPasswordString = newPasswordText?.trimmed.nullable
+        let reNewPasswordString = reNewPasswordText?.trimmed.nullable
 
-        let emailUsernameValidator = EmailValidator()
-        guard emailUsernameValidator.isValid(value: emailString) else {
+        let passwordValidator = PasswordValidator()
+
+        // check old password
+
+        guard passwordValidator.isValid(value: passwordString) else {
             delegate?.didCatchAnError(
-                emailUsernameValidator.errorMessage ?? ""
+                passwordValidator.errorMessage ?? ""
             )
             return
         }
 
-        let passwordValidator = PasswordValidator()
-        guard passwordValidator.isValid(value: passwordString) else {
+        // check new password
+
+        guard passwordValidator.isValidForSetup(value: newPasswordString) else {
             delegate?.didCatchAnError(
                 passwordValidator.errorMessage ?? ""
+            )
+            return
+        }
+
+        // check re-new password
+
+        guard passwordValidator.isValidForSetup(value: reNewPasswordString) else {
+            delegate?.didCatchAnError(
+                passwordValidator.errorMessage ?? ""
+            )
+            return
+        }
+
+        // check both passwords
+
+        guard newPasswordString == reNewPasswordString  else {
+            delegate?.didCatchAnError(
+                "Passwords is not equal. Please enter again."
             )
             return
         }
@@ -108,6 +182,6 @@ extension ChangePasswordViewModel {
 
         isSending = true
 
-        auth(login: emailString!, password: passwordString!) //swiftlint:disable:this force_unwrapping
+        changePassword(oldPassword: oldPasswordText!, newPassword: newPasswordText!) //swiftlint:disable:this force_unwrapping
     }
 }

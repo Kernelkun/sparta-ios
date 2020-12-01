@@ -9,8 +9,7 @@ import UIKit
 import SpartaHelpers
 
 protocol ChangePasswordViewCoordinatorDelegate: class {
-//    func loginViewControllerDidFinish(_ controller: LoginViewController)
-//    func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController)
+    func changePasswordViewControllerDidFinish(_ controller: ChangePasswordViewController)
 }
 
 class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel> {
@@ -41,6 +40,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
         super.viewWillAppear(animated)
 
         navigationController?.isNavigationBarHidden = false
+        oldPasswordField?.textField.becomeFirstResponder()
     }
 
     //
@@ -115,7 +115,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             field.placeholder = "Enter old password"
 
             field.onTextChanged { [unowned self] text in
-                self.viewModel.loginText = text
+                self.viewModel.oldPasswordText = text
             }
 
             scrollView.addSubview(field) {
@@ -145,7 +145,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             field.placeholder = "Enter new password"
 
             field.onTextChanged { [unowned self] text in
-                self.viewModel.loginText = text
+                self.viewModel.newPasswordText = text
             }
 
             scrollView.addSubview(field) {
@@ -175,7 +175,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             field.placeholder = "Confirm new password"
 
             field.onTextChanged { [unowned self] text in
-                self.viewModel.loginText = text
+                self.viewModel.reNewPasswordText = text
             }
 
             scrollView.addSubview(field) {
@@ -185,7 +185,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             }
         }
 
-        let reNewPasswordLabel = UILabel().then { label in
+        _ = UILabel().then { label in
 
             label.text = "Repeat new password"
             label.textColor = .secondaryText
@@ -206,7 +206,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             button.setTitle("Change password", for: .normal)
 
             button.onTap { [unowned self] _ in
-                self.viewModel.userTappedLogin()
+                self.viewModel.userTappedChangePassword()
             }
 
             scrollView.addSubview(button) {
@@ -233,7 +233,6 @@ extension ChangePasswordViewController: ChangePasswordViewModelDelegate {
     }
 
     func didFinishSuccess() {
-//        coordinatorDelegate?.loginViewControllerDidFinish(self)
+        coordinatorDelegate?.changePasswordViewControllerDidFinish(self)
     }
 }
-

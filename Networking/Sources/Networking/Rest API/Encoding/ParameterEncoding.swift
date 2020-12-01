@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol ParameterEncoder {
+public protocol ParameterEncoder {
     func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws
 }
 
-enum ParameterEncoding {
+public enum ParameterEncoding {
     
     case urlEncoding
     case jsonEncoding
