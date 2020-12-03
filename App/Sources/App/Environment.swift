@@ -24,4 +24,5 @@ public struct Environment {
     }
 
     public static let baseAPIURL = "https://strapi.staging.sparta.app"
+    public static let socketBlenderURL = "https://backend.staging.sparta.app/blender"
 }

@@ -34,7 +34,7 @@ class MainTabsViewController: UITabBarController {
         let first = TestViewController()
         setTabBarItem(first, "ARBs", "ic_tab_first")
 
-        let second = TestViewController()
+        let second = BlenderViewController()
         setTabBarItem(second, "Blender", "ic_tab_second")
 
         let third = TestViewController()
@@ -42,7 +42,6 @@ class MainTabsViewController: UITabBarController {
 
         let fourth = TestViewController()
         setTabBarItem(fourth, "Settings", "ic_tab_fourth")
-
 
         tabBar.isTranslucent = false
 
