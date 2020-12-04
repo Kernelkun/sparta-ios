@@ -74,6 +74,10 @@
 		D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */; };
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
+		D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */; };
+		D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */; };
+		D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */; };
+		D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC3A257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +145,10 @@
 		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
 		D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../../../CryptyTalk/BaseViewController.swift; sourceTree = "<group>"; };
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderSyncManager.swift; sourceTree = "<group>"; };
+		D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthDetailModel.swift; sourceTree = "<group>"; };
+		D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		D9ECEC3A257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderDescriptionPopupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,8 +229,10 @@
 		D944CF0B2577E234009115FD /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D9ECEC39257A9A6D005DFFD7 /* Views */,
 				D944CF002577DF28009115FD /* Cells */,
 				D944CF072577E0DA009115FD /* BlenderConstants.swift */,
+				D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -343,6 +353,7 @@
 			children = (
 				D9B50DFD25717F230018F3D7 /* Keychain */,
 				D9B50E1C257184080018F3D7 /* SyncService.swift */,
+				D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -400,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */,
+				D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -495,6 +507,14 @@
 				D9264BE02574F0D9001477DA /* ForgotPassword */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		D9ECEC39257A9A6D005DFFD7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9ECEC3A257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -629,9 +649,11 @@
 				D94BCA482577FF520076C2AB /* BlenderGradeCollectionViewCell.swift in Sources */,
 				D9A8043925714697000ADE6B /* TappableView.swift in Sources */,
 				D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */,
+				D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */,
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
 				D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */,
 				D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */,
+				D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */,
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
@@ -649,9 +671,11 @@
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
 				D944CF082577E0DA009115FD /* BlenderConstants.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
+				D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */,
 				D9A8042225714420000ADE6B /* Alert.swift in Sources */,
 				D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */,
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
+				D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */,
 				D9A80432257145B4000ADE6B /* TappableButton.swift in Sources */,
 				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
 				D944CF022577DF92009115FD /* BlenderGradeTableViewCell.swift in Sources */,

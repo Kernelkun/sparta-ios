@@ -50,9 +50,11 @@ class BlenderInfoTableViewCell: UITableViewCell {
             titleLabel.textAlignment = .left
             titleLabel.textColor = UIColor.white
             titleLabel.font = .main(weight: .regular, size: 14)
+            titleLabel.numberOfLines = 2
 
             contentView.addSubview(titleLabel) {
                 $0.left.equalToSuperview().offset(16)
+                $0.right.equalToSuperview().inset(8)
                 $0.centerY.equalToSuperview()
             }
         }

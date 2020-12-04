@@ -79,6 +79,8 @@ class AppCoordinator {
             return
         }
 
+        app.appDidMakeAuthentication()
+
         mainFlowCoordinator.start()
     }
 

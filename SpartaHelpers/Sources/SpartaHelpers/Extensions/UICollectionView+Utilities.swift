@@ -38,5 +38,28 @@ public extension UICollectionView {
         }, completion: completion)
         UIView.setAnimationsEnabled(true)
     }
+
+    func updateSections(insertions: IndexSet,
+                        removals: IndexSet,
+                        updates: IndexSet,
+                        completion: ((Bool) -> Void)? = nil) {
+
+        UIView.setAnimationsEnabled(false)
+        performBatchUpdates({
+
+            if !insertions.isEmpty {
+                insertSections(insertions)
+            }
+
+            if !removals.isEmpty {
+                deleteSections(removals)
+            }
+
+            if !updates.isEmpty {
+                reloadSections(updates)
+            }
+        }, completion: completion)
+        UIView.setAnimationsEnabled(true)
+    }
 }
 

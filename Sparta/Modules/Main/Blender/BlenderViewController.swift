@@ -22,6 +22,8 @@ class BlenderViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var tableView: UITableView!
 
+    private var popup = PopupViewController()
+
     // MARK: - Private properties
 
     private let viewModel = BlenderViewModel()
@@ -37,6 +39,7 @@ class BlenderViewController: UIViewController {
 
         // view model
 
+        viewModel.delegate = self
         viewModel.loadData()
     }
 
@@ -64,15 +67,16 @@ class BlenderViewController: UIViewController {
 
         tableView = UITableView().then { tableView in
 
-            tableView.register(BlenderInfoTableViewCell.self)
-            tableView.register(BlenderGradeTableViewCell.self)
-            tableView.register(UITableViewCell.self)
             tableView.backgroundColor = .clear
             tableView.tableFooterView = UIView(frame: .zero)
             tableView.separatorStyle = .none
             tableView.showsVerticalScrollIndicator = false
+            tableView.showsHorizontalScrollIndicator = false
             tableView.rowHeight = UITableView.automaticDimension
             tableView.contentInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 0)
+
+            tableView.register(BlenderInfoTableViewCell.self)
+            tableView.register(BlenderGradeTableViewCell.self)
 
             tableView.delegate = self
             tableView.dataSource = self
@@ -94,10 +98,13 @@ class BlenderViewController: UIViewController {
             collectionView.isDirectionalLockEnabled = true
             collectionView.backgroundColor = .clear
             collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            collectionView.register(BlenderInfoCollectionViewCell.self)
-            collectionView.register(BlenderGradeCollectionViewCell.self)
+            collectionView.showsVerticalScrollIndicator = false
+            collectionView.showsHorizontalScrollIndicator = false
             collectionView.dataSource = self
             collectionView.delegate = self
+
+            collectionView.register(BlenderInfoCollectionViewCell.self)
+            collectionView.register(BlenderGradeCollectionViewCell.self)
 
             contentView.addSubview(collectionView) {
                 $0.top.equalTo(tableView)
@@ -151,14 +158,25 @@ extension BlenderViewController: UICollectionViewDataSource {
 
             return cell
 
-        case .info(title: let title):
+        case .info(let title, let textColor):
 
             let cell: BlenderInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(title: title, for: indexPath)
+            cell.apply(title: title, textColor: textColor, for: indexPath)
 
             return cell
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let monthDetails = viewModel.fetchDescription(for: indexPath) else { return }
+
+        monthDetails.printDescription()
+
+        let popupView = BlenderDescriptionPopupView()
+        popupView.apply(monthDetailModel: monthDetails)
+
+        popup.show(popupView)
     }
 }
 
@@ -185,7 +203,7 @@ extension BlenderViewController: UITableViewDataSource, UITableViewDelegate {
 
             return cell
 
-        case .info(title: let title):
+        case .info(let title, _):
 
             let cell: BlenderInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
@@ -198,7 +216,16 @@ extension BlenderViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension BlenderViewController: BlenderViewModelDelegate {
 
+    func didUpdateTableDataSource(insertions: [IndexPath], removals: [IndexPath], updates: [IndexPath]) {
+        tableView.update(insertions: insertions, removals: removals, with: .fade)
+    }
+
+    func didUpdateCollectionDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
+        collectionView.updateSections(insertions: insertions, removals: removals, updates: updates)
+    }
+
     func blenderDidLoadInfo() {
         tableView.reloadData()
+        collectionView.reloadData()
     }
 }

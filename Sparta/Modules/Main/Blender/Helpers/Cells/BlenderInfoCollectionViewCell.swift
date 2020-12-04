@@ -28,14 +28,10 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func apply(title: String, for indexPath: IndexPath) {
+    func apply(title: String, textColor: UIColor, for indexPath: IndexPath) {
         titleLabel.text = title.capitalized
 
-        if Int(title) ?? 0 >= 0 {
-            titleLabel.textColor = .green
-        } else {
-            titleLabel.textColor = .red
-        }
+        titleLabel.textColor = textColor
 
         if indexPath.section % 2 == 0 { // even
             backgroundColor = UIBlenderConstants.evenLineBackgroundColor
@@ -73,4 +69,3 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
         }
     }
 }
-

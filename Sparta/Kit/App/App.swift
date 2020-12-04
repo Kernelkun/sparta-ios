@@ -24,6 +24,9 @@ class App {
 
     let keychain = KeychainManager()
     let syncService = SyncService()
+
+    // sockets managers
+    let blenderSyncManager: BlenderSyncManager
     let sockets: SocketAPI
     
     weak var delegate: AppFlowDelegate?
@@ -61,6 +64,9 @@ class App {
     // MARK: - Initializers
     
     init() {
+
+        blenderSyncManager = BlenderSyncManager()
+
         sockets = SocketAPI(defaultServer: .blender)
         sockets.connectionDelegate = self
 
@@ -86,4 +92,8 @@ class App {
 }
 
 extension App: SyncServiceDelegate {
+
+    func appDidMakeAuthentication() {
+        socketsConnect(toServer: .blender)
+    }
 }
