@@ -91,7 +91,8 @@ class GridLayout: UICollectionViewLayout {
     private func columnsOverlapping(_ rect: CGRect) -> Range<Int> {
         let minX = rect.minX
         let maxX = rect.maxX
-        if let start = cellSpans.firstIndex(where: { $0.maxX >= minX }), let end = cellSpans.lastIndex(where: { $0.minX <= maxX }) {
+        if let start = cellSpans.firstIndex(where: { $0.maxX >= minX }),
+           let end = cellSpans.lastIndex(where: { $0.minX <= maxX }) {
             return start ..< end + 1
         } else {
             return 0 ..< 0
@@ -102,7 +103,8 @@ class GridLayout: UICollectionViewLayout {
         let pose = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         let row = indexPath.section
         let column = indexPath.item
-        pose.frame = CGRect(x: cellSpans[column].minX, y: CGFloat(row) * cellHeight, width: cellWidths[column], height: cellHeight)
+        pose.frame = CGRect(x: cellSpans[column].minX, y: CGFloat(row) * cellHeight,
+                            width: cellWidths[column], height: cellHeight)
         return pose
     }
 }

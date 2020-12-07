@@ -37,7 +37,6 @@ public class SocketAPI: NSObject {
     //
 
     private var socket: WebSocket
-    private var reachability: Reachability
 
     //
     // MARK: - Reconnection Handling
@@ -75,18 +74,12 @@ public class SocketAPI: NSObject {
     public init(defaultServer: SocketAPI.Server) {
         self.serverType = defaultServer
 
-        reachability = try! Reachability() // swiftlint:disable:this force_try
-        try! reachability.startNotifier() // swiftlint:disable:this force_try
-
         //
 
         socket = WebSocket(url: defaultServer.link)
         state = .unknown
 
         super.init()
-
-        reachability.whenReachable = { _ in self.connect() }
-        reachability.whenUnreachable = { _ in self.disconnect(forced: true) }
     }
 
     //

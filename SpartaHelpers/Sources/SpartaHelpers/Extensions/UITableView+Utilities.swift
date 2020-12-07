@@ -13,12 +13,24 @@ public extension UITableView {
         register(cellType.self, forCellReuseIdentifier: cellType.reuseIdentifier)
     }
 
+    func register<C: UITableViewHeaderFooterView>(_ cellType: C.Type) {
+        register(cellType.self, forHeaderFooterViewReuseIdentifier: cellType.reuseIdentifier)
+    }
+
     func dequeueReusableCell<C: UITableViewCell>(for inexPath: IndexPath) -> C {
         guard let cell = dequeueReusableCell(withIdentifier: C.reuseIdentifier, for: inexPath) as? C else {
             fatalError("Could not dequeue cwhere C: ReusableViewell: \(C.reuseIdentifier)")
         }
 
         return cell
+    }
+
+    func dequeueReusableHeaderFooterView<C: UITableViewHeaderFooterView>() -> C {
+        guard let view = dequeueReusableHeaderFooterView(withIdentifier: C.reuseIdentifier) as? C else {
+            fatalError("Could not dequeue cwhere C: ReusableViewell: \(C.reuseIdentifier)")
+        }
+
+        return view
     }
 
     func update(insertions: [IndexPath],

@@ -6,8 +6,20 @@
 //
 
 import UIKit
+import SnapKit
 
 class PopupViewController: UIViewController {
+
+    // MARK: - Public properties
+
+    var backgroundAlpha: CGFloat = 0.2 {
+        didSet {
+            backgroundContentView?.alpha = backgroundAlpha
+        }
+    }
+
+    var contentView: UIView?
+    var backgroundContentView: UIView?
 
     // MARK: - Initializers
 
@@ -17,6 +29,7 @@ class PopupViewController: UIViewController {
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
 
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
@@ -25,14 +38,32 @@ class PopupViewController: UIViewController {
 
     // MARK: - Public methods
 
-    func show(_ view: UIView) {
+    func show(_ view: UIView, makeConstraints: (ConstraintMaker) -> Void) {
 
-        addSubview(view) {
-            $0.center.equalToSuperview()
-            $0.width.equalTo(300)
-            $0.height.equalTo(600)
-        }
+        addSubview(view) { makeConstraints($0) }
+
+        contentView = view
 
         UIViewController.topController?.present(self, animated: true, completion: nil)
+    }
+
+    func hide() {
+        dismiss(animated: true) {
+            self.contentView?.removeFromSuperview()
+        }
+    }
+
+    // MARK: - Private methods
+
+    private func setupUI() {
+
+        backgroundContentView = UIView().then { view in
+
+            view.backgroundColor = UIColor.black.withAlphaComponent(backgroundAlpha)
+
+            addSubview(view) {
+                $0.edges.equalToSuperview()
+            }
+        }
     }
 }

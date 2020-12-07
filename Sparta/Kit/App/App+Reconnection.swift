@@ -35,11 +35,12 @@ extension App {
 extension App: SocketAPIDelegate {
 
     func socketConnectionEstablished() {
-        guard let token = token else { return }
+        guard isSignedIn, let token = token else { return }
         
         sockets.sendData(data: JSON(token), requiresAuth: false)
     }
 
     func socketConnectionLost() {
+        isTokenSentToServer = false
     }
 }

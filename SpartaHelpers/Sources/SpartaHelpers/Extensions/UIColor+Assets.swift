@@ -25,6 +25,8 @@ public extension UIColor {
 
     static var mainBackground: UIColor { .assetColor(named: #function) }
 
+    static var secondaryBackground: UIColor { .assetColor(named: #function) }
+
     static var controlTintActive: UIColor { .assetColor(named: #function) }
 
     static var error: UIColor { .assetColor(named: #function) }

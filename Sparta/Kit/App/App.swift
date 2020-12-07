@@ -8,6 +8,7 @@
 import Foundation
 import Networking
 import NetworkingModels
+import Reachability
 
 protocol AppFlowDelegate: class {
     func appFlowDidUpdate()
@@ -26,10 +27,16 @@ class App {
     let syncService = SyncService()
 
     // sockets managers
+
     let blenderSyncManager: BlenderSyncManager
     let sockets: SocketAPI
     
     weak var delegate: AppFlowDelegate?
+
+    // MARK: - Private properties
+
+    private let stateService: AppStateService
+    private let reachability: Reachability
     
     // MARK: - Public properties
     
@@ -45,6 +52,9 @@ class App {
     var token: String? {
         keychain.retrieve(.accessToken, from: .userData)
     }
+
+    // can be changed just via current class
+    var isTokenSentToServer: Bool = false
 
     // app able to check just after success session start
     var isAccountConfirmed: Bool {
@@ -66,11 +76,20 @@ class App {
     init() {
 
         blenderSyncManager = BlenderSyncManager()
+        stateService = AppStateService()
+
+        reachability = try! Reachability() // swiftlint:disable:this force_try
+        try! reachability.startNotifier() // swiftlint:disable:this force_try
 
         sockets = SocketAPI(defaultServer: .blender)
         sockets.connectionDelegate = self
 
         syncService.delegate = self
+        stateService.delegate = self
+
+        // internet
+
+        setupInternetConnectionEvents()
     }
     
     // MARK: - Public methods
@@ -89,11 +108,42 @@ class App {
 
         delegate?.appFlowDidUpdate()
     }
+
+    // MARK: - Private methods
+
+    private func setupInternetConnectionEvents() {
+
+        reachability.whenReachable = { _ in
+            self.connectToSockets()
+        }
+
+        reachability.whenUnreachable = { _ in
+            self.isTokenSentToServer = false
+            self.sockets.disconnect(forced: true)
+        }
+    }
+
+    private func connectToSockets() {
+        guard isSignedIn else { return }
+
+        socketsConnect(toServer: .blender)
+    }
 }
 
 extension App: SyncServiceDelegate {
 
     func appDidMakeAuthentication() {
-        socketsConnect(toServer: .blender)
+        connectToSockets()
+    }
+}
+
+extension App: AppStateServiceDelegate {
+
+    func appStateServiceDidUpdateState() {
+        if stateService.isActiveApp {
+            connectToSockets()
+        } else {
+            sockets.disconnect(forced: true)
+        }
     }
 }

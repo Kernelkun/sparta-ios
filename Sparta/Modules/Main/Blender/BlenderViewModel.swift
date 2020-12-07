@@ -50,21 +50,6 @@ class BlenderViewModel {
 
     func loadData() {
 
-//        tableDataSource.insert(.grade(title: "Grade"), at: 0)
-
-        /*let gradeSection = Section(cells: [
-            .grade(title: "Jan 20"),
-            .grade(title: "Feb 20"),
-            .grade(title: "Mar 20"),
-            .grade(title: "Apr 20"),
-            .grade(title: "May 20"),
-            .grade(title: "Jun 20")
-        ])
-
-        collectionDataSource.insert(gradeSection, at: 0)*/
-
-//        delegate?.blenderDidLoadInfo()
-
         blenderManager.delegate = self
         blenderManager.loadData()
     }

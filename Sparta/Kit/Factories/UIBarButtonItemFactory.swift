@@ -23,58 +23,47 @@ enum UIBarButtonItemFactory {
         return UIBarButtonItem(customView: button)
     }
 
-    static func editNameButton(onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
-
-        let button = TappableButton(type: .system).then { v in
-
-            v.setBackgroundImage(UIImage(named: "ic_edit_name"), for: .normal)
-            v.tintColor = .controlTintActive
-
-            v.onTap(completion: onTap)
-        }
-
-        return UIBarButtonItem(customView: button)
-    }
-
-    static func deleteButton(onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
-
-        let button = TappableButton(type: .system).then { v in
-
-            v.setImage(UIImage(named: "ic_delete"), for: .normal)
-            v.tintColor = .controlTintActive
-            v.frame.size = CGSize(width: 40, height: 16)
-
-            v.onTap(completion: onTap)
-        }
-
-        return UIBarButtonItem(customView: button)
-    }
-
-    static func closeButton(onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
-
-        let button = TappableButton(type: .system).then { v in
-
-            v.setBackgroundImage(UIImage(named: "ic_close"), for: .normal)
-            v.tintColor = .controlTintActive
-            v.frame.size = CGSize(width: 16, height: 16)
-
-            v.onTap(completion: onTap)
-        }
-
-        return UIBarButtonItem(customView: button)
-    }
-
     static func titleButton(text: String, onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
 
         let button = TappableButton(type: .system).then { v in
 
             v.setTitle(text.capitalized, for: .normal)
-            v.setTitleColor(.controlTintActive, for: .normal)
+            v.setTitleColor(.primaryText, for: .normal)
+            v.titleLabel?.font = .main(weight: .regular, size: 18)
 
             v.onTap(completion: onTap)
         }
 
         return UIBarButtonItem(customView: button)
+    }
+
+    static func seasonalityBlock(onValueChanged: @escaping TypeClosure<Bool>) -> UIBarButtonItem {
+
+        let titleLabel = UILabel().then { label in
+
+            label.font = .main(weight: .regular, size: 12)
+            label.textColor = .primaryText
+            label.numberOfLines = 1
+            label.textAlignment = .left
+            label.text = "Seasonality"
+        }
+
+        let tappableSwitch = TappableUISwitch().then { view in
+
+            view.onValueChanged(completion: onValueChanged)
+        }
+
+        let stackView = UIStackView().then { stackView in
+
+            stackView.addArrangedSubview(titleLabel)
+            stackView.addArrangedSubview(tappableSwitch)
+
+            stackView.distribution = .equalSpacing
+            stackView.spacing = 7
+            stackView.alignment = .center
+        }
+
+        return UIBarButtonItem(customView: stackView)
     }
 
     static func fixedSpace(space: CGFloat) -> UIBarButtonItem {

@@ -36,6 +36,7 @@ class BlenderViewController: UIViewController {
         // UI
 
         setupUI()
+        setupNavigationUI()
 
         // view model
 
@@ -53,7 +54,7 @@ class BlenderViewController: UIViewController {
 
     private func setupUI() {
 
-        view.backgroundColor = .mainBackground
+        view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
         let contentView = UIView().then { view in
 
@@ -61,7 +62,7 @@ class BlenderViewController: UIViewController {
 
             addSubview(view) {
                 $0.left.right.bottom.equalToSuperview()
-                $0.top.equalToSuperview()
+                $0.top.equalToSuperview().offset(topBarHeight)
             }
         }
 
@@ -82,7 +83,7 @@ class BlenderViewController: UIViewController {
             tableView.dataSource = self
 
             contentView.addSubview(tableView) {
-                $0.top.equalToSuperview().offset(topBarHeight)
+                $0.top.equalToSuperview()
                 $0.left.equalToSuperview().offset(18)
                 $0.bottom.equalToSuperview()
                 $0.width.equalTo(130)
@@ -112,6 +113,18 @@ class BlenderViewController: UIViewController {
                 $0.left.equalTo(tableView.snp.right)
             }
         }
+    }
+
+    private func setupNavigationUI() {
+        navigationItem.title = nil
+
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Blender", onTap: { _ in
+            print("did tap title label")
+        })
+
+        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { value in
+            print("did choose seasonality: \(value)")
+        })
     }
 }
 
@@ -171,12 +184,25 @@ extension BlenderViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let monthDetails = viewModel.fetchDescription(for: indexPath) else { return }
 
-        monthDetails.printDescription()
-
         let popupView = BlenderDescriptionPopupView()
         popupView.apply(monthDetailModel: monthDetails)
 
-        popup.show(popupView)
+        popupView.onClose { [unowned self] in
+            self.popup.hide()
+        }
+
+        popupView.onContentChangeSize { [unowned self] in
+
+            self.popup.contentView?.snp.updateConstraints {
+                $0.height.equalTo(popupView.calculatedHeight)
+            }
+        }
+
+        popup.show(popupView) { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(210)
+            make.height.equalTo(popupView.calculatedHeight)
+        }
     }
 }
 
