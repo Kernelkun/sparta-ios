@@ -13,12 +13,26 @@ public extension UICollectionView {
         register(cellType.self, forCellWithReuseIdentifier: cellType.reuseIdentifier)
     }
 
-    func dequeueReusableCell<C: UICollectionViewCell>(for inexPath: IndexPath) -> C {
-        guard let cell = dequeueReusableCell(withReuseIdentifier: C.reuseIdentifier, for: inexPath) as? C else {
+    func register<C: UICollectionReusableView>(_ viewType: C.Type, for supplementaryViewOfKind: String) {
+        register(viewType.self, forSupplementaryViewOfKind: supplementaryViewOfKind, withReuseIdentifier: viewType.reuseIdentifier)
+    }
+
+    func dequeueReusableCell<C: UICollectionViewCell>(for indexPath: IndexPath) -> C {
+        guard let cell = dequeueReusableCell(withReuseIdentifier: C.reuseIdentifier, for: indexPath) as? C else {
             fatalError("Could not dequeue cwhere C: ReusableViewell: \(C.reuseIdentifier)")
         }
 
         return cell
+    }
+
+    func dequeueReusableView<C: UICollectionReusableView>(supplementaryViewOfKind: String, for indexPath: IndexPath) -> C {
+        guard let view = dequeueReusableSupplementaryView(ofKind: supplementaryViewOfKind,
+                                                          withReuseIdentifier: C.reuseIdentifier,
+                                                          for: indexPath) as? C else {
+            fatalError("Could not dequeue cwhere C: ReusableViewell: \(C.reuseIdentifier)")
+        }
+
+        return view
     }
 
     func update(insertions: [IndexPath],

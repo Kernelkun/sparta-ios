@@ -9,10 +9,16 @@ import UIKit
 
 class GridLayout: UICollectionViewLayout {
 
-    var cellHeight: CGFloat = 22
+    var cellHeights: [CGFloat] = [] {
+        didSet {
+            precondition(cellHeights.filter { $0 <= 0 }.isEmpty)
+            invalidateCache()
+        }
+    }
+
     var cellWidths: [CGFloat] = [] {
         didSet {
-            precondition(cellWidths.filter({ $0 <= 0 }).isEmpty)
+            precondition(cellWidths.filter { $0 <= 0 }.isEmpty)
             invalidateCache()
         }
     }
@@ -26,7 +32,7 @@ class GridLayout: UICollectionViewLayout {
         let newRect = rect.intersection(CGRect(x: 0, y: 0, width: totalWidth, height: totalHeight))
 
         var poses = [UICollectionViewLayoutAttributes]()
-        let rows = rowsOverlapping(newRect)
+        let rows: Range<Int> = 0..<cellHeights.count //rowsOverlapping(newRect)
         let columns = columnsOverlapping(newRect)
         for row in rows {
             for column in columns {
@@ -46,36 +52,55 @@ class GridLayout: UICollectionViewLayout {
         return false
     }
 
-    private struct CellSpan {
+    private struct CellSpanWidth {
         var minX: CGFloat
         var maxX: CGFloat
     }
 
-    private struct Cache {
-        var cellSpans: [CellSpan]
-        var totalWidth: CGFloat
+    private struct CellSpanHeight {
+        var minY: CGFloat
+        var maxY: CGFloat
     }
 
-    private var _cache: Cache? = nil
+    private struct Cache {
+        var cellSpansWidth: [CellSpanWidth]
+        var cellSpansHeight: [CellSpanHeight]
+        var totalWidth: CGFloat
+        var totalHeight: CGFloat
+    }
+
+    private var _cache: Cache?
     private var cache: Cache {
         if let cache = _cache { return cache }
-        var spans = [CellSpan]()
+
+        var spansWidth: [CellSpanWidth] = []
+        var spansHeight: [CellSpanHeight] = []
+
         var x: CGFloat = 0
+        var y: CGFloat = 0
+
         for width in cellWidths {
-            spans.append(CellSpan(minX: x, maxX: x + width))
+            spansWidth.append(CellSpanWidth(minX: x, maxX: x + width))
             x += width
         }
-        let cache = Cache(cellSpans: spans, totalWidth: x)
+
+        for height in cellHeights {
+            spansHeight.append(CellSpanHeight(minY: y, maxY: y + height))
+            y += height
+        }
+
+        let cache = Cache(cellSpansWidth: spansWidth, cellSpansHeight: spansHeight, totalWidth: x, totalHeight: y)
+
         _cache = cache
         return cache
     }
 
     private var totalWidth: CGFloat { return cache.totalWidth }
-    private var cellSpans: [CellSpan] { return cache.cellSpans }
+    private var totalHeight: CGFloat { return cache.totalHeight }
 
-    private var totalHeight: CGFloat {
-        return cellHeight * CGFloat(collectionView?.numberOfSections ?? 0)
-    }
+    private var cellSpansWidth: [CellSpanWidth] { return cache.cellSpansWidth }
+    private var cellSpansHeight: [CellSpanHeight] { return cache.cellSpansHeight }
+
 
     private func invalidateCache() {
         _cache = nil
@@ -83,16 +108,25 @@ class GridLayout: UICollectionViewLayout {
     }
 
     private func rowsOverlapping(_ rect: CGRect) -> Range<Int> {
-        let startRow = Int(floor(rect.minY / cellHeight))
-        let endRow = Int(ceil(rect.maxY / cellHeight))
-        return startRow ..< endRow
+        let minY = rect.minY
+        let maxY = rect.maxY
+
+        if let start = cellSpansHeight.firstIndex(where: { $0.maxY >= minY }),
+           let end = cellSpansHeight.lastIndex(where: { $0.minY <= maxY }) {
+
+            return start ..< end + 1
+        } else {
+            return 0 ..< 0
+        }
     }
 
     private func columnsOverlapping(_ rect: CGRect) -> Range<Int> {
         let minX = rect.minX
         let maxX = rect.maxX
-        if let start = cellSpans.firstIndex(where: { $0.maxX >= minX }),
-           let end = cellSpans.lastIndex(where: { $0.minX <= maxX }) {
+
+        if let start = cellSpansWidth.firstIndex(where: { $0.maxX >= minX }),
+           let end = cellSpansWidth.lastIndex(where: { $0.minX <= maxX }) {
+
             return start ..< end + 1
         } else {
             return 0 ..< 0
@@ -103,8 +137,8 @@ class GridLayout: UICollectionViewLayout {
         let pose = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         let row = indexPath.section
         let column = indexPath.item
-        pose.frame = CGRect(x: cellSpans[column].minX, y: CGFloat(row) * cellHeight,
-                            width: cellWidths[column], height: cellHeight)
+        pose.frame = CGRect(x: cellSpansWidth[column].minX, y: cellSpansHeight[row].minY,
+                            width: cellWidths[column], height: cellHeights[row])
         return pose
     }
 }

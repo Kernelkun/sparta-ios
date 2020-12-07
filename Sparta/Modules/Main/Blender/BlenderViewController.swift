@@ -9,16 +9,9 @@ import UIKit
 
 class BlenderViewController: UIViewController {
 
-    var records: [[String]] = (0 ..< 20).map { row in
-        (0 ..< 6).map { column in
-            "Row \(row) column \(column)"
-        }
-    }
-
-    var cellWidths: [CGFloat] = [ 50, 50, 50, 50, 50, 50 ]
-
     // MARK: - UI
 
+    private var collectionGridLayout: GridLayout!
     private var collectionView: UICollectionView!
     private var tableView: UITableView!
 
@@ -37,17 +30,15 @@ class BlenderViewController: UIViewController {
 
         setupUI()
         setupNavigationUI()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         // view model
 
         viewModel.delegate = self
         viewModel.loadData()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        viewModel.connectToSockets()
     }
 
     // MARK: - Private methods
@@ -73,7 +64,7 @@ class BlenderViewController: UIViewController {
             tableView.separatorStyle = .none
             tableView.showsVerticalScrollIndicator = false
             tableView.showsHorizontalScrollIndicator = false
-            tableView.rowHeight = UITableView.automaticDimension
+            tableView.automaticallyAdjustsScrollIndicatorInsets = false
             tableView.contentInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 0)
 
             tableView.register(BlenderInfoTableViewCell.self)
@@ -90,20 +81,22 @@ class BlenderViewController: UIViewController {
             }
         }
 
-        let layout = GridLayout()
-        layout.cellHeight = 44
-        layout.cellWidths = cellWidths
+        collectionGridLayout = GridLayout()
+        collectionGridLayout.cellWidths = [ 100, 100, 100, 100, 100, 100 ]
 
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then { collectionView in
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionGridLayout).then { collectionView in
 
             collectionView.isDirectionalLockEnabled = true
             collectionView.backgroundColor = .clear
             collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             collectionView.showsVerticalScrollIndicator = false
             collectionView.showsHorizontalScrollIndicator = false
+            collectionView.automaticallyAdjustsScrollIndicatorInsets = false
+
             collectionView.dataSource = self
             collectionView.delegate = self
 
+//            collectionView.register(TestCollectionView.self, for: UICollectionView.elementKindSectionHeader)
             collectionView.register(BlenderInfoCollectionViewCell.self)
             collectionView.register(BlenderGradeCollectionViewCell.self)
 
@@ -118,37 +111,49 @@ class BlenderViewController: UIViewController {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Blender", onTap: { _ in
-            print("did tap title label")
-        })
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Blender")
 
         navigationItem.rightBarButtonItem = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { value in
             print("did choose seasonality: \(value)")
+
+            self.viewModel.isSeasonalityOn = value
+            self.updateGridHeight()
+            self.collectionView.reloadData()
+            self.tableView.reloadData()
+
+            self.tableView.scrollToTop(animated: true)
         })
+    }
+
+    private func updateGridHeight() {
+        var heights: [CGFloat] = []
+
+        for index in 0..<viewModel.collectionDataSource.count {
+
+            let indexPath = IndexPath(row: 0, section: index)
+            heights.append(viewModel.collectionSize(for: indexPath).height)
+        }
+
+        collectionGridLayout.cellHeights = heights
     }
 }
 
 extension BlenderViewController: UIScrollViewDelegate, UICollectionViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrollViewDidScroll")
+
+        var newContentOffset = scrollView.contentOffset
+        newContentOffset.x = 0
+
         if scrollView == tableView {
-            var newContentOffset = scrollView.contentOffset
-            newContentOffset.x = 0
             collectionView.contentOffset = newContentOffset
         } else if scrollView == collectionView {
-            var newContentOffset = scrollView.contentOffset
-            newContentOffset.x = 0
             tableView.contentOffset = newContentOffset
         }
     }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        print("scrollViewWillBeginDragging")
-    }
 }
 
-extension BlenderViewController: UICollectionViewDataSource {
+extension BlenderViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         viewModel.collectionDataSource.count
@@ -171,11 +176,11 @@ extension BlenderViewController: UICollectionViewDataSource {
 
             return cell
 
-        case .info(let title, let textColor):
+        case .info(model: let infoModel):
 
             let cell: BlenderInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(title: title, textColor: textColor, for: indexPath)
+            cell.apply(infoModel: infoModel, isSeasonalityOn: viewModel.isSeasonalityOn, for: indexPath)
 
             return cell
         }
@@ -209,16 +214,16 @@ extension BlenderViewController: UICollectionViewDataSource {
 extension BlenderViewController: UITableViewDataSource, UITableViewDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        viewModel.tableDataSource.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.tableDataSource.count
+        1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cellType = viewModel.tableDataSource[indexPath.row]
+        let cellType = viewModel.tableDataSource[indexPath.section]
 
         switch cellType {
         case .grade(title: let title):
@@ -229,29 +234,26 @@ extension BlenderViewController: UITableViewDataSource, UITableViewDelegate {
 
             return cell
 
-        case .info(let title, _):
+        case .info(model: let infoModel):
 
             let cell: BlenderInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(title: title, for: indexPath)
+            cell.apply(infoModel: infoModel, for: indexPath)
 
             return cell
         }
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        viewModel.tableSize(for: indexPath).height
     }
 }
 
 extension BlenderViewController: BlenderViewModelDelegate {
 
-    func didUpdateTableDataSource(insertions: [IndexPath], removals: [IndexPath], updates: [IndexPath]) {
-        tableView.update(insertions: insertions, removals: removals, with: .fade)
-    }
-
     func didUpdateCollectionDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
+        updateGridHeight()
+        tableView.updateSections(insertions: insertions, removals: removals, with: .fade)
         collectionView.updateSections(insertions: insertions, removals: removals, updates: updates)
-    }
-
-    func blenderDidLoadInfo() {
-        tableView.reloadData()
-        collectionView.reloadData()
     }
 }

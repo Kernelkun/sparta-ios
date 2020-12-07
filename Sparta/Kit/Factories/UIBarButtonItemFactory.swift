@@ -23,7 +23,7 @@ enum UIBarButtonItemFactory {
         return UIBarButtonItem(customView: button)
     }
 
-    static func titleButton(text: String, onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
+    static func titleButton(text: String, onTap: TypeClosure<UIButton>? = nil) -> UIBarButtonItem {
 
         let button = TappableButton(type: .system).then { v in
 
@@ -31,7 +31,7 @@ enum UIBarButtonItemFactory {
             v.setTitleColor(.primaryText, for: .normal)
             v.titleLabel?.font = .main(weight: .regular, size: 18)
 
-            v.onTap(completion: onTap)
+            v.onTap { button in onTap?(button) }
         }
 
         return UIBarButtonItem(customView: button)

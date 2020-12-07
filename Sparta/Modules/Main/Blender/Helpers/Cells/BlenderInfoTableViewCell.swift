@@ -28,10 +28,10 @@ class BlenderInfoTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
     
-    func apply(title: String, for indexPath: IndexPath) {
-        titleLabel.text = title.capitalized
+    func apply(infoModel: BlenderMonthInfoModel, for indexPath: IndexPath) {
+        titleLabel.text = infoModel.numberPoint.text.capitalized
 
-        if indexPath.row % 2 == 0 { // even
+        if indexPath.section % 2 == 0 { // even
             backgroundColor = UIBlenderConstants.evenLineBackgroundColor
         } else { // odd
             backgroundColor = UIBlenderConstants.oddLineBackgroundColor

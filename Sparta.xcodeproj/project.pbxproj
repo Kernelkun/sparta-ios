@@ -29,6 +29,7 @@
 		D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */; };
 		D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BEF2576651C0038175A /* BaseNetworkManager.swift */; };
 		D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BF4257665220038175A /* AuthEndPoint.swift */; };
+		D9811ED0257E7972001C8F5D /* BlenderMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9811ECF257E7972001C8F5D /* BlenderMonthInfoModel.swift */; };
 		D99B2F3425753ADF0080B90B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3325753ADF0080B90B /* Validator.swift */; };
 		D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3725753B0C0080B90B /* EmailValidator.swift */; };
 		D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3A25753B200080B90B /* PasswordValidator.swift */; };
@@ -107,6 +108,7 @@
 		D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
 		D96C8BEF2576651C0038175A /* BaseNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNetworkManager.swift; sourceTree = "<group>"; };
 		D96C8BF4257665220038175A /* AuthEndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthEndPoint.swift; sourceTree = "<group>"; };
+		D9811ECF257E7972001C8F5D /* BlenderMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthInfoModel.swift; sourceTree = "<group>"; };
 		D99B2F3325753ADF0080B90B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D99B2F3725753B0C0080B90B /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		D99B2F3A25753B200080B90B /* PasswordValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				D9ECEC39257A9A6D005DFFD7 /* Views */,
 				D944CF072577E0DA009115FD /* BlenderConstants.swift */,
 				D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */,
+				D9811ECF257E7972001C8F5D /* BlenderMonthInfoModel.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D99B2F3425753ADF0080B90B /* Validator.swift in Sources */,
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
+				D9811ED0257E7972001C8F5D /* BlenderMonthInfoModel.swift in Sources */,
 				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,

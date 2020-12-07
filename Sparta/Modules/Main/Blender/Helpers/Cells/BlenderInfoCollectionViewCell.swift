@@ -12,6 +12,7 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
     // MARK: - UI
 
     private var titleLabel: UILabel!
+    private var descriptionLabel: UILabel!
     private var bottomLine: UIView!
 
     // MARK: - Initializers
@@ -28,15 +29,28 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func apply(title: String, textColor: UIColor, for indexPath: IndexPath) {
-        titleLabel.text = title.capitalized
-
-        titleLabel.textColor = textColor
+    func apply(infoModel: BlenderMonthInfoModel, isSeasonalityOn: Bool, for indexPath: IndexPath) {
+        titleLabel.text = infoModel.numberPoint.text.capitalized
+        titleLabel.textColor = infoModel.numberPoint.textColor
 
         if indexPath.section % 2 == 0 { // even
             backgroundColor = UIBlenderConstants.evenLineBackgroundColor
         } else { // odd
             backgroundColor = UIBlenderConstants.oddLineBackgroundColor
+        }
+
+        guard isSeasonalityOn else {
+            descriptionLabel.isHidden = true
+            return
+        }
+
+        if let seasonalityPoint = infoModel.seasonalityPoint {
+            descriptionLabel.isHidden = false
+
+            descriptionLabel.text = seasonalityPoint.text.capitalized
+            descriptionLabel.textColor = seasonalityPoint.textColor
+        } else {
+            descriptionLabel.isHidden = true
         }
     }
 
@@ -47,14 +61,33 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
 
-        titleLabel = UILabel().then { titleLabel in
+        titleLabel = UILabel().then { label in
 
-            titleLabel.textAlignment = .center
-            titleLabel.textColor = .white
-            titleLabel.font = .main(weight: .regular, size: 14)
+            label.textAlignment = .center
+            label.textColor = .white
+            label.font = .main(weight: .regular, size: 14)
+        }
 
-            contentView.addSubview(titleLabel) {
-                $0.center.equalToSuperview()
+        descriptionLabel = UILabel().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .white
+            label.font = .main(weight: .regular, size: 14)
+            label.numberOfLines = 3
+        }
+
+        _ = UIStackView().then { stackView in
+
+            stackView.addArrangedSubview(titleLabel)
+            stackView.addArrangedSubview(descriptionLabel)
+
+            stackView.axis = .vertical
+            stackView.alignment = .center
+            stackView.spacing = 8
+            stackView.distribution = .fillProportionally
+
+            contentView.addSubview(stackView) {
+                $0.edges.equalToSuperview()
             }
         }
 
