@@ -11,7 +11,7 @@ import SwiftyJSON
 import NetworkingModels
 
 protocol BlenderViewModelDelegate: class {
-    func didUpdateCollectionDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
+    func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool)
 }
 
 class BlenderViewModel {
@@ -33,7 +33,13 @@ class BlenderViewModel {
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
 
-    var isSeasonalityOn: Bool = false
+    var isSeasonalityOn: Bool = false {
+        didSet {
+            onMainThread {
+                self.updateSeasonalityDataSource()
+            }
+        }
+    }
 
     weak var delegate: BlenderViewModelDelegate?
 
@@ -52,10 +58,10 @@ class BlenderViewModel {
 
     func fetchDescription(for indexPath: IndexPath) -> BlenderMonthDetailModel? {
 
-        let section = indexPath.section - 1
+        let section = indexPath.section
         let monthIndex = indexPath.row
 
-        guard fetchedBlenders.count > section else { return nil }
+        guard fetchedBlenders.count > section, section != 0 else { return nil }
 
         let blender = fetchedBlenders[section]
 
@@ -78,41 +84,38 @@ class BlenderViewModel {
         return BlenderMonthDetailModel(mainKeyValues: mainKeyValues, componentsKeyValues: componentsKeyValues)
     }
 
-    func collectionSize(for indexPath: IndexPath) -> CGSize {
-        guard indexPath.section > 0 else {
-            return CGSize(width: 80, height: 30)
-        }
+    func height(for section: Int) -> CGFloat {
+        guard section > 0 else { return 30 }
 
-        guard isSeasonalityOn else {
-            return CGSize(width: 80, height: 60)
-        }
+        guard isSeasonalityOn else { return 60 }
 
-        let months = fetchedBlenders[indexPath.section - 1].months
-        if months.first(where: { $0.seasonality.trimmed.nullable != nil }) != nil {
-            return CGSize(width: 80, height: 80)
+        let months = fetchedBlenders[section].months
+
+        if months.contains(where: { $0.seasonality.trimmed.nullable != nil }) {
+            return 80
         } else {
-            return CGSize(width: 80, height: 60)
-        }
-    }
-
-    func tableSize(for indexPath: IndexPath) -> CGSize {
-        guard indexPath.section > 0 else {
-            return CGSize(width: 80, height: 30)
-        }
-
-        guard isSeasonalityOn else {
-            return CGSize(width: 80, height: 60)
-        }
-
-        let months = fetchedBlenders[indexPath.section - 1].months
-        if months.first(where: { $0.seasonality.trimmed.nullable != nil }) != nil {
-            return CGSize(width: 80, height: 80)
-        } else {
-            return CGSize(width: 80, height: 60)
+            return 60
         }
     }
 
     // MARK: - Private methods
+
+    private func updateSeasonalityDataSource() {
+        tableDataSource = createTableDataSource(from: fetchedBlenders)
+
+        collectionDataSource = createCollectionDataSource(from: fetchedBlenders, with: fetchCollectionGrades())
+
+        var indexesForUpdates: [Int] = []
+
+        for index in 0..<collectionDataSource.count {
+            indexesForUpdates.append(index)
+        }
+
+        self.delegate?.didUpdateDataSourceSections(insertions: [],
+                                                   removals: [],
+                                                   updates: IndexSet(indexesForUpdates),
+                                                   afterSeasonality: true)
+    }
 
     private func createTableDataSource(from blenders: [Blender]) -> [Cell] {
         var blenders = blenders
@@ -140,7 +143,7 @@ class BlenderViewModel {
                 let numberPoint = BlenderMonthInfoModel.PointModel(text: month.value, textColor: color)
                 var seasonalityPoint: BlenderMonthInfoModel.PointModel?
 
-                if let seasonality = month.seasonality.trimmed.nullable {
+                if isSeasonalityOn, let seasonality = month.seasonality.trimmed.nullable {
                     seasonalityPoint = BlenderMonthInfoModel.PointModel(text: seasonality, textColor: .gray)
                 }
 
@@ -154,13 +157,17 @@ class BlenderViewModel {
 
         return collectionSections
     }
+
+    private func fetchCollectionGrades() -> [String] {
+        fetchedBlenders.last?.months.compactMap { $0.name } ?? []
+    }
 }
 
 // differences
 
 extension BlenderViewModel {
 
-    private func updateBlenders(_ newBlenders: [Blender], with monthsGrades: [String]) {
+    private func updateBlenders(_ newBlenders: [Blender]) {
         let changes = newBlenders.difference(from: fetchedBlenders)
 
         let insertedIndexPaths = changes.insertions.compactMap { change -> IndexPath? in
@@ -178,27 +185,28 @@ extension BlenderViewModel {
         fetchedBlenders = newBlenders
 
         tableDataSource = createTableDataSource(from: newBlenders)
-        collectionDataSource = createCollectionDataSource(from: newBlenders, with: monthsGrades)
+        collectionDataSource = createCollectionDataSource(from: newBlenders, with: fetchCollectionGrades())
 
         let insertionsIndexSet = IndexSet(insertedIndexPaths.compactMap { $0.section })
         let removalsIndexSet = IndexSet(removedIndexPaths.compactMap { $0.section })
 
         onMainThread {
-            self.delegate?.didUpdateCollectionDataSourceSections(insertions: insertionsIndexSet,
-                                                                 removals: removalsIndexSet,
-                                                                 updates: [])
+            self.delegate?.didUpdateDataSourceSections(insertions: insertionsIndexSet,
+                                                       removals: removalsIndexSet,
+                                                       updates: [],
+                                                       afterSeasonality: false)
         }
     }
 }
 
 extension BlenderViewModel: BlenderSyncManagerDelegate {
 
-    func blenderSyncManagerDidFetch(blenders: [Blender], monthsGrades: [String]) {
+    func blenderSyncManagerDidFetch(blenders: [Blender]) {
 
         var blenders = blenders
         blenders.insert(Blender.empty, at: 0)
 
-        updateBlenders(blenders, with: monthsGrades)
+        updateBlenders(blenders)
     }
 
     func blenderSyncManagerDidReceive(blender: Blender) {
@@ -207,7 +215,7 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
         newBlenders.insert(Blender.empty, at: 0)
         newBlenders.append(blender)
 
-        updateBlenders(newBlenders, with: [])
+        updateBlenders(newBlenders)
     }
 
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender) {
@@ -220,7 +228,7 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
                 let numberPoint = BlenderMonthInfoModel.PointModel(text: month.value, textColor: color)
                 var seasonalityPoint: BlenderMonthInfoModel.PointModel?
 
-                if let seasonality = month.seasonality.trimmed.nullable {
+                if isSeasonalityOn, let seasonality = month.seasonality.trimmed.nullable {
                     seasonalityPoint = BlenderMonthInfoModel.PointModel(text: seasonality, textColor: .gray)
                 }
 
@@ -230,7 +238,10 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
             print("blenderSyncManagerDidReceiveUpdates \(blender.grade)")
 
             onMainThread(delay: 1) {
-                self.delegate?.didUpdateCollectionDataSourceSections(insertions: [], removals: [], updates: IndexSet([indexOfBlender]))
+                self.delegate?.didUpdateDataSourceSections(insertions: [],
+                                                           removals: [],
+                                                           updates: IndexSet([indexOfBlender]),
+                                                           afterSeasonality: false)
             }
         }
     }

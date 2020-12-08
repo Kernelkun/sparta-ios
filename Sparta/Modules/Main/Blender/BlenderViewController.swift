@@ -113,15 +113,8 @@ class BlenderViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Blender")
 
-        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { value in
-            print("did choose seasonality: \(value)")
-
-            self.viewModel.isSeasonalityOn = value
-            self.updateGridHeight()
-            self.collectionView.reloadData()
-            self.tableView.reloadData()
-
-            self.tableView.scrollToTop(animated: true)
+        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { isOn in
+            self.viewModel.isSeasonalityOn = isOn
         })
     }
 
@@ -130,8 +123,7 @@ class BlenderViewController: UIViewController {
 
         for index in 0..<viewModel.collectionDataSource.count {
 
-            let indexPath = IndexPath(row: 0, section: index)
-            heights.append(viewModel.collectionSize(for: indexPath).height)
+            heights.append(viewModel.height(for: index))
         }
 
         collectionGridLayout.cellHeights = heights
@@ -245,15 +237,33 @@ extension BlenderViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        viewModel.tableSize(for: indexPath).height
+        viewModel.height(for: indexPath.section)
     }
 }
 
 extension BlenderViewController: BlenderViewModelDelegate {
 
-    func didUpdateCollectionDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
+    func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool) {
         updateGridHeight()
-        tableView.updateSections(insertions: insertions, removals: removals, with: .fade)
-        collectionView.updateSections(insertions: insertions, removals: removals, updates: updates)
+
+        let updateGroup = DispatchGroup()
+
+        updateGroup.enter()
+        tableView.updateSections(insertions: insertions, removals: removals, updates: updates, completion: { _ in
+            updateGroup.leave()
+        })
+
+        updateGroup.enter()
+        collectionView.updateSections(insertions: insertions, removals: removals, updates: updates, completion: { _ in
+            updateGroup.leave()
+        })
+
+        updateGroup.notify(queue: .main) {
+
+            if afterSeasonality {
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            }
+        }
     }
 }

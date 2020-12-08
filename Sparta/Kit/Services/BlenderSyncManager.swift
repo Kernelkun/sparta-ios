@@ -11,7 +11,7 @@ import Networking
 import NetworkingModels
 
 protocol BlenderSyncManagerDelegate: class {
-    func blenderSyncManagerDidFetch(blenders: [Blender], monthsGrades: [String])
+    func blenderSyncManagerDidFetch(blenders: [Blender])
     func blenderSyncManagerDidReceive(blender: Blender)
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender)
 }
@@ -47,9 +47,7 @@ class BlenderSyncManager {
         if !_blenders.isEmpty {
             let blenders = Array(_blenders)
 
-            let monthsGrades = blenders.first?.months.compactMap { $0.name } ?? []
-
-            delegate?.blenderSyncManagerDidFetch(blenders: blenders, monthsGrades: monthsGrades)
+            delegate?.blenderSyncManagerDidFetch(blenders: blenders)
         }
     }
 

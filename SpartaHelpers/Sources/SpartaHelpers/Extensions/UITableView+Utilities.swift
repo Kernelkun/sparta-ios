@@ -54,23 +54,26 @@ public extension UITableView {
 
     func updateSections(insertions: IndexSet,
                         removals: IndexSet,
-                        with animation: UITableView.RowAnimation,
+                        updates: IndexSet,
                         completion: ((Bool) -> Void)? = nil) {
 
-        DispatchQueue.main.async {
-            UIView.setAnimationsEnabled(false)
-            self.performBatchUpdates({
+        UIView.setAnimationsEnabled(false)
+        self.performBatchUpdates({
 
-                if !insertions.isEmpty {
-                    self.insertSections(insertions, with: animation)
-                }
+            if !insertions.isEmpty {
+                self.insertSections(insertions, with: .none)
+            }
 
-                if !removals.isEmpty {
-                    self.deleteSections(removals, with: animation)
-                }
-            }, completion: completion)
-            UIView.setAnimationsEnabled(true)
-        }
+            if !removals.isEmpty {
+                self.deleteSections(removals, with: .none)
+            }
+
+            if !updates.isEmpty {
+                self.reloadSections(updates, with: .none)
+            }
+
+        }, completion: completion)
+        UIView.setAnimationsEnabled(true)
     }
 
     func scrollToBottom(animated: Bool) {
