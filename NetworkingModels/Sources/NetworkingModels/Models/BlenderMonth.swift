@@ -1,0 +1,42 @@
+//
+//  BlenderMonth.swift
+//  
+//
+//  Created by Yaroslav Babalich on 03.12.2020.
+//
+
+import Foundation
+import SwiftyJSON
+
+public struct BlenderMonth: BackendModel {
+
+    //
+    // MARK: - Public properties
+
+    public let disabled: Bool
+    public let name: String
+    public let value: String
+    public let color: String
+    public let seasonality: String
+    public let basisValue: String
+    public let naphthaValue: String
+    public let components: [BlenderMonthComponent]
+
+    //
+    // MARK: - Default Initializers
+
+    public init(json: JSON) {
+        disabled = json["disabled"].boolValue
+        name = json["name"].stringValue
+
+        let month = json["month"].dictionaryValue
+
+        value = month["value"]?.stringValue ?? ""
+        color = month["color"]?.stringValue ?? ""
+        seasonality = month["seasonality"]?.stringValue ?? ""
+        basisValue = month["basisValue"]?.stringValue ?? ""
+        naphthaValue = month["naphthaValue"]?.stringValue ?? ""
+
+        components = month["components"]?.arrayValue.compactMap { BlenderMonthComponent(json: $0) } ?? []
+    }
+}

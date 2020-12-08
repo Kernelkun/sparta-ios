@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SocketAPI+Observation.swift
 //  
 //
 //  Created by Yaroslav Babalich on 27.11.2020.
@@ -14,39 +14,39 @@ import SwiftyJSON
 
 /// Represents the object that can listen to folder actions.
 public protocol SocketActionObserver: class {
-    func socketDidReceiveResponse(for event: SocketAPI.Event, data: JSON)
+    func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON)
 }
 
 public extension SocketActionObserver {
 
-    func observeSocket(for events: SocketAPI.Event...) {
-        observeSocket(for: events)
+    func observeSocket(for servers: SocketAPI.Server...) {
+        observeSocket(for: servers)
     }
 
-    func observeSocket(for events: [SocketAPI.Event]) {
+    func observeSocket(for servers: [SocketAPI.Server]) {
 
-        for event in events {
-            let observers = SocketAPI.observers[event] ?? .init()
+        for server in servers {
+            let observers = SocketAPI.observers[server] ?? .init()
             observers.insert(self)
-            SocketAPI.observers[event] = observers
+            SocketAPI.observers[server] = observers
         }
     }
 
-    func stopObservingSocket(for events: SocketAPI.Event...) {
+    func stopObservingSocket(for servers: SocketAPI.Server...) {
 
-        for event in events {
-            guard let observers = SocketAPI.observers[event] else { continue }
+        for server in servers {
+            guard let observers = SocketAPI.observers[server] else { continue }
             observers.remove(self)
-            SocketAPI.observers[event] = observers
+            SocketAPI.observers[server] = observers
         }
     }
 
-    func stopObservingAllSocketEvents() {
+    func stopObservingAllSocketServers() {
 
-        for event in SocketAPI.Event.allCases {
-            guard let observers = SocketAPI.observers[event] else { continue }
+        for server in SocketAPI.Server.allCases {
+            guard let observers = SocketAPI.observers[server] else { continue }
             observers.remove(self)
-            SocketAPI.observers[event] = observers
+            SocketAPI.observers[server] = observers
         }
     }
 }
@@ -56,18 +56,18 @@ public extension SocketActionObserver {
 extension SocketAPI {
 
     /// Socket event observers.
-    fileprivate static var observers: [SocketAPI.Event: WeakSet<SocketActionObserver>] = [:]
+    fileprivate static var observers: [SocketAPI.Server: WeakSet<SocketActionObserver>] = [:]
 
     /// Will go through all observers object for given socket event
     /// and will call method related to this action.
     ///
-    /// - Parameter event: Event about which observers will be notified.
+    /// - Parameter server: Server which observers will be notified.
     /// - Parameter data: JSON data that came along with the event.
     /// - Parameter queue: Operation queue, where the notification will happen.
-    public func notifyObservers(about event: Event, with data: JSON, queue: OperationQueue = .main) {
+    public func notifyObservers(about server: Server, with data: JSON, queue: OperationQueue = .main) {
 
-        guard let observers = SocketAPI.observers[event]?.allObjects else { return }
-        queue.addOperation { observers.forEach { $0.socketDidReceiveResponse(for: event, data: data) } }
+        guard let observers = SocketAPI.observers[server]?.allObjects else { return }
+        queue.addOperation { observers.forEach { $0.socketDidReceiveResponse(for: server, data: data) } }
     }
 }
 
