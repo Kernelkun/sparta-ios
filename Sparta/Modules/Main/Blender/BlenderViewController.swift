@@ -230,7 +230,7 @@ extension BlenderViewController: UITableViewDataSource, UITableViewDelegate {
 
             let cell: BlenderInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(infoModel: infoModel, for: indexPath)
+            cell.apply(infoModel: infoModel, isSeasonalityOn: viewModel.isSeasonalityOn, for: indexPath)
 
             return cell
         }

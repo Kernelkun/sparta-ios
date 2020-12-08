@@ -122,7 +122,17 @@ class BlenderViewModel {
         blenders.remove(at: 0)
 
         var result: [Cell] = []
-        result = blenders.compactMap { Cell.info(model: BlenderMonthInfoModel(numberPoint: .init(text: $0.grade, textColor: .white))) }
+        result = blenders.compactMap { blender in
+
+            let numberPoint = BlenderMonthInfoModel.PointModel(text: blender.grade, textColor: .white)
+            var seasonalityPoint: BlenderMonthInfoModel.PointModel?
+
+            if isSeasonalityOn, blender.months.contains(where: { $0.seasonality.trimmed.nullable != nil }) {
+                seasonalityPoint = BlenderMonthInfoModel.PointModel(text: "Seasonality", textColor: .gray)
+            }
+
+            return .info(model: BlenderMonthInfoModel(numberPoint: numberPoint, seasonalityPoint: seasonalityPoint))
+        }
         result.insert(.grade(title: "Grade"), at: 0)
         return result
     }

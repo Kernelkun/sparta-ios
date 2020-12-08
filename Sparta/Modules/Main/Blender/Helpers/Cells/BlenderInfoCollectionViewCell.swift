@@ -87,7 +87,8 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
             stackView.distribution = .fillProportionally
 
             contentView.addSubview(stackView) {
-                $0.edges.equalToSuperview()
+                $0.left.right.equalToSuperview()
+                $0.centerY.equalToSuperview()
             }
         }
 
