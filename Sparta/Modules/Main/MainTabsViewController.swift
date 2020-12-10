@@ -31,17 +31,20 @@ class MainTabsViewController: UITabBarController {
             vc.tabBarItem.image = UIImage(named: imageName)
         }
 
-        let first = TestViewController()
+        let first = ArbsViewController()
         setTabBarItem(first, "ARBs", "ic_tab_first")
 
-        let second = BlenderViewController()
-        setTabBarItem(second, "Blender", "ic_tab_second")
+        let second = LiveCurvesViewController()
+        setTabBarItem(second, "Live Curves", "ic_tab_second")
 
-        let third = TestViewController()
-        setTabBarItem(third, "Freight calculator", "ic_tab_third")
+        let third = BlenderViewController()
+        setTabBarItem(third, "Blender", "ic_tab_third")
 
-        let fourth = TestViewController()
-        setTabBarItem(fourth, "Settings", "ic_tab_fourth")
+        let fourth = FreightViewController()
+        setTabBarItem(fourth, "Freight", "ic_tab_fourth")
+
+        let fifth = SettingsViewController()
+        setTabBarItem(fifth, "Settings", "ic_tab_fifth")
 
         tabBar.isTranslucent = false
 
@@ -51,7 +54,8 @@ class MainTabsViewController: UITabBarController {
             UINavigationController(rootViewController: first),
             UINavigationController(rootViewController: second),
             UINavigationController(rootViewController: third),
-            UINavigationController(rootViewController: fourth)
+            UINavigationController(rootViewController: fourth),
+            UINavigationController(rootViewController: fifth)
         ]
 
         // style

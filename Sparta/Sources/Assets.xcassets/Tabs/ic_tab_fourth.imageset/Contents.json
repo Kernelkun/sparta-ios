@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "🎨 Color.png",
+      "filename" : "Vector.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "🎨 Color-1.png",
+      "filename" : "Vector-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "🎨 Color-2.png",
+      "filename" : "Vector-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

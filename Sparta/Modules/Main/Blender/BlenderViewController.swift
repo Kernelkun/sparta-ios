@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BlenderViewController: UIViewController {
+class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
     // MARK: - UI
 
@@ -17,9 +17,6 @@ class BlenderViewController: UIViewController {
 
     private var popup = PopupViewController()
 
-    // MARK: - Private properties
-
-    private let viewModel = BlenderViewModel()
 
     // MARK: - Lifecycle
 

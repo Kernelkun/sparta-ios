@@ -105,6 +105,8 @@ class App {
     
     func logout() {
         try! keychain.reset() //swiftlint:disable:this force_try
+        sockets.disconnect(forced: true)
+        currentUser = nil
 
         delegate?.appFlowDidUpdate()
     }

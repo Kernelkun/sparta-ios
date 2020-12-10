@@ -6,5 +6,8 @@
 //
 
 import Foundation
+import NetworkingModels
 
-
+protocol NamedModel {
+    var name: String { get set }
+}
