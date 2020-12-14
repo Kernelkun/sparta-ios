@@ -14,7 +14,7 @@ protocol BlenderViewModelDelegate: class {
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool)
 }
 
-class BlenderViewModel {
+class BlenderViewModel: NSObject, BaseViewModel {
 
     enum Cell {
         case grade(title: String)

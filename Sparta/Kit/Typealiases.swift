@@ -6,5 +6,9 @@
 //
 
 import Foundation
+import NetworkingModels
 
-
+protocol PickerValued {
+    var title: String { get set }
+    var fullTitle: String { get set }
+}

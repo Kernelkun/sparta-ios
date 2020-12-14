@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BlenderViewController: UIViewController {
+class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
     // MARK: - UI
 
@@ -16,10 +16,6 @@ class BlenderViewController: UIViewController {
     private var tableView: UITableView!
 
     private var popup = PopupViewController()
-
-    // MARK: - Private properties
-
-    private let viewModel = BlenderViewModel()
 
     // MARK: - Lifecycle
 
@@ -65,7 +61,6 @@ class BlenderViewController: UIViewController {
             tableView.showsVerticalScrollIndicator = false
             tableView.showsHorizontalScrollIndicator = false
             tableView.automaticallyAdjustsScrollIndicatorInsets = false
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 0)
 
             tableView.register(BlenderInfoTableViewCell.self)
             tableView.register(BlenderGradeTableViewCell.self)
@@ -174,6 +169,10 @@ extension BlenderViewController: UICollectionViewDataSource, UICollectionViewDel
 
             cell.apply(infoModel: infoModel, isSeasonalityOn: viewModel.isSeasonalityOn, for: indexPath)
 
+            cell.onTap { [unowned self] indexPath in
+                self.collectionView(collectionView, didSelectItemAt: indexPath)
+            }
+
             return cell
         }
     }
@@ -245,6 +244,12 @@ extension BlenderViewController: BlenderViewModelDelegate {
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool) {
         updateGridHeight()
+
+        guard afterSeasonality else {
+            tableView.updateSections(insertions: insertions, removals: removals, updates: updates)
+            collectionView.updateSections(insertions: insertions, removals: removals, updates: updates)
+            return
+        }
 
         let updateGroup = DispatchGroup()
 

@@ -36,6 +36,7 @@ class LoginViewModel: NSObject, BaseViewModel {
     }
 
     private let authManager = AuthNetworkManager()
+    private let profileManager = ProfileNetworkManager()
 
     // MARK: - Private methods
 
@@ -55,11 +56,8 @@ class LoginViewModel: NSObject, BaseViewModel {
                 }
 
                 App.instance.saveLoginData(model)
+                strongSelf.fetchProfile()
 
-                onMainThread {
-                    strongSelf.isSending = false
-                    strongSelf.delegate?.didFinishSuccess()
-                }
 
             case .failure(let error):
 
@@ -72,6 +70,31 @@ class LoginViewModel: NSObject, BaseViewModel {
                 onMainThread {
                     strongSelf.isSending = false
                     strongSelf.delegate?.didCatchAnError(errorText)
+                }
+            }
+        }
+    }
+
+    private func fetchProfile() {
+
+        profileManager.fetchProfile { [weak self] result in
+            guard let strongSelf = self else { return }
+
+            switch result {
+            case .success(let responseModel) where responseModel.model != nil:
+
+                App.instance.saveUser(responseModel.model!) //swiftlint:disable:current force_unwrapping
+
+                onMainThread {
+                    strongSelf.isSending = false
+                    strongSelf.delegate?.didFinishSuccess()
+                }
+
+            case .failure, .success:
+
+                onMainThread {
+                    strongSelf.isSending = false
+                    strongSelf.delegate?.didCatchAnError("Can't fetch user profile. Please try again.")
                 }
             }
         }

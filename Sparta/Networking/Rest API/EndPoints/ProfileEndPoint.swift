@@ -12,6 +12,10 @@ import App
 
 enum ProfileEndPoint {
     case updateUser(id: Int, parameters: Parameters)
+    case getProfile
+    case getPhonePrefixes
+    case getPrimaryTradeAreas
+    case getUserRoles
 }
 
 extension ProfileEndPoint: EndPointType {
@@ -21,12 +25,17 @@ extension ProfileEndPoint: EndPointType {
     var path: String {
         switch self {
         case .updateUser(let id, _): return "/users/\(id)"
+        case .getPhonePrefixes: return "/mobile-prefixes"
+        case .getProfile: return "/users/me"
+        case .getPrimaryTradeAreas: return "/primary-trade-areas"
+        case .getUserRoles: return "/user-roles"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
         case .updateUser: return .put
+        case .getPhonePrefixes, .getProfile, .getPrimaryTradeAreas, .getUserRoles: return .get
         }
     }
 
@@ -36,9 +45,22 @@ extension ProfileEndPoint: EndPointType {
             return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: parameters,
-                                                additionHeaders: ["Authorization": "Bearer \(App.instance.token ?? "")"])
+                                                additionHeaders: headersWithToken())
+
+        case .getPrimaryTradeAreas, .getUserRoles, .getProfile, .getPhonePrefixes:
+            return .requestParametersAndHeaders(bodyParameters: nil,
+                                                bodyEncoding: .jsonEncoding,
+                                                urlParameters: nil,
+                                                additionHeaders: headersWithToken())
         }
     }
 
     var header: HTTPHeaders? { nil }
+}
+
+extension ProfileEndPoint {
+
+    func headersWithToken() -> HTTPHeaders {
+        return ["Authorization": "Bearer \(App.instance.token ?? "")"]
+    }
 }

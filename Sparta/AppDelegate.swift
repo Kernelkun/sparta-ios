@@ -6,9 +6,6 @@
 //
 
 import UIKit
-import SpartaHelpers
-import Networking
-import SwiftyJSON
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
