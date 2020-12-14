@@ -97,7 +97,7 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
             switch result {
             case .success(let response):
 
-                guard let model = response.model else {
+                guard response.model != nil else {
                     onMainThread {
                         strongSelf.isSending = false
                         strongSelf.delegate?.didCatchAnError("Can't parse response from server")
@@ -105,12 +105,7 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
                     return
                 }
 
-                App.instance.saveUser(model)
-
-                onMainThread {
-                    strongSelf.isSending = false
-                    strongSelf.delegate?.didFinishSuccess()
-                }
+                strongSelf.fetchProfile()
 
             case .failure(let error):
 
@@ -123,6 +118,30 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
                 onMainThread {
                     strongSelf.isSending = false
                     strongSelf.delegate?.didCatchAnError(errorText)
+                }
+            }
+        }
+    }
+
+    private func fetchProfile() {
+        profileManager.fetchProfile { [weak self] result in
+            guard let strongSelf = self else { return }
+
+            switch result {
+            case .success(let responseModel) where responseModel.model != nil:
+
+                App.instance.saveUser(responseModel.model!)
+
+                onMainThread {
+                    strongSelf.isSending = false
+                    strongSelf.delegate?.didFinishSuccess()
+                }
+
+            case .failure, .success:
+
+                onMainThread {
+                    strongSelf.isSending = false
+                    strongSelf.delegate?.didCatchAnError("Can't fetch user profile. Please try again.")
                 }
             }
         }
