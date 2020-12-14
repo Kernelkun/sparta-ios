@@ -130,7 +130,7 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
             switch result {
             case .success(let responseModel) where responseModel.model != nil:
 
-                App.instance.saveUser(responseModel.model!)
+                App.instance.saveUser(responseModel.model!) //swiftlint:disable:current force_unwrapping
 
                 onMainThread {
                     strongSelf.isSending = false

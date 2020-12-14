@@ -101,12 +101,11 @@ class App {
     // MARK: - Public methods
 
     func syncInitialData() {
-
         syncService.syncInitialData()
     }
 
     func appDidMakeAuthentication() {
-//        connectToSockets()
+        connectToSockets()
     }
 
     func saveLoginData(_ loginData: Login) {
@@ -130,7 +129,7 @@ class App {
 
     private func setupInternetConnectionEvents() {
 
-        reachability.whenReachable = { _ in
+        reachability.whenReachable = { [unowned self] _ in
             self.connectToSockets()
         }
 

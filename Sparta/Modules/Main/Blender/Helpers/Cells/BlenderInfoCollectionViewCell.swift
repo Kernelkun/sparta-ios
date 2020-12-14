@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class BlenderInfoCollectionViewCell: UICollectionViewCell {
 
@@ -15,12 +16,16 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
     private var descriptionLabel: UILabel!
     private var bottomLine: UIView!
 
+    private var _tapClosure: TypeClosure<IndexPath>?
+    private var indexPath: IndexPath!
+
     // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         setupUI()
+        setupActions()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,6 +35,8 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
     // MARK: - Public methods
 
     func apply(infoModel: BlenderMonthInfoModel, isSeasonalityOn: Bool, for indexPath: IndexPath) {
+        self.indexPath = indexPath
+
         titleLabel.text = infoModel.numberPoint.text.capitalized
         titleLabel.textColor = infoModel.numberPoint.textColor
 
@@ -54,6 +61,10 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    func onTap(completion: @escaping TypeClosure<IndexPath>) {
+        _tapClosure = completion
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
@@ -66,6 +77,7 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
             label.textAlignment = .center
             label.textColor = .white
             label.font = .main(weight: .regular, size: 14)
+            label.isUserInteractionEnabled = true
         }
 
         descriptionLabel = UILabel().then { label in
@@ -74,6 +86,7 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
             label.textColor = .white
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 3
+            label.isUserInteractionEnabled = true
         }
 
         _ = UIStackView().then { stackView in
@@ -101,5 +114,16 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
                 $0.left.right.bottom.equalToSuperview()
             }
         }
+    }
+
+    private func setupActions() {
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
+    }
+
+    // MARK: - Events
+
+    @objc
+    private func tapEvent() {
+        _tapClosure?(indexPath)
     }
 }

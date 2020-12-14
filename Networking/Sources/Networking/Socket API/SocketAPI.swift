@@ -120,7 +120,7 @@ public class SocketAPI: NSObject {
 
         //
 
-        print("***Websocket is trying to establish connection...***")
+        print("*Websocket: is trying to establish connection...***")
 
         state = .connecting
 
@@ -163,7 +163,7 @@ public class SocketAPI: NSObject {
 extension SocketAPI: WebSocketDelegate {
 
     public func websocketDidConnect(socket: WebSocketClient) {
-        print("***Websocket is connected!***")
+        print("*Websocket: is connected!***")
         state = .connected
         connectionDelegate?.socketConnectionEstablished()
 
@@ -174,7 +174,7 @@ extension SocketAPI: WebSocketDelegate {
     }
 
     public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("***Websocket is disconnected!***")
+        print("*Websocket: is disconnected!***")
         state = .disconnected
         connectionDelegate?.socketConnectionLost()
 
@@ -189,7 +189,7 @@ extension SocketAPI: WebSocketDelegate {
 
         let response = JSON(parseJSON: text)
 
-        print("*Websocket: Did receive some text: \(text)*")
+        print("*Websocket: Did receive some text*")
 
         //
         // Notify observers about happened event

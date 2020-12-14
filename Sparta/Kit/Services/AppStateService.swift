@@ -68,11 +68,11 @@ class AppStateService {
 
     @objc
     private func applicationDidEnterBackground(_ notification: Notification) {
-        isActiveApp = true
+        isActiveApp = false
     }
 
     @objc
     private func applicationWillEnterForeground(_ notification: Notification) {
-        isActiveApp = false
+        isActiveApp = true
     }
 }
