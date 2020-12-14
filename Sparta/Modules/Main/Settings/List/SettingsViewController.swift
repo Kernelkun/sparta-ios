@@ -42,28 +42,11 @@ class SettingsViewController: BaseVMViewController<SettingsViewModel> {
 
         view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
-        let logoutButton = TappableView().then { view in
+        let logoutButton = LineButtonView(title: "Logout").then { view in
 
-            _ = UILabel().then { label in
-
-                label.textAlignment = .left
-                label.textColor = .primaryText
-                label.numberOfLines = 1
-                label.font = .main(weight: .regular, size: 16)
-                label.text = "Logout"
-                label.isUserInteractionEnabled = true
-
-                view.addSubview(label) {
-                    $0.left.equalToSuperview().offset(16)
-                    $0.bottom.top.equalToSuperview().inset(11)
-                }
-            }
-
-            view.onTap { [unowned self] _ in
+            view.onTap { [unowned self] in
                 self.viewModel.logout()
             }
-
-            view.backgroundColor = UIColor.white.withAlphaComponent(0.04)
 
             addSubview(view) {
                 $0.left.right.equalToSuperview()

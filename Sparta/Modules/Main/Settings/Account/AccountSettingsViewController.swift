@@ -114,6 +114,20 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         setupPortViews(in: scrollViewContent)
 
+        // change password view
+
+        let changePasswordView = LineButtonView(title: "Change Password").then { view in
+
+            view.onTap { [unowned self] in
+                self.navigationController?.pushViewController(ChangePasswordViewController(), animated: true)
+            }
+
+            addSubview(view) {
+                $0.top.equalTo(portLabel.snp.bottom).offset(42)
+                $0.left.right.equalToSuperview()
+            }
+        }
+
         // save button
 
         saveButton = BorderedButton(type: .system).then { button in
@@ -126,7 +140,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
             }
 
             scrollViewContent.addSubview(button) {
-                $0.top.equalTo(portLabel.snp.bottom).offset(12)
+                $0.top.equalTo(changePasswordView.snp.bottom).offset(12)
                 $0.size.equalTo(CGSize(width: 99, height: 32))
                 $0.right.equalTo(portField)
                 $0.bottom.equalToSuperview().inset(15)

@@ -90,6 +90,7 @@
 		D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */; };
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
+		D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D170D32587880F0059A1F1 /* LineButtonView.swift */; };
 		D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */; };
 		D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */; };
 		D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */; };
@@ -192,6 +193,7 @@
 		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
 		D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../../../CryptyTalk/BaseViewController.swift; sourceTree = "<group>"; };
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		D9D170D32587880F0059A1F1 /* LineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineButtonView.swift; sourceTree = "<group>"; };
 		D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderSyncManager.swift; sourceTree = "<group>"; };
 		D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthDetailModel.swift; sourceTree = "<group>"; };
 		D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 		D959C0F425822F85006CE2D1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D9D170D2258788060059A1F1 /* Views */,
 				D959C10425824ED7006CE2D1 /* Account */,
 				D959C10325824ED0006CE2D1 /* List */,
 			);
@@ -651,6 +654,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		D9D170D2258788060059A1F1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9D170D32587880F0059A1F1 /* LineButtonView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D9ECEC39257A9A6D005DFFD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -847,6 +858,7 @@
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
+				D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
 				D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */,
