@@ -8,6 +8,7 @@
 import Foundation
 import NetworkingModels
 
-protocol NamedModel {
-    var name: String { get set }
+protocol PickerValued {
+    var title: String { get set }
+    var fullTitle: String { get set }
 }

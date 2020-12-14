@@ -14,13 +14,49 @@ class ProfileNetworkManager: BaseNetworkManager {
 
     // MARK: - Variables private
 
-    private  let router = NetworkRouter<ProfileEndPoint>()
+    private let router = NetworkRouter<ProfileEndPoint>()
 
     // MARK: - Public methods
+
+    func fetchProfile(completion: @escaping TypeClosure<Swift.Result<ResponseModel<User>, SpartaError>>) {
+
+        router.request(.getProfile) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
 
     func updateUser(id: Int, parameters: Parameters, completion: @escaping TypeClosure<Swift.Result<ResponseModel<User>, SpartaError>>) {
 
         router.request(.updateUser(id: id, parameters: parameters)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func fetchPhonePrefixes(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<PhonePrefix>>, SpartaError>>) {
+
+        router.request(.getPhonePrefixes) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func fetchPrimaryTradeAreas(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<TradeArea>>, SpartaError>>) {
+
+        router.request(.getPrimaryTradeAreas) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func fetchUserRoles(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<UserRole>>, SpartaError>>) {
+
+        router.request(.getUserRoles) { [weak self] data, response, error in
             guard let strongSelf = self else { return }
 
             completion(strongSelf.handleResult(data: data, response: response, error: error))

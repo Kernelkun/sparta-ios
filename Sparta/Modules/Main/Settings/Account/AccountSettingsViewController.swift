@@ -19,20 +19,20 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
     private var lastNameField: RoundedTextField!
     private var lastNameLabel: UILabel!
 
-    private var phoneNumberCodeField: UITextFieldSelector<TestModel>!
+    private var phoneNumberCodeField: UITextFieldSelector<CountryCodeModel>!
     private var phoneNumberField: RoundedTextField!
     private var phoneNumberLabel: UILabel!
 
-    private var roleField: UITextFieldSelector<TestModel>!
+    private var roleField: UITextFieldSelector<PickerIdValued>!
     private var roleLabel: UILabel!
 
-    private var productField: UITextFieldSelector<TestModel>!
+    private var productField: UITextFieldSelector<PickerIdValued>!
     private var productLabel: UILabel!
 
-    private var tradeAreaField: UITextFieldSelector<TestModel>!
+    private var tradeAreaField: UITextFieldSelector<PickerIdValued>!
     private var tradeAreaLabel: UILabel!
 
-    private var portField: UITextFieldSelector<TestModel>!
+    private var portField: UITextFieldSelector<PickerIdValued>!
     private var portLabel: UILabel!
 
     private var saveButton: BorderedButton!
@@ -122,8 +122,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
             button.layer.cornerRadius = 3
 
             button.onTap { [unowned self] _ in
-//                self.viewModel.userTappedLogin()
-//                self.view.endEditing(true)
+                self.viewModel.saveData()
             }
 
             scrollViewContent.addSubview(button) {
@@ -148,7 +147,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
             field.placeholder = "First Name"
 
             field.onTextChanged { [unowned self] text in
-//                self.viewModel.oldPasswordText = text
+                self.viewModel.selectedFirstName = text
             }
 
             contentView.addSubview(field) {
@@ -180,7 +179,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
             field.placeholder = "Last Name"
 
             field.onTextChanged { [unowned self] text in
-//                self.viewModel.oldPasswordText = text
+                self.viewModel.selectedLastName = text
             }
 
             contentView.addSubview(field) {
@@ -208,8 +207,12 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         phoneNumberCodeField = UITextFieldSelector().then { view in
 
+            view.onChooseValue { [unowned self] selectedValue in
+                self.viewModel.selectedCountryCode = selectedValue
+            }
+
             contentView.addSubview(view) {
-                $0.size.equalTo(CGSize(width: 90, height: 48))
+                $0.size.equalTo(CGSize(width: 95, height: 48))
                 $0.top.equalTo(lastNameLabel.snp.bottom).offset(14)
                 $0.left.equalTo(lastNameField)
             }
@@ -220,9 +223,10 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
             field.placeholder = "Mobile Number"
+            field.textField.keyboardType = .phonePad
 
             field.onTextChanged { [unowned self] text in
-//                self.viewModel.oldPasswordText = text
+                self.viewModel.selectedPhoneNumber = text
             }
 
             contentView.addSubview(field) {
@@ -251,6 +255,11 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         roleField = UITextFieldSelector().then { view in
 
+            view.onChooseValue { [unowned self] value in
+                self.viewModel.selectedUserRole = value
+                self.viewModel.reloadTradesOptions()
+            }
+
             contentView.addSubview(view) {
                 $0.top.equalTo(phoneNumberLabel.snp.bottom).offset(42)
                 $0.left.right.equalToSuperview().inset(24)
@@ -275,6 +284,11 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
     private func setupProductViews(in contentView: UIView) {
 
         productField = UITextFieldSelector().then { view in
+
+            view.onChooseValue { [unowned self] value in
+                self.viewModel.selectedPrimaryProduct = value
+                self.viewModel.reloadTradesOptions()
+            }
 
             contentView.addSubview(view) {
                 $0.top.equalTo(roleLabel.snp.bottom).offset(14)
@@ -301,6 +315,11 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         tradeAreaField = UITextFieldSelector().then { view in
 
+            view.onChooseValue { [unowned self] value in
+                self.viewModel.selectedTradeArea = value
+                self.viewModel.reloadTradesOptions()
+            }
+
             contentView.addSubview(view) {
                 $0.top.equalTo(productLabel.snp.bottom).offset(14)
                 $0.left.right.equalToSuperview().inset(24)
@@ -325,6 +344,11 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
     private func setupPortViews(in contentView: UIView) {
 
         portField = UITextFieldSelector().then { view in
+
+            view.onChooseValue { [unowned self] value in
+                self.viewModel.selectedPort = value
+                self.viewModel.reloadTradesOptions()
+            }
 
             contentView.addSubview(view) {
                 $0.top.equalTo(tradeAreaLabel.snp.bottom).offset(14)
@@ -351,6 +375,49 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 extension AccountSettingsViewController: AccountSettingsViewModelDelegate {
 
     func didLoadData() {
+
+        // first/last names
+
+        firstNameField.textField.initialText = viewModel.selectedFirstName
+        lastNameField.textField.initialText = viewModel.selectedLastName
+
+        // phone number fields
+
         phoneNumberCodeField.inputValues = viewModel.countriesCodes
+        phoneNumberCodeField.apply(selectedValue: viewModel.selectedCountryCode, placeholder: "+ 00")
+
+        phoneNumberField.textField.initialText = viewModel.selectedPhoneNumber
+    }
+
+    func didReloadTradeOptions() {
+
+        // role fields
+
+        roleField.inputValues = viewModel.userRoles
+        roleField.apply(selectedValue: viewModel.selectedUserRole, placeholder: "Role")
+
+        // primary products
+
+        productField.inputValues = viewModel.products
+        productField.apply(selectedValue: viewModel.selectedPrimaryProduct, placeholder: "Primary Product")
+
+        // trade area
+
+        tradeAreaField.inputValues = viewModel.tradeAreas
+        tradeAreaField.apply(selectedValue: viewModel.selectedTradeArea, placeholder: "Primary Trade Area")
+
+        // ports
+
+        portField.inputValues = viewModel.ports
+        portField.apply(selectedValue: viewModel.selectedPort, placeholder: "Primary Port")
+    }
+
+    func didCatchAnError(_ error: String) {
+        Alert.showOk(title: "Error", message: error, show: self, completion: nil)
+    }
+
+    func didChangeSendingState(_ isSending: Bool) {
+        saveButton.isEnabled = !isSending
+        saveButton.setIsLoading(isSending, animated: true)
     }
 }

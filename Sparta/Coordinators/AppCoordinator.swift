@@ -79,8 +79,15 @@ class AppCoordinator {
             return
         }
 
+        guard app.isInitialDataSynced else {
+            blurCoordinator.start(forced: true, status: "Syncing initial data")
+            app.syncInitialData()
+            return
+        }
+
         app.appDidMakeAuthentication()
 
+        blurCoordinator.finish(forced: true)
         mainFlowCoordinator.start()
     }
 

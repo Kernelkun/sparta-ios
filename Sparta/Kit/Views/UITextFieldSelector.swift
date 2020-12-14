@@ -8,11 +8,16 @@
 import UIKit
 import SpartaHelpers
 
-class UITextFieldSelector<M: NamedModel>: RoundedTextField, UIPickerViewDelegate, UIPickerViewDataSource {
+class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Public properties
 
     var inputValues: [M] = []
+    var selectedValue: M? {
+        didSet {
+            textField.text = selectedValue?.title
+        }
+    }
 
     // MARK: - UI
 
@@ -38,6 +43,11 @@ class UITextFieldSelector<M: NamedModel>: RoundedTextField, UIPickerViewDelegate
     }
 
     // MARK: - Public methods
+
+    func apply(selectedValue: M?, placeholder: String) {
+        textField.placeholder = placeholder
+        self.selectedValue = selectedValue
+    }
 
     func onTap(completion: @escaping EmptyClosure) {
         _onTapClosure = completion
@@ -73,6 +83,7 @@ class UITextFieldSelector<M: NamedModel>: RoundedTextField, UIPickerViewDelegate
         }
 
         // main text field
+
         let rightViewWithSpace = UIView(frame: CGRect(x: 0, y: 0, width: 43, height: frame.height))
 
         _ = UIImageView().then { v in
@@ -93,8 +104,6 @@ class UITextFieldSelector<M: NamedModel>: RoundedTextField, UIPickerViewDelegate
         textField.rightView = rightViewWithSpace
         textField.rightViewMode = .always
 
-        placeholder = "+ 44"
-
         // picker view
 
         setupPickerView()
@@ -113,9 +122,17 @@ class UITextFieldSelector<M: NamedModel>: RoundedTextField, UIPickerViewDelegate
                 toolBar.tintColor = .controlTintActive
                 toolBar.sizeToFit()
 
-                let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(toolBarDoneEvent))
+                let doneButton = UIBarButtonItem(title: "Done",
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(toolBarDoneEvent))
+
                 let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-                let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(toolBarCancelEvent))
+
+                let cancelButton = UIBarButtonItem(title: "Cancel",
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(toolBarCancelEvent))
 
                 toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
                 toolBar.isUserInteractionEnabled = true
@@ -136,6 +153,14 @@ class UITextFieldSelector<M: NamedModel>: RoundedTextField, UIPickerViewDelegate
 
     @objc
     func toolBarDoneEvent() {
+        let selectedRow = pickerView.selectedRow(inComponent: 0)
+
+        if inputValues.count > selectedRow {
+            let selectedValue = inputValues[selectedRow]
+            self.selectedValue = selectedValue
+            _onChooseClosure?(selectedValue)
+        }
+
         privateTextField.endEditing(true)
     }
 
@@ -155,6 +180,6 @@ class UITextFieldSelector<M: NamedModel>: RoundedTextField, UIPickerViewDelegate
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        inputValues[row].name
+        inputValues[row].fullTitle
     }
 }

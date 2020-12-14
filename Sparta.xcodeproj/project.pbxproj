@@ -43,6 +43,8 @@
 		D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */; };
 		D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BEF2576651C0038175A /* BaseNetworkManager.swift */; };
 		D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BF4257665220038175A /* AuthEndPoint.swift */; };
+		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
+		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D9811ED0257E7972001C8F5D /* BlenderMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9811ECF257E7972001C8F5D /* BlenderMonthInfoModel.swift */; };
 		D99B2F3425753ADF0080B90B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3325753ADF0080B90B /* Validator.swift */; };
 		D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3725753B0C0080B90B /* EmailValidator.swift */; };
@@ -146,6 +148,8 @@
 		D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
 		D96C8BEF2576651C0038175A /* BaseNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNetworkManager.swift; sourceTree = "<group>"; };
 		D96C8BF4257665220038175A /* AuthEndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthEndPoint.swift; sourceTree = "<group>"; };
+		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
+		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D9811ECF257E7972001C8F5D /* BlenderMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthInfoModel.swift; sourceTree = "<group>"; };
 		D99B2F3325753ADF0080B90B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D99B2F3725753B0C0080B90B /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
@@ -412,6 +416,15 @@
 			path = EndPoints;
 			sourceTree = "<group>";
 		};
+		D97895E0258377D1009E4A56 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D97895E12583785B009E4A56 /* CountryCodeModel.swift */,
+				D97895E32583B800009E4A56 /* PickerIdValued.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D99B2F3225753AC20080B90B /* Validators */ = {
 			isa = PBXGroup;
 			children = (
@@ -612,6 +625,7 @@
 				D9A8044E257147D8000ADE6B /* Factories */,
 				D9B50DFC25717F180018F3D7 /* Services */,
 				D99B2F3225753AC20080B90B /* Validators */,
+				D97895E0258377D1009E4A56 /* Models */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -820,6 +834,7 @@
 				D9A8042225714420000ADE6B /* Alert.swift in Sources */,
 				D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */,
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
+				D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */,
 				D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */,
 				D9A80432257145B4000ADE6B /* TappableButton.swift in Sources */,
 				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
@@ -831,6 +846,7 @@
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
+				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
 				D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */,

@@ -54,11 +54,17 @@ class App {
     }
 
     // can be changed just via current class
+
     var isTokenSentToServer: Bool = false
 
     // app able to check just after success session start
+
     var isAccountConfirmed: Bool {
         currentUser?.isConfirmed ?? false
+    }
+
+    var isInitialDataSynced: Bool {
+        syncService.isInitialDataSynced
     }
 
     private(set) var currentUser: User?
@@ -93,7 +99,16 @@ class App {
     }
     
     // MARK: - Public methods
-    
+
+    func syncInitialData() {
+
+        syncService.syncInitialData()
+    }
+
+    func appDidMakeAuthentication() {
+//        connectToSockets()
+    }
+
     func saveLoginData(_ loginData: Login) {
         self.currentUser = loginData.user
         try? keychain.save(loginData.jwt, as: .accessToken, to: .userData)
@@ -134,8 +149,13 @@ class App {
 
 extension App: SyncServiceDelegate {
 
-    func appDidMakeAuthentication() {
-        connectToSockets()
+    func syncServiceDidFinishSyncInitialData() {
+
+        if let currentUser = syncService.currentUser {
+            saveUser(currentUser)
+        }
+
+        delegate?.appFlowDidUpdate()
     }
 }
 
