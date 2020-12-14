@@ -189,7 +189,7 @@ extension SocketAPI: WebSocketDelegate {
 
         let response = JSON(parseJSON: text)
 
-        print("*Websocket: Did receive some text*")
+        print("*Websocket: Did receive some \(text)*")
 
         //
         // Notify observers about happened event

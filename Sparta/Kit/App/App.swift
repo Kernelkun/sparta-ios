@@ -87,7 +87,7 @@ class App {
         reachability = try! Reachability() // swiftlint:disable:this force_try
         try! reachability.startNotifier() // swiftlint:disable:this force_try
 
-        sockets = SocketAPI(defaultServer: .blender)
+        sockets = SocketAPI(defaultServer: .liveCurves)
         sockets.connectionDelegate = self
 
         syncService.delegate = self
@@ -142,7 +142,7 @@ class App {
     private func connectToSockets() {
         guard isSignedIn else { return }
 
-        socketsConnect(toServer: .blender)
+        socketsConnect(toServer: .liveCurves)
     }
 }
 

@@ -13,6 +13,7 @@ public extension SocketAPI {
     enum Server: String, CaseIterable {
 
         case blender
+        case liveCurves
     }
 }
 
@@ -22,6 +23,8 @@ extension SocketAPI.Server {
         switch self {
         case .blender:
             return Environment.socketBlenderURL.forcedURL
+        case .liveCurves:
+            return Environment.socketLiveCurvesURL.forcedURL
         }
     }
 
