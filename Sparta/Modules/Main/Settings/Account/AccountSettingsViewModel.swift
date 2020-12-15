@@ -15,7 +15,7 @@ protocol AccountSettingsViewModelDelegate: class {
     func didLoadData()
     func didReloadTradeOptions()
     func didCatchAnError(_ error: String)
-    func didChangeSendingState(_ isSending: Bool)
+    func didChangeSendingState(_ isSending: Bool, for state: AccountSettingsViewModel.LoadingState)
 }
 
 class AccountSettingsViewModel: NSObject, BaseViewModel {
@@ -48,14 +48,6 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
     //
     // MARK: - Private properties
 
-    private var isSending: Bool = false {
-        didSet {
-            onMainThread {
-                self.delegate?.didChangeSendingState(self.isSending)
-            }
-        }
-    }
-
     private let app = App.instance
     private let phoneNumberKit = PhoneNumberKit()
     private let profileNetworkManager = ProfileNetworkManager()
@@ -75,6 +67,147 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
     // MARK: - Public methods
 
     func loadData() {
+        changeLoadingState(true, for: .load)
+
+        profileNetworkManager.fetchProfile { [weak self] result in
+            guard let strongSelf = self else { return }
+
+            strongSelf.changeLoadingState(false, for: .load)
+
+            switch result {
+            case .success(let responseModel) where responseModel.model != nil:
+
+                App.instance.saveUser(responseModel.model!) //swiftlint:disable:this force_unwrapping
+
+            case .failure, .success:
+                break
+            }
+
+            strongSelf.handleCurrentUserData()
+        }
+    }
+
+    func reloadTradesOptions() {
+
+        // setup new product array based on choosed user role
+
+        if let selectedUserRole = selectedUserRole,
+           let selectedRole = _userRoles.first(where: { $0.id == selectedUserRole.id } ) {
+
+            products = selectedRole.primaryProducts.compactMap { PickerIdValued(id: $0.id, title: $0.name, fullTitle: $0.name) }
+        } else {
+            products = []
+        }
+
+        // setup new ports array based on choosed trade area
+
+        if let selectedTradeArea = selectedTradeArea,
+           let selectedArea = _tradeAreas.first(where: { $0.id == selectedTradeArea.id } ) {
+
+            ports = selectedArea.primaryPorts.compactMap { PickerIdValued(id: $0.id, title: $0.name, fullTitle: $0.name) }
+        } else {
+            ports = []
+        }
+
+        // clean product if needed
+
+        if let selectedPrimaryProduct = selectedPrimaryProduct, !products.contains(selectedPrimaryProduct) {
+            self.selectedPrimaryProduct = nil
+        }
+
+        // clear port if needed
+
+        if let selectedPort = selectedPort, !ports.contains(selectedPort) {
+            self.selectedPort = nil
+        }
+
+        // reload data
+
+        onMainThread {
+            self.delegate?.didReloadTradeOptions()
+        }
+    }
+
+    func saveData() {
+
+        guard let userId = app.currentUser?.id else {
+            delegate?.didCatchAnError("Ups, Something wrong happened. User not found.")
+            return
+        }
+
+        guard let selectedCountryCode = selectedCountryCode else {
+            delegate?.didCatchAnError("Select please phone country code")
+            return
+        }
+
+        guard let selectedPhoneNumber = selectedPhoneNumber else {
+            delegate?.didCatchAnError("Enter please phone number")
+            return
+        }
+
+        guard let selectedUserRole = selectedUserRole else {
+            delegate?.didCatchAnError("Select please user role")
+            return
+        }
+
+        var parameters: Parameters = [:]
+
+        parameters["mobile_prefix"] = selectedCountryCode.id
+        parameters["mobile_number"] = selectedPhoneNumber
+        parameters["user_role"] = selectedUserRole.id
+
+        if let selectedPrimaryProduct = selectedPrimaryProduct {
+            parameters["primary_product"] = selectedPrimaryProduct.id
+        }
+
+        if let selectedTradeArea = selectedTradeArea {
+            parameters["primary_trade_region"] = selectedTradeArea.id
+        }
+
+        if let selectedPort = selectedPort {
+            parameters["primary_port"] = selectedPort.id
+        }
+
+        changeLoadingState(true, for: .save)
+
+        profileNetworkManager.updateUser(id: userId, parameters: parameters) { [weak self] result in
+            guard let strongSelf = self else { return }
+
+            strongSelf.changeLoadingState(false, for: .save)
+
+            switch result {
+            case .success(let responseModel) where responseModel.model != nil:
+
+                break
+
+            case .failure, .success:
+                onMainThread {
+                    strongSelf.delegate?.didCatchAnError("Ups, Something wrong happened with saving data.")
+                }
+            }
+        }
+    }
+
+    // MARK: - Private methods
+
+    private func changeLoadingState(_ isLoading: Bool, for state: AccountSettingsViewModel.LoadingState) {
+        onMainThread {
+            self.delegate?.didChangeSendingState(isLoading, for: state)
+        }
+    }
+
+    private func createCountryCodeModel(from phonePrefix: PhonePrefix) -> CountryCodeModel {
+        let code = phonePrefix.prefix
+        let name = phonePrefix.name.capitalized
+        let fullTitle = name + " " + code
+        return CountryCodeModel(id: phonePrefix.id,
+                                title: code,
+                                fullTitle: fullTitle,
+                                name: name,
+                                code: code)
+    }
+
+    private func handleCurrentUserData() {
 
         let user = App.instance.currentUser
 
@@ -133,118 +266,9 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
         // reload data
 
         reloadTradesOptions()
-        delegate?.didLoadData()
-    }
 
-    func reloadTradesOptions() {
-
-        // setup new product array based on choosed user role
-
-        if let selectedUserRole = selectedUserRole,
-           let selectedRole = _userRoles.first(where: { $0.id == selectedUserRole.id } ) {
-
-            products = selectedRole.primaryProducts.compactMap { PickerIdValued(id: $0.id, title: $0.name, fullTitle: $0.name) }
-        } else {
-            products = []
+        onMainThread {
+            self.delegate?.didLoadData()
         }
-
-        // setup new ports array based on choosed trade area
-
-        if let selectedTradeArea = selectedTradeArea,
-           let selectedArea = _tradeAreas.first(where: { $0.id == selectedTradeArea.id } ) {
-
-            ports = selectedArea.primaryPorts.compactMap { PickerIdValued(id: $0.id, title: $0.name, fullTitle: $0.name) }
-        } else {
-            ports = []
-        }
-
-        // clean product if needed
-
-        if let selectedPrimaryProduct = selectedPrimaryProduct, !products.contains(selectedPrimaryProduct) {
-            self.selectedPrimaryProduct = nil
-        }
-
-        // clear port if needed
-
-        if let selectedPort = selectedPort, !ports.contains(selectedPort) {
-            self.selectedPort = nil
-        }
-
-        // reload data
-
-        delegate?.didReloadTradeOptions()
-    }
-
-    func saveData() {
-
-        guard let userId = app.currentUser?.id else {
-            delegate?.didCatchAnError("Ups, Something wrong happened. User not found.")
-            return
-        }
-
-        guard let selectedCountryCode = selectedCountryCode else {
-            delegate?.didCatchAnError("Select please phone country code")
-            return
-        }
-
-        guard let selectedPhoneNumber = selectedPhoneNumber else {
-            delegate?.didCatchAnError("Enter please phone number")
-            return
-        }
-
-        guard let selectedUserRole = selectedUserRole else {
-            delegate?.didCatchAnError("Select please user role")
-            return
-        }
-
-        var parameters: Parameters = [:]
-
-        parameters["mobile_prefix"] = selectedCountryCode.id
-        parameters["mobile_number"] = selectedPhoneNumber
-        parameters["user_role"] = selectedUserRole.id
-
-        if let selectedPrimaryProduct = selectedPrimaryProduct {
-            parameters["primary_product"] = selectedPrimaryProduct.id
-        }
-
-        if let selectedTradeArea = selectedTradeArea {
-            parameters["primary_trade_region"] = selectedTradeArea.id
-        }
-
-        if let selectedPort = selectedPort {
-            parameters["primary_port"] = selectedPort.id
-        }
-
-        isSending = true
-
-        profileNetworkManager.updateUser(id: userId, parameters: parameters) { [weak self] result in
-            guard let strongSelf = self else { return }
-
-            strongSelf.isSending = false
-
-            switch result {
-            case .success(let responseModel) where responseModel.model != nil:
-
-                break
-
-            case .failure, .success:
-                onMainThread {
-                    strongSelf.delegate?.didCatchAnError("Ups, Something wrong happened with saving data.")
-                }
-            }
-        }
-    }
-
-    // MARK: - Private methods
-
-    private func createCountryCodeModel(from phonePrefix: PhonePrefix) -> CountryCodeModel {
-        let code = phonePrefix.prefix
-        let name = phonePrefix.name.capitalized
-        let fullTitle = name + " " + code
-        return CountryCodeModel(id: phonePrefix.id,
-                                title: code,
-                                fullTitle: fullTitle,
-                                name: name,
-                                code: code)
     }
 }

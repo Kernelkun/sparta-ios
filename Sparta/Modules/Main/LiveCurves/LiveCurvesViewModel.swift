@@ -20,9 +20,27 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
     // MARK: - Private properties
 
+    private let liveCurvesSyncManager = App.instance.liveCurvesSyncManager
 
     // MARK: - Public methods
 
     func loadData() {
+        liveCurvesSyncManager.delegate = self
+        liveCurvesSyncManager.loadData()
+    }
+}
+
+extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
+
+    func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve]) {
+
+    }
+
+    func liveCurvesSyncManagerDidReceive(liveCurves: LiveCurve) {
+
+    }
+
+    func liveCurvesSyncManagerDidReceiveUpdates(for liveCurves: LiveCurve) {
+
     }
 }

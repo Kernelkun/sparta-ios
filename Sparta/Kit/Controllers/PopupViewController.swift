@@ -21,6 +21,8 @@ class PopupViewController: UIViewController {
     var contentView: UIView?
     var backgroundContentView: UIView?
 
+    var hideByTap: Bool = true
+
     // MARK: - Initializers
 
     init() {
@@ -60,10 +62,20 @@ class PopupViewController: UIViewController {
         backgroundContentView = UIView().then { view in
 
             view.backgroundColor = UIColor.black.withAlphaComponent(backgroundAlpha)
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapEvent)))
 
             addSubview(view) {
                 $0.edges.equalToSuperview()
             }
         }
+    }
+
+    // MARK: - Events
+
+    @objc
+    private func backgroundTapEvent() {
+        guard hideByTap else { return }
+
+        hide()
     }
 }

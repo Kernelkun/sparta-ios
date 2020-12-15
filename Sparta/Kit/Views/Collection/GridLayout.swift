@@ -32,7 +32,7 @@ class GridLayout: UICollectionViewLayout {
         let newRect = rect.intersection(CGRect(x: 0, y: 0, width: totalWidth, height: totalHeight))
 
         var poses = [UICollectionViewLayoutAttributes]()
-        let rows: Range<Int> = 0..<cellHeights.count //rowsOverlapping(newRect)
+        let rows: Range<Int> = 0..<cellHeights.count
         let columns = columnsOverlapping(newRect)
         for row in rows {
             for column in columns {
@@ -100,7 +100,6 @@ class GridLayout: UICollectionViewLayout {
 
     private var cellSpansWidth: [CellSpanWidth] { return cache.cellSpansWidth }
     private var cellSpansHeight: [CellSpanHeight] { return cache.cellSpansHeight }
-
 
     private func invalidateCache() {
         _cache = nil

@@ -13,6 +13,7 @@ public struct LiveCurve: BackendModel {
     //
     // MARK: - Public properties
 
+    public let date: String
     public let monthCode: String
     public let monthDisplay: String
     public let priceCode: String
@@ -25,26 +26,36 @@ public struct LiveCurve: BackendModel {
     public init(json: JSON) {
         let responseArray = json.stringValue.components(separatedBy: ",")
 
-        monthCode = ""
-        monthDisplay = ""
-        priceCode = ""
-        priceValue = 0.0
         inputs = [:]
 
         if responseArray.count > 0 {
-            monthCode = responseArray[0] as? String ?? ""
+            date = responseArray[0] as String
+        } else {
+            date = ""
         }
 
-        if responseArray.count >= 1 {
-            monthDisplay = responseArray[1] as? String ?? ""
+        if responseArray.count > 1 {
+            monthCode = responseArray[1] as String
+        } else {
+            monthCode = ""
         }
 
         if responseArray.count >= 2 {
-            priceCode = responseArray[2] as? String ?? ""
+            monthDisplay = responseArray[2] as String
+        } else {
+            monthDisplay = ""
         }
 
         if responseArray.count >= 3 {
-            priceValue = responseArray[3] as? Double ?? 0.0
+            priceCode = responseArray[3] as String
+        } else {
+            priceCode = ""
+        }
+
+        if responseArray.count >= 4 {
+            priceValue = Double(responseArray[4]) ?? 0.0
+        } else {
+            priceValue = 0.0
         }
     }
 }

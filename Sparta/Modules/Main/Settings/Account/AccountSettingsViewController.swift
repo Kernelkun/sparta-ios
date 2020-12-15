@@ -48,14 +48,17 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         setupUI()
         setupNavigationUI()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
 
         // view model
 
         viewModel.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // view model
+
         viewModel.loadData()
     }
 
@@ -430,8 +433,16 @@ extension AccountSettingsViewController: AccountSettingsViewModelDelegate {
         Alert.showOk(title: "Error", message: error, show: self, completion: nil)
     }
 
-    func didChangeSendingState(_ isSending: Bool) {
-        saveButton.isEnabled = !isSending
-        saveButton.setIsLoading(isSending, animated: true)
+    func didChangeSendingState(_ isSending: Bool, for state: AccountSettingsViewModel.LoadingState) {
+        switch state {
+        case .save:
+
+            saveButton.isEnabled = !isSending
+            saveButton.setIsLoading(isSending, animated: true)
+
+        case .load:
+
+            loadingView(isAnimating: isSending)
+        }
     }
 }

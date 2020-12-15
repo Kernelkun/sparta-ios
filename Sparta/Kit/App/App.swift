@@ -29,6 +29,7 @@ class App {
     // sockets managers
 
     let blenderSyncManager: BlenderSyncManager
+    let liveCurvesSyncManager: LiveCurvesSyncManager
     let sockets: SocketAPI
     
     weak var delegate: AppFlowDelegate?
@@ -82,12 +83,13 @@ class App {
     init() {
 
         blenderSyncManager = BlenderSyncManager()
+        liveCurvesSyncManager = LiveCurvesSyncManager()
         stateService = AppStateService()
 
         reachability = try! Reachability() // swiftlint:disable:this force_try
         try! reachability.startNotifier() // swiftlint:disable:this force_try
 
-        sockets = SocketAPI(defaultServer: .liveCurves)
+        sockets = SocketAPI(defaultServer: .blender)
         sockets.connectionDelegate = self
 
         syncService.delegate = self
@@ -142,7 +144,7 @@ class App {
     private func connectToSockets() {
         guard isSignedIn else { return }
 
-        socketsConnect(toServer: .liveCurves)
+        socketsConnect(toServer: .blender)
     }
 }
 

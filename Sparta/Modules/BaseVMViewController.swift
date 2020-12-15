@@ -15,9 +15,13 @@ protocol BaseViewModel: class {
 
 class BaseVMViewController<Model: NSObject & BaseViewModel>: BaseViewController, UIGestureRecognizerDelegate {
 
+    // MARK: - Public properties
+
     private(set) var viewModel: Model! {
         didSet { viewModel.delegate = self as? Model.Controller }
     }
+
+    var loadingView = LoadingView()
 
     // MARK: - Initializers
 
@@ -54,11 +58,33 @@ class BaseVMViewController<Model: NSObject & BaseViewModel>: BaseViewController,
         view.addGestureRecognizer(tapRecognizer)
     }
 
+    // MARK: - Public methods
+
+    func loadingView(isAnimating: Bool) {
+
+        if isAnimating {
+
+            loadingView.alpha = 0
+            view.addSubview(loadingView) {
+                $0.edges.equalToSuperview()
+            }
+
+            UIView.animate(withDuration: 0.2) {
+                self.loadingView.alpha = 1.0
+            }
+        } else {
+
+            UIView.animate(withDuration: 0.2) {
+                self.loadingView.alpha = 0.0
+            } completion: { _ in
+                self.loadingView.removeFromSuperview()
+            }
+        }
+    }
+
     // MARK: - Keyboard Management
 
-    func shouldEndEditingByTap() -> Bool {
-        true
-    }
+    func shouldEndEditingByTap() -> Bool { true }
 
     @objc
     private func endEditing() {
