@@ -12,8 +12,8 @@ import NetworkingModels
 
 protocol LiveCurvesSyncManagerDelegate: class {
     func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve])
-    func liveCurvesSyncManagerDidReceive(liveCurves: LiveCurve)
-    func liveCurvesSyncManagerDidReceiveUpdates(for liveCurves: LiveCurve)
+    func liveCurvesSyncManagerDidReceive(liveCurve: LiveCurve)
+    func liveCurvesSyncManagerDidReceiveUpdates(for liveCurve: LiveCurve)
 }
 
 class LiveCurvesSyncManager {
@@ -38,11 +38,9 @@ class LiveCurvesSyncManager {
 
     // MARK: - Public methods
 
-    func startSilentLoading() {
+    func startReceivingData() {
 
-    }
-
-    func loadData() {
+        App.instance.socketsConnect(toServer: .liveCurves)
 
         if !_liveCurves.isEmpty {
             let liveCurves = Array(_liveCurves)
@@ -60,20 +58,20 @@ extension LiveCurvesSyncManager: SocketActionObserver {
 
         let liveCurve = LiveCurve(json: data)
 
-        print(liveCurve)
-
-        /*if !_blenders.contains(blender) {
-            _blenders.append(blender)
+        if !_liveCurves.contains(liveCurve) {
+            _liveCurves.append(liveCurve)
 
             onMainThread {
-                self.delegate?.blenderSyncManagerDidReceive(blender: blender)
+                self.delegate?.liveCurvesSyncManagerDidReceive(liveCurve: liveCurve)
             }
-        } else if let blenderIndex = _blenders.firstIndex(of: blender) {
-            _blenders[blenderIndex] = blender
+        } else if let liveCurveIndex = _liveCurves.firstIndex(of: liveCurve) {
+            _liveCurves[liveCurveIndex] = liveCurve
 
             onMainThread {
-                self.delegate?.blenderSyncManagerDidReceiveUpdates(for: blender)
+                self.delegate?.liveCurvesSyncManagerDidReceiveUpdates(for: liveCurve)
             }
-        }*/
+        }
+
+        notifyObservers(about: liveCurve)
     }
 }

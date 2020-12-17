@@ -53,7 +53,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
     func loadData() {
 
         blenderManager.delegate = self
-        blenderManager.loadData()
+        blenderManager.startReceivingData()
     }
 
     func fetchDescription(for indexPath: IndexPath) -> BlenderMonthDetailModel? {

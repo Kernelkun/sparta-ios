@@ -36,7 +36,7 @@ public class SocketAPI: NSObject {
 
     //
 
-    private var socket: WebSocket
+    private var socket: WebSocket!
 
     //
     // MARK: - Reconnection Handling
@@ -71,12 +71,11 @@ public class SocketAPI: NSObject {
     //
     // MARK: - Object Initialization
 
-    public init(defaultServer: SocketAPI.Server) {
-        self.serverType = defaultServer
+    public init(defaultServer: Server) {
 
-        //
+        serverType = defaultServer
 
-        socket = WebSocket(url: defaultServer.link)
+        socket = WebSocket(url: serverType.link)
         state = .unknown
 
         super.init()
@@ -92,9 +91,11 @@ public class SocketAPI: NSObject {
     // this method will just change server without reconnection
     public func change(to server: SocketAPI.Server) {
 
-        if state < .connected {
+        if state <= .connected {
             disconnect(forced: true)
         }
+
+        serverType = server
 
         socket = WebSocket(url: server.link)
         state = .unknown
@@ -120,7 +121,7 @@ public class SocketAPI: NSObject {
 
         //
 
-        print("*Websocket: is trying to establish connection...***")
+        print("*Websocket: is trying to establish connection... \(serverType.rawValue) ***")
 
         state = .connecting
 
@@ -163,7 +164,7 @@ public class SocketAPI: NSObject {
 extension SocketAPI: WebSocketDelegate {
 
     public func websocketDidConnect(socket: WebSocketClient) {
-        print("*Websocket: is connected!***")
+        print("*Websocket: is connected! \(serverType.rawValue) ***")
         state = .connected
         connectionDelegate?.socketConnectionEstablished()
 
@@ -174,7 +175,7 @@ extension SocketAPI: WebSocketDelegate {
     }
 
     public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("*Websocket: is disconnected!***")
+        print("*Websocket: is disconnected!\(serverType.rawValue) ***")
         state = .disconnected
         connectionDelegate?.socketConnectionLost()
 
@@ -196,7 +197,7 @@ extension SocketAPI: WebSocketDelegate {
             response = JSON(stringLiteral: text)
         }
 
-        print("*Websocket: Did receive some \(text)*")
+        print("*Websocket: Did receive some text*")
 
         //
         // Notify observers about happened event

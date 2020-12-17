@@ -27,5 +27,4 @@ extension SocketAPI.Server {
             return Environment.socketLiveCurvesURL.forcedURL
         }
     }
-
 }

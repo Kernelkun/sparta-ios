@@ -38,11 +38,9 @@ class BlenderSyncManager {
 
     // MARK: - Public methods
 
-    func startSilentLoading() {
+    func startReceivingData() {
 
-    }
-
-    func loadData() {
+        App.instance.socketsConnect(toServer: .blender)
 
         if !_blenders.isEmpty {
             let blenders = Array(_blenders)

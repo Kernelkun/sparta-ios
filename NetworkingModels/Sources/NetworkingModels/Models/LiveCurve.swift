@@ -20,6 +20,22 @@ public struct LiveCurve: BackendModel {
     public let priceValue: Double
     public let inputs: [String: Any]
 
+    public var name: String {
+        guard let range = priceCode.range(of: monthCode) else { return priceCode }
+
+        var newPriceCode = priceCode
+        newPriceCode.removeSubrange(range)
+        return newPriceCode
+    }
+
+    public var indexOfMonth: Int? {
+        Self.months.firstIndex(of: monthCode)
+    }
+
+    public static var months: [String] {
+        ["M01", "M02", "M03", "M04", "M05", "M06"]
+    }
+
     //
     // MARK: - Default Initializers
 
@@ -63,6 +79,6 @@ public struct LiveCurve: BackendModel {
 extension LiveCurve: Equatable {
 
     public static func ==(lhs: LiveCurve, rhs: LiveCurve) -> Bool {
-        lhs.priceCode.lowercased() == rhs.priceCode.lowercased()
+        lhs.name.lowercased() == rhs.name.lowercased()
     }
 }

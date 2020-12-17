@@ -70,4 +70,3 @@ extension SocketAPI {
         queue.addOperation { observers.forEach { $0.socketDidReceiveResponse(for: server, data: data) } }
     }
 }
-

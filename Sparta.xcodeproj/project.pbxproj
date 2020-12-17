@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */; };
+		D91A96BB258BB57F008487A8 /* LiveCurvesSyncManager+Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A96BA258BB57F008487A8 /* LiveCurvesSyncManager+Key.swift */; };
 		D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */; };
 		D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */; };
 		D9264BED25751298001477DA /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = D9264BEC25751298001477DA /* Networking */; };
@@ -48,6 +50,7 @@
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D9811ED0257E7972001C8F5D /* BlenderMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9811ECF257E7972001C8F5D /* BlenderMonthInfoModel.swift */; };
+		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
 		D99B2F3425753ADF0080B90B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3325753ADF0080B90B /* Validator.swift */; };
 		D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3725753B0C0080B90B /* EmailValidator.swift */; };
 		D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3A25753B200080B90B /* PasswordValidator.swift */; };
@@ -59,6 +62,7 @@
 		D9A3BD5E2575258500224535 /* App in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD5D2575258500224535 /* App */; };
 		D9A3BD612575262B00224535 /* NetworkingModels in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD602575262B00224535 /* NetworkingModels */; };
 		D9A3BD662575274300224535 /* SpartaHelpers in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD652575274300224535 /* SpartaHelpers */; };
+		D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */; };
 		D9A8041A25713DC2000ADE6B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D9A8041925713DC2000ADE6B /* Then */; };
 		D9A8042225714420000ADE6B /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8042125714420000ADE6B /* Alert.swift */; };
 		D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8042D257145A3000ADE6B /* BiggerAreaButton.swift */; };
@@ -121,6 +125,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesSyncManager+Observation.swift"; sourceTree = "<group>"; };
+		D91A96BA258BB57F008487A8 /* LiveCurvesSyncManager+Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesSyncManager+Key.swift"; sourceTree = "<group>"; };
 		D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		D9264BE82574FF0D001477DA /* NetworkingModels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NetworkingModels; sourceTree = "<group>"; };
@@ -160,6 +166,7 @@
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D9811ECF257E7972001C8F5D /* BlenderMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthInfoModel.swift; sourceTree = "<group>"; };
+		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
 		D99B2F3325753ADF0080B90B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D99B2F3725753B0C0080B90B /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		D99B2F3A25753B200080B90B /* PasswordValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
@@ -171,6 +178,7 @@
 		D9A11811257937A600BB928E /* App+Reconnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+Reconnection.swift"; sourceTree = "<group>"; };
 		D9A3BD5B257522C400224535 /* App */ = {isa = PBXFileReference; lastKnownFileType = folder; path = App; sourceTree = "<group>"; };
 		D9A3BD632575273200224535 /* SpartaHelpers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpartaHelpers; sourceTree = "<group>"; };
+		D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D9A8042125714420000ADE6B /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		D9A8042D257145A3000ADE6B /* BiggerAreaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerAreaButton.swift; sourceTree = "<group>"; };
 		D9A80431257145B4000ADE6B /* TappableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableButton.swift; sourceTree = "<group>"; };
@@ -238,6 +246,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D91A96B9258BB56C008487A8 /* LiveCurves */ = {
+			isa = PBXGroup;
+			children = (
+				D9A067122587BECA00C0D1E5 /* LiveCurvesSyncManager.swift */,
+				D91A96BA258BB57F008487A8 /* LiveCurvesSyncManager+Key.swift */,
+				D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */,
+			);
+			path = LiveCurves;
+			sourceTree = "<group>";
+		};
 		D9264BE02574F0D9001477DA /* ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,8 +336,8 @@
 		D94BCA4F25792AB50076C2AB /* Socket API */ = {
 			isa = PBXGroup;
 			children = (
+				D91A96B9258BB56C008487A8 /* LiveCurves */,
 				D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */,
-				D9A067122587BECA00C0D1E5 /* LiveCurvesSyncManager.swift */,
 			);
 			path = "Socket API";
 			sourceTree = "<group>";
@@ -336,7 +354,7 @@
 		D959C0E525822CFB006CE2D1 /* LiveCurves */ = {
 			isa = PBXGroup;
 			children = (
-				D9A067142587CC0800C0D1E5 /* Views */,
+				D981844C258ACF6E006D8086 /* Helpers */,
 				D959C0E925822D12006CE2D1 /* LiveCurvesViewModel.swift */,
 				D959C0E625822D09006CE2D1 /* LiveCurvesViewController.swift */,
 			);
@@ -444,6 +462,16 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		D981844C258ACF6E006D8086 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D9A7E96C258BBA3B00052232 /* Cells */,
+				D9A067142587CC0800C0D1E5 /* Views */,
+				D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		D99B2F3225753AC20080B90B /* Validators */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +506,14 @@
 				D9A11811257937A600BB928E /* App+Reconnection.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		D9A7E96C258BBA3B00052232 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		D9A8041F25714404000ADE6B /* Views */ = {
@@ -867,6 +903,7 @@
 				D9811ED0257E7972001C8F5D /* BlenderMonthInfoModel.swift in Sources */,
 				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
+				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
 				D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */,
 				D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */,
@@ -877,9 +914,11 @@
 				D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */,
 				D970047A25892AEB000E4A01 /* LoadingView.swift in Sources */,
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
+				D91A96BB258BB57F008487A8 /* LiveCurvesSyncManager+Key.swift in Sources */,
 				D944CF082577E0DA009115FD /* BlenderConstants.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
+				D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */,
 				D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */,
 				D9A8042225714420000ADE6B /* Alert.swift in Sources */,
 				D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */,
@@ -898,6 +937,7 @@
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
+				D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */,
 				D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
@@ -1041,7 +1081,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1062,7 +1102,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

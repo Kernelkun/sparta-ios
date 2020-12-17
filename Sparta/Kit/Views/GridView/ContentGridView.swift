@@ -39,10 +39,6 @@ class ContentGridView: UIView {
         tableView.reloadData()
     }
 
-    func fixScroll() {
-        tableView.contentOffset.y = collectionView.contentOffset.y
-    }
-
     // MARK: - Private methods
 
     private func setupUI() {
@@ -68,12 +64,6 @@ class ContentGridView: UIView {
             tableView.register(BlenderInfoTableViewCell.self)
             tableView.register(BlenderGradeTableViewCell.self)
 
-            let cell = BlenderGradeTableViewCell()
-            cell.apply(title: "Grade", for: IndexPath(row: 0, section: 0))
-            tableView.tableHeaderView = cell
-            tableView.tableHeaderView?.frame.size.height = 50
-
-
             contentView.addSubview(tableView) {
                 $0.top.equalToSuperview()
                 $0.left.equalToSuperview().offset(18)
@@ -89,11 +79,12 @@ class ContentGridView: UIView {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionGridLayout).then { collectionView in
 
             collectionView.isDirectionalLockEnabled = true
-            collectionView.showsVerticalScrollIndicator = true
+            collectionView.showsVerticalScrollIndicator = false
             collectionView.showsHorizontalScrollIndicator = true
             collectionView.automaticallyAdjustsScrollIndicatorInsets = false
             collectionView.bounces = false
 
+            collectionView.register(LiveCurveInfoCollectionViewCell.self)
             collectionView.register(BlenderInfoCollectionViewCell.self)
             collectionView.register(BlenderGradeCollectionViewCell.self)
 

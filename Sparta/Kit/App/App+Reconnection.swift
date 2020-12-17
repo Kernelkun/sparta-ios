@@ -13,7 +13,7 @@ extension App {
 
     // MARK: - Public methods
 
-    func socketsConnect(toServer: SocketAPI.Server) {
+    func socketsConnect(toServer: SocketAPI.Server = App.instance.sockets.serverType) {
         if sockets.state >= .connected {
             if needChangeServer(to: toServer) {
                 sockets.change(to: toServer)

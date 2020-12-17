@@ -144,7 +144,7 @@ class App {
     private func connectToSockets() {
         guard isSignedIn else { return }
 
-        socketsConnect(toServer: .blender)
+        socketsConnect()
     }
 }
 

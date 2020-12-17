@@ -18,6 +18,9 @@ protocol GridViewDataSource: class {
     func numberOfRowsForCollectionView(in section: Int) -> Int
     func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell
     func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell
+
+    func gradeTitleForColectionView(at row: Int) -> String
+    func gradeTitleForTableView(at row: Int) -> String
 }
 
 class GridView: UIView {
@@ -52,6 +55,15 @@ class GridView: UIView {
         }
     }
 
+    func reloadGrades() {
+        gradesView.reloadData()
+    }
+
+    func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
+        contentView.tableView.updateSections(insertions: insertions, removals: removals, updates: updates)
+        contentView.collectionView.updateSections(insertions: insertions, removals: removals, updates: updates)
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
@@ -59,6 +71,7 @@ class GridView: UIView {
         gradesView = GradesGridView().then { view in
 
             view.scrollView.delegate = self
+            view.dataSource = self
 
             addSubview(view) {
                 $0.top.equalToSuperview()
@@ -86,9 +99,6 @@ class GridView: UIView {
 extension GridView: UIScrollViewDelegate, UICollectionViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        print("-scrollView.contentOffset: \(scrollView.contentOffset)")
-
         if scrollView == contentView.tableView {
             contentView.collectionView.contentOffset.y = scrollView.contentOffset.y
         } else if scrollView == contentView.collectionView {
@@ -134,3 +144,13 @@ extension GridView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
     }
 }
 
+extension GridView: GradesGridViewDataSource {
+
+    func gradesGridViewNumberOfRows() -> Int {
+        dataSource?.numberOfRowsForCollectionView(in: 0) ?? 0
+    }
+
+    func gradesGridViewTitle(for row: Int) -> String {
+        dataSource?.gradeTitleForColectionView(at: row) ?? ""
+    }
+}

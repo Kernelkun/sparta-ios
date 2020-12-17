@@ -12,7 +12,7 @@ struct BlenderMonthInfoModel {
     // MARK: - Public properties
 
     let numberPoint: PointModel
-    var seasonalityPoint: PointModel? = nil
+    var seasonalityPoint: PointModel?
 }
 
 extension BlenderMonthInfoModel {

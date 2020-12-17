@@ -39,17 +39,18 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
         setupUI()
         setupNavigationUI()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
 
         // view model
 
         viewModel.delegate = self
-        viewModel.loadData()
+    }
 
-        gridView.apply(topSpace: topBarHeight)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // view model
+
+        viewModel.loadData()
     }
 
     // MARK: - Private methods
@@ -58,8 +59,8 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
 //        view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
-//        gridView.delegate = self
         gridView.dataSource = self
+        gridView.apply(topSpace: topBarHeight)
     }
 
     private func setupNavigationUI() {
@@ -71,8 +72,20 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
 extension LiveCurvesViewController: GridViewDelegate, GridViewDataSource {
 
+    func gradeTitleForColectionView(at row: Int) -> String {
+        if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableGrade {
+            return title
+        } else { return "" }
+    }
+
+    func gradeTitleForTableView(at row: Int) -> String {
+        if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
+            return title
+        } else { return "" }
+    }
+
     func numberOfSections() -> Int {
-        20
+        viewModel.tableDataSource.count
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
@@ -90,23 +103,35 @@ extension LiveCurvesViewController: GridViewDelegate, GridViewDataSource {
     func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
         let cell: BlenderGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
-        let title = indexPath.section == 0 ? "Grade" : "Test"
-
-        cell.apply(title: title, for: indexPath)
+        if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
+            cell.apply(title: title, for: indexPath)
+        }
 
         return cell
     }
 
     func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: BlenderGradeCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+        let cell: LiveCurveInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-        let title = indexPath.section == 0 ? "Grade" : "Test"
+        let section = viewModel.collectionDataSource[indexPath.section]
+        let row = section.cells[indexPath.row]
 
-        cell.apply(title: title, for: indexPath)
+        if case let LiveCurvesViewModel.Cell.info(model) = row {
+            cell.apply(monthInfo: model, for: indexPath)
+        }
 
         return cell
     }
 }
 
 extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
+    func didReceiveUpdatesForGrades() {
+        gridView.reloadGrades()
+    }
+
+    func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: [])
+
+        gridView.reloadGrades()
+    }
 }

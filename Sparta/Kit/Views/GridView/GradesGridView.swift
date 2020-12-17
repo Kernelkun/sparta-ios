@@ -7,11 +7,9 @@
 
 import UIKit
 
-protocol GradesGridViewDelegate: class {
-
-}
-
 protocol GradesGridViewDataSource: class {
+    func gradesGridViewNumberOfRows() -> Int
+    func gradesGridViewTitle(for row: Int) -> String
 }
 
 class GradesGridView: UIView {
@@ -21,10 +19,10 @@ class GradesGridView: UIView {
     var scrollView: UIScrollView!
 
     private var notScrollableView: UIView!
+    private var gradesStackView: UIStackView!
 
     // MARK: - Public properties
 
-    weak var delegate: GradesGridViewDelegate?
     weak var dataSource: GradesGridViewDataSource?
 
     // MARK: - Private properties
@@ -43,6 +41,23 @@ class GradesGridView: UIView {
 
     // MARK: - Public methods
 
+    func reloadData() {
+        let rowsCount = dataSource?.gradesGridViewNumberOfRows() ?? 0
+
+        for row in 0..<rowsCount {
+            let gridCell = BlenderGradeCollectionViewCell()
+            gridCell.apply(title: dataSource?.gradesGridViewTitle(for: row) ?? "", for: IndexPath(row: 0, section: 0))
+
+            gradesStackView.addArrangedSubview(gridCell)
+
+            gridCell.snp.makeConstraints {
+                $0.size.equalTo(CGSize(width: 100, height: 50))
+            }
+        }
+
+        scrollView.contentSize = CGSize(width: rowsCount * 100, height: 50)
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
@@ -52,7 +67,7 @@ class GradesGridView: UIView {
             view.backgroundColor = UIBlenderConstants.evenLineBackgroundColor
 
             addSubview(view) {
-                $0.left.equalToSuperview().offset(18)
+                $0.left.equalToSuperview()
                 $0.top.bottom.equalToSuperview()
                 $0.width.equalTo(130)
             }
@@ -71,25 +86,12 @@ class GradesGridView: UIView {
             }
         }
 
-        _ = UIStackView().then { stackView in
+        gradesStackView = UIStackView().then { stackView in
 
             stackView.axis = .horizontal
             stackView.distribution = .equalSpacing
             stackView.spacing = 0
             stackView.alignment = .leading
-
-            for _ in 0...6 {
-                let gridCell = BlenderGradeCollectionViewCell()
-                gridCell.apply(title: "Grade", for: IndexPath(row: 0, section: 0))
-
-                stackView.addArrangedSubview(gridCell)
-
-                gridCell.snp.makeConstraints {
-                    $0.size.equalTo(CGSize(width: 100, height: 50))
-                }
-            }
-
-            scrollView.contentSize = CGSize(width: 6 * 100, height: 50)
 
             scrollView.addSubview(stackView) {
                 $0.left.right.equalToSuperview()

@@ -26,15 +26,22 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
         setupUI()
         setupNavigationUI()
+
+        // view model
+
+        viewModel.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         // view model
-
-        viewModel.delegate = self
+        
         viewModel.loadData()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     // MARK: - Private methods
