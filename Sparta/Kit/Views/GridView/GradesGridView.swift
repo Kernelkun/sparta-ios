@@ -8,8 +8,9 @@
 import UIKit
 
 protocol GradesGridViewDataSource: class {
-    func gradesGridViewNumberOfRows() -> Int
-    func gradesGridViewTitle(for row: Int) -> String
+    func gradesGridViewCollectionNumberOfRows() -> Int
+    func gradesGridViewCollectionTitle(for row: Int) -> String
+    func gradesGridViewTableTitle() -> String
 }
 
 class GradesGridView: UIView {
@@ -18,6 +19,7 @@ class GradesGridView: UIView {
 
     var scrollView: UIScrollView!
 
+    private var tableGradeView: GradeTitleView!
     private var notScrollableView: UIView!
     private var gradesStackView: UIStackView!
 
@@ -42,11 +44,13 @@ class GradesGridView: UIView {
     // MARK: - Public methods
 
     func reloadData() {
-        let rowsCount = dataSource?.gradesGridViewNumberOfRows() ?? 0
+        gradesStackView.arrangedSubviews.forEach { gradesStackView.removeArrangedSubview($0) }
+
+        let rowsCount = dataSource?.gradesGridViewCollectionNumberOfRows() ?? 0
 
         for row in 0..<rowsCount {
-            let gridCell = BlenderGradeCollectionViewCell()
-            gridCell.apply(title: dataSource?.gradesGridViewTitle(for: row) ?? "", for: IndexPath(row: 0, section: 0))
+            let gridCell = GradeTitleView()
+            gridCell.apply(title: dataSource?.gradesGridViewCollectionTitle(for: row) ?? "")
 
             gradesStackView.addArrangedSubview(gridCell)
 
@@ -62,12 +66,19 @@ class GradesGridView: UIView {
 
     private func setupUI() {
 
+        backgroundColor = UIGridViewConstants.mainBackgroundColor
+
         notScrollableView = UIView().then { view in
 
             view.backgroundColor = UIBlenderConstants.evenLineBackgroundColor
 
+            tableGradeView = GradeTitleView()
+            view.addSubview(tableGradeView) {
+                $0.edges.equalToSuperview()
+            }
+
             addSubview(view) {
-                $0.left.equalToSuperview()
+                $0.left.equalToSuperview().offset(18)
                 $0.top.bottom.equalToSuperview()
                 $0.width.equalTo(130)
             }

@@ -53,11 +53,17 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         viewModel.loadData()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        viewModel.stopLoadData()
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
 
-//        view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
+        view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
         gridView.dataSource = self
         gridView.apply(topSpace: topBarHeight)
@@ -70,16 +76,16 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     }
 }
 
-extension LiveCurvesViewController: GridViewDelegate, GridViewDataSource {
+extension LiveCurvesViewController: GridViewDataSource {
 
     func gradeTitleForColectionView(at row: Int) -> String {
-        if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableGrade {
+        if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
             return title
         } else { return "" }
     }
 
     func gradeTitleForTableView(at row: Int) -> String {
-        if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
+        if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableGrade {
             return title
         } else { return "" }
     }
@@ -101,7 +107,7 @@ extension LiveCurvesViewController: GridViewDelegate, GridViewDataSource {
     }
 
     func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
-        let cell: BlenderGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: LiveCurveGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
             cell.apply(title: title, for: indexPath)
@@ -131,7 +137,5 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
         gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: [])
-
-        gridView.reloadGrades()
     }
 }

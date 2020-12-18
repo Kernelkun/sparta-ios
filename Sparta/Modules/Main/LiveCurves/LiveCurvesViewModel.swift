@@ -38,14 +38,13 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
         liveCurvesSyncManager.delegate = self
         liveCurvesSyncManager.startReceivingData()
 
-        // test
-
-//        tableDataSource = [.grade(title: "BOM"), .grade(title: "TELL"), .grade(title: "STOP"), .grade(title: "SYSTEM")]
-//        collectionDataSource = [
-//            Section(cells: [.info(model: .init(numberPoint: .init(text: "+1", textColor: .red)))])
-//        ]
+        collectionGrades = LiveCurve.months.compactMap { Cell.grade(title: $0) }
 
         delegate?.didReceiveUpdatesForGrades()
+    }
+
+    func stopLoadData() {
+        App.instance.socketsConnect()
     }
 
     // MARK: - Private methods
@@ -89,12 +88,29 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     private func priceCodes(for name: String) -> [String] {
         LiveCurve.months.compactMap { name + $0 }
     }
+
+    private func updateGrades() {
+        collectionGrades = collectionGrades.compactMap { cell -> Cell in
+            if case let Cell.grade(title) = cell {
+                if let liveCurve = fetchedLiveCurves.first(where: { $0.monthCode == title }) {
+                    return .grade(title: liveCurve.monthDisplay)
+                }
+            }
+
+            return cell
+        }
+
+        onMainThread {
+            self.delegate?.didReceiveUpdatesForGrades()
+        }
+    }
 }
 
 extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 
     func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve]) {
         updateLiveCurves(liveCurves)
+        updateGrades()
     }
 
     func liveCurvesSyncManagerDidReceive(liveCurve: LiveCurve) {
@@ -103,7 +119,7 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 
         updateLiveCurves(liveCurves)
 
-        print(liveCurve)
+        updateGrades()
     }
 
     func liveCurvesSyncManagerDidReceiveUpdates(for liveCurve: LiveCurve) {
@@ -159,7 +175,7 @@ extension LiveCurvesViewModel {
         case grade(title: String)
         case info(monthInfo: LiveCurveMonthInfoModel)
 
-        static func emptyGrade() -> Cell { .grade(title: "") }
+        static func emptyGrade() -> Cell { .grade(title: "213") }
     }
 
     struct Section {

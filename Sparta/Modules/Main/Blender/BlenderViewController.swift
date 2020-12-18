@@ -40,10 +40,6 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         viewModel.loadData()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
     // MARK: - Private methods
 
     private func setupUI() {

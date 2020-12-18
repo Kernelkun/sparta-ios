@@ -15,6 +15,9 @@
 		D92FFF4425793BF100AB5405 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A118102579377500BB928E /* App.swift */; };
 		D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889325700E95003ECB61 /* LoginViewController.swift */; };
 		D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889725700E9D003ECB61 /* LoginViewModel.swift */; };
+		D93BC634258BF9300026BF8E /* UIGridViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BC633258BF9300026BF8E /* UIGridViewConstants.swift */; };
+		D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BC637258C14530026BF8E /* GradeTitleView.swift */; };
+		D93BC63D258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BC63C258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift */; };
 		D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEED2576725D009115FD /* ProfileEndPoint.swift */; };
 		D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEF025767306009115FD /* ProfileNetworkManager.swift */; };
 		D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEF52577B7C9009115FD /* BlenderViewController.swift */; };
@@ -133,6 +136,9 @@
 		D93A889325700E95003ECB61 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D93A889725700E9D003ECB61 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D93A889E25713BA0003ECB61 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Networking; sourceTree = "<group>"; };
+		D93BC633258BF9300026BF8E /* UIGridViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGridViewConstants.swift; sourceTree = "<group>"; };
+		D93BC637258C14530026BF8E /* GradeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeTitleView.swift; sourceTree = "<group>"; };
+		D93BC63C258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveGradeTableViewCell.swift; sourceTree = "<group>"; };
 		D944CEED2576725D009115FD /* ProfileEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEndPoint.swift; sourceTree = "<group>"; };
 		D944CEF025767306009115FD /* ProfileNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkManager.swift; sourceTree = "<group>"; };
 		D944CEF52577B7C9009115FD /* BlenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +285,14 @@
 				D93A889325700E95003ECB61 /* LoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		D93BC635258C143D0026BF8E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D93BC637258C14530026BF8E /* GradeTitleView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		D944CEF42577B7B7009115FD /* Blender */ = {
@@ -492,9 +506,11 @@
 		D9A067342589180900C0D1E5 /* GridView */ = {
 			isa = PBXGroup;
 			children = (
+				D93BC635258C143D0026BF8E /* Views */,
 				D9A067152587CD6D00C0D1E5 /* GradesGridView.swift */,
 				D9A067352589183C00C0D1E5 /* ContentGridView.swift */,
 				D9A067372589186200C0D1E5 /* GridView.swift */,
+				D93BC633258BF9300026BF8E /* UIGridViewConstants.swift */,
 			);
 			path = GridView;
 			sourceTree = "<group>";
@@ -512,6 +528,7 @@
 			isa = PBXGroup;
 			children = (
 				D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */,
+				D93BC63C258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -870,6 +887,7 @@
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */,
+				D93BC63D258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift in Sources */,
 				D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */,
 				D9B50E2725740F9B0018F3D7 /* RoundedTextField.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
@@ -897,6 +915,7 @@
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
+				D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */,
 				D99B2F3425753ADF0080B90B /* Validator.swift in Sources */,
 				D9A067362589183C00C0D1E5 /* ContentGridView.swift in Sources */,
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
@@ -918,6 +937,7 @@
 				D944CF082577E0DA009115FD /* BlenderConstants.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
+				D93BC634258BF9300026BF8E /* UIGridViewConstants.swift in Sources */,
 				D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */,
 				D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */,
 				D9A8042225714420000ADE6B /* Alert.swift in Sources */,
@@ -1081,7 +1101,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1102,7 +1122,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

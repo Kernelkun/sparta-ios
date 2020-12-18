@@ -15,6 +15,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 
     private var titleLabel: UILabel!
     private var bottomLine: UIView!
+    let layerSD = CAGradientLayer()
 
     // MARK: - Private properties
 
@@ -40,7 +41,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        stopObservingLiveCurves(for: lastPriceCode)
+        stopObservingAllLiveCurvesEvents()
     }
 
     // MARK: - Public methods
@@ -56,9 +57,9 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
         observeLiveCurves(for: monthInfo.priceCode)
 
         if indexPath.section % 2 == 0 { // even
-            backgroundColor = UIBlenderConstants.evenLineBackgroundColor
-        } else { // odd
             backgroundColor = UIBlenderConstants.oddLineBackgroundColor
+        } else { // odd
+            backgroundColor = UIBlenderConstants.evenLineBackgroundColor
         }
     }
 
@@ -72,6 +73,8 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
+
+        contentView.layer.addSublayer(layerSD)
 
         titleLabel = UILabel().then { label in
 
@@ -98,7 +101,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 
         bottomLine = UIView().then { view in
 
-            view.backgroundColor = UIBlenderConstants.tableSeparatorLineColor
+            view.backgroundColor = UIGridViewConstants.tableSeparatorLineColor
 
             contentView.addSubview(view) {
                 $0.height.equalTo(CGFloat.separatorWidth)
@@ -122,6 +125,17 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 extension LiveCurveInfoCollectionViewCell: LiveCurvesObserver {
 
     func liveCurvesDidReceiveResponse(for liveCurve: LiveCurve) {
-        titleLabel.text = "\(liveCurve.priceValue)"
+        onMainThread {
+            self.titleLabel.text = "\(liveCurve.priceValue)"
+
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
+                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
+            } completion: { _ in
+                UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
+                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
+                } completion: { _ in
+                }
+            }
+        }
     }
 }

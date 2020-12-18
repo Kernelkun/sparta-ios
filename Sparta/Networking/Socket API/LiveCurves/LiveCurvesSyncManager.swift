@@ -28,6 +28,12 @@ class LiveCurvesSyncManager {
 
     // MARK: - Private properties
 
+    private var operationQueue: OperationQueue = {
+        let operationQueue = OperationQueue()
+        operationQueue.maxConcurrentOperationCount = 10
+        operationQueue.qualityOfService = .background
+        return operationQueue
+    }()
     private var _liveCurves: [LiveCurve] = []
 
     // MARK: - Initializers
@@ -56,22 +62,36 @@ extension LiveCurvesSyncManager: SocketActionObserver {
 
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON) {
 
-        let liveCurve = LiveCurve(json: data)
+        var liveCurve = LiveCurve(json: data)
 
         if !_liveCurves.contains(liveCurve) {
             _liveCurves.append(liveCurve)
+
+            notifyObservers(about: liveCurve, queue: operationQueue)
 
             onMainThread {
                 self.delegate?.liveCurvesSyncManagerDidReceive(liveCurve: liveCurve)
             }
         } else if let liveCurveIndex = _liveCurves.firstIndex(of: liveCurve) {
-            _liveCurves[liveCurveIndex] = liveCurve
+
+            let oldLiveCurve = _liveCurves[liveCurveIndex]
+
+            if oldLiveCurve.priceCode > liveCurve.priceCode {
+                liveCurve.state = .down
+            } else if oldLiveCurve.priceCode < liveCurve.priceCode {
+                liveCurve.state = .up
+            }
+
+            if liveCurve.state != .initial {
+                _liveCurves[liveCurveIndex] = liveCurve
+                notifyObservers(about: liveCurve, queue: operationQueue)
+            }
 
             onMainThread {
                 self.delegate?.liveCurvesSyncManagerDidReceiveUpdates(for: liveCurve)
             }
         }
 
-        notifyObservers(about: liveCurve)
+
     }
 }

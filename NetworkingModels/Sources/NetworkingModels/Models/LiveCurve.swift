@@ -5,6 +5,7 @@
 //  Created by Yaroslav Babalich on 14.12.2020.
 //
 
+import UIKit.UIColor
 import Foundation
 import SwiftyJSON
 
@@ -19,6 +20,7 @@ public struct LiveCurve: BackendModel {
     public let priceCode: String
     public let priceValue: Double
     public let inputs: [String: Any]
+    public var state: State = .initial
 
     public var name: String {
         guard let range = priceCode.range(of: monthCode) else { return priceCode }
@@ -80,5 +82,22 @@ extension LiveCurve: Equatable {
 
     public static func ==(lhs: LiveCurve, rhs: LiveCurve) -> Bool {
         lhs.name.lowercased() == rhs.name.lowercased()
+    }
+}
+
+extension LiveCurve {
+
+    public enum State {
+        case initial
+        case up
+        case down
+
+        public var color: UIColor {
+            switch self {
+            case .initial: return .clear
+            case .up: return .green
+            case .down: return .red
+            }
+        }
     }
 }

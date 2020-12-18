@@ -55,6 +55,9 @@ extension LiveCurvesSyncManager {
     fileprivate static var observers: [String: WeakSet<LiveCurvesObserver>] = [:]
 
     func notifyObservers(about liveCurve: LiveCurve, queue: OperationQueue = .main) {
+
+        print("-observers count: \(LiveCurvesSyncManager.observers.values.compactMap { $0.allObjects.count }.reduce(0, +))")
+
         guard let observers = LiveCurvesSyncManager.observers[liveCurve.priceCode]?.allObjects else { return }
         queue.addOperation { observers.forEach { $0.liveCurvesDidReceiveResponse(for: liveCurve) } }
     }

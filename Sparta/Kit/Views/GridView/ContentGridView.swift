@@ -39,6 +39,17 @@ class ContentGridView: UIView {
         tableView.reloadData()
     }
 
+    func updateGridHeight() {
+//        var heights: [CGFloat] = []
+//
+//        for index in 0..<viewModel.collectionDataSource.count {
+//
+//            heights.append(viewModel.height(for: index))
+//        }
+//
+//        collectionGridLayout.cellHeights = heights
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
@@ -54,6 +65,7 @@ class ContentGridView: UIView {
 
         tableView = UITableView().then { tableView in
 
+            tableView.backgroundColor = UIBlenderConstants.mainBackgroundColor
             tableView.tableFooterView = UIView(frame: .zero)
             tableView.separatorStyle = .none
             tableView.showsVerticalScrollIndicator = false
@@ -61,6 +73,7 @@ class ContentGridView: UIView {
             tableView.automaticallyAdjustsScrollIndicatorInsets = false
             tableView.bounces = false
 
+            tableView.register(LiveCurveGradeTableViewCell.self)
             tableView.register(BlenderInfoTableViewCell.self)
             tableView.register(BlenderGradeTableViewCell.self)
 
@@ -78,6 +91,7 @@ class ContentGridView: UIView {
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionGridLayout).then { collectionView in
 
+            collectionView.backgroundColor = UIBlenderConstants.mainBackgroundColor
             collectionView.isDirectionalLockEnabled = true
             collectionView.showsVerticalScrollIndicator = false
             collectionView.showsHorizontalScrollIndicator = true

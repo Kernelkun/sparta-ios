@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol GridViewDelegate: class {
-
-}
-
 protocol GridViewDataSource: class {
     func numberOfSections() -> Int
     func sectionHeight(_ section: Int) -> CGFloat
@@ -27,7 +23,6 @@ class GridView: UIView {
 
     // MARK: - Public properties
 
-    weak var delegate: GridViewDelegate?
     weak var dataSource: GridViewDataSource?
 
     // MARK: - Private properties
@@ -68,6 +63,8 @@ class GridView: UIView {
 
     private func setupUI() {
 
+        backgroundColor = UIGridViewConstants.mainBackgroundColor
+
         gradesView = GradesGridView().then { view in
 
             view.scrollView.delegate = self
@@ -75,7 +72,8 @@ class GridView: UIView {
 
             addSubview(view) {
                 $0.top.equalToSuperview()
-                $0.left.right.equalToSuperview()
+                $0.left.equalToSuperview()
+                $0.right.equalToSuperview()
                 $0.height.equalTo(50)
             }
         }
@@ -90,7 +88,8 @@ class GridView: UIView {
 
             addSubview(view) {
                 $0.top.equalTo(gradesView.snp.bottom)
-                $0.left.right.bottom.equalToSuperview()
+                $0.left.equalToSuperview()
+                $0.right.bottom.equalToSuperview()
             }
         }
     }
@@ -145,12 +144,15 @@ extension GridView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
 }
 
 extension GridView: GradesGridViewDataSource {
-
-    func gradesGridViewNumberOfRows() -> Int {
+    func gradesGridViewCollectionNumberOfRows() -> Int {
         dataSource?.numberOfRowsForCollectionView(in: 0) ?? 0
     }
 
-    func gradesGridViewTitle(for row: Int) -> String {
+    func gradesGridViewCollectionTitle(for row: Int) -> String {
         dataSource?.gradeTitleForColectionView(at: row) ?? ""
+    }
+
+    func gradesGridViewTableTitle() -> String {
+        ""
     }
 }
