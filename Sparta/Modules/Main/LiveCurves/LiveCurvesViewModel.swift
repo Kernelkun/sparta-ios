@@ -47,6 +47,10 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
         App.instance.socketsConnect()
     }
 
+    func monthsCount() -> Int {
+        LiveCurve.months.count
+    }
+
     // MARK: - Private methods
 
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
@@ -131,6 +135,8 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
                                                                                                     priceCode: liveCurve.priceCode))
             }
         }
+
+        updateGrades()
     }
 }
 
@@ -175,7 +181,7 @@ extension LiveCurvesViewModel {
         case grade(title: String)
         case info(monthInfo: LiveCurveMonthInfoModel)
 
-        static func emptyGrade() -> Cell { .grade(title: "213") }
+        static func emptyGrade() -> Cell { .grade(title: "") }
     }
 
     struct Section {

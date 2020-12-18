@@ -11,17 +11,24 @@ class ContentGridView: UIView {
 
     // MARK: - UI
 
+    var collectionGridLayout: GridLayout!
     var collectionView: UICollectionView!
     var tableView: UITableView!
 
     private var contentView: UIView!
-    private var collectionGridLayout: GridLayout!
+
+
+    // MARK: - Public properties
 
     // MARK: - Private properties
 
+    private let constructor: GridView.GridViewConstructor
+
     // MARK: - Initializers
 
-    init() {
+    init(constructor: GridView.GridViewConstructor) {
+        self.constructor = constructor
+        
         super.init(frame: .zero)
 
         setupUI()
@@ -37,17 +44,6 @@ class ContentGridView: UIView {
         collectionGridLayout.invalidateLayout()
         collectionView.reloadData()
         tableView.reloadData()
-    }
-
-    func updateGridHeight() {
-//        var heights: [CGFloat] = []
-//
-//        for index in 0..<viewModel.collectionDataSource.count {
-//
-//            heights.append(viewModel.height(for: index))
-//        }
-//
-//        collectionGridLayout.cellHeights = heights
     }
 
     // MARK: - Private methods
@@ -81,12 +77,14 @@ class ContentGridView: UIView {
                 $0.top.equalToSuperview()
                 $0.left.equalToSuperview().offset(18)
                 $0.bottom.equalToSuperview()
-                $0.width.equalTo(130)
+                $0.width.equalTo(constructor.tableColumnWidth)
             }
         }
 
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.monthsCount).compactMap { _ in constructor.collectionColumnWidth }
+
         collectionGridLayout = GridLayout()
-        collectionGridLayout.cellWidths = [ 100, 100, 100, 100, 100, 100 ]
+        collectionGridLayout.cellWidths = cellsWidth
         collectionGridLayout.cellHeights = [ 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 ]
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionGridLayout).then { collectionView in

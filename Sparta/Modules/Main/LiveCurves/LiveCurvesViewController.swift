@@ -11,22 +11,19 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
     // MARK: - UI
 
-    private let gridView: GridView
+    private var gridView: GridView!
 
     // MARK: - Private properties
 
     // MARK: - Initializers
 
-    init() {
-        gridView = GridView()
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func loadView() {
+        let constructor = GridView.GridViewConstructor(monthsCount: viewModel.monthsCount(),
+                                                       gradeHeight: 50,
+                                                       collectionColumnWidth: 100,
+                                                       tableColumnWidth: 130)
+
+        gridView = GridView(constructor: constructor)
         view = gridView
     }
 

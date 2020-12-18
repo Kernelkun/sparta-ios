@@ -29,9 +29,13 @@ class GradesGridView: UIView {
 
     // MARK: - Private properties
 
+    private let constructor: GridView.GridViewConstructor
+
     // MARK: - Initializers
 
-    init() {
+    init(constructor: GridView.GridViewConstructor) {
+        self.constructor = constructor
+
         super.init(frame: .zero)
 
         setupUI()
@@ -44,22 +48,9 @@ class GradesGridView: UIView {
     // MARK: - Public methods
 
     func reloadData() {
-        gradesStackView.arrangedSubviews.forEach { gradesStackView.removeArrangedSubview($0) }
-
-        let rowsCount = dataSource?.gradesGridViewCollectionNumberOfRows() ?? 0
-
-        for row in 0..<rowsCount {
-            let gridCell = GradeTitleView()
-            gridCell.apply(title: dataSource?.gradesGridViewCollectionTitle(for: row) ?? "")
-
-            gradesStackView.addArrangedSubview(gridCell)
-
-            gridCell.snp.makeConstraints {
-                $0.size.equalTo(CGSize(width: 100, height: 50))
-            }
+        for (row, gridCell) in gradesStackView.arrangedSubviews.enumerated() {
+            (gridCell as? GradeTitleView)?.apply(title: dataSource?.gradesGridViewCollectionTitle(for: row) ?? "")
         }
-
-        scrollView.contentSize = CGSize(width: rowsCount * 100, height: 50)
     }
 
     // MARK: - Private methods
@@ -80,7 +71,7 @@ class GradesGridView: UIView {
             addSubview(view) {
                 $0.left.equalToSuperview().offset(18)
                 $0.top.bottom.equalToSuperview()
-                $0.width.equalTo(130)
+                $0.width.equalTo(constructor.tableColumnWidth)
             }
         }
 
@@ -90,6 +81,8 @@ class GradesGridView: UIView {
             view.showsHorizontalScrollIndicator = false
             view.showsVerticalScrollIndicator = false
             view.bounces = false
+            view.contentSize = CGSize(width: constructor.collectionColumnWidth * CGFloat(constructor.monthsCount),
+                                      height: constructor.gradeHeight)
 
             addSubview(view) {
                 $0.left.equalTo(notScrollableView.snp.right)
@@ -103,6 +96,15 @@ class GradesGridView: UIView {
             stackView.distribution = .equalSpacing
             stackView.spacing = 0
             stackView.alignment = .leading
+
+            for _ in 0..<constructor.monthsCount {
+                let gridCell = GradeTitleView()
+                stackView.addArrangedSubview(gridCell)
+
+                gridCell.snp.makeConstraints {
+                    $0.size.equalTo(CGSize(width: constructor.collectionColumnWidth, height: constructor.gradeHeight))
+                }
+            }
 
             scrollView.addSubview(stackView) {
                 $0.left.right.equalToSuperview()

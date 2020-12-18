@@ -30,9 +30,13 @@ class GridView: UIView {
     private var gradesView: GradesGridView!
     private var contentView: ContentGridView!
 
+    private let constructor: GridViewConstructor
+
     // MARK: - Initializers
 
-    init() {
+    init(constructor: GridViewConstructor) {
+        self.constructor = constructor
+
         super.init(frame: .zero)
 
         setupUI()
@@ -55,8 +59,20 @@ class GridView: UIView {
     }
 
     func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
+        updateGridHeight()
+
         contentView.tableView.updateSections(insertions: insertions, removals: removals, updates: updates)
         contentView.collectionView.updateSections(insertions: insertions, removals: removals, updates: updates)
+    }
+
+    func updateGridHeight() {
+        var heights: [CGFloat] = []
+
+        for row in 0..<(dataSource?.numberOfSections() ?? 0) {
+            heights.append(dataSource?.sectionHeight(row) ?? 0.0)
+        }
+
+        contentView.collectionGridLayout.cellHeights = heights
     }
 
     // MARK: - Private methods
@@ -65,7 +81,7 @@ class GridView: UIView {
 
         backgroundColor = UIGridViewConstants.mainBackgroundColor
 
-        gradesView = GradesGridView().then { view in
+        gradesView = GradesGridView(constructor: constructor).then { view in
 
             view.scrollView.delegate = self
             view.dataSource = self
@@ -74,11 +90,11 @@ class GridView: UIView {
                 $0.top.equalToSuperview()
                 $0.left.equalToSuperview()
                 $0.right.equalToSuperview()
-                $0.height.equalTo(50)
+                $0.height.equalTo(constructor.gradeHeight)
             }
         }
 
-        contentView = ContentGridView().then { view in
+        contentView = ContentGridView(constructor: constructor).then { view in
 
             view.tableView.delegate = self
             view.tableView.dataSource = self
@@ -154,5 +170,15 @@ extension GridView: GradesGridViewDataSource {
 
     func gradesGridViewTableTitle() -> String {
         ""
+    }
+}
+
+extension GridView {
+
+    struct GridViewConstructor {
+        let monthsCount: Int
+        let gradeHeight: CGFloat
+        let collectionColumnWidth: CGFloat
+        let tableColumnWidth: CGFloat
     }
 }
