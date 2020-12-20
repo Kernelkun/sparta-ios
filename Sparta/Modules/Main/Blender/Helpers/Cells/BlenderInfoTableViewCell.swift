@@ -6,13 +6,13 @@
 //
 
 import UIKit
+import NetworkingModels
 
 class BlenderInfoTableViewCell: UITableViewCell {
 
     // MARK: - UI
 
     private var titleLabel: UILabel!
-    private var descriptionLabel: UILabel!
     private var bottomLine: UIView!
 
     // MARK: - Initializers
@@ -29,28 +29,13 @@ class BlenderInfoTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
     
-    func apply(infoModel: BlenderMonthInfoModel, isSeasonalityOn: Bool, for indexPath: IndexPath) {
-        titleLabel.text = infoModel.numberPoint.text.capitalized
-        titleLabel.textColor = infoModel.numberPoint.textColor
+    func apply(title: String, for indexPath: IndexPath) {
+        titleLabel.text = title
 
         if indexPath.section % 2 == 0 { // even
-            backgroundColor = UIBlenderConstants.evenLineBackgroundColor
+            backgroundColor = UIGridViewConstants.oddLineBackgroundColor
         } else { // odd
-            backgroundColor = UIBlenderConstants.oddLineBackgroundColor
-        }
-
-        guard isSeasonalityOn else {
-            descriptionLabel.isHidden = true
-            return
-        }
-
-        if let seasonalityPoint = infoModel.seasonalityPoint {
-            descriptionLabel.isHidden = false
-
-            descriptionLabel.text = seasonalityPoint.text.capitalized
-            descriptionLabel.textColor = seasonalityPoint.textColor
-        } else {
-            descriptionLabel.isHidden = true
+            backgroundColor = UIGridViewConstants.evenLineBackgroundColor
         }
     }
 
@@ -69,18 +54,9 @@ class BlenderInfoTableViewCell: UITableViewCell {
             label.font = .main(weight: .regular, size: 14)
         }
 
-        descriptionLabel = UILabel().then { label in
-
-            label.textAlignment = .left
-            label.textColor = .white
-            label.font = .main(weight: .regular, size: 14)
-            label.numberOfLines = 1
-        }
-
         _ = UIStackView().then { stackView in
 
             stackView.addArrangedSubview(titleLabel)
-            stackView.addArrangedSubview(descriptionLabel)
 
             stackView.axis = .vertical
             stackView.alignment = .leading
@@ -96,7 +72,7 @@ class BlenderInfoTableViewCell: UITableViewCell {
 
         bottomLine = UIView().then { view in
 
-            view.backgroundColor = UIBlenderConstants.tableSeparatorLineColor
+            view.backgroundColor = UIGridViewConstants.tableSeparatorLineColor
 
             contentView.addSubview(view) {
                 $0.height.equalTo(CGFloat.separatorWidth)

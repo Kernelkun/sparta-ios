@@ -21,7 +21,7 @@ class GridCell: UICollectionViewCell {
         backgroundView.backgroundColor = .clear
         self.backgroundView = backgroundView
 
-        bottomSeparator.backgroundColor = UIBlenderConstants.tableSeparatorLineColor
+        bottomSeparator.backgroundColor = UIGridViewConstants.tableSeparatorLineColor
         backgroundView.addSubview(bottomSeparator)
     }
 

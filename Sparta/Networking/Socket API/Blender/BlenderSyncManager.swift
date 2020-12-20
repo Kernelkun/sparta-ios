@@ -28,6 +28,12 @@ class BlenderSyncManager {
 
     // MARK: - Private properties
 
+    private var operationQueue: OperationQueue = {
+        let operationQueue = OperationQueue()
+        operationQueue.maxConcurrentOperationCount = 10
+        operationQueue.qualityOfService = .background
+        return operationQueue
+    }()
     private var _blenders: [Blender] = []
 
     // MARK: - Initializers
@@ -71,5 +77,9 @@ extension BlenderSyncManager: SocketActionObserver {
                 self.delegate?.blenderSyncManagerDidReceiveUpdates(for: blender)
             }
         }
+
+        // notify observers
+
+        blender.months.forEach { notifyObservers(about: $0, queue: operationQueue) }
     }
 }

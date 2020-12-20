@@ -17,7 +17,6 @@ class ContentGridView: UIView {
 
     private var contentView: UIView!
 
-
     // MARK: - Public properties
 
     // MARK: - Private properties
@@ -51,7 +50,7 @@ class ContentGridView: UIView {
     private func setupUI() {
         contentView = UIView().then { view in
 
-            view.backgroundColor = UIBlenderConstants.mainBackgroundColor
+            view.backgroundColor = UIGridViewConstants.mainBackgroundColor
 
             addSubview(view) {
                 $0.left.right.bottom.equalToSuperview()
@@ -61,7 +60,7 @@ class ContentGridView: UIView {
 
         tableView = UITableView().then { tableView in
 
-            tableView.backgroundColor = UIBlenderConstants.mainBackgroundColor
+            tableView.backgroundColor = UIGridViewConstants.mainBackgroundColor
             tableView.tableFooterView = UIView(frame: .zero)
             tableView.separatorStyle = .none
             tableView.showsVerticalScrollIndicator = false
@@ -71,17 +70,17 @@ class ContentGridView: UIView {
 
             tableView.register(LiveCurveGradeTableViewCell.self)
             tableView.register(BlenderInfoTableViewCell.self)
-            tableView.register(BlenderGradeTableViewCell.self)
 
             contentView.addSubview(tableView) {
                 $0.top.equalToSuperview()
-                $0.left.equalToSuperview().offset(18)
+                $0.left.equalToSuperview()
                 $0.bottom.equalToSuperview()
                 $0.width.equalTo(constructor.tableColumnWidth)
             }
         }
 
-        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.monthsCount).compactMap { _ in constructor.collectionColumnWidth }
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.monthsCount)
+            .compactMap { _ in constructor.collectionColumnWidth }
 
         collectionGridLayout = GridLayout()
         collectionGridLayout.cellWidths = cellsWidth
@@ -89,7 +88,7 @@ class ContentGridView: UIView {
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionGridLayout).then { collectionView in
 
-            collectionView.backgroundColor = UIBlenderConstants.mainBackgroundColor
+            collectionView.backgroundColor = UIGridViewConstants.mainBackgroundColor
             collectionView.isDirectionalLockEnabled = true
             collectionView.showsVerticalScrollIndicator = false
             collectionView.showsHorizontalScrollIndicator = true
@@ -98,7 +97,6 @@ class ContentGridView: UIView {
 
             collectionView.register(LiveCurveInfoCollectionViewCell.self)
             collectionView.register(BlenderInfoCollectionViewCell.self)
-            collectionView.register(BlenderGradeCollectionViewCell.self)
 
             contentView.addSubview(collectionView) {
                 $0.top.equalTo(tableView)

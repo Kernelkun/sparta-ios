@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 protocol GridViewDataSource: class {
     func numberOfSections() -> Int
@@ -16,7 +17,7 @@ protocol GridViewDataSource: class {
     func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell
 
     func gradeTitleForColectionView(at row: Int) -> String
-    func gradeTitleForTableView(at row: Int) -> String
+    func gradeTitleForTableView() -> String?
 }
 
 class GridView: UIView {
@@ -58,11 +59,33 @@ class GridView: UIView {
         gradesView.reloadData()
     }
 
-    func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
+    func scrollToTop() {
+        contentView.tableView.setContentOffset(.zero, animated: true)
+        contentView.collectionView.setContentOffset(.zero, animated: true)
+    }
+
+    func invalidateLayout() {
+        contentView.collectionGridLayout.invalidateLayout()
+    }
+
+    func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, completion: EmptyClosure? = nil) {
         updateGridHeight()
 
-        contentView.tableView.updateSections(insertions: insertions, removals: removals, updates: updates)
-        contentView.collectionView.updateSections(insertions: insertions, removals: removals, updates: updates)
+        let updateGroup = DispatchGroup()
+
+        updateGroup.enter()
+        contentView.tableView.updateSections(insertions: insertions, removals: removals, updates: updates) { _ in
+            updateGroup.leave()
+        }
+
+        updateGroup.enter()
+        contentView.collectionView.updateSections(insertions: insertions, removals: removals, updates: updates) { _ in
+            updateGroup.leave()
+        }
+
+        updateGroup.notify(queue: .main) {
+            completion?()
+        }
     }
 
     func updateGridHeight() {
@@ -168,8 +191,8 @@ extension GridView: GradesGridViewDataSource {
         dataSource?.gradeTitleForColectionView(at: row) ?? ""
     }
 
-    func gradesGridViewTableTitle() -> String {
-        ""
+    func gradesGridViewTableTitle() -> String? {
+        dataSource?.gradeTitleForTableView()
     }
 }
 

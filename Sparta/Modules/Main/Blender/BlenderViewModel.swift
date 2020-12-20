@@ -11,24 +11,17 @@ import SwiftyJSON
 import NetworkingModels
 
 protocol BlenderViewModelDelegate: class {
+    func didReceiveUpdatesForGrades()
+    func didChangeSeasonality()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool)
 }
 
 class BlenderViewModel: NSObject, BaseViewModel {
 
-    enum Cell {
-        case grade(title: String)
-        case info(model: BlenderMonthInfoModel)
-    }
-
-    struct Section {
-
-        // MARK: - Public properties
-
-        let cells: [Cell]
-    }
-
     // MARK: - Public properties
+
+    var tableGrade = Cell.grade(title: "Grade")
+    var collectionGrades: [Cell] = Array(repeating: .emptyGrade, count: 6)
 
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
@@ -51,7 +44,6 @@ class BlenderViewModel: NSObject, BaseViewModel {
     // MARK: - Public methods
 
     func loadData() {
-
         blenderManager.delegate = self
         blenderManager.startReceivingData()
     }
@@ -61,7 +53,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
         let section = indexPath.section
         let monthIndex = indexPath.row
 
-        guard fetchedBlenders.count > section, section != 0 else { return nil }
+        guard fetchedBlenders.count > section else { return nil }
 
         let blender = fetchedBlenders[section]
 
@@ -85,31 +77,25 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     func height(for section: Int) -> CGFloat {
-        guard section > 0 else { return 30 }
+        guard isSeasonalityOn else { return 50 }
 
-        guard isSeasonalityOn else { return 60 }
+        return 70
+    }
 
-        let months = fetchedBlenders[section].months
-
-        if months.contains(where: { $0.seasonality.trimmed.nullable != nil }) {
-            return 80
-        } else {
-            return 60
-        }
+    func monthsCount() -> Int {
+        6
     }
 
     // MARK: - Private methods
 
     private func updateSeasonalityDataSource() {
-        tableDataSource = createTableDataSource(from: fetchedBlenders)
-
-        collectionDataSource = createCollectionDataSource(from: fetchedBlenders, with: fetchCollectionGrades())
-
         var indexesForUpdates: [Int] = []
 
         for index in 0..<collectionDataSource.count {
             indexesForUpdates.append(index)
         }
+
+//        self.delegate?.didChangeSeasonality()
 
         self.delegate?.didUpdateDataSourceSections(insertions: [],
                                                    removals: [],
@@ -118,58 +104,19 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     private func createTableDataSource(from blenders: [Blender]) -> [Cell] {
-        var blenders = blenders
-        blenders.remove(at: 0)
-
-        var result: [Cell] = []
-        result = blenders.compactMap { blender in
-
-            let numberPoint = BlenderMonthInfoModel.PointModel(text: blender.grade, textColor: .white)
-            var seasonalityPoint: BlenderMonthInfoModel.PointModel?
-
-            if isSeasonalityOn, blender.months.contains(where: { $0.seasonality.trimmed.nullable != nil }) {
-                seasonalityPoint = BlenderMonthInfoModel.PointModel(text: "Seasonality", textColor: .gray)
-            }
-
-            return .info(model: BlenderMonthInfoModel(numberPoint: numberPoint, seasonalityPoint: seasonalityPoint))
-        }
-        result.insert(.grade(title: "Grade"), at: 0)
-        return result
+        blenders.compactMap { .grade(title: $0.grade) }
     }
 
-    private func createCollectionDataSource(from blenders: [Blender], with monthsGrades: [String]) -> [Section] {
-        var blenders = blenders
-        blenders.remove(at: 0)
-
-        let gradeSection = Section(cells: monthsGrades.compactMap { .grade(title: $0) })
-
-        var collectionSections: [Section] = blenders.compactMap { blender -> Section in
-
-            var cells: [Cell] = []
-
-            for month in blender.months {
-                let color: UIColor = month.color == "RED" ? .red : .green
-
-                let numberPoint = BlenderMonthInfoModel.PointModel(text: month.value, textColor: color)
-                var seasonalityPoint: BlenderMonthInfoModel.PointModel?
-
-                if isSeasonalityOn, let seasonality = month.seasonality.trimmed.nullable {
-                    seasonalityPoint = BlenderMonthInfoModel.PointModel(text: seasonality, textColor: .gray)
-                }
-
-                cells.append(.info(model: BlenderMonthInfoModel(numberPoint: numberPoint, seasonalityPoint: seasonalityPoint)))
-            }
-
-            return Section(cells: cells)
-        }
-
-        collectionSections.insert(gradeSection, at: 0)
-
-        return collectionSections
+    private func createCollectionDataSource(from blenders: [Blender]) -> [Section] {
+        blenders.compactMap { Section(cells: $0.months.compactMap { Cell.info(month: $0) }) }
     }
 
-    private func fetchCollectionGrades() -> [String] {
-        fetchedBlenders.last?.months.compactMap { $0.name } ?? []
+    private func updateGrades() {
+        collectionGrades = fetchedBlenders.last?.months.compactMap { Cell.grade(title: $0.name) } ?? []
+
+        onMainThread {
+            self.delegate?.didReceiveUpdatesForGrades()
+        }
     }
 }
 
@@ -195,7 +142,7 @@ extension BlenderViewModel {
         fetchedBlenders = newBlenders
 
         tableDataSource = createTableDataSource(from: newBlenders)
-        collectionDataSource = createCollectionDataSource(from: newBlenders, with: fetchCollectionGrades())
+        collectionDataSource = createCollectionDataSource(from: newBlenders)
 
         let insertionsIndexSet = IndexSet(insertedIndexPaths.compactMap { $0.section })
         let removalsIndexSet = IndexSet(removedIndexPaths.compactMap { $0.section })
@@ -212,47 +159,39 @@ extension BlenderViewModel {
 extension BlenderViewModel: BlenderSyncManagerDelegate {
 
     func blenderSyncManagerDidFetch(blenders: [Blender]) {
-
-        var blenders = blenders
-        blenders.insert(Blender.empty, at: 0)
-
         updateBlenders(blenders)
+
+        updateGrades()
     }
 
     func blenderSyncManagerDidReceive(blender: Blender) {
         var newBlenders = Array(fetchedBlenders)
-
-        newBlenders.insert(Blender.empty, at: 0)
         newBlenders.append(blender)
-
         updateBlenders(newBlenders)
+
+        updateGrades()
     }
 
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender) {
         if let indexOfBlender = fetchedBlenders.firstIndex(of: blender) {
             fetchedBlenders[indexOfBlender] = blender
-
-            collectionDataSource[indexOfBlender] = Section(cells: blender.months.compactMap({ month -> Cell in
-                let color: UIColor = month.color == "RED" ? .red : .green
-
-                let numberPoint = BlenderMonthInfoModel.PointModel(text: month.value, textColor: color)
-                var seasonalityPoint: BlenderMonthInfoModel.PointModel?
-
-                if isSeasonalityOn, let seasonality = month.seasonality.trimmed.nullable {
-                    seasonalityPoint = BlenderMonthInfoModel.PointModel(text: seasonality, textColor: .gray)
-                }
-
-                return .info(model: BlenderMonthInfoModel(numberPoint: numberPoint, seasonalityPoint: seasonalityPoint))
-            }))
-
-            print("blenderSyncManagerDidReceiveUpdates \(blender.grade)")
-
-            onMainThread(delay: 1) {
-                self.delegate?.didUpdateDataSourceSections(insertions: [],
-                                                           removals: [],
-                                                           updates: IndexSet([indexOfBlender]),
-                                                           afterSeasonality: false)
-            }
+            collectionDataSource[indexOfBlender].cells = blender.months.compactMap { Cell.info(month: $0) }
         }
+
+        updateGrades()
+    }
+}
+
+extension BlenderViewModel {
+
+    enum Cell {
+        case grade(title: String)
+        case info(month: BlenderMonth)
+
+        static let emptyGrade: Cell = .grade(title: "")
+    }
+
+    struct Section {
+        var cells: [Cell]
     }
 }

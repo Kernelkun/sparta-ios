@@ -63,15 +63,14 @@ class LiveCurveGradeTableViewCell: UITableViewCell {
             stackView.distribution = .fillProportionally
 
             contentView.addSubview(stackView) {
-                $0.right.equalToSuperview().inset(8)
+                $0.right.left.equalToSuperview().inset(8)
                 $0.centerY.equalToSuperview()
-                $0.left.equalToSuperview().offset(16)
             }
         }
 
         bottomLine = UIView().then { view in
 
-            view.backgroundColor = UIBlenderConstants.tableSeparatorLineColor
+            view.backgroundColor = UIGridViewConstants.tableSeparatorLineColor
 
             contentView.addSubview(view) {
                 $0.height.equalTo(CGFloat.separatorWidth)

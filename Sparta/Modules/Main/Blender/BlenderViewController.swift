@@ -11,11 +11,20 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
     // MARK: - UI
 
-    private var collectionGridLayout: GridLayout!
-    private var collectionView: UICollectionView!
-    private var tableView: UITableView!
-
+    private var gridView: GridView!
     private var popup = PopupViewController()
+
+    // MARK: - Initializers
+
+    override func loadView() {
+        let constructor = GridView.GridViewConstructor(monthsCount: viewModel.monthsCount(),
+                                                       gradeHeight: 50,
+                                                       collectionColumnWidth: 100,
+                                                       tableColumnWidth: 130)
+
+        gridView = GridView(constructor: constructor)
+        view = gridView
+    }
 
     // MARK: - Lifecycle
 
@@ -46,64 +55,8 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
         view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
-        let contentView = UIView().then { view in
-
-            view.backgroundColor = UIBlenderConstants.mainBackgroundColor
-
-            addSubview(view) {
-                $0.left.right.bottom.equalToSuperview()
-                $0.top.equalToSuperview().offset(topBarHeight)
-            }
-        }
-
-        tableView = UITableView().then { tableView in
-
-            tableView.backgroundColor = .clear
-            tableView.tableFooterView = UIView(frame: .zero)
-            tableView.separatorStyle = .none
-            tableView.showsVerticalScrollIndicator = false
-            tableView.showsHorizontalScrollIndicator = false
-            tableView.automaticallyAdjustsScrollIndicatorInsets = false
-
-            tableView.register(BlenderInfoTableViewCell.self)
-            tableView.register(BlenderGradeTableViewCell.self)
-
-            tableView.delegate = self
-            tableView.dataSource = self
-
-            contentView.addSubview(tableView) {
-                $0.top.equalToSuperview()
-                $0.left.equalToSuperview().offset(18)
-                $0.bottom.equalToSuperview()
-                $0.width.equalTo(130)
-            }
-        }
-
-        collectionGridLayout = GridLayout()
-        collectionGridLayout.cellWidths = [ 100, 100, 100, 100, 100, 100 ]
-
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionGridLayout).then { collectionView in
-
-            collectionView.isDirectionalLockEnabled = true
-            collectionView.backgroundColor = .clear
-            collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            collectionView.showsVerticalScrollIndicator = false
-            collectionView.showsHorizontalScrollIndicator = false
-            collectionView.automaticallyAdjustsScrollIndicatorInsets = false
-
-            collectionView.dataSource = self
-            collectionView.delegate = self
-
-//            collectionView.register(TestCollectionView.self, for: UICollectionView.elementKindSectionHeader)
-            collectionView.register(BlenderInfoCollectionViewCell.self)
-            collectionView.register(BlenderGradeCollectionViewCell.self)
-
-            contentView.addSubview(collectionView) {
-                $0.top.equalTo(tableView)
-                $0.right.bottom.equalToSuperview()
-                $0.left.equalTo(tableView.snp.right)
-            }
-        }
+        gridView.dataSource = self
+        gridView.apply(topSpace: topBarHeight)
     }
 
     private func setupNavigationUI() {
@@ -117,70 +70,17 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     }
 
     private func updateGridHeight() {
-        var heights: [CGFloat] = []
+        /*var heights: [CGFloat] = []
 
         for index in 0..<viewModel.collectionDataSource.count {
 
             heights.append(viewModel.height(for: index))
         }
 
-        collectionGridLayout.cellHeights = heights
-    }
-}
-
-extension BlenderViewController: UIScrollViewDelegate, UICollectionViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        var newContentOffset = scrollView.contentOffset
-        newContentOffset.x = 0
-
-        if scrollView == tableView {
-            collectionView.contentOffset = newContentOffset
-        } else if scrollView == collectionView {
-            tableView.contentOffset = newContentOffset
-        }
-    }
-}
-
-extension BlenderViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.collectionDataSource.count
+        collectionGridLayout.cellHeights = heights*/
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.collectionDataSource[section].cells.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cellType = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
-
-        switch cellType {
-        case .grade(title: let title):
-
-            let cell: BlenderGradeCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-
-            cell.apply(title: title, for: indexPath)
-
-            return cell
-
-        case .info(model: let infoModel):
-
-            let cell: BlenderInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-
-            cell.apply(infoModel: infoModel, isSeasonalityOn: viewModel.isSeasonalityOn, for: indexPath)
-
-            cell.onTap { [unowned self] indexPath in
-                self.collectionView(collectionView, didSelectItemAt: indexPath)
-            }
-
-            return cell
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    private func showDescription(for indexPath: IndexPath) {
         guard let monthDetails = viewModel.fetchDescription(for: indexPath) else { return }
 
         let popupView = BlenderDescriptionPopupView()
@@ -205,72 +105,82 @@ extension BlenderViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
-extension BlenderViewController: UITableViewDataSource, UITableViewDelegate {
+extension BlenderViewController: GridViewDataSource {
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func gradeTitleForColectionView(at row: Int) -> String {
+        if case let BlenderViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
+            return title
+        } else { return "" }
+    }
+
+    func gradeTitleForTableView() -> String? {
+        if case let BlenderViewModel.Cell.grade(title) = viewModel.tableGrade {
+            return title
+        } else { return "" }
+    }
+
+    func numberOfSections() -> Int {
         viewModel.tableDataSource.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func sectionHeight(_ section: Int) -> CGFloat {
+        viewModel.height(for: section)
+    }
+
+    func numberOfRowsForTableView(in section: Int) -> Int {
         1
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cellType = viewModel.tableDataSource[indexPath.section]
-
-        switch cellType {
-        case .grade(title: let title):
-
-            let cell: BlenderGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-
-            cell.apply(title: title, for: indexPath)
-
-            return cell
-
-        case .info(model: let infoModel):
-
-            let cell: BlenderInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-
-            cell.apply(infoModel: infoModel, isSeasonalityOn: viewModel.isSeasonalityOn, for: indexPath)
-
-            return cell
-        }
+    func numberOfRowsForCollectionView(in section: Int) -> Int {
+        viewModel.monthsCount()
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        viewModel.height(for: indexPath.section)
+    func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+        let cellType = viewModel.tableDataSource[indexPath.section]
+
+        let cell: BlenderInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+
+        var displayTitle: String = ""
+
+        if case let BlenderViewModel.Cell.grade(title) = cellType {
+            displayTitle = title
+        }
+
+        cell.apply(title: displayTitle, for: indexPath)
+        return cell
+    }
+
+    func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+        let cellType = viewModel.collectionDataSource[indexPath.section].cells[indexPath.item]
+
+        let cell: BlenderInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+
+        if case let BlenderViewModel.Cell.info(month) = cellType {
+            cell.apply(month: month, isSeasonalityOn: viewModel.isSeasonalityOn, for: indexPath)
+
+            cell.onTap { [unowned self] indexPath in
+                self.showDescription(for: indexPath)
+            }
+        }
+
+        return cell
     }
 }
 
 extension BlenderViewController: BlenderViewModelDelegate {
 
+    func didReceiveUpdatesForGrades() {
+        gridView.reloadGrades()
+    }
+
+    func didChangeSeasonality() {
+        gridView.scrollToTop()
+    }
+
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool) {
-        updateGridHeight()
-
-        guard afterSeasonality else {
-            tableView.updateSections(insertions: insertions, removals: removals, updates: updates)
-            collectionView.updateSections(insertions: insertions, removals: removals, updates: updates)
-            return
-        }
-
-        let updateGroup = DispatchGroup()
-
-        updateGroup.enter()
-        tableView.updateSections(insertions: insertions, removals: removals, updates: updates, completion: { _ in
-            updateGroup.leave()
-        })
-
-        updateGroup.enter()
-        collectionView.updateSections(insertions: insertions, removals: removals, updates: updates, completion: { _ in
-            updateGroup.leave()
-        })
-
-        updateGroup.notify(queue: .main) {
-
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates) {
             if afterSeasonality {
-                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                self.gridView.scrollToTop()
             }
         }
     }

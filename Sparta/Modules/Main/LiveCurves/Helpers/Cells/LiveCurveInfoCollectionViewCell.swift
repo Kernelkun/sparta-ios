@@ -57,9 +57,9 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
         observeLiveCurves(for: monthInfo.priceCode)
 
         if indexPath.section % 2 == 0 { // even
-            backgroundColor = UIBlenderConstants.oddLineBackgroundColor
+            backgroundColor = UIGridViewConstants.oddLineBackgroundColor
         } else { // odd
-            backgroundColor = UIBlenderConstants.evenLineBackgroundColor
+            backgroundColor = UIGridViewConstants.evenLineBackgroundColor
         }
     }
 

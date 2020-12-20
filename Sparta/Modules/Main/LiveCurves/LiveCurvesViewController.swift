@@ -81,7 +81,7 @@ extension LiveCurvesViewController: GridViewDataSource {
         } else { return "" }
     }
 
-    func gradeTitleForTableView(at row: Int) -> String {
+    func gradeTitleForTableView() -> String? {
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableGrade {
             return title
         } else { return "" }

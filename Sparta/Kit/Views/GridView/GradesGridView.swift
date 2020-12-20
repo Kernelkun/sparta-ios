@@ -10,7 +10,7 @@ import UIKit
 protocol GradesGridViewDataSource: class {
     func gradesGridViewCollectionNumberOfRows() -> Int
     func gradesGridViewCollectionTitle(for row: Int) -> String
-    func gradesGridViewTableTitle() -> String
+    func gradesGridViewTableTitle() -> String?
 }
 
 class GradesGridView: UIView {
@@ -51,6 +51,8 @@ class GradesGridView: UIView {
         for (row, gridCell) in gradesStackView.arrangedSubviews.enumerated() {
             (gridCell as? GradeTitleView)?.apply(title: dataSource?.gradesGridViewCollectionTitle(for: row) ?? "")
         }
+
+        tableGradeView.apply(title: dataSource?.gradesGridViewTableTitle() ?? "")
     }
 
     // MARK: - Private methods
@@ -61,7 +63,7 @@ class GradesGridView: UIView {
 
         notScrollableView = UIView().then { view in
 
-            view.backgroundColor = UIBlenderConstants.evenLineBackgroundColor
+            view.backgroundColor = UIGridViewConstants.evenLineBackgroundColor
 
             tableGradeView = GradeTitleView()
             view.addSubview(tableGradeView) {
@@ -69,7 +71,7 @@ class GradesGridView: UIView {
             }
 
             addSubview(view) {
-                $0.left.equalToSuperview().offset(18)
+                $0.left.equalToSuperview()
                 $0.top.bottom.equalToSuperview()
                 $0.width.equalTo(constructor.tableColumnWidth)
             }

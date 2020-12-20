@@ -28,7 +28,7 @@ class SettingsViewModel: NSObject, BaseViewModel {
 
     func loadData() {
 
-        let mainSection = Section(name: .settings, rows: [.account, .subscription, .alarms, .support])
+        let mainSection = Section(name: .settings, rows: [.account, /*.subscription, .alarms, .support*/])
 
         sections = [mainSection]
 

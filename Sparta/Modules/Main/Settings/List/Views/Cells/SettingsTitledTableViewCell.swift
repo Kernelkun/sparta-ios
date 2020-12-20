@@ -70,7 +70,7 @@ class SettingsTitledTableViewCell: UITableViewCell {
 
         bottomLine = UIView().then { view in
 
-            view.backgroundColor = UIBlenderConstants.tableSeparatorLineColor
+            view.backgroundColor = UIGridViewConstants.tableSeparatorLineColor
 
             addSubview(view) {
                 $0.height.equalTo(0.5)

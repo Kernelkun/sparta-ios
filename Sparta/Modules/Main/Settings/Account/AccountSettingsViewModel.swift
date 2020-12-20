@@ -168,6 +168,14 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
             parameters["primary_port"] = selectedPort.id
         }
 
+        if let selectedFirstName = selectedFirstName {
+            parameters["name"] = selectedFirstName
+        }
+
+        if let selectedLastName = selectedLastName {
+            parameters["lastname"] = selectedLastName
+        }
+
         changeLoadingState(true, for: .save)
 
         profileNetworkManager.updateUser(id: userId, parameters: parameters) { [weak self] result in

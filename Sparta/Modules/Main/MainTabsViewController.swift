@@ -51,10 +51,10 @@ class MainTabsViewController: UITabBarController {
         //
 
         viewControllers = [
-            UINavigationController(rootViewController: first),
+//            UINavigationController(rootViewController: first),
             UINavigationController(rootViewController: second),
             UINavigationController(rootViewController: third),
-            UINavigationController(rootViewController: fourth),
+//            UINavigationController(rootViewController: fourth),
             UINavigationController(rootViewController: fifth)
         ]
 

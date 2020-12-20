@@ -42,7 +42,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
 
         let contentView = UIView().then { view in
 
-            view.backgroundColor = UIBlenderConstants.mainBackgroundColor
+            view.backgroundColor = UIGridViewConstants.mainBackgroundColor
 
             addSubview(view) {
                 $0.left.right.bottom.equalToSuperview()
