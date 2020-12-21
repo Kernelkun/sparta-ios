@@ -29,6 +29,7 @@
 		D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228425826AE6005FA057 /* PhoneNumberKit-Static */; };
 		D94E228725826AE6005FA057 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228625826AE6005FA057 /* PhoneNumberKit */; };
 		D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E228825826CEE005FA057 /* UITextFieldSelector.swift */; };
+		D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D954A14A2590B3E300FAE766 /* SeasonalityButton.swift */; };
 		D959C0DE2582295F006CE2D1 /* ArbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */; };
 		D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C0E125822969006CE2D1 /* ArbsViewModel.swift */; };
 		D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C0E625822D09006CE2D1 /* LiveCurvesViewController.swift */; };
@@ -144,6 +145,7 @@
 		D94BCA442577F7ED0076C2AB /* BlenderInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoTableViewCell.swift; sourceTree = "<group>"; };
 		D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D94E228825826CEE005FA057 /* UITextFieldSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldSelector.swift; sourceTree = "<group>"; };
+		D954A14A2590B3E300FAE766 /* SeasonalityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonalityButton.swift; sourceTree = "<group>"; };
 		D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsViewController.swift; sourceTree = "<group>"; };
 		D959C0E125822969006CE2D1 /* ArbsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsViewModel.swift; sourceTree = "<group>"; };
 		D959C0E625822D09006CE2D1 /* LiveCurvesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesViewController.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 				D9A8042D257145A3000ADE6B /* BiggerAreaButton.swift */,
 				D9A80431257145B4000ADE6B /* TappableButton.swift */,
 				D9B50E3E257431F90018F3D7 /* BorderedButton.swift */,
+				D954A14A2590B3E300FAE766 /* SeasonalityButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -877,6 +880,7 @@
 				D94BCA452577F7ED0076C2AB /* BlenderInfoTableViewCell.swift in Sources */,
 				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
 				D959C0F225822EEB006CE2D1 /* FreightViewModel.swift in Sources */,
+				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,

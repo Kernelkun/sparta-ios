@@ -56,7 +56,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
         var result: [Cell] = []
         result = liveCurves.compactMap { liveCurve in
-            return .grade(title: liveCurve.name.uppercased())
+            return .grade(title: liveCurve.displayName)
         }
         return result
     }

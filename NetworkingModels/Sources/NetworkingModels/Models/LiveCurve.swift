@@ -30,6 +30,10 @@ public struct LiveCurve: BackendModel {
         return newPriceCode
     }
 
+    public var displayName: String {
+        displayName(for: name) ?? name
+    }
+
     public var indexOfMonth: Int? {
         Self.months.firstIndex(of: monthCode)
     }
@@ -100,4 +104,31 @@ extension LiveCurve {
             }
         }
     }
+}
+
+// HOT FIX
+
+extension LiveCurve {
+
+    private var _displayNames: [String: String] {
+        ["OTRBSW": "Brent Swap",
+         "ISPEOB": "EBOB Crk",
+         "ISPNWE": "Nap Crk",
+         "SPDMJN": "E/W Nap",
+         "PSDREB": "TA Arb",
+         "SPDMEB": "E/W Gas",
+         "EBOB": "EBOB",
+         "NWENAPHTHA": "Nap NWE",
+         "GASNAPHTHA": "Gas-Nap",
+         "RBOBSWAP": "RBOB Swap",
+         "SING92": "Sing92",
+         "EBOBSPREADS": "EBOB Spd",
+         "MOPJSPREADS": "MOPJ Spd",
+         "NWENAPHTHASPREADS": "Nap NWE Spd"]
+    }
+
+    private func displayName(for code: String) -> String? {
+        _displayNames[code]
+    }
+
 }

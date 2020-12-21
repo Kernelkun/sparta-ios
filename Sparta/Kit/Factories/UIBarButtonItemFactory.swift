@@ -39,31 +39,17 @@ enum UIBarButtonItemFactory {
 
     static func seasonalityBlock(onValueChanged: @escaping TypeClosure<Bool>) -> UIBarButtonItem {
 
-        let titleLabel = UILabel().then { label in
+        let tappableButton = SeasonalityButton().then { view in
 
-            label.font = .main(weight: .regular, size: 12)
-            label.textColor = .primaryText
-            label.numberOfLines = 1
-            label.textAlignment = .left
-            label.text = "Seasonality"
+            view.onTap(completion: onValueChanged)
+            view.clickableInset = -10
+
+            view.snp.makeConstraints {
+                $0.size.equalTo(25)
+            }
         }
 
-        let tappableSwitch = TappableUISwitch().then { view in
-
-            view.onValueChanged(completion: onValueChanged)
-        }
-
-        let stackView = UIStackView().then { stackView in
-
-            stackView.addArrangedSubview(titleLabel)
-            stackView.addArrangedSubview(tappableSwitch)
-
-            stackView.distribution = .equalSpacing
-            stackView.spacing = 7
-            stackView.alignment = .center
-        }
-
-        return UIBarButtonItem(customView: stackView)
+        return UIBarButtonItem(customView: tappableButton)
     }
 
     static func fixedSpace(space: CGFloat) -> UIBarButtonItem {
