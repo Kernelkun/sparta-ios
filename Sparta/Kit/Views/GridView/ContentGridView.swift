@@ -84,7 +84,7 @@ class ContentGridView: UIView {
 
         collectionGridLayout = GridLayout()
         collectionGridLayout.cellWidths = cellsWidth
-        collectionGridLayout.cellHeights = [ 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50 ]
+        collectionGridLayout.cellHeights = []
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionGridLayout).then { collectionView in
 

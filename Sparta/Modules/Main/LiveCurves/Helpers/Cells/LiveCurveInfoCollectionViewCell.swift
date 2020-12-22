@@ -43,6 +43,14 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
         stopObservingAllLiveCurvesEvents()
     }
 
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+
+        if let layoutAttributes = layoutAttributes as? GridViewLayoutAttributes {
+            layer.backgroundColor = layoutAttributes.backgroundColor.cgColor
+        }
+    }
+
     // MARK: - Public methods
 
     func apply(monthInfo: LiveCurveMonthInfoModel, for indexPath: IndexPath) {
@@ -51,8 +59,6 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
         titleLabel.text = monthInfo.priceValue
         lastPriceCode = monthInfo.priceCode
         observeLiveCurves(for: monthInfo.priceCode)
-
-        contentView.layer.backgroundColor = expectedBackgroundColor().cgColor
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -106,14 +112,6 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
     }
 
-    private func expectedBackgroundColor() -> UIColor {
-        if indexPath.section % 2 == 0 { // even
-            return UIGridViewConstants.oddLineBackgroundColor
-        } else { // odd
-            return UIGridViewConstants.evenLineBackgroundColor
-        }
-    }
-
     // MARK: - Events
 
     @objc
@@ -129,10 +127,10 @@ extension LiveCurveInfoCollectionViewCell: LiveCurvesObserver {
             self.titleLabel.text = liveCurve.priceValue.symbols2Value
 
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
+                self.contentView.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2)
             } completion: { _ in
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                    self.contentView.layer.backgroundColor = self.expectedBackgroundColor().cgColor
+                    self.contentView.backgroundColor = .clear
                 } completion: { _ in
                 }
             }

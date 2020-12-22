@@ -27,6 +27,10 @@ class GridLayout: UICollectionViewLayout {
         return CGSize(width: totalWidth, height: totalHeight)
     }
 
+    override class var layoutAttributesClass: AnyClass {
+        return GridViewLayoutAttributes.classForCoder()
+    }
+
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         // When bouncing, rect's origin can have a negative x or y, which is bad.
         let newRect = rect.intersection(CGRect(x: 0, y: 0, width: totalWidth, height: totalHeight))
@@ -44,7 +48,7 @@ class GridLayout: UICollectionViewLayout {
         return poses
     }
 
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> GridViewLayoutAttributes? {
         return pose(forCellAt: indexPath)
     }
 
@@ -132,12 +136,16 @@ class GridLayout: UICollectionViewLayout {
         }
     }
 
-    private func pose(forCellAt indexPath: IndexPath) -> UICollectionViewLayoutAttributes {
-        let pose = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+    private func pose(forCellAt indexPath: IndexPath) -> GridViewLayoutAttributes {
+        let pose = GridViewLayoutAttributes(forCellWith: indexPath)
         let row = indexPath.section
         let column = indexPath.item
         pose.frame = CGRect(x: cellSpansWidth[column].minX, y: cellSpansHeight[row].minY,
                             width: cellWidths[column], height: cellHeights[row])
+
+        pose.backgroundColor = indexPath.section % 2 == 0 ? UIGridViewConstants.oddLineBackgroundColor
+            : UIGridViewConstants.evenLineBackgroundColor
+
         return pose
     }
 }

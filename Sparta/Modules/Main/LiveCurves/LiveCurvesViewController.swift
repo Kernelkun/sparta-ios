@@ -133,6 +133,14 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
     }
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates, completion: {
+            self.gridView.tableView.visibleCells.forEach { cell in
+                if let cell = cell as? LiveCurveGradeTableViewCell, let indexPath = self.gridView.tableView.indexPath(for: cell) {
+                    if case let LiveCurvesViewModel.Cell.grade(title) = self.viewModel.tableDataSource[indexPath.section] {
+                        cell.apply(title: title, for: indexPath)
+                    }
+                }
+            }
+        })
     }
 }

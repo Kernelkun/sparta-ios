@@ -24,6 +24,10 @@ class GridView: UIView {
 
     // MARK: - Public properties
 
+    var tableView: UITableView {
+        contentView.tableView
+    }
+
     weak var dataSource: GridViewDataSource?
 
     // MARK: - Private properties
@@ -179,6 +183,10 @@ extension GridView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         dataSource?.cellForCollectionView(collectionView, for: indexPath) ?? .init()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.layoutSubviews()
     }
 }
 

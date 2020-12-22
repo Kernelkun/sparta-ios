@@ -56,14 +56,14 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
         var result: [Cell] = []
-        result = liveCurves.compactMap { liveCurve in
+        result = liveCurves.sorted(by: { $0.priorityIndex < $1.priorityIndex }).compactMap { liveCurve in
             return .grade(title: liveCurve.displayName)
         }
         return result
     }
 
     private func createCollectionDataSource(from liveCurves: [LiveCurve]) -> [Section] {
-        liveCurves.compactMap { liveCurve -> Section in
+        liveCurves.sorted(by: { $0.priorityIndex < $1.priorityIndex }).compactMap { liveCurve -> Section in
 
             let name = liveCurve.name
             let priorityIndex = liveCurve.priorityIndex
@@ -89,7 +89,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
             } else {
                 return tempSection
             }
-        }//.sorted(by: { $0.priorityIndex > $1.priorityIndex })
+        }
     }
 
     private func priceCodes(for name: String) -> [String] {
@@ -116,7 +116,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 
     func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve]) {
-        updateLiveCurves(liveCurves)
+        updateDataSource(liveCurves)
 
         updateGrades()
     }
@@ -125,7 +125,7 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
         var liveCurves: [LiveCurve] = fetchedLiveCurves
         liveCurves.append(liveCurve)
 
-        updateLiveCurves(liveCurves)
+        updateDataSource(liveCurves)
 
         updateGrades()
     }
@@ -179,6 +179,37 @@ extension LiveCurvesViewModel {
         onMainThread {
             self.delegate?.didUpdateDataSourceSections(insertions: insertionsIndexSet,
                                                        removals: removalsIndexSet,
+                                                       updates: [])
+        }
+    }
+
+    private func updateDataSource(_ newLiveCurves: [LiveCurve]) {
+
+        let newTableDataSource = createTableDataSource(from: newLiveCurves)
+        let newCollectionDataSource = createCollectionDataSource(from: newLiveCurves)
+
+        let changes = newCollectionDataSource.difference(from: collectionDataSource)
+
+        let insertedIndexs = changes.insertions.compactMap { change -> Int? in
+            guard case let .insert(offset, _, _) = change else { return nil }
+
+            return offset
+        }
+
+        let removedIndexs = changes.removals.compactMap { change -> Int? in
+            guard case let .remove(offset, _, _) = change else { return nil }
+
+            return offset
+        }
+
+        fetchedLiveCurves = newLiveCurves
+
+        tableDataSource = newTableDataSource
+        collectionDataSource = newCollectionDataSource
+
+        onMainThread {
+            self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(insertedIndexs),
+                                                       removals: IndexSet(removedIndexs),
                                                        updates: [])
         }
     }

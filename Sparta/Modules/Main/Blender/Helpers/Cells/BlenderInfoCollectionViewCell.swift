@@ -65,8 +65,6 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
             applyTitledUI()
         }
 
-        print("-month: \(month.observableName), \(month.seasonality)")
-
         if indexPath.section % 2 == 0 { // even
             backgroundColor = UIGridViewConstants.oddLineBackgroundColor
         } else { // odd

@@ -72,6 +72,7 @@ public extension UICollectionView {
             if !updates.isEmpty {
                 reloadSections(updates)
             }
+            
         }, completion: completion)
         UIView.setAnimationsEnabled(true)
     }
