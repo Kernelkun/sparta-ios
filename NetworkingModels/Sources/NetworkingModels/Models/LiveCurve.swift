@@ -39,7 +39,11 @@ public struct LiveCurve: BackendModel {
     }
 
     public static var months: [String] {
-        ["M01", "M02", "M03", "M04", "M05", "M06"]
+        ["BOM", "M01", "M02", "M03", "M04", "M05"]
+    }
+
+    public var priorityIndex: Int {
+        _priorityIndex[name] ?? 100
     }
 
     //
@@ -47,6 +51,8 @@ public struct LiveCurve: BackendModel {
 
     public init(json: JSON) {
         let responseArray = json.stringValue.components(separatedBy: ",")
+
+        print("-TEST: \(responseArray)")
 
         inputs = [:]
 
@@ -113,7 +119,7 @@ extension LiveCurve {
     private var _displayNames: [String: String] {
         ["OTRBSW": "Brent Swap",
          "ISPEOB": "EBOB Crk",
-         "ISPNWE": "Nap Crk",
+         "ISPNWE": "Nap NWE Crk",
          "SPDMJN": "E/W Nap",
          "PSDREB": "TA Arb",
          "SPDMEB": "E/W Gas",
@@ -124,11 +130,29 @@ extension LiveCurve {
          "SING92": "Sing92",
          "EBOBSPREADS": "EBOB Spd",
          "MOPJSPREADS": "MOPJ Spd",
+         "SING92SPREADS": "Sing92 Spd",
          "NWENAPHTHASPREADS": "Nap NWE Spd"]
+    }
+
+    private var _priorityIndex: [String: Int] {
+        ["OTRBSW": 0,
+         "ISPEOB": 4,
+         "ISPNWE": 11,
+         "SPDMJN": 13,
+         "PSDREB": 2,
+         "SPDMEB": 6,
+         "EBOB": 3,
+         "NWENAPHTHA": 10,
+         "GASNAPHTHA": 9,
+         "RBOBSWAP": 1,
+         "SING92": 7,
+         "SING92SPREADS": 8,
+         "EBOBSPREADS": 5,
+         "MOPJSPREADS": 14,
+         "NWENAPHTHASPREADS": 12]
     }
 
     private func displayName(for code: String) -> String? {
         _displayNames[code]
     }
-
 }

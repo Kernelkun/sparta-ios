@@ -36,6 +36,8 @@ class LiveCurvesSyncManager {
     }()
     private var _liveCurves: [LiveCurve] = []
 
+    private let excludedLiveCurvesCodes: [String] = ["SING92SPREADS", "RBOBFUTURESPREADS", "RBOBFUTURE", "DIFRBOBEXDUTY"]
+
     // MARK: - Initializers
 
     init() {
@@ -64,6 +66,8 @@ extension LiveCurvesSyncManager: SocketActionObserver {
 
         var liveCurve = LiveCurve(json: data)
 
+        guard !excludedLiveCurvesCodes.compactMap({ $0.lowercased() }).contains(liveCurve.name.lowercased()) else { return }
+
         if !_liveCurves.contains(liveCurve) {
             _liveCurves.append(liveCurve)
 
@@ -91,7 +95,5 @@ extension LiveCurvesSyncManager: SocketActionObserver {
                 self.delegate?.liveCurvesSyncManagerDidReceiveUpdates(for: liveCurve)
             }
         }
-
-
     }
 }

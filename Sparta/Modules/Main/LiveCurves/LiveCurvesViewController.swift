@@ -92,7 +92,7 @@ extension LiveCurvesViewController: GridViewDataSource {
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
-        50
+        40
     }
 
     func numberOfRowsForTableView(in section: Int) -> Int {
@@ -133,6 +133,6 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
     }
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: [])
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
     }
 }

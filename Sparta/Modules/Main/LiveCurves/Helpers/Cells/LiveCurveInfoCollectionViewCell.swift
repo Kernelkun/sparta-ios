@@ -15,7 +15,6 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 
     private var titleLabel: UILabel!
     private var bottomLine: UIView!
-    let layerSD = CAGradientLayer()
 
     // MARK: - Private properties
 
@@ -49,18 +48,11 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     func apply(monthInfo: LiveCurveMonthInfoModel, for indexPath: IndexPath) {
         self.indexPath = indexPath
 
-        if let priceValue = monthInfo.priceValue {
-            titleLabel.text = priceValue
-        }
-
+        titleLabel.text = monthInfo.priceValue
         lastPriceCode = monthInfo.priceCode
         observeLiveCurves(for: monthInfo.priceCode)
 
-        if indexPath.section % 2 == 0 { // even
-            backgroundColor = UIGridViewConstants.oddLineBackgroundColor
-        } else { // odd
-            backgroundColor = UIGridViewConstants.evenLineBackgroundColor
-        }
+        contentView.layer.backgroundColor = expectedBackgroundColor().cgColor
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -71,10 +63,10 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 
     private func setupUI() {
 
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
-
-        contentView.layer.addSublayer(layerSD)
 
         titleLabel = UILabel().then { label in
 
@@ -114,6 +106,14 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
     }
 
+    private func expectedBackgroundColor() -> UIColor {
+        if indexPath.section % 2 == 0 { // even
+            return UIGridViewConstants.oddLineBackgroundColor
+        } else { // odd
+            return UIGridViewConstants.evenLineBackgroundColor
+        }
+    }
+
     // MARK: - Events
 
     @objc
@@ -126,13 +126,13 @@ extension LiveCurveInfoCollectionViewCell: LiveCurvesObserver {
 
     func liveCurvesDidReceiveResponse(for liveCurve: LiveCurve) {
         onMainThread {
-            self.titleLabel.text = "\(liveCurve.priceValue)"
+            self.titleLabel.text = liveCurve.priceValue.symbols2Value
 
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
                 self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
             } completion: { _ in
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
+                    self.contentView.layer.backgroundColor = self.expectedBackgroundColor().cgColor
                 } completion: { _ in
                 }
             }

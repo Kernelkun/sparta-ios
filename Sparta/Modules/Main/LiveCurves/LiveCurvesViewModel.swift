@@ -9,6 +9,7 @@ import UIKit
 import Networking
 import SwiftyJSON
 import NetworkingModels
+import SpartaHelpers
 
 protocol LiveCurvesViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
@@ -65,12 +66,14 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
         liveCurves.compactMap { liveCurve -> Section in
 
             let name = liveCurve.name
+            let priorityIndex = liveCurve.priorityIndex
+
             let cells = priceCodes(for: liveCurve.name).compactMap { priceCode -> Cell in
-                .info(monthInfo: LiveCurveMonthInfoModel(priceValue: liveCurve.priceCode == priceCode ? "\(liveCurve.priceValue)" : nil,
+                .info(monthInfo: LiveCurveMonthInfoModel(priceValue: liveCurve.priceCode == priceCode ? liveCurve.priceValue.symbols2Value : nil,
                                                          priceCode: priceCode))
             }
 
-            let tempSection = Section(name: name, cells: cells)
+            let tempSection = Section(name: name, priorityIndex: priorityIndex, cells: cells)
 
             if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
 
@@ -80,13 +83,13 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
                 var updatedSection = collectionDataSource[indexOfSection]
 
-                updatedSection.cells[indexOfMonth] = .info(monthInfo: LiveCurveMonthInfoModel(priceValue: "\(liveCurve.priceValue)",
+                updatedSection.cells[indexOfMonth] = .info(monthInfo: LiveCurveMonthInfoModel(priceValue: liveCurve.priceValue.symbols2Value,
                                                                                               priceCode: liveCurve.priceCode))
                 return updatedSection
             } else {
                 return tempSection
             }
-        }
+        }//.sorted(by: { $0.priorityIndex > $1.priorityIndex })
     }
 
     private func priceCodes(for name: String) -> [String] {
@@ -114,6 +117,7 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 
     func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve]) {
         updateLiveCurves(liveCurves)
+
         updateGrades()
     }
 
@@ -130,9 +134,14 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
         if let indexOfLiveCurve = fetchedLiveCurves.firstIndex(of: liveCurve) {
             fetchedLiveCurves[indexOfLiveCurve] = liveCurve
 
-            if let indexOfMonth = liveCurve.indexOfMonth {
-                collectionDataSource[indexOfLiveCurve].cells[indexOfMonth] = .info(monthInfo: .init(priceValue: "\(liveCurve.priceValue)",
-                                                                                                    priceCode: liveCurve.priceCode))
+            if let indexOfMonth = liveCurve.indexOfMonth,
+               let indexInDataSource = collectionDataSource.firstIndex(where: { $0.name == liveCurve.name }) {
+
+                let price = liveCurve.priceValue.symbols2Value
+                let priceCode = liveCurve.priceCode
+
+                collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: .init(priceValue: price,
+                                                                                                    priceCode: priceCode))
             }
         }
 
@@ -186,6 +195,7 @@ extension LiveCurvesViewModel {
 
     struct Section {
         let name: String
+        var priorityIndex: Int
         var cells: [Cell]
     }
 }
