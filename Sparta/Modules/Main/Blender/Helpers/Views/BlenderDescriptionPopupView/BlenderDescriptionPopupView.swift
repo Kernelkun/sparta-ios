@@ -19,9 +19,8 @@ class BlenderDescriptionPopupView: UIView {
 
     // MARK: - Private properties
 
+    private let viewModel = BlenderDescriptionPopupViewModel()
     private var tableView: UITableView!
-
-    private var model: BlenderMonthDetailModel?
 
     private var _closeClosure: EmptyClosure?
     private var _contentChangeSizeClosure: EmptyClosure?
@@ -31,20 +30,32 @@ class BlenderDescriptionPopupView: UIView {
     init() {
         super.init(frame: .zero)
 
+        // UI
+
         setupUI()
+
+        // view model
+
+        viewModel.delegate = self
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
+        // UI
+
         setupUI()
+
+        // view model
+
+        viewModel.delegate = self
     }
 
     // MARK: - Public methods
 
     func apply(monthDetailModel: BlenderMonthDetailModel) {
-        model = monthDetailModel
-        tableView.reloadData()
+        viewModel.monthDetails = monthDetailModel
+        viewModel.loadData()
     }
 
     func onClose(completion: @escaping EmptyClosure) {
@@ -122,41 +133,20 @@ class BlenderDescriptionPopupView: UIView {
 extension BlenderDescriptionPopupView: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard model != nil else { return 0 }
-
-        return 2
+        viewModel.sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let model = model else { return 0 }
-
-        if section == 0 {
-            return model.mainKeyValues.count
-        } else {
-            return model.componentsKeyValues.count
-        }
+        viewModel.sections[section].cells.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let model = model else { return UITableViewCell() }
 
-        let key: String
-        let value: String
-
-        var sectionValues: [String: String] = [:]
-
-        if indexPath.section == 0 {
-            sectionValues = model.mainKeyValues
-        } else {
-            sectionValues = model.componentsKeyValues
-        }
-
-        key = Array(sectionValues.keys)[indexPath.row]
-        value = Array(sectionValues.values)[indexPath.row]
+        let model = viewModel.sections[indexPath.section].cells[indexPath.row]
 
         let cell: BlenderDescriptionTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
-        cell.apply(key: key, value: value)
+        cell.apply(key: model.key, value: model.value)
 
         return cell
     }
@@ -172,5 +162,11 @@ extension BlenderDescriptionPopupView: UITableViewDelegate, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 0 : 40
+    }
+}
+
+extension BlenderDescriptionPopupView: BlenderDescriptionPopupViewModelDelegate {
+    func didLoadData() {
+        tableView.reloadData()
     }
 }

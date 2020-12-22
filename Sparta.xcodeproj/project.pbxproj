@@ -59,6 +59,7 @@
 		D9A067362589183C00C0D1E5 /* ContentGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A067352589183C00C0D1E5 /* ContentGridView.swift */; };
 		D9A067382589186200C0D1E5 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A067372589186200C0D1E5 /* GridView.swift */; };
 		D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A11811257937A600BB928E /* App+Reconnection.swift */; };
+		D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A279632592012E009D066E /* BlenderDescriptionPopupViewModel.swift */; };
 		D9A3BD5E2575258500224535 /* App in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD5D2575258500224535 /* App */; };
 		D9A3BD612575262B00224535 /* NetworkingModels in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD602575262B00224535 /* NetworkingModels */; };
 		D9A3BD662575274300224535 /* SpartaHelpers in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD652575274300224535 /* SpartaHelpers */; };
@@ -176,6 +177,7 @@
 		D9A067372589186200C0D1E5 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		D9A118102579377500BB928E /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D9A11811257937A600BB928E /* App+Reconnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+Reconnection.swift"; sourceTree = "<group>"; };
+		D9A279632592012E009D066E /* BlenderDescriptionPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderDescriptionPopupViewModel.swift; sourceTree = "<group>"; };
 		D9A3BD5B257522C400224535 /* App */ = {isa = PBXFileReference; lastKnownFileType = folder; path = App; sourceTree = "<group>"; };
 		D9A3BD632575273200224535 /* SpartaHelpers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpartaHelpers; sourceTree = "<group>"; };
 		D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveInfoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -522,6 +524,15 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		D9A2796225920121009D066E /* BlenderDescriptionPopupView */ = {
+			isa = PBXGroup;
+			children = (
+				D9A279632592012E009D066E /* BlenderDescriptionPopupViewModel.swift */,
+				D9ECEC3A257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift */,
+			);
+			path = BlenderDescriptionPopupView;
+			sourceTree = "<group>";
+		};
 		D9A7E96C258BBA3B00052232 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,8 +762,8 @@
 		D9ECEC39257A9A6D005DFFD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9A2796225920121009D066E /* BlenderDescriptionPopupView */,
 				D9ECEC4C257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift */,
-				D9ECEC3A257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -930,6 +941,7 @@
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
 				D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */,
 				D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */,
+				D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */,
 				D970047A25892AEB000E4A01 /* LoadingView.swift in Sources */,
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,

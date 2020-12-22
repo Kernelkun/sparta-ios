@@ -12,7 +12,6 @@ import NetworkingModels
 
 protocol BlenderViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
-    func didChangeSeasonality()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool)
 }
 
@@ -61,16 +60,16 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
         let month = blender.months[monthIndex]
 
-        let mainKeyValues: [String: String] = [
-            "Argus Ebob Barge Swap": month.basisValue + " $/mt",
-            "Gas-Naphtha": month.naphthaValue + " $/mt",
-            "Escalation": blender.escalation
+        let mainKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = [
+            .init(key: "Argus Ebob Barge Swap", value: month.basisValue + " $/mt", priorityIndex: 0),
+            .init(key: "Gas-Naphtha", value: month.naphthaValue + " $/mt", priorityIndex: 1),
+            .init(key: "Escalation", value: blender.escalation, priorityIndex: 2)
         ]
 
-        var componentsKeyValues: [String: String] = [:]
+        var componentsKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []
 
-        month.components.forEach {
-            componentsKeyValues[$0.name] = $0.value
+        for (index, element) in month.components.enumerated() {
+            componentsKeyValues.append(.init(key: element.name, value: element.value, priorityIndex: index))
         }
 
         return BlenderMonthDetailModel(mainKeyValues: mainKeyValues, componentsKeyValues: componentsKeyValues)
@@ -94,8 +93,6 @@ class BlenderViewModel: NSObject, BaseViewModel {
         for index in 0..<collectionDataSource.count {
             indexesForUpdates.append(index)
         }
-
-//        self.delegate?.didChangeSeasonality()
 
         self.delegate?.didUpdateDataSourceSections(insertions: [],
                                                    removals: [],

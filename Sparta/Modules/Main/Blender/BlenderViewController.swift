@@ -173,10 +173,6 @@ extension BlenderViewController: BlenderViewModelDelegate {
         gridView.reloadGrades()
     }
 
-    func didChangeSeasonality() {
-        gridView.scrollToTop()
-    }
-
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool) {
         gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates) {
             if afterSeasonality {

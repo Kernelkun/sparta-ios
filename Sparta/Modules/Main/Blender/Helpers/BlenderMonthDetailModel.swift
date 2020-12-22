@@ -11,14 +11,15 @@ struct BlenderMonthDetailModel {
 
     // MARK: - Public properties
 
-    let mainKeyValues: [String: String]
-    let componentsKeyValues: [String: String]
+    var mainKeyValues: [KeyValueParameter]
+    var componentsKeyValues: [KeyValueParameter]
+}
 
-    func printDescription() {
-        print("Top block description:")
-        print(mainKeyValues.debugDescription)
+extension BlenderMonthDetailModel {
 
-        print("Components block description:")
-        print(componentsKeyValues.debugDescription)
+    struct KeyValueParameter {
+        let key: String
+        let value: String
+        let priorityIndex: Int
     }
 }
