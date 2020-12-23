@@ -45,22 +45,15 @@ extension ProfileEndPoint: EndPointType {
             return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: parameters,
-                                                additionHeaders: headersWithToken())
+                                                additionHeaders: headersWithToken)
 
         case .getPrimaryTradeAreas, .getUserRoles, .getProfile, .getPhonePrefixes:
             return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
-                                                additionHeaders: headersWithToken())
+                                                additionHeaders: headersWithToken)
         }
     }
 
     var header: HTTPHeaders? { nil }
-}
-
-extension ProfileEndPoint {
-
-    func headersWithToken() -> HTTPHeaders {
-        return ["Authorization": "Bearer \(App.instance.token ?? "")"]
-    }
 }

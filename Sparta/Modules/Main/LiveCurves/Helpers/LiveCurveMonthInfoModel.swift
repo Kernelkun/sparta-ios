@@ -8,6 +8,6 @@
 import UIKit
 
 struct LiveCurveMonthInfoModel {
-    var priceValue: String?
+    var priceValue: Double
     let priceCode: String
 }

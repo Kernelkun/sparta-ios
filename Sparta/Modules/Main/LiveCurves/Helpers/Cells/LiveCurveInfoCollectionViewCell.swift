@@ -56,7 +56,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     func apply(monthInfo: LiveCurveMonthInfoModel, for indexPath: IndexPath) {
         self.indexPath = indexPath
 
-        titleLabel.text = monthInfo.priceValue
+        titleLabel.text = monthInfo.priceValue.symbols2Value
         lastPriceCode = monthInfo.priceCode
         observeLiveCurves(for: monthInfo.priceCode)
     }

@@ -17,22 +17,14 @@ public struct LiveCurve: BackendModel {
     public let date: String
     public let monthCode: String
     public let monthDisplay: String
-    public let priceCode: String
+    public let code: String
     public let priceValue: Double
-    public let inputs: [String: Any]
     public var state: State = .initial
+    public let name: String
+    public let longName: String
 
-    public var name: String {
-        guard let range = priceCode.range(of: monthCode) else { return priceCode }
-
-        var newPriceCode = priceCode
-        newPriceCode.removeSubrange(range)
-        return newPriceCode
-    }
-
-    public var displayName: String {
-        displayName(for: name) ?? name
-    }
+    public var priceCode: String { name + monthCode }
+    public var displayName: String { name }
 
     public var indexOfMonth: Int? {
         Self.months.firstIndex(of: monthCode)
@@ -43,48 +35,20 @@ public struct LiveCurve: BackendModel {
     }
 
     public var priorityIndex: Int {
-        _priorityIndex[name] ?? 100
+        _priorityIndex[code] ?? 100
     }
 
     //
     // MARK: - Default Initializers
 
     public init(json: JSON) {
-        let responseArray = json.stringValue.components(separatedBy: ",")
-
-        print("-TEST: \(responseArray)")
-
-        inputs = [:]
-
-        if responseArray.count > 0 {
-            date = responseArray[0] as String
-        } else {
-            date = ""
-        }
-
-        if responseArray.count > 1 {
-            monthCode = responseArray[1] as String
-        } else {
-            monthCode = ""
-        }
-
-        if responseArray.count >= 2 {
-            monthDisplay = responseArray[2] as String
-        } else {
-            monthDisplay = ""
-        }
-
-        if responseArray.count >= 3 {
-            priceCode = responseArray[3] as String
-        } else {
-            priceCode = ""
-        }
-
-        if responseArray.count >= 4 {
-            priceValue = Double(responseArray[4]) ?? 0.0
-        } else {
-            priceValue = 0.0
-        }
+        date = json["datetime"].stringValue
+        monthCode = json["monthCode"].stringValue
+        monthDisplay = json["monthName"].stringValue
+        name = json["shortName"].stringValue
+        longName = json["longName"].stringValue
+        code = json["code"].stringValue
+        priceValue = json["price"].doubleValue
     }
 }
 
@@ -116,24 +80,6 @@ extension LiveCurve {
 
 extension LiveCurve {
 
-    private var _displayNames: [String: String] {
-        ["OTRBSW": "Brent Swap",
-         "ISPEOB": "EBOB Crk",
-         "ISPNWE": "Nap NWE Crk",
-         "SPDMJN": "E/W Nap",
-         "PSDREB": "TA Arb",
-         "SPDMEB": "E/W Gas",
-         "EBOB": "EBOB",
-         "NWENAPHTHA": "Nap NWE",
-         "GASNAPHTHA": "Gas-Nap",
-         "RBOBSWAP": "RBOB Swap",
-         "SING92": "Sing92",
-         "EBOBSPREADS": "EBOB Spd",
-         "MOPJSPREADS": "MOPJ Spd",
-         "SING92SPREADS": "Sing92 Spd",
-         "NWENAPHTHASPREADS": "Nap NWE Spd"]
-    }
-
     private var _priorityIndex: [String: Int] {
         ["OTRBSW": 0,
          "ISPEOB": 4,
@@ -150,9 +96,5 @@ extension LiveCurve {
          "EBOBSPREADS": 5,
          "MOPJSPREADS": 14,
          "NWENAPHTHASPREADS": 12]
-    }
-
-    private func displayName(for code: String) -> String? {
-        _displayNames[code]
     }
 }

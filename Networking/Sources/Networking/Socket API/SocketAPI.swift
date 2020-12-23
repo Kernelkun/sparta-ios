@@ -188,14 +188,7 @@ extension SocketAPI: WebSocketDelegate {
 
     public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
 
-        var response: JSON
-
-        switch serverType {
-        case .blender:
-            response = JSON(parseJSON: text)
-        case .liveCurves:
-            response = JSON(stringLiteral: text)
-        }
+        let response = JSON(parseJSON: text)
 
         print("*Websocket: Did receive some text*")
 

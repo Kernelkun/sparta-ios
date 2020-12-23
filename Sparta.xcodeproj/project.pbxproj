@@ -61,6 +61,9 @@
 		D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A11811257937A600BB928E /* App+Reconnection.swift */; };
 		D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A279632592012E009D066E /* BlenderDescriptionPopupViewModel.swift */; };
 		D9A27966259236A0009D066E /* GridViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A27965259236A0009D066E /* GridViewLayoutAttributes.swift */; };
+		D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */; };
+		D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2796A259352BA009D066E /* EndPointType+Token.swift */; };
+		D9A2796D259352FB009D066E /* AnalyticsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */; };
 		D9A3BD5E2575258500224535 /* App in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD5D2575258500224535 /* App */; };
 		D9A3BD612575262B00224535 /* NetworkingModels in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD602575262B00224535 /* NetworkingModels */; };
 		D9A3BD662575274300224535 /* SpartaHelpers in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD652575274300224535 /* SpartaHelpers */; };
@@ -180,6 +183,9 @@
 		D9A11811257937A600BB928E /* App+Reconnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+Reconnection.swift"; sourceTree = "<group>"; };
 		D9A279632592012E009D066E /* BlenderDescriptionPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderDescriptionPopupViewModel.swift; sourceTree = "<group>"; };
 		D9A27965259236A0009D066E /* GridViewLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewLayoutAttributes.swift; sourceTree = "<group>"; };
+		D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEndPoint.swift; sourceTree = "<group>"; };
+		D9A2796A259352BA009D066E /* EndPointType+Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EndPointType+Token.swift"; sourceTree = "<group>"; };
+		D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsNetworkManager.swift; sourceTree = "<group>"; };
 		D9A3BD5B257522C400224535 /* App */ = {isa = PBXFileReference; lastKnownFileType = folder; path = App; sourceTree = "<group>"; };
 		D9A3BD632575273200224535 /* SpartaHelpers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpartaHelpers; sourceTree = "<group>"; };
 		D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveInfoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -457,6 +463,7 @@
 				D96C8BEF2576651C0038175A /* BaseNetworkManager.swift */,
 				D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */,
 				D944CEF025767306009115FD /* ProfileNetworkManager.swift */,
+				D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -464,8 +471,10 @@
 		D96C8BF3257665220038175A /* EndPoints */ = {
 			isa = PBXGroup;
 			children = (
+				D9A2796A259352BA009D066E /* EndPointType+Token.swift */,
 				D96C8BF4257665220038175A /* AuthEndPoint.swift */,
 				D944CEED2576725D009115FD /* ProfileEndPoint.swift */,
+				D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */,
 			);
 			path = EndPoints;
 			sourceTree = "<group>";
@@ -898,6 +907,7 @@
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
+				D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
@@ -927,6 +937,7 @@
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
+				D9A2796D259352FB009D066E /* AnalyticsNetworkManager.swift in Sources */,
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */,
@@ -964,6 +975,7 @@
 				D959C0F925822F9C006CE2D1 /* SettingsViewModel.swift in Sources */,
 				D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */,
 				D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */,
+				D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */,
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
 				D9A067132587BECA00C0D1E5 /* LiveCurvesSyncManager.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,

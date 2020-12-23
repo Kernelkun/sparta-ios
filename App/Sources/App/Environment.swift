@@ -9,7 +9,7 @@ import Foundation
 
 public struct Environment {
 
-    private static let environement: EnvironmentType = .production
+    private static let environement: EnvironmentType = .stage
 
     public enum EnvironmentType: String {
 //        case development
@@ -36,9 +36,9 @@ public struct Environment {
         }
     }
 
-    // SOCKETS URL's
+    // DATA & SOCKETS URL's
 
-    private static var baseSocketsURL: String {
+    public static var baseDataURL: String {
         switch Self.environement {
         case .stage:
             return "https://backend.staging.sparta.app"
@@ -47,6 +47,6 @@ public struct Environment {
         }
     }
 
-    public static let socketBlenderURL = Self.baseSocketsURL + "/blender"
-    public static let socketLiveCurvesURL = Self.baseSocketsURL + "/feedprices"
+    public static let socketBlenderURL = Self.baseDataURL + "/blender"
+    public static let socketLiveCurvesURL = Self.baseDataURL + "/socket/v1/curves"
 }

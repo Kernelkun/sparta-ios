@@ -38,6 +38,8 @@ class LiveCurvesSyncManager {
 
     private let excludedLiveCurvesCodes: [String] = ["SING92SPREADS", "RBOBFUTURESPREADS", "RBOBFUTURE", "DIFRBOBEXDUTY"]
 
+    private let analyticsManager = AnalyticsNetworkManager()
+
     // MARK: - Initializers
 
     init() {
@@ -48,12 +50,25 @@ class LiveCurvesSyncManager {
 
     func startReceivingData() {
 
-        App.instance.socketsConnect(toServer: .liveCurves)
+        analyticsManager.fetchLiveCurves { [weak self] result in
+            guard let strongSelf = self else { return }
 
-        if !_liveCurves.isEmpty {
-            let liveCurves = Array(_liveCurves)
+            switch result {
+            case .success(let responseModel) where responseModel.model != nil:
 
-            delegate?.liveCurvesSyncManagerDidFetch(liveCurves: liveCurves)
+                let liveCurves = Array(responseModel.model!.list) //swiftlint:disable:this force_unwrapping
+
+                onMainThread {
+                    strongSelf.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: liveCurves)
+                }
+
+                // socket connection
+
+                App.instance.socketsConnect(toServer: .liveCurves)
+
+            case .failure, .success:
+                break
+            }
         }
     }
 

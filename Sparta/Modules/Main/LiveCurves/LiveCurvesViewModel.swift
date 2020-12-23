@@ -55,36 +55,39 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     // MARK: - Private methods
 
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
-        var result: [Cell] = []
-        result = liveCurves.sorted(by: { $0.priorityIndex < $1.priorityIndex }).compactMap { liveCurve in
-            return .grade(title: liveCurve.displayName)
+//        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
+
+        return Dictionary(grouping: liveCurves, by: { $0.displayName }).keys.compactMap { key -> Cell in
+            .grade(title: key)
         }
-        return result
     }
 
     private func createCollectionDataSource(from liveCurves: [LiveCurve]) -> [Section] {
-        liveCurves.sorted(by: { $0.priorityIndex < $1.priorityIndex }).compactMap { liveCurve -> Section in
+//        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
 
-            let name = liveCurve.name
-            let priorityIndex = liveCurve.priorityIndex
+        return Dictionary(grouping: liveCurves, by: { $0.displayName }).compactMap { key, value -> Section in
 
-            let cells = priceCodes(for: liveCurve.name).compactMap { priceCode -> Cell in
-                .info(monthInfo: LiveCurveMonthInfoModel(priceValue: liveCurve.priceCode == priceCode ? liveCurve.priceValue.symbols2Value : nil,
-                                                         priceCode: priceCode))
+            var cells: [Cell] = Array(repeating: .emptyGrade(), count: LiveCurve.months.count)
+
+            value.forEach { liveCurve in
+                guard let indexOfMonth = liveCurve.indexOfMonth else { return }
+
+                cells[indexOfMonth] = Cell.info(monthInfo: .init(priceValue: liveCurve.priceValue,
+                                                                 priceCode: liveCurve.priceCode))
             }
 
-            let tempSection = Section(name: name, priorityIndex: priorityIndex, cells: cells)
+            let tempSection = Section(name: key, cells: cells)
 
             if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
 
-                guard let indexOfMonth = liveCurve.indexOfMonth else {
-                    return collectionDataSource[indexOfSection]
-                }
-
                 var updatedSection = collectionDataSource[indexOfSection]
 
-                updatedSection.cells[indexOfMonth] = .info(monthInfo: LiveCurveMonthInfoModel(priceValue: liveCurve.priceValue.symbols2Value,
-                                                                                              priceCode: liveCurve.priceCode))
+                for liveCurve in value {
+                    if let indexOfMonth = liveCurve.indexOfMonth {
+                        updatedSection.cells[indexOfMonth] = tempSection.cells[indexOfMonth]
+                    }
+                }
+
                 return updatedSection
             } else {
                 return tempSection
@@ -137,10 +140,9 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
             if let indexOfMonth = liveCurve.indexOfMonth,
                let indexInDataSource = collectionDataSource.firstIndex(where: { $0.name == liveCurve.name }) {
 
-                let price = liveCurve.priceValue.symbols2Value
                 let priceCode = liveCurve.priceCode
 
-                collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: .init(priceValue: price,
+                collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: .init(priceValue: liveCurve.priceValue,
                                                                                                     priceCode: priceCode))
             }
         }
@@ -152,36 +154,6 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 // differences
 
 extension LiveCurvesViewModel {
-
-    private func updateLiveCurves(_ newLiveCurves: [LiveCurve]) {
-        let changes = newLiveCurves.difference(from: fetchedLiveCurves)
-
-        let insertedIndexPaths = changes.insertions.compactMap { change -> IndexPath? in
-            guard case let .insert(offset, _, _) = change else { return nil }
-
-            return IndexPath(row: 0, section: offset)
-        }
-
-        let removedIndexPaths = changes.removals.compactMap { change -> IndexPath? in
-            guard case let .remove(offset, _, _) = change else { return nil }
-
-            return IndexPath(row: 0, section: offset)
-        }
-
-        fetchedLiveCurves = newLiveCurves
-
-        tableDataSource = createTableDataSource(from: newLiveCurves)
-        collectionDataSource = createCollectionDataSource(from: newLiveCurves)
-
-        let insertionsIndexSet = IndexSet(insertedIndexPaths.compactMap { $0.section })
-        let removalsIndexSet = IndexSet(removedIndexPaths.compactMap { $0.section })
-
-        onMainThread {
-            self.delegate?.didUpdateDataSourceSections(insertions: insertionsIndexSet,
-                                                       removals: removalsIndexSet,
-                                                       updates: [])
-        }
-    }
 
     private func updateDataSource(_ newLiveCurves: [LiveCurve]) {
 
@@ -226,7 +198,6 @@ extension LiveCurvesViewModel {
 
     struct Section {
         let name: String
-        var priorityIndex: Int
         var cells: [Cell]
     }
 }
