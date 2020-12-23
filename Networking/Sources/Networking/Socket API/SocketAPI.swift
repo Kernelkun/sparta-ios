@@ -13,6 +13,7 @@ import Reachability
 public protocol SocketAPIDelegate: class {
     func socketConnectionEstablished()
     func socketConnectionLost()
+    func socketConnectionDidChangeState(_ newState: SocketAPI.State)
 }
 
 /// Socket API Manager.
@@ -86,7 +87,11 @@ public class SocketAPI: NSObject {
 
     public var serverType: SocketAPI.Server
     public weak var connectionDelegate: SocketAPIDelegate?
-    public private(set) var state: State
+    public private(set) var state: State {
+        didSet {
+            connectionDelegate?.socketConnectionDidChangeState(state)
+        }
+    }
 
     // this method will just change server without reconnection
     public func change(to server: SocketAPI.Server) {

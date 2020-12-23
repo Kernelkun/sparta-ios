@@ -59,6 +59,17 @@ class GridView: UIView {
         }
     }
 
+    func applyContentInset(_ contentInset: UIEdgeInsets) {
+
+        contentView.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
+
+        contentView.snp.updateConstraints {
+            $0.left.equalToSuperview().offset(contentInset.left)
+            $0.right.equalToSuperview().inset(contentInset.right)
+            $0.bottom.equalToSuperview().inset(contentInset.bottom)
+        }
+    }
+
     func reloadGrades() {
         gradesView.reloadData()
     }

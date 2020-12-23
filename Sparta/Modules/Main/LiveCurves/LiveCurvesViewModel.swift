@@ -14,6 +14,7 @@ import SpartaHelpers
 protocol LiveCurvesViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
+    func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)
 }
 
 class LiveCurvesViewModel: NSObject, BaseViewModel {
@@ -42,10 +43,13 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
         collectionGrades = LiveCurve.months.compactMap { Cell.grade(title: $0) }
 
         delegate?.didReceiveUpdatesForGrades()
+
+        observeApp(for: .socketsState)
     }
 
     func stopLoadData() {
         App.instance.socketsConnect()
+        stopObservingApp(for: .socketsState)
     }
 
     func monthsCount() -> Int {
@@ -114,6 +118,18 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
             self.delegate?.didReceiveUpdatesForGrades()
         }
     }
+
+    private func updateConnectionInfo() {
+
+        let app = App.instance
+        let socketsState = app.socketsState
+
+        onMainThread {
+            self.delegate?.didChangeConnectionData(title: socketsState.title,
+                                                   color: socketsState.color,
+                                                   formattedDate: self.liveCurvesSyncManager.lastSyncDate?.formattedString(AppFormatter.serverLongDate))
+        }
+    }
 }
 
 extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
@@ -148,6 +164,10 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
         }
 
         updateGrades()
+    }
+
+    func liveCurvesSyncManagerDidChangeSyncDate(_ newDate: Date?) {
+        updateConnectionInfo()
     }
 }
 
@@ -184,6 +204,13 @@ extension LiveCurvesViewModel {
                                                        removals: IndexSet(removedIndexs),
                                                        updates: [])
         }
+    }
+}
+
+extension LiveCurvesViewModel: AppObserver {
+
+    func appSocketsDidChangeState(for server: SocketAPI.Server, state: SocketAPI.State) {
+        updateConnectionInfo()
     }
 }
 

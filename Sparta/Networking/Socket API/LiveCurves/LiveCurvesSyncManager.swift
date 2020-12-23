@@ -14,6 +14,7 @@ protocol LiveCurvesSyncManagerDelegate: class {
     func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve])
     func liveCurvesSyncManagerDidReceive(liveCurve: LiveCurve)
     func liveCurvesSyncManagerDidReceiveUpdates(for liveCurve: LiveCurve)
+    func liveCurvesSyncManagerDidChangeSyncDate(_ newDate: Date?)
 }
 
 class LiveCurvesSyncManager {
@@ -25,6 +26,14 @@ class LiveCurvesSyncManager {
     // MARK: - Public properties
 
     weak var delegate: LiveCurvesSyncManagerDelegate?
+
+    private(set) var lastSyncDate: Date? {
+        didSet {
+            onMainThread {
+                self.delegate?.liveCurvesSyncManagerDidChangeSyncDate(self.lastSyncDate)
+            }
+        }
+    }
 
     // MARK: - Private properties
 
@@ -39,6 +48,7 @@ class LiveCurvesSyncManager {
     private let excludedLiveCurvesCodes: [String] = ["SING92SPREADS", "RBOBFUTURESPREADS", "RBOBFUTURE", "DIFRBOBEXDUTY"]
 
     private let analyticsManager = AnalyticsNetworkManager()
+
 
     // MARK: - Initializers
 
@@ -82,6 +92,8 @@ extension LiveCurvesSyncManager: SocketActionObserver {
         var liveCurve = LiveCurve(json: data)
 
         guard !excludedLiveCurvesCodes.compactMap({ $0.lowercased() }).contains(liveCurve.name.lowercased()) else { return }
+
+        lastSyncDate = Date()
 
         if !_liveCurves.contains(liveCurve) {
             _liveCurves.append(liveCurve)

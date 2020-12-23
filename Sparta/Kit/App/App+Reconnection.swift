@@ -11,6 +11,11 @@ import SwiftyJSON
 
 extension App {
 
+    // MARK: - Public properties
+
+    var socketsState: SocketAPI.State { sockets.state }
+    var socketsServer: SocketAPI.Server { sockets.serverType }
+
     // MARK: - Public methods
 
     func socketsConnect(toServer: SocketAPI.Server = App.instance.sockets.serverType) {
@@ -42,5 +47,9 @@ extension App: SocketAPIDelegate {
 
     func socketConnectionLost() {
         isTokenSentToServer = false
+    }
+
+    func socketConnectionDidChangeState(_ newState: SocketAPI.State) {
+        notifyObserversAboutChangedSocketsState(for: socketsServer, state: newState)
     }
 }

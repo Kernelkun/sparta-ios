@@ -64,6 +64,9 @@
 		D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */; };
 		D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2796A259352BA009D066E /* EndPointType+Token.swift */; };
 		D9A2796D259352FB009D066E /* AnalyticsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */; };
+		D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */; };
+		D9A2797125939632009D066E /* App+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2797025939632009D066E /* App+Observation.swift */; };
+		D9A27973259399C0009D066E /* SocketAPI+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A27972259399C0009D066E /* SocketAPI+UI.swift */; };
 		D9A3BD5E2575258500224535 /* App in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD5D2575258500224535 /* App */; };
 		D9A3BD612575262B00224535 /* NetworkingModels in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD602575262B00224535 /* NetworkingModels */; };
 		D9A3BD662575274300224535 /* SpartaHelpers in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD652575274300224535 /* SpartaHelpers */; };
@@ -186,6 +189,9 @@
 		D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEndPoint.swift; sourceTree = "<group>"; };
 		D9A2796A259352BA009D066E /* EndPointType+Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EndPointType+Token.swift"; sourceTree = "<group>"; };
 		D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsNetworkManager.swift; sourceTree = "<group>"; };
+		D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketsStatusLineView.swift; sourceTree = "<group>"; };
+		D9A2797025939632009D066E /* App+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+Observation.swift"; sourceTree = "<group>"; };
+		D9A27972259399C0009D066E /* SocketAPI+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SocketAPI+UI.swift"; sourceTree = "<group>"; };
 		D9A3BD5B257522C400224535 /* App */ = {isa = PBXFileReference; lastKnownFileType = folder; path = App; sourceTree = "<group>"; };
 		D9A3BD632575273200224535 /* SpartaHelpers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpartaHelpers; sourceTree = "<group>"; };
 		D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveInfoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -359,6 +365,7 @@
 		D94BCA4F25792AB50076C2AB /* Socket API */ = {
 			isa = PBXGroup;
 			children = (
+				D9A27972259399C0009D066E /* SocketAPI+UI.swift */,
 				D93BC63E258CF8530026BF8E /* Blender */,
 				D91A96B9258BB56C008487A8 /* LiveCurves */,
 			);
@@ -532,6 +539,7 @@
 			children = (
 				D9A118102579377500BB928E /* App.swift */,
 				D9A11811257937A600BB928E /* App+Reconnection.swift */,
+				D9A2797025939632009D066E /* App+Observation.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -562,6 +570,7 @@
 				D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */,
 				D94E228825826CEE005FA057 /* UITextFieldSelector.swift */,
 				D970047925892AEB000E4A01 /* LoadingView.swift */,
+				D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */,
 				D9A8042025714410000ADE6B /* Alert */,
 				D9A8042C25714595000ADE6B /* Buttons */,
 				D9B50E2525740F810018F3D7 /* Textfields */,
@@ -906,6 +915,7 @@
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
+				D9A27973259399C0009D066E /* SocketAPI+UI.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
@@ -942,6 +952,7 @@
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */,
 				D99B2F3425753ADF0080B90B /* Validator.swift in Sources */,
+				D9A2797125939632009D066E /* App+Observation.swift in Sources */,
 				D9A067362589183C00C0D1E5 /* ContentGridView.swift in Sources */,
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
 				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
@@ -978,6 +989,7 @@
 				D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */,
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
 				D9A067132587BECA00C0D1E5 /* LiveCurvesSyncManager.swift in Sources */,
+				D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
