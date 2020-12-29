@@ -44,6 +44,7 @@ class AppCoordinator {
             }
 
             mainFlowCoordinator = MainFlowCoordinator(window: contentWindow)
+            authenticationFlowCoordinator = AuthenticationFlowCoordinator(window: contentWindow)
         }
 
         do {
@@ -55,17 +56,6 @@ class AppCoordinator {
             }
 
             blurCoordinator = BlurCoordinator(window: window)
-        }
-
-        do {
-            let window = UIWindow(frame: UIScreen.main.bounds)
-            window.windowLevel = .init(UIWindow.Level.normal.rawValue + 1)
-            window.backgroundColor = .clear
-            if #available(iOS 13.0, *) {
-                window.overrideUserInterfaceStyle = .dark
-            }
-
-            authenticationFlowCoordinator = AuthenticationFlowCoordinator(window: window)
         }
 
         // UI
@@ -89,8 +79,15 @@ class AppCoordinator {
             return
         }
 
-        authenticationFlowCoordinator.finish()
+        guard app.isInitialDataSynced else {
+            blurCoordinator.start(forced: true, status: "Syncing initial data")
+            app.syncInitialData()
+            return
+        }
 
+        app.appDidMakeAuthentication()
+
+        blurCoordinator.finish(forced: true)
         mainFlowCoordinator.start()
     }
 
@@ -158,9 +155,11 @@ extension AppCoordinator: CoordinatorDelegate {
 
         switch coordinator {
         case authenticationFlowCoordinator:
+            mainFlowCoordinator.finish()
             blurCoordinator.finish()
 
         case mainFlowCoordinator:
+            authenticationFlowCoordinator.finish()
             blurCoordinator.finish()
 
         default:

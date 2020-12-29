@@ -24,6 +24,8 @@ public extension Double {
 
     var toString: String { String(self) }
 
+    var symbols2Value: String { String(format: "%.2f", self) }
+
     var toFormattedString: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal

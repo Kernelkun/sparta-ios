@@ -13,6 +13,7 @@ import Reachability
 public protocol SocketAPIDelegate: class {
     func socketConnectionEstablished()
     func socketConnectionLost()
+    func socketConnectionDidChangeState(_ newState: SocketAPI.State)
 }
 
 /// Socket API Manager.
@@ -36,11 +37,7 @@ public class SocketAPI: NSObject {
 
     //
 
-    // swiftlint:disable:next force_unwrapping
-    private static let baseURL = URL(string: "wss://core.cryptysecure.com/ws/cryptytalk/")!
-
-    private var socket: WebSocket
-    private var reachability: Reachability
+    private var socket: WebSocket!
 
     //
     // MARK: - Reconnection Handling
@@ -75,27 +72,39 @@ public class SocketAPI: NSObject {
     //
     // MARK: - Object Initialization
 
-    override public init() {
+    public init(defaultServer: Server) {
 
-        reachability = try! Reachability() // swiftlint:disable:this force_try
-        try! reachability.startNotifier() // swiftlint:disable:this force_try
+        serverType = defaultServer
 
-        //
-
-        socket = WebSocket(url: SocketAPI.baseURL)
+        socket = WebSocket(url: serverType.link)
         state = .unknown
 
         super.init()
-
-        reachability.whenReachable = { _ in self.connect() }
-        reachability.whenUnreachable = { _ in self.disconnect(forced: true) }
     }
 
     //
     // MARK: - Public Accessors
 
+    public var serverType: SocketAPI.Server
     public weak var connectionDelegate: SocketAPIDelegate?
-    public private(set) var state: State
+    public private(set) var state: State {
+        didSet {
+            connectionDelegate?.socketConnectionDidChangeState(state)
+        }
+    }
+
+    // this method will just change server without reconnection
+    public func change(to server: SocketAPI.Server) {
+
+        if state <= .connected {
+            disconnect(forced: true)
+        }
+
+        serverType = server
+
+        socket = WebSocket(url: server.link)
+        state = .unknown
+    }
 
     public func connect(tryToReconnectIfFailed: Bool = true) {
 
@@ -105,7 +114,7 @@ public class SocketAPI: NSObject {
         if tryToReconnectIfFailed && reconnectionTimer == nil {
 
             reconnectionTimer = Timer.scheduledTimer(
-                withTimeInterval: 1,
+                withTimeInterval: 10,
                 repeats: true,
                 block: { [weak self] _ in self?.connect() }
             )
@@ -117,7 +126,7 @@ public class SocketAPI: NSObject {
 
         //
 
-        print("***Websocket is trying to establish connection...***")
+        print("*Websocket: is trying to establish connection... \(serverType.rawValue) ***")
 
         state = .connecting
 
@@ -130,19 +139,11 @@ public class SocketAPI: NSObject {
         socket.disconnect(forceTimeout: forced ? -1 : nil)
     }
 
-    public func sendEvent(_ event: Event, requiresAuth: Bool = true, data: [String: Any?] = [:]) {
-
-        var completedData = data
-        completedData["cmd"] = event.rawValue
-
-        sendData(data: JSON(completedData), requiresAuth: requiresAuth)
-    }
-
-    private func sendData(data: JSON, requiresAuth: Bool) {
+    public func sendData(data: JSON, requiresAuth: Bool) {
 
         print("*Websocket: Current state: \(state)*")
 
-        if requiresAuth && state < .authenticated {
+        /*if requiresAuth && state < .authenticated {
             print("*Websocket: Postponed sending \(data["cmd"].stringValue): not authenticated*")
             fifoQueueWithAuth.append(data)
             return
@@ -157,23 +158,10 @@ public class SocketAPI: NSObject {
         guard ongoingQueue.contains(data) == false else {
             print("*Websocket: Aborted sending \(data["cmd"].stringValue): already in queue*")
             return
-        }
+        }*/
 
         guard let rawString = data.rawString() else { return }
 
-        // Don't add those events that actually can be duplicated.
-        guard let event = Event(rawValue: data["cmd"].stringValue) else { return }
-
-        /*if event != .getUser, event != .login,
-            event != .searchUsers, event != .searchContacts,
-            event != .callsList, event != .missedCallsList,
-            event != .masterRejectCall {
-
-            ongoingQueue.append(data)
-        }*/
-
-        print("*Websocket: Sending event: \(event.rawValue)*")
-        //        print("*Websocket: Sending payload: \(data)*")
         socket.write(string: rawString)
     }
 }
@@ -181,7 +169,7 @@ public class SocketAPI: NSObject {
 extension SocketAPI: WebSocketDelegate {
 
     public func websocketDidConnect(socket: WebSocketClient) {
-        print("***Websocket is connected!***")
+        print("*Websocket: is connected! \(serverType.rawValue) ***")
         state = .connected
         connectionDelegate?.socketConnectionEstablished()
 
@@ -192,7 +180,7 @@ extension SocketAPI: WebSocketDelegate {
     }
 
     public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("***Websocket is disconnected!***")
+        print("*Websocket: is disconnected!\(serverType.rawValue) ***")
         state = .disconnected
         connectionDelegate?.socketConnectionLost()
 
@@ -206,35 +194,13 @@ extension SocketAPI: WebSocketDelegate {
     public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
 
         let response = JSON(parseJSON: text)
-        let eventString = response["event"].stringValue
-        let content = response["content"]
 
-        print("*Websocket: Did receive event string: \(eventString)*")
-
-        guard let event = Event(rawValue: eventString) else { return }
-
-        print("*Websocket: Parsed to event: \(event)*")
-//        print("*Websocket: Content: \(content)*")
-
-        //
-        // Remove the payload from the ongoingQueue
-
-        let index = ongoingQueue.firstIndex { $0["cmd"].stringValue == event.rawValue }
-        if let indexToDelete = index { ongoingQueue.remove(at: indexToDelete) }
-
-        //
-        // Or clearing the queue in case of an error
-
-        /*if event == .error {
-            ongoingQueue.removeAll(keepingCapacity: true)
-        } else if event == .newRoomExists {
-            ongoingQueue.removeAll { $0["cmd"].stringValue == Event.newRoomSinglePrivate.rawValue }
-        }*/
+        print("*Websocket: Did receive some text*")
 
         //
         // Notify observers about happened event
 
-        notifyObservers(about: event, with: content)
+        notifyObservers(about: serverType, with: response)
     }
 
     public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
@@ -258,4 +224,3 @@ public extension SocketAPI {
         state = .connected
     }
 }
-

@@ -18,15 +18,6 @@ class MainFlowCoordinator: Coordinator {
 
     init(window: UIWindow) {
         self.window = window
-
-//        UITabBar.appearance().tintColor = .tabBarTintActive
-//        UITabBar.appearance().unselectedItemTintColor = .tabBarTintInactive
-//        UITabBar.appearance().barTintColor = .barBackground
-//
-//        UISegmentedControl
-//            .appearance(whenContainedInInstancesOf: [UISearchBar.self])
-//            .selectedSegmentTintColor = .controlTintActive
-//
     }
 
     // MARK: - Public methods

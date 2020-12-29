@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import SpartaHelpers
-import Networking
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
