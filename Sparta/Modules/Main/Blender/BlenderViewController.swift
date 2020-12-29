@@ -12,6 +12,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     // MARK: - UI
 
     private var gridView: GridView!
+    private var socketsStatusView: SocketsStatusLineView!
     private var popup = PopupViewController()
 
     // MARK: - Initializers
@@ -55,8 +56,24 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
         view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
+        // grid view
+        
         gridView.dataSource = self
         gridView.apply(topSpace: topBarHeight)
+        gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
+
+        // sockets status view
+
+        socketsStatusView = SocketsStatusLineView().then { view in
+
+            view.backgroundColor = UIGridViewConstants.mainBackgroundColor
+
+            addSubview(view) {
+                $0.height.equalTo(25)
+                $0.left.right.equalToSuperview()
+                $0.bottom.equalToSuperview()
+            }
+        }
     }
 
     private func setupNavigationUI() {
@@ -179,5 +196,9 @@ extension BlenderViewController: BlenderViewModelDelegate {
                 self.gridView.scrollToTop()
             }
         }
+    }
+
+    func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
+        socketsStatusView.apply(color: color, title: title, formattedDate: formattedDate)
     }
 }

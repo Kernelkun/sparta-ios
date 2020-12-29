@@ -20,7 +20,6 @@ public struct User: BackendModel {
     public var firstName: String?
     public var lastName: String?
 
-
     public var isConfirmed: Bool
     public var isBlocked: Bool
 
@@ -31,6 +30,12 @@ public struct User: BackendModel {
     public var primaryProduct: Int?
     public var primaryTradeRegion: Int?
     public var role: Int?
+
+    // navigation sections
+
+    public var freight: Bool
+    public var blender: Bool
+    public var arbs: Bool
 
     //
     // MARK: - Default Initializers
@@ -54,5 +59,9 @@ public struct User: BackendModel {
         primaryProduct = json["primary_product"].int
         primaryTradeRegion = json["primary_trade_region"].int
         role = json["user_role"].int
+
+        freight = json["freight"].boolValue
+        blender = json["blender"].boolValue
+        arbs = json["arbs"].boolValue
     }
 }

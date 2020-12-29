@@ -145,4 +145,3 @@ class BaseVMViewController<Model: NSObject & BaseViewModel>: BaseViewController,
         return !(touch.view is UIControl)
     }
 }
-

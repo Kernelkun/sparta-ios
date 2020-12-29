@@ -63,10 +63,14 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
         view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
+        // grid view
+
         gridView.dataSource = self
         gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
+        // sockets status view
+        
         socketsStatusView = SocketsStatusLineView().then { view in
 
             view.backgroundColor = UIGridViewConstants.mainBackgroundColor

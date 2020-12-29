@@ -14,6 +14,7 @@ protocol BlenderSyncManagerDelegate: class {
     func blenderSyncManagerDidFetch(blenders: [Blender])
     func blenderSyncManagerDidReceive(blender: Blender)
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender)
+    func blenderSyncManagerDidChangeSyncDate(_ newDate: Date?)
 }
 
 class BlenderSyncManager {
@@ -25,6 +26,14 @@ class BlenderSyncManager {
     // MARK: - Public properties
 
     weak var delegate: BlenderSyncManagerDelegate?
+
+    private(set) var lastSyncDate: Date? {
+        didSet {
+            onMainThread {
+                self.delegate?.blenderSyncManagerDidChangeSyncDate(self.lastSyncDate)
+            }
+        }
+    }
 
     // MARK: - Private properties
 
@@ -63,6 +72,8 @@ extension BlenderSyncManager: SocketActionObserver {
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON) {
 
         let blender = Blender(json: data)
+
+        lastSyncDate = Date()
 
         if !_blenders.contains(blender) {
             _blenders.append(blender)

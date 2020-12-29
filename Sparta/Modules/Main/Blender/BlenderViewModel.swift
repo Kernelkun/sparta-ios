@@ -13,6 +13,7 @@ import NetworkingModels
 protocol BlenderViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool)
+    func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)
 }
 
 class BlenderViewModel: NSObject, BaseViewModel {
@@ -45,6 +46,10 @@ class BlenderViewModel: NSObject, BaseViewModel {
     func loadData() {
         blenderManager.delegate = self
         blenderManager.startReceivingData()
+
+        // sockets
+
+        observeApp(for: .socketsState)
     }
 
     func fetchDescription(for indexPath: IndexPath) -> BlenderMonthDetailModel? {
@@ -105,7 +110,16 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     private func createCollectionDataSource(from blenders: [Blender]) -> [Section] {
-        blenders.compactMap { Section(cells: $0.months.compactMap { Cell.info(month: $0) }) }
+        blenders.compactMap { blender in
+
+            var cells: [Cell] = Array(repeating: Cell.info(month: .empty), count: monthsCount())
+
+            for (index, month) in blender.months.enumerated() {
+                cells[index] = Cell.info(month: month)
+            }
+
+            return Section(cells: cells)
+        }
     }
 
     private func updateGrades() {
@@ -113,6 +127,19 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
         onMainThread {
             self.delegate?.didReceiveUpdatesForGrades()
+        }
+    }
+
+    private func updateConnectionInfo() {
+
+        let app = App.instance
+        let socketsState = app.socketsState
+        let formattedDate = blenderManager.lastSyncDate?.formattedString(AppFormatter.timeDate)
+
+        onMainThread {
+            self.delegate?.didChangeConnectionData(title: socketsState.title,
+                                                   color: socketsState.color,
+                                                   formattedDate: formattedDate)
         }
     }
 }
@@ -153,6 +180,13 @@ extension BlenderViewModel {
     }
 }
 
+extension BlenderViewModel: AppObserver {
+
+    func appSocketsDidChangeState(for server: SocketAPI.Server, state: SocketAPI.State) {
+        updateConnectionInfo()
+    }
+}
+
 extension BlenderViewModel: BlenderSyncManagerDelegate {
 
     func blenderSyncManagerDidFetch(blenders: [Blender]) {
@@ -164,6 +198,7 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
     func blenderSyncManagerDidReceive(blender: Blender) {
         var newBlenders = Array(fetchedBlenders)
         newBlenders.append(blender)
+        
         updateBlenders(newBlenders)
 
         updateGrades()
@@ -176,6 +211,10 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
         }
 
         updateGrades()
+    }
+
+    func blenderSyncManagerDidChangeSyncDate(_ newDate: Date?) {
+        updateConnectionInfo()
     }
 }
 

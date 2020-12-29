@@ -47,7 +47,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
         super.apply(layoutAttributes)
 
         if let layoutAttributes = layoutAttributes as? GridViewLayoutAttributes {
-            layer.backgroundColor = layoutAttributes.backgroundColor.cgColor
+            backgroundColor = layoutAttributes.backgroundColor
         }
     }
 
@@ -127,10 +127,10 @@ extension LiveCurveInfoCollectionViewCell: LiveCurvesObserver {
             self.titleLabel.text = liveCurve.priceValue.symbols2Value
 
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                self.contentView.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2)
+                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
             } completion: { _ in
                 UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                    self.contentView.backgroundColor = .clear
+                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
                 } completion: { _ in
                 }
             }

@@ -49,7 +49,6 @@ class LiveCurvesSyncManager {
 
     private let analyticsManager = AnalyticsNetworkManager()
 
-
     // MARK: - Initializers
 
     init() {

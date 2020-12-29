@@ -9,7 +9,9 @@ import UIKit
 
 class MainTabsViewController: UITabBarController {
 
-    // MARK: - Variables private
+    // MARK: - Private properties
+
+    private let viewModel = MainTabsViewModel()
 
     // MARK: - Lifecycle
 
@@ -31,32 +33,40 @@ class MainTabsViewController: UITabBarController {
             vc.tabBarItem.image = UIImage(named: imageName)
         }
 
-        let first = ArbsViewController()
-        setTabBarItem(first, "ARBs", "ic_tab_first")
+        var tabs: [UINavigationController] = []
+
+        if viewModel.isVisibleArbsBlock {
+            let first = ArbsViewController()
+            setTabBarItem(first, "ARBs", "ic_tab_first")
+
+            tabs.append(UINavigationController(rootViewController: first))
+        }
 
         let second = LiveCurvesViewController()
         setTabBarItem(second, "Live Curves", "ic_tab_second")
+        tabs.append(UINavigationController(rootViewController: second))
 
-        let third = BlenderViewController()
-        setTabBarItem(third, "Blender", "ic_tab_third")
+        if viewModel.isVisibleBlenderBlock {
+            let third = BlenderViewController()
+            setTabBarItem(third, "Blender", "ic_tab_third")
 
-        let fourth = FreightViewController()
-        setTabBarItem(fourth, "Freight", "ic_tab_fourth")
+            tabs.append(UINavigationController(rootViewController: third))
+        }
+
+        if viewModel.isVisibleFreightBlock {
+            let fourth = FreightViewController()
+            setTabBarItem(fourth, "Freight", "ic_tab_fourth")
+
+            tabs.append(UINavigationController(rootViewController: fourth))
+        }
 
         let fifth = SettingsViewController()
         setTabBarItem(fifth, "Settings", "ic_tab_fifth")
+        tabs.append(UINavigationController(rootViewController: fifth))
 
         tabBar.isTranslucent = false
 
-        //
-
-        viewControllers = [
-//            UINavigationController(rootViewController: first),
-            UINavigationController(rootViewController: second),
-            UINavigationController(rootViewController: third),
-//            UINavigationController(rootViewController: fourth),
-            UINavigationController(rootViewController: fifth)
-        ]
+        viewControllers = tabs
 
         // style
 

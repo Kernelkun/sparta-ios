@@ -13,6 +13,7 @@ class SocketsStatusLineView: UIView {
 
     private var statusMarkerView: UIView!
     private var statusLabel: UILabel!
+    private var dateLabel: UILabel!
 
     // MARK: - Initializers
 
@@ -32,6 +33,7 @@ class SocketsStatusLineView: UIView {
         statusMarkerView.backgroundColor = color
         statusLabel.textColor = color
         statusLabel.text = title
+        updateStatusLabel(with: formattedDate)
     }
 
     // MARK: - Private methods
@@ -63,5 +65,32 @@ class SocketsStatusLineView: UIView {
                 $0.centerY.equalTo(statusMarkerView)
             }
         }
+
+        dateLabel = UILabel().then { label in
+
+            label.textAlignment = .right
+            label.numberOfLines = 1
+            label.font = .main(weight: .regular, size: 12)
+            label.textColor = .secondaryText
+
+            addSubview(label) {
+                $0.right.equalToSuperview().inset(23)
+                $0.centerY.equalToSuperview()
+            }
+        }
+
+        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.53).cgColor
+        layer.shadowOpacity = 1
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 6
+    }
+
+    private func updateStatusLabel(with text: String?) {
+        guard let text = text else {
+            dateLabel.text = nil
+            return
+        }
+
+        dateLabel.text = "Last updated" + " " + text
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */; };
+		D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */; };
 		D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */; };
 		D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */; };
 		D9264BED25751298001477DA /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = D9264BEC25751298001477DA /* Networking */; };
@@ -134,6 +135,7 @@
 
 /* Begin PBXFileReference section */
 		D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesSyncManager+Observation.swift"; sourceTree = "<group>"; };
+		D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabsViewModel.swift; sourceTree = "<group>"; };
 		D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		D9264BE82574FF0D001477DA /* NetworkingModels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NetworkingModels; sourceTree = "<group>"; };
@@ -269,6 +271,15 @@
 				D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */,
 			);
 			path = LiveCurves;
+			sourceTree = "<group>";
+		};
+		D91CE9BF2595097600E6374E /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */,
+				D9B50E21257184780018F3D7 /* MainTabsViewController.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 		D9264BE02574F0D9001477DA /* ForgotPassword */ = {
@@ -649,7 +660,7 @@
 		D9B50E202571844F0018F3D7 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D9B50E21257184780018F3D7 /* MainTabsViewController.swift */,
+				D91CE9BF2595097600E6374E /* Tabs */,
 				D96C8BE32576509B0038175A /* ChangePassword */,
 				D959C0E525822CFB006CE2D1 /* LiveCurves */,
 				D959C0DC2582293E006CE2D1 /* ARBs */,
@@ -973,6 +984,7 @@
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
 				D93BC634258BF9300026BF8E /* UIGridViewConstants.swift in Sources */,
+				D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */,
 				D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */,
 				D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */,
 				D9A8042225714420000ADE6B /* Alert.swift in Sources */,

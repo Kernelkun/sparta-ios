@@ -123,11 +123,12 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
         let app = App.instance
         let socketsState = app.socketsState
+        let formattedDate = liveCurvesSyncManager.lastSyncDate?.formattedString(AppFormatter.timeDate)
 
         onMainThread {
             self.delegate?.didChangeConnectionData(title: socketsState.title,
                                                    color: socketsState.color,
-                                                   formattedDate: self.liveCurvesSyncManager.lastSyncDate?.formattedString(AppFormatter.serverLongDate))
+                                                   formattedDate: formattedDate)
         }
     }
 }
