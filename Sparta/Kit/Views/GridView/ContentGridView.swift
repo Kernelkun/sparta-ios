@@ -79,7 +79,7 @@ class ContentGridView: UIView {
             }
         }
 
-        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.monthsCount)
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.rowsCount)
             .compactMap { _ in constructor.collectionColumnWidth }
 
         collectionGridLayout = GridLayout()

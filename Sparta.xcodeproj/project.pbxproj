@@ -52,6 +52,7 @@
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
+		D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */; };
 		D99B2F3425753ADF0080B90B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3325753ADF0080B90B /* Validator.swift */; };
 		D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3725753B0C0080B90B /* EmailValidator.swift */; };
 		D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99B2F3A25753B200080B90B /* PasswordValidator.swift */; };
@@ -177,6 +178,7 @@
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
+		D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManager.swift; sourceTree = "<group>"; };
 		D99B2F3325753ADF0080B90B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D99B2F3725753B0C0080B90B /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		D99B2F3A25753B200080B90B /* PasswordValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidator.swift; sourceTree = "<group>"; };
@@ -368,7 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				D96C8BF3257665220038175A /* EndPoints */,
-				D96C8BED2576651C0038175A /* Manager */,
+				D96C8BED2576651C0038175A /* Managers */,
 			);
 			path = "Rest API";
 			sourceTree = "<group>";
@@ -379,6 +381,7 @@
 				D9A27972259399C0009D066E /* SocketAPI+UI.swift */,
 				D93BC63E258CF8530026BF8E /* Blender */,
 				D91A96B9258BB56C008487A8 /* LiveCurves */,
+				D99A73E8259C7B24009E3559 /* ARBs */,
 			);
 			path = "Socket API";
 			sourceTree = "<group>";
@@ -475,7 +478,7 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		D96C8BED2576651C0038175A /* Manager */ = {
+		D96C8BED2576651C0038175A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				D96C8BEF2576651C0038175A /* BaseNetworkManager.swift */,
@@ -483,7 +486,7 @@
 				D944CEF025767306009115FD /* ProfileNetworkManager.swift */,
 				D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */,
 			);
-			path = Manager;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		D96C8BF3257665220038175A /* EndPoints */ = {
@@ -514,6 +517,14 @@
 				D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D99A73E8259C7B24009E3559 /* ARBs */ = {
+			isa = PBXGroup;
+			children = (
+				D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */,
+			);
+			path = ARBs;
 			sourceTree = "<group>";
 		};
 		D99B2F3225753AC20080B90B /* Validators */ = {
@@ -975,6 +986,7 @@
 				D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */,
 				D9A067162587CD6D00C0D1E5 /* GradesGridView.swift in Sources */,
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
+				D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */,
 				D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */,
 				D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */,
 				D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */,
