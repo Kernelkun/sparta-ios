@@ -109,7 +109,7 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
-        40
+        77
     }
 
     func numberOfRowsForTableView(in section: Int) -> Int {
@@ -117,7 +117,7 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func numberOfRowsForCollectionView(in section: Int) -> Int {
-        6
+        viewModel.rowsCount()
     }
 
     func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
@@ -151,13 +151,13 @@ extension ArbsViewController: ArbsViewModelDelegate {
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
         gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates, completion: {
-            self.gridView.tableView.visibleCells.forEach { cell in
+            /*self.gridView.tableView.visibleCells.forEach { cell in
                 if let cell = cell as? LiveCurveGradeTableViewCell, let indexPath = self.gridView.tableView.indexPath(for: cell) {
                     if case let ArbsViewModel.Cell.grade(title) = self.viewModel.tableDataSource[indexPath.section] {
                         cell.apply(title: title, for: indexPath)
                     }
                 }
-            }
+            }*/
         })
     }
 
