@@ -67,6 +67,7 @@ extension ArbMonth: Equatable {
 
     public static func ==(lhs: ArbMonth, rhs: ArbMonth) -> Bool {
         lhs.gradeCode.lowercased() == rhs.gradeCode.lowercased()
+            && lhs.name.lowercased() == rhs.name.lowercased()
     }
 }
 

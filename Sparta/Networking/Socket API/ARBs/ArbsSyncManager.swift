@@ -45,14 +45,12 @@ class ArbsSyncManager {
     }()
     private var _arbs: [Arb] = []
 
-    private let excludedLiveCurvesCodes: [String] = ["SING92SPREADS", "RBOBFUTURESPREADS", "RBOBFUTURE", "DIFRBOBEXDUTY"]
-
     private let analyticsManager = AnalyticsNetworkManager()
 
     // MARK: - Initializers
 
     init() {
-//        observeSocket(for: .liveCurves)
+        observeSocket(for: .arbs)
     }
 
     // MARK: - Public methods
@@ -65,61 +63,46 @@ class ArbsSyncManager {
             switch result {
             case .success(let responseModel) where responseModel.model != nil:
 
-                let arbs = Array(responseModel.model!.list) //swiftlint:disable:this force_unwrapping
+                strongSelf._arbs = Array(responseModel.model!.list) //swiftlint:disable:this force_unwrapping
 
                 onMainThread {
-                    strongSelf.delegate?.arbsSyncManagerDidFetch(arbs: arbs)
+                    strongSelf.delegate?.arbsSyncManagerDidFetch(arbs: strongSelf._arbs)
                 }
 
-//                // socket connection
-//
-//                App.instance.socketsConnect(toServer: .liveCurves)
+                strongSelf.lastSyncDate = Date()
+
+                // socket connection
+
+                App.instance.socketsConnect(toServer: .arbs)
 
             case .failure, .success:
                 break
             }
         }
     }
-
-    // MARK: - Private methods
 }
-
-/*extension LiveCurvesSyncManager: SocketActionObserver {
+extension ArbsSyncManager: SocketActionObserver {
 
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON) {
 
-        var liveCurve = LiveCurve(json: data)
+        let arbSocket = ArbSocket(json: data)
 
-        guard !excludedLiveCurvesCodes.compactMap({ $0.lowercased() }).contains(liveCurve.name.lowercased()) else { return }
+        guard arbSocket.socketType == .arbMonth else { return }
 
-        lastSyncDate = Date()
+        let arbMonth = ArbMonth(json: arbSocket.payload)
 
-        if !_liveCurves.contains(liveCurve) {
-            _liveCurves.append(liveCurve)
+        if let arbIndex = _arbs.firstIndex(where: { $0.months.contains(arbMonth) }),
+           let indexOfMonth = _arbs[arbIndex].months.firstIndex(of: arbMonth) {
 
-            notifyObservers(about: liveCurve, queue: operationQueue)
+            lastSyncDate = Date()
 
-            onMainThread {
-                self.delegate?.liveCurvesSyncManagerDidReceive(liveCurve: liveCurve)
-            }
-        } else if let liveCurveIndex = _liveCurves.firstIndex(of: liveCurve) {
+            _arbs[arbIndex].months[indexOfMonth] = arbMonth
 
-            let oldLiveCurve = _liveCurves[liveCurveIndex]
-
-            if oldLiveCurve.priceCode > liveCurve.priceCode {
-                liveCurve.state = .down
-            } else if oldLiveCurve.priceCode < liveCurve.priceCode {
-                liveCurve.state = .up
-            }
-
-            if liveCurve.state != .initial {
-                _liveCurves[liveCurveIndex] = liveCurve
-                notifyObservers(about: liveCurve, queue: operationQueue)
-            }
+            notifyObservers(about: _arbs[arbIndex])
 
             onMainThread {
-                self.delegate?.liveCurvesSyncManagerDidReceiveUpdates(for: liveCurve)
+                self.delegate?.arbsSyncManagerDidReceiveUpdates(for: self._arbs[arbIndex])
             }
         }
     }
-}*/
+}

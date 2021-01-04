@@ -23,8 +23,7 @@ class ArbsViewModel: NSObject, BaseViewModel {
     weak var delegate: ArbsViewModelDelegate?
 
     var tableGrade: Cell = .grade(title: "ARB")
-    var collectionGrades: [Cell] = [.grade(title: "Load/Delivery\nMonth"), .grade(title: "Blend\nCost"),
-                                    .grade(title: "Freight"), .grade(title: "Delivery\nPrice")]
+    var collectionGrades: [Cell] = [.deliveryMonth, .blendCost, .freight, .deliveryPrice]
 
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
@@ -37,6 +36,8 @@ class ArbsViewModel: NSObject, BaseViewModel {
     // MARK: - Public methods
 
     func loadData() {
+        updateConnectionInfo()
+        
         arbsSyncManager.delegate = self
         arbsSyncManager.startReceivingData()
 
@@ -61,7 +62,7 @@ class ArbsViewModel: NSObject, BaseViewModel {
     private func createCollectionDataSource(from arbs: [Arb]) -> [Section] {
 //        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
 
-        arbs.compactMap { .init(name: $0.grade, cells: [.emptyGrade(), .emptyGrade(), .emptyGrade(), .emptyGrade()]) }
+        arbs.compactMap { .init(name: $0.grade, cells: [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]) }
 
 //        return Dictionary(grouping: arbs, by: { $0.grade }).compactMap { key, value -> Section in
 //
@@ -93,6 +94,19 @@ class ArbsViewModel: NSObject, BaseViewModel {
                 return tempSection
             }*/
 //        }
+    }
+
+    private func updateConnectionInfo() {
+
+        let app = App.instance
+        let socketsState = app.socketsState
+        let formattedDate = arbsSyncManager.lastSyncDate?.formattedString(AppFormatter.timeDate)
+
+        onMainThread {
+            self.delegate?.didChangeConnectionData(title: socketsState.title,
+                                                   color: socketsState.color,
+                                                   formattedDate: formattedDate)
+        }
     }
 }
 
@@ -132,6 +146,13 @@ extension ArbsViewModel {
     }
 }
 
+extension ArbsViewModel: AppObserver {
+
+    func appSocketsDidChangeState(for server: SocketAPI.Server, state: SocketAPI.State) {
+        updateConnectionInfo()
+    }
+}
+
 extension ArbsViewModel: ArbsSyncManagerDelegate {
 
     func arbsSyncManagerDidFetch(arbs: [Arb]) {
@@ -139,15 +160,17 @@ extension ArbsViewModel: ArbsSyncManagerDelegate {
     }
 
     func arbsSyncManagerDidReceive(arb: Arb) {
-
+        // empty data
     }
 
     func arbsSyncManagerDidReceiveUpdates(for arb: Arb) {
-
+        if let arbIndex = fetchedArbs.firstIndex(of: arb) {
+            fetchedArbs[arbIndex] = arb
+        }
     }
 
     func arbsSyncManagerDidChangeSyncDate(_ newDate: Date?) {
-
+        updateConnectionInfo()
     }
 }
 
@@ -158,6 +181,11 @@ extension ArbsViewModel {
         case info(arb: Arb)
 
         static func emptyGrade() -> Cell { .grade(title: "") }
+
+        static var deliveryMonth: Cell { .grade(title: "Load/Delivery\nMonth") }
+        static var blendCost: Cell { .grade(title: "Blend\nCost") }
+        static var freight: Cell { .grade(title: "Freight") }
+        static var deliveryPrice: Cell { .grade(title: "Delivery\nPrice") }
     }
 
     struct Section {
@@ -170,5 +198,18 @@ extension ArbsViewModel.Section: Equatable {
 
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.name.lowercased() == rhs.name.lowercased()
+    }
+}
+
+extension ArbsViewModel.Cell: Equatable {
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        if case let ArbsViewModel.Cell.grade(leftGrade) = lhs,
+           case let ArbsViewModel.Cell.grade(rightGrade) = rhs {
+
+            return leftGrade.lowercased() == rightGrade.lowercased()
+        } else {
+            return false
+        }
     }
 }

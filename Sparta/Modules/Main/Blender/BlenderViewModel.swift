@@ -44,6 +44,8 @@ class BlenderViewModel: NSObject, BaseViewModel {
     // MARK: - Public methods
 
     func loadData() {
+        updateConnectionInfo()
+
         blenderManager.delegate = self
         blenderManager.startReceivingData()
 

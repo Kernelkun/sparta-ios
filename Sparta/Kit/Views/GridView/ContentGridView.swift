@@ -97,6 +97,10 @@ class ContentGridView: UIView {
 
             collectionView.register(LiveCurveInfoCollectionViewCell.self)
             collectionView.register(BlenderInfoCollectionViewCell.self)
+            collectionView.register(ArbsDeliveryMonthCollectionViewCell.self)
+            collectionView.register(ArbsDeliveryPriceCollectionViewCell.self)
+            collectionView.register(ArbsFreightCollectionViewCell.self)
+            collectionView.register(ArbsBlendCostCollectionViewCell.self)
 
             contentView.addSubview(collectionView) {
                 $0.top.equalTo(tableView)

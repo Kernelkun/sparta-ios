@@ -82,6 +82,12 @@
 		D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A80440257146D1000ADE6B /* AvatarView.swift */; };
 		D9A80445257146FC000ADE6B /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = D9A80444257146FC000ADE6B /* Nuke */; };
 		D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */; };
+		D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */; };
+		D9A91BFA25A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */; };
+		D9A91BFC25A3627C00423704 /* ArbsFreightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BFB25A3627B00423704 /* ArbsFreightCollectionViewCell.swift */; };
+		D9A91BFE25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BFD25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift */; };
+		D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0025A3797800423704 /* KeyedLabel.swift */; };
+		D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */; };
 		D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */; };
 		D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */; };
 		D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E06257180520018F3D7 /* Coordinator.swift */; };
@@ -206,6 +212,12 @@
 		D9A8043825714697000ADE6B /* TappableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableView.swift; sourceTree = "<group>"; };
 		D9A80440257146D1000ADE6B /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemFactory.swift; sourceTree = "<group>"; };
+		D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsDeliveryMonthCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsDeliveryPriceCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9A91BFB25A3627B00423704 /* ArbsFreightCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsFreightCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9A91BFD25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsBlendCostCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9A91C0025A3797800423704 /* KeyedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedLabel.swift; sourceTree = "<group>"; };
+		D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
 		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -389,6 +401,7 @@
 		D959C0DC2582293E006CE2D1 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
+				D9A91BF525A346D400423704 /* Helpers */,
 				D959C0E125822969006CE2D1 /* ArbsViewModel.swift */,
 				D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */,
 			);
@@ -523,6 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */,
+				D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */,
 			);
 			path = ARBs;
 			sourceTree = "<group>";
@@ -598,6 +612,7 @@
 				D9B50E2525740F810018F3D7 /* Textfields */,
 				D944CEF82577B884009115FD /* Collection */,
 				D9A067342589180900C0D1E5 /* GridView */,
+				D9A91BFF25A3795C00423704 /* Labels */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -627,6 +642,33 @@
 				D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */,
 			);
 			path = Factories;
+			sourceTree = "<group>";
+		};
+		D9A91BF525A346D400423704 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91BF625A346D900423704 /* Cells */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D9A91BF625A346D900423704 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */,
+				D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */,
+				D9A91BFB25A3627B00423704 /* ArbsFreightCollectionViewCell.swift */,
+				D9A91BFD25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D9A91BFF25A3795C00423704 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91C0025A3797800423704 /* KeyedLabel.swift */,
+			);
+			path = Labels;
 			sourceTree = "<group>";
 		};
 		D9B50DFC25717F180018F3D7 /* Services */ = {
@@ -937,17 +979,22 @@
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
+				D9A91BFC25A3627C00423704 /* ArbsFreightCollectionViewCell.swift in Sources */,
 				D9A27973259399C0009D066E /* SocketAPI+UI.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */,
+				D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
+				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
 				D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */,
 				D93BC63D258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift in Sources */,
 				D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */,
 				D9B50E2725740F9B0018F3D7 /* RoundedTextField.swift in Sources */,
+				D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
+				D9A91BFE25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift in Sources */,
 				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,
 				D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */,
@@ -1004,6 +1051,7 @@
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
 				D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */,
 				D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */,
+				D9A91BFA25A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift in Sources */,
 				D9A80432257145B4000ADE6B /* TappableButton.swift in Sources */,
 				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
 				D959C1002582307A006CE2D1 /* SettingsTitledTableViewCell.swift in Sources */,
@@ -1161,7 +1209,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1169,6 +1217,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1182,7 +1231,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1190,6 +1239,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

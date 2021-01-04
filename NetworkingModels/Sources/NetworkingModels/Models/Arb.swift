@@ -18,7 +18,7 @@ public struct Arb: BackendModel {
     public let routeCode: String
     public let dischargePortName: String
     public let escalation: String
-    public let months: [BlenderMonth]
+    public var months: [ArbMonth]
 
     //
     // MARK: - Default Initializers
@@ -29,7 +29,7 @@ public struct Arb: BackendModel {
         routeCode = json["routeCode"].stringValue
         dischargePortName = json["dischargePortName"].stringValue
         escalation = json["escalation"].stringValue
-        months = json["months"].arrayValue.compactMap { BlenderMonth(json: $0) }
+        months = json["months"].arrayValue.compactMap { ArbMonth(json: $0) }
     }
 }
 

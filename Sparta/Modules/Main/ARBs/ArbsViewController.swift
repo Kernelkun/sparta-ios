@@ -131,16 +131,47 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: LiveCurveInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
         let section = viewModel.collectionDataSource[indexPath.section]
-        let row = section.cells[indexPath.row]
+        let gradeType = viewModel.collectionGrades[indexPath.row]
 
-        /*if case let LiveCurvesViewModel.Cell.info(model) = row {
-            cell.apply(monthInfo: model, for: indexPath)
-        }*/
+        guard case let ArbsViewModel.Cell.info(arb) = section.cells[indexPath.row] else {
+            return UICollectionViewCell()
+        }
 
-        return cell
+        switch gradeType {
+        case .deliveryMonth:
+            let cell: ArbsDeliveryMonthCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+
+            cell.apply(arb: arb, for: indexPath)
+
+            return cell
+
+        case .blendCost:
+
+            let cell: ArbsBlendCostCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+
+            cell.apply(arb: arb, for: indexPath)
+
+            return cell
+
+        case .deliveryPrice:
+            let cell: ArbsDeliveryPriceCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+
+            cell.apply(arb: arb, for: indexPath)
+
+            return cell
+
+        case .freight:
+            let cell: ArbsFreightCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+
+//            cell.contentView.backgroundColor = .red
+
+            return cell
+
+        default:
+            return UICollectionViewCell()
+        }
     }
 }
 
