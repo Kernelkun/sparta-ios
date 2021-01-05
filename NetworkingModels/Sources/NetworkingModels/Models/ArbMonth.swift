@@ -85,6 +85,12 @@ public extension ArbMonth {
             public let routeType: String
             public let routeValue: String
 
+            public var displayRouteValue: String? {
+                guard routeValue != "0" else { return nil }
+
+                return routeValue
+            }
+
             //
             // MARK: - Default Initializers
 

@@ -81,7 +81,7 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
 
         firstLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .left
+            label.textAlignment = .center
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.isUserInteractionEnabled = true
@@ -89,7 +89,7 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
 
         secondLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .left
+            label.textAlignment = .center
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.isUserInteractionEnabled = true
@@ -110,7 +110,7 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
             stackView.addArrangedSubview(thirdLabel)
 
             stackView.axis = .vertical
-            stackView.alignment = .leading
+            stackView.alignment = .center
             stackView.spacing = 4
             stackView.distribution = .fillProportionally
 

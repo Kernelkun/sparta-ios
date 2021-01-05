@@ -55,12 +55,10 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func apply(monthInfo: LiveCurveMonthInfoModel, for indexPath: IndexPath) {
+    func apply(arb: Arb, for indexPath: IndexPath) {
         self.indexPath = indexPath
 
-//        titleLabel.text = monthInfo.priceValue.symbols2Value
-//        lastPriceCode = monthInfo.priceCode
-//        observeLiveCurves(for: monthInfo.priceCode)
+        updateUI(for: arb)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -78,7 +76,6 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
 
         firstLabel = UILabel().then { label in
 
-//            label.text = "+3.25"
             label.textAlignment = .left
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
@@ -87,7 +84,6 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
 
         secondLabel = UILabel().then { label in
 
-//            label.text = "+3.25"
             label.textAlignment = .left
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
@@ -96,7 +92,6 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
 
         thirdLabel = UILabel().then { label in
 
-//            label.text = "+3.25"
             label.textAlignment = .center
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
@@ -135,6 +130,28 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
     }
 
+    private func updateUI(for arb: Arb) {
+        let months = arb.months
+
+        if months.count >= 1 {
+            let month = arb.months[0]
+
+            firstLabel.text = month.freight.routeType.displayRouteValue
+        }
+
+        if months.count >= 2 {
+            let month = arb.months[1]
+
+            secondLabel.text = month.freight.routeType.displayRouteValue
+        }
+
+        if months.count >= 3 {
+            let month = arb.months[2]
+
+            thirdLabel.text = month.freight.routeType.displayRouteValue
+        }
+    }
+
     // MARK: - Events
 
     @objc
@@ -142,22 +159,3 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
         _tapClosure?(indexPath)
     }
 }
-
-/*extension ArbsDeliveryMonthCollectionViewCell: LiveCurvesObserver {
-
-    func liveCurvesDidReceiveResponse(for liveCurve: LiveCurve) {
-        onMainThread {
-            self.titleLabel.text = liveCurve.priceValue.symbols2Value
-
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
-            } completion: { _ in
-                UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
-                } completion: { _ in
-                }
-            }
-        }
-    }
-}*/
-

@@ -165,7 +165,7 @@ extension ArbsViewController: GridViewDataSource {
         case .freight:
             let cell: ArbsFreightCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-//            cell.contentView.backgroundColor = .red
+            cell.apply(arb: arb, for: indexPath)
 
             return cell
 
