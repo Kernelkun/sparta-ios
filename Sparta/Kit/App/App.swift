@@ -109,7 +109,16 @@ class App {
     }
 
     func appDidMakeAuthentication() {
+
+        // sockets connection
+
         connectToSockets()
+
+        // identify
+
+        guard let user = currentUser else { return }
+
+        AnalyticsManager.intance.identity(user)
     }
 
     func saveLoginData(_ loginData: Login) {

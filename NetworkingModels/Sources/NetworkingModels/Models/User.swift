@@ -33,9 +33,10 @@ public struct User: BackendModel {
 
     // navigation sections
 
-    public var freight: Bool
-    public var blender: Bool
-    public var arbs: Bool
+    public let freight: Bool
+    public let blender: Bool
+    public let arbs: Bool
+    public let liveprices: Bool
 
     //
     // MARK: - Default Initializers
@@ -63,5 +64,6 @@ public struct User: BackendModel {
         freight = json["freight"].boolValue
         blender = json["blender"].boolValue
         arbs = json["arbs"].boolValue
+        liveprices = json["liveprices"].boolValue
     }
 }

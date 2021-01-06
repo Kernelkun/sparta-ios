@@ -18,7 +18,7 @@ class MainTabsViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        delegate = self
+        delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -29,40 +29,58 @@ class MainTabsViewController: UITabBarController {
             vc.title = title//.localized
             vc.tabBarItem.title = vc.title
 
-//            let configuration = UIImage.SymbolConfiguration(weight: .bold)
             vc.tabBarItem.image = UIImage(named: imageName)
         }
 
-        var tabs: [UINavigationController] = []
+        var tabs: [KeyedNavigationController<Tab>] = []
 
         if viewModel.isVisibleArbsBlock {
             let first = ArbsViewController()
             setTabBarItem(first, "ARBs", "ic_tab_first")
 
-            tabs.append(UINavigationController(rootViewController: first))
+            let navigation = KeyedNavigationController<Tab>(rootViewController: first)
+            navigation.setKey(.arbs)
+
+            tabs.append(navigation)
         }
 
-        let second = LiveCurvesViewController()
-        setTabBarItem(second, "Live Curves", "ic_tab_second")
-        tabs.append(UINavigationController(rootViewController: second))
+        if viewModel.isVisibleLivePricesBlock {
+            let second = LiveCurvesViewController()
+            setTabBarItem(second, "Live Curves", "ic_tab_second")
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: second)
+            navigation.setKey(.liveCurves)
+
+            tabs.append(navigation)
+        }
 
         if viewModel.isVisibleBlenderBlock {
             let third = BlenderViewController()
             setTabBarItem(third, "Blender", "ic_tab_third")
 
-            tabs.append(UINavigationController(rootViewController: third))
+            let navigation = KeyedNavigationController<Tab>(rootViewController: third)
+            navigation.setKey(.blender)
+
+            tabs.append(navigation)
         }
 
         if viewModel.isVisibleFreightBlock {
             let fourth = FreightViewController()
             setTabBarItem(fourth, "Freight", "ic_tab_fourth")
 
-            tabs.append(UINavigationController(rootViewController: fourth))
+            let navigation = KeyedNavigationController<Tab>(rootViewController: fourth)
+            navigation.setKey(.freight)
+
+            tabs.append(navigation)
         }
 
         let fifth = SettingsViewController()
         setTabBarItem(fifth, "Settings", "ic_tab_fifth")
-        tabs.append(UINavigationController(rootViewController: fifth))
+
+        let navigation = KeyedNavigationController<Tab>(rootViewController: fifth)
+        navigation.setKey(.settings)
+
+        tabs.append(navigation)
 
         tabBar.isTranslucent = false
 
@@ -73,17 +91,55 @@ class MainTabsViewController: UITabBarController {
         UITabBar.appearance().tintColor = .tabBarTintActive
         UITabBar.appearance().unselectedItemTintColor = .tabBarTintInactive
         UITabBar.appearance().barTintColor = .barBackground
-
-//        if let navC = selectedViewController as? UINavigationController {
-//            Router.instance.navigationViewController = navC
-//        }
     }
 }
 
-/*extension MainTabsViewController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if let navC = viewController as? UINavigationController {
-            Router.instance.navigationViewController = navC
+extension MainTabsViewController: UITabBarControllerDelegate {
+
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let oldNavigation = tabBarController.selectedViewController as? KeyedNavigationController<Tab>,
+           let selectedNavigation = viewController as? KeyedNavigationController<Tab>,
+           oldNavigation != selectedNavigation {
+
+            let trackModel = AnalyticsManager.AnalyticsTrack(name: .menuClick, parameters: [
+                "from": oldNavigation.key?.analyticsName ?? "",
+                "name": selectedNavigation.key?.analyticsName ?? "",
+                "to": selectedNavigation.key?.analyticsName ?? ""
+            ])
+
+            AnalyticsManager.intance.track(trackModel)
+        }
+
+        return true
+    }
+}
+
+extension MainTabsViewController {
+
+    fileprivate enum Tab: Hashable {
+        case arbs
+        case liveCurves
+        case blender
+        case freight
+        case settings
+
+        var analyticsName: String {
+            switch self {
+            case .arbs:
+                return "arbs"
+
+            case .liveCurves:
+                return "live curves"
+
+            case .blender:
+                return "blender"
+
+            case .freight:
+                return "freight"
+
+            case .settings:
+                return "settings"
+            }
         }
     }
-}*/
+}

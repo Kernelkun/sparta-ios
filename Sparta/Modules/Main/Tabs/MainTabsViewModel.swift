@@ -24,6 +24,10 @@ class MainTabsViewModel {
         currentUser?.freight ?? true
     }
 
+    var isVisibleLivePricesBlock: Bool {
+        currentUser?.liveprices ?? true
+    }
+
     // MARK: - Private properties
 
     private var currentUser: User? { App.instance.currentUser }
