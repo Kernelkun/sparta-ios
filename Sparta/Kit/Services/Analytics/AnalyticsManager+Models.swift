@@ -17,11 +17,19 @@ extension AnalyticsManager {
 
         enum EventName {
             case menuClick
+            case popupShown
+            case changePassword
 
             var trackServerName: String {
                 switch self {
                 case .menuClick:
                     return "Click on menu"
+
+                case .popupShown:
+                    return "Popup shown"
+
+                case .changePassword:
+                    return "Change password"
                 }
             }
         }

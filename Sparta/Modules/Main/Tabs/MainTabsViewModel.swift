@@ -32,4 +32,15 @@ class MainTabsViewModel {
 
     private var currentUser: User? { App.instance.currentUser }
 
+    // MARK: - Public methods
+
+    func sendAnalyticsEventMenuClicked(from: String, to: String) {
+        let trackModel = AnalyticsManager.AnalyticsTrack(name: .menuClick, parameters: [
+            "from": from,
+            "name": to,
+            "to": to
+        ])
+
+        AnalyticsManager.intance.track(trackModel)
+    }
 }

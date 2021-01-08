@@ -101,13 +101,8 @@ extension MainTabsViewController: UITabBarControllerDelegate {
            let selectedNavigation = viewController as? KeyedNavigationController<Tab>,
            oldNavigation != selectedNavigation {
 
-            let trackModel = AnalyticsManager.AnalyticsTrack(name: .menuClick, parameters: [
-                "from": oldNavigation.key?.analyticsName ?? "",
-                "name": selectedNavigation.key?.analyticsName ?? "",
-                "to": selectedNavigation.key?.analyticsName ?? ""
-            ])
-
-            AnalyticsManager.intance.track(trackModel)
+            viewModel.sendAnalyticsEventMenuClicked(from: oldNavigation.key?.analyticsName ?? "",
+                                                    to: selectedNavigation.key?.analyticsName ?? "")
         }
 
         return true

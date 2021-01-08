@@ -105,6 +105,7 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
                     return
                 }
 
+                strongSelf.sendAnalyticsEventChangePassword()
                 strongSelf.fetchProfile()
 
             case .failure(let error):
@@ -130,7 +131,7 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
             switch result {
             case .success(let responseModel) where responseModel.model != nil:
 
-                App.instance.saveUser(responseModel.model!) //swiftlint:disable:current force_unwrapping
+                App.instance.saveUser(responseModel.model!) //swiftlint:disable:this force_unwrapping
 
                 onMainThread {
                     strongSelf.isSending = false
@@ -145,6 +146,11 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
                 }
             }
         }
+    }
+
+    private func sendAnalyticsEventChangePassword() {
+        let trackModel = AnalyticsManager.AnalyticsTrack(name: .changePassword, parameters: [:])
+        AnalyticsManager.intance.track(trackModel)
     }
 }
 
