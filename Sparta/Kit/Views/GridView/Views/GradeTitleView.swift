@@ -29,7 +29,7 @@ class GradeTitleView: UIView {
     // MARK: - Public methods
 
     func apply(title: String) {
-        titleLabel.text = title.capitalized
+        titleLabel.text = title
     }
 
     // MARK: - Private methods
@@ -44,6 +44,7 @@ class GradeTitleView: UIView {
             titleLabel.textAlignment = .center
             titleLabel.textColor = UIColor.white.withAlphaComponent(0.6)
             titleLabel.font = .main(weight: .regular, size: 12)
+            titleLabel.numberOfLines = 0
 
             addSubview(titleLabel) {
                 $0.center.equalToSuperview()

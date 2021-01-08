@@ -218,7 +218,7 @@ extension GridView: GradesGridViewDataSource {
 extension GridView {
 
     struct GridViewConstructor {
-        let monthsCount: Int
+        let rowsCount: Int
         let gradeHeight: CGFloat
         let collectionColumnWidth: CGFloat
         let tableColumnWidth: CGFloat

@@ -26,4 +26,13 @@ class AnalyticsNetworkManager: BaseNetworkManager {
             completion(strongSelf.handleResult(data: data, response: response, error: error))
         }
     }
+
+    func fetchArbsTable(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<Arb>>, SpartaError>>) {
+
+        router.request(.getArbsTable) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
 }

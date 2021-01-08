@@ -44,6 +44,8 @@ class BlenderViewModel: NSObject, BaseViewModel {
     // MARK: - Public methods
 
     func loadData() {
+        updateConnectionInfo()
+
         blenderManager.delegate = self
         blenderManager.startReceivingData()
 
@@ -78,6 +80,14 @@ class BlenderViewModel: NSObject, BaseViewModel {
         }
 
         return BlenderMonthDetailModel(mainKeyValues: mainKeyValues, componentsKeyValues: componentsKeyValues)
+    }
+
+    func sendAnalyticsEventPopupShown() {
+        let trackModel = AnalyticsManager.AnalyticsTrack(name: .popupShown, parameters: [
+            "name": "Blender"
+        ])
+
+        AnalyticsManager.intance.track(trackModel)
     }
 
     func height(for section: Int) -> CGFloat {

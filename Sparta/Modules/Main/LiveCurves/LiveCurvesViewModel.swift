@@ -37,6 +37,8 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     // MARK: - Public methods
 
     func loadData() {
+        updateConnectionInfo()
+
         liveCurvesSyncManager.delegate = self
         liveCurvesSyncManager.startReceivingData()
 

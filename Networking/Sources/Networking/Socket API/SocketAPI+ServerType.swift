@@ -14,6 +14,7 @@ public extension SocketAPI {
 
         case blender
         case liveCurves
+        case arbs
     }
 }
 
@@ -25,6 +26,8 @@ extension SocketAPI.Server {
             return Environment.socketBlenderURL.forcedURL
         case .liveCurves:
             return Environment.socketLiveCurvesURL.forcedURL
+        case .arbs:
+            return Environment.socketArbsURL.forcedURL
         }
     }
 }

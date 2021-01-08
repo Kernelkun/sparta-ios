@@ -9,7 +9,7 @@ import Foundation
 
 public struct Environment {
 
-    private static let environement: EnvironmentType = .stage
+    public static let environment: EnvironmentType = .stage
 
     public enum EnvironmentType: String {
 //        case development
@@ -28,7 +28,7 @@ public struct Environment {
     // REST API URL's
 
     public static var baseAPIURL: String {
-        switch Self.environement {
+        switch Self.environment {
         case .stage:
             return "https://strapi.staging.sparta.app"
         case .production:
@@ -39,7 +39,7 @@ public struct Environment {
     // DATA & SOCKETS URL's
 
     public static var baseDataURL: String {
-        switch Self.environement {
+        switch Self.environment {
         case .stage:
             return "https://backend.staging.sparta.app"
         case .production:
@@ -49,4 +49,9 @@ public struct Environment {
 
     public static let socketBlenderURL = Self.baseDataURL + "/blender"
     public static let socketLiveCurvesURL = Self.baseDataURL + "/socket/v1/curves"
+    public static let socketArbsURL = Self.baseDataURL + "/socket/arbs"
+
+    // API KEY's
+
+    public static let segmentAPIKey = "JuCj6uNsMFuqveOLtDfHvdhQeriCUqLk"
 }

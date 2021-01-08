@@ -139,6 +139,10 @@ class AppCoordinator {
 
     private func setupLogic() {
 
+        // analytics
+
+        AnalyticsManager.intance.start()
+
         // logout if needed
 
         if UserDefaults.isFirstLaunch {

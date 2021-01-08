@@ -18,7 +18,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-        let constructor = GridView.GridViewConstructor(monthsCount: viewModel.monthsCount(),
+        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
                                                        gradeHeight: 50,
                                                        collectionColumnWidth: 70,
                                                        tableColumnWidth: 130)
@@ -86,17 +86,6 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         })
     }
 
-    private func updateGridHeight() {
-        /*var heights: [CGFloat] = []
-
-        for index in 0..<viewModel.collectionDataSource.count {
-
-            heights.append(viewModel.height(for: index))
-        }
-
-        collectionGridLayout.cellHeights = heights*/
-    }
-
     private func showDescription(for indexPath: IndexPath) {
         guard let monthDetails = viewModel.fetchDescription(for: indexPath) else { return }
 
@@ -119,6 +108,10 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
             make.width.equalTo(210)
             make.height.equalTo(popupView.calculatedHeight)
         }
+
+        // analytics
+
+        viewModel.sendAnalyticsEventPopupShown()
     }
 }
 

@@ -12,6 +12,7 @@ import App
 
 enum AnalyticsEndPoint {
     case getLiveCurves
+    case getArbsTable
 }
 
 extension AnalyticsEndPoint: EndPointType {
@@ -21,12 +22,13 @@ extension AnalyticsEndPoint: EndPointType {
     var path: String {
         switch self {
         case .getLiveCurves: return "/livecurves"
+        case .getArbsTable: return "/arbs/table"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getLiveCurves: return .get
+        case .getLiveCurves, .getArbsTable: return .get
         }
     }
 
@@ -37,9 +39,13 @@ extension AnalyticsEndPoint: EndPointType {
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
                                                 additionHeaders: headersWithToken)
+        case .getArbsTable:
+            return .requestParametersAndHeaders(bodyParameters: nil,
+                                                bodyEncoding: .jsonEncoding,
+                                                urlParameters: nil,
+                                                additionHeaders: headersWithToken)
         }
     }
 
     var header: HTTPHeaders? { nil }
 }
-
