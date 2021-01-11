@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class SettingsViewController: BaseVMViewController<SettingsViewModel> {
 
     // MARK: - UI

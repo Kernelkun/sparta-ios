@@ -92,6 +92,11 @@
 		D9A91C1025A4AB0200423704 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0F25A4AB0200423704 /* AnalyticsManager.swift */; };
 		D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C1225A503DE00423704 /* AnalyticsManager+Models.swift */; };
 		D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C1F25A5CF3B00423704 /* KeyedNavigationController.swift */; };
+		D9A91CB325A9A80B00423704 /* FreightResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CB225A9A80B00423704 /* FreightResultViewController.swift */; };
+		D9A91CB525A9A81500423704 /* FreightResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CB425A9A81500423704 /* FreightResultViewModel.swift */; };
+		D9A91CB825A9AAD400423704 /* FreightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CB725A9AAD300423704 /* FreightCalculator.swift */; };
+		D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBA25AB459000423704 /* FreightResultMonthSelector.swift */; };
+		D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */; };
 		D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */; };
 		D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */; };
 		D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E06257180520018F3D7 /* Coordinator.swift */; };
@@ -225,6 +230,11 @@
 		D9A91C0F25A4AB0200423704 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		D9A91C1225A503DE00423704 /* AnalyticsManager+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyticsManager+Models.swift"; sourceTree = "<group>"; };
 		D9A91C1F25A5CF3B00423704 /* KeyedNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedNavigationController.swift; sourceTree = "<group>"; };
+		D9A91CB225A9A80B00423704 /* FreightResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultViewController.swift; sourceTree = "<group>"; };
+		D9A91CB425A9A81500423704 /* FreightResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultViewModel.swift; sourceTree = "<group>"; };
+		D9A91CB725A9AAD300423704 /* FreightCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightCalculator.swift; sourceTree = "<group>"; };
+		D9A91CBA25AB459000423704 /* FreightResultMonthSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultMonthSelector.swift; sourceTree = "<group>"; };
+		D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultKeyValueView.swift; sourceTree = "<group>"; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
 		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -429,8 +439,8 @@
 		D959C0ED25822ED7006CE2D1 /* Freight */ = {
 			isa = PBXGroup;
 			children = (
-				D959C0F125822EEB006CE2D1 /* FreightViewModel.swift */,
-				D959C0EE25822EE0006CE2D1 /* FreightViewController.swift */,
+				D9A91CB125A9A7F400423704 /* Result */,
+				D9A91CB025A9A7E300423704 /* Calculator */,
 			);
 			path = Freight;
 			sourceTree = "<group>";
@@ -697,6 +707,42 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		D9A91CB025A9A7E300423704 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				D959C0F125822EEB006CE2D1 /* FreightViewModel.swift */,
+				D959C0EE25822EE0006CE2D1 /* FreightViewController.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
+		D9A91CB125A9A7F400423704 /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91CB625A9A95D00423704 /* Helpers */,
+				D9A91CB425A9A81500423704 /* FreightResultViewModel.swift */,
+				D9A91CB225A9A80B00423704 /* FreightResultViewController.swift */,
+			);
+			path = Result;
+			sourceTree = "<group>";
+		};
+		D9A91CB625A9A95D00423704 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91CB925AB44ED00423704 /* Views */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D9A91CB925AB44ED00423704 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91CBA25AB459000423704 /* FreightResultMonthSelector.swift */,
+				D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D9B50DFC25717F180018F3D7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,6 +750,7 @@
 				D9B50DFD25717F230018F3D7 /* Keychain */,
 				D9B50E1C257184080018F3D7 /* SyncService.swift */,
 				D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */,
+				D9A91CB725A9AAD300423704 /* FreightCalculator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1037,9 +1084,11 @@
 				D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */,
 				D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */,
 				D9ECEC4A257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift in Sources */,
+				D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */,
 				D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */,
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
 				D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */,
+				D9A91CB325A9A80B00423704 /* FreightResultViewController.swift in Sources */,
 				D959C0EF25822EE0006CE2D1 /* FreightViewController.swift in Sources */,
 				D9ECEC4D257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift in Sources */,
 				D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */,
@@ -1048,7 +1097,9 @@
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
+				D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */,
 				D9A2796D259352FB009D066E /* AnalyticsNetworkManager.swift in Sources */,
+				D9A91CB825A9AAD400423704 /* FreightCalculator.swift in Sources */,
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */,
@@ -1099,6 +1150,7 @@
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
 				D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */,
 				D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */,
+				D9A91CB525A9A81500423704 /* FreightResultViewModel.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
 				D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */,

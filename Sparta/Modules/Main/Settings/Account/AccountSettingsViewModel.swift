@@ -27,10 +27,10 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
         _phonePrefixes.compactMap { createCountryCodeModel(from: $0) }
     }
 
-    var tradeAreas: [PickerIdValued] = []
-    var ports: [PickerIdValued] = []
-    var products: [PickerIdValued] = []
-    var userRoles: [PickerIdValued] = []
+    var tradeAreas: [PickerIdValued<Int>] = []
+    var ports: [PickerIdValued<Int>] = []
+    var products: [PickerIdValued<Int>] = []
+    var userRoles: [PickerIdValued<Int>] = []
 
     weak var delegate: AccountSettingsViewModelDelegate?
 
@@ -40,10 +40,10 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
     var selectedCountryCode: CountryCodeModel?
     var selectedPhoneNumber: String?
 
-    var selectedUserRole: PickerIdValued?
-    var selectedPrimaryProduct: PickerIdValued?
-    var selectedTradeArea: PickerIdValued?
-    var selectedPort: PickerIdValued?
+    var selectedUserRole: PickerIdValued<Int>?
+    var selectedPrimaryProduct: PickerIdValued<Int>?
+    var selectedTradeArea: PickerIdValued<Int>?
+    var selectedPort: PickerIdValued<Int>?
 
     //
     // MARK: - Private properties

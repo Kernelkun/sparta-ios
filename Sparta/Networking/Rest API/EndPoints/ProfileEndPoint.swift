@@ -16,6 +16,8 @@ enum ProfileEndPoint {
     case getPhonePrefixes
     case getPrimaryTradeAreas
     case getUserRoles
+
+    // freight
 }
 
 extension ProfileEndPoint: EndPointType {

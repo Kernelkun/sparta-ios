@@ -23,16 +23,16 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
     private var phoneNumberField: RoundedTextField!
     private var phoneNumberLabel: UILabel!
 
-    private var roleField: UITextFieldSelector<PickerIdValued>!
+    private var roleField: UITextFieldSelector<PickerIdValued<Int>>!
     private var roleLabel: UILabel!
 
-    private var productField: UITextFieldSelector<PickerIdValued>!
+    private var productField: UITextFieldSelector<PickerIdValued<Int>>!
     private var productLabel: UILabel!
 
-    private var tradeAreaField: UITextFieldSelector<PickerIdValued>!
+    private var tradeAreaField: UITextFieldSelector<PickerIdValued<Int>>!
     private var tradeAreaLabel: UILabel!
 
-    private var portField: UITextFieldSelector<PickerIdValued>!
+    private var portField: UITextFieldSelector<PickerIdValued<Int>>!
     private var portLabel: UILabel!
 
     private var saveButton: BorderedButton!
