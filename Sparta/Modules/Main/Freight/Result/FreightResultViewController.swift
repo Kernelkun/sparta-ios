@@ -14,9 +14,11 @@ class FreightResultViewController: BaseViewController {
 
     private var contentScrollView: UIScrollView!
     private var monthSelector: FreightResultMonthSelector!
-
+    private var mainBlock: LoaderView!
     private var mainTopStackView: UIStackView!
     private var mainBottomStackView: UIStackView!
+
+    private let loaderDelay = DelayObject(delayInterval: 0.1)
 
     // MARK: - Private properties
 
@@ -107,10 +109,11 @@ class FreightResultViewController: BaseViewController {
 
     private func setupMainBlock(in contentView: UIView, topAlignView: UIView) {
 
-        _ = UIView().then { view in
+        mainBlock = LoaderView().then { view in
 
             view.backgroundColor = .barBackground
             view.layer.cornerRadius = 8
+            view.layer.masksToBounds = true
 
             mainTopStackView = UIStackView().then { stackView in
 
@@ -149,7 +152,16 @@ class FreightResultViewController: BaseViewController {
 extension FreightResultViewController: FreightResultViewModelDelegate {
 
     func didChangeLoadingState(_ isLoading: Bool) {
+        if isLoading {
+            loaderDelay.addOperation { [weak self] in
+                guard let strongSelf = self else { return }
 
+                strongSelf.mainBlock.startAnimating()
+            }
+        } else {
+            mainBlock.stopAnimating()
+            loaderDelay.stopAllOperations()
+        }
     }
 
     func didCatchAnError(_ error: String) {
@@ -193,9 +205,6 @@ extension FreightResultViewController: FreightResultViewModelDelegate {
             case .overage(let value):
                 view.apply(key: "Overage", value: value)
                 mainTopStackView.addArrangedSubview(view)
-
-            default:
-                break
             }
 
             view.snp.makeConstraints {

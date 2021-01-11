@@ -97,6 +97,8 @@
 		D9A91CB825A9AAD400423704 /* FreightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CB725A9AAD300423704 /* FreightCalculator.swift */; };
 		D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBA25AB459000423704 /* FreightResultMonthSelector.swift */; };
 		D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */; };
+		D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBE25AC691C00423704 /* LoaderView.swift */; };
+		D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CC125AC6EB800423704 /* DelayObject.swift */; };
 		D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */; };
 		D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */; };
 		D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E06257180520018F3D7 /* Coordinator.swift */; };
@@ -235,6 +237,8 @@
 		D9A91CB725A9AAD300423704 /* FreightCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightCalculator.swift; sourceTree = "<group>"; };
 		D9A91CBA25AB459000423704 /* FreightResultMonthSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultMonthSelector.swift; sourceTree = "<group>"; };
 		D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultKeyValueView.swift; sourceTree = "<group>"; };
+		D9A91CBE25AC691C00423704 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
+		D9A91CC125AC6EB800423704 /* DelayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayObject.swift; sourceTree = "<group>"; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
 		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -625,6 +629,7 @@
 				D94E228825826CEE005FA057 /* UITextFieldSelector.swift */,
 				D970047925892AEB000E4A01 /* LoadingView.swift */,
 				D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */,
+				D9A91CBE25AC691C00423704 /* LoaderView.swift */,
 				D9A8042025714410000ADE6B /* Alert */,
 				D9A8042C25714595000ADE6B /* Buttons */,
 				D9B50E2525740F810018F3D7 /* Textfields */,
@@ -741,6 +746,14 @@
 				D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D9A91CC025AC6EA400423704 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91CC125AC6EB800423704 /* DelayObject.swift */,
+			);
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		D9B50DFC25717F180018F3D7 /* Services */ = {
@@ -885,6 +898,7 @@
 				D9B50DFC25717F180018F3D7 /* Services */,
 				D99B2F3225753AC20080B90B /* Validators */,
 				D97895E0258377D1009E4A56 /* Models */,
+				D9A91CC025AC6EA400423704 /* Objects */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -1148,11 +1162,13 @@
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
+				D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */,
 				D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */,
 				D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */,
 				D9A91CB525A9A81500423704 /* FreightResultViewModel.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
+				D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */,
 				D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
