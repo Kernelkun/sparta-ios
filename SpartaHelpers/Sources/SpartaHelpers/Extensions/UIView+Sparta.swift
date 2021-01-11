@@ -123,4 +123,31 @@ public extension UIView {
         return all
     }
 
+    var selectedField: UITextField? {
+
+        let totalTextFields = allFields(in: self)
+
+        for textField in totalTextFields {
+            if textField.isFirstResponder {
+                return textField
+            }
+        }
+
+        return nil
+    }
+
+    func allFields(in view: UIView) -> [UITextField] {
+
+        var totalTextFields = [UITextField]()
+
+        for subview in view.subviews as [UIView] {
+            if let textField = subview as? UITextField {
+                totalTextFields += [textField]
+            } else {
+                totalTextFields += allFields(in: subview)
+            }
+        }
+
+        return totalTextFields
+    }
 }

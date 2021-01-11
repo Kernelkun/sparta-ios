@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class LoadingView: UIView {
 
     // MARK: - UI
 
-    private var indicatorView: UIActivityIndicatorView!
+    private var loader: NVActivityIndicatorView!
 
     // MARK: - Initializers
 
@@ -31,15 +32,17 @@ class LoadingView: UIView {
 
         backgroundColor = UIColor.black.withAlphaComponent(0.5)
 
-        indicatorView = UIActivityIndicatorView(style: .medium).then { view in
+        // loader
 
-            view.tintColor = .controlTintActive
+        loader = NVActivityIndicatorView(frame: .zero).then { view in
+            view.type = .lineScale
+            view.color = .controlTintActive
             view.startAnimating()
 
             addSubview(view) {
+                $0.width.height.equalTo(22)
                 $0.center.equalToSuperview()
             }
         }
     }
-
 }

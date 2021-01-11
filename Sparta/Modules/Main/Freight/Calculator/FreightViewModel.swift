@@ -97,7 +97,6 @@ class FreightViewModel: NSObject, BaseViewModel {
                                                     vesselSpeed: Double(selectedVesselSpeed) ?? 0.0,
                                                     loadedQuantity: Double(selectedLoadedQuantity) ?? 0.0)
 
-
         onMainThread {
             self.delegate?.didFinishCalculations(with: inputData)
         }
@@ -112,6 +111,7 @@ class FreightViewModel: NSObject, BaseViewModel {
                 let model = PickerIdValued(id: $0.id, title: $0.name, fullTitle: $0.name)
                 return model
             }
+            .sorted(by: { $0.title < $1.title })
         }
 
         // clean discharge port if needed
@@ -174,7 +174,8 @@ class FreightViewModel: NSObject, BaseViewModel {
         freightPorts = app.syncService.freightPorts?.compactMap {
             let model = PickerIdValued(id: $0.id, title: $0.name, fullTitle: $0.name)
             return model
-        } ?? []
+        }
+        .sorted(by: { $0.fullTitle < $1.fullTitle }) ?? []
     }
 
     private func fetchFreightRoute(completion: @escaping TypeClosure<FreightRoute?>) {

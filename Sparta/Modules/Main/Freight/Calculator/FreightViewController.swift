@@ -69,7 +69,6 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
             }
         }
 
-
         // month views
 
         let lastMonthView = setupMonthViews(in: scrollViewContent)
@@ -306,6 +305,39 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
             contentView.addSubview(label) {
                 $0.top.equalTo(loadedQuantityField.snp.bottom).offset(3)
                 $0.left.equalTo(loadedQuantityField).offset(3)
+            }
+        }
+    }
+
+    var addedSize: CGSize = .zero
+
+    override func updateUIForKeyboardPresented(_ presented: Bool, frame: CGRect) {
+        super.updateUIForKeyboardPresented(presented, frame: frame)
+
+        if presented && addedSize == .zero {
+            var oldContentSize = contentScrollView.contentSize
+            oldContentSize.height += frame.size.height
+
+            addedSize.height = frame.size.height
+
+            contentScrollView.contentSize = oldContentSize
+        } else if !presented && addedSize != .zero {
+            var oldContentSize = contentScrollView.contentSize
+            oldContentSize.height -= addedSize.height
+            addedSize = .zero
+
+            contentScrollView.contentSize = oldContentSize
+        }
+
+        if let selectedTextField = view.selectedField {
+            let newFrame = selectedTextField.convert(selectedTextField.frame, to: view)
+
+            print("newFrame: \(newFrame), keyboardFrame: \(frame)")
+
+            let maxFieldFrame = newFrame.maxY + 100
+
+            if maxFieldFrame > frame.minY {
+                contentScrollView.contentOffset = CGPoint(x: 0, y: maxFieldFrame - frame.minY)
             }
         }
     }
