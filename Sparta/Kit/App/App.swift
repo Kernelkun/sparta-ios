@@ -174,7 +174,9 @@ extension App: SyncServiceDelegate {
 extension App: AppStateServiceDelegate {
 
     func appStateServiceDidUpdateState() {
-        if stateService.isActiveApp {
+        if stateService.isActiveApp
+            && syncService.currentUser != nil {
+            
             connectToSockets()
         } else {
             sockets.disconnect(forced: true)

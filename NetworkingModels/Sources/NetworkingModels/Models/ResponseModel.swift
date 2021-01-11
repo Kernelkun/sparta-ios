@@ -13,11 +13,15 @@ public class ResponseModel<T: BackendModel> {
 
     public let statusCode: Int?
     public let model: T?
+    public let error: String?
+    public let message: String?
 
     // MARK: - Initializers
 
     public init(json: JSON, modelPrimaryKey: String? = nil) {
         self.statusCode = json["statusCode"].int
+        self.error = json["error"].string
+        self.message = json["message"].string
 
         if let modelPrimaryKey = modelPrimaryKey {
             if json[modelPrimaryKey] != JSON.null {
