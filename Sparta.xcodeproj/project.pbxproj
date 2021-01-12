@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B815729BD8EA30417EDD7786 /* Pods_Sparta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */; };
 		D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */; };
 		D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */; };
 		D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */; };
 		D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */; };
-		D9264BED25751298001477DA /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = D9264BEC25751298001477DA /* Networking */; };
+		D9264BED25751298001477DA /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9264BEC25751298001477DA /* SwiftPackageProductDependency */; };
 		D92FFF4425793BF100AB5405 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A118102579377500BB928E /* App.swift */; };
 		D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889325700E95003ECB61 /* LoginViewController.swift */; };
 		D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889725700E9D003ECB61 /* LoginViewModel.swift */; };
@@ -27,8 +28,8 @@
 		D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CF042577E096009115FD /* BlenderViewModel.swift */; };
 		D94BCA452577F7ED0076C2AB /* BlenderInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA442577F7ED0076C2AB /* BlenderInfoTableViewCell.swift */; };
 		D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */; };
-		D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228425826AE6005FA057 /* PhoneNumberKit-Static */; };
-		D94E228725826AE6005FA057 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228625826AE6005FA057 /* PhoneNumberKit */; };
+		D94E228525826AE6005FA057 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228425826AE6005FA057 /* SwiftPackageProductDependency */; };
+		D94E228725826AE6005FA057 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228625826AE6005FA057 /* SwiftPackageProductDependency */; };
 		D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E228825826CEE005FA057 /* UITextFieldSelector.swift */; };
 		D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D954A14A2590B3E300FAE766 /* SeasonalityButton.swift */; };
 		D959C0DE2582295F006CE2D1 /* ArbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */; };
@@ -69,18 +70,18 @@
 		D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */; };
 		D9A2797125939632009D066E /* App+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A2797025939632009D066E /* App+Observation.swift */; };
 		D9A27973259399C0009D066E /* SocketAPI+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A27972259399C0009D066E /* SocketAPI+UI.swift */; };
-		D9A3BD5E2575258500224535 /* App in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD5D2575258500224535 /* App */; };
-		D9A3BD612575262B00224535 /* NetworkingModels in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD602575262B00224535 /* NetworkingModels */; };
-		D9A3BD662575274300224535 /* SpartaHelpers in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD652575274300224535 /* SpartaHelpers */; };
+		D9A3BD5E2575258500224535 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD5D2575258500224535 /* SwiftPackageProductDependency */; };
+		D9A3BD612575262B00224535 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD602575262B00224535 /* SwiftPackageProductDependency */; };
+		D9A3BD662575274300224535 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD652575274300224535 /* SwiftPackageProductDependency */; };
 		D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */; };
-		D9A8041A25713DC2000ADE6B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D9A8041925713DC2000ADE6B /* Then */; };
+		D9A8041A25713DC2000ADE6B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9A8041925713DC2000ADE6B /* SwiftPackageProductDependency */; };
 		D9A8042225714420000ADE6B /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8042125714420000ADE6B /* Alert.swift */; };
 		D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8042D257145A3000ADE6B /* BiggerAreaButton.swift */; };
 		D9A80432257145B4000ADE6B /* TappableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A80431257145B4000ADE6B /* TappableButton.swift */; };
 		D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A80434257145E8000ADE6B /* Typealiases.swift */; };
 		D9A8043925714697000ADE6B /* TappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8043825714697000ADE6B /* TappableView.swift */; };
 		D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A80440257146D1000ADE6B /* AvatarView.swift */; };
-		D9A80445257146FC000ADE6B /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = D9A80444257146FC000ADE6B /* Nuke */; };
+		D9A80445257146FC000ADE6B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9A80444257146FC000ADE6B /* SwiftPackageProductDependency */; };
 		D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */; };
 		D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */; };
 		D9A91BFA25A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */; };
@@ -88,7 +89,7 @@
 		D9A91BFE25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BFD25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift */; };
 		D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0025A3797800423704 /* KeyedLabel.swift */; };
 		D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */; };
-		D9A91C0E25A4A8F700423704 /* Segment in Frameworks */ = {isa = PBXBuildFile; productRef = D9A91C0D25A4A8F700423704 /* Segment */; };
+		D9A91C0E25A4A8F700423704 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9A91C0D25A4A8F700423704 /* SwiftPackageProductDependency */; };
 		D9A91C1025A4AB0200423704 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0F25A4AB0200423704 /* AnalyticsManager.swift */; };
 		D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C1225A503DE00423704 /* AnalyticsManager+Models.swift */; };
 		D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C1F25A5CF3B00423704 /* KeyedNavigationController.swift */; };
@@ -99,6 +100,8 @@
 		D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */; };
 		D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBE25AC691C00423704 /* LoaderView.swift */; };
 		D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CC125AC6EB800423704 /* DelayObject.swift */; };
+		D9A91CF425ADE85B00423704 /* SEGAmplitudeIntegration.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CF025ADE85A00423704 /* SEGAmplitudeIntegration.m */; };
+		D9A91CF525ADE85B00423704 /* SEGAmplitudeIntegrationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CF125ADE85A00423704 /* SEGAmplitudeIntegrationFactory.m */; };
 		D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */; };
 		D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */; };
 		D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E06257180520018F3D7 /* Coordinator.swift */; };
@@ -118,12 +121,12 @@
 		D9B50E42257433340018F3D7 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9B50E41257433340018F3D7 /* OpenSans-SemiBold.ttf */; };
 		D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */; };
 		D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */; };
-		D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */; };
-		D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */; };
+		D9BB5377256EF74A00AD2D1A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5376256EF74A00AD2D1A /* SwiftPackageProductDependency */; };
+		D9BB5379256EF74A00AD2D1A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5378256EF74A00AD2D1A /* SwiftPackageProductDependency */; };
 		D9BB538D256EF83D00AD2D1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB538C256EF83D00AD2D1A /* Assets.xcassets */; };
 		D9BB5390256EF85600AD2D1A /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB538F256EF85600AD2D1A /* Colors.xcassets */; };
 		D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53A0256EF9E400AD2D1A /* Globals.swift */; };
-		D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB53B1256EFC6500AD2D1A /* KeychainAccess */; };
+		D9BB53B2256EFC6500AD2D1A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB53B1256EFC6500AD2D1A /* SwiftPackageProductDependency */; };
 		D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53BD256EFCF000AD2D1A /* BaseViewController.swift */; };
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
@@ -152,6 +155,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sparta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3DBBAA9893FB1A41E3B001D /* Pods-Sparta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sparta.debug.xcconfig"; path = "Target Support Files/Pods-Sparta/Pods-Sparta.debug.xcconfig"; sourceTree = "<group>"; };
 		D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabsViewModel.swift; sourceTree = "<group>"; };
 		D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -239,6 +244,12 @@
 		D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultKeyValueView.swift; sourceTree = "<group>"; };
 		D9A91CBE25AC691C00423704 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		D9A91CC125AC6EB800423704 /* DelayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayObject.swift; sourceTree = "<group>"; };
+		D9A91CEF25ADE85900423704 /* Sparta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sparta-Bridging-Header.h"; sourceTree = "<group>"; };
+		D9A91CF025ADE85A00423704 /* SEGAmplitudeIntegration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGAmplitudeIntegration.m; sourceTree = "<group>"; };
+		D9A91CF125ADE85A00423704 /* SEGAmplitudeIntegrationFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGAmplitudeIntegrationFactory.m; sourceTree = "<group>"; };
+		D9A91CF225ADE85A00423704 /* SEGAmplitudeIntegrationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGAmplitudeIntegrationFactory.h; sourceTree = "<group>"; };
+		D9A91CF325ADE85A00423704 /* SEGAmplitudeIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGAmplitudeIntegration.h; sourceTree = "<group>"; };
+		D9A91CF625ADE8F900423704 /* Segment_Amplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Segment_Amplitude.h; sourceTree = "<group>"; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
 		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -275,6 +286,7 @@
 		D9ECEC4C257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderDescriptionPopupHeaderView.swift; sourceTree = "<group>"; };
 		D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableUISwitch.swift; sourceTree = "<group>"; };
 		D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateService.swift; sourceTree = "<group>"; };
+		ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sparta.release.xcconfig"; path = "Target Support Files/Pods-Sparta/Pods-Sparta.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,24 +294,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9A8041A25713DC2000ADE6B /* Then in Frameworks */,
-				D9A3BD662575274300224535 /* SpartaHelpers in Frameworks */,
-				D9A3BD612575262B00224535 /* NetworkingModels in Frameworks */,
-				D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */,
-				D9A80445257146FC000ADE6B /* Nuke in Frameworks */,
-				D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */,
-				D9A91C0E25A4A8F700423704 /* Segment in Frameworks */,
-				D9A3BD5E2575258500224535 /* App in Frameworks */,
-				D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */,
-				D9264BED25751298001477DA /* Networking in Frameworks */,
-				D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */,
-				D94E228725826AE6005FA057 /* PhoneNumberKit in Frameworks */,
+				D9A8041A25713DC2000ADE6B /* BuildFile in Frameworks */,
+				D9A3BD662575274300224535 /* BuildFile in Frameworks */,
+				D9A3BD612575262B00224535 /* BuildFile in Frameworks */,
+				D9BB5377256EF74A00AD2D1A /* BuildFile in Frameworks */,
+				D9A80445257146FC000ADE6B /* BuildFile in Frameworks */,
+				D94E228525826AE6005FA057 /* BuildFile in Frameworks */,
+				D9A91C0E25A4A8F700423704 /* BuildFile in Frameworks */,
+				D9A3BD5E2575258500224535 /* BuildFile in Frameworks */,
+				D9BB5379256EF74A00AD2D1A /* BuildFile in Frameworks */,
+				D9264BED25751298001477DA /* BuildFile in Frameworks */,
+				D9BB53B2256EFC6500AD2D1A /* BuildFile in Frameworks */,
+				D94E228725826AE6005FA057 /* BuildFile in Frameworks */,
+				B815729BD8EA30417EDD7786 /* Pods_Sparta.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		493C4525910150DD73DA13F6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A3DBBAA9893FB1A41E3B001D /* Pods-Sparta.debug.xcconfig */,
+				ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D91A96B9258BB56C008487A8 /* LiveCurves */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +353,7 @@
 		D9264BEB25751298001477DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -698,6 +722,7 @@
 		D9A91C1125A503C700423704 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
+				D9A91CEE25ADE82B00423704 /* Amplitude */,
 				D9A91C0F25A4AB0200423704 /* AnalyticsManager.swift */,
 				D9A91C1225A503DE00423704 /* AnalyticsManager+Models.swift */,
 			);
@@ -754,6 +779,19 @@
 				D9A91CC125AC6EB800423704 /* DelayObject.swift */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		D9A91CEE25ADE82B00423704 /* Amplitude */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91CF625ADE8F900423704 /* Segment_Amplitude.h */,
+				D9A91CF325ADE85A00423704 /* SEGAmplitudeIntegration.h */,
+				D9A91CF025ADE85A00423704 /* SEGAmplitudeIntegration.m */,
+				D9A91CF225ADE85A00423704 /* SEGAmplitudeIntegrationFactory.h */,
+				D9A91CF125ADE85A00423704 /* SEGAmplitudeIntegrationFactory.m */,
+				D9A91CEF25ADE85900423704 /* Sparta-Bridging-Header.h */,
+			);
+			path = Amplitude;
 			sourceTree = "<group>";
 		};
 		D9B50DFC25717F180018F3D7 /* Services */ = {
@@ -849,6 +887,7 @@
 				D9BB5347256E8E6600AD2D1A /* Sparta */,
 				D9BB5346256E8E6600AD2D1A /* Products */,
 				D9264BEB25751298001477DA /* Frameworks */,
+				493C4525910150DD73DA13F6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -948,11 +987,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D9BB5359256E8E6800AD2D1A /* Build configuration list for PBXNativeTarget "Sparta" */;
 			buildPhases = (
+				5F9CFEB9813DA2AEE714D181 /* [CP] Check Pods Manifest.lock */,
 				D9BB5341256E8E6600AD2D1A /* Sources */,
 				D9BB5342256E8E6600AD2D1A /* Frameworks */,
 				D9BB5343256E8E6600AD2D1A /* Resources */,
 				D9C52E3E256F09C0007E3744 /* SwiftLint Check */,
 				D94E228225826A4F005FA057 /* Embed Frameworks */,
+				85CDFEEA5227D4BD144B6E9F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -960,18 +1001,18 @@
 			);
 			name = Sparta;
 			packageProductDependencies = (
-				D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */,
-				D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */,
-				D9BB53B1256EFC6500AD2D1A /* KeychainAccess */,
-				D9A8041925713DC2000ADE6B /* Then */,
-				D9A80444257146FC000ADE6B /* Nuke */,
-				D9264BEC25751298001477DA /* Networking */,
-				D9A3BD5D2575258500224535 /* App */,
-				D9A3BD602575262B00224535 /* NetworkingModels */,
-				D9A3BD652575274300224535 /* SpartaHelpers */,
-				D94E228425826AE6005FA057 /* PhoneNumberKit-Static */,
-				D94E228625826AE6005FA057 /* PhoneNumberKit */,
-				D9A91C0D25A4A8F700423704 /* Segment */,
+				D9BB5376256EF74A00AD2D1A /* SwiftPackageProductDependency */,
+				D9BB5378256EF74A00AD2D1A /* SwiftPackageProductDependency */,
+				D9BB53B1256EFC6500AD2D1A /* SwiftPackageProductDependency */,
+				D9A8041925713DC2000ADE6B /* SwiftPackageProductDependency */,
+				D9A80444257146FC000ADE6B /* SwiftPackageProductDependency */,
+				D9264BEC25751298001477DA /* SwiftPackageProductDependency */,
+				D9A3BD5D2575258500224535 /* SwiftPackageProductDependency */,
+				D9A3BD602575262B00224535 /* SwiftPackageProductDependency */,
+				D9A3BD652575274300224535 /* SwiftPackageProductDependency */,
+				D94E228425826AE6005FA057 /* SwiftPackageProductDependency */,
+				D94E228625826AE6005FA057 /* SwiftPackageProductDependency */,
+				D9A91C0D25A4A8F700423704 /* SwiftPackageProductDependency */,
 			);
 			productName = Sparta;
 			productReference = D9BB5345256E8E6600AD2D1A /* Sparta.app */;
@@ -988,6 +1029,7 @@
 				TargetAttributes = {
 					D9BB5344256E8E6600AD2D1A = {
 						CreatedOnToolsVersion = 12.2;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -1001,12 +1043,12 @@
 			);
 			mainGroup = D9BB533C256E8E6600AD2D1A;
 			packageReferences = (
-				D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
-				D9BB53B0256EFC6500AD2D1A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */,
-				D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */,
-				D94E228325826AE6005FA057 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
-				D9A91C0C25A4A8F700423704 /* XCRemoteSwiftPackageReference "analytics-ios" */,
+				D9BB5375256EF74A00AD2D1A /* RemoteSwiftPackageReference */,
+				D9BB53B0256EFC6500AD2D1A /* RemoteSwiftPackageReference */,
+				D9A8041825713DC2000ADE6B /* RemoteSwiftPackageReference */,
+				D9A80443257146FC000ADE6B /* RemoteSwiftPackageReference */,
+				D94E228325826AE6005FA057 /* RemoteSwiftPackageReference */,
+				D9A91C0C25A4A8F700423704 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = D9BB5346256E8E6600AD2D1A /* Products */;
 			projectDirPath = "";
@@ -1035,6 +1077,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5F9CFEB9813DA2AEE714D181 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sparta-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85CDFEEA5227D4BD144B6E9F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sparta/Pods-Sparta-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sparta/Pods-Sparta-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sparta/Pods-Sparta-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D9C52E3E256F09C0007E3744 /* SwiftLint Check */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1087,6 +1168,7 @@
 				D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
 				D9A91BFE25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift in Sources */,
+				D9A91CF425ADE85B00423704 /* SEGAmplitudeIntegration.m in Sources */,
 				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,
 				D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */,
@@ -1161,6 +1243,7 @@
 				D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
+				D9A91CF525ADE85B00423704 /* SEGAmplitudeIntegrationFactory.m in Sources */,
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
 				D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */,
 				D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */,
@@ -1305,9 +1388,11 @@
 		};
 		D9BB535A256E8E6800AD2D1A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3DBBAA9893FB1A41E3B001D /* Pods-Sparta.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = B43G48R3CR;
@@ -1320,6 +1405,8 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Kit/Services/Analytics/Amplitude/Sparta-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1327,9 +1414,11 @@
 		};
 		D9BB535B256E8E6800AD2D1A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = B43G48R3CR;
@@ -1342,6 +1431,7 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Kit/Services/Analytics/Amplitude/Sparta-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1371,7 +1461,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D94E228325826AE6005FA057 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+		D94E228325826AE6005FA057 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit";
 			requirement = {
@@ -1379,7 +1469,7 @@
 				minimumVersion = 3.3.1;
 			};
 		};
-		D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */ = {
+		D9A8041825713DC2000ADE6B /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
 			requirement = {
@@ -1387,7 +1477,7 @@
 				minimumVersion = 2.7.0;
 			};
 		};
-		D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */ = {
+		D9A80443257146FC000ADE6B /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke";
 			requirement = {
@@ -1395,7 +1485,7 @@
 				minimumVersion = 9.1.3;
 			};
 		};
-		D9A91C0C25A4A8F700423704 /* XCRemoteSwiftPackageReference "analytics-ios" */ = {
+		D9A91C0C25A4A8F700423704 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/segmentio/analytics-ios";
 			requirement = {
@@ -1403,7 +1493,7 @@
 				minimumVersion = 4.1.2;
 			};
 		};
-		D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+		D9BB5375256EF74A00AD2D1A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView";
 			requirement = {
@@ -1411,7 +1501,7 @@
 				minimumVersion = 5.1.1;
 			};
 		};
-		D9BB53B0256EFC6500AD2D1A /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+		D9BB53B0256EFC6500AD2D1A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
 			requirement = {
@@ -1422,60 +1512,60 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D9264BEC25751298001477DA /* Networking */ = {
+		D9264BEC25751298001477DA /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Networking;
 		};
-		D94E228425826AE6005FA057 /* PhoneNumberKit-Static */ = {
+		D94E228425826AE6005FA057 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D94E228325826AE6005FA057 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			package = D94E228325826AE6005FA057 /* RemoteSwiftPackageReference */;
 			productName = "PhoneNumberKit-Static";
 		};
-		D94E228625826AE6005FA057 /* PhoneNumberKit */ = {
+		D94E228625826AE6005FA057 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D94E228325826AE6005FA057 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			package = D94E228325826AE6005FA057 /* RemoteSwiftPackageReference */;
 			productName = PhoneNumberKit;
 		};
-		D9A3BD5D2575258500224535 /* App */ = {
+		D9A3BD5D2575258500224535 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = App;
 		};
-		D9A3BD602575262B00224535 /* NetworkingModels */ = {
+		D9A3BD602575262B00224535 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkingModels;
 		};
-		D9A3BD652575274300224535 /* SpartaHelpers */ = {
+		D9A3BD652575274300224535 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SpartaHelpers;
 		};
-		D9A8041925713DC2000ADE6B /* Then */ = {
+		D9A8041925713DC2000ADE6B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */;
+			package = D9A8041825713DC2000ADE6B /* RemoteSwiftPackageReference */;
 			productName = Then;
 		};
-		D9A80444257146FC000ADE6B /* Nuke */ = {
+		D9A80444257146FC000ADE6B /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */;
+			package = D9A80443257146FC000ADE6B /* RemoteSwiftPackageReference */;
 			productName = Nuke;
 		};
-		D9A91C0D25A4A8F700423704 /* Segment */ = {
+		D9A91C0D25A4A8F700423704 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D9A91C0C25A4A8F700423704 /* XCRemoteSwiftPackageReference "analytics-ios" */;
+			package = D9A91C0C25A4A8F700423704 /* RemoteSwiftPackageReference */;
 			productName = Segment;
 		};
-		D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */ = {
+		D9BB5376256EF74A00AD2D1A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			package = D9BB5375256EF74A00AD2D1A /* RemoteSwiftPackageReference */;
 			productName = NVActivityIndicatorView;
 		};
-		D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */ = {
+		D9BB5378256EF74A00AD2D1A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			package = D9BB5375256EF74A00AD2D1A /* RemoteSwiftPackageReference */;
 			productName = NVActivityIndicatorViewExtended;
 		};
-		D9BB53B1256EFC6500AD2D1A /* KeychainAccess */ = {
+		D9BB53B1256EFC6500AD2D1A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D9BB53B0256EFC6500AD2D1A /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			package = D9BB53B0256EFC6500AD2D1A /* RemoteSwiftPackageReference */;
 			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
