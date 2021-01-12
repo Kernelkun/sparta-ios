@@ -37,6 +37,8 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     // MARK: - Public methods
 
     func loadData() {
+        updateConnectionInfo()
+
         liveCurvesSyncManager.delegate = self
         liveCurvesSyncManager.startReceivingData()
 
@@ -61,15 +63,21 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
 //        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
 
-        return Dictionary(grouping: liveCurves, by: { $0.displayName }).keys.compactMap { key -> Cell in
-            .grade(title: key)
-        }
+        return Dictionary(grouping: liveCurves, by: { $0.displayName })
+        .sorted(by: { value1, value2 in
+            value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
+        })
+        .compactMap { .grade(title: $0.key) }
     }
 
     private func createCollectionDataSource(from liveCurves: [LiveCurve]) -> [Section] {
 //        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
 
-        return Dictionary(grouping: liveCurves, by: { $0.displayName }).compactMap { key, value -> Section in
+        return Dictionary(grouping: liveCurves, by: { $0.displayName })
+            .sorted(by: { value1, value2 -> Bool in
+                value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
+            })
+            .compactMap { key, value -> Section in
 
             var cells: [Cell] = Array(repeating: .emptyGrade(), count: LiveCurve.months.count)
 
@@ -195,7 +203,7 @@ extension LiveCurvesViewModel {
             return offset
         }
 
-        fetchedLiveCurves = newLiveCurves
+        fetchedLiveCurves = newLiveCurves.sorted(by: { $0.priorityIndex < $01.priorityIndex })
 
         tableDataSource = newTableDataSource
         collectionDataSource = newCollectionDataSource

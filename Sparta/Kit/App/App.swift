@@ -30,6 +30,7 @@ class App {
 
     let blenderSyncManager: BlenderSyncManager
     let liveCurvesSyncManager: LiveCurvesSyncManager
+    let arbsSyncManager: ArbsSyncManager
     let sockets: SocketAPI
     
     weak var delegate: AppFlowDelegate?
@@ -84,6 +85,7 @@ class App {
 
         blenderSyncManager = BlenderSyncManager()
         liveCurvesSyncManager = LiveCurvesSyncManager()
+        arbsSyncManager = ArbsSyncManager()
         stateService = AppStateService()
 
         reachability = try! Reachability() // swiftlint:disable:this force_try
@@ -107,7 +109,16 @@ class App {
     }
 
     func appDidMakeAuthentication() {
+
+        // sockets connection
+
         connectToSockets()
+
+        // identify
+
+        guard let user = currentUser else { return }
+
+        AnalyticsManager.intance.identity(user)
     }
 
     func saveLoginData(_ loginData: Login) {
@@ -163,7 +174,9 @@ extension App: SyncServiceDelegate {
 extension App: AppStateServiceDelegate {
 
     func appStateServiceDidUpdateState() {
-        if stateService.isActiveApp {
+        if stateService.isActiveApp
+            && syncService.currentUser != nil {
+            
             connectToSockets()
         } else {
             sockets.disconnect(forced: true)

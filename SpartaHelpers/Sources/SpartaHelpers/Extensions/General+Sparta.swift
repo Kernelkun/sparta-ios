@@ -36,6 +36,13 @@ public extension Double {
         return formatter.string(from: NSNumber(value: self)) ?? String(self)
     }
 
+    var toFormattedPercentageString: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 3
+        return formatter.string(from: NSNumber(value: self)) ?? String(self)
+    }
+
     var toFormattedTime: String {
         let minute = Int(self) / 60 % 60
         let second = Int(self) % 60

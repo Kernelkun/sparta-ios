@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct PickerIdValued: PickerValued {
+struct PickerIdValued<K: Hashable>: PickerValued {
 
     // MARK: - Public properties
 
-    var id: Int
+    var id: K
     var title: String
     var fullTitle: String
 }
@@ -22,4 +22,3 @@ extension PickerIdValued: Equatable {
         lhs.id == rhs.id
     }
 }
-

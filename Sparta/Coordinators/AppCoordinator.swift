@@ -74,6 +74,7 @@ class AppCoordinator {
         let app = App.instance
 
         guard app.isSignedIn else {
+            blurCoordinator.finish(forced: true)
             authenticationFlowCoordinator.start()
             authenticationFlowCoordinator.proceedToLogin()
             return
@@ -138,6 +139,10 @@ class AppCoordinator {
     }
 
     private func setupLogic() {
+
+        // analytics
+
+        AnalyticsManager.intance.start()
 
         // logout if needed
 

@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Segment",
+        "repositoryURL": "https://github.com/segmentio/analytics-ios",
+        "state": {
+          "branch": null,
+          "revision": "d88d49d1b7bf50bb32ca8645d371802c4d8be564",
+          "version": "4.1.2"
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {

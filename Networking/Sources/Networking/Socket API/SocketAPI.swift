@@ -141,7 +141,7 @@ public class SocketAPI: NSObject {
 
     public func sendData(data: JSON, requiresAuth: Bool) {
 
-        print("*Websocket: Current state: \(state)*")
+        print("*Websocket: Did send data \(data.rawString()), server: \(serverType)*")
 
         /*if requiresAuth && state < .authenticated {
             print("*Websocket: Postponed sending \(data["cmd"].stringValue): not authenticated*")
@@ -195,7 +195,7 @@ extension SocketAPI: WebSocketDelegate {
 
         let response = JSON(parseJSON: text)
 
-        print("*Websocket: Did receive some text*")
+        print("*Websocket: Did receive some \(text)*")
 
         //
         // Notify observers about happened event

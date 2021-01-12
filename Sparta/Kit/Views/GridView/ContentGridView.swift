@@ -79,7 +79,7 @@ class ContentGridView: UIView {
             }
         }
 
-        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.monthsCount)
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.rowsCount)
             .compactMap { _ in constructor.collectionColumnWidth }
 
         collectionGridLayout = GridLayout()
@@ -97,6 +97,10 @@ class ContentGridView: UIView {
 
             collectionView.register(LiveCurveInfoCollectionViewCell.self)
             collectionView.register(BlenderInfoCollectionViewCell.self)
+            collectionView.register(ArbsDeliveryMonthCollectionViewCell.self)
+            collectionView.register(ArbsDeliveryPriceCollectionViewCell.self)
+            collectionView.register(ArbsFreightCollectionViewCell.self)
+            collectionView.register(ArbsBlendCostCollectionViewCell.self)
 
             contentView.addSubview(collectionView) {
                 $0.top.equalTo(tableView)

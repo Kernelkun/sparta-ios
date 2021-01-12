@@ -83,7 +83,7 @@ class GradesGridView: UIView {
             view.showsHorizontalScrollIndicator = false
             view.showsVerticalScrollIndicator = false
             view.bounces = false
-            view.contentSize = CGSize(width: constructor.collectionColumnWidth * CGFloat(constructor.monthsCount),
+            view.contentSize = CGSize(width: constructor.collectionColumnWidth * CGFloat(constructor.rowsCount),
                                       height: constructor.gradeHeight)
 
             addSubview(view) {
@@ -99,7 +99,7 @@ class GradesGridView: UIView {
             stackView.spacing = 0
             stackView.alignment = .leading
 
-            for _ in 0..<constructor.monthsCount {
+            for _ in 0..<constructor.rowsCount {
                 let gridCell = GradeTitleView()
                 stackView.addArrangedSubview(gridCell)
 

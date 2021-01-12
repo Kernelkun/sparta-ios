@@ -12,6 +12,9 @@ import App
 
 enum AnalyticsEndPoint {
     case getLiveCurves
+    case getArbsTable
+    case getFreightPorts
+    case getFreightRoute(loadPortId: Int, dischargePortId: Int, date: String)
 }
 
 extension AnalyticsEndPoint: EndPointType {
@@ -21,12 +24,15 @@ extension AnalyticsEndPoint: EndPointType {
     var path: String {
         switch self {
         case .getLiveCurves: return "/livecurves"
+        case .getArbsTable: return "/arbs/table"
+        case .getFreightPorts: return "/freight/loadports"
+        case .getFreightRoute: return "/freight/route"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getLiveCurves: return .get
+        case .getLiveCurves, .getArbsTable, .getFreightPorts, .getFreightRoute: return .get
         }
     }
 
@@ -37,9 +43,28 @@ extension AnalyticsEndPoint: EndPointType {
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
                                                 additionHeaders: headersWithToken)
+
+        case .getArbsTable:
+            return .requestParametersAndHeaders(bodyParameters: nil,
+                                                bodyEncoding: .jsonEncoding,
+                                                urlParameters: nil,
+                                                additionHeaders: headersWithToken)
+
+        case .getFreightPorts:
+            return .requestParametersAndHeaders(bodyParameters: nil,
+                                                bodyEncoding: .jsonEncoding,
+                                                urlParameters: nil,
+                                                additionHeaders: headersWithToken)
+
+        case .getFreightRoute(let loadPortId, let dischargePortId, let date):
+            return .requestParametersAndHeaders(bodyParameters: nil,
+                                                bodyEncoding: .urlEncoding,
+                                                urlParameters: ["loadPort": loadPortId,
+                                                                "dischargePort": dischargePortId,
+                                                                "selectDate": date],
+                                                additionHeaders: headersWithToken)
         }
     }
 
     var header: HTTPHeaders? { nil }
 }
-

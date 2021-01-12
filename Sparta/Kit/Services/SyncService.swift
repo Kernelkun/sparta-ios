@@ -24,11 +24,13 @@ class SyncService {
             && currentUser != nil
             && userRoles != nil
             && tradeAreas != nil
+            && freightPorts != nil
     }
 
     var userRoles: [UserRole]?
     var tradeAreas: [TradeArea]?
     var phonePrefixes: [PhonePrefix]?
+    var freightPorts: [FreightPort]?
     var currentUser: User?
 
     weak var delegate: SyncServiceDelegate?
@@ -37,6 +39,7 @@ class SyncService {
     // MARK: - Private properties
 
     private let profileNetworkManager = ProfileNetworkManager()
+    private let analyticsNetworkManager = AnalyticsNetworkManager()
 
     // MARK: - Public methods
 
@@ -45,6 +48,7 @@ class SyncService {
         var tradeAreas: [TradeArea] = []
         var userRoles: [UserRole] = []
         var prefixes: [PhonePrefix] = []
+        var freightPorts: [FreightPort] = []
         var user: User?
 
         let group = DispatchGroup()
@@ -105,11 +109,28 @@ class SyncService {
             group.leave()
         }
 
+        // analytics
+
+        group.enter()
+        analyticsNetworkManager.fetchFreightPorts { result in
+
+            switch result {
+            case .success(let responseModel) where responseModel.model != nil:
+                freightPorts = responseModel.model!.list //swiftlint:disable:this force_unwrapping
+
+            default:
+                userRoles = []
+            }
+
+            group.leave()
+        }
+
         group.notify(queue: .global(qos: .default)) {
             self.phonePrefixes = prefixes
             self.currentUser = user
             self.tradeAreas = tradeAreas
             self.userRoles = userRoles
+            self.freightPorts = freightPorts
 
             onMainThread {
                 self.delegate?.syncServiceDidFinishSyncInitialData()

@@ -65,6 +65,11 @@ class BaseNetworkManager {
                 }
                 
             case .failure:
+
+                if responseModel.error == "Unauthorized" {
+                    App.instance.logout()
+                }
+
                 return .failure(SpartaError(code: responseModel.statusCode ?? -1))
             }
         } else { return .failure(.unknown) }

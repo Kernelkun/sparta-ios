@@ -13,5 +13,4 @@ extension AccountSettingsViewModel {
         case load
         case save
     }
-
 }
