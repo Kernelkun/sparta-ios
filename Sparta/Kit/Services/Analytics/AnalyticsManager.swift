@@ -8,6 +8,7 @@
 import Foundation
 import NetworkingModels
 import Segment
+import Segment_Amplitude
 import App
 
 class AnalyticsManager {
@@ -28,6 +29,8 @@ class AnalyticsManager {
         configuration.trackApplicationLifecycleEvents = false
         // Enable this to record screen views automatically!
         configuration.recordScreenViews = true
+
+        configuration.use(SEGAmplitudeIntegrationFactory.instance())
 
         Analytics.setup(with: configuration)
     }
