@@ -13,19 +13,19 @@ class MainTabsViewModel {
     // MARK: - Public properties
 
     var isVisibleArbsBlock: Bool {
-        currentUser?.arbs ?? true
+        currentUser?.arbs ?? false
     }
 
     var isVisibleBlenderBlock: Bool {
-        currentUser?.blender ?? true
+        currentUser?.blender ?? false
     }
 
     var isVisibleFreightBlock: Bool {
-        currentUser?.freight ?? true
+        currentUser?.freight ?? false
     }
 
     var isVisibleLivePricesBlock: Bool {
-        currentUser?.liveprices ?? true
+        currentUser?.liveprices ?? false
     }
 
     // MARK: - Private properties
