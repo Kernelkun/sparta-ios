@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B815729BD8EA30417EDD7786 /* Pods_Sparta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */; };
 		D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */; };
 		D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */; };
 		D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */; };
@@ -88,7 +89,6 @@
 		D9A91BFE25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BFD25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift */; };
 		D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0025A3797800423704 /* KeyedLabel.swift */; };
 		D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */; };
-		D9A91C0E25A4A8F700423704 /* Segment in Frameworks */ = {isa = PBXBuildFile; productRef = D9A91C0D25A4A8F700423704 /* Segment */; };
 		D9A91C1025A4AB0200423704 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0F25A4AB0200423704 /* AnalyticsManager.swift */; };
 		D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C1225A503DE00423704 /* AnalyticsManager+Models.swift */; };
 		D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C1F25A5CF3B00423704 /* KeyedNavigationController.swift */; };
@@ -138,20 +138,9 @@
 		D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		D94E228225826A4F005FA057 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sparta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3DBBAA9893FB1A41E3B001D /* Pods-Sparta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sparta.debug.xcconfig"; path = "Target Support Files/Pods-Sparta/Pods-Sparta.debug.xcconfig"; sourceTree = "<group>"; };
 		D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabsViewModel.swift; sourceTree = "<group>"; };
 		D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -239,6 +228,8 @@
 		D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultKeyValueView.swift; sourceTree = "<group>"; };
 		D9A91CBE25AC691C00423704 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		D9A91CC125AC6EB800423704 /* DelayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayObject.swift; sourceTree = "<group>"; };
+		D9A91D0925ADEDED00423704 /* Sparta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sparta-Bridging-Header.h"; sourceTree = "<group>"; };
+		D9A91D0A25ADF03800423704 /* Segment_Amplitude.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Segment_Amplitude.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
 		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -275,6 +266,7 @@
 		D9ECEC4C257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderDescriptionPopupHeaderView.swift; sourceTree = "<group>"; };
 		D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableUISwitch.swift; sourceTree = "<group>"; };
 		D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateService.swift; sourceTree = "<group>"; };
+		ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sparta.release.xcconfig"; path = "Target Support Files/Pods-Sparta/Pods-Sparta.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,18 +280,27 @@
 				D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */,
 				D9A80445257146FC000ADE6B /* Nuke in Frameworks */,
 				D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */,
-				D9A91C0E25A4A8F700423704 /* Segment in Frameworks */,
 				D9A3BD5E2575258500224535 /* App in Frameworks */,
 				D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */,
 				D9264BED25751298001477DA /* Networking in Frameworks */,
 				D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */,
 				D94E228725826AE6005FA057 /* PhoneNumberKit in Frameworks */,
+				B815729BD8EA30417EDD7786 /* Pods_Sparta.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		493C4525910150DD73DA13F6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A3DBBAA9893FB1A41E3B001D /* Pods-Sparta.debug.xcconfig */,
+				ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D91A96B9258BB56C008487A8 /* LiveCurves */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +331,8 @@
 		D9264BEB25751298001477DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9A91D0A25ADF03800423704 /* Segment_Amplitude.framework */,
+				244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -849,6 +852,7 @@
 				D9BB5347256E8E6600AD2D1A /* Sparta */,
 				D9BB5346256E8E6600AD2D1A /* Products */,
 				D9264BEB25751298001477DA /* Frameworks */,
+				493C4525910150DD73DA13F6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -882,6 +886,7 @@
 				D9BB538C256EF83D00AD2D1A /* Assets.xcassets */,
 				D9BB5356256E8E6800AD2D1A /* Info.plist */,
 				D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */,
+				D9A91D0925ADEDED00423704 /* Sparta-Bridging-Header.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -948,11 +953,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D9BB5359256E8E6800AD2D1A /* Build configuration list for PBXNativeTarget "Sparta" */;
 			buildPhases = (
+				5F9CFEB9813DA2AEE714D181 /* [CP] Check Pods Manifest.lock */,
 				D9BB5341256E8E6600AD2D1A /* Sources */,
 				D9BB5342256E8E6600AD2D1A /* Frameworks */,
 				D9BB5343256E8E6600AD2D1A /* Resources */,
 				D9C52E3E256F09C0007E3744 /* SwiftLint Check */,
-				D94E228225826A4F005FA057 /* Embed Frameworks */,
+				85CDFEEA5227D4BD144B6E9F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -971,7 +977,6 @@
 				D9A3BD652575274300224535 /* SpartaHelpers */,
 				D94E228425826AE6005FA057 /* PhoneNumberKit-Static */,
 				D94E228625826AE6005FA057 /* PhoneNumberKit */,
-				D9A91C0D25A4A8F700423704 /* Segment */,
 			);
 			productName = Sparta;
 			productReference = D9BB5345256E8E6600AD2D1A /* Sparta.app */;
@@ -988,6 +993,7 @@
 				TargetAttributes = {
 					D9BB5344256E8E6600AD2D1A = {
 						CreatedOnToolsVersion = 12.2;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -1006,7 +1012,6 @@
 				D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */,
 				D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */,
 				D94E228325826AE6005FA057 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
-				D9A91C0C25A4A8F700423704 /* XCRemoteSwiftPackageReference "analytics-ios" */,
 			);
 			productRefGroup = D9BB5346256E8E6600AD2D1A /* Products */;
 			projectDirPath = "";
@@ -1035,6 +1040,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5F9CFEB9813DA2AEE714D181 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sparta-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85CDFEEA5227D4BD144B6E9F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sparta/Pods-Sparta-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sparta/Pods-Sparta-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sparta/Pods-Sparta-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D9C52E3E256F09C0007E3744 /* SwiftLint Check */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1305,11 +1349,13 @@
 		};
 		D9BB535A256E8E6800AD2D1A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3DBBAA9893FB1A41E3B001D /* Pods-Sparta.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1317,9 +1363,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Sources/Sparta-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1327,11 +1375,13 @@
 		};
 		D9BB535B256E8E6800AD2D1A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1339,9 +1389,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Sources/Sparta-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1393,14 +1444,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 9.1.3;
-			};
-		};
-		D9A91C0C25A4A8F700423704 /* XCRemoteSwiftPackageReference "analytics-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/segmentio/analytics-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.1.2;
 			};
 		};
 		D9BB5375256EF74A00AD2D1A /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
@@ -1457,11 +1500,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
-		};
-		D9A91C0D25A4A8F700423704 /* Segment */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D9A91C0C25A4A8F700423704 /* XCRemoteSwiftPackageReference "analytics-ios" */;
-			productName = Segment;
 		};
 		D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */ = {
 			isa = XCSwiftPackageProductDependency;
