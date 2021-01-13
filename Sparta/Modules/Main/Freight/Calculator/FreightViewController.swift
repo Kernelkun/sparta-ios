@@ -284,16 +284,16 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
             field.textField.enterType = .numbers(symbolsAfterDot: 2)
 
-            field.onTextChanged { [unowned self] text in
-                self.viewModel.selectedLoadedQuantity = text
-            }
+//            field.onTextChanged { [unowned self] text in
+//                self.viewModel.selectedLoadedQuantity = text
+//            }
 
             contentView.addSubview(field) {
                 $0.top.equalTo(topAlignView.snp.bottom).offset(14)
                 $0.left.right.equalToSuperview().inset(24)
                 $0.height.equalTo(48)
             }
-        }
+        }     
 
         return UILabel().then { label in
 

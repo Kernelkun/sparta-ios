@@ -34,7 +34,7 @@ class MainTabsViewController: UITabBarController {
 
         var tabs: [KeyedNavigationController<Tab>] = []
 
-        /*if viewModel.isVisibleArbsBlock {
+        if viewModel.isVisibleArbsBlock {
             let first = ArbsViewController()
             setTabBarItem(first, "ARBs", "ic_tab_first")
 
@@ -42,7 +42,7 @@ class MainTabsViewController: UITabBarController {
             navigation.setKey(.arbs)
 
             tabs.append(navigation)
-        }*/
+        }
 
         if viewModel.isVisibleLivePricesBlock {
             let second = LiveCurvesViewController()
@@ -64,7 +64,7 @@ class MainTabsViewController: UITabBarController {
             tabs.append(navigation)
         }
 
-        /*if viewModel.isVisibleFreightBlock {
+        if viewModel.isVisibleFreightBlock {
             let fourth = FreightViewController()
             setTabBarItem(fourth, "Freight", "ic_tab_fourth")
 
@@ -72,7 +72,7 @@ class MainTabsViewController: UITabBarController {
             navigation.setKey(.freight)
 
             tabs.append(navigation)
-        }*/
+        }
 
         let fifth = SettingsViewController()
         setTabBarItem(fifth, "Settings", "ic_tab_fifth")

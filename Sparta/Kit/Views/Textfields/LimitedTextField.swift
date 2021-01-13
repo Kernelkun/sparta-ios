@@ -9,7 +9,6 @@ import UIKit
 import SpartaHelpers
 
 class LimitedTextField: UITextField {
-
     enum TextFieldEnterType {
         case none
         case charactersLimit(range: ClosedRange<Int>, isNumeric: Bool)
