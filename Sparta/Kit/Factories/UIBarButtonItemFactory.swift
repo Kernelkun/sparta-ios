@@ -10,6 +10,21 @@ import SpartaHelpers
 
 enum UIBarButtonItemFactory {
 
+    static func logoButton(onTap: TypeClosure<UIButton>? = nil) -> UIBarButtonItem {
+
+        let button = TappableButton(type: .system).then { v in
+
+            v.setBackgroundImage(UIImage(named: "ic_nav_logo"), for: .normal)
+            v.tintColor = .controlTintActive
+
+            if let onTap = onTap {
+                v.onTap(completion: onTap)
+            }
+        }
+
+        return UIBarButtonItem(customView: button)
+    }
+
     static func backButton(onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
 
         let button = TappableButton(type: .system).then { v in
