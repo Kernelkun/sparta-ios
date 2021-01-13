@@ -94,8 +94,8 @@ class FreightViewModel: NSObject, BaseViewModel {
                                                     portId: selectedPort.id,
                                                     dischargePortId: selectedDischargePort.id,
                                                     vessel: selectedVesselType.id,
-                                                    vesselSpeed: Double(selectedVesselSpeed) ?? 0.0,
-                                                    loadedQuantity: Double(selectedLoadedQuantity) ?? 0.0)
+                                                    vesselSpeed: selectedVesselSpeed.toDouble ?? 0.0,
+                                                    loadedQuantity: selectedLoadedQuantity.toDouble ?? 0.0)
 
         onMainThread {
             self.delegate?.didFinishCalculations(with: inputData)
@@ -149,8 +149,8 @@ class FreightViewModel: NSObject, BaseViewModel {
                 return
             }
 
-            strongSelf.selectedVesselSpeed = "\(selectedVesselType.id.speed)"
-            strongSelf.selectedLoadedQuantity = "\(selectedVesselType.id.loadedQuantity)"
+            strongSelf.selectedVesselSpeed = selectedVesselType.id.speed.toFormattedString
+            strongSelf.selectedLoadedQuantity = selectedVesselType.id.loadedQuantity.toFormattedString
 
             dispatchGroup.leave()
         }

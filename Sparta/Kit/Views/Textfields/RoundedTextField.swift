@@ -73,35 +73,6 @@ class RoundedTextField: UIView {
     var popupText: String?
     var popupSource: UIViewController?
 
-    //
-
-    func showError(_ errorText: String) {
-
-        /*let errorString = NSMutableAttributedString()
-
-        let image = UIImage(systemName: "exclamationmark.circle.fill")! // swiftlint:disable:this force_unwrapping
-        let warningIcon = NSTextAttachment(image: image)
-
-        errorString.append(NSAttributedString(attachment: warningIcon))
-        errorString.append(NSAttributedString(string: " "))
-        errorString.append(NSAttributedString(string: errorText))
-
-        errorLabel.attributedText = errorString
-
-        textField.textColor = .errorTint
-        bottomLineView.backgroundColor = .errorTint
-        leftViewIcon.tintColor = .errorTint*/
-    }
-
-    func hideError() {
-
-        /*errorLabel.text = nil
-
-        textField.textColor = .primaryText
-        bottomLineView.backgroundColor = .primaryText
-        leftViewIcon.tintColor = .primaryText*/
-    }
-
     func onTextChanged(completion: @escaping StringClosure) {
         textField.onChanged { [unowned self] in completion(self.textField.text ?? "") }
     }
@@ -164,7 +135,7 @@ class RoundedTextField: UIView {
 
             v.autocapitalizationType = .none
             v.autocorrectionType = .no
-            v.delegate = self
+            v.actionDelegate = self
 
             v.defaultTextAttributes = [.foregroundColor: UIColor.primaryText,
                                        .font: UIFont.main(weight: .regular, size: 15)]
@@ -195,24 +166,10 @@ class RoundedTextField: UIView {
                 $0.edges.equalToSuperview()
             }
         }
-
-        /*errorLabel = UILabel().then { v in
-
-            v.textColor = .errorTint
-            v.numberOfLines = 1
-            v.font = .systemFont(ofSize: 10, weight: .light)
-
-            addSubview(v) { make in
-                make.left.right.equalTo(bottomLineView)
-                make.top.equalTo(bottomLineView.snp.bottom)
-                make.bottom.equalToSuperview()
-                make.height.equalTo(15)
-            }
-        }*/
     }
 }
 
-extension RoundedTextField: UITextFieldDelegate {
+extension RoundedTextField: LimitedTextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         delegate?.roundedTextFieldDidBeginEditing(self)
@@ -230,9 +187,8 @@ extension RoundedTextField: UITextFieldDelegate {
         }
     }
 
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    func textFieldShouldEndEditing(_ textField: UITextField) {
         popupSource?.dismiss(animated: true, completion: nil)
-        return true
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -243,15 +199,13 @@ extension RoundedTextField: UITextFieldDelegate {
         delegate?.roundedTextFieldDidEndEditing(self)
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) {
 
         if let nextInput = nextInput {
             nextInput.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
         }
-
-        return true
     }
 }
 

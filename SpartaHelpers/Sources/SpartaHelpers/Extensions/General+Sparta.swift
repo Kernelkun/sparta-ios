@@ -29,7 +29,7 @@ public extension Double {
     var toFormattedString: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.allowsFloats = false
+        formatter.allowsFloats = true
         formatter.zeroSymbol = nil
         formatter.decimalSeparator = "."
         formatter.maximumFractionDigits = 2
@@ -55,4 +55,23 @@ public extension Double {
 public extension String {
 
     var toInt: Int? { Int(self) }
+
+    var toDouble: Double? {
+        guard let numberString = self.numberString else { return nil }
+
+        return Double(numberString)
+    }
+
+    var numberString: String? {
+        guard let regex = try? NSRegularExpression(pattern: "[^0-9.]", options: .caseInsensitive) else { return nil }
+
+        return regex.stringByReplacingMatches(in: self,
+                                              options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                              range: NSMakeRange(0, self.count),
+                                              withTemplate: "")
+    }
+
+    var toNumberFormattedString: String? {
+        Double(self)?.toFormattedString
+    }
 }

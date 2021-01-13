@@ -284,9 +284,9 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
             field.textField.enterType = .numbers(symbolsAfterDot: 2)
 
-//            field.onTextChanged { [unowned self] text in
-//                self.viewModel.selectedLoadedQuantity = text
-//            }
+            field.onTextChanged { [unowned self] text in
+                self.viewModel.selectedLoadedQuantity = text
+            }
 
             contentView.addSubview(field) {
                 $0.top.equalTo(topAlignView.snp.bottom).offset(14)
