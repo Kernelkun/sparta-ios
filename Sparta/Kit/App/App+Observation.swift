@@ -67,4 +67,3 @@ extension App {
         queue.addOperation { observers.forEach { $0.appSocketsDidChangeState(for: server, state: state) } }
     }
 }
-

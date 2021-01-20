@@ -16,6 +16,7 @@ public extension Int {
         formatter.numberStyle = .decimal
         formatter.allowsFloats = false
         formatter.zeroSymbol = nil
+        formatter.locale = Locale(identifier: "en")
         return formatter.string(from: NSNumber(integerLiteral: self)) ?? String(self)
     }
 }
@@ -33,6 +34,7 @@ public extension Double {
         formatter.zeroSymbol = nil
         formatter.decimalSeparator = "."
         formatter.maximumFractionDigits = 2
+        formatter.locale = Locale(identifier: "en")
         return formatter.string(from: NSNumber(value: self)) ?? String(self)
     }
 
@@ -49,6 +51,15 @@ public extension Double {
 
         // return formated string
         return String(format: "%02i:%02i", minute, second)
+    }
+
+    func round(to places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+
+    func roundedString(to places: Int) -> String {
+        String(format: "%.\(places)f", self)
     }
 }
 

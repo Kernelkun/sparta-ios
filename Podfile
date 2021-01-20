@@ -7,5 +7,5 @@ target 'Sparta' do
 
   # Pods for Sparta
   pod 'Segment-Amplitude'
-
+  pod 'LightweightCharts', '~> 3.2.0'
 end
