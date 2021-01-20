@@ -80,12 +80,12 @@ class FreightViewModel: NSObject, BaseViewModel {
             return
         }
 
-        guard let selectedVesselSpeed = selectedVesselSpeed else {
+        guard let selectedVesselSpeed = selectedVesselSpeed, !selectedVesselSpeed.isEmpty else {
             delegate?.didCatchAnError("Please enter vessel speed")
             return
         }
 
-        guard let selectedLoadedQuantity = selectedLoadedQuantity else {
+        guard let selectedLoadedQuantity = selectedLoadedQuantity, !selectedLoadedQuantity.isEmpty else {
             delegate?.didCatchAnError("Please enter loaded quantity")
             return
         }
@@ -94,8 +94,8 @@ class FreightViewModel: NSObject, BaseViewModel {
                                                     portId: selectedPort.id,
                                                     dischargePortId: selectedDischargePort.id,
                                                     vessel: selectedVesselType.id,
-                                                    vesselSpeed: Double(selectedVesselSpeed) ?? 0.0,
-                                                    loadedQuantity: Double(selectedLoadedQuantity) ?? 0.0)
+                                                    vesselSpeed: selectedVesselSpeed.toDouble ?? 0.0,
+                                                    loadedQuantity: selectedLoadedQuantity.toDouble ?? 0.0)
 
         onMainThread {
             self.delegate?.didFinishCalculations(with: inputData)
@@ -139,18 +139,24 @@ class FreightViewModel: NSObject, BaseViewModel {
                 return
             }
 
-            strongSelf.vesselTypes = freightRoute.vessels.compactMap { .init(id: $0, title: $0.type, fullTitle: $0.type) }
+            let sortedFreightRoutes = freightRoute.vessels.sorted { $0.priorityIndex < $1.priorityIndex }
+            strongSelf.vesselTypes = sortedFreightRoutes.compactMap { .init(id: $0, title: $0.type, fullTitle: $0.type) }
 
+            // if selected vessel type is active for current port/discharge port leave it
             guard let selectedVesselType = strongSelf.selectedVesselType,
                   strongSelf.vesselTypes.contains(selectedVesselType) else {
 
-                strongSelf.selectedVesselType = nil
+                // if possible choose every time first option of vessel type
+                if let firstVessel = strongSelf.vesselTypes.first {
+                    strongSelf.selectVessel(firstVessel)
+                }
+
                 dispatchGroup.leave()
                 return
             }
 
-            strongSelf.selectedVesselSpeed = "\(selectedVesselType.id.speed)"
-            strongSelf.selectedLoadedQuantity = "\(selectedVesselType.id.loadedQuantity)"
+            // make selected vessel speed/loaded quantity
+            strongSelf.selectVessel(selectedVesselType)
 
             dispatchGroup.leave()
         }
@@ -188,9 +194,11 @@ class FreightViewModel: NSObject, BaseViewModel {
             return
         }
 
+        let selectedData = selectedMonth.id.formattedString(AppFormatter.serverShortDate)
+
         analyticsNetworkManager.fetchFreightRoute(loadPortId: selectedFreightPort.id,
                                                   dischargePortId: selectedDischargePort.id,
-                                                  selectedDate: selectedMonth.id.formattedString(AppFormatter.serverShortDate)) { result in
+                                                  selectedDate: selectedData) { result in
             switch result {
             case .success(let responseModel) where responseModel.model != nil:
 
@@ -201,5 +209,11 @@ class FreightViewModel: NSObject, BaseViewModel {
                 completion(nil)
             }
         }
+    }
+
+    private func selectVessel(_ vessel: PickerIdValued<Vessel>) {
+        selectedVesselType = vessel
+        selectedVesselSpeed = vessel.id.speed.toFormattedString
+        selectedLoadedQuantity = vessel.id.loadedQuantity.toFormattedString
     }
 }

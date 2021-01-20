@@ -79,7 +79,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Blender")
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton()
 
         navigationItem.rightBarButtonItem = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { isOn in
             self.viewModel.isSeasonalityOn = isOn

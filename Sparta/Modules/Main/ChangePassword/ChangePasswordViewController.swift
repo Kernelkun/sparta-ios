@@ -39,7 +39,12 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        navigationController?.isNavigationBarHidden = false
+        navigationBar(hide: false)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         oldPasswordField?.textField.becomeFirstResponder()
     }
 
@@ -114,6 +119,9 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
             field.placeholder = "Enter old password"
 
+            field.textField.isSecureTextEntry = true
+            field.showSecurityToggleButton = true
+
             field.onTextChanged { [unowned self] text in
                 self.viewModel.oldPasswordText = text
             }
@@ -144,6 +152,9 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
             field.placeholder = "Enter new password"
 
+            field.textField.isSecureTextEntry = true
+            field.showSecurityToggleButton = true
+
             field.onTextChanged { [unowned self] text in
                 self.viewModel.newPasswordText = text
             }
@@ -173,6 +184,9 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
             field.placeholder = "Confirm new password"
+
+            field.textField.isSecureTextEntry = true
+            field.showSecurityToggleButton = true
 
             field.onTextChanged { [unowned self] text in
                 self.viewModel.reNewPasswordText = text

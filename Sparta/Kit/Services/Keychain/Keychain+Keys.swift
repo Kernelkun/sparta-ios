@@ -16,4 +16,3 @@ extension KeychainKey {
 extension KeychainStorage {
     static let userData: String = "com.spartacommodities.keychain.user.data"
 }
-

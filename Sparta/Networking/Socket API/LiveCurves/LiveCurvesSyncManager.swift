@@ -105,14 +105,17 @@ extension LiveCurvesSyncManager: SocketActionObserver {
         } else if let liveCurveIndex = _liveCurves.firstIndex(of: liveCurve) {
 
             let oldLiveCurve = _liveCurves[liveCurveIndex]
+            let oldPrice = oldLiveCurve.priceValue
+            let newPrice = liveCurve.priceValue
 
-            if oldLiveCurve.priceCode > liveCurve.priceCode {
+            if oldPrice > newPrice {
                 liveCurve.state = .down
-            } else if oldLiveCurve.priceCode < liveCurve.priceCode {
-                liveCurve.state = .up
-            }
 
-            if liveCurve.state != .initial {
+                _liveCurves[liveCurveIndex] = liveCurve
+                notifyObservers(about: liveCurve, queue: operationQueue)
+            } else if oldPrice < newPrice {
+                liveCurve.state = .up
+
                 _liveCurves[liveCurveIndex] = liveCurve
                 notifyObservers(about: liveCurve, queue: operationQueue)
             }

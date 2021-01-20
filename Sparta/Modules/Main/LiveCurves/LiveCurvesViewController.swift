@@ -86,7 +86,10 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Live Curves")
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton()
+//        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.tradeButton(onTap: { _ in
+//            self.navigationController?.pushViewController(LiveChartsViewController(), animated: true)
+//        })
     }
 }
 

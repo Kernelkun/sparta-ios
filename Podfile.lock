@@ -1,24 +1,28 @@
 PODS:
   - Amplitude (7.0.1)
   - Analytics (4.1.2)
+  - LightweightCharts (3.2.0)
   - Segment-Amplitude (3.2.3):
     - Amplitude (~> 7.0.1)
     - Analytics
 
 DEPENDENCIES:
+  - LightweightCharts (~> 3.2.0)
   - Segment-Amplitude
 
 SPEC REPOS:
   trunk:
     - Amplitude
     - Analytics
+    - LightweightCharts
     - Segment-Amplitude
 
 SPEC CHECKSUMS:
   Amplitude: 31a9038dca905b78294418ed277da9c2e07658ad
   Analytics: 177da2c597aba83a6882b706ca6e0a071fd7cd26
+  LightweightCharts: 04cf1c18f24019889976b0de40bef2329916e020
   Segment-Amplitude: 79e13fa0aa58341212041f524f5f9679e40c23de
 
-PODFILE CHECKSUM: 8de9a0cd5cda909feb05ee7b85ff5708417b3144
+PODFILE CHECKSUM: 6bbe136e88d95497c22a910e0f35902151968a7a
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1
