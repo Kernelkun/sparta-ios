@@ -68,6 +68,7 @@ class ContentGridView: UIView {
             tableView.automaticallyAdjustsScrollIndicatorInsets = false
             tableView.bounces = false
 
+            tableView.register(ArbsGradeTableViewCell.self)
             tableView.register(LiveCurveGradeTableViewCell.self)
             tableView.register(BlenderInfoTableViewCell.self)
 
@@ -95,12 +96,18 @@ class ContentGridView: UIView {
             collectionView.automaticallyAdjustsScrollIndicatorInsets = false
             collectionView.bounces = false
 
+            // live curves
             collectionView.register(LiveCurveInfoCollectionViewCell.self)
+
+            // blender
             collectionView.register(BlenderInfoCollectionViewCell.self)
+
+            // arbs
             collectionView.register(ArbsDeliveryMonthCollectionViewCell.self)
             collectionView.register(ArbsDeliveryPriceCollectionViewCell.self)
-            collectionView.register(ArbsFreightCollectionViewCell.self)
-            collectionView.register(ArbsBlendCostCollectionViewCell.self)
+            collectionView.register(ArbsUserTgtCollectionViewCell.self)
+            collectionView.register(ArbsUserMarginCollectionViewCell.self)
+            collectionView.register(ArbsStatusCollectionViewCell.self)
 
             contentView.addSubview(collectionView) {
                 $0.top.equalTo(tableView)

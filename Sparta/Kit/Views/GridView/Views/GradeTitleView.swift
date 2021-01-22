@@ -14,10 +14,15 @@ class GradeTitleView: UIView {
     private var titleLabel: UILabel!
     private var bottomLine: UIView!
 
+    // MARK: - Private accessors
+
+    private let insets: UIEdgeInsets
+
     // MARK: - Initializers
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(insets: UIEdgeInsets) {
+        self.insets = insets
+        super.init(frame: .zero)
 
         setupUI()
     }
@@ -28,8 +33,8 @@ class GradeTitleView: UIView {
 
     // MARK: - Public methods
 
-    func apply(title: String) {
-        titleLabel.text = title
+    func apply(text: NSAttributedString? = nil) {
+        titleLabel.attributedText = text
     }
 
     // MARK: - Private methods
@@ -47,7 +52,10 @@ class GradeTitleView: UIView {
             titleLabel.numberOfLines = 0
 
             addSubview(titleLabel) {
-                $0.center.equalToSuperview()
+                $0.top.equalToSuperview().offset(insets.top)
+                $0.left.equalToSuperview().offset(insets.left)
+                $0.right.equalToSuperview().inset(insets.right)
+                $0.bottom.equalToSuperview().inset(insets.bottom)
             }
         }
 

@@ -15,7 +15,6 @@ let package = Package(
             targets: ["NetworkingModels"]),
     ],
     dependencies: [
-
         .package(name: "SwiftyJSON", url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0")
     ],
     targets: [

@@ -32,6 +32,8 @@ public extension UIColor {
     static var tabBarTintInactive: UIColor { .assetColor(named: #function) }
 
     static var barBackground: UIColor { .assetColor(named: #function) }
+
+    static var tablePoint: UIColor { .assetColor(named: #function) }
 }
 
 private extension UIColor {

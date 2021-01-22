@@ -16,8 +16,8 @@ protocol GridViewDataSource: class {
     func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell
     func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell
 
-    func gradeTitleForColectionView(at row: Int) -> String
-    func gradeTitleForTableView() -> String?
+    func gradeTitleForColectionView(at row: Int) -> NSAttributedString?
+    func gradeTitleForTableView() -> NSAttributedString?
 }
 
 class GridView: UIView {
@@ -206,11 +206,11 @@ extension GridView: GradesGridViewDataSource {
         dataSource?.numberOfRowsForCollectionView(in: 0) ?? 0
     }
 
-    func gradesGridViewCollectionTitle(for row: Int) -> String {
-        dataSource?.gradeTitleForColectionView(at: row) ?? ""
+    func gradesGridViewCollectionTitle(for row: Int) -> NSAttributedString? {
+        dataSource?.gradeTitleForColectionView(at: row)
     }
 
-    func gradesGridViewTableTitle() -> String? {
+    func gradesGridViewTableTitle() -> NSAttributedString? {
         dataSource?.gradeTitleForTableView()
     }
 }

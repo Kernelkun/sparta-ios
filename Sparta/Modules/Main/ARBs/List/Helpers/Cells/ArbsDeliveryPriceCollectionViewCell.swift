@@ -1,5 +1,5 @@
 //
-//  ArbsFreightCollectionViewCell.swift
+//  ArbsDeliveryPriceCollectionViewCell.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 04.01.2021.
@@ -9,14 +9,18 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsFreightCollectionViewCell: UICollectionViewCell {
+class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI
 
-    private var firstLabel: UILabel!
-    private var secondLabel: UILabel!
-    private var thirdLabel: UILabel!
+    private var firstLabel: KeyedLabel<String>!
+    private var secondLabel: KeyedLabel<String>!
+    private var thirdLabel: KeyedLabel<String>!
     private var bottomLine: UIView!
+
+    private var labels: [KeyedLabel<String>] {
+        [firstLabel, secondLabel, thirdLabel]
+    }
 
     // MARK: - Private properties
 
@@ -42,7 +46,7 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-//        stopObservingAllLiveCurvesEvents()
+        stopObservingAllArbsEvents()
     }
 
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
@@ -59,6 +63,7 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
         self.indexPath = indexPath
 
         updateUI(for: arb)
+        observeArbs(for: arb.gradeCode)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -74,27 +79,27 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
 
-        firstLabel = UILabel().then { label in
-
-            label.textAlignment = .left
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
-            label.isUserInteractionEnabled = true
-        }
-
-        secondLabel = UILabel().then { label in
-
-            label.textAlignment = .left
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
-            label.isUserInteractionEnabled = true
-        }
-
-        thirdLabel = UILabel().then { label in
+        firstLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        secondLabel = KeyedLabel<String>().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        thirdLabel = KeyedLabel<String>().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
@@ -105,13 +110,12 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
             stackView.addArrangedSubview(thirdLabel)
 
             stackView.axis = .vertical
-            stackView.alignment = .trailing
+            stackView.alignment = .center
             stackView.spacing = 4
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .equalSpacing
 
             contentView.addSubview(stackView) {
-                $0.centerY.equalToSuperview()
-                $0.left.right.equalToSuperview()
+                $0.center.equalToSuperview()
             }
         }
 
@@ -136,19 +140,25 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
         if months.count >= 1 {
             let month = arb.months[0]
 
-            firstLabel.text = month.freight.routeType.displayRouteValue
+            firstLabel.text = month.deliveredPrice.value.value
+            firstLabel.textColor = month.deliveredPrice.value.valueColor
+            firstLabel.setKey(month.name)
         }
 
         if months.count >= 2 {
             let month = arb.months[1]
 
-            secondLabel.text = month.freight.routeType.displayRouteValue
+            secondLabel.text = month.deliveredPrice.value.value
+            secondLabel.textColor = month.deliveredPrice.value.valueColor
+            secondLabel.setKey(month.name)
         }
 
         if months.count >= 3 {
             let month = arb.months[2]
 
-            thirdLabel.text = month.freight.routeType.displayRouteValue
+            thirdLabel.text = month.deliveredPrice.value.value
+            thirdLabel.textColor = month.deliveredPrice.value.valueColor
+            thirdLabel.setKey(month.name)
         }
     }
 
@@ -157,5 +167,14 @@ class ArbsFreightCollectionViewCell: UICollectionViewCell {
     @objc
     private func tapEvent() {
         _tapClosure?(indexPath)
+    }
+}
+
+extension ArbsDeliveryPriceCollectionViewCell: ArbsObserver {
+
+    func arbsDidReceiveResponse(for arb: Arb) {
+        onMainThread {
+            self.updateUI(for: arb)
+        }
     }
 }

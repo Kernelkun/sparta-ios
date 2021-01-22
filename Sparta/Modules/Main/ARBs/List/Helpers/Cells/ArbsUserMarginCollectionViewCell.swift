@@ -1,5 +1,5 @@
 //
-//  ArbsBlendCostCollectionViewCell.swift
+//  ArbsUserMarginCollectionViewCell.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 04.01.2021.
@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
+class ArbsUserMarginCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI
 
@@ -82,24 +82,24 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
         firstLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
         secondLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
         thirdLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
@@ -112,7 +112,7 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
             stackView.axis = .vertical
             stackView.alignment = .center
             stackView.spacing = 4
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .equalSpacing
 
             contentView.addSubview(stackView) {
                 $0.center.equalToSuperview()
@@ -170,7 +170,7 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension ArbsBlendCostCollectionViewCell: ArbsObserver {
+extension ArbsUserMarginCollectionViewCell: ArbsObserver {
 
     func arbsDidReceiveResponse(for arb: Arb) {
         onMainThread {

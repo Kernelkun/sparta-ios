@@ -53,6 +53,12 @@
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
+		D98AF6B625BA13A400A5BC96 /* ArbsGradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeTableViewCell.swift */; };
+		D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */; };
+		D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */; };
+		D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */; };
+		D98AF6C725BAC69500A5BC96 /* KeyedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */; };
+		D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */; };
 		D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */; };
 		D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */; };
 		D99ACC3125AF8210007DAB6D /* LiveChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC3025AF8210007DAB6D /* LiveChartsViewModel.swift */; };
@@ -87,8 +93,8 @@
 		D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */; };
 		D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */; };
 		D9A91BFA25A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */; };
-		D9A91BFC25A3627C00423704 /* ArbsFreightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BFB25A3627B00423704 /* ArbsFreightCollectionViewCell.swift */; };
-		D9A91BFE25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BFD25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift */; };
+		D9A91BFC25A3627C00423704 /* ArbsUserTgtCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BFB25A3627B00423704 /* ArbsUserTgtCollectionViewCell.swift */; };
+		D9A91BFE25A3786300423704 /* ArbsUserMarginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91BFD25A3786300423704 /* ArbsUserMarginCollectionViewCell.swift */; };
 		D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0025A3797800423704 /* KeyedLabel.swift */; };
 		D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */; };
 		D9A91C1025A4AB0200423704 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91C0F25A4AB0200423704 /* AnalyticsManager.swift */; };
@@ -186,6 +192,12 @@
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
+		D98AF6B525BA13A400A5BC96 /* ArbsGradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsGradeTableViewCell.swift; sourceTree = "<group>"; };
+		D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsStatusCollectionViewCell.swift; sourceTree = "<group>"; };
+		D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewController.swift; sourceTree = "<group>"; };
+		D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewModel.swift; sourceTree = "<group>"; };
+		D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedButton.swift; sourceTree = "<group>"; };
+		D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsViewModel+Models.swift"; sourceTree = "<group>"; };
 		D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManager.swift; sourceTree = "<group>"; };
 		D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewController.swift; sourceTree = "<group>"; };
 		D99ACC3025AF8210007DAB6D /* LiveChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewModel.swift; sourceTree = "<group>"; };
@@ -218,8 +230,8 @@
 		D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemFactory.swift; sourceTree = "<group>"; };
 		D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsDeliveryMonthCollectionViewCell.swift; sourceTree = "<group>"; };
 		D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsDeliveryPriceCollectionViewCell.swift; sourceTree = "<group>"; };
-		D9A91BFB25A3627B00423704 /* ArbsFreightCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsFreightCollectionViewCell.swift; sourceTree = "<group>"; };
-		D9A91BFD25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsBlendCostCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9A91BFB25A3627B00423704 /* ArbsUserTgtCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsUserTgtCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9A91BFD25A3786300423704 /* ArbsUserMarginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsUserMarginCollectionViewCell.swift; sourceTree = "<group>"; };
 		D9A91C0025A3797800423704 /* KeyedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedLabel.swift; sourceTree = "<group>"; };
 		D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D9A91C0F25A4AB0200423704 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
@@ -430,9 +442,8 @@
 		D959C0DC2582293E006CE2D1 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
-				D9A91BF525A346D400423704 /* Helpers */,
-				D959C0E125822969006CE2D1 /* ArbsViewModel.swift */,
-				D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */,
+				D98AF6BD25BA197900A5BC96 /* Details */,
+				D98AF6BC25BA197100A5BC96 /* List */,
 			);
 			path = ARBs;
 			sourceTree = "<group>";
@@ -561,6 +572,25 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		D98AF6BC25BA197100A5BC96 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				D9A91BF525A346D400423704 /* Helpers */,
+				D959C0E125822969006CE2D1 /* ArbsViewModel.swift */,
+				D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		D98AF6BD25BA197900A5BC96 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */,
+				D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
 		D99A73E8259C7B24009E3559 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,6 +702,7 @@
 				D9A80431257145B4000ADE6B /* TappableButton.swift */,
 				D9B50E3E257431F90018F3D7 /* BorderedButton.swift */,
 				D954A14A2590B3E300FAE766 /* SeasonalityButton.swift */,
+				D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -688,6 +719,7 @@
 			isa = PBXGroup;
 			children = (
 				D9A91BF625A346D900423704 /* Cells */,
+				D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -695,10 +727,12 @@
 		D9A91BF625A346D900423704 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D98AF6B525BA13A400A5BC96 /* ArbsGradeTableViewCell.swift */,
 				D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */,
 				D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */,
-				D9A91BFB25A3627B00423704 /* ArbsFreightCollectionViewCell.swift */,
-				D9A91BFD25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift */,
+				D9A91BFB25A3627B00423704 /* ArbsUserTgtCollectionViewCell.swift */,
+				D9A91BFD25A3786300423704 /* ArbsUserMarginCollectionViewCell.swift */,
+				D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1127,7 +1161,7 @@
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
-				D9A91BFC25A3627C00423704 /* ArbsFreightCollectionViewCell.swift in Sources */,
+				D9A91BFC25A3627C00423704 /* ArbsUserTgtCollectionViewCell.swift in Sources */,
 				D9A27973259399C0009D066E /* SocketAPI+UI.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */,
@@ -1144,7 +1178,8 @@
 				D9B50E2725740F9B0018F3D7 /* RoundedTextField.swift in Sources */,
 				D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
-				D9A91BFE25A3786300423704 /* ArbsBlendCostCollectionViewCell.swift in Sources */,
+				D98AF6B625BA13A400A5BC96 /* ArbsGradeTableViewCell.swift in Sources */,
+				D9A91BFE25A3786300423704 /* ArbsUserMarginCollectionViewCell.swift in Sources */,
 				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,
 				D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */,
@@ -1159,6 +1194,7 @@
 				D9ECEC4A257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift in Sources */,
 				D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */,
 				D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */,
+				D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */,
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
 				D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */,
 				D9A91CB325A9A80B00423704 /* FreightResultViewController.swift in Sources */,
@@ -1180,12 +1216,14 @@
 				D9A2797125939632009D066E /* App+Observation.swift in Sources */,
 				D9A067362589183C00C0D1E5 /* ContentGridView.swift in Sources */,
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
+				D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */,
 				D9BB53BE256EFCF000AD2D1A /* BaseViewController.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
 				D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */,
 				D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */,
+				D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */,
 				D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */,
 				D9A067162587CD6D00C0D1E5 /* GradesGridView.swift in Sources */,
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
@@ -1193,12 +1231,14 @@
 				D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */,
 				D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */,
 				D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */,
+				D98AF6C725BAC69500A5BC96 /* KeyedButton.swift in Sources */,
 				D9A27966259236A0009D066E /* GridViewLayoutAttributes.swift in Sources */,
 				D970047A25892AEB000E4A01 /* LoadingView.swift in Sources */,
 				D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */,
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
+				D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */,
 				D93BC634258BF9300026BF8E /* UIGridViewConstants.swift in Sources */,
 				D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */,
 				D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */,

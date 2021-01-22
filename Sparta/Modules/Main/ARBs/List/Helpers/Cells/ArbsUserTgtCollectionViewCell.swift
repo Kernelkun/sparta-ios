@@ -1,5 +1,5 @@
 //
-//  ArbsDeliveryMonthCollectionViewCell.swift
+//  ArbsFreightCollectionViewCell.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 04.01.2021.
@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
+class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI
 
@@ -58,23 +58,7 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
     func apply(arb: Arb, for indexPath: IndexPath) {
         self.indexPath = indexPath
 
-        let months = arb.months
-
-        if months.count >= 1 {
-            firstLabel.text = arb.months[0].name
-        }
-
-        if months.count >= 2 {
-            secondLabel.text = arb.months[1].name
-        }
-
-        if months.count >= 3 {
-            thirdLabel.text = arb.months[2].name
-        }
-
-//        titleLabel.text = monthInfo.priceValue.symbols2Value
-//        lastPriceCode = monthInfo.priceCode
-//        observeLiveCurves(for: monthInfo.priceCode)
+        updateUI(for: arb)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -93,24 +77,24 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
         firstLabel = UILabel().then { label in
 
             label.textAlignment = .left
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 10)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
         secondLabel = UILabel().then { label in
 
             label.textAlignment = .left
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 10)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
         thirdLabel = UILabel().then { label in
 
             label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 10)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
@@ -121,12 +105,13 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
             stackView.addArrangedSubview(thirdLabel)
 
             stackView.axis = .vertical
-            stackView.alignment = .leading
-            stackView.spacing = 8
-            stackView.distribution = .fillProportionally
+            stackView.alignment = .trailing
+            stackView.spacing = 4
+            stackView.distribution = .equalSpacing
 
             contentView.addSubview(stackView) {
-                $0.center.equalToSuperview()
+                $0.centerY.equalToSuperview()
+                $0.left.right.equalToSuperview()
             }
         }
 
@@ -145,6 +130,28 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
     }
 
+    private func updateUI(for arb: Arb) {
+        let months = arb.months
+
+        if months.count >= 1 {
+            let month = arb.months[0]
+
+            firstLabel.text = month.freight.routeType.displayRouteValue
+        }
+
+        if months.count >= 2 {
+            let month = arb.months[1]
+
+            secondLabel.text = month.freight.routeType.displayRouteValue
+        }
+
+        if months.count >= 3 {
+            let month = arb.months[2]
+
+            thirdLabel.text = month.freight.routeType.displayRouteValue
+        }
+    }
+
     // MARK: - Events
 
     @objc
@@ -152,21 +159,3 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
         _tapClosure?(indexPath)
     }
 }
-
-/*extension ArbsDeliveryMonthCollectionViewCell: LiveCurvesObserver {
-
-    func liveCurvesDidReceiveResponse(for liveCurve: LiveCurve) {
-        onMainThread {
-            self.titleLabel.text = liveCurve.priceValue.symbols2Value
-
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
-            } completion: { _ in
-                UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
-                } completion: { _ in
-                }
-            }
-        }
-    }
-}*/
