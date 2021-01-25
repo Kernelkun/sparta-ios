@@ -59,6 +59,13 @@
 		D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */; };
 		D98AF6C725BAC69500A5BC96 /* KeyedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */; };
 		D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */; };
+		D98AF6E125BB01DC00A5BC96 /* Sparta.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6DF25BB01DC00A5BC96 /* Sparta.xcdatamodeld */; };
+		D98AF6E525BB02D700A5BC96 /* CoreStore in Frameworks */ = {isa = PBXBuildFile; productRef = D98AF6E425BB02D700A5BC96 /* CoreStore */; };
+		D98AF6E825BB1AE900A5BC96 /* SpartaDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6E725BB1AE900A5BC96 /* SpartaDB.swift */; };
+		D98AF6ED25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6EB25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift */; };
+		D98AF6EE25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6EC25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift */; };
+		D98AF6F125BB1FDB00A5BC96 /* ArbMonth+DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6F025BB1FDB00A5BC96 /* ArbMonth+DB.swift */; };
+		D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */; };
 		D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */; };
 		D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */; };
 		D99ACC3125AF8210007DAB6D /* LiveChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC3025AF8210007DAB6D /* LiveChartsViewModel.swift */; };
@@ -144,6 +151,9 @@
 		D9ECEC4D257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC4C257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift */; };
 		D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */; };
 		D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */; };
+		D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */; };
+		D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */; };
+		D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -198,6 +208,12 @@
 		D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewModel.swift; sourceTree = "<group>"; };
 		D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedButton.swift; sourceTree = "<group>"; };
 		D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsViewModel+Models.swift"; sourceTree = "<group>"; };
+		D98AF6E025BB01DC00A5BC96 /* Sparta.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sparta.xcdatamodel; sourceTree = "<group>"; };
+		D98AF6E725BB1AE900A5BC96 /* SpartaDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpartaDB.swift; sourceTree = "<group>"; };
+		D98AF6EB25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBUserTarget+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D98AF6EC25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBUserTarget+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D98AF6F025BB1FDB00A5BC96 /* ArbMonth+DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbMonth+DB.swift"; sourceTree = "<group>"; };
+		D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbTappableCell.swift; sourceTree = "<group>"; };
 		D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManager.swift; sourceTree = "<group>"; };
 		D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewController.swift; sourceTree = "<group>"; };
 		D99ACC3025AF8210007DAB6D /* LiveChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewModel.swift; sourceTree = "<group>"; };
@@ -282,6 +298,9 @@
 		D9ECEC4C257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderDescriptionPopupHeaderView.swift; sourceTree = "<group>"; };
 		D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableUISwitch.swift; sourceTree = "<group>"; };
 		D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateService.swift; sourceTree = "<group>"; };
+		D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultMonthSelector.swift; sourceTree = "<group>"; };
+		D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyValueView.swift; sourceTree = "<group>"; };
+		D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyInputView.swift; sourceTree = "<group>"; };
 		ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sparta.release.xcconfig"; path = "Target Support Files/Pods-Sparta/Pods-Sparta.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -293,6 +312,7 @@
 				D9A8041A25713DC2000ADE6B /* Then in Frameworks */,
 				D9A3BD662575274300224535 /* SpartaHelpers in Frameworks */,
 				D9A3BD612575262B00224535 /* NetworkingModels in Frameworks */,
+				D98AF6E525BB02D700A5BC96 /* CoreStore in Frameworks */,
 				D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */,
 				D9A80445257146FC000ADE6B /* Nuke in Frameworks */,
 				D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */,
@@ -558,6 +578,7 @@
 			children = (
 				D97895E12583785B009E4A56 /* CountryCodeModel.swift */,
 				D97895E32583B800009E4A56 /* PickerIdValued.swift */,
+				D98AF6F025BB1FDB00A5BC96 /* ArbMonth+DB.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -589,6 +610,25 @@
 				D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		D98AF6DE25BB01AE00A5BC96 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				D98AF6EA25BB1B0500A5BC96 /* Entities */,
+				D98AF6DF25BB01DC00A5BC96 /* Sparta.xcdatamodeld */,
+				D98AF6E725BB1AE900A5BC96 /* SpartaDB.swift */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		D98AF6EA25BB1B0500A5BC96 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				D98AF6EC25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift */,
+				D98AF6EB25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		D99A73E8259C7B24009E3559 /* ARBs */ = {
@@ -676,6 +716,7 @@
 				D970047925892AEB000E4A01 /* LoadingView.swift */,
 				D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */,
 				D9A91CBE25AC691C00423704 /* LoaderView.swift */,
+				D9F996DE25BDFDC00075F1A9 /* ResultViews */,
 				D9A8042025714410000ADE6B /* Alert */,
 				D9A8042C25714595000ADE6B /* Buttons */,
 				D9B50E2525740F810018F3D7 /* Textfields */,
@@ -727,6 +768,7 @@
 		D9A91BF625A346D900423704 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */,
 				D98AF6B525BA13A400A5BC96 /* ArbsGradeTableViewCell.swift */,
 				D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */,
 				D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */,
@@ -917,6 +959,7 @@
 			children = (
 				D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */,
 				D9BB5368256ECEC600AD2D1A /* Kit */,
+				D98AF6DE25BB01AE00A5BC96 /* DB */,
 				D96C8BEC257665090038175A /* Networking */,
 				D9B50E0525717FFA0018F3D7 /* Coordinators */,
 				D9BB5395256EF8F400AD2D1A /* Modules */,
@@ -994,6 +1037,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D9F996DE25BDFDC00075F1A9 /* ResultViews */ = {
+			isa = PBXGroup;
+			children = (
+				D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */,
+				D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */,
+				D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */,
+			);
+			path = ResultViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1025,6 +1078,7 @@
 				D9A3BD652575274300224535 /* SpartaHelpers */,
 				D94E228425826AE6005FA057 /* PhoneNumberKit-Static */,
 				D94E228625826AE6005FA057 /* PhoneNumberKit */,
+				D98AF6E425BB02D700A5BC96 /* CoreStore */,
 			);
 			productName = Sparta;
 			productReference = D9BB5345256E8E6600AD2D1A /* Sparta.app */;
@@ -1060,6 +1114,7 @@
 				D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */,
 				D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */,
 				D94E228325826AE6005FA057 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
+				D98AF6E325BB02D700A5BC96 /* XCRemoteSwiftPackageReference "CoreStore" */,
 			);
 			productRefGroup = D9BB5346256E8E6600AD2D1A /* Products */;
 			projectDirPath = "";
@@ -1156,6 +1211,7 @@
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
 				D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */,
 				D94BCA452577F7ED0076C2AB /* BlenderInfoTableViewCell.swift in Sources */,
+				D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */,
 				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
 				D959C0F225822EEB006CE2D1 /* FreightViewModel.swift in Sources */,
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
@@ -1166,8 +1222,10 @@
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */,
 				D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */,
+				D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */,
 				D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
+				D98AF6F125BB1FDB00A5BC96 /* ArbMonth+DB.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
@@ -1183,6 +1241,7 @@
 				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,
 				D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */,
+				D98AF6ED25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift in Sources */,
 				D9B50E0F257180A70018F3D7 /* AuthenticationFlowCoordinator.swift in Sources */,
 				D944CEFD2577B8E1009115FD /* GridCell.swift in Sources */,
 				D959C0F625822F94006CE2D1 /* SettingsViewController.swift in Sources */,
@@ -1191,6 +1250,7 @@
 				D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */,
 				D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */,
 				D99ACC3125AF8210007DAB6D /* LiveChartsViewModel.swift in Sources */,
+				D98AF6EE25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift in Sources */,
 				D9ECEC4A257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift in Sources */,
 				D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */,
 				D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */,
@@ -1211,6 +1271,8 @@
 				D9A91CB825A9AAD400423704 /* FreightCalculator.swift in Sources */,
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
+				D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */,
+				D98AF6E125BB01DC00A5BC96 /* Sparta.xcdatamodeld in Sources */,
 				D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */,
 				D99B2F3425753ADF0080B90B /* Validator.swift in Sources */,
 				D9A2797125939632009D066E /* App+Observation.swift in Sources */,
@@ -1225,6 +1287,7 @@
 				D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */,
 				D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */,
 				D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */,
+				D98AF6E825BB1AE900A5BC96 /* SpartaDB.swift in Sources */,
 				D9A067162587CD6D00C0D1E5 /* GradesGridView.swift in Sources */,
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
 				D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */,
@@ -1258,6 +1321,7 @@
 				D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */,
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
 				D9A067132587BECA00C0D1E5 /* LiveCurvesSyncManager.swift in Sources */,
+				D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */,
 				D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
@@ -1486,6 +1550,14 @@
 				minimumVersion = 3.3.1;
 			};
 		};
+		D98AF6E325BB02D700A5BC96 /* XCRemoteSwiftPackageReference "CoreStore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JohnEstropia/CoreStore";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.3.1;
+			};
+		};
 		D9A8041825713DC2000ADE6B /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
@@ -1535,6 +1607,11 @@
 			package = D94E228325826AE6005FA057 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
 			productName = PhoneNumberKit;
 		};
+		D98AF6E425BB02D700A5BC96 /* CoreStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D98AF6E325BB02D700A5BC96 /* XCRemoteSwiftPackageReference "CoreStore" */;
+			productName = CoreStore;
+		};
 		D9A3BD5D2575258500224535 /* App */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = App;
@@ -1573,6 +1650,19 @@
 			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		D98AF6DF25BB01DC00A5BC96 /* Sparta.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D98AF6E025BB01DC00A5BC96 /* Sparta.xcdatamodel */,
+			);
+			currentVersion = D98AF6E025BB01DC00A5BC96 /* Sparta.xcdatamodel */;
+			path = Sparta.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D9BB533D256E8E6600AD2D1A /* Project object */;
 }

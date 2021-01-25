@@ -63,7 +63,7 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell {
         self.indexPath = indexPath
 
         updateUI(for: arb)
-        observeArbs(for: arb.gradeCode)
+        observeArbs(arb)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {

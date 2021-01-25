@@ -21,6 +21,11 @@ public struct Arb: BackendModel {
     public let freightType: String
     public var months: [ArbMonth]
 
+    // use this identifier to identify this object as unique
+    public var uniqueIdentifier: String {
+        grade + gradeCode + routeCode
+    }
+
     //
     // MARK: - Default Initializers
 

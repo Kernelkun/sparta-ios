@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DBUserTarget" representedClassName="DBUserTarget" syncable="YES">
+        <attribute name="identifier" attributeType="String" defaultValueString=""/>
+        <attribute name="target" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="DBUserTarget" positionX="-3450.190673828125" positionY="-884.2267150878906" width="128" height="73"/>
+    </elements>
+</model>

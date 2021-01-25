@@ -139,11 +139,24 @@ extension ArbsViewController: GridViewDataSource {
             return UICollectionViewCell()
         }
 
+        func fillCell(_ cell: ArbTappableCell) {
+            cell.apply(arb: arb, for: indexPath)
+
+            cell.onTap { [unowned self] indexPath in
+
+                let cellInfo = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
+
+                if case let ArbsViewModel.Cell.info(arb) = cellInfo {
+                    self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
+                }
+            }
+        }
+
         switch gradeType {
         case .status:
             let cell: ArbsStatusCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(arb: arb, for: indexPath)
+            fillCell(cell)
 
             return cell
 

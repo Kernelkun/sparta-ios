@@ -42,7 +42,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-//        stopObservingAllLiveCurvesEvents()
+        stopObservingAllArbsEvents()
     }
 
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
@@ -59,6 +59,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
         self.indexPath = indexPath
 
         updateUI(for: arb)
+        observeArbs(arb)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -135,20 +136,17 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
 
         if months.count >= 1 {
             let month = arb.months[0]
-
-            firstLabel.text = month.freight.routeType.displayRouteValue
+            firstLabel.text = month.dbProperties.fetchUserTarget()?.toFormattedString
         }
 
         if months.count >= 2 {
             let month = arb.months[1]
-
-            secondLabel.text = month.freight.routeType.displayRouteValue
+            secondLabel.text = month.dbProperties.fetchUserTarget()?.toFormattedString
         }
 
         if months.count >= 3 {
             let month = arb.months[2]
-
-            thirdLabel.text = month.freight.routeType.displayRouteValue
+            thirdLabel.text = month.dbProperties.fetchUserTarget()?.toFormattedString
         }
     }
 
@@ -157,5 +155,14 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
     @objc
     private func tapEvent() {
         _tapClosure?(indexPath)
+    }
+}
+
+extension ArbsUserTgtCollectionViewCell: ArbsObserver {
+
+    func arbsDidReceiveResponse(for arb: Arb) {
+        onMainThread {
+            self.updateUI(for: arb)
+        }
     }
 }

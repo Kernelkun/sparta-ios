@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsStatusCollectionViewCell: UICollectionViewCell {
+class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
@@ -18,11 +18,14 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell {
     private var thirdButton: TappableButton!
     private var bottomLine: UIView!
 
+    // MARK: - Public properties
+
+    var indexPath: IndexPath!
+
     // MARK: - Private properties
 
     private var lastPriceCode: String!
     private var _tapClosure: TypeClosure<IndexPath>?
-    private var indexPath: IndexPath!
 
     // MARK: - Initializers
 

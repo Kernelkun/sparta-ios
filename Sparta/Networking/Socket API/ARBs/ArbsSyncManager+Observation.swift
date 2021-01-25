@@ -21,21 +21,21 @@ protocol ArbsObserver: class {
 
 extension ArbsObserver {
 
-    func observeArbs(for gradeCodes: String...) {
+    func observeArbs(_ arbs: Arb...) {
 
-        for code in gradeCodes {
-            let observers = ArbsSyncManager.observers[code] ?? .init()
+        for arb in arbs {
+            let observers = ArbsSyncManager.observers[arb.uniqueIdentifier] ?? .init()
             observers.insert(self)
-            ArbsSyncManager.observers[code] = observers
+            ArbsSyncManager.observers[arb.uniqueIdentifier] = observers
         }
     }
 
-    func stopObservingArbs(for gradeCodes: String...) {
+    func stopObservingArbs(_ arbs: Arb...) {
 
-        for code in gradeCodes {
-            guard let observers = ArbsSyncManager.observers[code] else { continue }
+        for arb in arbs {
+            guard let observers = ArbsSyncManager.observers[arb.uniqueIdentifier] else { continue }
             observers.remove(self)
-            ArbsSyncManager.observers[code] = observers
+            ArbsSyncManager.observers[arb.uniqueIdentifier] = observers
         }
     }
 
@@ -58,7 +58,7 @@ extension ArbsSyncManager {
 
         print("-observers count: \(ArbsSyncManager.observers.values.compactMap { $0.allObjects.count }.reduce(0, +))")
 
-        guard let observers = ArbsSyncManager.observers[arb.gradeCode]?.allObjects else { return }
+        guard let observers = ArbsSyncManager.observers[arb.uniqueIdentifier]?.allObjects else { return }
         queue.addOperation { observers.forEach { $0.arbsDidReceiveResponse(for: arb) } }
     }
 }

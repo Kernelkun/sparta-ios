@@ -25,15 +25,20 @@ public struct ArbMonth: BackendModel {
     public let incoterms: String
     public let gasMinusNaphtha: ColoredNumber
     public let quantities: Quantities
-    public let taArb: String
+    public let taArb: ColoredNumber?
     public let ew: String
     public let lumpsum: Double
     public let freightRate: Double
     public let deliveredPrice: DeliveredPrice
-    public let genericBlenderMargin: ColoredNumber
-    public let genericBlenderMarginChangeOnDay: ColoredNumber
-    public let pseudoFobRefinery: ColoredNumber
-    public let pseudoCifRefinery: String
+    public let genericBlenderMargin: ColoredNumber?
+    public let genericBlenderMarginChangeOnDay: ColoredNumber?
+    public let pseudoFobRefinery: ColoredNumber?
+    public let pseudoCifRefinery: ColoredNumber?
+
+    // use this identifier to identify this object as unique
+    public var uniqueIdentifier: String {
+        name + gradeCode + routeCode
+    }
 
     //
     // MARK: - Default Initializers
@@ -51,15 +56,31 @@ public struct ArbMonth: BackendModel {
         incoterms = json["incoterms"].stringValue
         gasMinusNaphtha = ColoredNumber(json: json["gasMinusNaphtha"])
         quantities = Quantities(json: json["quantities"])
-        taArb = json["taArb"].stringValue
+
+        if json["taArb"].dictionary != nil {
+            taArb = ColoredNumber(json: json["taArb"])
+        } else { taArb = nil }
+
         ew = json["ew"].stringValue
         lumpsum = json["lumpsum"].doubleValue
         freightRate = json["freightRate"].doubleValue
         deliveredPrice = DeliveredPrice(json: json["deliveredPrice"])
-        genericBlenderMargin = ColoredNumber(json: json["genericBlenderMargin"])
-        genericBlenderMarginChangeOnDay = ColoredNumber(json: json["genericBlenderMarginChangeOnDay"])
-        pseudoFobRefinery = ColoredNumber(json: json["pseudoFobRefinery"])
-        pseudoCifRefinery = json["pseudoCifRefinery"].stringValue
+
+        if json["genericBlenderMargin"].dictionary != nil {
+            genericBlenderMargin = ColoredNumber(json: json["genericBlenderMargin"])
+        } else { genericBlenderMargin = nil }
+
+        if json["genericBlenderMarginChangeOnDay"].dictionary != nil {
+            genericBlenderMarginChangeOnDay = ColoredNumber(json: json["genericBlenderMarginChangeOnDay"])
+        } else { genericBlenderMarginChangeOnDay = nil }
+
+        if json["pseudoFobRefinery"].dictionary != nil {
+            pseudoFobRefinery = ColoredNumber(json: json["pseudoFobRefinery"])
+        } else { pseudoFobRefinery = nil }
+
+        if json["pseudoCifRefinery"].dictionary != nil {
+            pseudoCifRefinery = ColoredNumber(json: json["pseudoCifRefinery"])
+        } else {  pseudoCifRefinery = nil }
     }
 }
 
@@ -109,6 +130,7 @@ public extension ArbMonth {
         public let isDisabled: Bool
         public let dischargePortName: String
         public let routeType: RouteType
+        public let freightRate: Double
 
         //
         // MARK: - Default Initializers
@@ -120,6 +142,7 @@ public extension ArbMonth {
             isDisabled = json["disabled"].boolValue
             dischargePortName = json["dischargePortName"].stringValue
             routeType = RouteType(json: json["routeType"])
+            freightRate = json["freightRate"].doubleValue
         }
     }
 }

@@ -1,14 +1,14 @@
 //
-//  FreightResultKeyValueView.swift
+//  ResultKeyValueView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 10.01.2021.
+//  Created by Yaroslav Babalich on 24.01.2021.
 //
 
 import UIKit
 import SpartaHelpers
 
-class FreightResultKeyValueView: UIView {
+class ResultKeyValueView: UIView {
 
     // MARK: - UI
 
@@ -29,23 +29,25 @@ class FreightResultKeyValueView: UIView {
 
     // MARK: - Public methods
 
-    func apply(key: String, value: String) {
+    func apply(key: String, value: String, valueColor: UIColor) {
         keyLabel.text = key
         valueLabel.text = value
+        valueLabel.textColor = valueColor
     }
 
     // MARK: - Private methods
 
     private func setupUI() {
 
-        backgroundColor = .mainBackground
-        layer.cornerRadius = 8
+        backgroundColor = UIColor.accountFieldBackground
+        layer.cornerRadius = 4
 
         keyLabel = UILabel().then { label in
 
             label.font = .main(weight: .regular, size: 17)
             label.textColor = .accountMainText
             label.textAlignment = .center
+            label.text = "Lumpsum"
 
             addSubview(label) {
                 $0.left.equalToSuperview().offset(8)
@@ -58,6 +60,7 @@ class FreightResultKeyValueView: UIView {
             label.font = .main(weight: .regular, size: 17)
             label.textColor = .accountMainText
             label.textAlignment = .center
+            label.text = "1500 $"
 
             addSubview(label) {
                 $0.right.equalToSuperview().inset(8)

@@ -126,4 +126,3 @@ extension PopupTextViewController: UIPopoverPresentationControllerDelegate {
         return true
     }
 }
-

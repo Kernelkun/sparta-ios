@@ -39,12 +39,6 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Lifecycle
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-//        stopObservingAllLiveCurvesEvents()
-    }
-
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
 
@@ -71,10 +65,6 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
         if months.count >= 3 {
             thirdLabel.text = arb.months[2].name
         }
-
-//        titleLabel.text = monthInfo.priceValue.symbols2Value
-//        lastPriceCode = monthInfo.priceCode
-//        observeLiveCurves(for: monthInfo.priceCode)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -152,21 +142,3 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
         _tapClosure?(indexPath)
     }
 }
-
-/*extension ArbsDeliveryMonthCollectionViewCell: LiveCurvesObserver {
-
-    func liveCurvesDidReceiveResponse(for liveCurve: LiveCurve) {
-        onMainThread {
-            self.titleLabel.text = liveCurve.priceValue.symbols2Value
-
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
-            } completion: { _ in
-                UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
-                } completion: { _ in
-                }
-            }
-        }
-    }
-}*/

@@ -114,6 +114,10 @@ class App {
 
         connectToSockets()
 
+        // setup DB
+
+        SpartaDB.instance.setup()
+
         // identify
 
         guard let user = currentUser else { return }

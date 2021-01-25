@@ -13,23 +13,26 @@ class ArbDetailViewController: BaseViewController {
     // MARK: - UI
 
     private var contentScrollView: UIScrollView!
-    private var monthSelector: FreightResultMonthSelector!
+    private var monthSelector: ResultMonthSelector!
     private var mainBlock: LoaderView!
-    private var mainTopStackView: UIStackView!
-    private var mainBottomStackView: UIStackView!
+    private var mainStackView: UIStackView!
 
     private let loaderDelay = DelayObject(delayInterval: 0.1)
 
     // MARK: - Private properties
 
-    private let viewModel: FreightResultViewModel
+    private let arb: Arb
+    private let viewModel: ArbDetailViewModel
 
     // MARK: - Initializers
 
-    init(inputData: FreightCalculator.InputData) {
-        viewModel = FreightResultViewModel(inputData: inputData)
+    init(arb: Arb) {
+        self.arb = arb
+        viewModel = ArbDetailViewModel(arb: arb)
 
         super.init(nibName: nil, bundle: nil)
+
+        arb.months.first?.dbProperties.saveUserTarget(value: 20)
 
         viewModel.delegate = self
     }
@@ -63,7 +66,7 @@ class ArbDetailViewController: BaseViewController {
     // MARK: - Private methods
 
     private func setupNavigationUI() {
-        navigationItem.title = "Results"
+        navigationItem.title = arb.grade
         navigationBar(hide: false)
     }
 
@@ -90,15 +93,14 @@ class ArbDetailViewController: BaseViewController {
             }
         }
 
-        monthSelector = FreightResultMonthSelector().then { view in
+        monthSelector = ResultMonthSelector().then { view in
 
-            view.backgroundColor = .clear
             view.delegate = self
 
             scrollViewContent.addSubview(view) {
                 $0.top.equalToSuperview()
                 $0.left.right.equalToSuperview().inset(24)
-                $0.height.equalTo(45)
+                $0.height.equalTo(30)
             }
         }
 
@@ -111,11 +113,10 @@ class ArbDetailViewController: BaseViewController {
 
         mainBlock = LoaderView().then { view in
 
-            view.backgroundColor = .barBackground
             view.layer.cornerRadius = 8
             view.layer.masksToBounds = true
 
-            mainTopStackView = UIStackView().then { stackView in
+            mainStackView = UIStackView().then { stackView in
 
                 stackView.axis = .vertical
                 stackView.distribution = .equalSpacing
@@ -123,20 +124,7 @@ class ArbDetailViewController: BaseViewController {
                 stackView.alignment = .fill
 
                 view.addSubview(stackView) {
-                    $0.left.top.right.equalToSuperview().inset(8)
-                }
-            }
-
-            mainBottomStackView = UIStackView().then { stackView in
-
-                stackView.axis = .vertical
-                stackView.distribution = .equalSpacing
-                stackView.spacing = 9
-                stackView.alignment = .fill
-
-                view.addSubview(stackView) {
-                    $0.left.bottom.right.equalToSuperview().inset(8)
-                    $0.top.equalTo(mainTopStackView.snp.bottom).offset(18)
+                    $0.edges.equalToSuperview()
                 }
             }
 
@@ -147,9 +135,15 @@ class ArbDetailViewController: BaseViewController {
             }
         }
     }
+
+    private func reloadMonthsData() {
+        monthSelector.isEnabledLeftButton = viewModel.ableToSwitchPrevMonth
+        monthSelector.isEnabledRightButton = viewModel.ableToSwitchNextMonth
+        monthSelector.titleText = viewModel.formattedMonthTitle
+    }
 }
 
-extension ArbDetailViewController: FreightResultViewModelDelegate {
+extension ArbDetailViewController: ArbDetailViewModelDelegate {
 
     func didChangeLoadingState(_ isLoading: Bool) {
         if isLoading {
@@ -168,65 +162,80 @@ extension ArbDetailViewController: FreightResultViewModelDelegate {
 
     }
 
-    func didFinishCalculations(_ calculatedTypes: [FreightCalculator.CalculatedType]) {
+    func didLoadData() {
 
-        mainTopStackView.removeAllSubviews()
-        mainBottomStackView.removeAllSubviews()
+        // months block
 
-        calculatedTypes.forEach { type in
+        reloadMonthsData()
 
-            let view = FreightResultKeyValueView()
+        // details info blocks
 
-            switch type {
-            case .journeyDistance(let value):
-                view.apply(key: "Journey Distance", value: value)
-                mainBottomStackView.addArrangedSubview(view)
+        mainStackView.removeAllSubviews()
 
-            case .journeyTime(let value):
-                view.apply(key: "Journey Time", value: value)
-                mainBottomStackView.addArrangedSubview(view)
+        func emptyView() -> UIView {
+            UIView().then { view in
 
-            case .route(let title, let value):
-                view.apply(key: title, value: value)
-                mainTopStackView.addArrangedSubview(view)
+                view.backgroundColor = .clear
 
-            case .rate(let value):
-                view.apply(key: "Rate", value: value)
-                mainTopStackView.addArrangedSubview(view)
-
-            case .cpBasis(let value):
-                view.apply(key: "Basis", value: value)
-                mainTopStackView.addArrangedSubview(view)
-
-            case .marketCondition(let value):
-                view.apply(key: "Market Condition", value: value)
-                mainTopStackView.addArrangedSubview(view)
-
-            case .overage(let value):
-                view.apply(key: "Overage", value: value)
-                mainTopStackView.addArrangedSubview(view)
+                view.snp.makeConstraints {
+                    $0.height.equalTo(15)
+                }
             }
+        }
 
-            view.snp.makeConstraints {
-                $0.height.equalTo(38)
+        func keyValueView(title: String, value: String, color: UIColor, height: CGFloat = 38) -> ResultKeyValueView {
+            ResultKeyValueView().then { view in
+
+                view.apply(key: title, value: value, valueColor: color)
+
+                view.snp.makeConstraints {
+                    $0.height.equalTo(height)
+                }
+            }
+        }
+
+        func inputView(title: String, height: CGFloat = 38) -> ResultKeyInputView {
+            ResultKeyInputView().then { view in
+
+                view.apply(key: title) { [unowned self] text in
+                    print("TextField text: \(text)")
+                }
+
+                view.snp.makeConstraints {
+                    $0.height.equalTo(height)
+                }
+            }
+        }
+
+        viewModel.cells.forEach { cell in
+
+            switch cell {
+            case .emptySpace:
+                mainStackView.addArrangedSubview(emptyView())
+
+            case .target:
+                mainStackView.addArrangedSubview(inputView(title: cell.displayTitle))
+
+            case .blendCost(let value, let color), .gasNap(let value, let color),
+                 .freight(let value, let color), .taArb(let value, let color),
+                 .dlvPrice(let value, let color), .dlvPriceBasis(let value, let color),
+                 .myMargin(let value, let color), .blenderMargin(let value, let color),
+                 .fobRefyMargin(let value, let color), .cifRefyMargin(let value, let color),
+                 .codBlenderMargin(let value, let color):
+
+                mainStackView.addArrangedSubview(keyValueView(title: cell.displayTitle, value: value, color: color))
             }
         }
     }
-
-    func didUpdateMonthsInformation() {
-        monthSelector.isEnabledLeftButton = viewModel.ableToCalculatePrevMonth
-        monthSelector.isEnabledRightButton = viewModel.ableToCalculateNextMonth
-        monthSelector.titleText = viewModel.formattedMonthTitle
-    }
 }
 
-extension ArbDetailViewController: FreightResultMonthSelectorDelegate {
+extension ArbDetailViewController: ResultMonthSelectorDelegate {
 
-    func freightResultMonthSelectorDidTapLeftButton(view: FreightResultMonthSelector) {
+    func resultMonthSelectorDidTapLeftButton(view: ResultMonthSelector) {
         viewModel.switchToPrevMonth()
     }
 
-    func freightResultMonthSelectorDidTapRightButton(view: FreightResultMonthSelector) {
+    func resultMonthSelectorDidTapRightButton(view: ResultMonthSelector) {
         viewModel.switchToNextMonth()
     }
 }
