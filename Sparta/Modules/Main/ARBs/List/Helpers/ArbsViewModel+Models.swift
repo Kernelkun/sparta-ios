@@ -36,8 +36,8 @@ extension ArbsViewModel {
         }
         
         static var deliveryMonth: Cell { .grade(attributedString: NSAttributedString(string: "Dlv\nMonth")) }
-        static var userTgt: Cell { .grade(attributedString: NSAttributedString(string: "User\nTGT")) }
-        static var userMargin: Cell { .grade(attributedString: NSAttributedString(string: "User\nMargin")) }
+        static var userTgt: Cell { .grade(attributedString: NSAttributedString(string: "My\nTGT")) }
+        static var userMargin: Cell { .grade(attributedString: NSAttributedString(string: "My\nMargin")) }
         static var deliveryPrice: Cell { .grade(attributedString: NSAttributedString(string: "Dlv\nPrice")) }
     }
 

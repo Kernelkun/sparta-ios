@@ -50,6 +50,8 @@
 		D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BF4257665220038175A /* AuthEndPoint.swift */; };
 		D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9700477258928DA000E4A01 /* AccountSettingsViewModel+Models.swift */; };
 		D970047A25892AEB000E4A01 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970047925892AEB000E4A01 /* LoadingView.swift */; };
+		D977B3A425C330E9009A9483 /* ArbDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977B3A325C330E9009A9483 /* ArbDetailContentView.swift */; };
+		D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */; };
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
@@ -64,7 +66,6 @@
 		D98AF6E825BB1AE900A5BC96 /* SpartaDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6E725BB1AE900A5BC96 /* SpartaDB.swift */; };
 		D98AF6ED25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6EB25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift */; };
 		D98AF6EE25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6EC25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift */; };
-		D98AF6F125BB1FDB00A5BC96 /* ArbMonth+DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6F025BB1FDB00A5BC96 /* ArbMonth+DB.swift */; };
 		D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */; };
 		D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */; };
 		D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */; };
@@ -131,6 +132,10 @@
 		D9B50E3B257423140018F3D7 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9B50E3A257423140018F3D7 /* OpenSans-LightItalic.ttf */; };
 		D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E3E257431F90018F3D7 /* BorderedButton.swift */; };
 		D9B50E42257433340018F3D7 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9B50E41257433340018F3D7 /* OpenSans-SemiBold.ttf */; };
+		D9B7CCD425C1C53B0023FDF2 /* ArbMonth+Margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B7CCD325C1C53B0023FDF2 /* ArbMonth+Margin.swift */; };
+		D9B7CCD925C1C9590023FDF2 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B7CCD825C1C9590023FDF2 /* ProgressView.swift */; };
+		D9B7CCDF25C305A20023FDF2 /* ResultAutoStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B7CCDE25C305A20023FDF2 /* ResultAutoStatusView.swift */; };
+		D9B7CCE225C305AC0023FDF2 /* ResultManualStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B7CCE125C305AC0023FDF2 /* ResultManualStatusView.swift */; };
 		D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */; };
 		D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */; };
 		D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5376256EF74A00AD2D1A /* NVActivityIndicatorView */; };
@@ -199,6 +204,8 @@
 		D96C8BF4257665220038175A /* AuthEndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthEndPoint.swift; sourceTree = "<group>"; };
 		D9700477258928DA000E4A01 /* AccountSettingsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSettingsViewModel+Models.swift"; sourceTree = "<group>"; };
 		D970047925892AEB000E4A01 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		D977B3A325C330E9009A9483 /* ArbDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailContentView.swift; sourceTree = "<group>"; };
+		D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbDetailViewModel+Models.swift"; sourceTree = "<group>"; };
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
@@ -212,7 +219,6 @@
 		D98AF6E725BB1AE900A5BC96 /* SpartaDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpartaDB.swift; sourceTree = "<group>"; };
 		D98AF6EB25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBUserTarget+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D98AF6EC25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBUserTarget+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D98AF6F025BB1FDB00A5BC96 /* ArbMonth+DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbMonth+DB.swift"; sourceTree = "<group>"; };
 		D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbTappableCell.swift; sourceTree = "<group>"; };
 		D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManager.swift; sourceTree = "<group>"; };
 		D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +285,10 @@
 		D9B50E3A257423140018F3D7 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		D9B50E3E257431F90018F3D7 /* BorderedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		D9B50E41257433340018F3D7 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		D9B7CCD325C1C53B0023FDF2 /* ArbMonth+Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbMonth+Margin.swift"; sourceTree = "<group>"; };
+		D9B7CCD825C1C9590023FDF2 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		D9B7CCDE25C305A20023FDF2 /* ResultAutoStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAutoStatusView.swift; sourceTree = "<group>"; };
+		D9B7CCE125C305AC0023FDF2 /* ResultManualStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultManualStatusView.swift; sourceTree = "<group>"; };
 		D9BB5345256E8E6600AD2D1A /* Sparta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sparta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9BB5354256E8E6800AD2D1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -573,12 +583,30 @@
 			path = EndPoints;
 			sourceTree = "<group>";
 		};
+		D977B3A125C330CF009A9483 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D977B3A225C330D8009A9483 /* Views */,
+				D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D977B3A225C330D8009A9483 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9F996DE25BDFDC00075F1A9 /* ResultViews */,
+				D977B3A325C330E9009A9483 /* ArbDetailContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D97895E0258377D1009E4A56 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				D97895E12583785B009E4A56 /* CountryCodeModel.swift */,
 				D97895E32583B800009E4A56 /* PickerIdValued.swift */,
-				D98AF6F025BB1FDB00A5BC96 /* ArbMonth+DB.swift */,
+				D9B7CCD225C1C4F10023FDF2 /* ArbMonth */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -606,6 +634,7 @@
 		D98AF6BD25BA197900A5BC96 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				D977B3A125C330CF009A9483 /* Helpers */,
 				D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */,
 				D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */,
 			);
@@ -716,7 +745,7 @@
 				D970047925892AEB000E4A01 /* LoadingView.swift */,
 				D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */,
 				D9A91CBE25AC691C00423704 /* LoaderView.swift */,
-				D9F996DE25BDFDC00075F1A9 /* ResultViews */,
+				D9B7CCD825C1C9590023FDF2 /* ProgressView.swift */,
 				D9A8042025714410000ADE6B /* Alert */,
 				D9A8042C25714595000ADE6B /* Buttons */,
 				D9B50E2525740F810018F3D7 /* Textfields */,
@@ -932,6 +961,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		D9B7CCD225C1C4F10023FDF2 /* ArbMonth */ = {
+			isa = PBXGroup;
+			children = (
+				D9B7CCD325C1C53B0023FDF2 /* ArbMonth+Margin.swift */,
+			);
+			path = ArbMonth;
+			sourceTree = "<group>";
+		};
 		D9BB533C256E8E6600AD2D1A = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1080,8 @@
 				D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */,
 				D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */,
 				D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */,
+				D9B7CCDE25C305A20023FDF2 /* ResultAutoStatusView.swift */,
+				D9B7CCE125C305AC0023FDF2 /* ResultManualStatusView.swift */,
 			);
 			path = ResultViews;
 			sourceTree = "<group>";
@@ -1208,10 +1247,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
+				D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */,
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
 				D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */,
 				D94BCA452577F7ED0076C2AB /* BlenderInfoTableViewCell.swift in Sources */,
 				D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */,
+				D9B7CCD925C1C9590023FDF2 /* ProgressView.swift in Sources */,
 				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
 				D959C0F225822EEB006CE2D1 /* FreightViewModel.swift in Sources */,
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
@@ -1225,8 +1266,8 @@
 				D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */,
 				D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
-				D98AF6F125BB1FDB00A5BC96 /* ArbMonth+DB.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
+				D9B7CCD425C1C53B0023FDF2 /* ArbMonth+Margin.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
 				D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */,
@@ -1261,6 +1302,7 @@
 				D959C0EF25822EE0006CE2D1 /* FreightViewController.swift in Sources */,
 				D9ECEC4D257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift in Sources */,
 				D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */,
+				D9B7CCE225C305AC0023FDF2 /* ResultManualStatusView.swift in Sources */,
 				D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */,
 				D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */,
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
@@ -1272,6 +1314,7 @@
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */,
+				D977B3A425C330E9009A9483 /* ArbDetailContentView.swift in Sources */,
 				D98AF6E125BB01DC00A5BC96 /* Sparta.xcdatamodeld in Sources */,
 				D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */,
 				D99B2F3425753ADF0080B90B /* Validator.swift in Sources */,
@@ -1283,6 +1326,7 @@
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
+				D9B7CCDF25C305A20023FDF2 /* ResultAutoStatusView.swift in Sources */,
 				D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */,
 				D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */,
 				D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */,
@@ -1475,7 +1519,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1501,7 +1545,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

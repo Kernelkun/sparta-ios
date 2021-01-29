@@ -29,7 +29,7 @@ public struct ArbMonth: BackendModel {
     public let ew: String
     public let lumpsum: Double
     public let freightRate: Double
-    public let deliveredPrice: DeliveredPrice
+    public let deliveredPrice: DeliveredPrice?
     public let genericBlenderMargin: ColoredNumber?
     public let genericBlenderMarginChangeOnDay: ColoredNumber?
     public let pseudoFobRefinery: ColoredNumber?
@@ -46,7 +46,7 @@ public struct ArbMonth: BackendModel {
     public init(json: JSON) {
         name = json["monthName"].stringValue
         gradeCode = json["gradeCode"].stringValue
-        routeCode = json["routeCode"].stringValue
+        routeCode = json["routeCode"].stringValue 
         isDisabled = json["disabled"].boolValue
         dischargePortName = json["dischargePortName"].stringValue
         freight = Freight(json: json["freight"])
@@ -64,7 +64,10 @@ public struct ArbMonth: BackendModel {
         ew = json["ew"].stringValue
         lumpsum = json["lumpsum"].doubleValue
         freightRate = json["freightRate"].doubleValue
-        deliveredPrice = DeliveredPrice(json: json["deliveredPrice"])
+
+        if json["deliveredPrice"].dictionary != nil {
+            deliveredPrice = DeliveredPrice(json: json["deliveredPrice"])
+        } else { deliveredPrice = nil }
 
         if json["genericBlenderMargin"].dictionary != nil {
             genericBlenderMargin = ColoredNumber(json: json["genericBlenderMargin"])

@@ -15,9 +15,11 @@ class ArbDetailViewController: BaseViewController {
     private var contentScrollView: UIScrollView!
     private var monthSelector: ResultMonthSelector!
     private var mainBlock: LoaderView!
-    private var mainStackView: UIStackView!
+    private var mainContentView: ArbDetailContentView!
 
     private let loaderDelay = DelayObject(delayInterval: 0.1)
+
+    private var lastInputView: ResultKeyInputView?
 
     // MARK: - Private properties
 
@@ -31,8 +33,6 @@ class ArbDetailViewController: BaseViewController {
         viewModel = ArbDetailViewModel(arb: arb)
 
         super.init(nibName: nil, bundle: nil)
-
-        arb.months.first?.dbProperties.saveUserTarget(value: 20)
 
         viewModel.delegate = self
     }
@@ -116,14 +116,15 @@ class ArbDetailViewController: BaseViewController {
             view.layer.cornerRadius = 8
             view.layer.masksToBounds = true
 
-            mainStackView = UIStackView().then { stackView in
+            mainContentView = ArbDetailContentView().then { mainContentView in
 
-                stackView.axis = .vertical
-                stackView.distribution = .equalSpacing
-                stackView.spacing = 9
-                stackView.alignment = .fill
+                mainContentView.backgroundColor = .clear
 
-                view.addSubview(stackView) {
+                mainContentView.onMarginChanged { [unowned self] text in
+                    self.viewModel.applyUserTarget(text)
+                }
+
+                view.addSubview(mainContentView) {
                     $0.edges.equalToSuperview()
                 }
             }
@@ -162,59 +163,66 @@ extension ArbDetailViewController: ArbDetailViewModelDelegate {
 
     }
 
+    func didLoadCells(_ cells: [ArbDetailViewModel.Cell]) {
+        reloadMonthsData()
+        mainContentView.applyCells(cells)
+    }
+
+    func didReloadCells(_ cells: [ArbDetailViewModel.Cell]) {
+        mainContentView.reloadCells(cells)
+    }
+
     func didLoadData() {
 
-        // months block
 
-        reloadMonthsData()
 
         // details info blocks
 
-        mainStackView.removeAllSubviews()
+//        mainContentView.reloadCells(viewModel.cells)
 
-        func emptyView() -> UIView {
-            UIView().then { view in
+        /* mainStackView.removeAllSubviews()
 
-                view.backgroundColor = .clear
+        topStackView.arrangedSubviews.forEach { view in
+//            if (view as? ResultKeyInputView) == nil {
+                view.removeFromSuperview()
+//            }
+        }
 
-                view.snp.makeConstraints {
-                    $0.height.equalTo(15)
+        
+
+        viewModel.topCells.forEach { cell in
+            switch cell {
+            case .emptySpace:
+                topStackView.addArrangedSubview(emptyView())
+
+            case .target(let value):
+
+                if lastInputView == nil {
+                    let view = inputView(title: cell.displayTitle, value: value)
+                    topStackView.addArrangedSubview(view)
+                    lastInputView = view
+                } else {
+//                    lastInputView?.apply(key: <#T##String#>, value: <#T##String?#>, onTextChange: <#T##TypeClosure<String>##TypeClosure<String>##(String) -> Void#>)
                 }
+
+            case .manualStatus:
+                break
+
+            case .autoStatus(let position):
+
+                let view = autoStatusView(title: cell.displayTitle, position: position)
+                topStackView.addArrangedSubview(view)
+
+            default:
+                break
             }
         }
 
-        func keyValueView(title: String, value: String, color: UIColor, height: CGFloat = 38) -> ResultKeyValueView {
-            ResultKeyValueView().then { view in
-
-                view.apply(key: title, value: value, valueColor: color)
-
-                view.snp.makeConstraints {
-                    $0.height.equalTo(height)
-                }
-            }
-        }
-
-        func inputView(title: String, height: CGFloat = 38) -> ResultKeyInputView {
-            ResultKeyInputView().then { view in
-
-                view.apply(key: title) { [unowned self] text in
-                    print("TextField text: \(text)")
-                }
-
-                view.snp.makeConstraints {
-                    $0.height.equalTo(height)
-                }
-            }
-        }
-
-        viewModel.cells.forEach { cell in
+        viewModel.mainCells.forEach { cell in
 
             switch cell {
             case .emptySpace:
                 mainStackView.addArrangedSubview(emptyView())
-
-            case .target:
-                mainStackView.addArrangedSubview(inputView(title: cell.displayTitle))
 
             case .blendCost(let value, let color), .gasNap(let value, let color),
                  .freight(let value, let color), .taArb(let value, let color),
@@ -224,8 +232,11 @@ extension ArbDetailViewController: ArbDetailViewModelDelegate {
                  .codBlenderMargin(let value, let color):
 
                 mainStackView.addArrangedSubview(keyValueView(title: cell.displayTitle, value: value, color: color))
+
+            default:
+                break
             }
-        }
+        }*/
     }
 }
 

@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
+class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
@@ -26,7 +26,10 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
 
     private var lastPriceCode: String!
     private var _tapClosure: TypeClosure<IndexPath>?
-    private var indexPath: IndexPath!
+
+    // MARK: - Public accessors
+    
+    var indexPath: IndexPath!
 
     // MARK: - Initializers
 
@@ -140,24 +143,24 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
         if months.count >= 1 {
             let month = arb.months[0]
 
-            firstLabel.text = month.deliveredPrice.value.value
-            firstLabel.textColor = month.deliveredPrice.value.valueColor
+            firstLabel.text = month.deliveredPrice?.value.value ?? "-"
+            firstLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
             firstLabel.setKey(month.name)
         }
 
         if months.count >= 2 {
             let month = arb.months[1]
 
-            secondLabel.text = month.deliveredPrice.value.value
-            secondLabel.textColor = month.deliveredPrice.value.valueColor
+            secondLabel.text = month.deliveredPrice?.value.value ?? "-"
+            secondLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
             secondLabel.setKey(month.name)
         }
 
         if months.count >= 3 {
             let month = arb.months[2]
 
-            thirdLabel.text = month.deliveredPrice.value.value
-            thirdLabel.textColor = month.deliveredPrice.value.valueColor
+            thirdLabel.text = month.deliveredPrice?.value.value ?? "-"
+            thirdLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
             thirdLabel.setKey(month.name)
         }
     }

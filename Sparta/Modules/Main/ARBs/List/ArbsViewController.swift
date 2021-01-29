@@ -86,7 +86,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton()
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "ARBs")
     }
 }
 
@@ -125,6 +125,15 @@ extension ArbsViewController: GridViewDataSource {
 
         if case let ArbsViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
             cell.apply(text: title, for: indexPath)
+
+            cell.onTap { [unowned self] indexPath in
+
+                let cellInfo = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
+
+                if case let ArbsViewModel.Cell.info(arb) = cellInfo {
+                    self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
+                }
+            }
         }
 
         return cell
@@ -163,28 +172,28 @@ extension ArbsViewController: GridViewDataSource {
         case .deliveryMonth:
             let cell: ArbsDeliveryMonthCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(arb: arb, for: indexPath)
+            fillCell(cell)
 
             return cell
 
         case .deliveryPrice:
             let cell: ArbsDeliveryPriceCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(arb: arb, for: indexPath)
+            fillCell(cell)
 
             return cell
 
         case .userTgt:
             let cell: ArbsUserTgtCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(arb: arb, for: indexPath)
+            fillCell(cell)
 
             return cell
 
         case .userMargin:
             let cell: ArbsUserMarginCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(arb: arb, for: indexPath)
+            fillCell(cell)
 
             return cell
 

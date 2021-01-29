@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsUserMarginCollectionViewCell: UICollectionViewCell {
+class ArbsUserMarginCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
@@ -26,7 +26,10 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell {
 
     private var lastPriceCode: String!
     private var _tapClosure: TypeClosure<IndexPath>?
-    private var indexPath: IndexPath!
+
+    // MARK: - Public accessors
+    
+    var indexPath: IndexPath!
 
     // MARK: - Initializers
 
@@ -81,7 +84,7 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell {
 
         firstLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .center
+            label.textAlignment = .right
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -89,7 +92,7 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell {
 
         secondLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .center
+            label.textAlignment = .right
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -97,7 +100,7 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell {
 
         thirdLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .center
+            label.textAlignment = .right
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -140,24 +143,24 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell {
         if months.count >= 1 {
             let month = arb.months[0]
 
-            firstLabel.text = month.blenderCost.value
-            firstLabel.textColor = month.blenderCost.valueColor
+            firstLabel.text = month.calculatedUserMargin?.toDisplayFormattedString ?? " "
+            firstLabel.textColor = month.calculatedUserMargin?.color ?? .numberGray
             firstLabel.setKey(month.name)
         }
 
         if months.count >= 2 {
             let month = arb.months[1]
 
-            secondLabel.text = month.blenderCost.value
-            secondLabel.textColor = month.blenderCost.valueColor
+            secondLabel.text = month.calculatedUserMargin?.toDisplayFormattedString ?? " "
+            secondLabel.textColor = month.calculatedUserMargin?.color ?? .numberGray
             secondLabel.setKey(month.name)
         }
 
         if months.count >= 3 {
             let month = arb.months[2]
 
-            thirdLabel.text = month.blenderCost.value
-            thirdLabel.textColor = month.blenderCost.valueColor
+            thirdLabel.text = month.calculatedUserMargin?.toDisplayFormattedString ?? " "
+            thirdLabel.textColor = month.calculatedUserMargin?.color ?? .numberGray
             thirdLabel.setKey(month.name)
         }
     }

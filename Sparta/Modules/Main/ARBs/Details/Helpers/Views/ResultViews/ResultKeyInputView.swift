@@ -13,7 +13,7 @@ class ResultKeyInputView: UIView {
     // MARK: - UI
 
     private var keyLabel: UILabel!
-    private var textField: LimitedTextField!
+    var textField: LimitedTextField!
 
     // MARK: - Private properties
 
@@ -33,8 +33,9 @@ class ResultKeyInputView: UIView {
 
     // MARK: - Public methods
 
-    func apply(key: String, onTextChange: @escaping TypeClosure<String>) {
+    func apply(key: String, value: String?, onTextChange: @escaping TypeClosure<String>) {
         keyLabel.text = key
+        textField.text = value
         _textChangeClosure = onTextChange
     }
 

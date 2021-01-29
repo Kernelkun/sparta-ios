@@ -80,7 +80,7 @@ class SettingsViewController: BaseVMViewController<SettingsViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton()
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Settings")
     }
 }
 

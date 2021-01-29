@@ -15,14 +15,15 @@ let package = Package(
             targets: ["NetworkingModels"]),
     ],
     dependencies: [
-        .package(name: "SwiftyJSON", url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0")
+        .package(name: "SwiftyJSON", url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
+        .package(name: "SpartaHelpers", path: "../SpartaHelpers")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "NetworkingModels",
-            dependencies: ["SwiftyJSON"]),
+            dependencies: ["SwiftyJSON", "SpartaHelpers"]),
         .testTarget(
             name: "NetworkingModelsTests",
             dependencies: ["NetworkingModels"]),

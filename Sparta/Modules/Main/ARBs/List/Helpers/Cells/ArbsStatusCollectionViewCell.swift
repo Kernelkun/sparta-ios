@@ -13,9 +13,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
-    private var firstButton: KeyedButton<String>!
-    private var secondButton: TappableButton!
-    private var thirdButton: TappableButton!
+    private var viewsStackView: UIStackView!
     private var bottomLine: UIView!
 
     // MARK: - Public properties
@@ -45,7 +43,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-//        stopObservingAllLiveCurvesEvents()
+        stopObservingAllArbsEvents()
     }
 
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
@@ -61,23 +59,8 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     func apply(arb: Arb, for indexPath: IndexPath) {
         self.indexPath = indexPath
 
-        let months = arb.months
-
-//        if months.count >= 1 {
-//            firstLabel.text = arb.months[0].name
-//        }
-//
-//        if months.count >= 2 {
-//            secondLabel.text = arb.months[1].name
-//        }
-//
-//        if months.count >= 3 {
-//            thirdLabel.text = arb.months[2].name
-//        }
-
-//        titleLabel.text = monthInfo.priceValue.symbols2Value
-//        lastPriceCode = monthInfo.priceCode
-//        observeLiveCurves(for: monthInfo.priceCode)
+        observeArbs(arb)
+        updateUI(for: arb)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -86,6 +69,40 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - Private methods
 
+    private func updateUI(for arb: Arb) {
+        viewsStackView.removeAllSubviews()
+
+        arb.months.forEach { month in
+            if month.marginType == .manual {
+                viewsStackView.addArrangedSubview(UILabel().then { label in
+
+                    label.text = "Input TGT"
+                    label.textColor = .controlTintActive
+                    label.font = .main(weight: .regular, size: 11)
+                    label.isUserInteractionEnabled = true
+
+                    label.snp.makeConstraints {
+                        $0.height.equalTo(15)
+                    }
+                })
+
+                viewsStackView.spacing = 6
+            } else {
+                viewsStackView.addArrangedSubview(ProgressView().then { progressView in
+
+                    progressView.apply(progressPercentage: month.position.percentage, color: month.position.color)
+
+                    progressView.snp.makeConstraints {
+                        $0.width.equalTo(36)
+                        $0.height.equalTo(8)
+                    }
+                })
+
+                viewsStackView.spacing = 12
+            }
+        }
+    }
+
     private func setupUI() {
 
         backgroundColor = .clear
@@ -93,44 +110,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
 
-        firstButton = KeyedButton<String>().then { button in
-
-            button.setTitle("Closed", for: .normal)
-            button.setTitleColor(.red, for: .normal)
-            button.titleLabel?.font = .main(weight: .regular, size: 11)
-
-            button.snp.makeConstraints {
-                $0.height.equalTo(15)
-            }
-        }
-
-        secondButton = KeyedButton<String>().then { button in
-
-            button.setTitle("Closed", for: .normal)
-            button.setTitleColor(.red, for: .normal)
-            button.titleLabel?.font = .main(weight: .regular, size: 11)
-
-            button.snp.makeConstraints {
-                $0.height.equalTo(15)
-            }
-        }
-
-        thirdButton = KeyedButton<String>().then { button in
-
-            button.setTitle("Closed", for: .normal)
-            button.setTitleColor(.red, for: .normal)
-            button.titleLabel?.font = .main(weight: .regular, size: 11)
-
-            button.snp.makeConstraints {
-                $0.height.equalTo(15)
-            }
-        }
-
-        _ = UIStackView().then { stackView in
-
-            stackView.addArrangedSubview(firstButton)
-            stackView.addArrangedSubview(secondButton)
-            stackView.addArrangedSubview(thirdButton)
+        viewsStackView = UIStackView().then { stackView in
 
             stackView.axis = .vertical
             stackView.alignment = .center
@@ -165,20 +145,11 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     }
 }
 
-/*extension ArbsDeliveryMonthCollectionViewCell: LiveCurvesObserver {
+extension ArbsStatusCollectionViewCell: ArbsObserver {
 
-    func liveCurvesDidReceiveResponse(for liveCurve: LiveCurve) {
+    func arbsDidReceiveResponse(for arb: Arb) {
         onMainThread {
-            self.titleLabel.text = liveCurve.priceValue.symbols2Value
-
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
-            } completion: { _ in
-                UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
-                } completion: { _ in
-                }
-            }
+            self.updateUI(for: arb)
         }
     }
-}*/
+}

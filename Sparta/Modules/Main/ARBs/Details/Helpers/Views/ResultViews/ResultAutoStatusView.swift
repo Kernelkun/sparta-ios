@@ -1,23 +1,32 @@
 //
-//  ResultKeyValueView.swift
+//  ResultAutoStatusView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 24.01.2021.
+//  Created by Yaroslav Babalich on 28.01.2021.
 //
 
 import UIKit
 import SpartaHelpers
+import NetworkingModels
 
-class ResultKeyValueView: UIView {
+class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
+
+    var id: T
 
     // MARK: - UI
 
     private var keyLabel: UILabel!
-    private var valueLabel: UILabel!
+    private var progressView: ProgressView!
+
+    // MARK: - Private properties
+
+    private var _textChangeClosure: TypeClosure<String>?
 
     // MARK: - Initializers
 
-    init() {
+    init(id: T) {
+        self.id = id
+
         super.init(frame: .zero)
 
         setupUI()
@@ -29,10 +38,13 @@ class ResultKeyValueView: UIView {
 
     // MARK: - Public methods
 
-    func apply(key: String, value: String, valueColor: UIColor) {
+    func apply(key: String, position: ArbMonth.Position) {
         keyLabel.text = key
-        valueLabel.text = value
-        valueLabel.textColor = valueColor
+        progressView.apply(progressPercentage: position.percentage, color: position.color)
+    }
+
+    func update(position: ArbMonth.Position) {
+        progressView.apply(progressPercentage: position.percentage, color: position.color)
     }
 
     // MARK: - Private methods
@@ -47,7 +59,6 @@ class ResultKeyValueView: UIView {
             label.font = .main(weight: .regular, size: 17)
             label.textColor = .accountMainText
             label.textAlignment = .center
-            label.text = "Lumpsum"
 
             addSubview(label) {
                 $0.left.equalToSuperview().offset(8)
@@ -55,14 +66,11 @@ class ResultKeyValueView: UIView {
             }
         }
 
-        valueLabel = UILabel().then { label in
+        progressView = ProgressView().then { progressView in
 
-            label.font = .main(weight: .regular, size: 17)
-            label.textColor = .accountMainText
-            label.textAlignment = .center
-            label.text = "1500 $"
-
-            addSubview(label) {
+            addSubview(progressView) {
+                $0.width.equalTo(67)
+                $0.height.equalTo(8)
                 $0.right.equalToSuperview().inset(8)
                 $0.centerY.equalToSuperview()
             }

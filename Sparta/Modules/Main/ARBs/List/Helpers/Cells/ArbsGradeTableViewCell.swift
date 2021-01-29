@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class ArbsGradeTableViewCell: UITableViewCell {
 
@@ -15,6 +16,14 @@ class ArbsGradeTableViewCell: UITableViewCell {
     private var firstDescriptionLabel: UILabel!
     private var secondDescriptionLabel: UILabel!
     private var bottomLine: UIView!
+
+    // MARK: - Public accessors
+
+    var indexPath: IndexPath!
+
+    // MARK: - Private accessors
+
+    private var _tapClosure: TypeClosure<IndexPath>?
 
     // MARK: - Initializers
 
@@ -30,7 +39,13 @@ class ArbsGradeTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
+    func onTap(completion: @escaping TypeClosure<IndexPath>) {
+        _tapClosure = completion
+    }
+
     func apply(text: NSAttributedString, for indexPath: IndexPath) {
+        self.indexPath = indexPath
+
         titleLabel.attributedText = text
 
         if indexPath.section % 2 == 0 { // even
@@ -79,5 +94,20 @@ class ArbsGradeTableViewCell: UITableViewCell {
                 $0.left.right.bottom.equalToSuperview()
             }
         }
+
+        // actions
+
+        setupActions()
+    }
+
+    private func setupActions() {
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
+    }
+
+    // MARK: - Events
+
+    @objc
+    private func tapEvent() {
+        _tapClosure?(indexPath)
     }
 }

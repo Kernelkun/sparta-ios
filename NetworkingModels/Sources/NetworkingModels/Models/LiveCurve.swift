@@ -8,6 +8,7 @@
 import UIKit.UIColor
 import Foundation
 import SwiftyJSON
+import SpartaHelpers
 
 public struct LiveCurve: BackendModel {
 
@@ -69,8 +70,8 @@ extension LiveCurve {
         public var color: UIColor {
             switch self {
             case .initial: return .clear
-            case .up: return .green
-            case .down: return .red
+            case .up: return .numberGreen
+            case .down: return .numberRed
             }
         }
     }

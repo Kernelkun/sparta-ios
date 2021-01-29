@@ -34,6 +34,12 @@ public extension UIColor {
     static var barBackground: UIColor { .assetColor(named: #function) }
 
     static var tablePoint: UIColor { .assetColor(named: #function) }
+
+    static var numberGreen: UIColor { .assetColor(named: #function) }
+
+    static var numberRed: UIColor { .assetColor(named: #function) }
+
+    static var numberGray: UIColor { .assetColor(named: #function) }
 }
 
 private extension UIColor {

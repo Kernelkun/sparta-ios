@@ -9,7 +9,7 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-protocol ArbTappableCell: TappableViewCell, UICollectionViewCell {
+protocol ArbTappableCell: TappableViewCell {
     func apply(arb: Arb, for indexPath: IndexPath)
 }
 

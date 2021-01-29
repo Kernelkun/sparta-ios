@@ -8,6 +8,7 @@
 import UIKit.UIColor
 import Foundation
 import SwiftyJSON
+import SpartaHelpers
 
 public struct ColoredNumber: BackendModel {
 
@@ -31,13 +32,13 @@ public extension ColoredNumber {
     var valueColor: UIColor {
         switch color.lowercased() {
         case "red":
-            return .red
+            return .numberRed
         case "green":
-            return .green
+            return .numberGreen
         case "gray":
-            return .gray
+            return .numberGray
         default:
-            return .secondaryLabel
+            return .numberGray
         }
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
+class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
@@ -22,7 +22,10 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
 
     private var lastPriceCode: String!
     private var _tapClosure: TypeClosure<IndexPath>?
-    private var indexPath: IndexPath!
+
+    // MARK: - Public accessors
+
+    var indexPath: IndexPath!
 
     // MARK: - Initializers
 
@@ -106,7 +109,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
             stackView.addArrangedSubview(thirdLabel)
 
             stackView.axis = .vertical
-            stackView.alignment = .trailing
+            stackView.alignment = .center
             stackView.spacing = 4
             stackView.distribution = .equalSpacing
 
@@ -136,17 +139,17 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell {
 
         if months.count >= 1 {
             let month = arb.months[0]
-            firstLabel.text = month.dbProperties.fetchUserTarget()?.toFormattedString
+            firstLabel.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
         }
 
         if months.count >= 2 {
             let month = arb.months[1]
-            secondLabel.text = month.dbProperties.fetchUserTarget()?.toFormattedString
+            secondLabel.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
         }
 
         if months.count >= 3 {
             let month = arb.months[2]
-            thirdLabel.text = month.dbProperties.fetchUserTarget()?.toFormattedString
+            thirdLabel.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
         }
     }
 

@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
+class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
@@ -22,7 +22,10 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell {
 
     private var lastPriceCode: String!
     private var _tapClosure: TypeClosure<IndexPath>?
-    private var indexPath: IndexPath!
+
+    // MARK: - Public accessors
+    
+    var indexPath: IndexPath!
 
     // MARK: - Initializers
 
