@@ -14,6 +14,11 @@ protocol ChangePasswordViewCoordinatorDelegate: class {
 
 class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel> {
 
+    enum State {
+        case initial
+        case secondary
+    }
+
     // MARK: - Public properties
 
     weak var coordinatorDelegate: ChangePasswordViewCoordinatorDelegate?
@@ -27,6 +32,20 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
     private var changePasswordButton: BorderedButton!
 
     private var addedHeight: CGFloat = .zero
+
+    private var state: State
+
+    // MARK: - Initializers
+
+    init(state: State) {
+        self.state = state
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Lifecycle
 
@@ -100,16 +119,31 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
 
         let scrollView: UIView = scrollViewContent
 
-        let topLabel = UILabel().then { label in
+        var topView: UIView
 
-            label.text = "The current password is a default password,\nplease change this password to a more\nsecure value"
-            label.textColor = .accountMainText
-            label.font = .main(weight: .regular, size: 15)
-            label.numberOfLines = 0
+        if state == .initial {
+            topView = UILabel().then { label in
 
-            scrollView.addSubview(label) {
-                $0.top.equalToSuperview()
-                $0.left.right.equalToSuperview().inset(24)
+                label.text = "The current password is a default password,\nplease change this password to a more\nsecure value"
+                label.textColor = .accountMainText
+                label.font = .main(weight: .regular, size: 15)
+                label.numberOfLines = 0
+
+                scrollView.addSubview(label) {
+                    $0.top.equalToSuperview()
+                    $0.left.right.equalToSuperview().inset(24)
+                }
+            }
+        } else {
+            topView = UIView().then { view in
+
+                view.backgroundColor = .red
+
+                scrollView.addSubview(view) {
+                    $0.top.equalToSuperview()
+                    $0.height.equalTo(0)
+                    $0.left.right.equalToSuperview().inset(24)
+                }
             }
         }
 
@@ -127,7 +161,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
             }
 
             scrollView.addSubview(field) {
-                $0.top.equalTo(topLabel.snp.bottom).offset(38)
+                $0.top.equalTo(topView.snp.bottom).offset(38)
                 $0.left.right.equalToSuperview().inset(24)
                 $0.height.equalTo(48)
             }

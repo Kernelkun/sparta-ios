@@ -26,10 +26,7 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
 
     init(id: T) {
         self.id = id
-
         super.init(frame: .zero)
-
-        setupUI()
     }
 
     required init?(coder: NSCoder) {
@@ -38,18 +35,39 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
 
     // MARK: - Public methods
 
-    func apply(key: String, position: ArbMonth.Position) {
-        keyLabel.text = key
-        progressView.apply(progressPercentage: position.percentage, color: position.color)
-    }
-
-    func update(position: ArbMonth.Position) {
-        progressView.apply(progressPercentage: position.percentage, color: position.color)
+    func apply(key: String, position: ArbMonth.Position?) {
+        if let position = position {
+            setupProgressView()
+            keyLabel.text = key
+            progressView.apply(progressPercentage: position.percentage, color: position.color)
+        } else {
+            setupInputTargetView()
+        }
     }
 
     // MARK: - Private methods
 
-    private func setupUI() {
+    private func setupInputTargetView() {
+        removeAllSubviews()
+
+        backgroundColor = .clear
+
+        keyLabel = UILabel().then { label in
+
+            label.text = "Input My Target"
+            label.font = .main(weight: .regular, size: 17)
+            label.textColor = .controlTintActive
+            label.textAlignment = .left
+
+            addSubview(label) {
+                $0.left.equalToSuperview().offset(8)
+                $0.centerY.equalToSuperview()
+            }
+        }
+    }
+
+    private func setupProgressView() {
+        removeAllSubviews()
 
         backgroundColor = UIColor.accountFieldBackground
         layer.cornerRadius = 4

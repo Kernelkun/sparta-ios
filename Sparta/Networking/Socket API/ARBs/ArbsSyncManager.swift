@@ -87,7 +87,7 @@ class ArbsSyncManager {
 
             lastSyncDate = Date()
 
-            _arbs[arbIndex].months[indexOfMonth] = arbMonth
+            _arbs[arbIndex].months[indexOfMonth].update(from: arbMonth)
 
             notifyObservers(about: _arbs[arbIndex])
 

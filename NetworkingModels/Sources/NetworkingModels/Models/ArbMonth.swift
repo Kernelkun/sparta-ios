@@ -19,21 +19,21 @@ public struct ArbMonth: BackendModel {
     public let isDisabled: Bool
     public let dischargePortName: String
     public let freight: Freight
-    public let blenderCost: ColoredNumber
+    public private(set) var blenderCost: ColoredNumber
     public let seasonality: String
     public let costIncluded: String
     public let incoterms: String
-    public let gasMinusNaphtha: ColoredNumber
+    public private(set) var gasMinusNaphtha: ColoredNumber
     public let quantities: Quantities
-    public let taArb: ColoredNumber?
-    public let ew: String
+    public private(set) var taArb: ColoredNumber?
+    public private(set) var ew: ColoredNumber?
     public let lumpsum: Double
     public let freightRate: Double
-    public let deliveredPrice: DeliveredPrice?
-    public let genericBlenderMargin: ColoredNumber?
-    public let genericBlenderMarginChangeOnDay: ColoredNumber?
-    public let pseudoFobRefinery: ColoredNumber?
-    public let pseudoCifRefinery: ColoredNumber?
+    public private(set) var deliveredPrice: DeliveredPrice?
+    public private(set) var genericBlenderMargin: ColoredNumber?
+    public private(set) var genericBlenderMarginChangeOnDay: ColoredNumber?
+    public private(set) var pseudoFobRefinery: ColoredNumber?
+    public private(set) var pseudoCifRefinery: ColoredNumber?
 
     // use this identifier to identify this object as unique
     public var uniqueIdentifier: String {
@@ -61,7 +61,6 @@ public struct ArbMonth: BackendModel {
             taArb = ColoredNumber(json: json["taArb"])
         } else { taArb = nil }
 
-        ew = json["ew"].stringValue
         lumpsum = json["lumpsum"].doubleValue
         freightRate = json["freightRate"].doubleValue
 
@@ -72,6 +71,10 @@ public struct ArbMonth: BackendModel {
         if json["genericBlenderMargin"].dictionary != nil {
             genericBlenderMargin = ColoredNumber(json: json["genericBlenderMargin"])
         } else { genericBlenderMargin = nil }
+
+        if json["ew"].dictionary != nil {
+            ew = ColoredNumber(json: json["ew"])
+        } else { ew = nil }
 
         if json["genericBlenderMarginChangeOnDay"].dictionary != nil {
             genericBlenderMarginChangeOnDay = ColoredNumber(json: json["genericBlenderMarginChangeOnDay"])
@@ -85,13 +88,26 @@ public struct ArbMonth: BackendModel {
             pseudoCifRefinery = ColoredNumber(json: json["pseudoCifRefinery"])
         } else {  pseudoCifRefinery = nil }
     }
+
+    // MARK: - Public methods
+
+    public mutating func update(from newMonth: ArbMonth) {
+        blenderCost = newMonth.blenderCost
+        gasMinusNaphtha = newMonth.gasMinusNaphtha
+        taArb = newMonth.taArb
+        deliveredPrice = newMonth.deliveredPrice
+        genericBlenderMargin = newMonth.genericBlenderMargin
+        genericBlenderMarginChangeOnDay = newMonth.genericBlenderMarginChangeOnDay
+        pseudoFobRefinery = newMonth.pseudoFobRefinery
+        pseudoCifRefinery = newMonth.pseudoCifRefinery
+        ew = newMonth.ew
+    }
 }
 
 extension ArbMonth: Equatable {
 
     public static func ==(lhs: ArbMonth, rhs: ArbMonth) -> Bool {
-        lhs.gradeCode.lowercased() == rhs.gradeCode.lowercased()
-            && lhs.name.lowercased() == rhs.name.lowercased()
+        lhs.uniqueIdentifier == rhs.uniqueIdentifier
     }
 }
 

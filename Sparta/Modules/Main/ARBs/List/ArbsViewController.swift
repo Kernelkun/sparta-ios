@@ -51,12 +51,6 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         viewModel.loadData()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-//        viewModel.stopLoadData()0
-    }
-
     // MARK: - Private methods
 
     private func setupUI() {

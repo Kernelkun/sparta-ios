@@ -73,32 +73,11 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         viewsStackView.removeAllSubviews()
 
         arb.months.forEach { month in
-            if month.marginType == .manual {
-                viewsStackView.addArrangedSubview(UILabel().then { label in
 
-                    label.text = "Input TGT"
-                    label.textColor = .controlTintActive
-                    label.font = .main(weight: .regular, size: 11)
-                    label.isUserInteractionEnabled = true
-
-                    label.snp.makeConstraints {
-                        $0.height.equalTo(15)
-                    }
-                })
-
-                viewsStackView.spacing = 6
+            if let position = month.position {
+                viewsStackView.addArrangedSubview(progressView(position: position))
             } else {
-                viewsStackView.addArrangedSubview(ProgressView().then { progressView in
-
-                    progressView.apply(progressPercentage: month.position.percentage, color: month.position.color)
-
-                    progressView.snp.makeConstraints {
-                        $0.width.equalTo(36)
-                        $0.height.equalTo(8)
-                    }
-                })
-
-                viewsStackView.spacing = 12
+                viewsStackView.addArrangedSubview(inputTGTView())
             }
         }
     }
@@ -115,7 +94,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             stackView.axis = .vertical
             stackView.alignment = .center
             stackView.spacing = 6
-            stackView.distribution = .equalSpacing
+            stackView.distribution = .equalCentering
 
             contentView.addSubview(stackView) {
                 $0.center.equalToSuperview()
@@ -135,6 +114,46 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     private func setupActions() {
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
+    }
+
+    // MARK: - Views
+
+    private func progressView(position: ArbMonth.Position) -> UIView {
+        UIView().then { view in
+
+            _ = ProgressView().then { progressView in
+
+                progressView.apply(progressPercentage: position.percentage, color: position.color)
+
+                view.addSubview(progressView) {
+                    $0.width.equalTo(36)
+                    $0.height.equalTo(9)
+                    $0.center.equalToSuperview()
+                }
+            }
+
+            view.backgroundColor = .clear
+
+            view.snp.makeConstraints {
+                $0.width.equalTo(36)
+                $0.height.equalTo(13)
+            }
+        }
+    }
+
+    private func inputTGTView() -> UIView {
+        UILabel().then { label in
+
+            label.text = "Input TGT"
+            label.textColor = .controlTintActive
+            label.font = .main(weight: .regular, size: 11)
+            label.isUserInteractionEnabled = true
+            label.clipsToBounds = false
+
+            label.snp.makeConstraints {
+                $0.height.equalTo(13)
+            }
+        }
     }
 
     // MARK: - Events

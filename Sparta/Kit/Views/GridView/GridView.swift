@@ -84,6 +84,11 @@ class GridView: UIView {
     }
 
     func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, completion: EmptyClosure? = nil) {
+        guard !insertions.isEmpty || !removals.isEmpty || !updates.isEmpty else {
+            completion?()
+            return
+        }
+
         updateGridHeight()
 
         let updateGroup = DispatchGroup()

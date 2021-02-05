@@ -65,6 +65,17 @@ public extension String {
         return retVal.uppercased()
     }
 
+    func generateShortIfNeeded(maxSymbols: Int) -> String {
+        if self.count > maxSymbols {
+            let finalString = "..."
+
+            let substring = self[self.startIndex...self.index(self.startIndex, offsetBy: maxSymbols - finalString.count)] + finalString
+            return String(substring)
+        }
+
+        return self
+    }
+
     //
     // MARK: - Random Password Generator
 

@@ -34,7 +34,7 @@ class LimitedTextField: UITextField {
         didSet {
             switch enterType {
             case .numberLimit(range: _):
-                keyboardType = .default
+                keyboardType = .numbersAndPunctuation
             default: return
             }
         }

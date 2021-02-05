@@ -11,13 +11,13 @@ import NetworkingModels
 extension ArbDetailViewModel {
 
     enum Cell {
-        case manualStatus
-        case autoStatus(position: ArbMonth.Position)
+        case status(position: ArbMonth.Position?)
         case target(value: String?)
         case blendCost(value: String, color: UIColor)
         case gasNap(value: String, color: UIColor)
         case freight(value: String, color: UIColor)
         case taArb(value: String, color: UIColor)
+        case ew(value: String, color: UIColor)
         case dlvPrice(value: String, color: UIColor)
         case dlvPriceBasis(value: String, color: UIColor)
         case myMargin(value: String, color: UIColor)
@@ -29,11 +29,8 @@ extension ArbDetailViewModel {
 
         var displayTitle: String {
             switch self {
-            case .manualStatus:
-                return ""
-
-            case .autoStatus:
-                return "Arb O/C"
+            case .status:
+                return "Arb Open/Close"
 
             case .target:
                 return "My Target"
@@ -49,6 +46,9 @@ extension ArbDetailViewModel {
 
             case .taArb:
                 return "TA Arb"
+
+            case .ew:
+                return "E/W Arb"
 
             case .dlvPrice:
                 return "Dlv Price"

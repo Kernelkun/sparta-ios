@@ -51,4 +51,12 @@ public class DBUserTarget: NSManagedObject {
             completion()
         }
     }
+
+    func delete(completion: @escaping EmptyClosure) {
+        SpartaDB.instance.dataStack.perform { transaction in
+            transaction.delete(self)
+        } completion: { _ in
+            completion()
+        }
+    }
 }

@@ -43,6 +43,6 @@ public struct Arb: BackendModel {
 extension Arb: Equatable {
 
     public static func ==(lhs: Arb, rhs: Arb) -> Bool {
-        lhs.gradeCode.lowercased() == rhs.gradeCode.lowercased()
+        lhs.uniqueIdentifier == rhs.uniqueIdentifier
     }
 }

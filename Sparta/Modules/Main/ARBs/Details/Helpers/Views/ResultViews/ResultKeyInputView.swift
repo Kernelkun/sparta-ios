@@ -51,7 +51,6 @@ class ResultKeyInputView: UIView {
             label.font = .main(weight: .regular, size: 17)
             label.textColor = .accountMainText
             label.textAlignment = .center
-            label.text = "Lumpsum"
 
             addSubview(label) {
                 $0.left.equalToSuperview().offset(8)
@@ -65,10 +64,13 @@ class ResultKeyInputView: UIView {
             textField.enterType = .numberLimit(range: -199...199)
             textField.textAlignment = .right
 
-            textField.placeholder = "hint"
+            textField.placeholder = ""
+
             textField.onChanged { [unowned self] in
                 self._textChangeClosure?(textField.text ?? "")
             }
+
+            textField.actionDelegate = self
 
             addSubview(textField) {
                 $0.right.equalToSuperview().inset(8)
@@ -76,5 +78,22 @@ class ResultKeyInputView: UIView {
                 $0.size.equalTo(CGSize(width: 67, height: 28))
             }
         }
+    }
+}
+
+extension ResultKeyInputView: LimitedTextFieldDelegate {
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.selectAll(nil)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) {
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) {
+        textField.endEditing(true)
     }
 }

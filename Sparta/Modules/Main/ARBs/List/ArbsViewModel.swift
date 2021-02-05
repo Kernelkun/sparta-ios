@@ -9,6 +9,7 @@ import UIKit
 import Networking
 import SwiftyJSON
 import NetworkingModels
+import SpartaHelpers
 
 protocol ArbsViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
@@ -52,7 +53,8 @@ class ArbsViewModel: NSObject, BaseViewModel {
 
     private func createTableDataSource(from arbs: [Arb]) -> [Cell] {
         arbs.compactMap {
-            let gradeName = $0.grade
+
+            let gradeName = $0.grade.generateShortIfNeeded(maxSymbols: 17)
             let dischargePortName = $0.dischargePortName
             let freightType = $0.freightType
             let fullString: NSString = gradeName + "\n" + dischargePortName + "\n" + freightType as NSString

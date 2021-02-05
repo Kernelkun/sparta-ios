@@ -85,7 +85,7 @@ extension AuthenticationFlowCoordinator: LoginViewCoordinatorDelegate {
     func loginViewControllerDidFinish(_ controller: LoginViewController) {
         guard App.instance.isAccountConfirmed else {
 
-            let vc = ChangePasswordViewController()
+            let vc = ChangePasswordViewController(state: .initial)
             vc.coordinatorDelegate = self
 
             navigationController?.pushViewController(vc, animated: true)

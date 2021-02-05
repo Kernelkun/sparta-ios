@@ -29,9 +29,15 @@ struct ArbMonthDBProperties {
     }
 
     func saveUserTarget(value: UserTarget) {
-        DBUserTarget.createOrUpdate(id: month.uniqueIdentifier, target: value, completion: {})
+        DBUserTarget.createOrUpdate(id: month.uniqueIdentifier, target: value, completion: {
+            ArbsSyncManager.intance.notifyAboutUpdated(arbMonth: month)
+        })
+    }
 
-        ArbsSyncManager.intance.notifyAboutUpdated(arbMonth: month)
+    func deleteUserTarget() {
+        DBUserTarget.fetch(with: month.uniqueIdentifier)?.delete {
+            ArbsSyncManager.intance.notifyAboutUpdated(arbMonth: month)
+        }
     }
 }
 
@@ -101,8 +107,7 @@ extension ArbMonth {
         gradesWithAutomatedMargin.contains(gradeCode) ? .auto : .manual
     }
 
-    var position: Position {
-        let total: Int = [genericBlenderMargin, pseudoFobRefinery, pseudoCifRefinery].compactMap { $0?.valueIndex }.reduce(0, +)
+    var position: Position? {
 
         if let calculatedUserMargin = calculatedUserMargin {
             if calculatedUserMargin > 0 {
@@ -110,7 +115,9 @@ extension ArbMonth {
             } else {
                 return .first
             }
-        }
+        } else if marginType == .manual { return nil }
+
+        let total: Int = [genericBlenderMargin, pseudoFobRefinery, pseudoCifRefinery].compactMap { $0?.valueIndex }.reduce(0, +)
 
         if gradeCode == "E5EUROBOB" {
             switch total {
@@ -144,7 +151,7 @@ extension ArbMonth {
         guard let userTarget = dbProperties.fetchUserTarget(),
               let deliveryPrice = deliveredPrice?.value.value.toDouble else { return nil }
 
-        return Double(userTarget) - deliveryPrice 
+        return Double(userTarget) - deliveryPrice
     }
 
     // MARK: - Private properties
@@ -159,7 +166,7 @@ fileprivate extension ColoredNumber {
     var valueIndex: Int {
         switch color.lowercased() {
         case "red":
-            return -1
+            return 0
         case "green":
             return 1
         case "gray":

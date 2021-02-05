@@ -39,11 +39,9 @@ class ArbDetailContentView: UIView {
         newCells.forEach { cell in
 
             switch cell {
-            case .autoStatus(let position):
-                mainStackView.addArrangedSubview(autoStatusView(title: cell.displayTitle, position: position))
-
-            case .manualStatus:
-                mainStackView.addArrangedSubview(ResultManualStatusView())
+            case .status(let position):
+                mainStackView.addArrangedSubview(statusView(title: cell.displayTitle,
+                                                            position: position))
 
             case .target(let value):
                 mainStackView.addArrangedSubview(inputView(title: cell.displayTitle, value: value))
@@ -56,7 +54,7 @@ class ArbDetailContentView: UIView {
                  .dlvPrice(let value, let color), .dlvPriceBasis(let value, let color),
                  .myMargin(let value, let color), .blenderMargin(let value, let color),
                  .fobRefyMargin(let value, let color), .cifRefyMargin(let value, let color),
-                 .codBlenderMargin(let value, let color):
+                 .codBlenderMargin(let value, let color), .ew(let value, let color):
 
                 mainStackView.addArrangedSubview(keyValueView(title: cell.displayTitle, value: value, color: color))
             }
@@ -68,7 +66,7 @@ class ArbDetailContentView: UIView {
         newCells.forEach { cell in
 
             switch cell {
-            case .autoStatus(let position):
+            case .status(let position):
 
                 if let subview: ResultAutoStatusView<String> = findSubviews(cell.displayTitle).first {
                     subview.apply(key: cell.displayTitle, position: position)
@@ -149,7 +147,7 @@ class ArbDetailContentView: UIView {
         }
     }
 
-    private func autoStatusView(title: String, position: ArbMonth.Position, height: CGFloat = 38) -> ResultAutoStatusView<String> {
+    private func statusView(title: String, position: ArbMonth.Position?, height: CGFloat = 38) -> ResultAutoStatusView<String> {
         ResultAutoStatusView(id: title).then { view in
 
             view.apply(key: title, position: position)

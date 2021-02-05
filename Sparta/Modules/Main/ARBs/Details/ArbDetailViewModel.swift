@@ -42,7 +42,7 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
         selectedArbMonth.dbProperties.fetchUserTarget()?.toFormattedString
     }
 
-    var monthPosition: ArbMonth.Position {
+    var monthPosition: ArbMonth.Position? {
         selectedArbMonth.position
     }
 
@@ -92,16 +92,20 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
     }
 
     func applyUserTarget(_ userTarget: String) {
-        guard let userTarget = userTarget.nullable?.toDouble else { return }
-
-        selectedArbMonth.dbProperties.saveUserTarget(value: userTarget)
+        if let userTarget = userTarget.nullable?.toDouble {
+            selectedArbMonth.dbProperties.saveUserTarget(value: userTarget)
+        } else {
+            selectedArbMonth.dbProperties.deleteUserTarget()
+        }
     }
 
     // MARK: - Private methods
 
     private func loadCellsForSelectedMonth() -> [Cell] {
         var cells: [ArbDetailViewModel.Cell] = [.emptySpace]
-        cells.append(selectedArbMonth.marginType == .auto ? .autoStatus(position: monthPosition) : .manualStatus)
+
+        cells.append(.status(position: monthPosition))
+
         cells.append(contentsOf: [.emptySpace, .target(value: userTarget), .emptySpace])
 
         //blender cost
@@ -122,6 +126,10 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
             cells.append(.taArb(value: taArb.value, color: taArb.valueColor))
         }
 
+        if let ewArb = selectedArbMonth.ew {
+            cells.append(.ew(value: ewArb.value, color: ewArb.valueColor))
+        }
+
         cells.append(.emptySpace)
 
         // delivery price
@@ -130,7 +138,6 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
             cells.append(.dlvPrice(value: deliveredPrice.value.value,
                                    color: deliveredPrice.value.valueColor))
             cells.append(.dlvPriceBasis(value: deliveredPrice.basis, color: .gray))
-
             cells.append(.emptySpace)
         }
 
@@ -145,22 +152,23 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
             cells.append(.blenderMargin(value: blenderMargin.value, color: blenderMargin.valueColor))
         }
 
-        // blender margin CoD
-
-        if let blenderMarginChangeOnDay = selectedArbMonth.genericBlenderMarginChangeOnDay {
-            cells.append(.codBlenderMargin(value: blenderMarginChangeOnDay.value, color: blenderMarginChangeOnDay.valueColor))
-        }
-
         // pseudoFobRefinery
 
         if let pseudoFobRefinery = selectedArbMonth.pseudoFobRefinery {
             cells.append(.fobRefyMargin(value: pseudoFobRefinery.value, color: pseudoFobRefinery.valueColor))
         }
 
-        // pseudoFobRefinery
+        // pseudoCifRefinery
 
         if let pseudoCifRefinery = selectedArbMonth.pseudoCifRefinery {
             cells.append(.cifRefyMargin(value: pseudoCifRefinery.value, color: pseudoCifRefinery.valueColor))
+        }
+
+        // blender margin CoD
+
+        if let blenderMarginChangeOnDay = selectedArbMonth.genericBlenderMarginChangeOnDay {
+            cells.append(.emptySpace)
+            cells.append(.codBlenderMargin(value: blenderMarginChangeOnDay.value, color: blenderMarginChangeOnDay.valueColor))
         }
 
         return cells
