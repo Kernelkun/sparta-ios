@@ -1,5 +1,5 @@
 //
-//  ArbsBlendCostCollectionViewCell.swift
+//  ArbsDeliveryPriceCollectionViewCell.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 04.01.2021.
@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
+class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
@@ -26,7 +26,10 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
 
     private var lastPriceCode: String!
     private var _tapClosure: TypeClosure<IndexPath>?
-    private var indexPath: IndexPath!
+
+    // MARK: - Public accessors
+    
+    var indexPath: IndexPath!
 
     // MARK: - Initializers
 
@@ -63,7 +66,7 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
         self.indexPath = indexPath
 
         updateUI(for: arb)
-        observeArbs(for: arb.gradeCode)
+        observeArbs(arb)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -82,24 +85,24 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
         firstLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
         secondLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
         thirdLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
@@ -112,7 +115,7 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
             stackView.axis = .vertical
             stackView.alignment = .center
             stackView.spacing = 4
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .equalSpacing
 
             contentView.addSubview(stackView) {
                 $0.center.equalToSuperview()
@@ -140,24 +143,24 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
         if months.count >= 1 {
             let month = arb.months[0]
 
-            firstLabel.text = month.blenderCost.value
-            firstLabel.textColor = month.blenderCost.valueColor
+            firstLabel.text = month.deliveredPrice?.value.value ?? "-"
+            firstLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
             firstLabel.setKey(month.name)
         }
 
         if months.count >= 2 {
             let month = arb.months[1]
 
-            secondLabel.text = month.blenderCost.value
-            secondLabel.textColor = month.blenderCost.valueColor
+            secondLabel.text = month.deliveredPrice?.value.value ?? "-"
+            secondLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
             secondLabel.setKey(month.name)
         }
 
         if months.count >= 3 {
             let month = arb.months[2]
 
-            thirdLabel.text = month.blenderCost.value
-            thirdLabel.textColor = month.blenderCost.valueColor
+            thirdLabel.text = month.deliveredPrice?.value.value ?? "-"
+            thirdLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
             thirdLabel.setKey(month.name)
         }
     }
@@ -170,7 +173,7 @@ class ArbsBlendCostCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension ArbsBlendCostCollectionViewCell: ArbsObserver {
+extension ArbsDeliveryPriceCollectionViewCell: ArbsObserver {
 
     func arbsDidReceiveResponse(for arb: Arb) {
         onMainThread {

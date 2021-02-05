@@ -85,7 +85,7 @@ class App {
 
         blenderSyncManager = BlenderSyncManager()
         liveCurvesSyncManager = LiveCurvesSyncManager()
-        arbsSyncManager = ArbsSyncManager()
+        arbsSyncManager = ArbsSyncManager.intance
         stateService = AppStateService()
 
         reachability = try! Reachability() // swiftlint:disable:this force_try
@@ -113,6 +113,10 @@ class App {
         // sockets connection
 
         connectToSockets()
+
+        // setup DB
+
+        SpartaDB.instance.setup()
 
         // identify
 

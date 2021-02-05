@@ -10,7 +10,7 @@ import SpartaHelpers
 
 enum UIBarButtonItemFactory {
 
-    static func logoButton(onTap: TypeClosure<UIButton>? = nil) -> UIBarButtonItem {
+    static func logoButton(title: String, onTap: TypeClosure<UIButton>? = nil) -> UIBarButtonItem {
 
         let button = TappableButton(type: .system).then { v in
 
@@ -22,7 +22,26 @@ enum UIBarButtonItemFactory {
             }
         }
 
-        return UIBarButtonItem(customView: button)
+        let titleLabel = UILabel().then { label in
+
+            label.font = .main(weight: .regular, size: 18)
+            label.textAlignment = .left
+            label.textColor = .primaryText
+            label.text = title
+        }
+
+        let stackView = UIStackView().then { stackView in
+
+            stackView.axis = .horizontal
+            stackView.distribution = .equalSpacing
+            stackView.spacing = 15
+            stackView.alignment = .center
+
+            stackView.addArrangedSubview(button)
+            stackView.addArrangedSubview(titleLabel)
+        }
+
+        return UIBarButtonItem(customView: stackView)
     }
 
     static func tradeButton(onTap: TypeClosure<UIButton>? = nil) -> UIBarButtonItem {

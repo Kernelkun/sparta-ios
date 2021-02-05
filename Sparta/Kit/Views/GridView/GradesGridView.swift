@@ -9,8 +9,8 @@ import UIKit
 
 protocol GradesGridViewDataSource: class {
     func gradesGridViewCollectionNumberOfRows() -> Int
-    func gradesGridViewCollectionTitle(for row: Int) -> String
-    func gradesGridViewTableTitle() -> String?
+    func gradesGridViewCollectionTitle(for row: Int) -> NSAttributedString?
+    func gradesGridViewTableTitle() -> NSAttributedString?
 }
 
 class GradesGridView: UIView {
@@ -49,10 +49,10 @@ class GradesGridView: UIView {
 
     func reloadData() {
         for (row, gridCell) in gradesStackView.arrangedSubviews.enumerated() {
-            (gridCell as? GradeTitleView)?.apply(title: dataSource?.gradesGridViewCollectionTitle(for: row) ?? "")
+            (gridCell as? GradeTitleView)?.apply(text: dataSource?.gradesGridViewCollectionTitle(for: row))
         }
 
-        tableGradeView.apply(title: dataSource?.gradesGridViewTableTitle() ?? "")
+        tableGradeView.apply(text: dataSource?.gradesGridViewTableTitle())
     }
 
     // MARK: - Private methods
@@ -65,7 +65,7 @@ class GradesGridView: UIView {
 
             view.backgroundColor = UIGridViewConstants.evenLineBackgroundColor
 
-            tableGradeView = GradeTitleView()
+            tableGradeView = GradeTitleView(insets: .init(top: 0, left: 8, bottom: 0, right: 0))
             view.addSubview(tableGradeView) {
                 $0.edges.equalToSuperview()
             }
@@ -100,7 +100,7 @@ class GradesGridView: UIView {
             stackView.alignment = .leading
 
             for _ in 0..<constructor.rowsCount {
-                let gridCell = GradeTitleView()
+                let gridCell = GradeTitleView(insets: .zero)
                 stackView.addArrangedSubview(gridCell)
 
                 gridCell.snp.makeConstraints {

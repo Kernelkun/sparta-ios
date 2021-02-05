@@ -5,6 +5,7 @@
 //  Created by Yaroslav Babalich on 30.11.2020.
 //
 
+import UIKit.UIColor
 import Foundation
 
 public extension Int {
@@ -38,6 +39,19 @@ public extension Double {
         return formatter.string(from: NSNumber(value: self)) ?? String(self)
     }
 
+    var toDisplayFormattedString: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.allowsFloats = true
+//        formatter.zeroSymbol = nil
+        formatter.decimalSeparator = "."
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        formatter.locale = Locale(identifier: "en")
+        formatter.positivePrefix = "+"
+        return formatter.string(from: NSNumber(value: self)) ?? String(self)
+    }
+
     var toFormattedPercentageString: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
@@ -61,6 +75,21 @@ public extension Double {
     func roundedString(to places: Int) -> String {
         String(format: "%.\(places)f", self)
     }
+
+    // appropriate color
+
+    var color: UIColor {
+        switch self {
+        case let digit where digit > 0:
+            return .numberGreen
+
+        case let digit where digit < 0:
+            return .numberRed
+
+        default:
+            return .numberGray
+        }
+    }
 }
 
 public extension String {
@@ -74,7 +103,7 @@ public extension String {
     }
 
     var numberString: String? {
-        guard let regex = try? NSRegularExpression(pattern: "[^0-9.]", options: .caseInsensitive) else { return nil }
+        guard let regex = try? NSRegularExpression(pattern: "[^-+0-9.]", options: .caseInsensitive) else { return nil }
 
         return regex.stringByReplacingMatches(in: self,
                                               options: NSRegularExpression.MatchingOptions(rawValue: 0),
@@ -84,5 +113,9 @@ public extension String {
 
     var toNumberFormattedString: String? {
         Double(self)?.toFormattedString
+    }
+
+    var isNumeric: Bool {
+        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 }

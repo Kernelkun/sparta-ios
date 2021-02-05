@@ -1,5 +1,5 @@
 //
-//  ArbsDeliveryPriceCollectionViewCell.swift
+//  ArbsUserMarginCollectionViewCell.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 04.01.2021.
@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
+class ArbsUserMarginCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
@@ -26,7 +26,10 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
 
     private var lastPriceCode: String!
     private var _tapClosure: TypeClosure<IndexPath>?
-    private var indexPath: IndexPath!
+
+    // MARK: - Public accessors
+    
+    var indexPath: IndexPath!
 
     // MARK: - Initializers
 
@@ -63,7 +66,7 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
         self.indexPath = indexPath
 
         updateUI(for: arb)
-        observeArbs(for: arb.gradeCode)
+        observeArbs(arb)
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -81,25 +84,25 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
 
         firstLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textAlignment = .right
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
         secondLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textAlignment = .right
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
         thirdLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .center
-            label.textColor = .secondaryText
-            label.font = .main(weight: .regular, size: 14)
+            label.textAlignment = .right
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
         }
 
@@ -112,7 +115,7 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
             stackView.axis = .vertical
             stackView.alignment = .center
             stackView.spacing = 4
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .equalSpacing
 
             contentView.addSubview(stackView) {
                 $0.center.equalToSuperview()
@@ -140,24 +143,24 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
         if months.count >= 1 {
             let month = arb.months[0]
 
-            firstLabel.text = month.deliveredPrice.value.value
-            firstLabel.textColor = month.deliveredPrice.value.valueColor
+            firstLabel.text = month.calculatedUserMargin?.toDisplayFormattedString ?? " "
+            firstLabel.textColor = month.calculatedUserMargin?.color ?? .numberGray
             firstLabel.setKey(month.name)
         }
 
         if months.count >= 2 {
             let month = arb.months[1]
 
-            secondLabel.text = month.deliveredPrice.value.value
-            secondLabel.textColor = month.deliveredPrice.value.valueColor
+            secondLabel.text = month.calculatedUserMargin?.toDisplayFormattedString ?? " "
+            secondLabel.textColor = month.calculatedUserMargin?.color ?? .numberGray
             secondLabel.setKey(month.name)
         }
 
         if months.count >= 3 {
             let month = arb.months[2]
 
-            thirdLabel.text = month.deliveredPrice.value.value
-            thirdLabel.textColor = month.deliveredPrice.value.valueColor
+            thirdLabel.text = month.calculatedUserMargin?.toDisplayFormattedString ?? " "
+            thirdLabel.textColor = month.calculatedUserMargin?.color ?? .numberGray
             thirdLabel.setKey(month.name)
         }
     }
@@ -170,7 +173,7 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension ArbsDeliveryPriceCollectionViewCell: ArbsObserver {
+extension ArbsUserMarginCollectionViewCell: ArbsObserver {
 
     func arbsDidReceiveResponse(for arb: Arb) {
         onMainThread {

@@ -34,7 +34,7 @@ class LimitedTextField: UITextField {
         didSet {
             switch enterType {
             case .numberLimit(range: _):
-                keyboardType = .numberPad
+                keyboardType = .numbersAndPunctuation
             default: return
             }
         }
@@ -186,6 +186,9 @@ extension LimitedTextField: UITextFieldDelegate {
             }
 
         case .numberLimit(range: let numberLimit):
+
+            let validPrefixes = ["-", "+"]
+
             let nsStringText = text as NSString
             var newString = nsStringText.replacingCharacters(in: range, with: string)
 
@@ -193,9 +196,23 @@ extension LimitedTextField: UITextFieldDelegate {
                 newString = "0"
             }
 
-            if let number = Double(makeOnlyDigitsString(string: newString)) {
+            let prefix = String(newString.prefix(1))
+
+            if let number = Double(makeOnlyDigitsString(string: newString)), Double(newString) != nil {
+
+                if validPrefixes.contains(prefix),
+                   let newNumber = (prefix + number.toString).toDouble {
+
+                    return numberLimit.contains(newNumber)
+                }
+
                 return numberLimit.contains(number)
             } else {
+
+                if newString.count == 1, validPrefixes.contains(prefix) {
+                    return true
+                }
+
                 return false
             }
 

@@ -18,7 +18,13 @@ public struct Arb: BackendModel {
     public let routeCode: String
     public let dischargePortName: String
     public let escalation: String
+    public let freightType: String
     public var months: [ArbMonth]
+
+    // use this identifier to identify this object as unique
+    public var uniqueIdentifier: String {
+        grade + gradeCode + routeCode
+    }
 
     //
     // MARK: - Default Initializers
@@ -30,12 +36,13 @@ public struct Arb: BackendModel {
         dischargePortName = json["dischargePortName"].stringValue
         escalation = json["escalation"].stringValue
         months = json["months"].arrayValue.compactMap { ArbMonth(json: $0) }
+        freightType = json["freight"].dictionaryValue["vessel"]?.dictionaryValue["type"]?.stringValue ?? ""
     }
 }
 
 extension Arb: Equatable {
 
     public static func ==(lhs: Arb, rhs: Arb) -> Bool {
-        lhs.gradeCode.lowercased() == rhs.gradeCode.lowercased()
+        lhs.uniqueIdentifier == rhs.uniqueIdentifier
     }
 }

@@ -86,25 +86,26 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton()
-//        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.tradeButton(onTap: { _ in
-//            self.navigationController?.pushViewController(LiveChartsViewController(), animated: true)
-//        })
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Live Curves")
+
+        /*navigationItem.rightBarButtonItem = UIBarButtonItemFactory.tradeButton(onTap: { _ in
+            self.navigationController?.pushViewController(LiveChartsViewController(), animated: true)
+        })*/
     }
 }
 
 extension LiveCurvesViewController: GridViewDataSource {
 
-    func gradeTitleForColectionView(at row: Int) -> String {
+    func gradeTitleForColectionView(at row: Int) -> NSAttributedString? {
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
-            return title
-        } else { return "" }
+            return NSAttributedString(string: title)
+        } else { return nil }
     }
 
-    func gradeTitleForTableView() -> String? {
+    func gradeTitleForTableView() -> NSAttributedString? {
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableGrade {
-            return title
-        } else { return "" }
+            return NSAttributedString(string: title)
+        } else { return nil }
     }
 
     func numberOfSections() -> Int {

@@ -54,4 +54,3 @@ extension Validator {
         return true
     }
 }
-

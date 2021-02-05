@@ -49,7 +49,7 @@ class ArbsSyncManager {
 
     // MARK: - Initializers
 
-    init() {
+    fileprivate init() {
         observeSocket(for: .arbs)
     }
 
@@ -80,6 +80,22 @@ class ArbsSyncManager {
             }
         }
     }
+
+    func notifyAboutUpdated(arbMonth: ArbMonth) {
+        if let arbIndex = _arbs.firstIndex(where: { $0.months.contains(arbMonth) }),
+           let indexOfMonth = _arbs[arbIndex].months.firstIndex(of: arbMonth) {
+
+            lastSyncDate = Date()
+
+            _arbs[arbIndex].months[indexOfMonth].update(from: arbMonth)
+
+            notifyObservers(about: _arbs[arbIndex])
+
+            onMainThread {
+                self.delegate?.arbsSyncManagerDidReceiveUpdates(for: self._arbs[arbIndex])
+            }
+        }
+    }
 }
 extension ArbsSyncManager: SocketActionObserver {
 
@@ -91,18 +107,6 @@ extension ArbsSyncManager: SocketActionObserver {
 
         let arbMonth = ArbMonth(json: arbSocket.payload)
 
-        if let arbIndex = _arbs.firstIndex(where: { $0.months.contains(arbMonth) }),
-           let indexOfMonth = _arbs[arbIndex].months.firstIndex(of: arbMonth) {
-
-            lastSyncDate = Date()
-
-            _arbs[arbIndex].months[indexOfMonth] = arbMonth
-
-            notifyObservers(about: _arbs[arbIndex])
-
-            onMainThread {
-                self.delegate?.arbsSyncManagerDidReceiveUpdates(for: self._arbs[arbIndex])
-            }
-        }
+        notifyAboutUpdated(arbMonth: arbMonth)
     }
 }

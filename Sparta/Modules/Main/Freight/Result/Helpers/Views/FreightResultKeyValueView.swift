@@ -46,7 +46,6 @@ class FreightResultKeyValueView: UIView {
             label.font = .main(weight: .regular, size: 17)
             label.textColor = .accountMainText
             label.textAlignment = .center
-            label.text = "Lumpsum"
 
             addSubview(label) {
                 $0.left.equalToSuperview().offset(8)
@@ -59,7 +58,6 @@ class FreightResultKeyValueView: UIView {
             label.font = .main(weight: .regular, size: 17)
             label.textColor = .accountMainText
             label.textAlignment = .center
-            label.text = "1500 $"
 
             addSubview(label) {
                 $0.right.equalToSuperview().inset(8)

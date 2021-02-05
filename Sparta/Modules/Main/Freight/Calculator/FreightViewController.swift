@@ -116,7 +116,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton()
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Freight")
     }
 
     private func setupMonthViews(in contentView: UIView) -> UIView {

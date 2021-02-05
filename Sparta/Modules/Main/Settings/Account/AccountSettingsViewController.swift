@@ -122,7 +122,10 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
         let changePasswordView = LineButtonView(title: "Change Password").then { view in
 
             view.onTap { [unowned self] in
-                self.navigationController?.pushViewController(ChangePasswordViewController(), animated: true)
+                let vc = ChangePasswordViewController(state: .secondary)
+                vc.coordinatorDelegate = self
+
+                self.navigationController?.pushViewController(vc, animated: true)
             }
 
             addSubview(view) {
@@ -386,6 +389,13 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
                 $0.left.equalTo(portField).offset(3)
             }
         }
+    }
+}
+
+extension AccountSettingsViewController: ChangePasswordViewCoordinatorDelegate {
+
+    func changePasswordViewControllerDidFinish(_ controller: ChangePasswordViewController) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

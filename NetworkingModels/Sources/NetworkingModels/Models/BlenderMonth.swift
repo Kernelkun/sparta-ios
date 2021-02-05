@@ -49,13 +49,13 @@ public struct BlenderMonth: BackendModel {
 extension BlenderMonth {
 
     public var textColor: UIColor {
-        switch color {
-        case "RED":
-            return .red
-        case "GREEN":
-            return .green
+        switch color.lowercased() {
+        case "red":
+            return .numberRed
+        case "green":
+            return .numberGreen
         default:
-            return .gray
+            return .numberGray
         }
     }
 }

@@ -9,6 +9,7 @@ import UIKit
 import Networking
 import SwiftyJSON
 import NetworkingModels
+import SpartaHelpers
 
 protocol ArbsViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
@@ -22,8 +23,8 @@ class ArbsViewModel: NSObject, BaseViewModel {
 
     weak var delegate: ArbsViewModelDelegate?
 
-    var tableGrade: Cell = .grade(title: "ARB")
-    var collectionGrades: [Cell] = [.deliveryMonth, .blendCost, .freight, .deliveryPrice]
+    var tableGrade: Cell = .arb
+    var collectionGrades: [Cell] = [.status, .deliveryMonth, .deliveryPrice, .userTgt, .userMargin]
 
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
@@ -51,18 +52,32 @@ class ArbsViewModel: NSObject, BaseViewModel {
     // MARK: - Private methods
 
     private func createTableDataSource(from arbs: [Arb]) -> [Cell] {
+        arbs.compactMap {
 
-        arbs.compactMap { .grade(title: $0.grade + "\n" + $0.dischargePortName) }
+            let gradeName = $0.grade.generateShortIfNeeded(maxSymbols: 17)
+            let dischargePortName = $0.dischargePortName
+            let freightType = $0.freightType
+            let fullString: NSString = gradeName + "\n" + dischargePortName + "\n" + freightType as NSString
 
-//        Dictionary(grouping: arbs, by: {  }).keys.compactMap { key -> Cell in
-//
-//        }
+            let attributedString = NSMutableAttributedString(string: fullString as String)
+
+            attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 13)],
+                                           range: fullString.range(of: gradeName))
+
+            attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 11)],
+                                           range: fullString.range(of: dischargePortName))
+
+            attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 11)],
+                                           range: fullString.range(of: freightType))
+
+            return .grade(attributedString: attributedString)
+        }
     }
 
     private func createCollectionDataSource(from arbs: [Arb]) -> [Section] {
 //        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
 
-        arbs.compactMap { .init(name: $0.grade, cells: [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]) }
+        arbs.compactMap { .init(name: $0.grade, cells: [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]) }
 
 //        return Dictionary(grouping: arbs, by: { $0.grade }).compactMap { key, value -> Section in
 //
@@ -174,42 +189,9 @@ extension ArbsViewModel: ArbsSyncManagerDelegate {
     }
 }
 
-extension ArbsViewModel {
-
-    enum Cell {
-        case grade(title: String)
-        case info(arb: Arb)
-
-        static func emptyGrade() -> Cell { .grade(title: "") }
-
-        static var deliveryMonth: Cell { .grade(title: "Load/Delivery\nMonth") }
-        static var blendCost: Cell { .grade(title: "Blend\nCost") }
-        static var freight: Cell { .grade(title: "Freight") }
-        static var deliveryPrice: Cell { .grade(title: "Delivery\nPrice") }
-    }
-
-    struct Section {
-        let name: String
-        var cells: [Cell]
-    }
-}
-
 extension ArbsViewModel.Section: Equatable {
 
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.name.lowercased() == rhs.name.lowercased()
-    }
-}
-
-extension ArbsViewModel.Cell: Equatable {
-
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        if case let ArbsViewModel.Cell.grade(leftGrade) = lhs,
-           case let ArbsViewModel.Cell.grade(rightGrade) = rhs {
-
-            return leftGrade.lowercased() == rightGrade.lowercased()
-        } else {
-            return false
-        }
     }
 }

@@ -21,7 +21,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     override func loadView() {
         let constructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
                                                        gradeHeight: 50,
-                                                       collectionColumnWidth: 90,
+                                                       collectionColumnWidth: 65,
                                                        tableColumnWidth: 130)
 
         gridView = GridView(constructor: constructor)
@@ -49,12 +49,6 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         // view model
 
         viewModel.loadData()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-//        viewModel.stopLoadData()0
     }
 
     // MARK: - Private methods
@@ -86,22 +80,22 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton()
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "ARBs")
     }
 }
 
 extension ArbsViewController: GridViewDataSource {
 
-    func gradeTitleForColectionView(at row: Int) -> String {
+    func gradeTitleForColectionView(at row: Int) -> NSAttributedString? {
         if case let ArbsViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
             return title
-        } else { return "" }
+        } else { return nil }
     }
 
-    func gradeTitleForTableView() -> String? {
+    func gradeTitleForTableView() -> NSAttributedString? {
         if case let ArbsViewModel.Cell.grade(title) = viewModel.tableGrade {
             return title
-        } else { return "" }
+        } else { return nil }
     }
 
     func numberOfSections() -> Int {
@@ -121,10 +115,19 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
-        let cell: LiveCurveGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: ArbsGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         if case let ArbsViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
-            cell.apply(title: title, for: indexPath)
+            cell.apply(text: title, for: indexPath)
+
+            cell.onTap { [unowned self] indexPath in
+
+                let cellInfo = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
+
+                if case let ArbsViewModel.Cell.info(arb) = cellInfo {
+                    self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
+                }
+            }
         }
 
         return cell
@@ -139,33 +142,52 @@ extension ArbsViewController: GridViewDataSource {
             return UICollectionViewCell()
         }
 
-        switch gradeType {
-        case .deliveryMonth:
-            let cell: ArbsDeliveryMonthCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-
+        func fillCell(_ cell: ArbTappableCell) {
             cell.apply(arb: arb, for: indexPath)
+
+            cell.onTap { [unowned self] indexPath in
+
+                let cellInfo = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
+
+                if case let ArbsViewModel.Cell.info(arb) = cellInfo {
+                    self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
+                }
+            }
+        }
+
+        switch gradeType {
+        case .status:
+            let cell: ArbsStatusCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+
+            fillCell(cell)
 
             return cell
 
-        case .blendCost:
+        case .deliveryMonth:
+            let cell: ArbsDeliveryMonthCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            let cell: ArbsBlendCostCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-
-            cell.apply(arb: arb, for: indexPath)
+            fillCell(cell)
 
             return cell
 
         case .deliveryPrice:
             let cell: ArbsDeliveryPriceCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(arb: arb, for: indexPath)
+            fillCell(cell)
 
             return cell
 
-        case .freight:
-            let cell: ArbsFreightCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+        case .userTgt:
+            let cell: ArbsUserTgtCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-            cell.apply(arb: arb, for: indexPath)
+            fillCell(cell)
+
+            return cell
+
+        case .userMargin:
+            let cell: ArbsUserMarginCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+
+            fillCell(cell)
 
             return cell
 

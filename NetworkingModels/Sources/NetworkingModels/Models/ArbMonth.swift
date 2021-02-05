@@ -19,21 +19,26 @@ public struct ArbMonth: BackendModel {
     public let isDisabled: Bool
     public let dischargePortName: String
     public let freight: Freight
-    public let blenderCost: ColoredNumber
+    public private(set) var blenderCost: ColoredNumber
     public let seasonality: String
     public let costIncluded: String
     public let incoterms: String
-    public let gasMinusNaphtha: ColoredNumber
+    public private(set) var gasMinusNaphtha: ColoredNumber
     public let quantities: Quantities
-    public let taArb: String
-    public let ew: String
+    public private(set) var taArb: ColoredNumber?
+    public private(set) var ew: ColoredNumber?
     public let lumpsum: Double
     public let freightRate: Double
-    public let deliveredPrice: DeliveredPrice
-    public let genericBlenderMargin: ColoredNumber
-    public let genericBlenderMarginChangeOnDay: ColoredNumber
-    public let pseudoFobRefinery: ColoredNumber
-    public let pseudoCifRefinery: String
+    public private(set) var deliveredPrice: DeliveredPrice?
+    public private(set) var genericBlenderMargin: ColoredNumber?
+    public private(set) var genericBlenderMarginChangeOnDay: ColoredNumber?
+    public private(set) var pseudoFobRefinery: ColoredNumber?
+    public private(set) var pseudoCifRefinery: ColoredNumber?
+
+    // use this identifier to identify this object as unique
+    public var uniqueIdentifier: String {
+        name + gradeCode + routeCode
+    }
 
     //
     // MARK: - Default Initializers
@@ -41,7 +46,7 @@ public struct ArbMonth: BackendModel {
     public init(json: JSON) {
         name = json["monthName"].stringValue
         gradeCode = json["gradeCode"].stringValue
-        routeCode = json["routeCode"].stringValue
+        routeCode = json["routeCode"].stringValue 
         isDisabled = json["disabled"].boolValue
         dischargePortName = json["dischargePortName"].stringValue
         freight = Freight(json: json["freight"])
@@ -51,23 +56,58 @@ public struct ArbMonth: BackendModel {
         incoterms = json["incoterms"].stringValue
         gasMinusNaphtha = ColoredNumber(json: json["gasMinusNaphtha"])
         quantities = Quantities(json: json["quantities"])
-        taArb = json["taArb"].stringValue
-        ew = json["ew"].stringValue
+
+        if json["taArb"].dictionary != nil {
+            taArb = ColoredNumber(json: json["taArb"])
+        } else { taArb = nil }
+
         lumpsum = json["lumpsum"].doubleValue
         freightRate = json["freightRate"].doubleValue
-        deliveredPrice = DeliveredPrice(json: json["deliveredPrice"])
-        genericBlenderMargin = ColoredNumber(json: json["genericBlenderMargin"])
-        genericBlenderMarginChangeOnDay = ColoredNumber(json: json["genericBlenderMarginChangeOnDay"])
-        pseudoFobRefinery = ColoredNumber(json: json["pseudoFobRefinery"])
-        pseudoCifRefinery = json["pseudoCifRefinery"].stringValue
+
+        if json["deliveredPrice"].dictionary != nil {
+            deliveredPrice = DeliveredPrice(json: json["deliveredPrice"])
+        } else { deliveredPrice = nil }
+
+        if json["genericBlenderMargin"].dictionary != nil {
+            genericBlenderMargin = ColoredNumber(json: json["genericBlenderMargin"])
+        } else { genericBlenderMargin = nil }
+
+        if json["ew"].dictionary != nil {
+            ew = ColoredNumber(json: json["ew"])
+        } else { ew = nil }
+
+        if json["genericBlenderMarginChangeOnDay"].dictionary != nil {
+            genericBlenderMarginChangeOnDay = ColoredNumber(json: json["genericBlenderMarginChangeOnDay"])
+        } else { genericBlenderMarginChangeOnDay = nil }
+
+        if json["pseudoFobRefinery"].dictionary != nil {
+            pseudoFobRefinery = ColoredNumber(json: json["pseudoFobRefinery"])
+        } else { pseudoFobRefinery = nil }
+
+        if json["pseudoCifRefinery"].dictionary != nil {
+            pseudoCifRefinery = ColoredNumber(json: json["pseudoCifRefinery"])
+        } else {  pseudoCifRefinery = nil }
+    }
+
+    // MARK: - Public methods
+
+    public mutating func update(from newMonth: ArbMonth) {
+        blenderCost = newMonth.blenderCost
+        gasMinusNaphtha = newMonth.gasMinusNaphtha
+        taArb = newMonth.taArb
+        deliveredPrice = newMonth.deliveredPrice
+        genericBlenderMargin = newMonth.genericBlenderMargin
+        genericBlenderMarginChangeOnDay = newMonth.genericBlenderMarginChangeOnDay
+        pseudoFobRefinery = newMonth.pseudoFobRefinery
+        pseudoCifRefinery = newMonth.pseudoCifRefinery
+        ew = newMonth.ew
     }
 }
 
 extension ArbMonth: Equatable {
 
     public static func ==(lhs: ArbMonth, rhs: ArbMonth) -> Bool {
-        lhs.gradeCode.lowercased() == rhs.gradeCode.lowercased()
-            && lhs.name.lowercased() == rhs.name.lowercased()
+        lhs.uniqueIdentifier == rhs.uniqueIdentifier
     }
 }
 
@@ -109,6 +149,7 @@ public extension ArbMonth {
         public let isDisabled: Bool
         public let dischargePortName: String
         public let routeType: RouteType
+        public let freightRate: Double
 
         //
         // MARK: - Default Initializers
@@ -120,6 +161,7 @@ public extension ArbMonth {
             isDisabled = json["disabled"].boolValue
             dischargePortName = json["dischargePortName"].stringValue
             routeType = RouteType(json: json["routeType"])
+            freightRate = json["freightRate"].doubleValue
         }
     }
 }
