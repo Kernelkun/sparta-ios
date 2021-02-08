@@ -16,6 +16,9 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell, ArbTappableCell
     private var firstLabel: UILabel!
     private var secondLabel: UILabel!
     private var thirdLabel: UILabel!
+    private var fourthLabel: UILabel!
+    private var fifthLabel: UILabel!
+    private var sixLabel: UILabel!
     private var bottomLine: UIView!
 
     // MARK: - Private properties
@@ -68,6 +71,18 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell, ArbTappableCell
         if months.count >= 3 {
             thirdLabel.text = arb.months[2].name
         }
+
+        if months.count >= 4 {
+            fourthLabel.text = arb.months[3].name
+        }
+
+        if months.count >= 5 {
+            fifthLabel.text = arb.months[4].name
+        }
+
+        if months.count >= 6 {
+            sixLabel.text = arb.months[5].name
+        }
     }
 
     func onTap(completion: @escaping TypeClosure<IndexPath>) {
@@ -107,11 +122,38 @@ class ArbsDeliveryMonthCollectionViewCell: UICollectionViewCell, ArbTappableCell
             label.isUserInteractionEnabled = true
         }
 
+        fourthLabel = UILabel().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        fifthLabel = UILabel().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        sixLabel = UILabel().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
         _ = UIStackView().then { stackView in
 
             stackView.addArrangedSubview(firstLabel)
             stackView.addArrangedSubview(secondLabel)
             stackView.addArrangedSubview(thirdLabel)
+            stackView.addArrangedSubview(fourthLabel)
+            stackView.addArrangedSubview(fifthLabel)
+            stackView.addArrangedSubview(sixLabel)
 
             stackView.axis = .vertical
             stackView.alignment = .center

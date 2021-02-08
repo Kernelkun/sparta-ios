@@ -13,10 +13,17 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
-    private var firstLabel: UILabel!
-    private var secondLabel: UILabel!
-    private var thirdLabel: UILabel!
+    private var firstLabel: KeyedLabel<String>!
+    private var secondLabel: KeyedLabel<String>!
+    private var thirdLabel: KeyedLabel<String>!
+    private var fourthLabel: KeyedLabel<String>!
+    private var fifthLabel: KeyedLabel<String>!
+    private var sixLabel: KeyedLabel<String>!
     private var bottomLine: UIView!
+
+    private var labels: [KeyedLabel<String>] {
+        [firstLabel, secondLabel, thirdLabel, fourthLabel, fifthLabel, sixLabel]
+    }
 
     // MARK: - Private properties
 
@@ -61,7 +68,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     func apply(arb: Arb, for indexPath: IndexPath) {
         self.indexPath = indexPath
 
-        updateUI(for: arb)
+        setupUI(for: arb)
         observeArbs(arb)
     }
 
@@ -78,7 +85,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
 
-        firstLabel = UILabel().then { label in
+        firstLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .left
             label.textColor = .tablePoint
@@ -86,7 +93,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             label.isUserInteractionEnabled = true
         }
 
-        secondLabel = UILabel().then { label in
+        secondLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .left
             label.textColor = .tablePoint
@@ -94,7 +101,31 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             label.isUserInteractionEnabled = true
         }
 
-        thirdLabel = UILabel().then { label in
+        thirdLabel = KeyedLabel<String>().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        fourthLabel = KeyedLabel<String>().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        fifthLabel = KeyedLabel<String>().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        sixLabel = KeyedLabel<String>().then { label in
 
             label.textAlignment = .center
             label.textColor = .tablePoint
@@ -107,6 +138,9 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             stackView.addArrangedSubview(firstLabel)
             stackView.addArrangedSubview(secondLabel)
             stackView.addArrangedSubview(thirdLabel)
+            stackView.addArrangedSubview(fourthLabel)
+            stackView.addArrangedSubview(fifthLabel)
+            stackView.addArrangedSubview(sixLabel)
 
             stackView.axis = .vertical
             stackView.alignment = .center
@@ -134,22 +168,27 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
     }
 
-    private func updateUI(for arb: Arb) {
+    private func setupUI(for arb: Arb) {
         let months = arb.months
 
-        if months.count >= 1 {
-            let month = arb.months[0]
-            firstLabel.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
-        }
+        for (index, label) in labels.enumerated() {
 
-        if months.count >= 2 {
-            let month = arb.months[1]
-            secondLabel.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
-        }
+            if months.count >= index {
+                let month = arb.months[index]
 
-        if months.count >= 3 {
-            let month = arb.months[2]
-            thirdLabel.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
+                label.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
+                label.setKey(month.uniqueIdentifier)
+            } else {
+                label.text = " "
+            }
+        }
+    }
+
+    private func updateUI(for arb: Arb) {
+        arb.months.forEach { month in
+            guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
+
+            label.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
         }
     }
 

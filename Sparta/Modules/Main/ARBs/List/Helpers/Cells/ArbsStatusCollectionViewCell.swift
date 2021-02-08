@@ -93,7 +93,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
             stackView.axis = .vertical
             stackView.alignment = .center
-            stackView.spacing = 6
+            stackView.spacing = 9
             stackView.distribution = .equalCentering
 
             contentView.addSubview(stackView) {

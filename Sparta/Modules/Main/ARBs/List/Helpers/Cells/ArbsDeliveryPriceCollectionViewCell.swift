@@ -16,10 +16,13 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell, ArbTappableCell
     private var firstLabel: KeyedLabel<String>!
     private var secondLabel: KeyedLabel<String>!
     private var thirdLabel: KeyedLabel<String>!
+    private var fourthLabel: KeyedLabel<String>!
+    private var fifthLabel: KeyedLabel<String>!
+    private var sixLabel: KeyedLabel<String>!
     private var bottomLine: UIView!
 
     private var labels: [KeyedLabel<String>] {
-        [firstLabel, secondLabel, thirdLabel]
+        [firstLabel, secondLabel, thirdLabel, fourthLabel, fifthLabel, sixLabel]
     }
 
     // MARK: - Private properties
@@ -65,7 +68,7 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell, ArbTappableCell
     func apply(arb: Arb, for indexPath: IndexPath) {
         self.indexPath = indexPath
 
-        updateUI(for: arb)
+        setupUI(for: arb)
         observeArbs(arb)
     }
 
@@ -106,11 +109,38 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell, ArbTappableCell
             label.isUserInteractionEnabled = true
         }
 
+        fourthLabel = KeyedLabel<String>().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        fifthLabel = KeyedLabel<String>().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
+        sixLabel = KeyedLabel<String>().then { label in
+
+            label.textAlignment = .center
+            label.textColor = .tablePoint
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+        }
+
         _ = UIStackView().then { stackView in
 
             stackView.addArrangedSubview(firstLabel)
             stackView.addArrangedSubview(secondLabel)
             stackView.addArrangedSubview(thirdLabel)
+            stackView.addArrangedSubview(fourthLabel)
+            stackView.addArrangedSubview(fifthLabel)
+            stackView.addArrangedSubview(sixLabel)
 
             stackView.axis = .vertical
             stackView.alignment = .center
@@ -137,31 +167,30 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell, ArbTappableCell
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
     }
 
-    private func updateUI(for arb: Arb) {
+    private func setupUI(for arb: Arb) {
         let months = arb.months
 
-        if months.count >= 1 {
-            let month = arb.months[0]
+        for (index, label) in labels.enumerated() {
 
-            firstLabel.text = month.deliveredPrice?.value.value ?? "-"
-            firstLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
-            firstLabel.setKey(month.name)
+            if months.count >= index {
+                let month = arb.months[index]
+
+                label.text = month.deliveredPrice?.value.value ?? "-"
+                label.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
+                label.setKey(month.uniqueIdentifier)
+            } else {
+                label.text = "-"
+                label.textColor = .numberGray
+            }
         }
+    }
 
-        if months.count >= 2 {
-            let month = arb.months[1]
+    private func updateUI(for arb: Arb) {
+        arb.months.forEach { month in
+            guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
 
-            secondLabel.text = month.deliveredPrice?.value.value ?? "-"
-            secondLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
-            secondLabel.setKey(month.name)
-        }
-
-        if months.count >= 3 {
-            let month = arb.months[2]
-
-            thirdLabel.text = month.deliveredPrice?.value.value ?? "-"
-            thirdLabel.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
-            thirdLabel.setKey(month.name)
+            label.text = month.deliveredPrice?.value.value ?? "-"
+            label.textColor = month.deliveredPrice?.value.valueColor ?? .numberGray
         }
     }
 

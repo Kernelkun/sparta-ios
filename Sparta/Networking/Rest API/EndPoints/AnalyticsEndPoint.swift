@@ -46,8 +46,8 @@ extension AnalyticsEndPoint: EndPointType {
 
         case .getArbsTable:
             return .requestParametersAndHeaders(bodyParameters: nil,
-                                                bodyEncoding: .jsonEncoding,
-                                                urlParameters: nil,
+                                                bodyEncoding: .urlEncoding,
+                                                urlParameters: ["arbsMonths": 6],
                                                 additionHeaders: headersWithToken)
 
         case .getFreightPorts:

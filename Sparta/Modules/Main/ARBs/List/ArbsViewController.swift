@@ -103,7 +103,7 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
-        77
+        150
     }
 
     func numberOfRowsForTableView(in section: Int) -> Int {
