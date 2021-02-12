@@ -56,7 +56,10 @@ class ArbDetailContentView: UIView {
                  .fobRefyMargin(let value, let color, let units), .cifRefyMargin(let value, let color, let units),
                  .codBlenderMargin(let value, let color, let units), .ew(let value, let color, let units):
 
-                mainStackView.addArrangedSubview(keyValueUnitsView(title: cell.displayTitle, value: value, color: color, units: units))
+                mainStackView.addArrangedSubview(keyValueUnitsView(title: cell.displayTitle,
+                                                                   value: value,
+                                                                   color: color,
+                                                                   units: units))
 
             case .dlvPriceBasis(let value, let color):
                 mainStackView.addArrangedSubview(keyValueView(title: cell.displayTitle, value: value, color: color))

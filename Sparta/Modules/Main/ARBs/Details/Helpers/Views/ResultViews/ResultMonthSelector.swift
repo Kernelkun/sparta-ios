@@ -66,7 +66,7 @@ class ResultMonthSelector: UIView {
 
             button.clickableInset = -15
             button.tintColor = .primaryText
-            button.setImage(UIImage(named: "ic_arrow_right"), for: .normal)
+            button.setImage(UIImage(named: "ic_arrow_right_bold"), for: .normal)
             button.rotate(degrees: 180)
 
             button.onTap { [unowned self] _ in
@@ -74,8 +74,8 @@ class ResultMonthSelector: UIView {
             }
 
             addSubview(button) {
-                $0.size.equalTo(CGSize(width: 8, height: 13))
-                $0.left.equalToSuperview().offset(6)
+                $0.size.equalTo(CGSize(width: 18, height: 22))
+                $0.left.equalToSuperview().offset(11)
                 $0.centerY.equalToSuperview()
             }
         }
@@ -84,22 +84,22 @@ class ResultMonthSelector: UIView {
 
             button.clickableInset = -15
             button.tintColor = .primaryText
-            button.setImage(UIImage(named: "ic_arrow_right"), for: .normal)
+            button.setImage(UIImage(named: "ic_arrow_right_bold"), for: .normal)
 
             button.onTap { [unowned self] _ in
                 self.delegate?.resultMonthSelectorDidTapRightButton(view: self)
             }
 
             addSubview(button) {
-                $0.size.equalTo(CGSize(width: 8, height: 13))
-                $0.right.equalToSuperview().inset(6)
+                $0.size.equalTo(CGSize(width: 18, height: 22))
+                $0.right.equalToSuperview().inset(11)
                 $0.centerY.equalToSuperview()
             }
         }
 
         monthLabel = UILabel().then { label in
 
-            label.font = .main(weight: .regular, size: 16)
+            label.font = .main(weight: .regular, size: 17.5)
             label.textColor = .primaryText
             label.textAlignment = .center
 
