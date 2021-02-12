@@ -81,7 +81,7 @@ class ArbsGradeTableViewCell: UITableViewCell {
             contentView.addSubview(stackView) {
                 $0.right.equalToSuperview()
                 $0.left.equalToSuperview().offset(8)
-                $0.centerY.equalToSuperview()
+                $0.top.equalToSuperview().offset(10)
             }
         }
 

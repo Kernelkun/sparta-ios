@@ -13,6 +13,7 @@ class ResultKeyInputView: UIView {
     // MARK: - UI
 
     private var keyLabel: UILabel!
+    private var unitsLabel: UILabel!
     var textField: LimitedTextField!
 
     // MARK: - Private properties
@@ -33,8 +34,9 @@ class ResultKeyInputView: UIView {
 
     // MARK: - Public methods
 
-    func apply(key: String, value: String?, onTextChange: @escaping TypeClosure<String>) {
+    func apply(key: String, value: String?, units: String, onTextChange: @escaping TypeClosure<String>) {
         keyLabel.text = key
+        unitsLabel.text = units
         textField.text = value
         _textChangeClosure = onTextChange
     }
@@ -58,6 +60,18 @@ class ResultKeyInputView: UIView {
             }
         }
 
+        unitsLabel = UILabel().then { label in
+
+            label.font = .main(weight: .regular, size: 14)
+            label.textColor = .accountMainText
+            label.textAlignment = .center
+
+            addSubview(label) {
+                $0.right.equalToSuperview().inset(8)
+                $0.centerY.equalToSuperview()
+            }
+        }
+
         textField = LimitedTextField().then { textField in
 
             textField.backgroundColor = .mainBackground
@@ -73,7 +87,7 @@ class ResultKeyInputView: UIView {
             textField.actionDelegate = self
 
             addSubview(textField) {
-                $0.right.equalToSuperview().inset(8)
+                $0.right.equalTo(unitsLabel.snp.left).inset(-16)
                 $0.centerY.equalToSuperview()
                 $0.size.equalTo(CGSize(width: 67, height: 28))
             }

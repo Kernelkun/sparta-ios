@@ -104,30 +104,33 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
     private func loadCellsForSelectedMonth() -> [Cell] {
         var cells: [ArbDetailViewModel.Cell] = [.emptySpace]
 
+        let mainUnit = "$/mt"
+        let ewtaArbUnits = selectedArbMonth.deliveredPrice?.units ?? "$/bbl"
+
         cells.append(.status(position: monthPosition))
 
-        cells.append(contentsOf: [.emptySpace, .target(value: userTarget), .emptySpace])
+        cells.append(contentsOf: [.emptySpace, .target(value: userTarget, units: mainUnit), .emptySpace])
 
         //blender cost
 
-        cells.append(.blendCost(value: selectedArbMonth.blenderCost.value, color: selectedArbMonth.blenderCost.valueColor))
+        cells.append(.blendCost(value: selectedArbMonth.blenderCost.value, color: selectedArbMonth.blenderCost.valueColor, units: mainUnit))
 
         // gas/naphta
 
-        cells.append(.gasNap(value: selectedArbMonth.gasMinusNaphtha.value, color: selectedArbMonth.gasMinusNaphtha.valueColor))
+        cells.append(.gasNap(value: selectedArbMonth.gasMinusNaphtha.value, color: selectedArbMonth.gasMinusNaphtha.valueColor, units: mainUnit))
 
         // freight
 
-        cells.append(.freight(value: selectedArbMonth.freight.freightRate.toFormattedString, color: .gray))
+        cells.append(.freight(value: selectedArbMonth.freight.freightRate.toFormattedString, color: .gray, units: mainUnit))
 
         // ta ARB
 
         if let taArb = selectedArbMonth.taArb {
-            cells.append(.taArb(value: taArb.value, color: taArb.valueColor))
+            cells.append(.taArb(value: taArb.value, color: taArb.valueColor, units: ewtaArbUnits))
         }
 
         if let ewArb = selectedArbMonth.ew {
-            cells.append(.ew(value: ewArb.value, color: ewArb.valueColor))
+            cells.append(.ew(value: ewArb.value, color: ewArb.valueColor, units: ewtaArbUnits))
         }
 
         cells.append(.emptySpace)
@@ -136,7 +139,8 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
 
         if let deliveredPrice = selectedArbMonth.deliveredPrice {
             cells.append(.dlvPrice(value: deliveredPrice.value.value,
-                                   color: deliveredPrice.value.valueColor))
+                                   color: deliveredPrice.value.valueColor,
+                                   units: deliveredPrice.units))
             cells.append(.dlvPriceBasis(value: deliveredPrice.basis, color: .gray))
             cells.append(.emptySpace)
         }
@@ -144,31 +148,32 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
         // my margin
 
         cells.append(.myMargin(value: selectedArbMonth.calculatedUserMargin?.toDisplayFormattedString ?? "-",
-                               color: selectedArbMonth.calculatedUserMargin?.color ?? .numberGray))
+                               color: selectedArbMonth.calculatedUserMargin?.color ?? .numberGray,
+                               units: mainUnit))
 
         // blender margin
 
         if let blenderMargin = selectedArbMonth.genericBlenderMargin {
-            cells.append(.blenderMargin(value: blenderMargin.value, color: blenderMargin.valueColor))
+            cells.append(.blenderMargin(value: blenderMargin.value, color: blenderMargin.valueColor, units: mainUnit))
         }
 
         // pseudoFobRefinery
 
         if let pseudoFobRefinery = selectedArbMonth.pseudoFobRefinery {
-            cells.append(.fobRefyMargin(value: pseudoFobRefinery.value, color: pseudoFobRefinery.valueColor))
+            cells.append(.fobRefyMargin(value: pseudoFobRefinery.value, color: pseudoFobRefinery.valueColor, units: mainUnit))
         }
 
         // pseudoCifRefinery
 
         if let pseudoCifRefinery = selectedArbMonth.pseudoCifRefinery {
-            cells.append(.cifRefyMargin(value: pseudoCifRefinery.value, color: pseudoCifRefinery.valueColor))
+            cells.append(.cifRefyMargin(value: pseudoCifRefinery.value, color: pseudoCifRefinery.valueColor, units: mainUnit))
         }
 
         // blender margin CoD
 
         if let blenderMarginChangeOnDay = selectedArbMonth.genericBlenderMarginChangeOnDay {
             cells.append(.emptySpace)
-            cells.append(.codBlenderMargin(value: blenderMarginChangeOnDay.value, color: blenderMarginChangeOnDay.valueColor))
+            cells.append(.codBlenderMargin(value: blenderMarginChangeOnDay.value, color: blenderMarginChangeOnDay.valueColor, units: mainUnit))
         }
 
         return cells

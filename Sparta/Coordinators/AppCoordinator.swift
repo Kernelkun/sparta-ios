@@ -127,7 +127,7 @@ class AppCoordinator {
             standard.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
 
             let button = UIBarButtonItemAppearance(style: .plain)
-            button.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
+            button.normal.titleTextAttributes = [.foregroundColor: UIColor.controlTintActive]
             standard.buttonAppearance = button
 
             standard.titleTextAttributes = titleAttributes

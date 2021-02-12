@@ -12,19 +12,19 @@ extension ArbDetailViewModel {
 
     enum Cell {
         case status(position: ArbMonth.Position?)
-        case target(value: String?)
-        case blendCost(value: String, color: UIColor)
-        case gasNap(value: String, color: UIColor)
-        case freight(value: String, color: UIColor)
-        case taArb(value: String, color: UIColor)
-        case ew(value: String, color: UIColor)
-        case dlvPrice(value: String, color: UIColor)
+        case target(value: String?, units: String)
+        case blendCost(value: String, color: UIColor, units: String)
+        case gasNap(value: String, color: UIColor, units: String)
+        case freight(value: String, color: UIColor, units: String)
+        case taArb(value: String, color: UIColor, units: String)
+        case ew(value: String, color: UIColor, units: String)
+        case dlvPrice(value: String, color: UIColor, units: String)
         case dlvPriceBasis(value: String, color: UIColor)
-        case myMargin(value: String, color: UIColor)
-        case blenderMargin(value: String, color: UIColor)
-        case fobRefyMargin(value: String, color: UIColor)
-        case cifRefyMargin(value: String, color: UIColor)
-        case codBlenderMargin(value: String, color: UIColor)
+        case myMargin(value: String, color: UIColor, units: String)
+        case blenderMargin(value: String, color: UIColor, units: String)
+        case fobRefyMargin(value: String, color: UIColor, units: String)
+        case cifRefyMargin(value: String, color: UIColor, units: String)
+        case codBlenderMargin(value: String, color: UIColor, units: String)
         case emptySpace
 
         var displayTitle: String {
