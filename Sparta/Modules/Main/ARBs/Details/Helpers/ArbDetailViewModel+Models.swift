@@ -48,7 +48,7 @@ extension ArbDetailViewModel {
                 return "TA Arb"
 
             case .ew:
-                return "E/W Arb"
+                return "E/W"
 
             case .dlvPrice:
                 return "Dlv Price"

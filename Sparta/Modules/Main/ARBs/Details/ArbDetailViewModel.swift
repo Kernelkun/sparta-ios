@@ -104,33 +104,41 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
     private func loadCellsForSelectedMonth() -> [Cell] {
         var cells: [ArbDetailViewModel.Cell] = [.emptySpace]
 
-        let mainUnit = "$/mt"
-        let ewtaArbUnits = selectedArbMonth.deliveredPrice?.units ?? "$/bbl"
+        let mainUnitValue = mainUnit(for: selectedArbMonth)
+        let blendCostUnitValue = blendCostUnit(for: selectedArbMonth)
+        let gasNapUnitValue = gasNapUnit(for: selectedArbMonth)
+        let freightUnitValue = freightUnit(for: selectedArbMonth)
 
         cells.append(.status(position: monthPosition))
 
-        cells.append(contentsOf: [.emptySpace, .target(value: userTarget, units: mainUnit), .emptySpace])
+        cells.append(contentsOf: [.emptySpace, .target(value: userTarget, units: mainUnitValue), .emptySpace])
 
         //blender cost
 
-        cells.append(.blendCost(value: selectedArbMonth.blenderCost.value, color: selectedArbMonth.blenderCost.valueColor, units: mainUnit))
+        cells.append(.blendCost(value: selectedArbMonth.blenderCost.value,
+                                color: selectedArbMonth.blenderCost.valueColor,
+                                units: blendCostUnitValue))
 
         // gas/naphta
 
-        cells.append(.gasNap(value: selectedArbMonth.gasMinusNaphtha.value, color: selectedArbMonth.gasMinusNaphtha.valueColor, units: mainUnit))
+        cells.append(.gasNap(value: selectedArbMonth.gasMinusNaphtha.value,
+                             color: selectedArbMonth.gasMinusNaphtha.valueColor,
+                             units: gasNapUnitValue))
 
         // freight
 
-        cells.append(.freight(value: selectedArbMonth.freight.freightRate.toFormattedString, color: .gray, units: mainUnit))
+        cells.append(.freight(value: selectedArbMonth.freight.freightRate.toFormattedString,
+                              color: .gray,
+                              units: freightUnitValue))
 
         // ta ARB
 
         if let taArb = selectedArbMonth.taArb {
-            cells.append(.taArb(value: taArb.value, color: taArb.valueColor, units: ewtaArbUnits))
+            cells.append(.taArb(value: taArb.value, color: taArb.valueColor, units: mainUnitValue))
         }
 
         if let ewArb = selectedArbMonth.ew {
-            cells.append(.ew(value: ewArb.value, color: ewArb.valueColor, units: ewtaArbUnits))
+            cells.append(.ew(value: ewArb.value, color: ewArb.valueColor, units: mainUnitValue))
         }
 
         cells.append(.emptySpace)
@@ -140,7 +148,7 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
         if let deliveredPrice = selectedArbMonth.deliveredPrice {
             cells.append(.dlvPrice(value: deliveredPrice.value.value,
                                    color: deliveredPrice.value.valueColor,
-                                   units: deliveredPrice.units))
+                                   units: mainUnitValue))
             cells.append(.dlvPriceBasis(value: deliveredPrice.basis, color: .gray))
             cells.append(.emptySpace)
         }
@@ -149,34 +157,66 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
 
         cells.append(.myMargin(value: selectedArbMonth.calculatedUserMargin?.toDisplayFormattedString ?? "-",
                                color: selectedArbMonth.calculatedUserMargin?.color ?? .numberGray,
-                               units: mainUnit))
+                               units: mainUnitValue))
 
         // blender margin
 
         if let blenderMargin = selectedArbMonth.genericBlenderMargin {
-            cells.append(.blenderMargin(value: blenderMargin.value, color: blenderMargin.valueColor, units: mainUnit))
+            cells.append(.blenderMargin(value: blenderMargin.value, color: blenderMargin.valueColor, units: mainUnitValue))
         }
 
         // pseudoFobRefinery
 
         if let pseudoFobRefinery = selectedArbMonth.pseudoFobRefinery {
-            cells.append(.fobRefyMargin(value: pseudoFobRefinery.value, color: pseudoFobRefinery.valueColor, units: mainUnit))
+            cells.append(.fobRefyMargin(value: pseudoFobRefinery.value,
+                                        color: pseudoFobRefinery.valueColor,
+                                        units: mainUnitValue))
         }
 
         // pseudoCifRefinery
 
         if let pseudoCifRefinery = selectedArbMonth.pseudoCifRefinery {
-            cells.append(.cifRefyMargin(value: pseudoCifRefinery.value, color: pseudoCifRefinery.valueColor, units: mainUnit))
+            cells.append(.cifRefyMargin(value: pseudoCifRefinery.value,
+                                        color: pseudoCifRefinery.valueColor,
+                                        units: mainUnitValue))
         }
 
         // blender margin CoD
 
         if let blenderMarginChangeOnDay = selectedArbMonth.genericBlenderMarginChangeOnDay {
             cells.append(.emptySpace)
-            cells.append(.codBlenderMargin(value: blenderMarginChangeOnDay.value, color: blenderMarginChangeOnDay.valueColor, units: mainUnit))
+            cells.append(.codBlenderMargin(value: blenderMarginChangeOnDay.value,
+                                           color: blenderMarginChangeOnDay.valueColor,
+                                           units: mainUnitValue))
         }
 
         return cells
+    }
+
+    // MARK: - Methods for calculating units
+
+    private func mainUnit(for month: ArbMonth) -> String {
+        if month.ew == nil && month.taArb == nil {
+            return "$/mt"
+        } else if month.ew != nil {
+            return "$/bbl"
+        } else if month.taArb != nil {
+            return "cpg"
+        }
+
+        return ""
+    }
+
+    private func blendCostUnit(for month: ArbMonth) -> String {
+        "$/mt"
+    }
+
+    private func gasNapUnit(for month: ArbMonth) -> String {
+        "$/mt"
+    }
+
+    private func freightUnit(for month: ArbMonth) -> String {
+        "$/mt"
     }
 }
 
