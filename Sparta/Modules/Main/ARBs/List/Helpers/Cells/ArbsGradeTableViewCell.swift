@@ -7,8 +7,9 @@
 
 import UIKit
 import SpartaHelpers
+import NetworkingModels
 
-class ArbsGradeTableViewCell: UITableViewCell {
+class ArbsGradeTableViewCell: UICollectionViewCell {
 
     // MARK: - UI
 
@@ -16,72 +17,104 @@ class ArbsGradeTableViewCell: UITableViewCell {
     private var firstDescriptionLabel: UILabel!
     private var secondDescriptionLabel: UILabel!
     private var bottomLine: UIView!
+    private var starButton: StarButton!
 
     // MARK: - Public accessors
 
+    var arb: Arb!
     var indexPath: IndexPath!
 
     // MARK: - Private accessors
 
-    private var _tapClosure: TypeClosure<IndexPath>?
+    private var _tapClosure: TypeClosure<Arb>?
+    private var _tapFavouriteClosure: TypeClosure<Arb>?
 
     // MARK: - Initializers
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         setupUI()
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("ArbsGradeTableViewCell")
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Lifecycle
+
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+
+        if let layoutAttributes = layoutAttributes as? GridViewLayoutAttributes {
+            backgroundColor = layoutAttributes.backgroundColor
+        }
     }
 
     // MARK: - Public methods
 
-    func onTap(completion: @escaping TypeClosure<IndexPath>) {
+    func onToggleFavourite(completion: @escaping TypeClosure<Arb>) {
+        _tapFavouriteClosure = completion
+    }
+
+    func onTap(completion: @escaping TypeClosure<Arb>) {
         _tapClosure = completion
     }
 
-    func apply(text: NSAttributedString, for indexPath: IndexPath) {
-        self.indexPath = indexPath
+    func apply(arb: Arb) {
+        self.arb = arb
 
-        titleLabel.attributedText = text
-
-        if indexPath.section % 2 == 0 { // even
-            backgroundColor = UIGridViewConstants.oddLineBackgroundColor
-        } else { // odd
-            backgroundColor = UIGridViewConstants.evenLineBackgroundColor
-        }
+        setupUI(for: arb)
     }
 
     // MARK: - Private methods
 
     private func setupUI() {
 
-        selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
 
-        titleLabel = UILabel().then { label in
+        starButton = StarButton().then { button in
 
-            label.textAlignment = .left
-            label.textColor = .white
-            label.numberOfLines = 3
-        }
+            button.onTap { [unowned self] button in
+                guard let button = button as? StarButton else { return }
 
-        _ = UIStackView().then { stackView in
+                button.isActive.toggle()
+                self._tapFavouriteClosure?(self.arb)
+            }
 
-            stackView.addArrangedSubview(titleLabel)
-
-            stackView.axis = .vertical
-            stackView.alignment = .leading
-            stackView.spacing = 8
-            stackView.distribution = .fillProportionally
-
-            contentView.addSubview(stackView) {
-                $0.right.equalToSuperview()
+            contentView.addSubview(button) {
+                $0.size.equalTo(19)
                 $0.left.equalToSuperview().offset(8)
                 $0.top.equalToSuperview().offset(10)
+            }
+        }
+
+        _ = TappableView().then { view in
+
+            titleLabel = UILabel().then { label in
+
+                label.textAlignment = .left
+                label.textColor = .white
+                label.numberOfLines = 3
+                label.isUserInteractionEnabled = true
+
+                view.addSubview(label) {
+                    $0.top.equalToSuperview().offset(10)
+                    $0.left.right.equalToSuperview()
+                }
+            }
+
+            view.backgroundColor = .clear
+
+            view.onTap { [unowned self] _ in
+                self._tapClosure?(self.arb)
+            }
+
+            contentView.addSubview(view) {
+                $0.right.equalToSuperview()
+                $0.left.equalTo(starButton.snp.right).offset(8)
+                $0.top.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(CGFloat.separatorWidth)
             }
         }
 
@@ -100,6 +133,30 @@ class ArbsGradeTableViewCell: UITableViewCell {
         setupActions()
     }
 
+    private func setupUI(for arb: Arb) {
+        let gradeName = arb.grade.generateShortIfNeeded(maxSymbols: 17)
+        let dischargePortName = arb.dischargePortName
+        let freightType = arb.freightType
+        let fullString: NSString = gradeName + "\n" + dischargePortName + "\n" + freightType as NSString
+
+        let attributedString = NSMutableAttributedString(string: fullString as String)
+
+        attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 13)],
+                                       range: fullString.range(of: gradeName))
+
+        attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 11)],
+                                       range: fullString.range(of: dischargePortName))
+
+        attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 11)],
+                                       range: fullString.range(of: freightType))
+
+        titleLabel.attributedText = attributedString
+
+        // favourite
+
+        starButton.isActive = arb.isFavourite
+    }
+
     private func setupActions() {
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
     }
@@ -108,6 +165,6 @@ class ArbsGradeTableViewCell: UITableViewCell {
 
     @objc
     private func tapEvent() {
-        _tapClosure?(indexPath)
+
     }
 }

@@ -12,6 +12,7 @@ extension ArbsViewModel {
 
     enum Cell {
         case grade(attributedString: NSAttributedString)
+        case title(arb: Arb)
         case info(arb: Arb)
 
         static var arb: Cell {
@@ -30,7 +31,8 @@ extension ArbsViewModel {
             let title: NSString = "Open\\Close"
             let attributedString = NSMutableAttributedString(string: title as String)
 
-            attributedString.addAttributes([.font: UIFont.main(weight: .regular, size: 10)], range: title.range(of: title as String))
+            attributedString.addAttributes([.font: UIFont.main(weight: .regular, size: 10)],
+                                           range: title.range(of: title as String))
 
             return .grade(attributedString: attributedString)
         }
@@ -54,8 +56,23 @@ extension ArbsViewModel.Cell: Equatable {
            case let ArbsViewModel.Cell.grade(rightGrade) = rhs {
 
             return leftGrade.string.lowercased() == rightGrade.string.lowercased()
-        } else {
-            return false
+        } else if case let ArbsViewModel.Cell.title(leftArb) = lhs,
+                  case let ArbsViewModel.Cell.title(rightArb) = rhs {
+
+            return leftArb.uniqueIdentifier == rightArb.uniqueIdentifier
+        } else if case let ArbsViewModel.Cell.info(leftArb) = lhs,
+                  case let ArbsViewModel.Cell.info(rightArb) = rhs {
+
+            return leftArb.uniqueIdentifier == rightArb.uniqueIdentifier
         }
+
+        return false
+    }
+}
+
+extension ArbsViewModel.Section: Equatable {
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.name.lowercased() == rhs.name.lowercased()
     }
 }

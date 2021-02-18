@@ -57,7 +57,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
         // grid view
-        
+
         gridView.dataSource = self
         gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
@@ -145,7 +145,7 @@ extension BlenderViewController: GridViewDataSource {
         viewModel.monthsCount()
     }
 
-    func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+    func cellForTableView(_ tableView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cellType = viewModel.tableDataSource[indexPath.section]
 
         let cell: BlenderInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)

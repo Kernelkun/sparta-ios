@@ -15,6 +15,7 @@ protocol ArbsViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)
+    func didMoveDataSourceSections(fromIndexes: [Int], toIndexes: [Int])
 }
 
 class ArbsViewModel: NSObject, BaseViewModel {
@@ -49,66 +50,50 @@ class ArbsViewModel: NSObject, BaseViewModel {
         collectionGrades.count
     }
 
-    // MARK: - Private methods
+    func toggleFavourite(arb: Arb) {
+        if let index = fetchedArbs.firstIndex(of: arb) {
 
-    private func createTableDataSource(from arbs: [Arb]) -> [Cell] {
-        arbs.compactMap {
+            fetchedArbs[index].isFavourite.toggle()
 
-            let gradeName = $0.grade.generateShortIfNeeded(maxSymbols: 17)
-            let dischargePortName = $0.dischargePortName
-            let freightType = $0.freightType
-            let fullString: NSString = gradeName + "\n" + dischargePortName + "\n" + freightType as NSString
+            arbsSyncManager.updateFavouriteState(for: fetchedArbs[index])
 
-            let attributedString = NSMutableAttributedString(string: fullString as String)
+            print("ARBDebug: Choosed: \(fetchedArbs[index].grade) - \(fetchedArbs[index].uniqueIdentifier), isFavourite: \(fetchedArbs[index].isFavourite)")
 
-            attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 13)],
-                                           range: fullString.range(of: gradeName))
+            sortArbs()
 
-            attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 11)],
-                                           range: fullString.range(of: dischargePortName))
 
-            attributedString.addAttributes([NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 11)],
-                                           range: fullString.range(of: freightType))
 
-            return .grade(attributedString: attributedString)
+            if let indexes = generateDataSourceUpdates() {
+                onMainThread {
+
+                    print("ARBDebug: Need to move: \(indexes)")
+
+//                    self.delegate?.didMoveDataSourceSections(fromIndexes: , toIndexes: )
+                    self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(indexes.1), removals: IndexSet(indexes.0), updates: [])
+                }
+            }
         }
     }
 
-    private func createCollectionDataSource(from arbs: [Arb]) -> [Section] {
-//        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
+    // MARK: - Private methods
 
-        arbs.compactMap { .init(name: $0.grade, cells: [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]) }
-
-//        return Dictionary(grouping: arbs, by: { $0.grade }).compactMap { key, value -> Section in
+    private func createTableDataSource() -> [Cell] {
+//        var sortedArbs = arbs.filter { $0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex })
+//        sortedArbs.append(contentsOf: arbs.filter { !$0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex }))
+////        sortedArbs.append(contentsOf: arbs.filter { !$0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex }))
 //
-//            return
+//        print("ARBDebug: Count of arb: \(sortedArbs.count)")
+//        print("ARBDebug: sorted: \(sortedArbs.compactMap { $0.priorityIndex.toString + " " + $0.uniqueIdentifier })")
 
-            /*var cells: [Cell] = Array(repeating: .emptyGrade(), count: LiveCurve.months.count)
+        return fetchedArbs.compactMap { .title(arb: $0) }
+    }
 
-            value.forEach { liveCurve in
-                guard let indexOfMonth = liveCurve.indexOfMonth else { return }
+    private func createCollectionDataSource() -> [Section] {
+//        var sortedArbs = arbs.filter { $0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex })
+//        sortedArbs.append(contentsOf: arbs.filter { !$0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex }))
 
-                cells[indexOfMonth] = Cell.info(monthInfo: .init(priceValue: liveCurve.priceValue,
-                                                                 priceCode: liveCurve.priceCode))
-            }
-
-            let tempSection = Section(name: key, cells: cells)
-
-            if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
-
-                var updatedSection = collectionDataSource[indexOfSection]
-
-                for liveCurve in value {
-                    if let indexOfMonth = liveCurve.indexOfMonth {
-                        updatedSection.cells[indexOfMonth] = tempSection.cells[indexOfMonth]
-                    }
-                }
-
-                return updatedSection
-            } else {
-                return tempSection
-            }*/
-//        }
+        return fetchedArbs.compactMap { .init(name: $0.grade,
+                                             cells: [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]) }
     }
 
     private func updateConnectionInfo() {
@@ -125,16 +110,38 @@ class ArbsViewModel: NSObject, BaseViewModel {
     }
 }
 
-// differences
+// differences & sorting
 
 extension ArbsViewModel {
 
-    private func updateDataSource(_ newArbs: [Arb]) {
+    private func sortArbs() {
 
-        let newTableDataSource = createTableDataSource(from: newArbs)
-        let newCollectionDataSource = createCollectionDataSource(from: newArbs)
+        func sortPredicate(lhs: Arb, rhs: Arb) -> Bool {
+            if lhs.isFavourite && rhs.isFavourite {
+                return lhs.priorityIndex < rhs.priorityIndex
+            } else if lhs.isFavourite && !rhs.isFavourite {
+                return true
+            } else if !lhs.isFavourite && rhs.isFavourite {
+                return false
+            } else {
+                return lhs.priorityIndex < rhs.priorityIndex
+            }
+        }
 
-        let changes = newCollectionDataSource.difference(from: collectionDataSource)
+        var sortedArbs = fetchedArbs.sorted { sortPredicate(lhs: $0, rhs: $1) }
+//        sortedArbs.append(contentsOf: fetchedArbs.filter { !$0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex }))
+
+        fetchedArbs = sortedArbs
+
+                print("ARBDebug: Count of arb: \(fetchedArbs.count)")
+                print("ARBDebug: sorted: \(fetchedArbs.compactMap { $0.priorityIndex.toString + " " + $0.uniqueIdentifier })")
+    }
+
+    private func updateDataSource() {
+        let newTableDataSource = createTableDataSource()
+        let newCollectionDataSource = createCollectionDataSource()
+
+        let changes = newTableDataSource.difference(from: tableDataSource)
 
         let insertedIndexs = changes.insertions.compactMap { change -> Int? in
             guard case let .insert(offset, _, _) = change else { return nil }
@@ -148,8 +155,6 @@ extension ArbsViewModel {
             return offset
         }
 
-        fetchedArbs = newArbs
-
         tableDataSource = newTableDataSource
         collectionDataSource = newCollectionDataSource
 
@@ -157,6 +162,47 @@ extension ArbsViewModel {
             self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(insertedIndexs),
                                                        removals: IndexSet(removedIndexs),
                                                        updates: [])
+        }
+    }
+
+    private func generateDataSourceUpdates() -> ([Int], [Int])? {
+
+        let newTableDataSource = createTableDataSource()
+        let newCollectionDataSource = createCollectionDataSource()
+
+        print("ARBDebug: OLD: \n")
+
+        tableDataSource.compactMap {
+            if case let ArbsViewModel.Cell.title(arb) = $0 {
+                print("\nARBDebug: \(arb.uniqueIdentifier)\n")
+            }
+        }
+
+        let changes = newTableDataSource.difference(from: tableDataSource)
+
+        let insertedIndexs = changes.insertions.compactMap { change -> Int? in
+            guard case let .insert(offset, _, _) = change else { return nil }
+
+            return offset
+        }
+
+        let removedIndexs = changes.removals.compactMap { change -> Int? in
+            guard case let .remove(offset, _, _) = change else { return nil }
+
+            return offset
+        }
+
+        print("ArbDebug: Changes \(insertedIndexs), \(removedIndexs) ")
+
+        if !removedIndexs.isEmpty && !insertedIndexs.isEmpty,
+           removedIndexs.count == insertedIndexs.count {
+
+            tableDataSource = newTableDataSource
+            collectionDataSource = newCollectionDataSource
+
+            return (removedIndexs, insertedIndexs)
+        } else {
+            return nil
         }
     }
 }
@@ -171,7 +217,9 @@ extension ArbsViewModel: AppObserver {
 extension ArbsViewModel: ArbsSyncManagerDelegate {
 
     func arbsSyncManagerDidFetch(arbs: [Arb]) {
-        updateDataSource(arbs)
+        fetchedArbs = arbs
+        sortArbs()
+        updateDataSource()
     }
 
     func arbsSyncManagerDidReceive(arb: Arb) {
@@ -186,12 +234,5 @@ extension ArbsViewModel: ArbsSyncManagerDelegate {
 
     func arbsSyncManagerDidChangeSyncDate(_ newDate: Date?) {
         updateConnectionInfo()
-    }
-}
-
-extension ArbsViewModel.Section: Equatable {
-
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.name.lowercased() == rhs.name.lowercased()
     }
 }

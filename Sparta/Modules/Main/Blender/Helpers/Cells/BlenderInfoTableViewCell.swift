@@ -8,7 +8,7 @@
 import UIKit
 import NetworkingModels
 
-class BlenderInfoTableViewCell: UITableViewCell {
+class BlenderInfoTableViewCell: UICollectionViewCell {
 
     // MARK: - UI
 
@@ -17,14 +17,24 @@ class BlenderInfoTableViewCell: UITableViewCell {
 
     // MARK: - Initializers
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         setupUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError("BlenderGradeTableViewCell")
+    }
+
+    // MARK: - Lifecycle
+
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+
+        if let layoutAttributes = layoutAttributes as? GridViewLayoutAttributes {
+            backgroundColor = layoutAttributes.backgroundColor
+        }
     }
 
     // MARK: - Public methods

@@ -34,6 +34,7 @@ public struct ArbMonth: BackendModel {
     public private(set) var genericBlenderMarginChangeOnDay: ColoredNumber?
     public private(set) var pseudoFobRefinery: ColoredNumber?
     public private(set) var pseudoCifRefinery: ColoredNumber?
+    public var userTarget: Double?
 
     // use this identifier to identify this object as unique
     public var uniqueIdentifier: String {
@@ -87,6 +88,8 @@ public struct ArbMonth: BackendModel {
         if json["pseudoCifRefinery"].dictionary != nil {
             pseudoCifRefinery = ColoredNumber(json: json["pseudoCifRefinery"])
         } else {  pseudoCifRefinery = nil }
+
+        userTarget = json["userTarget"].double
     }
 
     // MARK: - Public methods
@@ -101,6 +104,7 @@ public struct ArbMonth: BackendModel {
         pseudoFobRefinery = newMonth.pseudoFobRefinery
         pseudoCifRefinery = newMonth.pseudoCifRefinery
         ew = newMonth.ew
+        userTarget = newMonth.userTarget
     }
 }
 

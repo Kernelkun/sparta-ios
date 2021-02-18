@@ -9,7 +9,7 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-protocol ArbTappableCell: TappableViewCell {
-    func apply(arb: Arb, for indexPath: IndexPath)
+protocol ArbTappableCell {
+    func apply(arb: Arb)
+    func onTap(completion: @escaping TypeClosure<Arb>)
 }
-

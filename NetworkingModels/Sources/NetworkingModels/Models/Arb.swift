@@ -21,9 +21,19 @@ public struct Arb: BackendModel {
     public let freightType: String
     public var months: [ArbMonth]
 
+    // for presenting
+
+    public var isFavourite: Bool
+    public var priorityIndex: Int = -1
+
     // use this identifier to identify this object as unique
     public var uniqueIdentifier: String {
         grade + gradeCode + routeCode
+    }
+
+    // use this identifier to identify this object as unique on the backside
+    public var serverUniqueIdentifier: String {
+        gradeCode + "-" + routeCode
     }
 
     //
@@ -37,6 +47,7 @@ public struct Arb: BackendModel {
         escalation = json["escalation"].stringValue
         months = json["months"].arrayValue.compactMap { ArbMonth(json: $0) }
         freightType = json["freight"].dictionaryValue["vessel"]?.dictionaryValue["type"]?.stringValue ?? ""
+        isFavourite = false
     }
 }
 

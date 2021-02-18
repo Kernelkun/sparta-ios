@@ -70,7 +70,7 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
         // sockets status view
-        
+
         socketsStatusView = SocketsStatusLineView().then { view in
 
             view.backgroundColor = UIGridViewConstants.mainBackgroundColor
@@ -87,10 +87,6 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         navigationItem.title = nil
 
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Live Curves")
-
-        /*navigationItem.rightBarButtonItem = UIBarButtonItemFactory.tradeButton(onTap: { _ in
-            self.navigationController?.pushViewController(LiveChartsViewController(), animated: true)
-        })*/
     }
 }
 
@@ -124,7 +120,7 @@ extension LiveCurvesViewController: GridViewDataSource {
         6
     }
 
-    func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+    func cellForTableView(_ tableView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cell: LiveCurveGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
@@ -155,13 +151,13 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
         gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates, completion: {
-            self.gridView.tableView.visibleCells.forEach { cell in
+            /*self.gridView.tableView.visibleCells.forEach { cell in
                 if let cell = cell as? LiveCurveGradeTableViewCell, let indexPath = self.gridView.tableView.indexPath(for: cell) {
                     if case let LiveCurvesViewModel.Cell.grade(title) = self.viewModel.tableDataSource[indexPath.section] {
                         cell.apply(title: title, for: indexPath)
                     }
                 }
-            }
+            }*/
         })
     }
 

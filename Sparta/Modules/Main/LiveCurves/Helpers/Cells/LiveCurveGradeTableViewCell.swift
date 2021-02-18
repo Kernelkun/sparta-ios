@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LiveCurveGradeTableViewCell: UITableViewCell {
+class LiveCurveGradeTableViewCell: UICollectionViewCell {
 
     // MARK: - UI
 
@@ -16,8 +16,8 @@ class LiveCurveGradeTableViewCell: UITableViewCell {
 
     // MARK: - Initializers
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         setupUI()
     }
@@ -26,16 +26,20 @@ class LiveCurveGradeTableViewCell: UITableViewCell {
         fatalError("BlenderGradeTableViewCell")
     }
 
+    // MARK: - Lifecycle
+
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+
+        if let layoutAttributes = layoutAttributes as? GridViewLayoutAttributes {
+            backgroundColor = layoutAttributes.backgroundColor
+        }
+    }
+
     // MARK: - Public methods
 
     func apply(title: String, for indexPath: IndexPath) {
         titleLabel.text = title
-
-        if indexPath.section % 2 == 0 { // even
-            backgroundColor = UIGridViewConstants.oddLineBackgroundColor
-        } else { // odd
-            backgroundColor = UIGridViewConstants.evenLineBackgroundColor
-        }
     }
 
     // MARK: - Private methods

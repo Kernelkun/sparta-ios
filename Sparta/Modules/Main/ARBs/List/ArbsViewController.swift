@@ -115,19 +115,19 @@ extension ArbsViewController: GridViewDataSource {
         viewModel.rowsCount()
     }
 
-    func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+    func cellForTableView(_ tableView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ArbsGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
-        if case let ArbsViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
-            cell.apply(text: title, for: indexPath)
+        if case let ArbsViewModel.Cell.title(arb) = viewModel.tableDataSource[indexPath.section] {
+            cell.apply(arb: arb)
 
-            cell.onTap { [unowned self] indexPath in
+            cell.onTap { [unowned self] arb in
+                self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
+            }
 
-                let cellInfo = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
+            cell.onToggleFavourite { [unowned self] arb in
 
-                if case let ArbsViewModel.Cell.info(arb) = cellInfo {
-                    self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
-                }
+                self.viewModel.toggleFavourite(arb: arb)
             }
         }
 
@@ -144,15 +144,10 @@ extension ArbsViewController: GridViewDataSource {
         }
 
         func fillCell(_ cell: ArbTappableCell) {
-            cell.apply(arb: arb, for: indexPath)
+            cell.apply(arb: arb)
 
-            cell.onTap { [unowned self] indexPath in
-
-                let cellInfo = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
-
-                if case let ArbsViewModel.Cell.info(arb) = cellInfo {
-                    self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
-                }
+            cell.onTap { [unowned self] arb in
+                self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
             }
         }
 
@@ -212,10 +207,32 @@ extension ArbsViewController: ArbsViewModelDelegate {
                     }
                 }
             }*/
+
+//            print("TableViewTest: ContentSize: \(self.gridView.tableView.contentSize)")
+//            print("CollectionViewTest: ContentSize: \(self.gridView.collectionView.contentSize)")
         })
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
         socketsStatusView.apply(color: color, title: title, formattedDate: formattedDate)
+    }
+
+    func didMoveDataSourceSections(fromIndexes: [Int], toIndexes: [Int]) {
+        gridView.gradesCollectionView.performBatchUpdates {
+            gridView.gradesCollectionView.deleteSections(IndexSet(fromIndexes))
+            gridView.gradesCollectionView.insertSections(IndexSet(toIndexes))
+        } completion: { _ in
+            self.gridView.contentCollectionView.performBatchUpdates {
+                self.gridView.contentCollectionView.deleteSections(IndexSet(fromIndexes))
+                self.gridView.contentCollectionView.insertSections(IndexSet(toIndexes))
+            } completion: { _ in
+
+            }
+        }
+
+
+
+//        gridView.gradesCollectionView.moveSection(fromIndex, toSection: toIndex)
+//        gridView.contentCollectionView.moveSection(fromIndex, toSection: toIndex)
     }
 }

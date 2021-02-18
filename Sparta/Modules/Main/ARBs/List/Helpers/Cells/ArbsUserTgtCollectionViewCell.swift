@@ -28,11 +28,11 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     // MARK: - Private properties
 
     private var lastPriceCode: String!
-    private var _tapClosure: TypeClosure<IndexPath>?
+    private var _tapClosure: TypeClosure<Arb>?
 
     // MARK: - Public accessors
 
-    var indexPath: IndexPath!
+    var arb: Arb!
 
     // MARK: - Initializers
 
@@ -65,14 +65,14 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - Public methods
 
-    func apply(arb: Arb, for indexPath: IndexPath) {
-        self.indexPath = indexPath
+    func apply(arb: Arb) {
+        self.arb = arb
 
         setupUI(for: arb)
         observeArbs(arb)
     }
 
-    func onTap(completion: @escaping TypeClosure<IndexPath>) {
+    func onTap(completion: @escaping TypeClosure<Arb>) {
         _tapClosure = completion
     }
 
@@ -196,7 +196,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     @objc
     private func tapEvent() {
-        _tapClosure?(indexPath)
+        _tapClosure?(arb)
     }
 }
 
