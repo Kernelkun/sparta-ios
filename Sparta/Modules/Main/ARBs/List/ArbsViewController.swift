@@ -22,7 +22,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         let constructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
                                                        gradeHeight: 50,
                                                        collectionColumnWidth: 65,
-                                                       tableColumnWidth: 130)
+                                                       tableColumnWidth: 140)
 
         gridView = GridView(constructor: constructor)
         view = gridView
@@ -122,7 +122,9 @@ extension ArbsViewController: GridViewDataSource {
             cell.apply(arb: arb)
 
             cell.onTap { [unowned self] arb in
-                self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
+                guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
+
+                self.navigationController?.pushViewController(ArbDetailViewController(arb: newArb), animated: true)
             }
 
             cell.onToggleFavourite { [unowned self] arb in
@@ -147,7 +149,9 @@ extension ArbsViewController: GridViewDataSource {
             cell.apply(arb: arb)
 
             cell.onTap { [unowned self] arb in
-                self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
+                guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
+
+                self.navigationController?.pushViewController(ArbDetailViewController(arb: newArb), animated: true)
             }
         }
 

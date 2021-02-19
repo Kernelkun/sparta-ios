@@ -75,7 +75,7 @@ class ResultKeyInputView: UIView {
         textField = LimitedTextField().then { textField in
 
             textField.backgroundColor = .mainBackground
-            textField.enterType = .numberLimit(range: -199...199)
+            textField.enterType = .numberLimit(range: -999.99...999.99)
             textField.textAlignment = .right
 
             textField.placeholder = ""

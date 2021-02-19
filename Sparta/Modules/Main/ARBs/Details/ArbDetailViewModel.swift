@@ -107,7 +107,6 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
         let mainUnitValue = mainUnit(for: selectedArbMonth)
         let blendCostUnitValue = blendCostUnit(for: selectedArbMonth)
         let gasNapUnitValue = gasNapUnit(for: selectedArbMonth)
-        let freightUnitValue = freightUnit(for: selectedArbMonth)
 
         cells.append(.status(position: monthPosition))
 
@@ -127,9 +126,13 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
 
         // freight
 
-        cells.append(.freight(value: selectedArbMonth.freight.freightRate.toFormattedString,
-                              color: .gray,
-                              units: freightUnitValue))
+        if let routeValue = selectedArbMonth.freight.routeType.displayRouteValue?.toDouble?.toFormattedString,
+           let routeUnit = selectedArbMonth.freight.routeType.routeUnit {
+
+            cells.append(.freight(value: routeValue,
+                                  color: .gray,
+                                  units: routeUnit))
+        }
 
         // ta ARB
 
@@ -212,10 +215,6 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
     }
 
     private func gasNapUnit(for month: ArbMonth) -> String {
-        "$/mt"
-    }
-
-    private func freightUnit(for month: ArbMonth) -> String {
         "$/mt"
     }
 }

@@ -158,6 +158,20 @@ class LimitedTextField: UITextField {
         }
     }
 
+    private func isValidSymbolsAfterDot(symbolsLimit: Int, for string: String) -> Bool {
+        let strings = string.components(separatedBy: ".")
+
+        if strings.count == 2 {
+            if strings[1].count <= symbolsLimit {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
+
     // MARK: - Events
 
     @objc private func textFieldDidChange() {
@@ -198,15 +212,15 @@ extension LimitedTextField: UITextFieldDelegate {
 
             let prefix = String(newString.prefix(1))
 
-            if let number = Double(makeOnlyDigitsString(string: newString)), Double(newString) != nil {
+            if Double(newString) != nil {
 
                 if validPrefixes.contains(prefix),
-                   let newNumber = (prefix + number.toString).toDouble {
+                   let newNumber = (prefix + newString).toDouble {
 
-                    return numberLimit.contains(newNumber)
+                    return numberLimit.contains(newNumber) && isValidSymbolsAfterDot(symbolsLimit: 2, for: newString)
                 }
 
-                return numberLimit.contains(number)
+                return numberLimit.contains(newString.toDouble!) && isValidSymbolsAfterDot(symbolsLimit: 2, for: newString)
             } else {
 
                 if newString.count == 1, validPrefixes.contains(prefix) {

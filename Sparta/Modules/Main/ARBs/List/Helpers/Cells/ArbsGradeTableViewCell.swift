@@ -134,7 +134,7 @@ class ArbsGradeTableViewCell: UICollectionViewCell {
     }
 
     private func setupUI(for arb: Arb) {
-        let gradeName = arb.grade.generateShortIfNeeded(maxSymbols: 17)
+        let gradeName = arb.grade.generateShortIfNeeded(maxSymbols: 15)
         let dischargePortName = arb.dischargePortName
         let freightType = arb.freightType
         let fullString: NSString = gradeName + "\n" + dischargePortName + "\n" + freightType as NSString

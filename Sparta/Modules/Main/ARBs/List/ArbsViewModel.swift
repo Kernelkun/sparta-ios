@@ -75,6 +75,12 @@ class ArbsViewModel: NSObject, BaseViewModel {
         }
     }
 
+    func fetchUpdatedArb(for arb: Arb) -> Arb? {
+        guard let arbIndex = fetchedArbs.firstIndex(of: arb) else { return nil }
+
+        return fetchedArbs[arbIndex]
+    }
+
     // MARK: - Private methods
 
     private func createTableDataSource() -> [Cell] {

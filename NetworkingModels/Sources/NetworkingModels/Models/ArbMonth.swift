@@ -135,6 +135,14 @@ public extension ArbMonth {
                 return routeValue
             }
 
+            public var routeUnit: String? {
+                if routeType.lowercased() == "ws" {
+                    return "WS"
+                } else if routeType.lowercased() == "ls" {
+                    return "$"
+                } else { return nil }
+            }
+
             //
             // MARK: - Default Initializers
 
