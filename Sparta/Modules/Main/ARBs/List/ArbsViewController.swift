@@ -116,7 +116,7 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func cellForTableView(_ tableView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: ArbsGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: ArbsGradeCollectionViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         if case let ArbsViewModel.Cell.title(arb) = viewModel.tableDataSource[indexPath.section] {
             cell.apply(arb: arb)
@@ -203,40 +203,10 @@ extension ArbsViewController: ArbsViewModelDelegate {
     }
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates, completion: {
-            /*self.gridView.tableView.visibleCells.forEach { cell in
-                if let cell = cell as? LiveCurveGradeTableViewCell, let indexPath = self.gridView.tableView.indexPath(for: cell) {
-                    if case let ArbsViewModel.Cell.grade(title) = self.viewModel.tableDataSource[indexPath.section] {
-                        cell.apply(title: title, for: indexPath)
-                    }
-                }
-            }*/
-
-//            print("TableViewTest: ContentSize: \(self.gridView.tableView.contentSize)")
-//            print("CollectionViewTest: ContentSize: \(self.gridView.collectionView.contentSize)")
-        })
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
         socketsStatusView.apply(color: color, title: title, formattedDate: formattedDate)
-    }
-
-    func didMoveDataSourceSections(fromIndexes: [Int], toIndexes: [Int]) {
-        gridView.gradesCollectionView.performBatchUpdates {
-            gridView.gradesCollectionView.deleteSections(IndexSet(fromIndexes))
-            gridView.gradesCollectionView.insertSections(IndexSet(toIndexes))
-        } completion: { _ in
-            self.gridView.contentCollectionView.performBatchUpdates {
-                self.gridView.contentCollectionView.deleteSections(IndexSet(fromIndexes))
-                self.gridView.contentCollectionView.insertSections(IndexSet(toIndexes))
-            } completion: { _ in
-
-            }
-        }
-
-
-
-//        gridView.gradesCollectionView.moveSection(fromIndex, toSection: toIndex)
-//        gridView.contentCollectionView.moveSection(fromIndex, toSection: toIndex)
     }
 }

@@ -57,7 +57,7 @@
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
-		D98AF6B625BA13A400A5BC96 /* ArbsGradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeTableViewCell.swift */; };
+		D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */; };
 		D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */; };
 		D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */; };
 		D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */; };
@@ -213,7 +213,7 @@
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
-		D98AF6B525BA13A400A5BC96 /* ArbsGradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsGradeTableViewCell.swift; sourceTree = "<group>"; };
+		D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsGradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsStatusCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewController.swift; sourceTree = "<group>"; };
 		D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewModel.swift; sourceTree = "<group>"; };
@@ -803,7 +803,7 @@
 			isa = PBXGroup;
 			children = (
 				D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */,
-				D98AF6B525BA13A400A5BC96 /* ArbsGradeTableViewCell.swift */,
+				D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */,
 				D9A91BF725A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift */,
 				D9A91BF925A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift */,
 				D9A91BFB25A3627B00423704 /* ArbsUserTgtCollectionViewCell.swift */,
@@ -1283,7 +1283,7 @@
 				D9B50E2725740F9B0018F3D7 /* RoundedTextField.swift in Sources */,
 				D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
-				D98AF6B625BA13A400A5BC96 /* ArbsGradeTableViewCell.swift in Sources */,
+				D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */,
 				D9A91BFE25A3786300423704 /* ArbsUserMarginCollectionViewCell.swift in Sources */,
 				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,

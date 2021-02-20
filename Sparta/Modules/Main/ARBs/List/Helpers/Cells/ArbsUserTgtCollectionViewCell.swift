@@ -66,7 +66,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     // MARK: - Public methods
 
     func apply(arb: Arb) {
-        self.arb = arb
+        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
 
         setupUI(for: arb)
         observeArbs(arb)
@@ -176,10 +176,18 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             if months.count >= index {
                 let month = arb.months[index]
 
-                label.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
+                if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
+                    label.text = userTarget
+                    label.textColor = .tablePoint
+                } else {
+                    label.text = "-"
+                    label.textColor = .controlTintActive
+                }
+
                 label.setKey(month.uniqueIdentifier)
             } else {
-                label.text = " "
+                label.text = "-"
+                label.textColor = .controlTintActive
             }
         }
     }
@@ -188,7 +196,13 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         arb.months.forEach { month in
             guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
 
-            label.text = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString ?? " "
+            if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
+                label.text = userTarget
+                label.textColor = .tablePoint
+            } else {
+                label.text = "-"
+                label.textColor = .controlTintActive
+            }
         }
     }
 

@@ -76,7 +76,7 @@ class ContentGridView: UIView {
             collectionView.bounces = false
 
             // arbs
-            collectionView.register(ArbsGradeTableViewCell.self)
+            collectionView.register(ArbsGradeCollectionViewCell.self)
 
 //            tableView.register(ArbsGradeTableViewCell.self)
             collectionView.register(LiveCurveGradeTableViewCell.self)

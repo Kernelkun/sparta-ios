@@ -66,7 +66,7 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     // MARK: - Public methods
 
     func apply(arb: Arb) {
-        self.arb = arb
+        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
 
         setupUI(for: arb)
         observeArbs(arb)
@@ -175,11 +175,11 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             if months.count >= index {
                 let month = arb.months[index]
 
-                label.text = month.calculatedUserMargin?.toDisplayFormattedString ?? " "
+                label.text = month.calculatedUserMargin?.toDisplayFormattedString ?? "-"
                 label.textColor = month.calculatedUserMargin?.color ?? .numberGray
                 label.setKey(month.uniqueIdentifier)
             } else {
-                label.text = " "
+                label.text = "-"
                 label.textColor = .numberGray
             }
         }
@@ -189,7 +189,7 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         arb.months.forEach { month in
             guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
 
-            label.text = month.calculatedUserMargin?.toDisplayFormattedString ?? " "
+            label.text = month.calculatedUserMargin?.toDisplayFormattedString ?? "-"
             label.textColor = month.calculatedUserMargin?.color ?? .numberGray
         }
     }

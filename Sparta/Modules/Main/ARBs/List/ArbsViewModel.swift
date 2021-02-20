@@ -15,7 +15,6 @@ protocol ArbsViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)
-    func didMoveDataSourceSections(fromIndexes: [Int], toIndexes: [Int])
 }
 
 class ArbsViewModel: NSObject, BaseViewModel {
@@ -53,23 +52,17 @@ class ArbsViewModel: NSObject, BaseViewModel {
     func toggleFavourite(arb: Arb) {
         if let index = fetchedArbs.firstIndex(of: arb) {
 
+            // update arbs favourite states
+
             fetchedArbs[index].isFavourite.toggle()
-
             arbsSyncManager.updateFavouriteState(for: fetchedArbs[index])
-
-            print("ARBDebug: Choosed: \(fetchedArbs[index].grade) - \(fetchedArbs[index].uniqueIdentifier), isFavourite: \(fetchedArbs[index].isFavourite)")
-
             sortArbs()
-
-
 
             if let indexes = generateDataSourceUpdates() {
                 onMainThread {
-
-                    print("ARBDebug: Need to move: \(indexes)")
-
-//                    self.delegate?.didMoveDataSourceSections(fromIndexes: , toIndexes: )
-                    self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(indexes.1), removals: IndexSet(indexes.0), updates: [])
+                    self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(indexes.1),
+                                                               removals: IndexSet(indexes.0),
+                                                               updates: [])
                 }
             }
         }
@@ -84,22 +77,14 @@ class ArbsViewModel: NSObject, BaseViewModel {
     // MARK: - Private methods
 
     private func createTableDataSource() -> [Cell] {
-//        var sortedArbs = arbs.filter { $0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex })
-//        sortedArbs.append(contentsOf: arbs.filter { !$0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex }))
-////        sortedArbs.append(contentsOf: arbs.filter { !$0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex }))
-//
-//        print("ARBDebug: Count of arb: \(sortedArbs.count)")
-//        print("ARBDebug: sorted: \(sortedArbs.compactMap { $0.priorityIndex.toString + " " + $0.uniqueIdentifier })")
-
         return fetchedArbs.compactMap { .title(arb: $0) }
     }
 
     private func createCollectionDataSource() -> [Section] {
-//        var sortedArbs = arbs.filter { $0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex })
-//        sortedArbs.append(contentsOf: arbs.filter { !$0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex }))
-
-        return fetchedArbs.compactMap { .init(name: $0.grade,
-                                             cells: [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]) }
+        return fetchedArbs.compactMap {
+            let cells: [Cell] = [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]
+            return .init(name: $0.grade, cells: cells)
+        }
     }
 
     private func updateConnectionInfo() {
@@ -134,13 +119,7 @@ extension ArbsViewModel {
             }
         }
 
-        var sortedArbs = fetchedArbs.sorted { sortPredicate(lhs: $0, rhs: $1) }
-//        sortedArbs.append(contentsOf: fetchedArbs.filter { !$0.isFavourite }.sorted(by: { $0.priorityIndex < $1.priorityIndex }))
-
-        fetchedArbs = sortedArbs
-
-                print("ARBDebug: Count of arb: \(fetchedArbs.count)")
-                print("ARBDebug: sorted: \(fetchedArbs.compactMap { $0.priorityIndex.toString + " " + $0.uniqueIdentifier })")
+        fetchedArbs = fetchedArbs.sorted { sortPredicate(lhs: $0, rhs: $1) }
     }
 
     private func updateDataSource() {
@@ -176,14 +155,6 @@ extension ArbsViewModel {
         let newTableDataSource = createTableDataSource()
         let newCollectionDataSource = createCollectionDataSource()
 
-        print("ARBDebug: OLD: \n")
-
-        tableDataSource.compactMap {
-            if case let ArbsViewModel.Cell.title(arb) = $0 {
-                print("\nARBDebug: \(arb.uniqueIdentifier)\n")
-            }
-        }
-
         let changes = newTableDataSource.difference(from: tableDataSource)
 
         let insertedIndexs = changes.insertions.compactMap { change -> Int? in
@@ -197,8 +168,6 @@ extension ArbsViewModel {
 
             return offset
         }
-
-        print("ArbDebug: Changes \(insertedIndexs), \(removedIndexs) ")
 
         if !removedIndexs.isEmpty && !insertedIndexs.isEmpty,
            removedIndexs.count == insertedIndexs.count {

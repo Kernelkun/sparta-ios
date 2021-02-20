@@ -68,12 +68,10 @@ class ArbsSyncManager {
         group.enter()
         analyticsManager.fetchArbsTable { result in
 
-            switch result {
-            case .success(let responseModel) where responseModel.model != nil:
-                arbs = Array(responseModel.model!.list)
+            if case let .success(responseModel) = result,
+               let list = responseModel.model?.list {
 
-            case .failure, .success:
-                break
+                arbs = Array(list)
             }
 
             group.leave()
@@ -82,12 +80,10 @@ class ArbsSyncManager {
         group.enter()
         profileManager.fetchArbsFavouritesList { result in
 
-            switch result {
-            case .success(let responseModel) where responseModel.model != nil:
-                favourites = Array(responseModel.model!.list)
+            if case let .success(responseModel) = result,
+               let list = responseModel.model?.list {
 
-            case .failure, .success:
-                break
+                favourites = Array(list)
             }
 
             group.leave()
@@ -131,11 +127,31 @@ class ArbsSyncManager {
         }
     }
 
+    /*
+     * Solution just for UI elements
+     * Use when element wanted to fetch latest state of arb
+     * In case method not found element in fetched elements array - method will return received(parameter variable) value
+     */
+    func fetchUpdatedState(for arb: Arb) -> Arb {
+        guard let indexOfArb = _arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) else { return arb }
+
+        return _arbs[indexOfArb] ?? arb
+    }
+
     // MARK: - Favourite
 
     func updateFavouriteState(for arb: Arb) {
+
+        // set up temporary value of favourite state for loaded arb
+        if let currentArbIndex = _arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
+            _arbs[currentArbIndex]?.isFavourite = arb.isFavourite
+        }
+
         if arb.isFavourite {
+
             if !_favourites.contains(where: { $0.code == arb.serverUniqueIdentifier }) {
+
+                // adding temporarry favourite value
                 _favourites.append(.init(id: 1, code: arb.serverUniqueIdentifier))
 
                 guard let userId = App.instance.currentUser?.id else { return }
@@ -143,24 +159,34 @@ class ArbsSyncManager {
                 profileManager.addArbToFavouritesList(userId: userId, code: arb.serverUniqueIdentifier) { [weak self] result in
                     guard let strongSelf = self else { return }
 
-                    switch result {
-                    case .success(let responseModel) where responseModel.model != nil:
+                    // case if backside successfully add favourites record
+                    if case let .success(responseModel) = result,
+                       let model = responseModel.model,
+                       let favouriteIndex = strongSelf._favourites.index(where: { $0.code == model.code }),
+                       let arbIndex = strongSelf._arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
 
-                        if let index = strongSelf._favourites.index(where: { $0.code == responseModel.model!.code }) {
-                            strongSelf._favourites[index] = responseModel.model
+                        strongSelf._favourites[favouriteIndex] = model
+                        strongSelf._arbs[arbIndex]?.isFavourite = true
+                    } else { // case if logic received bad response
+                        strongSelf._favourites = SynchronizedArray(strongSelf._favourites.filter { $0.code != arb.serverUniqueIdentifier })
+
+                        if let currentArbIndex = strongSelf._arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
+                            strongSelf._arbs[currentArbIndex]?.isFavourite = false
                         }
-
-                    case .success, .failure:
-                        break
                     }
                 }
             }
-        } else {
-            if let index = _favourites.index(where: { $0.code == arb.serverUniqueIdentifier }) {
-                profileManager.deleteArbFromFavouritesList(id: _favourites[index]!.id, completion: { _ in })
+        } else if let index = _favourites.index(where: { $0.code == arb.serverUniqueIdentifier }) {
 
-                _favourites = SynchronizedArray(_favourites.filter { $0.code != arb.serverUniqueIdentifier })
-            }
+            profileManager.deleteArbFromFavouritesList(id: _favourites[index]!.id, completion: { [weak self] result in
+                guard let strongSelf = self else { return }
+
+                if case let .success(responseModel) = result,
+                   responseModel.model != nil {
+
+                    strongSelf._favourites = SynchronizedArray(strongSelf._favourites.filter { $0.code != arb.serverUniqueIdentifier })
+                }
+            })
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  ArbsGradeTableViewCell.swift
+//  ArbsGradeCollectionViewCell.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 21.01.2021.
@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class ArbsGradeTableViewCell: UICollectionViewCell {
+class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
     // MARK: - UI
 
@@ -51,6 +51,13 @@ class ArbsGradeTableViewCell: UICollectionViewCell {
         }
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        starButton.isActive = false
+        titleLabel.attributedText = nil
+    }
+
     // MARK: - Public methods
 
     func onToggleFavourite(completion: @escaping TypeClosure<Arb>) {
@@ -62,9 +69,9 @@ class ArbsGradeTableViewCell: UICollectionViewCell {
     }
 
     func apply(arb: Arb) {
-        self.arb = arb
+        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
 
-        setupUI(for: arb)
+        setupUI(for: self.arb)
     }
 
     // MARK: - Private methods

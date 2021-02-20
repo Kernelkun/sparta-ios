@@ -66,7 +66,7 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell, ArbTappableCell
     // MARK: - Public methods
 
     func apply(arb: Arb) {
-        self.arb = arb
+        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
 
         setupUI(for: arb)
         observeArbs(arb)

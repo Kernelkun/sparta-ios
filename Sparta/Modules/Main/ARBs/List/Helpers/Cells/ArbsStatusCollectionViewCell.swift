@@ -57,7 +57,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     // MARK: - Public methods
 
     func apply(arb: Arb) {
-        self.arb = arb
+        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
 
         observeArbs(arb)
         updateUI(for: arb)
