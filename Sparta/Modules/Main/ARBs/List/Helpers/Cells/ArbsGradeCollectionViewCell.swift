@@ -82,6 +82,8 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
         starButton = StarButton().then { button in
 
+            button.clickableInset = -7
+
             button.onTap { [unowned self] button in
                 guard let button = button as? StarButton else { return }
 
@@ -91,7 +93,7 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
             contentView.addSubview(button) {
                 $0.size.equalTo(19)
-                $0.left.equalToSuperview().offset(8)
+                $0.left.equalToSuperview().offset(14)
                 $0.top.equalToSuperview().offset(10)
             }
         }
@@ -119,7 +121,7 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
             contentView.addSubview(view) {
                 $0.right.equalToSuperview()
-                $0.left.equalTo(starButton.snp.right).offset(8)
+                $0.left.equalTo(starButton.snp.right).offset(12)
                 $0.top.equalToSuperview()
                 $0.bottom.equalToSuperview().inset(CGFloat.separatorWidth)
             }

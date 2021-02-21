@@ -22,7 +22,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         let constructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
                                                        gradeHeight: 50,
                                                        collectionColumnWidth: 65,
-                                                       tableColumnWidth: 140)
+                                                       tableColumnWidth: 160)
 
         gridView = GridView(constructor: constructor)
         view = gridView
