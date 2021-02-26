@@ -87,13 +87,13 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
 
 extension ArbsViewController: GridViewDataSource {
 
-    func gradeTitleForColectionView(at row: Int) -> NSAttributedString? {
+    func gradeTitleForInfoCollectionView(at row: Int) -> NSAttributedString? {
         if case let ArbsViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
             return title
         } else { return nil }
     }
 
-    func gradeTitleForTableView() -> NSAttributedString? {
+    func gradeTitleForGradeCollectionView() -> NSAttributedString? {
         if case let ArbsViewModel.Cell.grade(title) = viewModel.tableGrade {
             return title
         } else { return nil }
@@ -107,16 +107,16 @@ extension ArbsViewController: GridViewDataSource {
         150
     }
 
-    func numberOfRowsForTableView(in section: Int) -> Int {
+    func numberOfRowsForGradeCollectionView(in section: Int) -> Int {
         1
     }
 
-    func numberOfRowsForCollectionView(in section: Int) -> Int {
+    func numberOfRowsForInfoCollectionView(in section: Int) -> Int {
         viewModel.rowsCount()
     }
 
-    func cellForTableView(_ tableView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: ArbsGradeCollectionViewCell = tableView.dequeueReusableCell(for: indexPath)
+    func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: ArbsGradeCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
         if case let ArbsViewModel.Cell.title(arb) = viewModel.tableDataSource[indexPath.section] {
             cell.apply(arb: arb)
@@ -136,7 +136,7 @@ extension ArbsViewController: GridViewDataSource {
         return cell
     }
 
-    func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+    func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
 
         let section = viewModel.collectionDataSource[indexPath.section]
         let gradeType = viewModel.collectionGrades[indexPath.row]

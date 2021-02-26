@@ -83,15 +83,15 @@ class App {
     
     init() {
 
-        blenderSyncManager = BlenderSyncManager()
-        liveCurvesSyncManager = LiveCurvesSyncManager()
+        blenderSyncManager = BlenderSyncManager.intance
+        liveCurvesSyncManager = LiveCurvesSyncManager.intance
         arbsSyncManager = ArbsSyncManager.intance
         stateService = AppStateService()
 
         reachability = try! Reachability() // swiftlint:disable:this force_try
         try! reachability.startNotifier() // swiftlint:disable:this force_try
 
-        sockets = SocketAPI(defaultServer: .blender)
+        sockets = SocketAPI()
         sockets.connectionDelegate = self
 
         syncService.delegate = self
@@ -113,10 +113,6 @@ class App {
         // sockets connection
 
         connectToSockets()
-
-        // setup DB
-
-        SpartaDB.instance.setup()
 
         // identify
 

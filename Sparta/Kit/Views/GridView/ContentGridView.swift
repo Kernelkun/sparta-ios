@@ -75,12 +75,9 @@ class ContentGridView: UIView {
             collectionView.automaticallyAdjustsScrollIndicatorInsets = false
             collectionView.bounces = false
 
-            // arbs
             collectionView.register(ArbsGradeCollectionViewCell.self)
-
-//            tableView.register(ArbsGradeTableViewCell.self)
             collectionView.register(LiveCurveGradeTableViewCell.self)
-            collectionView.register(BlenderInfoTableViewCell.self)
+            collectionView.register(BlenderGradeCollectionViewCell.self)
 
             contentView.addSubview(collectionView) {
                 $0.top.equalToSuperview()

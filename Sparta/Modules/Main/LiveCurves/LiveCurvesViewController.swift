@@ -92,13 +92,13 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
 extension LiveCurvesViewController: GridViewDataSource {
 
-    func gradeTitleForColectionView(at row: Int) -> NSAttributedString? {
+    func gradeTitleForInfoCollectionView(at row: Int) -> NSAttributedString? {
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
             return NSAttributedString(string: title)
         } else { return nil }
     }
 
-    func gradeTitleForTableView() -> NSAttributedString? {
+    func gradeTitleForGradeCollectionView() -> NSAttributedString? {
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableGrade {
             return NSAttributedString(string: title)
         } else { return nil }
@@ -112,16 +112,16 @@ extension LiveCurvesViewController: GridViewDataSource {
         40
     }
 
-    func numberOfRowsForTableView(in section: Int) -> Int {
+    func numberOfRowsForGradeCollectionView(in section: Int) -> Int {
         1
     }
 
-    func numberOfRowsForCollectionView(in section: Int) -> Int {
+    func numberOfRowsForInfoCollectionView(in section: Int) -> Int {
         6
     }
 
-    func cellForTableView(_ tableView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: LiveCurveGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+    func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: LiveCurveGradeTableViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
             cell.apply(title: title, for: indexPath)
@@ -130,7 +130,7 @@ extension LiveCurvesViewController: GridViewDataSource {
         return cell
     }
 
-    func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+    func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cell: LiveCurveInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
         let section = viewModel.collectionDataSource[indexPath.section]
@@ -150,15 +150,7 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
     }
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates, completion: {
-            /*self.gridView.tableView.visibleCells.forEach { cell in
-                if let cell = cell as? LiveCurveGradeTableViewCell, let indexPath = self.gridView.tableView.indexPath(for: cell) {
-                    if case let LiveCurvesViewModel.Cell.grade(title) = self.viewModel.tableDataSource[indexPath.section] {
-                        cell.apply(title: title, for: indexPath)
-                    }
-                }
-            }*/
-        })
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {

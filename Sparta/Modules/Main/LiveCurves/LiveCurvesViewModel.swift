@@ -61,9 +61,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     // MARK: - Private methods
 
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
-//        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
-
-        return Dictionary(grouping: liveCurves, by: { $0.displayName })
+        Dictionary(grouping: liveCurves, by: { $0.displayName })
         .sorted(by: { value1, value2 in
             value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
         })
@@ -71,9 +69,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     }
 
     private func createCollectionDataSource(from liveCurves: [LiveCurve]) -> [Section] {
-//        let sortedLiveCurves = liveCurves.sorted(by: { $0.priorityIndex > $1.priorityIndex })
-
-        return Dictionary(grouping: liveCurves, by: { $0.displayName })
+        Dictionary(grouping: liveCurves, by: { $0.displayName })
             .sorted(by: { value1, value2 -> Bool in
                 value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
             })

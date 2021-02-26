@@ -60,6 +60,12 @@ class ArbsSyncManager {
 
     func startReceivingData() {
 
+        // socket connection
+
+        App.instance.socketsConnect(toServer: .arbs)
+
+        // fetch main data
+        
         let group = DispatchGroup()
 
         var arbs: [Arb] = []
@@ -97,32 +103,28 @@ class ArbsSyncManager {
 
             // patch new arb with current UI state
             for index in strongSelf._arbs.indices {
-                strongSelf.patchArb(&strongSelf._arbs[index]!)
+                strongSelf.patchArb(&strongSelf._arbs[index]!) //swiftlint:disable:this force_unwrapping
             }
 
             strongSelf.delegate?.arbsSyncManagerDidFetch(arbs: strongSelf._arbs.compactMap { $0 })
             strongSelf.lastSyncDate = Date()
-
-            // socket connection
-
-            App.instance.socketsConnect(toServer: .arbs)
         }
     }
 
     func notifyAboutUpdated(arbMonth: ArbMonth) {
         if let arbIndex = _arbs.index(where: { $0.months.contains(arbMonth) }),
-           let indexOfMonth = _arbs[arbIndex]!.months.firstIndex(of: arbMonth) {
+           let indexOfMonth = _arbs[arbIndex]!.months.firstIndex(of: arbMonth) { //swiftlint:disable:this force_unwrapping
 
             lastSyncDate = Date()
 
-            _arbs[arbIndex]!.months[indexOfMonth].update(from: arbMonth)
+            _arbs[arbIndex]!.months[indexOfMonth].update(from: arbMonth) //swiftlint:disable:this force_unwrapping
 
-            patchArb(&_arbs[arbIndex]!)
+            patchArb(&_arbs[arbIndex]!) //swiftlint:disable:this force_unwrapping
 
-            notifyObservers(about: _arbs[arbIndex]!)
+            notifyObservers(about: _arbs[arbIndex]!) //swiftlint:disable:this force_unwrapping
 
             onMainThread {
-                self.delegate?.arbsSyncManagerDidReceiveUpdates(for: self._arbs[arbIndex]!)
+                self.delegate?.arbsSyncManagerDidReceiveUpdates(for: self._arbs[arbIndex]!) //swiftlint:disable:this line_length
             }
         }
     }

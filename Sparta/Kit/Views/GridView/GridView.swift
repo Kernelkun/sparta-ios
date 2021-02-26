@@ -11,13 +11,13 @@ import SpartaHelpers
 protocol GridViewDataSource: class {
     func numberOfSections() -> Int
     func sectionHeight(_ section: Int) -> CGFloat
-    func numberOfRowsForTableView(in section: Int) -> Int
-    func numberOfRowsForCollectionView(in section: Int) -> Int
-    func cellForTableView(_ tableView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell
-    func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell
+    func numberOfRowsForGradeCollectionView(in section: Int) -> Int
+    func numberOfRowsForInfoCollectionView(in section: Int) -> Int
+    func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell
+    func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell
 
-    func gradeTitleForColectionView(at row: Int) -> NSAttributedString?
-    func gradeTitleForTableView() -> NSAttributedString?
+    func gradeTitleForGradeCollectionView() -> NSAttributedString?
+    func gradeTitleForInfoCollectionView(at row: Int) -> NSAttributedString?
 }
 
 class GridView: UIView {
@@ -66,6 +66,7 @@ class GridView: UIView {
     func applyContentInset(_ contentInset: UIEdgeInsets) {
 
         contentView.contentCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
+        contentView.gradesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
 
         contentView.snp.updateConstraints {
             $0.left.equalToSuperview().offset(contentInset.left)
@@ -76,20 +77,6 @@ class GridView: UIView {
 
     func reloadGrades() {
         gradesView.reloadData()
-    }
-
-    func forceReloadView() {
-//        contentView.tableView.reloadData()
-//        contentView.collectionView.reloadData()
-    }
-
-    func scrollToTop() {
-//        contentView.tableView.setContentOffset(.zero, animated: true)
-//        contentView.collectionView.setContentOffset(.zero, animated: true)
-    }
-
-    func invalidateLayout() {
-//        contentView.collectionGridLayout.invalidateLayout()
     }
 
     func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, completion: EmptyClosure? = nil) {
@@ -178,25 +165,6 @@ extension GridView: UIScrollViewDelegate, UICollectionViewDelegate {
     }
 }
 
-extension GridView: UITableViewDataSource, UITableViewDelegate {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        dataSource?.numberOfSections() ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataSource?.numberOfRowsForTableView(in: section) ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        .init()
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        dataSource?.sectionHeight(indexPath.section) ?? 0.0
-    }
-}
-
 extension GridView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -205,17 +173,17 @@ extension GridView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == contentView.gradesCollectionView {
-            return dataSource?.numberOfRowsForTableView(in: section) ?? 0
+            return dataSource?.numberOfRowsForGradeCollectionView(in: section) ?? 0
         } else {
-            return dataSource?.numberOfRowsForCollectionView(in: section) ?? 0
+            return dataSource?.numberOfRowsForInfoCollectionView(in: section) ?? 0
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == contentView.gradesCollectionView {
-            return dataSource?.cellForTableView(collectionView, for: indexPath) ?? .init()
+            return dataSource?.cellForGradeCollectionView(collectionView, for: indexPath) ?? .init()
         } else {
-            return dataSource?.cellForCollectionView(collectionView, for: indexPath) ?? .init()
+            return dataSource?.cellForInfoCollectionView(collectionView, for: indexPath) ?? .init()
         }
     }
 
@@ -225,16 +193,17 @@ extension GridView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
 }
 
 extension GridView: GradesGridViewDataSource {
+
     func gradesGridViewCollectionNumberOfRows() -> Int {
-        dataSource?.numberOfRowsForCollectionView(in: 0) ?? 0
+        dataSource?.numberOfRowsForInfoCollectionView(in: 0) ?? 0
     }
 
     func gradesGridViewCollectionTitle(for row: Int) -> NSAttributedString? {
-        dataSource?.gradeTitleForColectionView(at: row)
+        dataSource?.gradeTitleForInfoCollectionView(at: row)
     }
 
     func gradesGridViewTableTitle() -> NSAttributedString? {
-        dataSource?.gradeTitleForTableView()
+        dataSource?.gradeTitleForGradeCollectionView()
     }
 }
 

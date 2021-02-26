@@ -9,10 +9,9 @@ import Foundation
 
 public struct Environment {
 
-    public static let environment: EnvironmentType = .stage
+    public static let environment: EnvironmentType = .production
 
     public enum EnvironmentType: String {
-//        case development
         case stage
         case production
 

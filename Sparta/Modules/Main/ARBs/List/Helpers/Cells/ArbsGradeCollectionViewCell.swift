@@ -56,6 +56,7 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
         starButton.isActive = false
         titleLabel.attributedText = nil
+        stopObservingAllArbsEvents()
     }
 
     // MARK: - Public methods
@@ -71,6 +72,7 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
     func apply(arb: Arb) {
         self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
 
+        observeArbs(arb)
         setupUI(for: self.arb)
     }
 
@@ -82,7 +84,7 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
         starButton = StarButton().then { button in
 
-            button.clickableInset = -7
+            button.clickableInset = -10
 
             button.onTap { [unowned self] button in
                 guard let button = button as? StarButton else { return }
@@ -104,7 +106,7 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
                 label.textAlignment = .left
                 label.textColor = .white
-                label.numberOfLines = 3
+                label.numberOfLines = 4
                 label.isUserInteractionEnabled = true
 
                 view.addSubview(label) {
@@ -136,14 +138,10 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
                 $0.left.right.bottom.equalToSuperview()
             }
         }
-
-        // actions
-
-        setupActions()
     }
 
     private func setupUI(for arb: Arb) {
-        let gradeName = arb.grade.generateShortIfNeeded(maxSymbols: 15)
+        let gradeName = arb.grade.generateShortIfNeeded(maxSymbols: 30)
         let dischargePortName = arb.dischargePortName
         let freightType = arb.freightType
         let fullString: NSString = gradeName + "\n" + dischargePortName + "\n" + freightType as NSString
@@ -165,15 +163,13 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
         starButton.isActive = arb.isFavourite
     }
+}
 
-    private func setupActions() {
-        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapEvent)))
-    }
+extension ArbsGradeCollectionViewCell: ArbsObserver {
 
-    // MARK: - Events
-
-    @objc
-    private func tapEvent() {
-
+    func arbsDidReceiveResponse(for arb: Arb) {
+        onMainThread {
+            self.setupUI(for: arb)
+        }
     }
 }

@@ -39,11 +39,19 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Lifecycle
 
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+
+        if let layoutAttributes = layoutAttributes as? GridViewLayoutAttributes {
+            backgroundColor = layoutAttributes.backgroundColor
+        }
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
 
         clearUI()
-        stopObservingAllBlendersEvents()
+        stopObservingAllBlendersMonthsEvents()
     }
 
     // MARK: - Public methods
@@ -52,7 +60,7 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
         self.month = month
         self.indexPath = indexPath
 
-        stopObservingAllBlendersEvents()
+        stopObservingAllBlendersMonthsEvents()
         observeBlenderMonth(for: month.observableName)
 
         titleLabel.text = self.month.value
@@ -63,12 +71,6 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
             applyDescriptionUI()
         } else {
             applyTitledUI()
-        }
-
-        if indexPath.section % 2 == 0 { // even
-            backgroundColor = UIGridViewConstants.oddLineBackgroundColor
-        } else { // odd
-            backgroundColor = UIGridViewConstants.evenLineBackgroundColor
         }
     }
 

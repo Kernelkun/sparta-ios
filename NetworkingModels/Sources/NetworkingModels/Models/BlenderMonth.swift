@@ -46,6 +46,13 @@ public struct BlenderMonth: BackendModel {
     }
 }
 
+extension BlenderMonth: Equatable {
+
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.observableName.lowercased() == rhs.observableName.lowercased()
+    }
+}
+
 extension BlenderMonth {
 
     public var textColor: UIColor {

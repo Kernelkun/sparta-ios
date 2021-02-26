@@ -21,7 +21,7 @@ class LiveCurvesSyncManager {
 
     // MARK: - Singleton
 
-    static let intance = BlenderSyncManager()
+    static let intance = LiveCurvesSyncManager()
 
     // MARK: - Public properties
 
@@ -51,7 +51,7 @@ class LiveCurvesSyncManager {
 
     // MARK: - Initializers
 
-    init() {
+    private init() {
         observeSocket(for: .liveCurves)
     }
 

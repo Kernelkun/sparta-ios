@@ -15,6 +15,7 @@
 		D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */; };
 		D9264BED25751298001477DA /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = D9264BEC25751298001477DA /* Networking */; };
 		D92A374325DD60D800C0F9C8 /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A374225DD60D800C0F9C8 /* StarButton.swift */; };
+		D92A379625E261E200C0F9C8 /* BlenderViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A379525E261E200C0F9C8 /* BlenderViewModel+Models.swift */; };
 		D92FFF4425793BF100AB5405 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A118102579377500BB928E /* App.swift */; };
 		D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889325700E95003ECB61 /* LoginViewController.swift */; };
 		D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93A889725700E9D003ECB61 /* LoginViewModel.swift */; };
@@ -28,7 +29,7 @@
 		D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEF92577B89B009115FD /* GridLayout.swift */; };
 		D944CEFD2577B8E1009115FD /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEFC2577B8E1009115FD /* GridCell.swift */; };
 		D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CF042577E096009115FD /* BlenderViewModel.swift */; };
-		D94BCA452577F7ED0076C2AB /* BlenderInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA442577F7ED0076C2AB /* BlenderInfoTableViewCell.swift */; };
+		D94BCA452577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */; };
 		D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */; };
 		D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228425826AE6005FA057 /* PhoneNumberKit-Static */; };
 		D94E228725826AE6005FA057 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228625826AE6005FA057 /* PhoneNumberKit */; };
@@ -63,11 +64,7 @@
 		D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */; };
 		D98AF6C725BAC69500A5BC96 /* KeyedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */; };
 		D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */; };
-		D98AF6E125BB01DC00A5BC96 /* Sparta.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6DF25BB01DC00A5BC96 /* Sparta.xcdatamodeld */; };
 		D98AF6E525BB02D700A5BC96 /* CoreStore in Frameworks */ = {isa = PBXBuildFile; productRef = D98AF6E425BB02D700A5BC96 /* CoreStore */; };
-		D98AF6E825BB1AE900A5BC96 /* SpartaDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6E725BB1AE900A5BC96 /* SpartaDB.swift */; };
-		D98AF6ED25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6EB25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift */; };
-		D98AF6EE25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6EC25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift */; };
 		D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */; };
 		D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */; };
 		D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */; };
@@ -173,6 +170,7 @@
 		D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		D9264BE82574FF0D001477DA /* NetworkingModels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NetworkingModels; sourceTree = "<group>"; };
 		D92A374225DD60D800C0F9C8 /* StarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
+		D92A379525E261E200C0F9C8 /* BlenderViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlenderViewModel+Models.swift"; sourceTree = "<group>"; };
 		D93A889325700E95003ECB61 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D93A889725700E9D003ECB61 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		D93A889E25713BA0003ECB61 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Networking; sourceTree = "<group>"; };
@@ -186,7 +184,7 @@
 		D944CEF92577B89B009115FD /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		D944CEFC2577B8E1009115FD /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
 		D944CF042577E096009115FD /* BlenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderViewModel.swift; sourceTree = "<group>"; };
-		D94BCA442577F7ED0076C2AB /* BlenderInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoTableViewCell.swift; sourceTree = "<group>"; };
+		D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectiomViewCell.swift; sourceTree = "<group>"; };
 		D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D94E228825826CEE005FA057 /* UITextFieldSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldSelector.swift; sourceTree = "<group>"; };
 		D954A14A2590B3E300FAE766 /* SeasonalityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonalityButton.swift; sourceTree = "<group>"; };
@@ -219,10 +217,6 @@
 		D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewModel.swift; sourceTree = "<group>"; };
 		D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedButton.swift; sourceTree = "<group>"; };
 		D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsViewModel+Models.swift"; sourceTree = "<group>"; };
-		D98AF6E025BB01DC00A5BC96 /* Sparta.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sparta.xcdatamodel; sourceTree = "<group>"; };
-		D98AF6E725BB1AE900A5BC96 /* SpartaDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpartaDB.swift; sourceTree = "<group>"; };
-		D98AF6EB25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBUserTarget+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D98AF6EC25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DBUserTarget+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbTappableCell.swift; sourceTree = "<group>"; };
 		D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManager.swift; sourceTree = "<group>"; };
 		D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewController.swift; sourceTree = "<group>"; };
@@ -436,7 +430,7 @@
 		D944CF002577DF28009115FD /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				D94BCA442577F7ED0076C2AB /* BlenderInfoTableViewCell.swift */,
+				D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */,
 				D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */,
 				D9ECEC49257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift */,
 			);
@@ -449,6 +443,7 @@
 				D944CF002577DF28009115FD /* Cells */,
 				D9ECEC39257A9A6D005DFFD7 /* Views */,
 				D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */,
+				D92A379525E261E200C0F9C8 /* BlenderViewModel+Models.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -643,25 +638,6 @@
 				D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */,
 			);
 			path = Details;
-			sourceTree = "<group>";
-		};
-		D98AF6DE25BB01AE00A5BC96 /* DB */ = {
-			isa = PBXGroup;
-			children = (
-				D98AF6EA25BB1B0500A5BC96 /* Entities */,
-				D98AF6DF25BB01DC00A5BC96 /* Sparta.xcdatamodeld */,
-				D98AF6E725BB1AE900A5BC96 /* SpartaDB.swift */,
-			);
-			path = DB;
-			sourceTree = "<group>";
-		};
-		D98AF6EA25BB1B0500A5BC96 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				D98AF6EC25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift */,
-				D98AF6EB25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift */,
-			);
-			path = Entities;
 			sourceTree = "<group>";
 		};
 		D99A73E8259C7B24009E3559 /* ARBs */ = {
@@ -1001,7 +977,6 @@
 			children = (
 				D9BB5348256E8E6600AD2D1A /* AppDelegate.swift */,
 				D9BB5368256ECEC600AD2D1A /* Kit */,
-				D98AF6DE25BB01AE00A5BC96 /* DB */,
 				D96C8BEC257665090038175A /* Networking */,
 				D9B50E0525717FFA0018F3D7 /* Coordinators */,
 				D9BB5395256EF8F400AD2D1A /* Modules */,
@@ -1256,7 +1231,7 @@
 				D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */,
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
 				D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */,
-				D94BCA452577F7ED0076C2AB /* BlenderInfoTableViewCell.swift in Sources */,
+				D94BCA452577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift in Sources */,
 				D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */,
 				D9B7CCD925C1C9590023FDF2 /* ProgressView.swift in Sources */,
 				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
@@ -1288,7 +1263,6 @@
 				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,
 				D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */,
-				D98AF6ED25BB1F9C00A5BC96 /* DBUserTarget+CoreDataProperties.swift in Sources */,
 				D9B50E0F257180A70018F3D7 /* AuthenticationFlowCoordinator.swift in Sources */,
 				D944CEFD2577B8E1009115FD /* GridCell.swift in Sources */,
 				D959C0F625822F94006CE2D1 /* SettingsViewController.swift in Sources */,
@@ -1297,7 +1271,6 @@
 				D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */,
 				D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */,
 				D99ACC3125AF8210007DAB6D /* LiveChartsViewModel.swift in Sources */,
-				D98AF6EE25BB1F9C00A5BC96 /* DBUserTarget+CoreDataClass.swift in Sources */,
 				D9ECEC4A257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift in Sources */,
 				D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */,
 				D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */,
@@ -1306,6 +1279,7 @@
 				D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */,
 				D9A91CB325A9A80B00423704 /* FreightResultViewController.swift in Sources */,
 				D959C0EF25822EE0006CE2D1 /* FreightViewController.swift in Sources */,
+				D92A379625E261E200C0F9C8 /* BlenderViewModel+Models.swift in Sources */,
 				D9ECEC4D257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift in Sources */,
 				D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */,
 				D9B7CCE225C305AC0023FDF2 /* ResultManualStatusView.swift in Sources */,
@@ -1322,7 +1296,6 @@
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */,
 				D977B3A425C330E9009A9483 /* ArbDetailContentView.swift in Sources */,
-				D98AF6E125BB01DC00A5BC96 /* Sparta.xcdatamodeld in Sources */,
 				D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */,
 				D99B2F3425753ADF0080B90B /* Validator.swift in Sources */,
 				D9A2797125939632009D066E /* App+Observation.swift in Sources */,
@@ -1338,7 +1311,6 @@
 				D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */,
 				D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */,
 				D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */,
-				D98AF6E825BB1AE900A5BC96 /* SpartaDB.swift in Sources */,
 				D9A067162587CD6D00C0D1E5 /* GradesGridView.swift in Sources */,
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
 				D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */,
@@ -1527,7 +1499,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1535,7 +1507,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Sources/Sparta-Bridging-Header.h";
@@ -1553,7 +1525,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1561,7 +1533,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Sources/Sparta-Bridging-Header.h";
@@ -1702,19 +1674,6 @@
 			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		D98AF6DF25BB01DC00A5BC96 /* Sparta.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D98AF6E025BB01DC00A5BC96 /* Sparta.xcdatamodel */,
-			);
-			currentVersion = D98AF6E025BB01DC00A5BC96 /* Sparta.xcdatamodel */;
-			path = Sparta.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D9BB533D256E8E6600AD2D1A /* Project object */;
 }

@@ -143,12 +143,13 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             stackView.addArrangedSubview(sixLabel)
 
             stackView.axis = .vertical
-            stackView.alignment = .center
+            stackView.alignment = .trailing
             stackView.spacing = 4
             stackView.distribution = .equalSpacing
 
             contentView.addSubview(stackView) {
-                $0.center.equalToSuperview()
+                $0.centerY.equalToSuperview()
+                $0.left.right.equalToSuperview().inset(4)
             }
         }
 

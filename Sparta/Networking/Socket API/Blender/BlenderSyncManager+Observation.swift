@@ -17,34 +17,71 @@ import Networking
 /// Represents the object that can listen to folder actions.
 protocol BlenderObserver: class {
     func blenderDidReceiveResponse(for blenderMonth: BlenderMonth)
+    func blenderDidReceiveUpdates(_ blender: Blender)
+}
+
+extension BlenderObserver {
+    func blenderDidReceiveResponse(for blenderMonth: BlenderMonth) {}
+    func blenderDidReceiveUpdates(_ blender: Blender) {}
 }
 
 extension BlenderObserver {
 
+    // months
+
     func observeBlenderMonth(for blendersMonthsNames: String...) {
 
         for name in blendersMonthsNames {
-            let observers = BlenderSyncManager.observers[name] ?? .init()
+            let observers = BlenderSyncManager.monthsObservers[name] ?? .init()
             observers.insert(self)
-            BlenderSyncManager.observers[name] = observers
+            BlenderSyncManager.monthsObservers[name] = observers
         }
     }
 
     func stopObservingBlenderMonths(for blendersMonthsNames: String...) {
 
         for name in blendersMonthsNames {
-            guard let observers = BlenderSyncManager.observers[name] else { continue }
+            guard let observers = BlenderSyncManager.monthsObservers[name] else { continue }
             observers.remove(self)
-            BlenderSyncManager.observers[name] = observers
+            BlenderSyncManager.monthsObservers[name] = observers
+        }
+    }
+
+    func stopObservingAllBlendersMonthsEvents() {
+
+        for code in BlenderSyncManager.monthsObservers.keys {
+            guard let observers = BlenderSyncManager.monthsObservers[code] else { continue }
+            observers.remove(self)
+            BlenderSyncManager.monthsObservers[code] = observers
+        }
+    }
+
+    // blenders
+
+    func observeBlenders(_ blenders: Blender...) {
+
+        for blender in blenders {
+            let observers = BlenderSyncManager.blenderObservers[blender.serverUniqueIdentifier] ?? .init()
+            observers.insert(self)
+            BlenderSyncManager.blenderObservers[blender.serverUniqueIdentifier] = observers
+        }
+    }
+
+    func stopObservingBlenders(for blenders: Blender...) {
+
+        for blender in blenders {
+            guard let observers = BlenderSyncManager.blenderObservers[blender.serverUniqueIdentifier] else { continue }
+            observers.remove(self)
+            BlenderSyncManager.blenderObservers[blender.serverUniqueIdentifier] = observers
         }
     }
 
     func stopObservingAllBlendersEvents() {
 
-        for code in BlenderSyncManager.observers.keys {
-            guard let observers = BlenderSyncManager.observers[code] else { continue }
+        for code in BlenderSyncManager.blenderObservers.keys {
+            guard let observers = BlenderSyncManager.blenderObservers[code] else { continue }
             observers.remove(self)
-            BlenderSyncManager.observers[code] = observers
+            BlenderSyncManager.blenderObservers[code] = observers
         }
     }
 }
@@ -52,13 +89,22 @@ extension BlenderObserver {
 extension BlenderSyncManager {
 
     /// Socket event observers.
-    fileprivate static var observers: [String: WeakSet<BlenderObserver>] = [:]
+    fileprivate static var monthsObservers: [String: WeakSet<BlenderObserver>] = [:]
+    fileprivate static var blenderObservers: [String: WeakSet<BlenderObserver>] = [:]
 
     func notifyObservers(about blenderMonth: BlenderMonth, queue: OperationQueue = .main) {
 
-        print("-observers count: \(BlenderSyncManager.observers.values.compactMap { $0.allObjects.count }.reduce(0, +))")
+        print("-observers count: \(BlenderSyncManager.monthsObservers.values.compactMap { $0.allObjects.count }.reduce(0, +))")
 
-        guard let observers = BlenderSyncManager.observers[blenderMonth.observableName]?.allObjects else { return }
+        guard let observers = BlenderSyncManager.monthsObservers[blenderMonth.observableName]?.allObjects else { return }
         queue.addOperation { observers.forEach { $0.blenderDidReceiveResponse(for: blenderMonth) } }
+    }
+
+    func notifyObserversAboutBlender(_ blender: Blender, queue: OperationQueue = .main) {
+
+        print("-observers count: \(BlenderSyncManager.blenderObservers.values.compactMap { $0.allObjects.count }.reduce(0, +))")
+
+        guard let observers = BlenderSyncManager.blenderObservers[blender.serverUniqueIdentifier]?.allObjects else { return }
+        queue.addOperation { observers.forEach { $0.blenderDidReceiveUpdates(blender) } }
     }
 }
