@@ -22,7 +22,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         let constructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
                                                        gradeHeight: 50,
                                                        collectionColumnWidth: 65,
-                                                       tableColumnWidth: 130)
+                                                       tableColumnWidth: 160)
 
         gridView = GridView(constructor: constructor)
         view = gridView
@@ -79,6 +79,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
 
     private func setupNavigationUI() {
         navigationItem.title = nil
+        navigationItem.backButtonTitle = "Arbs"
 
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "ARBs")
     }
@@ -86,13 +87,13 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
 
 extension ArbsViewController: GridViewDataSource {
 
-    func gradeTitleForColectionView(at row: Int) -> NSAttributedString? {
+    func gradeTitleForInfoCollectionView(at row: Int) -> NSAttributedString? {
         if case let ArbsViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
             return title
         } else { return nil }
     }
 
-    func gradeTitleForTableView() -> NSAttributedString? {
+    func gradeTitleForGradeCollectionView() -> NSAttributedString? {
         if case let ArbsViewModel.Cell.grade(title) = viewModel.tableGrade {
             return title
         } else { return nil }
@@ -103,37 +104,39 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
-        77
+        150
     }
 
-    func numberOfRowsForTableView(in section: Int) -> Int {
+    func numberOfRowsForGradeCollectionView(in section: Int) -> Int {
         1
     }
 
-    func numberOfRowsForCollectionView(in section: Int) -> Int {
+    func numberOfRowsForInfoCollectionView(in section: Int) -> Int {
         viewModel.rowsCount()
     }
 
-    func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
-        let cell: ArbsGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+    func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: ArbsGradeCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-        if case let ArbsViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
-            cell.apply(text: title, for: indexPath)
+        if case let ArbsViewModel.Cell.title(arb) = viewModel.tableDataSource[indexPath.section] {
+            cell.apply(arb: arb)
 
-            cell.onTap { [unowned self] indexPath in
+            cell.onTap { [unowned self] arb in
+                guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                let cellInfo = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
+                self.navigationController?.pushViewController(ArbDetailViewController(arb: newArb), animated: true)
+            }
 
-                if case let ArbsViewModel.Cell.info(arb) = cellInfo {
-                    self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
-                }
+            cell.onToggleFavourite { [unowned self] arb in
+
+                self.viewModel.toggleFavourite(arb: arb)
             }
         }
 
         return cell
     }
 
-    func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+    func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
 
         let section = viewModel.collectionDataSource[indexPath.section]
         let gradeType = viewModel.collectionGrades[indexPath.row]
@@ -143,15 +146,12 @@ extension ArbsViewController: GridViewDataSource {
         }
 
         func fillCell(_ cell: ArbTappableCell) {
-            cell.apply(arb: arb, for: indexPath)
+            cell.apply(arb: arb)
 
-            cell.onTap { [unowned self] indexPath in
+            cell.onTap { [unowned self] arb in
+                guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                let cellInfo = viewModel.collectionDataSource[indexPath.section].cells[indexPath.row]
-
-                if case let ArbsViewModel.Cell.info(arb) = cellInfo {
-                    self.navigationController?.pushViewController(ArbDetailViewController(arb: arb), animated: true)
-                }
+                self.navigationController?.pushViewController(ArbDetailViewController(arb: newArb), animated: true)
             }
         }
 
@@ -203,15 +203,7 @@ extension ArbsViewController: ArbsViewModelDelegate {
     }
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates, completion: {
-            /*self.gridView.tableView.visibleCells.forEach { cell in
-                if let cell = cell as? LiveCurveGradeTableViewCell, let indexPath = self.gridView.tableView.indexPath(for: cell) {
-                    if case let ArbsViewModel.Cell.grade(title) = self.viewModel.tableDataSource[indexPath.section] {
-                        cell.apply(title: title, for: indexPath)
-                    }
-                }
-            }*/
-        })
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {

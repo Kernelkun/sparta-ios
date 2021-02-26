@@ -58,7 +58,6 @@ public extension UICollectionView {
                         updates: IndexSet,
                         completion: ((Bool) -> Void)? = nil) {
 
-        UIView.setAnimationsEnabled(false)
         performBatchUpdates({
 
             if !insertions.isEmpty {
@@ -74,7 +73,6 @@ public extension UICollectionView {
             }
             
         }, completion: completion)
-        UIView.setAnimationsEnabled(true)
     }
 }
 

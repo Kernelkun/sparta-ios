@@ -12,7 +12,7 @@ import NetworkingModels
 
 protocol BlenderViewModelDelegate: class {
     func didReceiveUpdatesForGrades()
-    func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool)
+    func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)
 }
 
@@ -100,6 +100,25 @@ class BlenderViewModel: NSObject, BaseViewModel {
         6
     }
 
+    func toggleFavourite(blender: Blender) {
+        if let index = fetchedBlenders.firstIndex(of: blender) {
+
+            // update blenders favourite states
+
+            fetchedBlenders[index].isFavourite.toggle()
+            blenderManager.updateFavouriteState(for: fetchedBlenders[index])
+            sortBlenders()
+
+            if let indexes = generateDataSourceUpdates() {
+                onMainThread {
+                    self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(indexes.1),
+                                                               removals: IndexSet(indexes.0),
+                                                               updates: [])
+                }
+            }
+        }
+    }
+
     // MARK: - Private methods
 
     private func updateSeasonalityDataSource() {
@@ -111,16 +130,15 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
         self.delegate?.didUpdateDataSourceSections(insertions: [],
                                                    removals: [],
-                                                   updates: IndexSet(indexesForUpdates),
-                                                   afterSeasonality: true)
+                                                   updates: IndexSet(indexesForUpdates))
     }
 
-    private func createTableDataSource(from blenders: [Blender]) -> [Cell] {
-        blenders.compactMap { .grade(title: $0.grade) }
+    private func createTableDataSource() -> [Cell] {
+        fetchedBlenders.compactMap { .title(blender: $0) }
     }
 
-    private func createCollectionDataSource(from blenders: [Blender]) -> [Section] {
-        blenders.compactMap { blender in
+    private func createCollectionDataSource() -> [Section] {
+        fetchedBlenders.compactMap { blender in
 
             var cells: [Cell] = Array(repeating: Cell.info(month: .empty), count: monthsCount())
 
@@ -154,38 +172,84 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 }
 
-// differences
+// differences & sorting
 
 extension BlenderViewModel {
 
-    private func updateBlenders(_ newBlenders: [Blender]) {
-        let changes = newBlenders.difference(from: fetchedBlenders)
+    private func sortBlenders() {
 
-        let insertedIndexPaths = changes.insertions.compactMap { change -> IndexPath? in
+        func sortPredicate(lhs: Blender, rhs: Blender) -> Bool {
+            if lhs.isFavourite && rhs.isFavourite {
+                return lhs.priorityIndex < rhs.priorityIndex
+            } else if lhs.isFavourite && !rhs.isFavourite {
+                return true
+            } else if !lhs.isFavourite && rhs.isFavourite {
+                return false
+            } else {
+                return lhs.priorityIndex < rhs.priorityIndex
+            }
+        }
+
+        fetchedBlenders = fetchedBlenders.sorted { sortPredicate(lhs: $0, rhs: $1) }
+    }
+
+    private func updateBlenders() {
+
+        let newTableDataSource = createTableDataSource()
+        let newCollectionDataSource = createCollectionDataSource()
+
+        let changes = newTableDataSource.difference(from: tableDataSource)
+
+        let insertedIndexs = changes.insertions.compactMap { change -> Int? in
             guard case let .insert(offset, _, _) = change else { return nil }
 
-            return IndexPath(row: 0, section: offset)
+            return offset
         }
 
-        let removedIndexPaths = changes.removals.compactMap { change -> IndexPath? in
+        let removedIndexs = changes.removals.compactMap { change -> Int? in
             guard case let .remove(offset, _, _) = change else { return nil }
 
-            return IndexPath(row: 0, section: offset)
+            return offset
         }
 
-        fetchedBlenders = newBlenders
-
-        tableDataSource = createTableDataSource(from: newBlenders)
-        collectionDataSource = createCollectionDataSource(from: newBlenders)
-
-        let insertionsIndexSet = IndexSet(insertedIndexPaths.compactMap { $0.section })
-        let removalsIndexSet = IndexSet(removedIndexPaths.compactMap { $0.section })
+        tableDataSource = newTableDataSource
+        collectionDataSource = newCollectionDataSource
 
         onMainThread {
-            self.delegate?.didUpdateDataSourceSections(insertions: insertionsIndexSet,
-                                                       removals: removalsIndexSet,
-                                                       updates: [],
-                                                       afterSeasonality: false)
+            self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(insertedIndexs),
+                                                       removals: IndexSet(removedIndexs),
+                                                       updates: [])
+        }
+    }
+
+    private func generateDataSourceUpdates() -> ([Int], [Int])? {
+
+        let newTableDataSource = createTableDataSource()
+        let newCollectionDataSource = createCollectionDataSource()
+
+        let changes = newTableDataSource.difference(from: tableDataSource)
+
+        let insertedIndexs = changes.insertions.compactMap { change -> Int? in
+            guard case let .insert(offset, _, _) = change else { return nil }
+
+            return offset
+        }
+
+        let removedIndexs = changes.removals.compactMap { change -> Int? in
+            guard case let .remove(offset, _, _) = change else { return nil }
+
+            return offset
+        }
+
+        if !removedIndexs.isEmpty && !insertedIndexs.isEmpty,
+           removedIndexs.count == insertedIndexs.count {
+
+            tableDataSource = newTableDataSource
+            collectionDataSource = newCollectionDataSource
+
+            return (removedIndexs, insertedIndexs)
+        } else {
+            return nil
         }
     }
 }
@@ -200,23 +264,27 @@ extension BlenderViewModel: AppObserver {
 extension BlenderViewModel: BlenderSyncManagerDelegate {
 
     func blenderSyncManagerDidFetch(blenders: [Blender]) {
-        updateBlenders(blenders)
+        onMainThread {
+            self.fetchedBlenders = blenders
+            self.sortBlenders()
 
-        updateGrades()
+            self.updateBlenders()
+            self.updateGrades()
+        }
     }
 
     func blenderSyncManagerDidReceive(blender: Blender) {
-        var newBlenders = Array(fetchedBlenders)
-        newBlenders.append(blender)
-        
-        updateBlenders(newBlenders)
+        fetchedBlenders.append(blender)
+        sortBlenders()
 
+        updateBlenders()
         updateGrades()
     }
 
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender) {
         if let indexOfBlender = fetchedBlenders.firstIndex(of: blender) {
             fetchedBlenders[indexOfBlender] = blender
+            tableDataSource[indexOfBlender] = Cell.title(blender: blender)
             collectionDataSource[indexOfBlender].cells = blender.months.compactMap { Cell.info(month: $0) }
         }
 
@@ -225,19 +293,5 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
 
     func blenderSyncManagerDidChangeSyncDate(_ newDate: Date?) {
         updateConnectionInfo()
-    }
-}
-
-extension BlenderViewModel {
-
-    enum Cell {
-        case grade(title: String)
-        case info(month: BlenderMonth)
-
-        static let emptyGrade: Cell = .grade(title: "")
-    }
-
-    struct Section {
-        var cells: [Cell]
     }
 }

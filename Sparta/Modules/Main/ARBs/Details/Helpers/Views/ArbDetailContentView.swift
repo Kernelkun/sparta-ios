@@ -43,19 +43,25 @@ class ArbDetailContentView: UIView {
                 mainStackView.addArrangedSubview(statusView(title: cell.displayTitle,
                                                             position: position))
 
-            case .target(let value):
-                mainStackView.addArrangedSubview(inputView(title: cell.displayTitle, value: value))
+            case .target(let value, let units):
+                mainStackView.addArrangedSubview(inputView(title: cell.displayTitle, value: value, units: units))
 
             case .emptySpace:
                 mainStackView.addArrangedSubview(emptyView())
 
-            case .blendCost(let value, let color), .gasNap(let value, let color),
-                 .freight(let value, let color), .taArb(let value, let color),
-                 .dlvPrice(let value, let color), .dlvPriceBasis(let value, let color),
-                 .myMargin(let value, let color), .blenderMargin(let value, let color),
-                 .fobRefyMargin(let value, let color), .cifRefyMargin(let value, let color),
-                 .codBlenderMargin(let value, let color), .ew(let value, let color):
+            case .blendCost(let value, let color, let units), .gasNap(let value, let color, let units),
+                 .freight(let value, let color, let units), .taArb(let value, let color, let units),
+                 .dlvPrice(let value, let color, let units),
+                 .myMargin(let value, let color, let units), .blenderMargin(let value, let color, let units),
+                 .fobRefyMargin(let value, let color, let units), .cifRefyMargin(let value, let color, let units),
+                 .codBlenderMargin(let value, let color, let units), .ew(let value, let color, let units):
 
+                mainStackView.addArrangedSubview(keyValueUnitsView(title: cell.displayTitle,
+                                                                   value: value,
+                                                                   color: color,
+                                                                   units: units))
+
+            case .dlvPriceBasis(let value, let color):
                 mainStackView.addArrangedSubview(keyValueView(title: cell.displayTitle, value: value, color: color))
             }
         }
@@ -72,12 +78,18 @@ class ArbDetailContentView: UIView {
                     subview.apply(key: cell.displayTitle, position: position)
                 }
 
-            case .blendCost(let value, let color), .gasNap(let value, let color),
-                 .freight(let value, let color), .taArb(let value, let color),
-                 .dlvPrice(let value, let color), .dlvPriceBasis(let value, let color),
-                 .myMargin(let value, let color), .blenderMargin(let value, let color),
-                 .fobRefyMargin(let value, let color), .cifRefyMargin(let value, let color),
-                 .codBlenderMargin(let value, let color):
+            case .blendCost(let value, let color, let units), .gasNap(let value, let color, let units),
+                 .freight(let value, let color, let units), .taArb(let value, let color, let units),
+                 .dlvPrice(let value, let color, let units),
+                 .myMargin(let value, let color, let units), .blenderMargin(let value, let color, let units),
+                 .fobRefyMargin(let value, let color, let units), .cifRefyMargin(let value, let color, let units),
+                 .codBlenderMargin(let value, let color, let units), .ew(let value, let color, let units):
+
+                if let subview: ResultKeyValueUnitsView<String> = findSubviews(cell.displayTitle).first {
+                    subview.apply(key: cell.displayTitle, value: value, valueColor: color, units: units)
+                }
+
+            case .dlvPriceBasis(let value, let color):
 
                 if let subview: ResultKeyValueView<String> = findSubviews(cell.displayTitle).first {
                     subview.apply(key: cell.displayTitle, value: value, valueColor: color)
@@ -134,10 +146,21 @@ class ArbDetailContentView: UIView {
         }
     }
 
-    private func inputView(title: String, value: String?, height: CGFloat = 38) -> ResultKeyInputView {
+    private func keyValueUnitsView(title: String, value: String, color: UIColor, units: String, height: CGFloat = 38) -> ResultKeyValueUnitsView<String> {
+        ResultKeyValueUnitsView(id: title).then { view in
+
+            view.apply(key: title, value: value, valueColor: color, units: units)
+
+            view.snp.makeConstraints {
+                $0.height.equalTo(height)
+            }
+        }
+    }
+
+    private func inputView(title: String, value: String?, units: String, height: CGFloat = 38) -> ResultKeyInputView {
         ResultKeyInputView().then { view in
 
-            view.apply(key: title, value: value) { [unowned self] text in
+            view.apply(key: title, value: value, units: units) { [unowned self] text in
                 self._onMarginChangedClosure?(text)
             }
 

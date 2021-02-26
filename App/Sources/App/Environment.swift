@@ -9,10 +9,9 @@ import Foundation
 
 public struct Environment {
 
-    public static let environment: EnvironmentType = .stage
+    public static let environment: EnvironmentType = .production
 
     public enum EnvironmentType: String {
-//        case development
         case stage
         case production
 
@@ -49,7 +48,7 @@ public struct Environment {
 
     public static let socketBlenderURL = Self.baseDataURL + "/blender"
     public static let socketLiveCurvesURL = Self.baseDataURL + "/socket/v1/curves"
-    public static let socketArbsURL = Self.baseDataURL + "/socket/arbs"
+    public static let socketArbsURL = Self.baseDataURL + "/socket/arbs?arbsmonths=6"
 
     // API KEY's
 

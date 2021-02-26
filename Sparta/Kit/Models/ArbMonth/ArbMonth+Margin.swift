@@ -25,19 +25,15 @@ struct ArbMonthDBProperties {
     // MARK: - Public methods
 
     func fetchUserTarget() -> UserTarget? {
-        return DBUserTarget.fetch(with: month.uniqueIdentifier)?.target
+        return month.userTarget
     }
 
     func saveUserTarget(value: UserTarget) {
-        DBUserTarget.createOrUpdate(id: month.uniqueIdentifier, target: value, completion: {
-            ArbsSyncManager.intance.notifyAboutUpdated(arbMonth: month)
-        })
+        ArbsSyncManager.intance.updateUserTarget(value, for: month)
     }
 
     func deleteUserTarget() {
-        DBUserTarget.fetch(with: month.uniqueIdentifier)?.delete {
-            ArbsSyncManager.intance.notifyAboutUpdated(arbMonth: month)
-        }
+        ArbsSyncManager.intance.deleteUserTarget(for: month)
     }
 }
 

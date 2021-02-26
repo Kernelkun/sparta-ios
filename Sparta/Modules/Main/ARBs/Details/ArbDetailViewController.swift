@@ -100,7 +100,7 @@ class ArbDetailViewController: BaseViewController {
             scrollViewContent.addSubview(view) {
                 $0.top.equalToSuperview()
                 $0.left.right.equalToSuperview().inset(24)
-                $0.height.equalTo(30)
+                $0.height.equalTo(39)
             }
         }
 

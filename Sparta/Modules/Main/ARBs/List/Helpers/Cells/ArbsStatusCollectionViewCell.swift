@@ -18,12 +18,12 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - Public properties
 
-    var indexPath: IndexPath!
+    var arb: Arb!
 
     // MARK: - Private properties
 
     private var lastPriceCode: String!
-    private var _tapClosure: TypeClosure<IndexPath>?
+    private var _tapClosure: TypeClosure<Arb>?
 
     // MARK: - Initializers
 
@@ -56,14 +56,14 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - Public methods
 
-    func apply(arb: Arb, for indexPath: IndexPath) {
-        self.indexPath = indexPath
+    func apply(arb: Arb) {
+        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
 
         observeArbs(arb)
         updateUI(for: arb)
     }
 
-    func onTap(completion: @escaping TypeClosure<IndexPath>) {
+    func onTap(completion: @escaping TypeClosure<Arb>) {
         _tapClosure = completion
     }
 
@@ -93,7 +93,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
             stackView.axis = .vertical
             stackView.alignment = .center
-            stackView.spacing = 6
+            stackView.spacing = 9
             stackView.distribution = .equalCentering
 
             contentView.addSubview(stackView) {
@@ -160,7 +160,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     @objc
     private func tapEvent() {
-        _tapClosure?(indexPath)
+        _tapClosure?(arb)
     }
 }
 
