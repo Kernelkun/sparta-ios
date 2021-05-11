@@ -38,9 +38,41 @@ extension ArbsViewModel {
         }
         
         static var deliveryMonth: Cell { .grade(attributedString: NSAttributedString(string: "Dlv\nMonth")) }
-        static var userTgt: Cell { .grade(attributedString: NSAttributedString(string: "My\nTGT")) }
-        static var userMargin: Cell { .grade(attributedString: NSAttributedString(string: "My\nMargin")) }
-        static var deliveryPrice: Cell { .grade(attributedString: NSAttributedString(string: "Dlv\nPrice")) }
+        static var userTgt: Cell {
+            let title: String = "My\nTGT"
+            let attributedString = NSMutableAttributedString(string: title)
+
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .right
+
+            attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: (title as NSString).range(of: title))
+            return .grade(attributedString: attributedString)
+        }
+        static var userMargin: Cell {
+            let emptyString = "\u{200B}"
+            let title: String =
+                """
+                My \(emptyString) \n\(emptyString)Margin \(emptyString)
+                """
+            let attributedString = NSMutableAttributedString(string: title)
+
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .right
+
+            attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: (title as NSString).range(of: title))
+            return .grade(attributedString: attributedString)
+        }
+        static var deliveryPrice: Cell {
+            let title: NSString = "Dlv\nPrice"
+            let attributedString = NSMutableAttributedString(string: title as String)
+
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .right
+
+            attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: title.range(of: title as String))
+
+            return .grade(attributedString: attributedString)
+        }
     }
 
     struct Section {

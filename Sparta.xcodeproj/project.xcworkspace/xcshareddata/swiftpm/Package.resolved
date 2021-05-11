@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "Segment",
-        "repositoryURL": "https://github.com/segmentio/analytics-ios",
+        "package": "CoreStore",
+        "repositoryURL": "https://github.com/JohnEstropia/CoreStore",
         "state": {
           "branch": null,
-          "revision": "d88d49d1b7bf50bb32ca8645d371802c4d8be564",
-          "version": "4.1.2"
+          "revision": "a40df37192622b093321fc2003f4a5cbe3860ffb",
+          "version": "7.3.1"
         }
       },
       {
