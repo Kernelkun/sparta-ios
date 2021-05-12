@@ -88,9 +88,9 @@ extension LiveCurvesSyncManager: SocketActionObserver {
 
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON) {
 
-        var liveCurve = LiveCurve(json: data)
+        var liveCurve = LiveCurve(json: data["payload"])
 
-        guard !excludedLiveCurvesCodes.compactMap({ $0.lowercased() }).contains(liveCurve.name.lowercased()) else { return }
+//        guard !excludedLiveCurvesCodes.compactMap({ $0.lowercased() }).contains(liveCurve.name.lowercased()) else { return }
 
         lastSyncDate = Date()
 
