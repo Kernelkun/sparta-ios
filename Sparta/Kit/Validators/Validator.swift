@@ -23,6 +23,11 @@ extension Validator {
         return validateString(value, pattern: pattern)
     }
 
+    func isValidPassword(_ value: String) -> Bool {
+        let pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"
+        return validateString(value, pattern: pattern)
+    }
+
     func isAlphanumeric(_ value: String) -> Bool {
         let pattern = "^[A-Z0-9a-z._-]+$"
         return validateString(value, pattern: pattern)
@@ -33,8 +38,8 @@ extension Validator {
         return validateString(value, pattern: pattern)
     }
 
-    func containsAtLeastOneLetter(_ value: String) -> Bool {
-        let pattern = "[A-Za-z]"
+    func containsAtLeastOneCapitalLetter(_ value: String) -> Bool {
+        let pattern = "[A-Z]"
         return validateString(value, pattern: pattern)
     }
 

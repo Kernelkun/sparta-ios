@@ -62,17 +62,17 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
         Dictionary(grouping: liveCurves, by: { $0.displayName })
-        .sorted(by: { value1, value2 in
-            value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
-        })
+//        .sorted(by: { value1, value2 in
+//            value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
+//        })
         .compactMap { .grade(title: $0.key) }
     }
 
     private func createCollectionDataSource(from liveCurves: [LiveCurve]) -> [Section] {
         Dictionary(grouping: liveCurves, by: { $0.displayName })
-            .sorted(by: { value1, value2 -> Bool in
-                value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
-            })
+//            .sorted(by: { value1, value2 -> Bool in
+//                value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
+//            })
             .compactMap { key, value -> Section in
 
             var cells: [Cell] = Array(repeating: .emptyGrade(), count: LiveCurve.months.count)
@@ -199,7 +199,7 @@ extension LiveCurvesViewModel {
             return offset
         }
 
-        fetchedLiveCurves = newLiveCurves.sorted(by: { $0.priorityIndex < $01.priorityIndex })
+        fetchedLiveCurves = newLiveCurves//.sorted(by: { $0.priorityIndex < $01.priorityIndex })
 
         tableDataSource = newTableDataSource
         collectionDataSource = newCollectionDataSource

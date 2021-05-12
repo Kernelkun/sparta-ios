@@ -35,10 +35,6 @@ public struct LiveCurve: BackendModel {
         ["BOM", "M01", "M02", "M03", "M04", "M05"]
     }
 
-    public var priorityIndex: Int {
-        _priorityIndex[code] ?? 100
-    }
-
     //
     // MARK: - Default Initializers
 
@@ -74,28 +70,5 @@ extension LiveCurve {
             case .down: return .numberRed
             }
         }
-    }
-}
-
-// HOT FIX
-
-extension LiveCurve {
-
-    private var _priorityIndex: [String: Int] {
-        ["OTRBSW": 0,
-         "ISPEOB": 4,
-         "ISPNWE": 11,
-         "SPDMJN": 13,
-         "PSDREB": 2,
-         "SPDMEB": 6,
-         "EBOB": 3,
-         "NWENAPHTHA": 10,
-         "GASNAPHTHA": 9,
-         "RBOBSWAP": 1,
-         "SING92": 7,
-         "SING92SPREADS": 8,
-         "EBOBSPREADS": 5,
-         "MOPJSPREADS": 14,
-         "NWENAPHTHASPREADS": 12]
     }
 }
