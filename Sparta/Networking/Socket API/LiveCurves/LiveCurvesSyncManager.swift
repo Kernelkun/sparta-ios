@@ -9,8 +9,9 @@ import Foundation
 import SwiftyJSON
 import Networking
 import NetworkingModels
+import SpartaHelpers
 
-protocol LiveCurvesSyncManagerDelegate: class {
+protocol LiveCurvesSyncManagerDelegate: AnyObject {
     func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve])
     func liveCurvesSyncManagerDidReceive(liveCurve: LiveCurve)
     func liveCurvesSyncManagerDidReceiveUpdates(for liveCurve: LiveCurve)
@@ -43,9 +44,7 @@ class LiveCurvesSyncManager {
         operationQueue.qualityOfService = .background
         return operationQueue
     }()
-    private var _liveCurves: [LiveCurve] = []
-
-    private let excludedLiveCurvesCodes: [String] = ["SING92SPREADS", "RBOBFUTURESPREADS", "RBOBFUTURE", "DIFRBOBEXDUTY"]
+    private var _liveCurves = SynchronizedArray<LiveCurve>()
 
     private let analyticsManager = AnalyticsNetworkManager()
 
@@ -66,6 +65,7 @@ class LiveCurvesSyncManager {
             case .success(let responseModel) where responseModel.model != nil:
 
                 let liveCurves = Array(responseModel.model!.list) //swiftlint:disable:this force_unwrapping
+                strongSelf._liveCurves = SynchronizedArray(liveCurves)
 
                 onMainThread {
                     strongSelf.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: liveCurves)
@@ -88,41 +88,38 @@ extension LiveCurvesSyncManager: SocketActionObserver {
 
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON) {
 
-        var liveCurve = LiveCurve(json: data["payload"])
+        let liveCurveSocket = LiveCurveSocket(json: data)
 
-//        guard !excludedLiveCurvesCodes.compactMap({ $0.lowercased() }).contains(liveCurve.name.lowercased()) else { return }
+        // check if app received price update
+        guard liveCurveSocket.socketType == .priceUpdate else { return }
 
         lastSyncDate = Date()
 
-        if !_liveCurves.contains(liveCurve) {
-            _liveCurves.append(liveCurve)
+        let liveCurvePrice = LiveCurvePrice(json: liveCurveSocket.payload)
 
+        // check if current array consist live curve with specific code
+        guard let liveCurveIndex = _liveCurves.index(where: { $0.code == liveCurvePrice.code
+                                                        && $0.monthCode == liveCurvePrice.periodCode }),
+              LiveCurve.months.contains(liveCurvePrice.periodCode),
+              var liveCurve = _liveCurves[liveCurveIndex] else { return }
+
+        let oldPrice = liveCurve.priceValue
+        let newPrice = liveCurvePrice.priceValue
+
+        if oldPrice > newPrice {
+            liveCurve.state = .down
+
+            _liveCurves[liveCurveIndex] = liveCurve
             notifyObservers(about: liveCurve, queue: operationQueue)
+        } else if oldPrice < newPrice {
+            liveCurve.state = .up
 
-            onMainThread {
-                self.delegate?.liveCurvesSyncManagerDidReceive(liveCurve: liveCurve)
-            }
-        } else if let liveCurveIndex = _liveCurves.firstIndex(of: liveCurve) {
+            _liveCurves[liveCurveIndex] = liveCurve
+            notifyObservers(about: liveCurve, queue: operationQueue)
+        }
 
-            let oldLiveCurve = _liveCurves[liveCurveIndex]
-            let oldPrice = oldLiveCurve.priceValue
-            let newPrice = liveCurve.priceValue
-
-            if oldPrice > newPrice {
-                liveCurve.state = .down
-
-                _liveCurves[liveCurveIndex] = liveCurve
-                notifyObservers(about: liveCurve, queue: operationQueue)
-            } else if oldPrice < newPrice {
-                liveCurve.state = .up
-
-                _liveCurves[liveCurveIndex] = liveCurve
-                notifyObservers(about: liveCurve, queue: operationQueue)
-            }
-
-            onMainThread {
-                self.delegate?.liveCurvesSyncManagerDidReceiveUpdates(for: liveCurve)
-            }
+        onMainThread {
+            self.delegate?.liveCurvesSyncManagerDidReceiveUpdates(for: liveCurve)
         }
     }
 }

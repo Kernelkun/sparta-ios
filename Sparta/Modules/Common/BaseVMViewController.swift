@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol BaseViewModel: class {
+protocol BaseViewModel: AnyObject {
 
     associatedtype Controller
     var delegate: Controller? { get set }

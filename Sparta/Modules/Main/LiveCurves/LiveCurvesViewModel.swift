@@ -11,7 +11,7 @@ import SwiftyJSON
 import NetworkingModels
 import SpartaHelpers
 
-protocol LiveCurvesViewModelDelegate: class {
+protocol LiveCurvesViewModelDelegate: AnyObject {
     func didReceiveUpdatesForGrades()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)

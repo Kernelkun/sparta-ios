@@ -72,6 +72,19 @@ enum UIBarButtonItemFactory {
         return UIBarButtonItem(customView: button)
     }
 
+    static func plusButton(onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
+
+        let button = TappableButton(type: .custom).then { v in
+
+            v.setBackgroundImage(UIImage(named: "ic_plus"), for: .normal)
+            v.tintColor = .controlTintActive
+
+            v.onTap(completion: onTap)
+        }
+
+        return UIBarButtonItem(customView: button)
+    }
+
     static func titleButton(text: String, onTap: TypeClosure<UIButton>? = nil) -> UIBarButtonItem {
 
         let button = TappableButton(type: .system).then { v in

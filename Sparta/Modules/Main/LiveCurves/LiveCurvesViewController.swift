@@ -87,6 +87,9 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         navigationItem.title = nil
 
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Live Curves")
+        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.plusButton(onTap: { [unowned self] _ in
+            navigationController?.present(UINavigationController(rootViewController: LCPortfolioAddViewController()), animated: true, completion: nil)
+        })
     }
 }
 
