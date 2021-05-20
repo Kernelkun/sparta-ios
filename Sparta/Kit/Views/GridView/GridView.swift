@@ -8,7 +8,7 @@
 import UIKit
 import SpartaHelpers
 
-protocol GridViewDataSource: class {
+protocol GridViewDataSource: AnyObject {
     func numberOfSections() -> Int
     func sectionHeight(_ section: Int) -> CGFloat
     func numberOfRowsForGradeCollectionView(in section: Int) -> Int
@@ -39,7 +39,7 @@ class GridView: UIView {
     private var gradesView: GradesGridView!
     private var contentView: ContentGridView!
 
-    private let constructor: GridViewConstructor
+    private var constructor: GridViewConstructor
 
     // MARK: - Initializers
 
@@ -75,8 +75,17 @@ class GridView: UIView {
         }
     }
 
+    func setInfoRowsCount(_ rowsCount: Int) {
+        constructor.rowsCount = rowsCount
+        gradesView.reloadData(force: true)
+    }
+
     func reloadGrades() {
         gradesView.reloadData()
+    }
+
+    func reloadInfo() {
+        contentView.reloadData()
     }
 
     func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, completion: EmptyClosure? = nil) {
@@ -121,10 +130,9 @@ class GridView: UIView {
 
         backgroundColor = UIGridViewConstants.mainBackgroundColor
 
-        gradesView = GradesGridView(constructor: constructor).then { view in
+        gradesView = GradesGridView(dataSource: self).then { view in
 
             view.scrollView.delegate = self
-            view.dataSource = self
 
             addSubview(view) {
                 $0.top.equalToSuperview()
@@ -134,7 +142,7 @@ class GridView: UIView {
             }
         }
 
-        contentView = ContentGridView(constructor: constructor).then { view in
+        contentView = ContentGridView(dataSource: self).then { view in
 
             view.gradesCollectionView.delegate = self
             view.gradesCollectionView.dataSource = self
@@ -194,8 +202,20 @@ extension GridView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayo
 
 extension GridView: GradesGridViewDataSource {
 
+    func gradesGridViewScrollableGradeWidth() -> CGFloat {
+        constructor.collectionColumnWidth
+    }
+
+    func gradesGridViewNonScrollableGradeWidth() -> CGFloat {
+        constructor.tableColumnWidth
+    }
+
+    func gradesGridViewGradeHeight() -> CGFloat {
+        constructor.gradeHeight
+    }
+
     func gradesGridViewCollectionNumberOfRows() -> Int {
-        dataSource?.numberOfRowsForInfoCollectionView(in: 0) ?? 0
+        constructor.rowsCount
     }
 
     func gradesGridViewCollectionTitle(for row: Int) -> NSAttributedString? {
@@ -207,12 +227,34 @@ extension GridView: GradesGridViewDataSource {
     }
 }
 
+extension GridView: ContentGridViewDataSource {
+
+    func contentGridViewScrollableGradeWidth() -> CGFloat {
+        constructor.collectionColumnWidth
+    }
+
+    func contentGridViewNonScrollableGradeWidth() -> CGFloat {
+        constructor.tableColumnWidth
+    }
+
+    func contentGridViewCollectionNumberOfRows() -> Int {
+        constructor.rowsCount
+    }
+}
+
 extension GridView {
 
     struct GridViewConstructor {
-        let rowsCount: Int
+        /// Describe how many vertical lines will be. Except first column with table name.
+        var rowsCount: Int
+
+        /// First line(with months names) height.
         let gradeHeight: CGFloat
+
+        /// Content columns width.
         let collectionColumnWidth: CGFloat
+
+        /// First column width.
         let tableColumnWidth: CGFloat
     }
 }

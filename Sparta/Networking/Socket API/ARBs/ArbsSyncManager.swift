@@ -11,7 +11,7 @@ import Networking
 import NetworkingModels
 import SpartaHelpers
 
-protocol ArbsSyncManagerDelegate: class {
+protocol ArbsSyncManagerDelegate: AnyObject {
     func arbsSyncManagerDidFetch(arbs: [Arb])
     func arbsSyncManagerDidReceive(arb: Arb)
     func arbsSyncManagerDidReceiveUpdates(for arb: Arb)

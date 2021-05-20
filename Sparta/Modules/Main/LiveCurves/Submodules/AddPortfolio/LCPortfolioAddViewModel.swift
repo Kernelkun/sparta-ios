@@ -2,7 +2,7 @@
 //  LCPortfolioAddViewModel.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 14.05.2021.
+//  Created by Yaroslav Babalich on 19.05.2021.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ import SpartaHelpers
 protocol LCPortfolioAddViewModelDelegate: AnyObject {
     func didCatchAnError(_ error: String)
     func didChangeLoadingState(_ isLoading: Bool)
-    func didSuccessFetchList()
+    func didSuccessCreatePortfolio()
 }
 
 class LCPortfolioAddViewModel: NSObject, BaseViewModel {
@@ -22,7 +22,8 @@ class LCPortfolioAddViewModel: NSObject, BaseViewModel {
     // MARK: - Public properties
 
     weak var delegate: LCPortfolioAddViewModelDelegate?
-    var categories: [Category] = []
+
+    var selectedName: String?
 
     // MARK: - Private properties
 
@@ -34,27 +35,30 @@ class LCPortfolioAddViewModel: NSObject, BaseViewModel {
         }
     }
 
-    private let portfoliosManager = LiveCurvesPortfoliosManager()
+    private let lcNetworkManager = LiveCurvesNetworkManager()
 
     // MARK: - Public methods
 
-    func loadData() {
+    func createPortfolio() {
+        guard let name = selectedName, !name.isEmpty else {
+            delegate?.didCatchAnError("Please enter valid portfolio name")
+            return
+        }
+
         isLoading = true
 
-        portfoliosManager.fetchLiveCurvesPortfolios { [weak self] result in
+        lcNetworkManager.createPortfolio(name: name) { [weak self] result in
             guard let strongSelf = self else { return }
 
             if case let .success(responseModel) = result,
-               let list = responseModel.model?.list {
-
-                strongSelf.categories = list.compactMap { Category(category: $0) }
+               let model = responseModel.model {
 
                 onMainThread {
-                    strongSelf.delegate?.didSuccessFetchList()
+                    strongSelf.delegate?.didSuccessCreatePortfolio()
                 }
             } else {
                 onMainThread {
-                    strongSelf.delegate?.didCatchAnError("Can't fetch live curves list")
+                    strongSelf.delegate?.didCatchAnError("Something wrong happened with creating profile")
                 }
             }
 

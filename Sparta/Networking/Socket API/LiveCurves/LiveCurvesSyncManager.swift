@@ -12,17 +12,36 @@ import NetworkingModels
 import SpartaHelpers
 
 protocol LiveCurvesSyncManagerDelegate: AnyObject {
-    func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve])
+    func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve], profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?)
     func liveCurvesSyncManagerDidReceive(liveCurve: LiveCurve)
     func liveCurvesSyncManagerDidReceiveUpdates(for liveCurve: LiveCurve)
     func liveCurvesSyncManagerDidChangeSyncDate(_ newDate: Date?)
 }
 
-class LiveCurvesSyncManager {
+protocol LiveCurvesSyncManagerProtocol {
+    /// Notification delegate
+    var delegate: LiveCurvesSyncManagerDelegate? { get set }
 
-    // MARK: - Singleton
+    /// Last date when manager received any updates
+    var lastSyncDate: Date? { get }
 
-    static let intance = LiveCurvesSyncManager()
+    /// Current live curves
+    var liveCurves: [LiveCurve] { get }
+
+    /// Current live curves matched with selected profile
+    var profileLiveCurves: [LiveCurve] { get }
+
+    /// Current selected profile
+    var profile: LiveCurveProfileCategory? { get }
+
+    /// Launch service. To receive any updates need to use this method
+    func start()
+
+    /// Change profile setting
+    func setProfile(_ profile: LiveCurveProfileCategory)
+}
+
+class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
 
     // MARK: - Public properties
 
@@ -36,6 +55,18 @@ class LiveCurvesSyncManager {
         }
     }
 
+    private(set) var profile: LiveCurveProfileCategory?
+
+    var liveCurves: [LiveCurve] {
+        _liveCurves.arrayValue
+    }
+
+    var profileLiveCurves: [LiveCurve] {
+        guard let profile = profile else { return [] }
+
+        return liveCurves.filter { profile.contains(liveCurve: $0) }
+    }
+
     // MARK: - Private properties
 
     private var operationQueue: OperationQueue = {
@@ -45,43 +76,95 @@ class LiveCurvesSyncManager {
         return operationQueue
     }()
     private var _liveCurves = SynchronizedArray<LiveCurve>()
-
-    private let analyticsManager = AnalyticsNetworkManager()
+    private var _profiles = SynchronizedArray<LiveCurveProfileCategory>()
+    private let networkManager = LiveCurvesNetworkManager()
 
     // MARK: - Initializers
 
-    private init() {
+    init() {
         observeSocket(for: .liveCurves)
+    }
+
+    deinit {
+        stopObservingSocket(for: .liveCurves)
     }
 
     // MARK: - Public methods
 
-    func startReceivingData() {
+    func start() {
+        let dispatchGroup = DispatchGroup()
 
-        analyticsManager.fetchLiveCurves { [weak self] result in
+        var fetchedProfiles: [LiveCurveProfileCategory] = []
+        var fetchedLiveCurves: [LiveCurve] = []
+
+        dispatchGroup.enter()
+        networkManager.fetchPortfolios { result in
+
+            if case let .success(responseModel) = result,
+               let list = responseModel.model?.list {
+
+                fetchedProfiles = list
+            }
+
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.enter()
+        networkManager.fetchLiveCurves { result in
+
+            if case let .success(responseModel) = result,
+               let list = responseModel.model?.list {
+
+                fetchedLiveCurves = list
+            }
+
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
 
-            switch result {
-            case .success(let responseModel) where responseModel.model != nil:
+            // profiles
 
-                let liveCurves = Array(responseModel.model!.list) //swiftlint:disable:this force_unwrapping
-                strongSelf._liveCurves = SynchronizedArray(liveCurves)
+            strongSelf._profiles = SynchronizedArray(fetchedProfiles)
 
-                onMainThread {
-                    strongSelf.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: liveCurves)
-                }
+            // main models
 
-                // socket connection
-
-                App.instance.socketsConnect(toServer: .liveCurves)
-
-            case .failure, .success:
-                break
+            let liveCurves = fetchedLiveCurves.compactMap { liveCurve -> LiveCurve in
+                var liveCurve = liveCurve
+                liveCurve.priorityIndex = fetchedLiveCurves.firstIndex(of: liveCurve) ?? -1
+                return liveCurve
             }
+            strongSelf._liveCurves = SynchronizedArray(liveCurves)
+
+            if strongSelf.profile == nil, let defaultProfile = fetchedProfiles.first {
+                strongSelf.setProfile(defaultProfile)
+            } else if let selectedProfile = strongSelf.profile {
+                strongSelf.setProfile(selectedProfile)
+            }
+
+            // socket connection
+
+            App.instance.socketsConnect(toServer: .liveCurves)
         }
     }
 
+    func setProfile(_ profile: LiveCurveProfileCategory) {
+        self.profile = profile
+        updateLiveCurves(for: profile)
+    }
+
     // MARK: - Private methods
+
+    private func updateLiveCurves(for profile: LiveCurveProfileCategory) {
+        let filteredLiveCurves = _liveCurves.filter { profile.contains(liveCurve: $0) }
+
+        onMainThread {
+            self.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: filteredLiveCurves,
+                                                         profiles: self._profiles.arrayValue,
+                                                         selectedProfile: profile)
+        }
+    }
 }
 
 extension LiveCurvesSyncManager: SocketActionObserver {
@@ -100,11 +183,12 @@ extension LiveCurvesSyncManager: SocketActionObserver {
         // check if current array consist live curve with specific code
         guard let liveCurveIndex = _liveCurves.index(where: { $0.code == liveCurvePrice.code
                                                         && $0.monthCode == liveCurvePrice.periodCode }),
-              LiveCurve.months.contains(liveCurvePrice.periodCode),
               var liveCurve = _liveCurves[liveCurveIndex] else { return }
 
         let oldPrice = liveCurve.priceValue
         let newPrice = liveCurvePrice.priceValue
+
+        liveCurve.priceValue = newPrice
 
         if oldPrice > newPrice {
             liveCurve.state = .down

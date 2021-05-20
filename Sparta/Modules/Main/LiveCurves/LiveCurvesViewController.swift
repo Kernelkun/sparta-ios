@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import NetworkingModels
+import SpartaHelpers
 
 class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
     // MARK: - UI
 
+    private var profilesView: LiveCurveProfilesView!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
 
@@ -19,13 +22,38 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
-                                                       gradeHeight: 50,
+        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.presentationStyle.rowsCount,
+                                                       gradeHeight: 30,
                                                        collectionColumnWidth: 70,
                                                        tableColumnWidth: 130)
 
-        gridView = GridView(constructor: constructor)
-        view = gridView
+        view = UIView().then { view in
+
+            profilesView = LiveCurveProfilesView().then { profilesView in
+
+                profilesView.onChooseProfile { [unowned self] profile in
+                    self.viewModel.changeProfile(profile)
+                }
+
+                profilesView.onChooseAdd { [unowned self] in
+                    navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
+                }
+
+                view.addSubview(profilesView) {
+                    $0.top.equalToSuperview().offset(topBarHeight)
+                    $0.left.right.equalToSuperview()
+                    $0.height.equalTo(45)
+                }
+            }
+
+            gridView = GridView(constructor: constructor).then { gridView in
+
+                view.addSubview(gridView) {
+                    $0.left.right.bottom.equalToSuperview()
+                    $0.top.equalTo(profilesView.snp.bottom)
+                }
+            }
+        }
     }
 
     // MARK: - Lifecycle
@@ -66,7 +94,6 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         // grid view
 
         gridView.dataSource = self
-        gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
         // sockets status view
@@ -86,10 +113,19 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
+        let plusButton = UIBarButtonItemFactory.plusButton { [unowned self] _ in
+            /*let nc = UINavigationController(rootViewController: LCPortfolioAddItemViewController())
+            navigationController?.present(nc, animated: true, completion: nil)*/
+
+            self.viewModel.togglePresentationStyle()
+        }
+
+        let periodButton = UIBarButtonItemFactory.periodButton(isActive: viewModel.presentationStyle == .quartersAndYears) { [unowned self] _ in
+            self.viewModel.togglePresentationStyle()
+        }
+
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Live Curves")
-        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.plusButton(onTap: { [unowned self] _ in
-            navigationController?.present(UINavigationController(rootViewController: LCPortfolioAddViewController()), animated: true, completion: nil)
-        })
+        navigationItem.rightBarButtonItems = [periodButton, UIBarButtonItemFactory.fixedSpace(space: 20), plusButton]
     }
 }
 
@@ -120,7 +156,7 @@ extension LiveCurvesViewController: GridViewDataSource {
     }
 
     func numberOfRowsForInfoCollectionView(in section: Int) -> Int {
-        6
+        viewModel.presentationStyle.rowsCount
     }
 
     func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
@@ -152,8 +188,18 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
         gridView.reloadGrades()
     }
 
+    func didReceiveUpdatesForPresentationStyle() {
+        gridView.setInfoRowsCount(viewModel.presentationStyle.rowsCount)
+        gridView.reloadInfo()
+        setupNavigationUI()
+    }
+
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
         gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
+    }
+
+    func didReceiveProfilesInfo(profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {
+        profilesView.apply(profiles, selectedProfile: selectedProfile)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {

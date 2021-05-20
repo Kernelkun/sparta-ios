@@ -10,7 +10,7 @@ import Networking
 import NetworkingModels
 import Reachability
 
-protocol AppFlowDelegate: class {
+protocol AppFlowDelegate: AnyObject {
     func appFlowDidUpdate()
 }
 
@@ -84,7 +84,7 @@ class App {
     init() {
 
         blenderSyncManager = BlenderSyncManager.intance
-        liveCurvesSyncManager = LiveCurvesSyncManager.intance
+        liveCurvesSyncManager = LiveCurvesSyncManager()
         arbsSyncManager = ArbsSyncManager.intance
         stateService = AppStateService()
 

@@ -8,7 +8,7 @@
 import Foundation
 import Networking
 
-protocol LoginViewModelDelegate: class {
+protocol LoginViewModelDelegate: AnyObject {
     func didChangeSendingState(_ isSending: Bool)
     func cleanupInputErrors()
     func didCatchAnError(_ description: String)

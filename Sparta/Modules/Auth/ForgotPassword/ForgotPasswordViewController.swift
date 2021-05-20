@@ -22,7 +22,7 @@ enum UIForgotPasswordConstants {
     static let signInButtonOffsetWithKeyboard: CGFloat = isSmall ? 21 : 50
 }
 
-protocol ForgotPasswordViewCoordinatorDelegate: class {
+protocol ForgotPasswordViewCoordinatorDelegate: AnyObject {
     func forgotPasswordViewControllerDidFinish(_ controller: ForgotPasswordViewController)
     func forgotPasswordViewControllerDidTapLogin(_ controller: ForgotPasswordViewController)
 }

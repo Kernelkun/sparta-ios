@@ -9,6 +9,14 @@ import UIKit
 
 public extension UIColor {
 
+    static func assetColor(named name: String) -> UIColor {
+        guard let retVal = UIColor(named: name) else {
+            fatalError("Color named \(name) does not exist!")
+        }
+
+        return retVal
+    }
+
     convenience init(from red: Int, green: Int, blue: Int, alpha: CGFloat) {
         assert(red >= 0 && red <= 255, "Invalid red component")
         assert(green >= 0 && green <= 255, "Invalid green component")

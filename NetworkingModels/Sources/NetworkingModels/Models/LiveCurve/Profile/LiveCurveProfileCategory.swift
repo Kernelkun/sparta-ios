@@ -27,11 +27,17 @@ public struct LiveCurveProfileCategory: BackendModel {
         name = json["name"].stringValue
         liveCurves = json["liveCurves"].arrayValue.compactMap { LiveCurveProfileItem(json: $0) }
     }
+
+    // MARK: - Public methods
+
+    public func contains(liveCurve: LiveCurve) -> Bool {
+        liveCurves.compactMap { $0.code }.contains(liveCurve.code)
+    }
 }
 
 extension LiveCurveProfileCategory: Equatable {
 
     public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.name.lowercased() == rhs.name.lowercased()
+        lhs.id == rhs.id
     }
 }

@@ -11,7 +11,7 @@ import SwiftyJSON
 import NetworkingModels
 import SpartaHelpers
 
-protocol FreightViewModelDelegate: class {
+protocol FreightViewModelDelegate: AnyObject {
     func didCatchAnError(_ error: String)
     func didLoadData()
     func didReloadMainOptions()

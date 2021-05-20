@@ -22,7 +22,7 @@ enum UILoginConstants {
     static let signInButtonOffsetWithKeyboard: CGFloat = isSmall ? 21 : 50
 }
 
-protocol LoginViewCoordinatorDelegate: class {
+protocol LoginViewCoordinatorDelegate: AnyObject {
     func loginViewControllerDidFinish(_ controller: LoginViewController)
     func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController)
 }

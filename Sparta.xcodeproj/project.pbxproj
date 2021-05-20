@@ -57,6 +57,11 @@
 		D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */; };
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
+		D980119E2652A99B00B8AA70 /* LiveCurveProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D980119D2652A99B00B8AA70 /* LiveCurveProfilesView.swift */; };
+		D98011A02652AE5400B8AA70 /* LiveCurveProfileElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D980119F2652AE5400B8AA70 /* LiveCurveProfileElementView.swift */; };
+		D98011C5265548DA00B8AA70 /* LCPortfolioAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C4265548D900B8AA70 /* LCPortfolioAddViewController.swift */; };
+		D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */; };
+		D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
 		D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */; };
 		D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */; };
@@ -146,15 +151,14 @@
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
 		D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D170D32587880F0059A1F1 /* LineButtonView.swift */; };
-		D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddViewController.swift */; };
-		D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddViewModel.swift */; };
-		D9D4FC27264ED3FC00A2A1DA /* UISearchController+Sparta.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC26264ED3FC00A2A1DA /* UISearchController+Sparta.swift */; };
+		D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */; };
+		D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */; };
 		D9D4FC2B264ED4ED00A2A1DA /* BaseTableVMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC2A264ED4ED00A2A1DA /* BaseTableVMViewController.swift */; };
 		D9D4FC2C264ED53F00A2A1DA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC29264ED4D600A2A1DA /* BaseViewController.swift */; };
 		D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddTableViewCell.swift */; };
-		D9D4FC32264EDFF100A2A1DA /* LiveCurvesPortfoliosEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC31264EDFF100A2A1DA /* LiveCurvesPortfoliosEndPoint.swift */; };
-		D9D4FC34264EE0A300A2A1DA /* LiveCurvesPortfoliosManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC33264EE0A300A2A1DA /* LiveCurvesPortfoliosManager.swift */; };
-		D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddViewModel+Models.swift */; };
+		D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */; };
+		D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */; };
+		D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */; };
 		D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */; };
 		D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */; };
 		D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */; };
@@ -218,6 +222,11 @@
 		D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbDetailViewModel+Models.swift"; sourceTree = "<group>"; };
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
+		D980119D2652A99B00B8AA70 /* LiveCurveProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveProfilesView.swift; sourceTree = "<group>"; };
+		D980119F2652AE5400B8AA70 /* LiveCurveProfileElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveProfileElementView.swift; sourceTree = "<group>"; };
+		D98011C4265548D900B8AA70 /* LCPortfolioAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewController.swift; sourceTree = "<group>"; };
+		D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewModel.swift; sourceTree = "<group>"; };
+		D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesViewModel+Models.swift"; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
 		D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsGradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsStatusCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -305,15 +314,14 @@
 		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		D9D170D32587880F0059A1F1 /* LineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineButtonView.swift; sourceTree = "<group>"; };
-		D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewController.swift; sourceTree = "<group>"; };
-		D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewModel.swift; sourceTree = "<group>"; };
-		D9D4FC26264ED3FC00A2A1DA /* UISearchController+Sparta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchController+Sparta.swift"; sourceTree = "<group>"; };
+		D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewController.swift; sourceTree = "<group>"; };
+		D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewModel.swift; sourceTree = "<group>"; };
 		D9D4FC29264ED4D600A2A1DA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D9D4FC2A264ED4ED00A2A1DA /* BaseTableVMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableVMViewController.swift; sourceTree = "<group>"; };
 		D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddTableViewCell.swift; sourceTree = "<group>"; };
-		D9D4FC31264EDFF100A2A1DA /* LiveCurvesPortfoliosEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesPortfoliosEndPoint.swift; sourceTree = "<group>"; };
-		D9D4FC33264EE0A300A2A1DA /* LiveCurvesPortfoliosManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesPortfoliosManager.swift; sourceTree = "<group>"; };
-		D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPortfolioAddViewModel+Models.swift"; sourceTree = "<group>"; };
+		D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesEndPoint.swift; sourceTree = "<group>"; };
+		D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesNetworkManager.swift; sourceTree = "<group>"; };
+		D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPortfolioAddItemViewModel+Models.swift"; sourceTree = "<group>"; };
 		D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderSyncManager.swift; sourceTree = "<group>"; };
 		D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthDetailModel.swift; sourceTree = "<group>"; };
 		D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -498,6 +506,7 @@
 			children = (
 				D9D4FC20264ED1F600A2A1DA /* Submodules */,
 				D981844C258ACF6E006D8086 /* Helpers */,
+				D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */,
 				D959C0E925822D12006CE2D1 /* LiveCurvesViewModel.swift */,
 				D959C0E625822D09006CE2D1 /* LiveCurvesViewController.swift */,
 			);
@@ -584,7 +593,7 @@
 				D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */,
 				D944CEF025767306009115FD /* ProfileNetworkManager.swift */,
 				D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */,
-				D9D4FC33264EE0A300A2A1DA /* LiveCurvesPortfoliosManager.swift */,
+				D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -596,7 +605,7 @@
 				D96C8BF4257665220038175A /* AuthEndPoint.swift */,
 				D944CEED2576725D009115FD /* ProfileEndPoint.swift */,
 				D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */,
-				D9D4FC31264EDFF100A2A1DA /* LiveCurvesPortfoliosEndPoint.swift */,
+				D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */,
 			);
 			path = EndPoints;
 			sourceTree = "<group>";
@@ -627,6 +636,34 @@
 				D9B7CCD225C1C4F10023FDF2 /* ArbMonth */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D980119C2652715B00B8AA70 /* AddItem */ = {
+			isa = PBXGroup;
+			children = (
+				D9D4FC2D264ED8AD00A2A1DA /* Helpers */,
+				D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */,
+				D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */,
+				D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */,
+			);
+			path = AddItem;
+			sourceTree = "<group>";
+		};
+		D98011A12652BC9900B8AA70 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				D9BB538F256EF85600AD2D1A /* Colors.xcassets */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		D98011C32655473E00B8AA70 /* AddPortfolio */ = {
+			isa = PBXGroup;
+			children = (
+				D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */,
+				D98011C4265548D900B8AA70 /* LCPortfolioAddViewController.swift */,
+			);
+			path = AddPortfolio;
 			sourceTree = "<group>";
 		};
 		D981844C258ACF6E006D8086 /* Helpers */ = {
@@ -690,6 +727,8 @@
 		D9A067142587CC0800C0D1E5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D980119F2652AE5400B8AA70 /* LiveCurveProfileElementView.swift */,
+				D980119D2652A99B00B8AA70 /* LiveCurveProfilesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1007,9 +1046,9 @@
 		D9BB5363256EC68800AD2D1A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D98011A12652BC9900B8AA70 /* Colors */,
 				D9B50E332574228A0018F3D7 /* Fonts */,
 				D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */,
-				D9BB538F256EF85600AD2D1A /* Colors.xcassets */,
 				D9BB538C256EF83D00AD2D1A /* Assets.xcassets */,
 				D9BB5356256E8E6800AD2D1A /* Info.plist */,
 				D9BB5353256E8E6800AD2D1A /* LaunchScreen.storyboard */,
@@ -1031,7 +1070,6 @@
 				D99B2F3225753AC20080B90B /* Validators */,
 				D97895E0258377D1009E4A56 /* Models */,
 				D9A91CC025AC6EA400423704 /* Objects */,
-				D9D4FC25264ED3EC00A2A1DA /* Extensions */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -1067,20 +1105,10 @@
 		D9D4FC20264ED1F600A2A1DA /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
-				D9D4FC2D264ED8AD00A2A1DA /* Helpers */,
-				D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddViewModel+Models.swift */,
-				D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddViewModel.swift */,
-				D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddViewController.swift */,
+				D98011C32655473E00B8AA70 /* AddPortfolio */,
+				D980119C2652715B00B8AA70 /* AddItem */,
 			);
 			path = Submodules;
-			sourceTree = "<group>";
-		};
-		D9D4FC25264ED3EC00A2A1DA /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				D9D4FC26264ED3FC00A2A1DA /* UISearchController+Sparta.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		D9D4FC28264ED4D000A2A1DA /* Common */ = {
@@ -1291,12 +1319,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D98011C5265548DA00B8AA70 /* LCPortfolioAddViewController.swift in Sources */,
 				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
 				D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */,
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
 				D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */,
 				D94BCA452577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift in Sources */,
 				D9D4FC2C264ED53F00A2A1DA /* BaseViewController.swift in Sources */,
+				D980119E2652A99B00B8AA70 /* LiveCurveProfilesView.swift in Sources */,
+				D98011A02652AE5400B8AA70 /* LiveCurveProfileElementView.swift in Sources */,
 				D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */,
 				D9B7CCD925C1C9590023FDF2 /* ProgressView.swift in Sources */,
 				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
@@ -1317,7 +1348,7 @@
 				D9B7CCD425C1C53B0023FDF2 /* ArbMonth+Margin.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
-				D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddViewModel.swift in Sources */,
+				D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */,
 				D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */,
 				D9A91C1025A4AB0200423704 /* AnalyticsManager.swift in Sources */,
 				D93BC63D258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift in Sources */,
@@ -1347,7 +1378,7 @@
 				D9A91CB325A9A80B00423704 /* FreightResultViewController.swift in Sources */,
 				D959C0EF25822EE0006CE2D1 /* FreightViewController.swift in Sources */,
 				D92A379625E261E200C0F9C8 /* BlenderViewModel+Models.swift in Sources */,
-				D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddViewModel+Models.swift in Sources */,
+				D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift in Sources */,
 				D9ECEC4D257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift in Sources */,
 				D9B50E16257180D80018F3D7 /* BlurCoordinator.swift in Sources */,
 				D9B7CCE225C305AC0023FDF2 /* ResultManualStatusView.swift in Sources */,
@@ -1372,7 +1403,7 @@
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
 				D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
-				D9D4FC32264EDFF100A2A1DA /* LiveCurvesPortfoliosEndPoint.swift in Sources */,
+				D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
 				D9B7CCDF25C305A20023FDF2 /* ResultAutoStatusView.swift in Sources */,
@@ -1385,7 +1416,6 @@
 				D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */,
 				D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */,
 				D9A8042E257145A3000ADE6B /* BiggerAreaButton.swift in Sources */,
-				D9D4FC27264ED3FC00A2A1DA /* UISearchController+Sparta.swift in Sources */,
 				D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */,
 				D98AF6C725BAC69500A5BC96 /* KeyedButton.swift in Sources */,
 				D9A27966259236A0009D066E /* GridViewLayoutAttributes.swift in Sources */,
@@ -1399,6 +1429,7 @@
 				D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */,
 				D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */,
 				D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */,
+				D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */,
 				D9A8042225714420000ADE6B /* Alert.swift in Sources */,
 				D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */,
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
@@ -1413,7 +1444,7 @@
 				D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */,
 				D92A374325DD60D800C0F9C8 /* StarButton.swift in Sources */,
 				D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */,
-				D9D4FC34264EE0A300A2A1DA /* LiveCurvesPortfoliosManager.swift in Sources */,
+				D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */,
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
 				D9A067132587BECA00C0D1E5 /* LiveCurvesSyncManager.swift in Sources */,
 				D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */,
@@ -1423,8 +1454,9 @@
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
 				D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */,
 				D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */,
+				D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */,
 				D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */,
-				D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddViewController.swift in Sources */,
+				D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */,
 				D9A91CB525A9A81500423704 /* FreightResultViewModel.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,

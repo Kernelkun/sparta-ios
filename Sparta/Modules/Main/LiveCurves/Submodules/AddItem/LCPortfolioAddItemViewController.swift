@@ -1,13 +1,14 @@
 //
-//  LCPortfolioAddViewController.swift
+//  LCPortfolioAddItemViewController.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 14.05.2021.
 //
 
 import UIKit
+import NetworkingModels
 
-class LCPortfolioAddViewController: BaseTableVMViewController<LCPortfolioAddViewModel> {
+class LCPortfolioAddItemViewController: BaseTableVMViewController<LCPortfolioAddItemViewModel> {
 
     // MARK: - Private properties
 
@@ -74,7 +75,7 @@ class LCPortfolioAddViewController: BaseTableVMViewController<LCPortfolioAddView
     }
 }
 
-extension LCPortfolioAddViewController: UISearchResultsUpdating {
+extension LCPortfolioAddItemViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
         /*searchDelay.addOperation { [weak self] in
@@ -86,43 +87,52 @@ extension LCPortfolioAddViewController: UISearchResultsUpdating {
     }
 }
 
-extension LCPortfolioAddViewController {
+extension LCPortfolioAddItemViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        viewModel.categories.count
+        viewModel.groups.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.categories[section].items.count
+        viewModel.groups[section].items.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: LCPortfolioAddTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
-        let item = viewModel.categories[indexPath.section].items[indexPath.row]
+        let item = viewModel.groups[indexPath.section].items[indexPath.row]
 
         cell.textLabel?.text = item.title
+        cell.textLabel?.textColor = item.isActive ? .white : .red
 
         return cell
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let category = viewModel.categories[section]
+        let category = viewModel.groups[section]
         return category.title
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = viewModel.groups[indexPath.section].items[indexPath.row]
+
+        viewModel.addProduct(item)
     }
 }
 
-extension LCPortfolioAddViewController: LCPortfolioAddViewModelDelegate {
+extension LCPortfolioAddItemViewController: LCPortfolioAddItemViewModelDelegate {
 
     func didCatchAnError(_ error: String) {
-        
     }
 
     func didChangeLoadingState(_ isLoading: Bool) {
-
     }
 
     func didSuccessFetchList() {
         tableView.reloadData()
+    }
+
+    func didSuccessAddProduct() {
+        dismiss(animated: true, completion: nil)
     }
 }
