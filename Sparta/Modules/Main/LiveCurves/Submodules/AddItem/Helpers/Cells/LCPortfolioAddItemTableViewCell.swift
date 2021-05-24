@@ -1,5 +1,5 @@
 //
-//  LCPortfolioAddTableViewCell.swift
+//  LCPortfolioAddItemTableViewCell.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 14.05.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LCPortfolioAddTableViewCell: UITableViewCell {
+class LCPortfolioAddItemTableViewCell: UITableViewCell {
 
     // MARK: - UI
 
@@ -27,8 +27,9 @@ class LCPortfolioAddTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
-    func apply(title: String) {
-        titleLabel.text = title
+    func apply(item: LCPortfolioAddItemViewModel.Item) {
+        titleLabel.text = item.title
+        titleLabel.textColor = item.isActive ? .primaryText : UIColor.primaryText.withAlphaComponent(0.47)
     }
 
     // MARK: - Private methods
@@ -41,16 +42,15 @@ class LCPortfolioAddTableViewCell: UITableViewCell {
 
         titleLabel = UILabel().then { label in
 
-            label.textAlignment = .center
+            label.textAlignment = .left
             label.textColor = .primaryText
-            label.font = .main(weight: .regular, size: 10)
-            label.numberOfLines = 2
+            label.font = .main(weight: .regular, size: 17)
+            label.numberOfLines = 1
 
             contentView.addSubview(label) {
                 $0.centerY.equalToSuperview()
-                $0.left.equalToSuperview().offset(4)
+                $0.left.right.equalToSuperview().offset(16)
             }
         }
     }
 }
-

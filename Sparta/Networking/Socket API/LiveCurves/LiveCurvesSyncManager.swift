@@ -140,7 +140,11 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
             if strongSelf.profile == nil, let defaultProfile = fetchedProfiles.first {
                 strongSelf.setProfile(defaultProfile)
             } else if let selectedProfile = strongSelf.profile {
-                strongSelf.setProfile(selectedProfile)
+                if let updatedProfile = fetchedProfiles.first(where: { $0.id == selectedProfile.id }) {
+                    strongSelf.profile = updatedProfile
+                }
+
+                strongSelf.setProfile(strongSelf.profile!) //swiftlint:disable:this force_unwrapping
             }
 
             // socket connection

@@ -17,7 +17,7 @@ public extension UISearchController {
         self.searchResultsUpdater = searchResultsUpdater
         searchBar.delegate = searchBarDelegate
         searchBar.tintColor = .controlTintActive
-        obscuresBackgroundDuringPresentation = false
+//        obscuresBackgroundDuringPresentation = false
 
         searchBar.searchTextField.do {
 

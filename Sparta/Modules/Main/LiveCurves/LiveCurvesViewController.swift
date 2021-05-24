@@ -114,10 +114,7 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         navigationItem.title = nil
 
         let plusButton = UIBarButtonItemFactory.plusButton { [unowned self] _ in
-            /*let nc = UINavigationController(rootViewController: LCPortfolioAddItemViewController())
-            navigationController?.present(nc, animated: true, completion: nil)*/
-
-            self.viewModel.togglePresentationStyle()
+            navigationController?.pushViewController(LCPortfolioAddItemViewController(nibName: nil, bundle: nil), animated: true)
         }
 
         let periodButton = UIBarButtonItemFactory.periodButton(isActive: viewModel.presentationStyle == .quartersAndYears) { [unowned self] _ in

@@ -12,19 +12,9 @@ class LCPortfolioAddItemViewController: BaseTableVMViewController<LCPortfolioAdd
 
     // MARK: - Private properties
 
+    private let searchDelay = DelayObject(delayInterval: 0.5)
+
     private var searchController: UISearchController!
-
-    // MARK: - Initializers
-
-    init() {
-        super.init(nibName: nil, bundle: nil)
-
-        modalPresentationStyle = .overFullScreen
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     // MARK: - Lifecycle
 
@@ -52,38 +42,86 @@ class LCPortfolioAddItemViewController: BaseTableVMViewController<LCPortfolioAdd
         setupTableView()
     }
 
-    private func setupSearchController() {
-        guard navigationItem.searchController == nil else { return }
-
-        searchController = UISearchController(searchResultsController: nil).then { vc in
-            vc.setup(placeholder: "Search", searchResultsUpdater: self)
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
         searchController.isActive = true
 
+        onMainThread(delay: 0.3) {
+            self.searchController.searchBar.becomeFirstResponder()
+        }
+    }
+
+    private func setupSearchController() {
+        title = "Add items"
+
+        searchController = UISearchController(searchResultsController: nil).then { vc in
+            vc.setup(placeholder: "Search", searchResultsUpdater: self)
+            vc.delegate = self
+        }
+
+        searchController.obscuresBackgroundDuringPresentation = false
+
         navigationItem.searchController = searchController
+
+        setupNavigationBarAppearance(backgroundColor: .barBackground)
     }
 
     private func setupTableView() {
 
-        tableView.do { v in
-            v.allowsMultipleSelectionDuringEditing = true
-            v.tableFooterView = UIView()
-            v.dataSource = self
-            v.register(LCPortfolioAddTableViewCell.self)
+        tableView.do { tableView in
+            tableView.allowsMultipleSelectionDuringEditing = true
+            tableView.tableFooterView = UIView()
+            tableView.dataSource = self
+            tableView.separatorColor = .separator
+            tableView.separatorInset = .zero
+
+            tableView.register(LCPortfolioAddItemHeaderTableView.self)
+            tableView.register(LCPortfolioAddItemTableViewCell.self)
         }
+    }
+
+    private func setupNavigationBarAppearance(backgroundColor: UIColor? = nil) {
+
+        let navigationBarAppearance = UINavigationBarAppearance().then {
+            $0.configureWithOpaqueBackground()
+            $0.backgroundColor = backgroundColor ?? .barBackground
+            $0.titleTextAttributes = [.foregroundColor: UIColor.primaryText]
+            $0.shadowColor = backgroundColor
+        }
+
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        navigationController?.navigationBar.compactAppearance = navigationBarAppearance
+        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
+
+        navigationController?.navigationBar.tintColor = .controlTintActive
+
+        //
+
+        let toolbarAppearance = UIToolbarAppearance().then {
+
+            $0.configureWithOpaqueBackground()
+            $0.backgroundColor = backgroundColor ?? .barBackground
+        }
+
+        navigationController?.toolbar.compactAppearance = toolbarAppearance
+        navigationController?.toolbar.standardAppearance = toolbarAppearance
     }
 }
 
-extension LCPortfolioAddItemViewController: UISearchResultsUpdating {
+extension LCPortfolioAddItemViewController: UISearchResultsUpdating, UISearchControllerDelegate {
 
     func updateSearchResults(for searchController: UISearchController) {
-        /*searchDelay.addOperation { [weak self] in
+        searchDelay.addOperation { [weak self] in
             guard let strongSelf = self else { return }
 
             let query = searchController.searchBar.text
-            strongSelf.viewModel.searchRooms(request: query)
-        }*/
+            strongSelf.viewModel.search(query: query)
+        }
+    }
+
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.becomeFirstResponder()
     }
 }
 
@@ -98,25 +136,31 @@ extension LCPortfolioAddItemViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: LCPortfolioAddTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: LCPortfolioAddItemTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         let item = viewModel.groups[indexPath.section].items[indexPath.row]
-
-        cell.textLabel?.text = item.title
-        cell.textLabel?.textColor = item.isActive ? .white : .red
+        cell.apply(item: item)
 
         return cell
-    }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let category = viewModel.groups[section]
-        return category.title
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = viewModel.groups[indexPath.section].items[indexPath.row]
 
         viewModel.addProduct(item)
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView: LCPortfolioAddItemHeaderTableView = tableView.dequeueReusableHeaderFooterView()
+
+        let category = viewModel.groups[section]
+        headerView.apply(title: category.title)
+
+        return headerView
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        44
     }
 }
 
@@ -132,7 +176,7 @@ extension LCPortfolioAddItemViewController: LCPortfolioAddItemViewModelDelegate 
         tableView.reloadData()
     }
 
-    func didSuccessAddProduct() {
-        dismiss(animated: true, completion: nil)
+    func didSuccessAddItem() {
+        navigationController?.popViewController(animated: true)
     }
 }

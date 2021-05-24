@@ -15,7 +15,7 @@ protocol LCPortfolioAddItemViewModelDelegate: AnyObject {
     func didCatchAnError(_ error: String)
     func didChangeLoadingState(_ isLoading: Bool)
     func didSuccessFetchList()
-    func didSuccessAddProduct()
+    func didSuccessAddItem()
 }
 
 class LCPortfolioAddItemViewModel: NSObject, BaseViewModel {
@@ -37,6 +37,9 @@ class LCPortfolioAddItemViewModel: NSObject, BaseViewModel {
 
     private let liveCurvesSyncManager = App.instance.liveCurvesSyncManager
     private let lcNetworkManager = LiveCurvesNetworkManager()
+
+    private var initialLoadedGroups: [LCPortfolioAddItemViewModel.Group] = []
+    private var searchRequest: String?
 
     // MARK: - Public methods
 
@@ -73,12 +76,34 @@ class LCPortfolioAddItemViewModel: NSObject, BaseViewModel {
         group.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
 
-            strongSelf.groups = strongSelf.configureGroups(serverGroups: groups, serverItems: items)
+            let groups = strongSelf.configureGroups(serverGroups: groups, serverItems: items)
+            strongSelf.groups = groups
+            strongSelf.initialLoadedGroups = groups
 
             onMainThread {
                 strongSelf.delegate?.didSuccessFetchList()
             }
         }
+    }
+
+    func search(query: String?) {
+
+        func notify() {
+            onMainThread {
+                self.delegate?.didSuccessFetchList()
+            }
+        }
+
+        guard let query = query, !query.isEmpty else {
+            groups = initialLoadedGroups
+            notify()
+            return
+        }
+
+        searchRequest = query
+        groups = initialLoadedGroups.filtered(by: searchRequest)
+
+        notify()
     }
 
     func addProduct(_ item: LCPortfolioAddItemViewModel.Item) {
@@ -93,7 +118,7 @@ class LCPortfolioAddItemViewModel: NSObject, BaseViewModel {
                let model = responseModel.model {
 
                 onMainThread {
-                    strongSelf.delegate?.didSuccessAddProduct()
+                    strongSelf.delegate?.didSuccessAddItem()
                 }
             } else {
                 onMainThread {

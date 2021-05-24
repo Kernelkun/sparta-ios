@@ -53,10 +53,12 @@
 		D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BF4257665220038175A /* AuthEndPoint.swift */; };
 		D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9700477258928DA000E4A01 /* AccountSettingsViewModel+Models.swift */; };
 		D970047A25892AEB000E4A01 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970047925892AEB000E4A01 /* LoadingView.swift */; };
+		D9716CEC2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9716CEB2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift */; };
 		D977B3A425C330E9009A9483 /* ArbDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977B3A325C330E9009A9483 /* ArbDetailContentView.swift */; };
 		D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */; };
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
+		D97926F92657C1A10004E230 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97926F82657C1A10004E230 /* BaseTableViewController.swift */; };
 		D980119E2652A99B00B8AA70 /* LiveCurveProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D980119D2652A99B00B8AA70 /* LiveCurveProfilesView.swift */; };
 		D98011A02652AE5400B8AA70 /* LiveCurveProfileElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D980119F2652AE5400B8AA70 /* LiveCurveProfileElementView.swift */; };
 		D98011C5265548DA00B8AA70 /* LCPortfolioAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C4265548D900B8AA70 /* LCPortfolioAddViewController.swift */; };
@@ -155,7 +157,7 @@
 		D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */; };
 		D9D4FC2B264ED4ED00A2A1DA /* BaseTableVMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC2A264ED4ED00A2A1DA /* BaseTableVMViewController.swift */; };
 		D9D4FC2C264ED53F00A2A1DA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC29264ED4D600A2A1DA /* BaseViewController.swift */; };
-		D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddTableViewCell.swift */; };
+		D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift */; };
 		D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */; };
 		D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */; };
 		D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */; };
@@ -218,10 +220,12 @@
 		D96C8BF4257665220038175A /* AuthEndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthEndPoint.swift; sourceTree = "<group>"; };
 		D9700477258928DA000E4A01 /* AccountSettingsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSettingsViewModel+Models.swift"; sourceTree = "<group>"; };
 		D970047925892AEB000E4A01 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		D9716CEB2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemHeaderTableView.swift; sourceTree = "<group>"; };
 		D977B3A325C330E9009A9483 /* ArbDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailContentView.swift; sourceTree = "<group>"; };
 		D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbDetailViewModel+Models.swift"; sourceTree = "<group>"; };
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
+		D97926F82657C1A10004E230 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		D980119D2652A99B00B8AA70 /* LiveCurveProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveProfilesView.swift; sourceTree = "<group>"; };
 		D980119F2652AE5400B8AA70 /* LiveCurveProfileElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveProfileElementView.swift; sourceTree = "<group>"; };
 		D98011C4265548D900B8AA70 /* LCPortfolioAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewController.swift; sourceTree = "<group>"; };
@@ -318,7 +322,7 @@
 		D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewModel.swift; sourceTree = "<group>"; };
 		D9D4FC29264ED4D600A2A1DA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D9D4FC2A264ED4ED00A2A1DA /* BaseTableVMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableVMViewController.swift; sourceTree = "<group>"; };
-		D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddTableViewCell.swift; sourceTree = "<group>"; };
+		D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemTableViewCell.swift; sourceTree = "<group>"; };
 		D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesEndPoint.swift; sourceTree = "<group>"; };
 		D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesNetworkManager.swift; sourceTree = "<group>"; };
 		D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPortfolioAddItemViewModel+Models.swift"; sourceTree = "<group>"; };
@@ -1115,6 +1119,7 @@
 			isa = PBXGroup;
 			children = (
 				D9D4FC29264ED4D600A2A1DA /* BaseViewController.swift */,
+				D97926F82657C1A10004E230 /* BaseTableViewController.swift */,
 				D9B50E182571818E0018F3D7 /* BaseVMViewController.swift */,
 				D9D4FC2A264ED4ED00A2A1DA /* BaseTableVMViewController.swift */,
 			);
@@ -1132,7 +1137,8 @@
 		D9D4FC2E264ED8B100A2A1DA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddTableViewCell.swift */,
+				D9716CEB2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift */,
+				D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1386,7 +1392,7 @@
 				D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */,
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
-				D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddTableViewCell.swift in Sources */,
+				D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift in Sources */,
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
 				D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */,
 				D9A2796D259352FB009D066E /* AnalyticsNetworkManager.swift in Sources */,
@@ -1406,9 +1412,11 @@
 				D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
+				D9716CEC2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift in Sources */,
 				D9B7CCDF25C305A20023FDF2 /* ResultAutoStatusView.swift in Sources */,
 				D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */,
 				D99B2F3825753B0C0080B90B /* EmailValidator.swift in Sources */,
+				D97926F92657C1A10004E230 /* BaseTableViewController.swift in Sources */,
 				D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */,
 				D93A889425700E95003ECB61 /* LoginViewController.swift in Sources */,
 				D9A067162587CD6D00C0D1E5 /* GradesGridView.swift in Sources */,

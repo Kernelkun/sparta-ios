@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseTableVMViewController<Model: NSObject & BaseViewModel>: UITableViewController {
+class BaseTableVMViewController<Model: NSObject & BaseViewModel>: BaseTableViewController {
 
     // MARK: - Public properties
 

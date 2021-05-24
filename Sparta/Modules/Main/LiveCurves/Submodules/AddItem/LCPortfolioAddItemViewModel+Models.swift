@@ -48,3 +48,16 @@ extension LCPortfolioAddItemViewModel.Item: Equatable {
         lhs.id == rhs.id
     }
 }
+
+extension Array where Element == LCPortfolioAddItemViewModel.Group {
+
+    func filtered(by searchRequest: String?) -> [Element] {
+        guard let searchRequest = searchRequest else { return self }
+
+        return compactMap { group -> Element in
+            var group = group
+            group.items = group.items.filter { $0.title.lowercased().contains(searchRequest.lowercased()) }
+            return group
+        }
+    }
+}
