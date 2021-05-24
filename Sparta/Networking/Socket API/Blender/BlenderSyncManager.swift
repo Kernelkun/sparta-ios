@@ -11,7 +11,7 @@ import Networking
 import NetworkingModels
 import SpartaHelpers
 
-protocol BlenderSyncManagerDelegate: class {
+protocol BlenderSyncManagerDelegate: AnyObject {
     func blenderSyncManagerDidFetch(blenders: [Blender])
     func blenderSyncManagerDidReceive(blender: Blender)
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender)

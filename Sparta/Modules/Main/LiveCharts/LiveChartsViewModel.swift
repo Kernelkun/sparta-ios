@@ -10,7 +10,7 @@ import Networking
 import SwiftyJSON
 import NetworkingModels
 
-protocol LiveChartsViewModelDelegate: class {
+protocol LiveChartsViewModelDelegate: AnyObject {
     func didLoadData()
 }
 

@@ -18,15 +18,6 @@ class AnalyticsNetworkManager: BaseNetworkManager {
 
     // MARK: - Public methods
 
-    func fetchLiveCurves(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveCurve>>, SpartaError>>) {
-
-        router.request(.getLiveCurves) { [weak self] data, response, error in
-            guard let strongSelf = self else { return }
-
-            completion(strongSelf.handleResult(data: data, response: response, error: error))
-        }
-    }
-
     func fetchFreightPorts(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<FreightPort>>, SpartaError>>) {
 
         router.request(.getFreightPorts) { [weak self] data, response, error in

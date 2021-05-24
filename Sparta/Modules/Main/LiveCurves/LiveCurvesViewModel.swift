@@ -11,9 +11,11 @@ import SwiftyJSON
 import NetworkingModels
 import SpartaHelpers
 
-protocol LiveCurvesViewModelDelegate: class {
+protocol LiveCurvesViewModelDelegate: AnyObject {
     func didReceiveUpdatesForGrades()
+    func didReceiveUpdatesForPresentationStyle()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
+    func didReceiveProfilesInfo(profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?)
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)
 }
 
@@ -23,8 +25,10 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
     weak var delegate: LiveCurvesViewModelDelegate?
 
+    var presentationStyle: PresentationStyle = .months
+
     var tableGrade: Cell = .emptyGrade()
-    var collectionGrades: [Cell] = Array(repeating: .emptyGrade(), count: 6)
+    lazy var collectionGrades: [Cell] = presentationStyle.rowsData.compactMap { Cell.grade(title: $0) }
 
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
@@ -40,13 +44,10 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
         updateConnectionInfo()
 
         liveCurvesSyncManager.delegate = self
-        liveCurvesSyncManager.startReceivingData()
-
-        collectionGrades = LiveCurve.months.compactMap { Cell.grade(title: $0) }
-
-        delegate?.didReceiveUpdatesForGrades()
-
+        liveCurvesSyncManager.start()
         observeApp(for: .socketsState)
+
+        updateGrades()
     }
 
     func stopLoadData() {
@@ -54,68 +55,71 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
         stopObservingApp(for: .socketsState)
     }
 
-    func monthsCount() -> Int {
-        LiveCurve.months.count
+    func changeProfile(_ profile: LiveCurveProfileCategory) {
+        liveCurvesSyncManager.setProfile(profile)
+    }
+
+    func togglePresentationStyle() {
+        self.presentationStyle.toggle()
+
+        reloadDataSource(liveCurvesSyncManager.profileLiveCurves)
+        updateGrades()
+
+        delegate?.didReceiveUpdatesForPresentationStyle()
     }
 
     // MARK: - Private methods
 
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
         Dictionary(grouping: liveCurves, by: { $0.displayName })
-//        .sorted(by: { value1, value2 in
-//            value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
-//        })
-        .compactMap { .grade(title: $0.key) }
+            .sorted(by: { value1, value2 in
+                value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
+            })
+            .compactMap { .grade(title: $0.key) }
     }
 
     private func createCollectionDataSource(from liveCurves: [LiveCurve]) -> [Section] {
         Dictionary(grouping: liveCurves, by: { $0.displayName })
-//            .sorted(by: { value1, value2 -> Bool in
-//                value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
-//            })
+            .sorted(by: { value1, value2 -> Bool in
+                value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
+            })
             .compactMap { key, value -> Section in
 
-            var cells: [Cell] = Array(repeating: .emptyGrade(), count: LiveCurve.months.count)
+                var cells: [Cell] = Array(repeating: .emptyGrade(), count: presentationStyle.rowsCount)
 
-            value.forEach { liveCurve in
-                guard let indexOfMonth = liveCurve.indexOfMonth else { return }
+                value.forEach { liveCurve in
+                    guard let indexOfMonth = liveCurve.indexOfMonth else { return }
 
-                cells[indexOfMonth] = Cell.info(monthInfo: .init(priceValue: liveCurve.priceValue,
-                                                                 priceCode: liveCurve.priceCode))
-            }
-
-            let tempSection = Section(name: key, cells: cells)
-
-            if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
-
-                var updatedSection = collectionDataSource[indexOfSection]
-
-                for liveCurve in value {
-                    if let indexOfMonth = liveCurve.indexOfMonth {
-                        updatedSection.cells[indexOfMonth] = tempSection.cells[indexOfMonth]
-                    }
+                    cells[indexOfMonth] = Cell.info(monthInfo: .init(priceValue: liveCurve.priceValue,
+                                                                     priceCode: liveCurve.priceCode))
                 }
 
-                return updatedSection
-            } else {
-                return tempSection
-            }
-        }
-    }
+                let tempSection = Section(name: key, cells: cells)
 
-    private func priceCodes(for name: String) -> [String] {
-        LiveCurve.months.compactMap { name + $0 }
+                if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
+
+                    var updatedSection = collectionDataSource[indexOfSection]
+
+                    for liveCurve in value {
+                        if let indexOfMonth = liveCurve.indexOfMonth {
+                            updatedSection.cells[indexOfMonth] = tempSection.cells[indexOfMonth]
+                        }
+                    }
+
+                    return updatedSection
+                } else {
+                    return tempSection
+                }
+            }
     }
 
     private func updateGrades() {
-        collectionGrades = collectionGrades.compactMap { cell -> Cell in
-            if case let Cell.grade(title) = cell {
-                if let liveCurve = fetchedLiveCurves.first(where: { $0.monthCode == title }) {
-                    return .grade(title: liveCurve.monthDisplay)
-                }
+        collectionGrades = presentationStyle.rowsData.compactMap { rowData -> Cell in
+            if let liveCurve = fetchedLiveCurves.first(where: { $0.monthCode == rowData }) {
+                return .grade(title: liveCurve.monthDisplay)
             }
 
-            return cell
+            return Cell.grade(title: rowData)
         }
 
         onMainThread {
@@ -124,7 +128,6 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     }
 
     private func updateConnectionInfo() {
-
         let app = App.instance
         let socketsState = app.socketsState
         let formattedDate = liveCurvesSyncManager.lastSyncDate?.formattedString(AppFormatter.timeDate)
@@ -139,9 +142,10 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
 extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 
-    func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve]) {
-        updateDataSource(liveCurves)
+    func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve], profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {
+        delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)
 
+        updateDataSource(liveCurves)
         updateGrades()
     }
 
@@ -164,7 +168,7 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
                 let priceCode = liveCurve.priceCode
 
                 collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: .init(priceValue: liveCurve.priceValue,
-                                                                                                    priceCode: priceCode))
+                                                                                                     priceCode: priceCode))
             }
         }
 
@@ -181,6 +185,8 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 extension LiveCurvesViewModel {
 
     private func updateDataSource(_ newLiveCurves: [LiveCurve]) {
+
+        let newLiveCurves = filtered(newLiveCurves)
 
         let newTableDataSource = createTableDataSource(from: newLiveCurves)
         let newCollectionDataSource = createCollectionDataSource(from: newLiveCurves)
@@ -199,7 +205,7 @@ extension LiveCurvesViewModel {
             return offset
         }
 
-        fetchedLiveCurves = newLiveCurves//.sorted(by: { $0.priorityIndex < $01.priorityIndex })
+        fetchedLiveCurves = newLiveCurves.sorted(by: { $0.priorityIndex < $01.priorityIndex })
 
         tableDataSource = newTableDataSource
         collectionDataSource = newCollectionDataSource
@@ -210,33 +216,46 @@ extension LiveCurvesViewModel {
                                                        updates: [])
         }
     }
+
+    private func reloadDataSource(_ newLiveCurves: [LiveCurve]) {
+
+        let newLiveCurves = filtered(newLiveCurves)
+
+        let newTableDataSource = createTableDataSource(from: newLiveCurves)
+        let newCollectionDataSource = createCollectionDataSource(from: newLiveCurves)
+
+        fetchedLiveCurves = newLiveCurves.sorted(by: { $0.priorityIndex < $01.priorityIndex })
+
+        tableDataSource = newTableDataSource
+        collectionDataSource = newCollectionDataSource
+
+        var reloadIndexs: [Int] = []
+
+        for i in 0..<collectionDataSource.count {
+            reloadIndexs.append(i)
+        }
+
+        onMainThread {
+            self.delegate?.didUpdateDataSourceSections(insertions: [],
+                                                       removals: [],
+                                                       updates: IndexSet(reloadIndexs))
+        }
+    }
+
+    private func filtered(_ newLiveCurves: [LiveCurve]) -> [LiveCurve] {
+        switch presentationStyle {
+        case .months:
+            return newLiveCurves.filter { $0.presentationType == .months }
+
+        case .quartersAndYears:
+            return newLiveCurves.filter { $0.presentationType == .quartersAndYears }
+        }
+    }
 }
 
 extension LiveCurvesViewModel: AppObserver {
 
     func appSocketsDidChangeState(for server: SocketAPI.Server, state: SocketAPI.State) {
         updateConnectionInfo()
-    }
-}
-
-extension LiveCurvesViewModel {
-
-    enum Cell {
-        case grade(title: String)
-        case info(monthInfo: LiveCurveMonthInfoModel)
-
-        static func emptyGrade() -> Cell { .grade(title: "") }
-    }
-
-    struct Section {
-        let name: String
-        var cells: [Cell]
-    }
-}
-
-extension LiveCurvesViewModel.Section: Equatable {
-
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.name.lowercased() == rhs.name.lowercased()
     }
 }

@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol ContentGridViewDataSource: AnyObject {
+    func contentGridViewScrollableGradeWidth() -> CGFloat
+    func contentGridViewNonScrollableGradeWidth() -> CGFloat
+    func contentGridViewCollectionNumberOfRows() -> Int
+}
+
 class ContentGridView: UIView {
 
     // MARK: - UI
@@ -19,16 +25,14 @@ class ContentGridView: UIView {
 
     private var contentView: UIView!
 
-    // MARK: - Public properties
-
     // MARK: - Private properties
 
-    private let constructor: GridView.GridViewConstructor
+    private let dataSource: ContentGridViewDataSource
 
     // MARK: - Initializers
 
-    init(constructor: GridView.GridViewConstructor) {
-        self.constructor = constructor
+    init(dataSource: ContentGridViewDataSource) {
+        self.dataSource = dataSource
         
         super.init(frame: .zero)
 
@@ -42,8 +46,13 @@ class ContentGridView: UIView {
     // MARK: - Public methods
 
     func reloadData() {
-        gradesCollectionGridLayout.invalidateLayout()
-        contentCollectionGridLayout.invalidateLayout()
+        gradesCollectionGridLayout.invalidateCache()
+        contentCollectionGridLayout.invalidateCache()
+
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: dataSource.contentGridViewCollectionNumberOfRows())
+            .compactMap { _ in dataSource.contentGridViewScrollableGradeWidth() }
+
+        contentCollectionGridLayout.cellWidths = cellsWidth
 
         gradesCollectionView.reloadData()
         contentCollectionView.reloadData()
@@ -63,7 +72,7 @@ class ContentGridView: UIView {
         }
 
         gradesCollectionGridLayout = GridLayout()
-        gradesCollectionGridLayout.cellWidths = [constructor.tableColumnWidth]
+        gradesCollectionGridLayout.cellWidths = [dataSource.contentGridViewNonScrollableGradeWidth()]
         gradesCollectionGridLayout.cellHeights = []
 
         gradesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: gradesCollectionGridLayout).then { collectionView in
@@ -83,12 +92,12 @@ class ContentGridView: UIView {
                 $0.top.equalToSuperview()
                 $0.left.equalToSuperview()
                 $0.bottom.equalToSuperview()
-                $0.width.equalTo(constructor.tableColumnWidth)
+                $0.width.equalTo(dataSource.contentGridViewNonScrollableGradeWidth())
             }
         }
 
-        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.rowsCount)
-            .compactMap { _ in constructor.collectionColumnWidth }
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: dataSource.contentGridViewCollectionNumberOfRows())
+            .compactMap { _ in dataSource.contentGridViewScrollableGradeWidth() }
 
         contentCollectionGridLayout = GridLayout()
         contentCollectionGridLayout.cellWidths = cellsWidth

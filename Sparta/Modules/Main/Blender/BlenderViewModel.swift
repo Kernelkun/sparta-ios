@@ -10,7 +10,7 @@ import Networking
 import SwiftyJSON
 import NetworkingModels
 
-protocol BlenderViewModelDelegate: class {
+protocol BlenderViewModelDelegate: AnyObject {
     func didReceiveUpdatesForGrades()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)

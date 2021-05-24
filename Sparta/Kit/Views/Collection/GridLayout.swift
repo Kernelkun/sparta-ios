@@ -105,7 +105,7 @@ class GridLayout: UICollectionViewLayout {
     private var cellSpansWidth: [CellSpanWidth] { return cache.cellSpansWidth }
     private var cellSpansHeight: [CellSpanHeight] { return cache.cellSpansHeight }
 
-    private func invalidateCache() {
+    func invalidateCache() {
         _cache = nil
         invalidateLayout()
     }

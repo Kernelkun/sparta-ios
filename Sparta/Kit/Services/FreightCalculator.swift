@@ -9,7 +9,7 @@ import Foundation
 import SpartaHelpers
 import NetworkingModels
 
-protocol FreightCalculatorDelegate: class {
+protocol FreightCalculatorDelegate: AnyObject {
     func didChangeLoadingState(_ isLoading: Bool)
     func didCatchAnError(_ error: String)
     func didFinishCalculations(_ calculatedTypes: [FreightCalculator.CalculatedType])

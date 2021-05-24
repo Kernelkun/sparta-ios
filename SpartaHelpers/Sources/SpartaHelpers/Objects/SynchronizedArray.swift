@@ -62,6 +62,13 @@ public extension SynchronizedArray {
         queue.sync { result = self.array.description }
         return result
     }
+
+    /// Fetch array with elements
+    var arrayValue: [Element] {
+        var result: [Element] = []
+        queue.sync { result = self.compactMap { $0 } }
+        return result
+    }
 }
 
 // MARK: - Immutable

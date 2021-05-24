@@ -20,7 +20,6 @@ enum AnalyticsEndPoint {
 
     // general
 
-    case getLiveCurves
     case getFreightPorts
     case getFreightRoute(loadPortId: Int, dischargePortId: Int, date: String)
 }
@@ -31,7 +30,6 @@ extension AnalyticsEndPoint: EndPointType {
 
     var path: String {
         switch self {
-        case .getLiveCurves: return "/livecurves"
         case .getArbsTable: return "/arbs/table"
         case .updateArbUserTarget: return "/arbs/user/target"
         case .deleteArbUserTarget: return "/arbs/user/target"
@@ -42,7 +40,7 @@ extension AnalyticsEndPoint: EndPointType {
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getLiveCurves, .getArbsTable, .getFreightPorts, .getFreightRoute: return .get
+        case .getArbsTable, .getFreightPorts, .getFreightRoute: return .get
         case .updateArbUserTarget: return .post
         case .deleteArbUserTarget: return .delete
         }
@@ -58,12 +56,6 @@ extension AnalyticsEndPoint: EndPointType {
 
         case .deleteArbUserTarget(let parameters):
             return .requestParametersAndHeaders(bodyParameters: parameters,
-                                                bodyEncoding: .jsonEncoding,
-                                                urlParameters: nil,
-                                                additionHeaders: headersWithToken)
-
-        case .getLiveCurves:
-            return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
                                                 additionHeaders: headersWithToken)

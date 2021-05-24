@@ -11,7 +11,7 @@ import Networking
 import NetworkingModels
 import SpartaHelpers
 
-protocol ArbsSyncManagerDelegate: class {
+protocol ArbsSyncManagerDelegate: AnyObject {
     func arbsSyncManagerDidFetch(arbs: [Arb])
     func arbsSyncManagerDidReceive(arb: Arb)
     func arbsSyncManagerDidReceiveUpdates(for arb: Arb)
@@ -219,7 +219,7 @@ class ArbsSyncManager {
             guard let strongSelf = self, result else { return }
 
             if let arbIndex = strongSelf._arbs.index(where: { $0.months.contains(arbMonth) }),
-               let indexOfMonth = strongSelf._arbs[arbIndex]!.months.firstIndex(of: arbMonth) {
+               let indexOfMonth = strongSelf._arbs[arbIndex]?.months.firstIndex(of: arbMonth) {
 
                 strongSelf.lastSyncDate = Date()
 

@@ -1,19 +1,13 @@
 //
-//  BaseVMViewController.swift
+//  BaseTableVMViewController.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 27.11.2020.
+//  Created by Yaroslav Babalich on 14.05.2021.
 //
 
 import UIKit
 
-protocol BaseViewModel: class {
-
-    associatedtype Controller
-    var delegate: Controller? { get set }
-}
-
-class BaseVMViewController<Model: NSObject & BaseViewModel>: BaseViewController {
+class BaseTableVMViewController<Model: NSObject & BaseViewModel>: BaseTableViewController {
 
     // MARK: - Public properties
 

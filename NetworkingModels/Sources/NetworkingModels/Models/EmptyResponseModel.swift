@@ -14,6 +14,5 @@ public struct EmptyResponseModel: BackendModel {
     // MARK: - Default Initializers
 
     public init(json: JSON) {
-    
     }
 }

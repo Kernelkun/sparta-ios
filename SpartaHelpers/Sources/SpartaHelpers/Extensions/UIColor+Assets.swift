@@ -6,6 +6,7 @@
 //
 
 import UIKit.UIColor
+import SpartaHelpers
 
 public extension UIColor {
 
@@ -40,16 +41,8 @@ public extension UIColor {
     static var numberRed: UIColor { .assetColor(named: #function) }
 
     static var numberGray: UIColor { .assetColor(named: #function) }
-}
 
-private extension UIColor {
+    static var profileBackground: UIColor { .assetColor(named: #function) }
 
-    static func assetColor(named name: String) -> UIColor {
-
-        guard let retVal = UIColor(named: name) else {
-            fatalError("Color named \(name) does not exist!")
-        }
-
-        return retVal
-    }
+    static var profileActiveBackground: UIColor { .assetColor(named: #function) }
 }

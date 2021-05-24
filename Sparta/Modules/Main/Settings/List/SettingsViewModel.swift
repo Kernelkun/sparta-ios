@@ -10,7 +10,7 @@ import Networking
 import SwiftyJSON
 import NetworkingModels
 
-protocol SettingsViewModelDelegate: class {
+protocol SettingsViewModelDelegate: AnyObject {
     func didLoadData()
 }
 
