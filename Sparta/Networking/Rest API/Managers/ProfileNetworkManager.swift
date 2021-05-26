@@ -62,4 +62,70 @@ class ProfileNetworkManager: BaseNetworkManager {
             completion(strongSelf.handleResult(data: data, response: response, error: error))
         }
     }
+
+    // arbs
+
+    func fetchArbsFavouritesList(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<Favourite>>, SpartaError>>) {
+
+        router.request(.getArbsFavouritesList) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func addArbToFavouritesList(userId: Int, code: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<Favourite>, SpartaError>>) {
+
+        var parameters: Parameters = [:]
+        parameters["user"] = userId
+        parameters["code"] = code
+
+        router.request(.addArbToFavouritesList(parameters: parameters)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func deleteArbFromFavouritesList(id: Int, completion: @escaping TypeClosure<Swift.Result<ResponseModel<Favourite>, SpartaError>>) {
+
+        router.request(.deleteArbFromFavouritesList(id: id)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    // blender
+
+    func fetchBlenderFavouritesList(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<Favourite>>, SpartaError>>) {
+
+        router.request(.getBlenderFavouritesList) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func addBlenderToFavouritesList(userId: Int, code: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<Favourite>, SpartaError>>) {
+
+        var parameters: Parameters = [:]
+        parameters["user"] = userId
+        parameters["code"] = code
+
+        router.request(.addBlenderToFavouritesList(parameters: parameters)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func deleteBlenderFromFavouritesList(id: Int, completion: @escaping TypeClosure<Swift.Result<ResponseModel<Favourite>, SpartaError>>) {
+
+        router.request(.deleteBlenderFromFavouritesList(id: id)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
 }

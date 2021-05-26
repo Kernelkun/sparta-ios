@@ -22,7 +22,7 @@ enum UILoginConstants {
     static let signInButtonOffsetWithKeyboard: CGFloat = isSmall ? 21 : 50
 }
 
-protocol LoginViewCoordinatorDelegate: class {
+protocol LoginViewCoordinatorDelegate: AnyObject {
     func loginViewControllerDidFinish(_ controller: LoginViewController)
     func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController)
 }
@@ -48,10 +48,12 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
         setupUI()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
+        UIView.setAnimationsEnabled(false)
         loginField?.textField.becomeFirstResponder()
+        UIView.setAnimationsEnabled(true)
     }
 
     //
@@ -135,6 +137,9 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
             field.placeholder = "Password"
             field.textField.isSecureTextEntry = true
             field.backgroundColor = .authFieldBackground
+
+            field.textField.isSecureTextEntry = true
+            field.showSecurityToggleButton = true
 
             field.onTextChanged { [unowned self] text in
                 self.viewModel.passwordText = text

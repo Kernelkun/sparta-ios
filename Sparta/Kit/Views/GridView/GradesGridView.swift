@@ -7,10 +7,13 @@
 
 import UIKit
 
-protocol GradesGridViewDataSource: class {
+protocol GradesGridViewDataSource: AnyObject {
+    func gradesGridViewGradeHeight() -> CGFloat
+    func gradesGridViewScrollableGradeWidth() -> CGFloat
+    func gradesGridViewNonScrollableGradeWidth() -> CGFloat
     func gradesGridViewCollectionNumberOfRows() -> Int
-    func gradesGridViewCollectionTitle(for row: Int) -> String
-    func gradesGridViewTableTitle() -> String?
+    func gradesGridViewCollectionTitle(for row: Int) -> NSAttributedString?
+    func gradesGridViewTableTitle() -> NSAttributedString?
 }
 
 class GradesGridView: UIView {
@@ -23,18 +26,14 @@ class GradesGridView: UIView {
     private var notScrollableView: UIView!
     private var gradesStackView: UIStackView!
 
-    // MARK: - Public properties
-
-    weak var dataSource: GradesGridViewDataSource?
-
     // MARK: - Private properties
 
-    private let constructor: GridView.GridViewConstructor
+    private let dataSource: GradesGridViewDataSource
 
     // MARK: - Initializers
 
-    init(constructor: GridView.GridViewConstructor) {
-        self.constructor = constructor
+    init(dataSource: GradesGridViewDataSource) {
+        self.dataSource = dataSource
 
         super.init(frame: .zero)
 
@@ -47,12 +46,31 @@ class GradesGridView: UIView {
 
     // MARK: - Public methods
 
-    func reloadData() {
-        for (row, gridCell) in gradesStackView.arrangedSubviews.enumerated() {
-            (gridCell as? GradeTitleView)?.apply(title: dataSource?.gradesGridViewCollectionTitle(for: row) ?? "")
+    func reloadData(force: Bool = false) {
+        if force {
+            // stack view data
+            gradesStackView.removeAllSubviews()
+
+            for _ in 0..<dataSource.gradesGridViewCollectionNumberOfRows() {
+                let gridCell = GradeTitleView(insets: .zero)
+                gradesStackView.addArrangedSubview(gridCell)
+
+                gridCell.snp.remakeConstraints {
+                    $0.size.equalTo(CGSize(width: dataSource.gradesGridViewScrollableGradeWidth(),
+                                           height: dataSource.gradesGridViewGradeHeight()))
+                }
+            }
+
+            // scroll view content size
+
+            scrollView.contentSize = scrollViewContentSize()
         }
 
-        tableGradeView.apply(title: dataSource?.gradesGridViewTableTitle() ?? "")
+        for (row, gridCell) in gradesStackView.arrangedSubviews.enumerated() {
+            (gridCell as? GradeTitleView)?.apply(text: dataSource.gradesGridViewCollectionTitle(for: row))
+        }
+
+        tableGradeView.apply(text: dataSource.gradesGridViewTableTitle())
     }
 
     // MARK: - Private methods
@@ -65,7 +83,7 @@ class GradesGridView: UIView {
 
             view.backgroundColor = UIGridViewConstants.evenLineBackgroundColor
 
-            tableGradeView = GradeTitleView()
+            tableGradeView = GradeTitleView(insets: .init(top: 0, left: 8, bottom: 0, right: 0))
             view.addSubview(tableGradeView) {
                 $0.edges.equalToSuperview()
             }
@@ -73,7 +91,7 @@ class GradesGridView: UIView {
             addSubview(view) {
                 $0.left.equalToSuperview()
                 $0.top.bottom.equalToSuperview()
-                $0.width.equalTo(constructor.tableColumnWidth)
+                $0.width.equalTo(dataSource.gradesGridViewNonScrollableGradeWidth())
             }
         }
 
@@ -83,13 +101,12 @@ class GradesGridView: UIView {
             view.showsHorizontalScrollIndicator = false
             view.showsVerticalScrollIndicator = false
             view.bounces = false
-            view.contentSize = CGSize(width: constructor.collectionColumnWidth * CGFloat(constructor.rowsCount),
-                                      height: constructor.gradeHeight)
+            view.contentSize = scrollViewContentSize()
 
-            addSubview(view) {
-                $0.left.equalTo(notScrollableView.snp.right)
-                $0.top.bottom.right.equalToSuperview()
-            }
+                addSubview(view) {
+                    $0.left.equalTo(notScrollableView.snp.right)
+                    $0.top.bottom.right.equalToSuperview()
+                }
         }
 
         gradesStackView = UIStackView().then { stackView in
@@ -99,12 +116,13 @@ class GradesGridView: UIView {
             stackView.spacing = 0
             stackView.alignment = .leading
 
-            for _ in 0..<constructor.rowsCount {
-                let gridCell = GradeTitleView()
+            for _ in 0..<dataSource.gradesGridViewCollectionNumberOfRows() {
+                let gridCell = GradeTitleView(insets: .zero)
                 stackView.addArrangedSubview(gridCell)
 
                 gridCell.snp.makeConstraints {
-                    $0.size.equalTo(CGSize(width: constructor.collectionColumnWidth, height: constructor.gradeHeight))
+                    $0.size.equalTo(CGSize(width: dataSource.gradesGridViewScrollableGradeWidth(),
+                                           height: dataSource.gradesGridViewGradeHeight()))
                 }
             }
 
@@ -113,5 +131,10 @@ class GradesGridView: UIView {
                 $0.centerY.equalToSuperview()
             }
         }
+    }
+
+    private func scrollViewContentSize() -> CGSize {
+        CGSize(width: dataSource.gradesGridViewScrollableGradeWidth() * CGFloat(dataSource.gradesGridViewCollectionNumberOfRows()),
+               height: dataSource.gradesGridViewGradeHeight())
     }
 }

@@ -11,8 +11,15 @@ import Networking
 import App
 
 enum AnalyticsEndPoint {
-    case getLiveCurves
+
+    // arb
+
     case getArbsTable
+    case updateArbUserTarget(parameters: Parameters)
+    case deleteArbUserTarget(parameters: Parameters)
+
+    // general
+
     case getFreightPorts
     case getFreightRoute(loadPortId: Int, dischargePortId: Int, date: String)
 }
@@ -23,8 +30,9 @@ extension AnalyticsEndPoint: EndPointType {
 
     var path: String {
         switch self {
-        case .getLiveCurves: return "/livecurves"
         case .getArbsTable: return "/arbs/table"
+        case .updateArbUserTarget: return "/arbs/user/target"
+        case .deleteArbUserTarget: return "/arbs/user/target"
         case .getFreightPorts: return "/freight/loadports"
         case .getFreightRoute: return "/freight/route"
         }
@@ -32,22 +40,30 @@ extension AnalyticsEndPoint: EndPointType {
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getLiveCurves, .getArbsTable, .getFreightPorts, .getFreightRoute: return .get
+        case .getArbsTable, .getFreightPorts, .getFreightRoute: return .get
+        case .updateArbUserTarget: return .post
+        case .deleteArbUserTarget: return .delete
         }
     }
 
     var task: HTTPTask {
         switch self {
-        case .getLiveCurves:
-            return .requestParametersAndHeaders(bodyParameters: nil,
+        case .updateArbUserTarget(let parameters):
+            return .requestParametersAndHeaders(bodyParameters: parameters,
+                                                bodyEncoding: .jsonEncoding,
+                                                urlParameters: nil,
+                                                additionHeaders: headersWithToken)
+
+        case .deleteArbUserTarget(let parameters):
+            return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
                                                 additionHeaders: headersWithToken)
 
         case .getArbsTable:
             return .requestParametersAndHeaders(bodyParameters: nil,
-                                                bodyEncoding: .jsonEncoding,
-                                                urlParameters: nil,
+                                                bodyEncoding: .urlEncoding,
+                                                urlParameters: ["arbsMonths": 6],
                                                 additionHeaders: headersWithToken)
 
         case .getFreightPorts:

@@ -10,7 +10,7 @@ import Networking
 import NetworkingModels
 import Reachability
 
-protocol AppFlowDelegate: class {
+protocol AppFlowDelegate: AnyObject {
     func appFlowDidUpdate()
 }
 
@@ -83,15 +83,15 @@ class App {
     
     init() {
 
-        blenderSyncManager = BlenderSyncManager()
+        blenderSyncManager = BlenderSyncManager.intance
         liveCurvesSyncManager = LiveCurvesSyncManager()
-        arbsSyncManager = ArbsSyncManager()
+        arbsSyncManager = ArbsSyncManager.intance
         stateService = AppStateService()
 
         reachability = try! Reachability() // swiftlint:disable:this force_try
         try! reachability.startNotifier() // swiftlint:disable:this force_try
 
-        sockets = SocketAPI(defaultServer: .blender)
+        sockets = SocketAPI()
         sockets.connectionDelegate = self
 
         syncService.delegate = self

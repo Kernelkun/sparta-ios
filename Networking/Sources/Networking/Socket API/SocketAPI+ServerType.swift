@@ -11,7 +11,7 @@ import App
 public extension SocketAPI {
 
     enum Server: String, CaseIterable {
-
+        case unknown
         case blender
         case liveCurves
         case arbs
@@ -20,7 +20,7 @@ public extension SocketAPI {
 
 extension SocketAPI.Server {
 
-    var link: URL {
+    var link: URL? {
         switch self {
         case .blender:
             return Environment.socketBlenderURL.forcedURL
@@ -28,6 +28,8 @@ extension SocketAPI.Server {
             return Environment.socketLiveCurvesURL.forcedURL
         case .arbs:
             return Environment.socketArbsURL.forcedURL
+        default:
+            return nil
         }
     }
 }

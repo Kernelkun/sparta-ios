@@ -7,26 +7,32 @@
 
 import UIKit
 
+protocol ContentGridViewDataSource: AnyObject {
+    func contentGridViewScrollableGradeWidth() -> CGFloat
+    func contentGridViewNonScrollableGradeWidth() -> CGFloat
+    func contentGridViewCollectionNumberOfRows() -> Int
+}
+
 class ContentGridView: UIView {
 
     // MARK: - UI
 
-    var collectionGridLayout: GridLayout!
-    var collectionView: UICollectionView!
-    var tableView: UITableView!
+    var gradesCollectionGridLayout: GridLayout!
+    var gradesCollectionView: UICollectionView!
+
+    var contentCollectionGridLayout: GridLayout!
+    var contentCollectionView: UICollectionView!
 
     private var contentView: UIView!
 
-    // MARK: - Public properties
-
     // MARK: - Private properties
 
-    private let constructor: GridView.GridViewConstructor
+    private let dataSource: ContentGridViewDataSource
 
     // MARK: - Initializers
 
-    init(constructor: GridView.GridViewConstructor) {
-        self.constructor = constructor
+    init(dataSource: ContentGridViewDataSource) {
+        self.dataSource = dataSource
         
         super.init(frame: .zero)
 
@@ -40,9 +46,16 @@ class ContentGridView: UIView {
     // MARK: - Public methods
 
     func reloadData() {
-        collectionGridLayout.invalidateLayout()
-        collectionView.reloadData()
-        tableView.reloadData()
+        gradesCollectionGridLayout.invalidateCache()
+        contentCollectionGridLayout.invalidateCache()
+
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: dataSource.contentGridViewCollectionNumberOfRows())
+            .compactMap { _ in dataSource.contentGridViewScrollableGradeWidth() }
+
+        contentCollectionGridLayout.cellWidths = cellsWidth
+
+        gradesCollectionView.reloadData()
+        contentCollectionView.reloadData()
     }
 
     // MARK: - Private methods
@@ -58,35 +71,11 @@ class ContentGridView: UIView {
             }
         }
 
-        tableView = UITableView().then { tableView in
+        gradesCollectionGridLayout = GridLayout()
+        gradesCollectionGridLayout.cellWidths = [dataSource.contentGridViewNonScrollableGradeWidth()]
+        gradesCollectionGridLayout.cellHeights = []
 
-            tableView.backgroundColor = UIGridViewConstants.mainBackgroundColor
-            tableView.tableFooterView = UIView(frame: .zero)
-            tableView.separatorStyle = .none
-            tableView.showsVerticalScrollIndicator = false
-            tableView.showsHorizontalScrollIndicator = false
-            tableView.automaticallyAdjustsScrollIndicatorInsets = false
-            tableView.bounces = false
-
-            tableView.register(LiveCurveGradeTableViewCell.self)
-            tableView.register(BlenderInfoTableViewCell.self)
-
-            contentView.addSubview(tableView) {
-                $0.top.equalToSuperview()
-                $0.left.equalToSuperview()
-                $0.bottom.equalToSuperview()
-                $0.width.equalTo(constructor.tableColumnWidth)
-            }
-        }
-
-        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: constructor.rowsCount)
-            .compactMap { _ in constructor.collectionColumnWidth }
-
-        collectionGridLayout = GridLayout()
-        collectionGridLayout.cellWidths = cellsWidth
-        collectionGridLayout.cellHeights = []
-
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionGridLayout).then { collectionView in
+        gradesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: gradesCollectionGridLayout).then { collectionView in
 
             collectionView.backgroundColor = UIGridViewConstants.mainBackgroundColor
             collectionView.isDirectionalLockEnabled = true
@@ -95,17 +84,51 @@ class ContentGridView: UIView {
             collectionView.automaticallyAdjustsScrollIndicatorInsets = false
             collectionView.bounces = false
 
-            collectionView.register(LiveCurveInfoCollectionViewCell.self)
-            collectionView.register(BlenderInfoCollectionViewCell.self)
-            collectionView.register(ArbsDeliveryMonthCollectionViewCell.self)
-            collectionView.register(ArbsDeliveryPriceCollectionViewCell.self)
-            collectionView.register(ArbsFreightCollectionViewCell.self)
-            collectionView.register(ArbsBlendCostCollectionViewCell.self)
+            collectionView.register(ArbsGradeCollectionViewCell.self)
+            collectionView.register(LiveCurveGradeTableViewCell.self)
+            collectionView.register(BlenderGradeCollectionViewCell.self)
 
             contentView.addSubview(collectionView) {
-                $0.top.equalTo(tableView)
+                $0.top.equalToSuperview()
+                $0.left.equalToSuperview()
+                $0.bottom.equalToSuperview()
+                $0.width.equalTo(dataSource.contentGridViewNonScrollableGradeWidth())
+            }
+        }
+
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: dataSource.contentGridViewCollectionNumberOfRows())
+            .compactMap { _ in dataSource.contentGridViewScrollableGradeWidth() }
+
+        contentCollectionGridLayout = GridLayout()
+        contentCollectionGridLayout.cellWidths = cellsWidth
+        contentCollectionGridLayout.cellHeights = []
+
+        contentCollectionView = UICollectionView(frame: .zero, collectionViewLayout: contentCollectionGridLayout).then { collectionView in
+
+            collectionView.backgroundColor = UIGridViewConstants.mainBackgroundColor
+            collectionView.isDirectionalLockEnabled = true
+            collectionView.showsVerticalScrollIndicator = false
+            collectionView.showsHorizontalScrollIndicator = true
+            collectionView.automaticallyAdjustsScrollIndicatorInsets = false
+            collectionView.bounces = false
+
+            // live curves
+            collectionView.register(LiveCurveInfoCollectionViewCell.self)
+
+            // blender
+            collectionView.register(BlenderInfoCollectionViewCell.self)
+
+            // arbs
+            collectionView.register(ArbsDeliveryMonthCollectionViewCell.self)
+            collectionView.register(ArbsDeliveryPriceCollectionViewCell.self)
+            collectionView.register(ArbsUserTgtCollectionViewCell.self)
+            collectionView.register(ArbsUserMarginCollectionViewCell.self)
+            collectionView.register(ArbsStatusCollectionViewCell.self)
+
+            contentView.addSubview(collectionView) {
+                $0.top.equalTo(gradesCollectionView)
                 $0.right.bottom.equalToSuperview()
-                $0.left.equalTo(tableView.snp.right)
+                $0.left.equalTo(gradesCollectionView.snp.right)
             }
         }
     }

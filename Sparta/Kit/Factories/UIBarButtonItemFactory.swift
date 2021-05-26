@@ -10,12 +10,87 @@ import SpartaHelpers
 
 enum UIBarButtonItemFactory {
 
+    static func logoButton(title: String, onTap: TypeClosure<UIButton>? = nil) -> UIBarButtonItem {
+
+        let button = TappableButton(type: .system).then { v in
+
+            v.setBackgroundImage(UIImage(named: "ic_nav_logo"), for: .normal)
+            v.tintColor = .controlTintActive
+
+            if let onTap = onTap {
+                v.onTap(completion: onTap)
+            }
+        }
+
+        let titleLabel = UILabel().then { label in
+
+            label.font = .main(weight: .regular, size: 18)
+            label.textAlignment = .left
+            label.textColor = .primaryText
+            label.text = title
+        }
+
+        let stackView = UIStackView().then { stackView in
+
+            stackView.axis = .horizontal
+            stackView.distribution = .equalSpacing
+            stackView.spacing = 15
+            stackView.alignment = .center
+
+            stackView.addArrangedSubview(button)
+            stackView.addArrangedSubview(titleLabel)
+        }
+
+        return UIBarButtonItem(customView: stackView)
+    }
+
+    static func tradeButton(onTap: TypeClosure<UIButton>? = nil) -> UIBarButtonItem {
+
+        let button = TappableButton(type: .system).then { v in
+
+            v.setBackgroundImage(UIImage(named: "ic_trade"), for: .normal)
+            v.tintColor = .controlTintActive
+
+            if let onTap = onTap {
+                v.onTap(completion: onTap)
+            }
+        }
+
+        return UIBarButtonItem(customView: button)
+    }
+
     static func backButton(onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
 
         let button = TappableButton(type: .system).then { v in
 
             v.setBackgroundImage(UIImage(named: "ic_back"), for: .normal)
             v.tintColor = .controlTintActive
+
+            v.onTap(completion: onTap)
+        }
+
+        return UIBarButtonItem(customView: button)
+    }
+
+    static func plusButton(onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
+
+        let button = TappableButton(type: .custom).then { v in
+
+            v.setBackgroundImage(UIImage(named: "ic_plus"), for: .normal)
+            v.tintColor = .controlTintActive
+
+            v.onTap(completion: onTap)
+        }
+
+        return UIBarButtonItem(customView: button)
+    }
+
+    static func periodButton(isActive: Bool, onTap: @escaping TypeClosure<UIButton>) -> UIBarButtonItem {
+
+        let button = TappableButton(type: .custom).then { v in
+
+            v.setBackgroundImage(UIImage(named: "ic_toggle_period")?.withTintColor(isActive ? .controlTintActive : .tabBarTintInactive),
+                                 for: .normal)
 
             v.onTap(completion: onTap)
         }

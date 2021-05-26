@@ -21,7 +21,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         let constructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
                                                        gradeHeight: 50,
                                                        collectionColumnWidth: 70,
-                                                       tableColumnWidth: 130)
+                                                       tableColumnWidth: 160)
 
         gridView = GridView(constructor: constructor)
         view = gridView
@@ -57,7 +57,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
         // grid view
-        
+
         gridView.dataSource = self
         gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
@@ -79,7 +79,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Blender")
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Blender")
 
         navigationItem.rightBarButtonItem = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { isOn in
             self.viewModel.isSeasonalityOn = isOn
@@ -117,16 +117,16 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
 extension BlenderViewController: GridViewDataSource {
 
-    func gradeTitleForColectionView(at row: Int) -> String {
+    func gradeTitleForInfoCollectionView(at row: Int) -> NSAttributedString? {
         if case let BlenderViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
-            return title
-        } else { return "" }
+            return NSAttributedString(string: title)
+        } else { return nil }
     }
 
-    func gradeTitleForTableView() -> String? {
+    func gradeTitleForGradeCollectionView() -> NSAttributedString? {
         if case let BlenderViewModel.Cell.grade(title) = viewModel.tableGrade {
-            return title
-        } else { return "" }
+            return NSAttributedString(string: title)
+        } else { return nil }
     }
 
     func numberOfSections() -> Int {
@@ -137,30 +137,31 @@ extension BlenderViewController: GridViewDataSource {
         viewModel.height(for: section)
     }
 
-    func numberOfRowsForTableView(in section: Int) -> Int {
+    func numberOfRowsForGradeCollectionView(in section: Int) -> Int {
         1
     }
 
-    func numberOfRowsForCollectionView(in section: Int) -> Int {
+    func numberOfRowsForInfoCollectionView(in section: Int) -> Int {
         viewModel.monthsCount()
     }
 
-    func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
+    func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cellType = viewModel.tableDataSource[indexPath.section]
 
-        let cell: BlenderInfoTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: BlenderGradeCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-        var displayTitle: String = ""
+        if case let BlenderViewModel.Cell.title(blender) = cellType {
+            cell.apply(blender: blender)
 
-        if case let BlenderViewModel.Cell.grade(title) = cellType {
-            displayTitle = title
+            cell.onToggleFavourite { [unowned self] blender in
+                self.viewModel.toggleFavourite(blender: blender)
+            }
         }
 
-        cell.apply(title: displayTitle, for: indexPath)
         return cell
     }
 
-    func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+    func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cellType = viewModel.collectionDataSource[indexPath.section].cells[indexPath.item]
 
         let cell: BlenderInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
@@ -183,12 +184,8 @@ extension BlenderViewController: BlenderViewModelDelegate {
         gridView.reloadGrades()
     }
 
-    func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, afterSeasonality: Bool) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates) {
-            if afterSeasonality {
-                self.gridView.scrollToTop()
-            }
-        }
+    func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {

@@ -22,7 +22,6 @@ class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelega
     // MARK: - UI
 
     private var privateTextField: UITextField!
-
     private var pickerView = UIPickerView()
 
     // MARK: - Private properties

@@ -24,13 +24,8 @@ class PasswordValidator: Validator {
 
     func isValidForSetup(value: String?) -> Bool {
 
-        guard let value = value else {
-            errorMessage = "Password is required and can't be empty."
-            return false
-        }
-
-        guard isValidLength(value, range: 6 ... 100) else {
-            errorMessage = "Your password must be between 6 and 100 symbols."
+        guard let value = value, isValidPassword(value) else {
+            errorMessage = "Password must be at least 8 characters long, contain a number, a lowercase and a uppercase letter"
             return false
         }
 

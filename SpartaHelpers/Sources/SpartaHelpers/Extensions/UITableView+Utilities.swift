@@ -58,7 +58,7 @@ public extension UITableView {
                         completion: ((Bool) -> Void)? = nil) {
 
         UIView.setAnimationsEnabled(false)
-        self.performBatchUpdates({
+        performBatchUpdates({
 
             if !insertions.isEmpty {
                 self.insertSections(insertions, with: .none)

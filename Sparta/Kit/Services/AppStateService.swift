@@ -7,7 +7,7 @@
 
 import UIKit.UIApplication
 
-protocol AppStateServiceDelegate: class {
+protocol AppStateServiceDelegate: AnyObject {
     func appStateServiceDidUpdateState()
 }
 

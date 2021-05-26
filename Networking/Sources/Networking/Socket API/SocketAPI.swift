@@ -37,7 +37,7 @@ public class SocketAPI: NSObject {
 
     //
 
-    private var socket: WebSocket!
+    private var socket: WebSocket?
 
     //
     // MARK: - Reconnection Handling
@@ -72,11 +72,21 @@ public class SocketAPI: NSObject {
     //
     // MARK: - Object Initialization
 
-    public init(defaultServer: Server) {
+    public init(defaultServer: Server? = nil) {
+        guard let defaultServer = defaultServer,
+              let serverLink = defaultServer.link else {
+
+            socket = nil
+            serverType = .unknown
+            state = .unknown
+
+            super.init()
+            return
+        }
 
         serverType = defaultServer
 
-        socket = WebSocket(url: serverType.link)
+        socket = WebSocket(url: serverLink)
         state = .unknown
 
         super.init()
@@ -95,6 +105,7 @@ public class SocketAPI: NSObject {
 
     // this method will just change server without reconnection
     public func change(to server: SocketAPI.Server) {
+        guard let serverLink = server.link else { return }
 
         if state <= .connected {
             disconnect(forced: true)
@@ -102,13 +113,13 @@ public class SocketAPI: NSObject {
 
         serverType = server
 
-        socket = WebSocket(url: server.link)
+        socket = WebSocket(url: serverLink)
         state = .unknown
     }
 
     public func connect(tryToReconnectIfFailed: Bool = true) {
 
-        guard state < .connected else { return }
+        guard state < .connected, socket != nil else { return }
 
         // If needs to reconnect, we need to setup the timer.
         if tryToReconnectIfFailed && reconnectionTimer == nil {
@@ -130,39 +141,25 @@ public class SocketAPI: NSObject {
 
         state = .connecting
 
-        socket.delegate = self
-        socket.connect()
+        socket!.delegate = self
+        socket!.connect()
     }
 
     public func disconnect(forced: Bool = false) {
+        guard socket != nil else { return }
+
         wasForceDisconnectedLastTime = forced
-        socket.disconnect(forceTimeout: forced ? -1 : nil)
+        socket!.disconnect(forceTimeout: forced ? -1 : nil)
     }
 
     public func sendData(data: JSON, requiresAuth: Bool) {
+        guard socket != nil else { return }
 
         print("*Websocket: Did send data \(data.rawString()), server: \(serverType)*")
 
-        /*if requiresAuth && state < .authenticated {
-            print("*Websocket: Postponed sending \(data["cmd"].stringValue): not authenticated*")
-            fifoQueueWithAuth.append(data)
-            return
-        }
-
-        if !requiresAuth && state < .connected {
-            print("*Websocket: Postponed sending \(data["cmd"].stringValue): not connected*")
-            fifoQueueWOAuth.append(data)
-            return
-        }
-
-        guard ongoingQueue.contains(data) == false else {
-            print("*Websocket: Aborted sending \(data["cmd"].stringValue): already in queue*")
-            return
-        }*/
-
         guard let rawString = data.rawString() else { return }
 
-        socket.write(string: rawString)
+        socket!.write(string: rawString)
     }
 }
 

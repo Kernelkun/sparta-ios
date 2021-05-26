@@ -9,7 +9,7 @@ import Foundation
 import SpartaHelpers
 import NetworkingModels
 
-protocol FreightCalculatorDelegate: class {
+protocol FreightCalculatorDelegate: AnyObject {
     func didChangeLoadingState(_ isLoading: Bool)
     func didCatchAnError(_ error: String)
     func didFinishCalculations(_ calculatedTypes: [FreightCalculator.CalculatedType])
@@ -148,14 +148,17 @@ class FreightCalculator {
     private func calculateTypes() -> [CalculatedType] {
         var types: [CalculatedType] = []
 
-        var routeValue = inputData.vessel.routeTypeValue.toFormattedString
+        var routeValue: String = ""
 
-        if inputData.vessel.routeType.lowercased() != "ws".lowercased() {
+        if inputData.vessel.routeType.lowercased() == "ws".lowercased() {
+            routeValue = round(inputData.vessel.routeTypeValue).toFormattedString
+        } else {
+            routeValue = round(inputData.vessel.routeTypeValue, toNearest: 5000).toFormattedString
             routeValue.insert("$", at: routeValue.startIndex)
         }
 
         types.append(.route(title: inputData.vessel.routeType, value: routeValue))
-        types.append(.rate(value: "\(calculatedRate().toFormattedString) $/mt"))
+        types.append(.rate(value: "\(calculatedRate().round(to: 2).toFormattedString) $/mt"))
         types.append(.cpBasis(value: "\(inputData.vessel.cpBasis.toFormattedString) mt"))
 
         if !inputData.vessel.overage.isZero {

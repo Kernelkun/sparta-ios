@@ -18,24 +18,6 @@ class AnalyticsNetworkManager: BaseNetworkManager {
 
     // MARK: - Public methods
 
-    func fetchLiveCurves(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveCurve>>, SpartaError>>) {
-
-        router.request(.getLiveCurves) { [weak self] data, response, error in
-            guard let strongSelf = self else { return }
-
-            completion(strongSelf.handleResult(data: data, response: response, error: error))
-        }
-    }
-
-    func fetchArbsTable(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<Arb>>, SpartaError>>) {
-
-        router.request(.getArbsTable) { [weak self] data, response, error in
-            guard let strongSelf = self else { return }
-
-            completion(strongSelf.handleResult(data: data, response: response, error: error))
-        }
-    }
-
     func fetchFreightPorts(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<FreightPort>>, SpartaError>>) {
 
         router.request(.getFreightPorts) { [weak self] data, response, error in
@@ -56,6 +38,48 @@ class AnalyticsNetworkManager: BaseNetworkManager {
             guard let strongSelf = self else { return }
 
             completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    // arb
+
+    func fetchArbsTable(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<Arb>>, SpartaError>>) {
+
+        router.request(.getArbsTable) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func updateArbUserTarget(_ userTarget: Double, for month: ArbMonth, completion: @escaping TypeClosure<Bool>) {
+
+        let parameters: Parameters = ["gradeCode": month.gradeCode,
+                                      "routeCode": month.routeCode,
+                                      "monthName": month.name,
+                                      "userTarget": userTarget]
+
+        router.request(.updateArbUserTarget(parameters: parameters)) { data, response, error in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+
+    func deleteArbUserTarget(for month: ArbMonth, completion: @escaping TypeClosure<Bool>) {
+
+        let parameters: Parameters = ["gradeCode": month.gradeCode,
+                                      "routeCode": month.routeCode,
+                                      "monthName": month.name]
+
+        router.request(.deleteArbUserTarget(parameters: parameters)) { data, response, error in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit.UIColor
+import SpartaHelpers
 
 public extension UIColor {
 
@@ -32,16 +33,16 @@ public extension UIColor {
     static var tabBarTintInactive: UIColor { .assetColor(named: #function) }
 
     static var barBackground: UIColor { .assetColor(named: #function) }
-}
 
-private extension UIColor {
+    static var tablePoint: UIColor { .assetColor(named: #function) }
 
-    static func assetColor(named name: String) -> UIColor {
+    static var numberGreen: UIColor { .assetColor(named: #function) }
 
-        guard let retVal = UIColor(named: name) else {
-            fatalError("Color named \(name) does not exist!")
-        }
+    static var numberRed: UIColor { .assetColor(named: #function) }
 
-        return retVal
-    }
+    static var numberGray: UIColor { .assetColor(named: #function) }
+
+    static var profileBackground: UIColor { .assetColor(named: #function) }
+
+    static var profileActiveBackground: UIColor { .assetColor(named: #function) }
 }

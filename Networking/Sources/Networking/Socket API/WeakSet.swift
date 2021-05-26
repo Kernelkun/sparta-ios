@@ -58,4 +58,3 @@ public class WeakSet<T>: Sequence, ExpressibleByArrayLiteral, CustomStringConver
         return objects.debugDescription
     }
 }
-

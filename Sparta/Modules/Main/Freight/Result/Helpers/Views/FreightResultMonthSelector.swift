@@ -63,7 +63,7 @@ class FreightResultMonthSelector: UIView {
 
             button.clickableInset = -15
             button.tintColor = .primaryText
-            button.setImage(UIImage(named: "ic_arrow_right"), for: .normal)
+            button.setImage(UIImage(named: "ic_arrow_right_bold"), for: .normal)
             button.rotate(degrees: 180)
 
             button.onTap { [unowned self] _ in
@@ -71,6 +71,7 @@ class FreightResultMonthSelector: UIView {
             }
 
             addSubview(button) {
+                $0.size.equalTo(CGSize(width: 18, height: 22))
                 $0.left.equalToSuperview()
                 $0.centerY.equalToSuperview()
             }
@@ -80,13 +81,14 @@ class FreightResultMonthSelector: UIView {
 
             button.clickableInset = -15
             button.tintColor = .primaryText
-            button.setImage(UIImage(named: "ic_arrow_right"), for: .normal)
+            button.setImage(UIImage(named: "ic_arrow_right_bold"), for: .normal)
 
             button.onTap { [unowned self] _ in
                 self.delegate?.freightResultMonthSelectorDidTapRightButton(view: self)
             }
 
             addSubview(button) {
+                $0.size.equalTo(CGSize(width: 18, height: 22))
                 $0.right.equalToSuperview()
                 $0.centerY.equalToSuperview()
             }
@@ -94,7 +96,7 @@ class FreightResultMonthSelector: UIView {
 
         monthLabel = UILabel().then { label in
 
-            label.font = .main(weight: .regular, size: 16)
+            label.font = .main(weight: .regular, size: 17.5)
             label.textColor = .primaryText
             label.textAlignment = .center
 

@@ -17,7 +17,17 @@ enum ProfileEndPoint {
     case getPrimaryTradeAreas
     case getUserRoles
 
-    // freight
+    // arbs favourite
+
+    case getArbsFavouritesList
+    case addArbToFavouritesList(parameters: Parameters)
+    case deleteArbFromFavouritesList(id: Int)
+
+    // blender favourite
+
+    case getBlenderFavouritesList
+    case addBlenderToFavouritesList(parameters: Parameters)
+    case deleteBlenderFromFavouritesList(id: Int)
 }
 
 extension ProfileEndPoint: EndPointType {
@@ -31,25 +41,46 @@ extension ProfileEndPoint: EndPointType {
         case .getProfile: return "/users/me"
         case .getPrimaryTradeAreas: return "/primary-trade-areas"
         case .getUserRoles: return "/user-roles"
+
+        // arbs favourites
+        case .getArbsFavouritesList: return "/favorite-arbs"
+        case .addArbToFavouritesList: return "/favorite-arbs"
+        case .deleteArbFromFavouritesList(let id): return "/favorite-arbs/\(id)"
+
+        // blender favourite
+
+        case .getBlenderFavouritesList: return "favorite-grades"
+        case .addBlenderToFavouritesList: return "/favorite-grades"
+        case .deleteBlenderFromFavouritesList(let id): return "/favorite-grades/\(id)"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
+        case .deleteArbFromFavouritesList, .deleteBlenderFromFavouritesList: return .delete
+        case .addArbToFavouritesList, .addBlenderToFavouritesList: return .post
         case .updateUser: return .put
-        case .getPhonePrefixes, .getProfile, .getPrimaryTradeAreas, .getUserRoles: return .get
+        case .getPhonePrefixes, .getProfile, .getPrimaryTradeAreas,
+             .getUserRoles, .getArbsFavouritesList, .getBlenderFavouritesList: return .get
         }
     }
 
     var task: HTTPTask {
         switch self {
-        case .updateUser(_, let parameters):
+        case .deleteArbFromFavouritesList, .deleteBlenderFromFavouritesList:
+            return .requestParametersAndHeaders(bodyParameters: nil,
+                                                bodyEncoding: .jsonEncoding,
+                                                urlParameters: nil,
+                                                additionHeaders: headersWithToken)
+            
+        case .updateUser(_, let parameters), .addArbToFavouritesList(let parameters), .addBlenderToFavouritesList(let parameters):
             return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: parameters,
                                                 additionHeaders: headersWithToken)
 
-        case .getPrimaryTradeAreas, .getUserRoles, .getProfile, .getPhonePrefixes:
+        case .getPrimaryTradeAreas, .getUserRoles, .getProfile,
+             .getPhonePrefixes, .getArbsFavouritesList, .getBlenderFavouritesList:
             return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,

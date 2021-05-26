@@ -52,3 +52,25 @@ public struct Vessel: BackendModel, Hashable {
         flatRate = json["flatRate"].doubleValue
     }
 }
+
+public extension Vessel {
+
+    var priorityIndex: Int {
+        switch type.lowercased() {
+        case "handy":
+            return 1
+
+        case "mr":
+            return 2
+
+        case "lr1":
+            return 3
+
+        case "lr2":
+            return 4
+
+        default:
+            return type.lowercased().hash
+        }
+    }
+}

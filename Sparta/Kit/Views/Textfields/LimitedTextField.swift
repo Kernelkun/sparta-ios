@@ -8,6 +8,13 @@
 import UIKit
 import SpartaHelpers
 
+protocol LimitedTextFieldDelegate: class {
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    func textFieldDidEndEditing(_ textField: UITextField)
+    func textFieldShouldEndEditing(_ textField: UITextField)
+    func textFieldShouldReturn(_ textField: UITextField)
+}
+
 class LimitedTextField: UITextField {
 
     enum TextFieldEnterType {
@@ -19,17 +26,20 @@ class LimitedTextField: UITextField {
         case formatted(replacementCharacter: Character, format: NSString)
     }
 
-    // MARK: - Variables public
+    // MARK: - Public properties
+
+    weak var actionDelegate: LimitedTextFieldDelegate?
 
     var enterType: TextFieldEnterType = .charactersLimit(range: 2...64, isNumeric: false) {
         didSet {
             switch enterType {
             case .numberLimit(range: _):
-                keyboardType = .numberPad
+                keyboardType = .numbersAndPunctuation
             default: return
             }
         }
     }
+
     var initialText: String? {
         didSet {
             text = initialText
@@ -40,11 +50,10 @@ class LimitedTextField: UITextField {
     // MARK: - Variables private
 
     private var _percentageString = ""
-    private var _onDidBeginEditingClosure: EmptyClosure?
     private var _onChangedClosure: EmptyClosure?
-    private var _onDidEndEditingClosure: EmptyClosure?
 
     // MARK: - Initializers
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -63,16 +72,8 @@ class LimitedTextField: UITextField {
 
     // MARK: - Public methods
 
-    func onDidBeginEditing(completion: @escaping EmptyClosure) {
-        _onDidBeginEditingClosure = completion
-    }
-
     func onChanged(completion: @escaping EmptyClosure) {
         _onChangedClosure = completion
-    }
-
-    func onDidEndEditing(completion: @escaping EmptyClosure) {
-        _onDidEndEditingClosure = completion
     }
 
     // MARK: - Private methods
@@ -122,6 +123,16 @@ class LimitedTextField: UITextField {
         }
     }
 
+    private func replaceToNumberText() {
+        if let text = self.text, !text.isEmpty, let numberString = text.numberString {
+            if numberString.last != "."
+                && !numberString.hasSuffix(".0") {
+
+                self.text = numberString.toNumberFormattedString
+            }
+        }
+    }
+
     func replaceToPercentageMask() {
         let percentFormatter = NumberFormatter()
         percentFormatter.numberStyle = .percent
@@ -139,7 +150,25 @@ class LimitedTextField: UITextField {
         switch enterType {
         case .formatted(let replacement, let format):
             replaceText(replacementCharacter: replacement, format: format)
+
+        case .numbers:
+            replaceToNumberText()
+
         default: return
+        }
+    }
+
+    private func isValidSymbolsAfterDot(symbolsLimit: Int, for string: String) -> Bool {
+        let strings = string.components(separatedBy: ".")
+
+        if strings.count == 2 {
+            if strings[1].count <= symbolsLimit {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
         }
     }
 
@@ -171,6 +200,9 @@ extension LimitedTextField: UITextFieldDelegate {
             }
 
         case .numberLimit(range: let numberLimit):
+
+            let validPrefixes = ["-", "+"]
+
             let nsStringText = text as NSString
             var newString = nsStringText.replacingCharacters(in: range, with: string)
 
@@ -178,9 +210,23 @@ extension LimitedTextField: UITextFieldDelegate {
                 newString = "0"
             }
 
-            if let number = Double(makeOnlyDigitsString(string: newString)) {
-                return numberLimit.contains(number)
+            let prefix = String(newString.prefix(1))
+
+            if Double(newString) != nil {
+
+                if validPrefixes.contains(prefix),
+                   let newNumber = (prefix + newString).toDouble {
+
+                    return numberLimit.contains(newNumber) && isValidSymbolsAfterDot(symbolsLimit: 2, for: newString)
+                }
+
+                return numberLimit.contains(newString.toDouble!) && isValidSymbolsAfterDot(symbolsLimit: 2, for: newString)
             } else {
+
+                if newString.count == 1, validPrefixes.contains(prefix) {
+                    return true
+                }
+
                 return false
             }
 
@@ -207,6 +253,9 @@ extension LimitedTextField: UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
+        actionDelegate?.textFieldShouldReturn(textField)
+
         switch enterType {
         case .charactersLimit(range: let charactersLimit, isNumeric: _):
             return textField.text?.count ?? 0 >= charactersLimit.lowerBound
@@ -214,11 +263,16 @@ extension LimitedTextField: UITextFieldDelegate {
         }
     }
 
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        actionDelegate?.textFieldShouldEndEditing(textField)
+        return true
+    }
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        _onDidBeginEditingClosure?()
+        actionDelegate?.textFieldDidBeginEditing(textField)
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        _onDidEndEditingClosure?()
+        actionDelegate?.textFieldDidEndEditing(textField)
     }
 }

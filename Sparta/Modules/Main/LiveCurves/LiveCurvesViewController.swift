@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import NetworkingModels
+import SpartaHelpers
 
 class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
     // MARK: - UI
 
+    private var profilesView: LiveCurveProfilesView!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
 
@@ -19,11 +22,11 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
-                                                       gradeHeight: 50,
+        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.presentationStyle.rowsCount,
+                                                       gradeHeight: 30,
                                                        collectionColumnWidth: 70,
                                                        tableColumnWidth: 130)
-
+        
         gridView = GridView(constructor: constructor)
         view = gridView
     }
@@ -70,7 +73,7 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
         // sockets status view
-        
+
         socketsStatusView = SocketsStatusLineView().then { view in
 
             view.backgroundColor = UIGridViewConstants.mainBackgroundColor
@@ -86,22 +89,31 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Live Curves")
+        /*let plusButton = UIBarButtonItemFactory.plusButton { [unowned self] _ in
+            navigationController?.pushViewController(LCPortfolioAddItemViewController(nibName: nil, bundle: nil), animated: true)
+        }
+
+        let periodButton = UIBarButtonItemFactory.periodButton(isActive: viewModel.presentationStyle == .quartersAndYears) { [unowned self] _ in
+            self.viewModel.togglePresentationStyle()
+        }*/
+
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Live Curves")
+//        navigationItem.rightBarButtonItems = [periodButton, UIBarButtonItemFactory.fixedSpace(space: 20), plusButton]
     }
 }
 
 extension LiveCurvesViewController: GridViewDataSource {
 
-    func gradeTitleForColectionView(at row: Int) -> String {
+    func gradeTitleForInfoCollectionView(at row: Int) -> NSAttributedString? {
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
-            return title
-        } else { return "" }
+            return NSAttributedString(string: title)
+        } else { return nil }
     }
 
-    func gradeTitleForTableView() -> String? {
+    func gradeTitleForGradeCollectionView() -> NSAttributedString? {
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableGrade {
-            return title
-        } else { return "" }
+            return NSAttributedString(string: title)
+        } else { return nil }
     }
 
     func numberOfSections() -> Int {
@@ -112,16 +124,16 @@ extension LiveCurvesViewController: GridViewDataSource {
         40
     }
 
-    func numberOfRowsForTableView(in section: Int) -> Int {
+    func numberOfRowsForGradeCollectionView(in section: Int) -> Int {
         1
     }
 
-    func numberOfRowsForCollectionView(in section: Int) -> Int {
-        6
+    func numberOfRowsForInfoCollectionView(in section: Int) -> Int {
+        viewModel.presentationStyle.rowsCount
     }
 
-    func cellForTableView(_ tableView: UITableView, for indexPath: IndexPath) -> UITableViewCell {
-        let cell: LiveCurveGradeTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+    func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: LiveCurveGradeTableViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
         if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
             cell.apply(title: title, for: indexPath)
@@ -130,7 +142,7 @@ extension LiveCurvesViewController: GridViewDataSource {
         return cell
     }
 
-    func cellForCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
+    func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cell: LiveCurveInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
         let section = viewModel.collectionDataSource[indexPath.section]
@@ -149,16 +161,18 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
         gridView.reloadGrades()
     }
 
+    func didReceiveUpdatesForPresentationStyle() {
+        gridView.setInfoRowsCount(viewModel.presentationStyle.rowsCount)
+        gridView.reloadInfo()
+        setupNavigationUI()
+    }
+
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates, completion: {
-            self.gridView.tableView.visibleCells.forEach { cell in
-                if let cell = cell as? LiveCurveGradeTableViewCell, let indexPath = self.gridView.tableView.indexPath(for: cell) {
-                    if case let LiveCurvesViewModel.Cell.grade(title) = self.viewModel.tableDataSource[indexPath.section] {
-                        cell.apply(title: title, for: indexPath)
-                    }
-                }
-            }
-        })
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
+    }
+
+    func didReceiveProfilesInfo(profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {
+//        profilesView.apply(profiles, selectedProfile: selectedProfile)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
