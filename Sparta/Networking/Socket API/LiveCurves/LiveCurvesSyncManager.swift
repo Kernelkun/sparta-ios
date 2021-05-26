@@ -97,17 +97,17 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
         var fetchedProfiles: [LiveCurveProfileCategory] = []
         var fetchedLiveCurves: [LiveCurve] = []
 
-        dispatchGroup.enter()
-        networkManager.fetchPortfolios { result in
+        /*dispatchGroup.enter()
+         networkManager.fetchPortfolios { result in
 
-            if case let .success(responseModel) = result,
-               let list = responseModel.model?.list {
+         if case let .success(responseModel) = result,
+         let list = responseModel.model?.list {
 
-                fetchedProfiles = list
-            }
+         fetchedProfiles = list
+         }
 
-            dispatchGroup.leave()
-        }
+         dispatchGroup.leave()
+         }*/
 
         dispatchGroup.enter()
         networkManager.fetchLiveCurves { result in
@@ -145,6 +145,12 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
                 }
 
                 strongSelf.setProfile(strongSelf.profile!) //swiftlint:disable:this force_unwrapping
+            } else {
+                onMainThread {
+                    strongSelf.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: liveCurves,
+                                                                       profiles: [],
+                                                                       selectedProfile: nil)
+                }
             }
 
             // socket connection
