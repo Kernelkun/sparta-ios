@@ -20,6 +20,7 @@ public struct LiveCurve: BackendModel {
     public let monthDisplay: String
     public let code: String
     public var priceValue: Double
+    public let isEmpty: Bool
     public var state: State = .initial
     public let presentationType: PresentationType
     public let name: String
@@ -38,8 +39,8 @@ public struct LiveCurve: BackendModel {
 
     public static var months: [String] {
         ["BOM", "M01", "M02", "M03", "M04", "M05",
-         "M06", "M07", "M08", "M09", "M10", "M11",
-         "M12", "M13", "M14", "M15", "M16"]
+         /*"M06", "M07", "M08", "M09", "M10", "M11",*/
+         /*"M12", "M13", "M14", "M15", "M16"*/]
     }
 
     public static var quartersAndYears: [String] {
@@ -60,6 +61,7 @@ public struct LiveCurve: BackendModel {
         longName = json["longName"].stringValue
         code = json["code"].stringValue
         priceValue = json["price"].doubleValue
+        isEmpty = json["isEmpty"].boolValue
         priorityIndex = -1
         presentationType = Self.months.contains(monthCode) ? .months : .quartersAndYears
     }
