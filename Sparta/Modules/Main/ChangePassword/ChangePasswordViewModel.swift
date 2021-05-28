@@ -36,58 +36,24 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
         }
     }
 
-    private let authManager = AuthNetworkManager()
     private let profileManager = ProfileNetworkManager()
 
     // MARK: - Private methods
 
     private func changePassword(oldPassword: String, newPassword: String) {
-
-        let currentUser = App.instance.currentUser
-
-        guard let login = currentUser?.email, let userId = currentUser?.id else {
+        guard let userId = App.instance.currentUser?.id else {
             delegate?.didCatchAnError("Something went wrong. Please re-login to the app.")
             return
         }
 
-        authManager.auth(login: login, password: oldPassword) { [weak self] result in
-            guard let strongSelf = self else { return }
-
-            switch result {
-            case .success(let response):
-
-                guard let model = response.model else {
-                    onMainThread {
-                        strongSelf.isSending = false
-                        strongSelf.delegate?.didCatchAnError("Can't parse response from server")
-                    }
-                    return
-                }
-
-                App.instance.saveLoginData(model)
-
-                strongSelf.updateUser(id: userId, password: newPassword)
-
-            case .failure(let error):
-
-                var errorText = "Something went wrong"
-
-                if error == .error400 {
-                    errorText = "Old password is incorrect, please enter new one"
-                }
-
-                onMainThread {
-                    strongSelf.isSending = false
-                    strongSelf.delegate?.didCatchAnError(errorText)
-                }
-            }
-        }
+        updateUser(id: userId, oldPassword: oldPassword, password: newPassword)
     }
 
-    private func updateUser(id: Int, password: String) {
+    private func updateUser(id: Int, oldPassword: String, password: String) {
 
         let updateParameters: Parameters = [
             "password": password,
+            "oldPassword": oldPassword,
             "confirmed": true
         ]
 
@@ -106,7 +72,11 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
                 }
 
                 strongSelf.sendAnalyticsEventChangePassword()
-                strongSelf.fetchProfile()
+
+                onMainThread {
+                    strongSelf.isSending = false
+                    strongSelf.delegate?.didFinishSuccess()
+                }
 
             case .failure(let error):
 
@@ -119,30 +89,6 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
                 onMainThread {
                     strongSelf.isSending = false
                     strongSelf.delegate?.didCatchAnError(errorText)
-                }
-            }
-        }
-    }
-
-    private func fetchProfile() {
-        profileManager.fetchProfile { [weak self] result in
-            guard let strongSelf = self else { return }
-
-            switch result {
-            case .success(let responseModel) where responseModel.model != nil:
-
-                App.instance.saveUser(responseModel.model!) //swiftlint:disable:this force_unwrapping
-
-                onMainThread {
-                    strongSelf.isSending = false
-                    strongSelf.delegate?.didFinishSuccess()
-                }
-
-            case .failure, .success:
-
-                onMainThread {
-                    strongSelf.isSending = false
-                    strongSelf.delegate?.didCatchAnError("Can't fetch user profile. Please try again.")
                 }
             }
         }
