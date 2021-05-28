@@ -130,12 +130,7 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
 
             // main models
 
-            let liveCurves = fetchedLiveCurves.compactMap { liveCurve -> LiveCurve in
-                var liveCurve = liveCurve
-                liveCurve.priorityIndex = fetchedLiveCurves.firstIndex(of: liveCurve) ?? -1
-                return liveCurve
-            }
-            strongSelf._liveCurves = SynchronizedArray(liveCurves)
+            strongSelf._liveCurves = SynchronizedArray(fetchedLiveCurves)
 
             if strongSelf.profile == nil, let defaultProfile = fetchedProfiles.first {
                 strongSelf.setProfile(defaultProfile)
@@ -161,7 +156,14 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
     // MARK: - Private methods
 
     private func updateLiveCurves(for profile: LiveCurveProfileCategory) {
-        let filteredLiveCurves = _liveCurves.filter { profile.contains(liveCurve: $0) }
+        let filteredLiveCurves = _liveCurves.compactMap { liveCurve -> LiveCurve? in
+            guard let liveCurveItem = profile.liveCurves.first(where: { $0.code == liveCurve.code }) else { return nil }
+
+            var liveCurve = liveCurve
+            liveCurve.priorityIndex = liveCurveItem.order
+
+            return liveCurve
+        }
 
         onMainThread {
             self.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: filteredLiveCurves,

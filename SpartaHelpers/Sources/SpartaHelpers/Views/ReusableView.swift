@@ -1,13 +1,13 @@
 //
 //  ReusableView.swift
-//  Sparta
+//  
 //
-//  Created by Yaroslav Babalich on 27.11.2020.
+//  Created by Yaroslav Babalich on 21.01.2021.
 //
 
 import UIKit
 
-public protocol ReusableView: class {
+public protocol ReusableView: AnyObject {
     static var reuseIdentifier: String { get }
 }
 
@@ -28,3 +28,4 @@ extension UITableViewHeaderFooterView: ReusableView {
 
 extension UICollectionReusableView: ReusableView {
 }
+

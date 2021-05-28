@@ -7,6 +7,7 @@
 
 import UIKit
 import NetworkingModels
+import SpartaHelpers
 
 class LCPortfolioAddItemViewController: BaseTableVMViewController<LCPortfolioAddItemViewModel> {
 

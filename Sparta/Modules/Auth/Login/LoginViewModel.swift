@@ -7,6 +7,7 @@
 
 import Foundation
 import Networking
+import SpartaHelpers
 
 protocol LoginViewModelDelegate: AnyObject {
     func didChangeSendingState(_ isSending: Bool)

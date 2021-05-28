@@ -65,4 +65,24 @@ class LiveCurvesNetworkManager: BaseNetworkManager {
             completion(strongSelf.handleResult(data: data, response: response, error: error))
         }
     }
+
+    func deletePortfolioItem(portfolioId: Int, liveCurveId: Int, completion: @escaping BoolClosure) {
+        router.request(.deletePortfolioItem(portfolioId: portfolioId, liveCurveId: liveCurveId)) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+
+    func changePortfolioItemsOrder(portfolioId: Int, orders: [Parameters], completion: @escaping BoolClosure) {
+        router.request(.changePortfolioOrder(portfolioId: portfolioId, parameters: ["order": orders])) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
 }

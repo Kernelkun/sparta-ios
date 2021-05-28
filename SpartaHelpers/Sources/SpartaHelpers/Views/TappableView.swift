@@ -1,14 +1,13 @@
 //
 //  TappableView.swift
-//  Sparta
+//  
 //
-//  Created by Yaroslav Babalich on 27.11.2020.
+//  Created by Yaroslav Babalich on 21.01.2021.
 //
 
 import UIKit
-import SpartaHelpers
 
-class TappableView: UIView {
+open class TappableView: UIView {
 
     // MARK: - Private accessors
 
@@ -16,13 +15,13 @@ class TappableView: UIView {
 
     // MARK: - Initializers
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
 
         setupEvents()
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
 
         setupEvents()
@@ -30,7 +29,7 @@ class TappableView: UIView {
 
     // MARK: - Public methods
 
-    func onTap(completion: @escaping TypeClosure<UIView>) {
+    public func onTap(completion: @escaping TypeClosure<UIView>) {
         onTapClosure = completion
     }
 

@@ -16,11 +16,13 @@ class DelayObject {
     private let interval: TimeInterval
 
     // MARK: - Initialiezers
+    
     init(delayInterval: TimeInterval) {
         interval = delayInterval
     }
 
     // MARK: - Public methods
+
     func addOperation(completion: @escaping EmptyClosure) {
         stopAllOperations()
 

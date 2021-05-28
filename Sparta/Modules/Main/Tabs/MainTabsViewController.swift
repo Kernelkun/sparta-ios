@@ -34,22 +34,22 @@ class MainTabsViewController: UITabBarController {
 
         var tabs: [KeyedNavigationController<Tab>] = []
 
-        if viewModel.isVisibleArbsBlock {
-            let first = ArbsViewController()
-            setTabBarItem(first, "ARBs", "ic_tab_first")
+        if viewModel.isVisibleLivePricesBlock {
+            let first = LiveCurvesViewController()
+            setTabBarItem(first, "Live Curves", "ic_tab_second")
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: first)
-            navigation.setKey(.arbs)
+            navigation.setKey(.liveCurves)
 
             tabs.append(navigation)
         }
 
-        if viewModel.isVisibleLivePricesBlock {
-            let second = LiveCurvesViewController()
-            setTabBarItem(second, "Live Curves", "ic_tab_second")
+        if viewModel.isVisibleArbsBlock {
+            let second = ArbsViewController()
+            setTabBarItem(second, "ARBs", "ic_tab_first")
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: second)
-            navigation.setKey(.liveCurves)
+            navigation.setKey(.arbs)
 
             tabs.append(navigation)
         }

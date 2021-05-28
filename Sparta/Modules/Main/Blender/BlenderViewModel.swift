@@ -9,6 +9,7 @@ import UIKit
 import Networking
 import SwiftyJSON
 import NetworkingModels
+import SpartaHelpers
 
 protocol BlenderViewModelDelegate: AnyObject {
     func didReceiveUpdatesForGrades()

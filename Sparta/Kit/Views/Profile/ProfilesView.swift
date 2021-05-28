@@ -9,35 +9,39 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-class LiveCurveProfilesView: UIView {
+class ProfilesView<I: ListableItem>: UIView {
 
     // MARK: - Private properties
 
-    private var profiles: [LiveCurveProfileCategory] = []
-    private var selectedProfile: LiveCurveProfileCategory?
+    private let constructor: ProfilesViewConstructor
+
+    private var profiles: [I] = []
+    private var selectedProfile: I?
 
     private var scrollContentView: UIView!
     private var elementsStackView: UIStackView!
-    private var elementViews: [LiveCurveProfileElementView] = []
+    private var elementViews: [ProfileElementView<I>] = []
 
     private var _onChooseAdd: EmptyClosure?
-    private var _onChooseProfileClosure: TypeClosure<LiveCurveProfileCategory>?
+    private var _onChooseProfileClosure: TypeClosure<I>?
 
     // MARK: - Initializers
 
-    init() {
+    init(constructor: ProfilesViewConstructor) {
+        self.constructor = constructor
+
         super.init(frame: .zero)
 
         setupUI()
     }
 
     required init?(coder: NSCoder) {
-        fatalError("LiveCurveProfilesView")
+        fatalError("ProfilesView")
     }
 
     // MARK: - Public methods
 
-    func apply(_ profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {
+    func apply(_ profiles: [I], selectedProfile: I?) {
         self.profiles = profiles
         self.selectedProfile = selectedProfile
 
@@ -48,7 +52,7 @@ class LiveCurveProfilesView: UIView {
         _onChooseAdd = completion
     }
 
-    func onChooseProfile(completion: @escaping TypeClosure<LiveCurveProfileCategory>) {
+    func onChooseProfile(completion: @escaping TypeClosure<I>) {
         _onChooseProfileClosure = completion
     }
 
@@ -66,7 +70,8 @@ class LiveCurveProfilesView: UIView {
 
         let plusButton = TappableButton(type: .custom).then { button in
 
-            button.setImage(UIImage(named: "ic_plus")?.withTintColor(.primaryText), for: .normal)
+            button.setImage(UIImage(named: "ic_plus"), for: .normal)
+            button.tintColor = .primaryText
             button.backgroundColor = .profileBackground
             button.layer.cornerRadius = 6
 
@@ -74,14 +79,12 @@ class LiveCurveProfilesView: UIView {
                 self._onChooseAdd?()
             }
 
-            addSubview(button) {
-                $0.right.equalToSuperview().inset(11)
-                $0.centerY.equalToSuperview()
+            button.snp.makeConstraints {
                 $0.size.equalTo(CGSize(width: 33, height: 30))
             }
         }
 
-        _ = UIScrollView().then { scrollView in
+        let scrollView = UIScrollView().then { scrollView in
 
             scrollView.showsHorizontalScrollIndicator = false
             scrollView.showsVerticalScrollIndicator = false
@@ -103,9 +106,26 @@ class LiveCurveProfilesView: UIView {
                 }
             }
 
-            addSubview(scrollView) {
-                $0.left.equalToSuperview().offset(18)
-                $0.right.equalTo(plusButton.snp.left).offset(-10)
+            scrollView.snp.makeConstraints {
+                $0.height.equalTo(30)
+            }
+        }
+
+        _ = UIStackView().then { stackView in
+
+            stackView.axis = .horizontal
+            stackView.distribution = .equalSpacing
+            stackView.spacing = 10
+            stackView.alignment = .center
+
+            stackView.addArrangedSubview(scrollView)
+
+            if constructor.addButtonAvailability {
+                stackView.addArrangedSubview(plusButton)
+            }
+
+            addSubview(stackView) {
+                $0.left.right.equalToSuperview().inset(16)
                 $0.centerY.equalToSuperview()
                 $0.height.equalTo(30)
             }
@@ -123,15 +143,15 @@ class LiveCurveProfilesView: UIView {
             stackView.alignment = .fill
 
             profiles.forEach { profile in
-                let view = LiveCurveProfileElementView(profile: profile)
+                let view = ProfileElementView(profile: profile)
                 view.isActive = self.selectedProfile == profile
 
                 view.onTap { [unowned self] view in
-                    guard let view = view as? LiveCurveProfileElementView else { return }
+                    guard let view = view as? ProfileElementView<I> else { return }
 
                     self.selectedProfile = view.profile
                     self.updateElementsUI()
-                      self._onChooseProfileClosure?(view.profile)
+                    self._onChooseProfileClosure?(view.profile)
                 }
 
                 stackView.addArrangedSubview(view)

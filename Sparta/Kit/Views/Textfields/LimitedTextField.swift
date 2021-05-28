@@ -8,7 +8,7 @@
 import UIKit
 import SpartaHelpers
 
-protocol LimitedTextFieldDelegate: class {
+protocol LimitedTextFieldDelegate: AnyObject {
     func textFieldDidBeginEditing(_ textField: UITextField)
     func textFieldDidEndEditing(_ textField: UITextField)
     func textFieldShouldEndEditing(_ textField: UITextField)

@@ -1,45 +1,49 @@
 //
 //  Alert.swift
-//  Sparta
+//  
 //
-//  Created by Yaroslav Babalich on 27.11.2020.
+//  Created by Yaroslav Babalich on 21.01.2021.
 //
 
 import UIKit
 
-typealias AlertClosure = (_ index: Int) -> Void
-typealias AlertActionClosure = (AlertAction) -> Void
+public typealias AlertClosure = (_ index: Int) -> Void
+public typealias AlertActionClosure = (AlertAction) -> Void
 
-struct AlertAction: Equatable {
-    let title: String?
-    let style: UIAlertAction.Style
+public struct AlertAction: Equatable {
 
-    init(title: String?, style: UIAlertAction.Style) {
+    // MARK: - Public properties
+
+    public let title: String?
+    public let style: UIAlertAction.Style
+
+    public init(title: String?, style: UIAlertAction.Style) {
         self.title = title
         self.style = style
     }
 
-    init(from action: UIAlertAction) {
+    public init(from action: UIAlertAction) {
         title = action.title
         style = action.style
     }
 
     // MARK: - Equatable
-    static func == (lhs: AlertAction, rhs: AlertAction) -> Bool {
+    public static func == (lhs: AlertAction, rhs: AlertAction) -> Bool {
         return lhs.title == rhs.title && lhs.style == rhs.style
     }
 }
 
-class Alert: NSObject {
+open class Alert: NSObject {
 
     // MARK: - Variables
-    var alertController: UIAlertController?
+
+    public var alertController: UIAlertController?
 
     // MARK: - Class methods
     @discardableResult
-    class func alert(title: String?,
-                     message: String?,
-                     preferredStyle: UIAlertController.Style) -> Alert {
+    public class func alert(title: String?,
+                            message: String?,
+                            preferredStyle: UIAlertController.Style) -> Alert {
 
         let alert = Alert()
         let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
@@ -48,10 +52,10 @@ class Alert: NSObject {
     }
 
     @discardableResult
-    class func showNoYes(title: String?,
-                         message: String?,
-                         show controller: UIViewController!,
-                         completion: AlertClosure?) -> Alert {
+    public class func showNoYes(title: String?,
+                                message: String?,
+                                show controller: UIViewController!,
+                                completion: AlertClosure?) -> Alert {
 
         let alert = Alert.alert(title: title, message: message, preferredStyle: .alert)
 
@@ -70,10 +74,10 @@ class Alert: NSObject {
     }
 
     @discardableResult
-    class func showOk(title: String?,
-                      message: String?,
-                      show controller: UIViewController?,
-                      completion: AlertClosure?) -> Alert {
+    public class func showOk(title: String?,
+                             message: String?,
+                             show controller: UIViewController?,
+                             completion: AlertClosure?) -> Alert {
 
         let alert = Alert.alert(title: title, message: message, preferredStyle: .alert)
 
@@ -87,11 +91,11 @@ class Alert: NSObject {
     }
 
     @discardableResult
-    class func show(title: String?,
-                    message: String?,
-                    actions: [AlertAction],
-                    in controller: UIViewController?,
-                    completion: AlertActionClosure?) -> Alert {
+    public class func show(title: String?,
+                           message: String?,
+                           actions: [AlertAction],
+                           in controller: UIViewController?,
+                           completion: AlertActionClosure?) -> Alert {
 
         let alert = Alert.alert(title: title, message: message, preferredStyle: .alert)
         actions.forEach { action in
@@ -102,7 +106,8 @@ class Alert: NSObject {
     }
 
     // MARK: - Public methods
-    func add(action: AlertAction, completion: AlertActionClosure?) {
+
+    public func add(action: AlertAction, completion: AlertActionClosure?) {
         guard let alertController = alertController else { return }
 
         let uiAlertAction = UIAlertAction(title: action.title, style: action.style, handler: { action in
@@ -111,7 +116,7 @@ class Alert: NSObject {
         alertController.addAction(uiAlertAction)
     }
 
-    func show(in controller: UIViewController?) {
+    public func show(in controller: UIViewController?) {
         guard let alertController = alertController else { return }
 
         func showFrom(controller: UIViewController) {
@@ -127,7 +132,7 @@ class Alert: NSObject {
         }
     }
 
-    func show(from navigation: UINavigationController) {
+    public func show(from navigation: UINavigationController) {
         guard let alertController = alertController else { return }
 
         navigation.present(alertController, animated: true, completion: nil)
