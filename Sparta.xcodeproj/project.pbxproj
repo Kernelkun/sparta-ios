@@ -30,6 +30,7 @@
 		D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEF92577B89B009115FD /* GridLayout.swift */; };
 		D944CEFD2577B8E1009115FD /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEFC2577B8E1009115FD /* GridCell.swift */; };
 		D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CF042577E096009115FD /* BlenderViewModel.swift */; };
+		D94ACF19266529FB003BCC14 /* UIActionSheetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94ACF18266529FB003BCC14 /* UIActionSheetFactory.swift */; };
 		D94BCA452577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */; };
 		D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */; };
 		D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228425826AE6005FA057 /* PhoneNumberKit-Static */; };
@@ -199,6 +200,7 @@
 		D944CEF92577B89B009115FD /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		D944CEFC2577B8E1009115FD /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
 		D944CF042577E096009115FD /* BlenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderViewModel.swift; sourceTree = "<group>"; };
+		D94ACF18266529FB003BCC14 /* UIActionSheetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionSheetFactory.swift; sourceTree = "<group>"; };
 		D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectiomViewCell.swift; sourceTree = "<group>"; };
 		D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D94E228825826CEE005FA057 /* UITextFieldSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldSelector.swift; sourceTree = "<group>"; };
@@ -813,6 +815,7 @@
 			isa = PBXGroup;
 			children = (
 				D9A8044F257147EC000ADE6B /* UIBarButtonItemFactory.swift */,
+				D94ACF18266529FB003BCC14 /* UIActionSheetFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -1371,6 +1374,7 @@
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
 				D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */,
+				D94ACF19266529FB003BCC14 /* UIActionSheetFactory.swift in Sources */,
 				D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */,
 				D9A839C4265E4D1B0074E134 /* EditPortfolioItemsViewModel.swift in Sources */,
 				D9A91C1025A4AB0200423704 /* AnalyticsManager.swift in Sources */,

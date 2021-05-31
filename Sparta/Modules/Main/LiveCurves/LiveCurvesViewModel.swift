@@ -60,7 +60,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     }
 
     func removeProfile(_ profile: LiveCurveProfileCategory) {
-        
+        liveCurvesSyncManager.removeProfile(profile)
     }
 
     func togglePresentationStyle() {

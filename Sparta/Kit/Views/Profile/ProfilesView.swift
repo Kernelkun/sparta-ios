@@ -119,9 +119,9 @@ class ProfilesView<I: ListableItem>: UIView {
         _ = UIStackView().then { stackView in
 
             stackView.axis = .horizontal
-            stackView.distribution = .equalSpacing
+            stackView.distribution = .fill
             stackView.spacing = 10
-            stackView.alignment = .center
+            stackView.alignment = .fill
 
             stackView.addArrangedSubview(scrollView)
 
@@ -160,6 +160,8 @@ class ProfilesView<I: ListableItem>: UIView {
                 }
 
                 view.onLongPress { [unowned self] item in
+                    guard profiles.count > 1 else { return }
+
                     self._onLongPressProfileClosure?(item)
                 }
 

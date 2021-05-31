@@ -39,6 +39,9 @@ protocol LiveCurvesSyncManagerProtocol {
 
     /// Change profile setting
     func setProfile(_ profile: LiveCurveProfileCategory)
+
+    /// Remove specific profile
+    func removeProfile(_ profile: LiveCurveProfileCategory)
 }
 
 class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
@@ -124,23 +127,9 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
 
-            // profiles
-
             strongSelf._profiles = SynchronizedArray(fetchedProfiles)
-
-            // main models
-
             strongSelf._liveCurves = SynchronizedArray(fetchedLiveCurves)
-
-            if strongSelf.profile == nil, let defaultProfile = fetchedProfiles.first {
-                strongSelf.setProfile(defaultProfile)
-            } else if let selectedProfile = strongSelf.profile {
-                if let updatedProfile = fetchedProfiles.first(where: { $0.id == selectedProfile.id }) {
-                    strongSelf.profile = updatedProfile
-                }
-
-                strongSelf.setProfile(strongSelf.profile!) //swiftlint:disable:this force_unwrapping
-            }
+            strongSelf.updateProfiles()
 
             // socket connection
 
@@ -151,6 +140,16 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
     func setProfile(_ profile: LiveCurveProfileCategory) {
         self.profile = profile
         updateLiveCurves(for: profile)
+    }
+
+    func removeProfile(_ profile: LiveCurveProfileCategory) {
+        guard _profiles.count > 1 else { return }
+
+        _profiles = SynchronizedArray(_profiles.filter { $0 != profile })
+
+        networkManager.deletePortfolio(id: profile.id, completion: { _ in })
+
+        updateProfiles()
     }
 
     // MARK: - Private methods
@@ -169,6 +168,16 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
             self.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: filteredLiveCurves,
                                                          profiles: self._profiles.arrayValue,
                                                          selectedProfile: profile)
+        }
+    }
+
+    private func updateProfiles() {
+        if profile == nil, let defaultProfile = _profiles.first {
+            setProfile(defaultProfile)
+        } else if let selectedProfile = profile, let updatedProfile = _profiles.first(where: { $0.id == selectedProfile.id }) {
+            setProfile(updatedProfile)
+        } else if let firstProfile = _profiles.first {
+            setProfile(firstProfile)
         }
     }
 }

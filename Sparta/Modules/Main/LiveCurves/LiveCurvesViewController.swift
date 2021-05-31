@@ -41,8 +41,10 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
                     navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
                 }
 
-                profilesView.onLongPressProfile { [unowned self] profile in
-                    Alert.showOk(title: "Tapped", message: profile.name, show: self, completion: nil)
+                profilesView.onLongPressProfile { profile in
+                    UIActionSheetFactory.showDeletePortolioConfirmation(in: self) { [unowned self] in
+                        self.viewModel.removeProfile(profile)
+                    }
                 }
 
                 view.addSubview(profilesView) {
@@ -133,8 +135,8 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         }
 
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Live Curves")
-        navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 30),
-                                              periodButton, UIBarButtonItemFactory.fixedSpace(space: 30),
+        navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 25),
+                                              periodButton, UIBarButtonItemFactory.fixedSpace(space: 25),
                                               plusButton]
     }
 }
