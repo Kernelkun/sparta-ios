@@ -24,6 +24,7 @@ class ProfilesView<I: ListableItem>: UIView {
 
     private var _onChooseAdd: EmptyClosure?
     private var _onChooseProfileClosure: TypeClosure<I>?
+    private var _onLongPressProfileClosure: TypeClosure<I>?
 
     // MARK: - Initializers
 
@@ -54,6 +55,10 @@ class ProfilesView<I: ListableItem>: UIView {
 
     func onChooseProfile(completion: @escaping TypeClosure<I>) {
         _onChooseProfileClosure = completion
+    }
+
+    func onLongPressProfile(completion: @escaping TypeClosure<I>) {
+        _onLongPressProfileClosure = completion
     }
 
     // MARK: - Private methods
@@ -152,6 +157,10 @@ class ProfilesView<I: ListableItem>: UIView {
                     self.selectedProfile = view.profile
                     self.updateElementsUI()
                     self._onChooseProfileClosure?(view.profile)
+                }
+
+                view.onLongPress { [unowned self] item in
+                    self._onLongPressProfileClosure?(item)
                 }
 
                 stackView.addArrangedSubview(view)

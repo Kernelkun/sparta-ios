@@ -58,6 +58,16 @@ class LiveCurvesNetworkManager: BaseNetworkManager {
         }
     }
 
+    func deletePortfolio(id: Int, completion: @escaping BoolClosure) {
+        router.request(.deletePortfolio(id: id)) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+
     func addProduct(portfolioId: Int, productId: Int, completion: @escaping TypeClosure<Swift.Result<ResponseModel<EmptyResponseModel>, SpartaError>>) {
         router.request(.addProduct(portfolioId: portfolioId, productId: productId)) { [weak self] data, response, error in
             guard let strongSelf = self else { return }

@@ -27,6 +27,8 @@ class ProfileElementView<I: ListableItem>: TappableView {
     private var titleLabel: UIView!
     private var lineView: UIView!
 
+    private var _onLongPressClosure: TypeClosure<I>?
+
     // MARK: - Initializers
 
     init(profile: I) {
@@ -50,6 +52,10 @@ class ProfileElementView<I: ListableItem>: TappableView {
 
     func hideLine() {
         lineView.isHidden = true
+    }
+
+    func onLongPress(completion: @escaping TypeClosure<I>) {
+        _onLongPressClosure = completion
     }
 
     // MARK: - Private methods
@@ -92,10 +98,24 @@ class ProfileElementView<I: ListableItem>: TappableView {
                 $0.size.equalTo(CGSize(width: 1, height: 15))
             }
         }
+
+        // gestures
+
+        addGestures()
     }
 
     private func updateUI() {
         selectedView.alpha = isActive ? 1 : 0
         lineView.alpha = isActive ? 0 : 1
+    }
+
+    private func addGestures() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressEvent))
+        addGestureRecognizer(longPressGesture)
+    }
+
+    @objc
+    private func longPressEvent() {
+        _onLongPressClosure?(profile)
     }
 }

@@ -41,6 +41,10 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
                     navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
                 }
 
+                profilesView.onLongPressProfile { [unowned self] profile in
+                    Alert.showOk(title: "Tapped", message: profile.name, show: self, completion: nil)
+                }
+
                 view.addSubview(profilesView) {
                     $0.top.equalToSuperview().offset(topBarHeight)
                     $0.left.right.equalToSuperview()

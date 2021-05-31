@@ -16,6 +16,7 @@ enum LiveCurvesEndPoint {
     case getProductGroups
     case getProducts
     case addPortfolio(name: String)
+    case deletePortfolio(id: Int)
     case addProduct(portfolioId: Int, productId: Int)
     case deletePortfolioItem(portfolioId: Int, liveCurveId: Int)
     case changePortfolioOrder(portfolioId: Int, parameters: Parameters)
@@ -32,6 +33,7 @@ extension LiveCurvesEndPoint: EndPointType {
         case .getProductGroups: return "/livecurves/productgroups"
         case .getProducts: return "/livecurves/products"
         case .addPortfolio: return "/livecurves/portfolios/"
+        case .deletePortfolio(let id): return "/livecurves/portfolios/\(id)"
         case .addProduct(let productId, _): return "/livecurves/portfolios/\(productId)/products"
         case .deletePortfolioItem(let portfolioId, let liveCurveId): return "/livecurves/portfolios/\(portfolioId)/products/\(liveCurveId)"
         case .changePortfolioOrder(let portfolioId, _): return "/livecurves/portfolios/\(portfolioId)/products/order"
@@ -42,7 +44,7 @@ extension LiveCurvesEndPoint: EndPointType {
         switch self {
         case .getLiveCurves, .getPortfolios, .getProductGroups, .getProducts: return .get
         case .addPortfolio, .addProduct, .changePortfolioOrder: return .post
-        case .deletePortfolioItem: return .delete
+        case .deletePortfolioItem, .deletePortfolio: return .delete
         }
     }
 
@@ -54,7 +56,7 @@ extension LiveCurvesEndPoint: EndPointType {
                                                 urlParameters: ["includeQuarters": true, "includeYears": true],
                                                 additionHeaders: headersWithToken)
 
-        case .getPortfolios, .getProductGroups, .getProducts, .deletePortfolioItem:
+        case .getPortfolios, .getProductGroups, .getProducts, .deletePortfolioItem, .deletePortfolio:
             return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
