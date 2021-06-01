@@ -22,7 +22,6 @@ class LCPortfolioAddViewModel: NSObject, BaseViewModel {
     // MARK: - Public properties
 
     weak var delegate: LCPortfolioAddViewModelDelegate?
-
     var selectedName: String?
 
     // MARK: - Private properties
@@ -50,9 +49,7 @@ class LCPortfolioAddViewModel: NSObject, BaseViewModel {
         lcNetworkManager.createPortfolio(name: name) { [weak self] result in
             guard let strongSelf = self else { return }
 
-            if case let .success(responseModel) = result,
-               let model = responseModel.model {
-
+            if case let .success(responseModel) = result, responseModel.model != nil {
                 onMainThread {
                     strongSelf.delegate?.didSuccessCreatePortfolio()
                 }

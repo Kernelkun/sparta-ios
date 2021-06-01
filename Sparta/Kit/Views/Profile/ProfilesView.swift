@@ -91,6 +91,7 @@ class ProfilesView<I: ListableItem>: UIView {
 
         let scrollView = UIScrollView().then { scrollView in
 
+            scrollView.alwaysBounceHorizontal = false
             scrollView.showsHorizontalScrollIndicator = false
             scrollView.showsVerticalScrollIndicator = false
             scrollView.scrollsToTop = false
@@ -107,7 +108,7 @@ class ProfilesView<I: ListableItem>: UIView {
                     $0.centerY.equalToSuperview()
                     $0.top.bottom.left.equalToSuperview().inset(2)
                     $0.right.lessThanOrEqualToSuperview()
-                    $0.width.greaterThanOrEqualToSuperview()
+                    $0.width.greaterThanOrEqualToSuperview().inset(2)
                 }
             }
 

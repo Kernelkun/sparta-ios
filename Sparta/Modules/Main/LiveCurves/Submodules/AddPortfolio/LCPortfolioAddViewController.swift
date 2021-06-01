@@ -12,6 +12,7 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
 
     // MARK: - Private properties
 
+    private var saveBtn: BorderedButton!
     private var nameField: RoundedTextField!
 
     // MARK: - Lifecycle
@@ -20,6 +21,28 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
         super.viewDidLoad()
 
         setupUI()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        _ = nameField.becomeFirstResponder()
+    }
+
+    override func updateUIForKeyboardPresented(_ presented: Bool, frame: CGRect) {
+        super.updateUIForKeyboardPresented(presented, frame: frame)
+
+        let tabbarHeight = tabBarController?.tabBar.frame.size.height ?? 0
+
+        if presented {
+            saveBtn.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(frame.height + 15 - tabbarHeight)
+            }
+        } else {
+            saveBtn.snp.updateConstraints {
+                $0.bottom.equalToSuperview().inset(15)
+            }
+        }
     }
 
     // MARK: - Private methods
@@ -34,7 +57,7 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
 
         // save button
 
-        _ = BorderedButton(type: .system).then { button in
+        saveBtn = BorderedButton(type: .system).then { button in
 
             button.setTitle("Save", for: .normal)
             button.layer.cornerRadius = 3
@@ -92,6 +115,8 @@ extension LCPortfolioAddViewController: LCPortfolioAddViewModelDelegate {
     }
 
     func didChangeLoadingState(_ isLoading: Bool) {
+        saveBtn.isEnabled = !isLoading
+        saveBtn.setIsLoading(isLoading, animated: true)
     }
 
     func didSuccessCreatePortfolio() {
