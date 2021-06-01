@@ -169,20 +169,18 @@ class ArbsUserMarginCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     }
 
     private func setupUI(for arb: Arb) {
-        let months = arb.months
-
         for (index, label) in labels.enumerated() {
-
-            if months.count >= index {
-                let month = arb.months[index]
-
-                label.text = month.calculatedUserMargin?.toDisplayFormattedString ?? "-"
-                label.textColor = month.calculatedUserMargin?.color ?? .numberGray
-                label.setKey(month.uniqueIdentifier)
-            } else {
+            guard index < arb.months.count else {
                 label.text = "-"
                 label.textColor = .numberGray
+                return
             }
+
+            let month = arb.months[index]
+
+            label.text = month.calculatedUserMargin?.toDisplayFormattedString ?? "-"
+            label.textColor = month.calculatedUserMargin?.color ?? .numberGray
+            label.setKey(month.uniqueIdentifier)
         }
     }
 
