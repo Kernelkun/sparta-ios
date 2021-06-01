@@ -80,6 +80,12 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
                 viewsStackView.addArrangedSubview(inputTGTView())
             }
         }
+
+        if viewsStackView.arrangedSubviews.count == 5 {
+            let hotfixLabel = inputTGTView()
+            hotfixLabel.text = "-"
+            viewsStackView.addArrangedSubview(hotfixLabel)
+        }
     }
 
     private func setupUI() {
@@ -141,7 +147,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         }
     }
 
-    private func inputTGTView() -> UIView {
+    private func inputTGTView() -> UILabel {
         UILabel().then { label in
 
             label.text = "Input TGT"

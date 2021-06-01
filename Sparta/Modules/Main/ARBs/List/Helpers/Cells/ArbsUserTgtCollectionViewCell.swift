@@ -169,32 +169,14 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     }
 
     private func setupUI(for arb: Arb) {
-        let months = arb.months
-
         for (index, label) in labels.enumerated() {
-
-            if months.count >= index {
-                let month = arb.months[index]
-
-                if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
-                    label.text = userTarget
-                    label.textColor = .tablePoint
-                } else {
-                    label.text = "-"
-                    label.textColor = .controlTintActive
-                }
-
-                label.setKey(month.uniqueIdentifier)
-            } else {
+            guard index < arb.months.count else {
                 label.text = "-"
                 label.textColor = .controlTintActive
+                return
             }
-        }
-    }
 
-    private func updateUI(for arb: Arb) {
-        arb.months.forEach { month in
-            guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
+            let month = arb.months[index]
 
             if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
                 label.text = userTarget
@@ -203,7 +185,23 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
                 label.text = "-"
                 label.textColor = .controlTintActive
             }
+
+            label.setKey(month.uniqueIdentifier)
         }
+    }
+
+    private func updateUI(for arb: Arb) {
+//        arb.months.forEach { month in
+//            guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
+//
+//            if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
+//                label.text = userTarget
+//                label.textColor = .tablePoint
+//            } else {
+//                label.text = "-"
+//                label.textColor = .controlTintActive
+//            }
+//        }
     }
 
     // MARK: - Events

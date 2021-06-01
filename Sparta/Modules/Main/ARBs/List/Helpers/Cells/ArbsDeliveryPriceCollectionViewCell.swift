@@ -173,7 +173,7 @@ class ArbsDeliveryPriceCollectionViewCell: UICollectionViewCell, ArbTappableCell
 
         for (index, label) in labels.enumerated() {
 
-            if months.count >= index {
+            if months.count > index {
                 let month = arb.months[index]
 
                 label.text = month.deliveredPrice?.value.value ?? "-"
