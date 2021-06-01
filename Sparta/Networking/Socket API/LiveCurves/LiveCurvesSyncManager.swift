@@ -39,6 +39,9 @@ protocol LiveCurvesSyncManagerProtocol {
 
     /// Change profile setting
     func setProfile(_ profile: LiveCurveProfileCategory)
+
+    /// Remove specific profile
+    func removeProfile(_ profile: LiveCurveProfileCategory)
 }
 
 class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
@@ -62,9 +65,7 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
     }
 
     var profileLiveCurves: [LiveCurve] {
-        guard let profile = profile else { return [] }
-
-        return liveCurves.filter { profile.contains(liveCurve: $0) }
+        filteredProfileLiveCurves()
     }
 
     // MARK: - Private properties
@@ -97,17 +98,17 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
         var fetchedProfiles: [LiveCurveProfileCategory] = []
         var fetchedLiveCurves: [LiveCurve] = []
 
-        /*dispatchGroup.enter()
-         networkManager.fetchPortfolios { result in
+        dispatchGroup.enter()
+        networkManager.fetchPortfolios { result in
 
-         if case let .success(responseModel) = result,
-         let list = responseModel.model?.list {
+            if case let .success(responseModel) = result,
+               let list = responseModel.model?.list {
 
-         fetchedProfiles = list
-         }
+                fetchedProfiles = list
+            }
 
-         dispatchGroup.leave()
-         }*/
+            dispatchGroup.leave()
+        }
 
         dispatchGroup.enter()
         networkManager.fetchLiveCurves { result in
@@ -124,34 +125,9 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
         dispatchGroup.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
 
-            // profiles
-
             strongSelf._profiles = SynchronizedArray(fetchedProfiles)
-
-            // main models
-
-            let liveCurves = fetchedLiveCurves.compactMap { liveCurve -> LiveCurve in
-                var liveCurve = liveCurve
-                liveCurve.priorityIndex = fetchedLiveCurves.firstIndex(of: liveCurve) ?? -1
-                return liveCurve
-            }
-            strongSelf._liveCurves = SynchronizedArray(liveCurves)
-
-            if strongSelf.profile == nil, let defaultProfile = fetchedProfiles.first {
-                strongSelf.setProfile(defaultProfile)
-            } else if let selectedProfile = strongSelf.profile {
-                if let updatedProfile = fetchedProfiles.first(where: { $0.id == selectedProfile.id }) {
-                    strongSelf.profile = updatedProfile
-                }
-
-                strongSelf.setProfile(strongSelf.profile!) //swiftlint:disable:this force_unwrapping
-            } else {
-                onMainThread {
-                    strongSelf.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: liveCurves,
-                                                                       profiles: [],
-                                                                       selectedProfile: nil)
-                }
-            }
+            strongSelf._liveCurves = SynchronizedArray(fetchedLiveCurves)
+            strongSelf.updateProfiles()
 
             // socket connection
 
@@ -164,15 +140,46 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
         updateLiveCurves(for: profile)
     }
 
+    func removeProfile(_ profile: LiveCurveProfileCategory) {
+        guard _profiles.count > 1 else { return }
+
+        _profiles = SynchronizedArray(_profiles.filter { $0 != profile })
+
+        networkManager.deletePortfolio(id: profile.id, completion: { _ in })
+
+        updateProfiles()
+    }
+
     // MARK: - Private methods
 
     private func updateLiveCurves(for profile: LiveCurveProfileCategory) {
-        let filteredLiveCurves = _liveCurves.filter { profile.contains(liveCurve: $0) }
-
         onMainThread {
-            self.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: filteredLiveCurves,
+            self.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: self.filteredProfileLiveCurves(),
                                                          profiles: self._profiles.arrayValue,
                                                          selectedProfile: profile)
+        }
+    }
+
+    private func updateProfiles() {
+        if profile == nil, let defaultProfile = _profiles.first {
+            setProfile(defaultProfile)
+        } else if let selectedProfile = profile, let updatedProfile = _profiles.first(where: { $0.id == selectedProfile.id }) {
+            setProfile(updatedProfile)
+        } else if let firstProfile = _profiles.first {
+            setProfile(firstProfile)
+        }
+    }
+
+    private func filteredProfileLiveCurves() -> [LiveCurve] {
+        guard let profile = profile else { return [] }
+
+        return _liveCurves.compactMap { liveCurve -> LiveCurve? in
+            guard let liveCurveItem = profile.liveCurves.first(where: { $0.code == liveCurve.code }) else { return nil }
+
+            var liveCurve = liveCurve
+            liveCurve.priorityIndex = liveCurveItem.order
+
+            return liveCurve
         }
     }
 }

@@ -1,53 +1,65 @@
 //
 //  TappableButton.swift
-//  Sparta
+//  
 //
-//  Created by Yaroslav Babalich on 27.11.2020.
+//  Created by Yaroslav Babalich on 21.01.2021.
 //
 
 import UIKit
-import SpartaHelpers
+import Then
 
-class TappableButton: BiggerAreaButton {
+open class TappableButton: BiggerAreaButton {
 
     // MARK: - Public properties
 
-    override var isEnabled: Bool {
+    open override var isEnabled: Bool {
         didSet {
             alpha = isEnabled ? 1.0 : 0.5
         }
     }
 
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+
+        indicatorView.center = center
+    }
+
     //
     // MARK: - Public Accessors
 
-    func onTap(completion: @escaping TypeClosure<TappableButton>) {
+    public func onTap(completion: @escaping TypeClosure<TappableButton>) {
         addTarget(self, action: #selector(onTapEvent(_:)), for: .touchUpInside)
         tapClosure = completion
     }
 
-    var isLoading: Bool = false {
+    public var isLoading: Bool = false {
         didSet {
             if isLoading {
                 indicatorView.startAnimating()
                 tempTitleStorage = title(for: .normal)
+                tempImageStorage = image(for: .normal)
                 setTitle(nil, for: .normal)
+                setImage(nil, for: .normal)
+                imageView?.alpha = 0
             } else if let tempTitleStorage = tempTitleStorage {
                 indicatorView.stopAnimating()
                 setTitle(tempTitleStorage, for: .normal)
+                setImage(tempImageStorage, for: .normal)
+                imageView?.alpha = 1
             } else if image(for: .normal) != nil {
                 indicatorView.stopAnimating()
+                imageView?.alpha = 1
             }
         }
     }
 
-    func setIsLoading(_ value: Bool, animated: Bool) {
+    public func setIsLoading(_ value: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? 0.3 : 0) {
             self.isLoading = value
         }
     }
 
-    func showTemporaryText(_ text: String, for time: TimeInterval = 0.5) {
+    public func showTemporaryText(_ text: String, for time: TimeInterval = 0.5) {
 
         isEnabled = false
 
@@ -71,16 +83,19 @@ class TappableButton: BiggerAreaButton {
 
     private var tapClosure: TypeClosure<TappableButton>?
     private var tempTitleStorage: String?
+    private var tempImageStorage: UIImage?
 
-    private lazy var indicatorView = UIActivityIndicatorView().then { v in
+    private lazy var indicatorView = UIActivityIndicatorView().then { view in
 
-        v.color = titleColor(for: .normal)
-        v.hidesWhenStopped = true
+        view.color = titleColor(for: .normal)
+        view.hidesWhenStopped = true
+        view.stopAnimating()
 
-        addSubview(v) { $0.center.equalToSuperview() }
+        addSubview(view)
     }
 
-    @objc private func onTapEvent(_ sender: UIButton) {
+    @objc
+    private func onTapEvent(_ sender: UIButton) {
         tapClosure?(self)
     }
 }

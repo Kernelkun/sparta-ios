@@ -5,13 +5,14 @@
 //  Created by Yaroslav Babalich on 28.01.2021.
 //
 
-//import UIKit
-//
-//public protocol Identifiable {
-//    associatedtype ID: Hashable
-//
-//    var identifier: ID { get }
-//}
+import Foundation
+
+public protocol IdentifiableItem: Equatable {
+    associatedtype ID: Hashable
+
+    var identifier: ID { get }
+}
+
 //
 //public struct Identifier<T: Hashable>: Identifiable {
 //    public typealias ID = T

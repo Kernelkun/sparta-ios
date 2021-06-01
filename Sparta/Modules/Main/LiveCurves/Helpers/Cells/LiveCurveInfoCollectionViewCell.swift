@@ -56,7 +56,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     func apply(monthInfo: LiveCurveMonthInfoModel, for indexPath: IndexPath) {
         self.indexPath = indexPath
 
-        titleLabel.text = monthInfo.priceValue.symbols2Value
+        titleLabel.text = monthInfo.priceValue
         lastPriceCode = monthInfo.priceCode
         observeLiveCurves(for: monthInfo.priceCode)
     }
@@ -124,7 +124,7 @@ extension LiveCurveInfoCollectionViewCell: LiveCurvesObserver {
 
     func liveCurvesDidReceiveResponse(for liveCurve: LiveCurve) {
         onMainThread {
-            self.titleLabel.text = liveCurve.priceValue.symbols2Value
+            self.titleLabel.text = liveCurve.displayPrice
 
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
                 self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor

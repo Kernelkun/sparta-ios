@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class AppCoordinator {
 
@@ -119,23 +120,18 @@ class AppCoordinator {
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
         UINavigationBar.appearance().tintColor = .controlTintActive
 
-        if #available(iOS 13.0, *) {
+        let standard = UINavigationBarAppearance()
 
-            let standard = UINavigationBarAppearance()
+        standard.configureWithTransparentBackground()
+        standard.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
 
-            standard.configureWithTransparentBackground()
-            standard.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
+        let button = UIBarButtonItemAppearance(style: .plain)
+        button.normal.titleTextAttributes = [.foregroundColor: UIColor.controlTintActive]
+        standard.buttonAppearance = button
 
-            let button = UIBarButtonItemAppearance(style: .plain)
-            button.normal.titleTextAttributes = [.foregroundColor: UIColor.controlTintActive]
-            standard.buttonAppearance = button
+        standard.titleTextAttributes = titleAttributes
 
-            standard.titleTextAttributes = titleAttributes
-
-            UINavigationBar.appearance().standardAppearance = standard
-        } else {
-            // Fallback on earlier versions
-        }
+        UINavigationBar.appearance().standardAppearance = standard
     }
 
     private func setupLogic() {

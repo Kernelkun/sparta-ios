@@ -22,7 +22,7 @@ class LCPortfolioAddItemTableViewCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("LCPortfolioAddTableViewCell")
+        fatalError("LCPortfolioAddItemTableViewCell")
     }
 
     // MARK: - Public methods

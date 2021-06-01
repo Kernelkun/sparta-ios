@@ -10,8 +10,9 @@ import Networking
 import SwiftyJSON
 import NetworkingModels
 import PhoneNumberKit
+import SpartaHelpers
 
-protocol AccountSettingsViewModelDelegate: class {
+protocol AccountSettingsViewModelDelegate: AnyObject {
     func didLoadData()
     func didReloadTradeOptions()
     func didCatchAnError(_ error: String)

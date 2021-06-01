@@ -8,7 +8,7 @@
 import UIKit
 import SpartaHelpers
 
-protocol ChangePasswordViewCoordinatorDelegate: class {
+protocol ChangePasswordViewCoordinatorDelegate: AnyObject {
     func changePasswordViewControllerDidFinish(_ controller: ChangePasswordViewController)
 }
 

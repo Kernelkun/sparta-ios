@@ -76,7 +76,8 @@ class LCPortfolioAddItemViewModel: NSObject, BaseViewModel {
         group.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
 
-            let groups = strongSelf.configureGroups(serverGroups: groups, serverItems: items)
+            let groups = strongSelf.configureGroups(serverGroups: groups,
+                                                    serverItems: items.sorted(by: { $0.shortName < $1.shortName }))
             strongSelf.groups = groups
             strongSelf.initialLoadedGroups = groups
 
@@ -114,9 +115,7 @@ class LCPortfolioAddItemViewModel: NSObject, BaseViewModel {
         lcNetworkManager.addProduct(portfolioId: selectedProfile.id, productId: item.id) { [weak self] result in
             guard let strongSelf = self else { return }
 
-            if case let .success(responseModel) = result,
-               let model = responseModel.model {
-
+            if case let .success(responseModel) = result, responseModel.model != nil {
                 onMainThread {
                     strongSelf.delegate?.didSuccessAddItem()
                 }

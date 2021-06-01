@@ -1,5 +1,5 @@
 //
-//  LiveCurveProfileElementView.swift
+//  ProfileElementView.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 17.05.2021.
@@ -7,8 +7,9 @@
 
 import UIKit
 import NetworkingModels
+import SpartaHelpers
 
-class LiveCurveProfileElementView: TappableView {
+class ProfileElementView<I: ListableItem>: TappableView {
 
     // MARK: - Public properties
 
@@ -18,7 +19,7 @@ class LiveCurveProfileElementView: TappableView {
         }
     }
 
-    let profile: LiveCurveProfileCategory
+    let profile: I
 
     // MARK: - Private properties
 
@@ -26,9 +27,11 @@ class LiveCurveProfileElementView: TappableView {
     private var titleLabel: UIView!
     private var lineView: UIView!
 
+    private var _onLongPressClosure: TypeClosure<I>?
+
     // MARK: - Initializers
 
-    init(profile: LiveCurveProfileCategory) {
+    init(profile: I) {
         self.profile = profile
         isActive = false
 
@@ -38,7 +41,7 @@ class LiveCurveProfileElementView: TappableView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("LiveCurveProfileElementView")
+        fatalError("ProfileElementView")
     }
 
     // MARK: - Public methods
@@ -49,6 +52,10 @@ class LiveCurveProfileElementView: TappableView {
 
     func hideLine() {
         lineView.isHidden = true
+    }
+
+    func onLongPress(completion: @escaping TypeClosure<I>) {
+        _onLongPressClosure = completion
     }
 
     // MARK: - Private methods
@@ -72,7 +79,7 @@ class LiveCurveProfileElementView: TappableView {
             label.font = .main(weight: .semibold, size: 13)
             label.textAlignment = .center
             label.textColor = .primaryText
-            label.text = profile.name.capitalizedFirst
+            label.text = profile.title.capitalizedFirst
 
             addSubview(label) {
                 $0.left.right.equalToSuperview().inset(16)
@@ -91,10 +98,24 @@ class LiveCurveProfileElementView: TappableView {
                 $0.size.equalTo(CGSize(width: 1, height: 15))
             }
         }
+
+        // gestures
+
+        addGestures()
     }
 
     private func updateUI() {
         selectedView.alpha = isActive ? 1 : 0
         lineView.alpha = isActive ? 0 : 1
+    }
+
+    private func addGestures() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressEvent))
+        addGestureRecognizer(longPressGesture)
+    }
+
+    @objc
+    private func longPressEvent() {
+        _onLongPressClosure?(profile)
     }
 }

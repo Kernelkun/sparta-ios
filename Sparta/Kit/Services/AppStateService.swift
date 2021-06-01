@@ -6,6 +6,7 @@
 //
 
 import UIKit.UIApplication
+import SpartaHelpers
 
 protocol AppStateServiceDelegate: AnyObject {
     func appStateServiceDidUpdateState()

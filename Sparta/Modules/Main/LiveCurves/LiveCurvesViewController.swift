@@ -13,7 +13,7 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
     // MARK: - UI
 
-    private var profilesView: LiveCurveProfilesView!
+    private var profilesView: ProfilesView<LiveCurveProfileCategory>!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
 
@@ -22,13 +22,46 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.presentationStyle.rowsCount,
-                                                       gradeHeight: 30,
-                                                       collectionColumnWidth: 70,
-                                                       tableColumnWidth: 130)
-        
-        gridView = GridView(constructor: constructor)
-        view = gridView
+        let gridContructor = GridView.GridViewConstructor(rowsCount: viewModel.presentationStyle.rowsCount,
+                                                          gradeHeight: 30,
+                                                          collectionColumnWidth: 70,
+                                                          tableColumnWidth: 130)
+
+        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: true)
+
+        view = UIView().then { view in
+
+            profilesView = ProfilesView(constructor: profilesContructor).then { profilesView in
+
+                profilesView.onChooseProfile { [unowned self] profile in
+                    self.viewModel.changeProfile(profile)
+                }
+
+                profilesView.onChooseAdd { [unowned self] in
+                    navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
+                }
+
+                profilesView.onLongPressProfile { profile in
+                    UIActionSheetFactory.showDeletePortolioConfirmation(in: self) { [unowned self] in
+                        self.viewModel.removeProfile(profile)
+                    }
+                }
+
+                view.addSubview(profilesView) {
+                    $0.top.equalToSuperview().offset(topBarHeight)
+                    $0.left.right.equalToSuperview()
+                    $0.height.equalTo(45)
+                }
+            }
+
+            gridView = GridView(constructor: gridContructor).then { gridView in
+
+                view.addSubview(gridView) {
+                    $0.left.right.bottom.equalToSuperview()
+                    $0.top.equalTo(profilesView.snp.bottom)
+                }
+            }
+        }
     }
 
     // MARK: - Lifecycle
@@ -69,7 +102,6 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         // grid view
 
         gridView.dataSource = self
-        gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
         // sockets status view
@@ -89,16 +121,23 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        /*let plusButton = UIBarButtonItemFactory.plusButton { [unowned self] _ in
+        let plusButton = UIBarButtonItemFactory.plusButton { [unowned self] _ in
             navigationController?.pushViewController(LCPortfolioAddItemViewController(nibName: nil, bundle: nil), animated: true)
         }
 
-        let periodButton = UIBarButtonItemFactory.periodButton(isActive: viewModel.presentationStyle == .quartersAndYears) { [unowned self] _ in
+        let isActivePeriodButton = viewModel.presentationStyle == .quartersAndYears
+        let periodButton = UIBarButtonItemFactory.periodButton(isActive: isActivePeriodButton) { [unowned self] _ in
             self.viewModel.togglePresentationStyle()
-        }*/
+        }
+
+        let editButton = UIBarButtonItemFactory.editButton { [unowned self] _ in
+            navigationController?.pushViewController(EditPortfolioItemsViewController(), animated: true)
+        }
 
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Live Curves")
-//        navigationItem.rightBarButtonItems = [periodButton, UIBarButtonItemFactory.fixedSpace(space: 20), plusButton]
+        navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 25),
+                                              periodButton, UIBarButtonItemFactory.fixedSpace(space: 25),
+                                              plusButton]
     }
 }
 
@@ -129,7 +168,8 @@ extension LiveCurvesViewController: GridViewDataSource {
     }
 
     func numberOfRowsForInfoCollectionView(in section: Int) -> Int {
-        viewModel.presentationStyle.rowsCount
+//        viewModel.presentationStyle.rowsCount
+        viewModel.collectionGrades.count
     }
 
     func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
@@ -172,7 +212,7 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
     }
 
     func didReceiveProfilesInfo(profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {
-//        profilesView.apply(profiles, selectedProfile: selectedProfile)
+        profilesView.apply(profiles, selectedProfile: selectedProfile)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
