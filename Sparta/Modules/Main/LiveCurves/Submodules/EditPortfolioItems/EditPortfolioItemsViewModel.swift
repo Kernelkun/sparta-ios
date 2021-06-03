@@ -36,6 +36,7 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
         }
     }
 
+    private let lcSyncManager = App.instance.liveCurvesSyncManager
     private let networkManager = LiveCurvesNetworkManager()
 
     // MARK: - Public methods
@@ -59,7 +60,7 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
             onMainThread {
                 strongSelf.isLoading = false
                 strongSelf.delegate?.didReceiveProfilesInfo(profiles: strongSelf.profiles,
-                                                            selectedProfile: strongSelf.selectedProfile)
+                                                            selectedProfile: strongSelf.lcSyncManager.profile)
             }
         }
     }

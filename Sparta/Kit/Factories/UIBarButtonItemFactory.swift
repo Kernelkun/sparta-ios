@@ -76,7 +76,7 @@ enum UIBarButtonItemFactory {
 
         let button = TappableButton(type: .custom).then { v in
 
-            v.setBackgroundImage(UIImage(named: "ic_plus"), for: .normal)
+            v.setBackgroundImage(UIImage(named: "ic_plus_nav"), for: .normal)
             v.tintColor = .controlTintActive
 
             v.onTap(completion: onTap)

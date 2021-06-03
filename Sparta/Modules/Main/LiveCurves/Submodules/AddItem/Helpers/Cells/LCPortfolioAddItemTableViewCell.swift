@@ -39,6 +39,7 @@ class LCPortfolioAddItemTableViewCell: UITableViewCell {
         backgroundColor = .clear
         selectedBackgroundView = UIView().then { $0.backgroundColor = .mainBackground }
         tintColor = .controlTintActive
+        selectionStyle = .none
 
         titleLabel = UILabel().then { label in
 
