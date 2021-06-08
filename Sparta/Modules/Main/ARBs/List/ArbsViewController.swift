@@ -22,7 +22,8 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         let constructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
                                                        gradeHeight: 50,
                                                        collectionColumnWidth: 65,
-                                                       tableColumnWidth: 160)
+                                                       tableColumnWidth: 160,
+                                                       emptyView: UIView())
 
         gridView = GridView(constructor: constructor)
         view = gridView
@@ -128,7 +129,6 @@ extension ArbsViewController: GridViewDataSource {
             }
 
             cell.onToggleFavourite { [unowned self] arb in
-
                 self.viewModel.toggleFavourite(arb: arb)
             }
         }

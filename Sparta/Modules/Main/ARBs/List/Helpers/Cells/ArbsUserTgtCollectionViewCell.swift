@@ -191,17 +191,17 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     }
 
     private func updateUI(for arb: Arb) {
-//        arb.months.forEach { month in
-//            guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
-//
-//            if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
-//                label.text = userTarget
-//                label.textColor = .tablePoint
-//            } else {
-//                label.text = "-"
-//                label.textColor = .controlTintActive
-//            }
-//        }
+        arb.months.forEach { month in
+            guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
+
+            if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
+                label.text = userTarget
+                label.textColor = .tablePoint
+            } else {
+                label.text = "-"
+                label.textColor = .controlTintActive
+            }
+        }
     }
 
     // MARK: - Events

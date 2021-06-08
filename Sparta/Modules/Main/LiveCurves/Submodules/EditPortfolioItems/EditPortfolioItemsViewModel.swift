@@ -50,8 +50,8 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
             if case let .success(responseModel) = result,
                let list = responseModel.model?.list {
 
-                if let firstProfile = list.first {
-                    strongSelf.selectedProfile = firstProfile
+                if let selectedProfile = strongSelf.lcSyncManager.profile {
+                    strongSelf.selectedProfile = selectedProfile
                 }
 
                 strongSelf.profiles = list
@@ -60,7 +60,7 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
             onMainThread {
                 strongSelf.isLoading = false
                 strongSelf.delegate?.didReceiveProfilesInfo(profiles: strongSelf.profiles,
-                                                            selectedProfile: strongSelf.lcSyncManager.profile)
+                                                            selectedProfile: strongSelf.selectedProfile)
             }
         }
     }
@@ -68,6 +68,22 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
     func changeProfile(_ profile: LiveCurveProfileCategory) {
         selectedProfile = profile
         delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)
+    }
+
+    func delete(profile: LiveCurveProfileCategory) {
+        guard profiles.count > 1 else { return }
+
+        profiles = profiles.filter { $0 != profile }
+
+        networkManager.deletePortfolio(id: profile.id, completion: { _ in })
+
+        if let firstProfile = profiles.first {
+            selectedProfile = firstProfile
+        }
+
+        onMainThread {
+            self.delegate?.didReceiveProfilesInfo(profiles: self.profiles, selectedProfile: self.selectedProfile)
+        }
     }
 
     func delete(item: LiveCurveProfileItem) {

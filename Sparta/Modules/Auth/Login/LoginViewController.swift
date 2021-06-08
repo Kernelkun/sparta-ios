@@ -152,7 +152,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
             }
         }
 
-        signInButton = BorderedButton(type: .system).then { button in
+        signInButton = BorderedButton(type: .custom).then { button in
 
             button.setTitle("Sign in", for: .normal)
 

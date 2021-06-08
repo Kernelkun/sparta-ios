@@ -90,8 +90,6 @@ open class TappableButton: BiggerAreaButton {
         view.color = titleColor(for: .normal)
         view.hidesWhenStopped = true
         view.stopAnimating()
-
-        addSubview(view)
     }
 
     @objc

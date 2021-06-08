@@ -9,7 +9,7 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-class ProfilesView<I: ListableItem>: UIView {
+class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
 
     // MARK: - Private properties
 
@@ -18,13 +18,15 @@ class ProfilesView<I: ListableItem>: UIView {
     private var profiles: [I] = []
     private var selectedProfile: I?
 
+    private var scrollView: UIScrollView!
     private var scrollContentView: UIView!
     private var elementsStackView: UIStackView!
     private var elementViews: [ProfileElementView<I>] = []
+    private var activeElementView: ProfileElementView<I>?
 
     private var _onChooseAdd: EmptyClosure?
     private var _onChooseProfileClosure: TypeClosure<I>?
-    private var _onLongPressProfileClosure: TypeClosure<I>?
+    private var _onRemoveProfileClosure: TypeClosure<I>?
 
     // MARK: - Initializers
 
@@ -57,8 +59,8 @@ class ProfilesView<I: ListableItem>: UIView {
         _onChooseProfileClosure = completion
     }
 
-    func onLongPressProfile(completion: @escaping TypeClosure<I>) {
-        _onLongPressProfileClosure = completion
+    func onRemoveProfile(completion: @escaping TypeClosure<I>) {
+        _onRemoveProfileClosure = completion
     }
 
     // MARK: - Private methods
@@ -89,7 +91,17 @@ class ProfilesView<I: ListableItem>: UIView {
             }
         }
 
-        let scrollView = UIScrollView().then { scrollView in
+        let scrollExternalView = UIView().then { view in
+
+            view.backgroundColor = .clear
+            view.clipsToBounds = true
+
+            view.snp.makeConstraints {
+                $0.height.equalTo(40)
+            }
+        }
+
+        scrollView = UIScrollView().then { scrollView in
 
             scrollView.alwaysBounceHorizontal = false
             scrollView.showsHorizontalScrollIndicator = false
@@ -97,22 +109,25 @@ class ProfilesView<I: ListableItem>: UIView {
             scrollView.scrollsToTop = false
             scrollView.automaticallyAdjustsScrollIndicatorInsets = false
             scrollView.contentInsetAdjustmentBehavior = .never
-            scrollView.backgroundColor = .profileBackground
-            scrollView.layer.cornerRadius = 9
+            scrollView.clipsToBounds = false
 
             scrollContentView = UIView().then { view in
 
                 view.backgroundColor = .clear
+                view.clipsToBounds = false
+                view.backgroundColor = .profileBackground
+                view.layer.cornerRadius = 9
 
                 scrollView.addSubview(view) {
                     $0.centerY.equalToSuperview()
                     $0.top.bottom.left.equalToSuperview().inset(2)
-                    $0.right.lessThanOrEqualToSuperview()
+                    $0.right.lessThanOrEqualToSuperview().inset(constructor.isEditable ? 8 : 0)
                     $0.width.greaterThanOrEqualToSuperview().inset(2)
                 }
             }
 
-            scrollView.snp.makeConstraints {
+            scrollExternalView.addSubview(scrollView) {
+                $0.left.bottom.right.equalToSuperview()
                 $0.height.equalTo(30)
             }
         }
@@ -122,9 +137,9 @@ class ProfilesView<I: ListableItem>: UIView {
             stackView.axis = .horizontal
             stackView.distribution = .fill
             stackView.spacing = 10
-            stackView.alignment = .fill
+            stackView.alignment = .bottom
 
-            stackView.addArrangedSubview(scrollView)
+            stackView.addArrangedSubview(scrollExternalView)
 
             if constructor.addButtonAvailability {
                 stackView.addArrangedSubview(plusButton)
@@ -133,7 +148,6 @@ class ProfilesView<I: ListableItem>: UIView {
             addSubview(stackView) {
                 $0.left.right.equalToSuperview().inset(16)
                 $0.centerY.equalToSuperview()
-                $0.height.equalTo(30)
             }
         }
     }
@@ -160,10 +174,10 @@ class ProfilesView<I: ListableItem>: UIView {
                     self._onChooseProfileClosure?(view.profile)
                 }
 
-                view.onLongPress { [unowned self] item in
+                view.onRemove { [unowned self] item in
                     guard profiles.count > 1 else { return }
 
-                    self._onLongPressProfileClosure?(item)
+                    self._onRemoveProfileClosure?(item)
                 }
 
                 stackView.addArrangedSubview(view)
@@ -180,8 +194,11 @@ class ProfilesView<I: ListableItem>: UIView {
 
     private func updateElementsUI() {
         elementViews.forEach { view in
+            let isSelected = selectedProfile == view.profile
+
             view.showLine()
-            view.isActive = selectedProfile == view.profile
+            view.isActive = isSelected
+            view.isVisibleDeleteButton = isSelected && constructor.isEditable && profiles.count > 1
 
             if let index = elementViews.firstIndex(of: view) {
                 let view = elementViews[index]
@@ -196,5 +213,22 @@ class ProfilesView<I: ListableItem>: UIView {
                 }
             }
         }
+
+        // scroll to visible view
+
+        if let selectedView = elementViews.first(where: { $0.isActive }) {
+            onMainThread(delay: 0.1) { [unowned self] in
+                scrollTo(view: selectedView)
+            }
+        }
+    }
+
+    private func scrollTo(view: UIView) {
+        let scrollWidth = scrollView.frame.width
+        let scrollHeight = scrollView.frame.height
+        let desiredXCoor = view.frame.origin.x - ((scrollWidth / 2) - (view.frame.width / 2) )
+        let rect = CGRect(x: desiredXCoor, y: 0, width: scrollWidth, height: scrollHeight)
+
+        scrollView.scrollRectToVisible(rect, animated: true)
     }
 }

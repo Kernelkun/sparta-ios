@@ -160,7 +160,6 @@ extension ArbDetailViewController: ArbDetailViewModelDelegate {
     }
 
     func didCatchAnError(_ error: String) {
-
     }
 
     func didLoadCells(_ cells: [ArbDetailViewModel.Cell]) {

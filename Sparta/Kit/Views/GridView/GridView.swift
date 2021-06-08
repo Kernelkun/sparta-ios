@@ -64,7 +64,6 @@ class GridView: UIView {
     }
 
     func applyContentInset(_ contentInset: UIEdgeInsets) {
-
         contentView.contentCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
         contentView.gradesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
 
@@ -78,6 +77,7 @@ class GridView: UIView {
     func setInfoRowsCount(_ rowsCount: Int) {
         constructor.rowsCount = rowsCount
         gradesView.reloadData(force: true)
+        updateUI()
     }
 
     func reloadGrades() {
@@ -86,6 +86,7 @@ class GridView: UIView {
 
     func reloadInfo() {
         contentView.reloadData()
+        updateUI()
     }
 
     func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, completion: EmptyClosure? = nil) {
@@ -95,6 +96,7 @@ class GridView: UIView {
         }
 
         updateGridHeight()
+        updateUI()
 
         let updateGroup = DispatchGroup()
 
@@ -127,8 +129,17 @@ class GridView: UIView {
     // MARK: - Private methods
 
     private func setupUI() {
-
         backgroundColor = UIGridViewConstants.mainBackgroundColor
+
+        let emptyView = constructor.emptyView
+        emptyView.do { emptyView in
+
+            emptyView.isHidden = true
+
+            addSubview(emptyView) {
+                $0.edges.equalToSuperview()
+            }
+        }
 
         gradesView = GradesGridView(dataSource: self).then { view in
 
@@ -156,6 +167,13 @@ class GridView: UIView {
                 $0.right.bottom.equalToSuperview()
             }
         }
+    }
+
+    private func updateUI() {
+        let numberOfSections = dataSource?.numberOfSections() ?? 0
+        constructor.emptyView.isHidden = numberOfSections != 0
+        gradesView.isHidden = numberOfSections == 0
+        contentView.isHidden = numberOfSections == 0
     }
 }
 
@@ -256,5 +274,8 @@ extension GridView {
 
         /// First column width.
         let tableColumnWidth: CGFloat
+
+        /// View for presenting in case UI haven't any data
+        let emptyView: UIView
     }
 }
