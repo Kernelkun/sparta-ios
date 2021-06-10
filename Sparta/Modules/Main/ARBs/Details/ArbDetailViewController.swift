@@ -7,19 +7,14 @@
 
 import UIKit
 import NetworkingModels
+import SpartaHelpers
 
 class ArbDetailViewController: BaseViewController {
 
     // MARK: - UI
 
-    private var contentScrollView: UIScrollView!
     private var monthSelector: ResultMonthSelector!
-    private var mainBlock: LoaderView!
-    private var mainContentView: ArbDetailContentView!
-
-    private let loaderDelay = DelayObject(delayInterval: 0.1)
-
-    private var lastInputView: ResultKeyInputView?
+    private var contentPageVC: UISliderViewController<ArbDetailPageViewController>!
 
     // MARK: - Private properties
 
@@ -71,69 +66,40 @@ class ArbDetailViewController: BaseViewController {
     }
 
     private func setupUI() {
-
-        contentScrollView = UIScrollView().then { scrollView in
-
-            scrollView.showsVerticalScrollIndicator = false
-
-            addSubview(scrollView) {
-                $0.top.equalToSuperview().offset(topBarHeight)
-                $0.left.bottom.right.equalToSuperview()
-            }
-        }
-
-        let scrollViewContent = UIView().then { view in
-
-            view.backgroundColor = .clear
-
-            contentScrollView.addSubview(view) {
-                $0.left.top.right.equalToSuperview()
-                $0.bottom.lessThanOrEqualToSuperview().priority(.high)
-                $0.centerX.equalToSuperview()
-            }
-        }
-
         monthSelector = ResultMonthSelector().then { view in
 
             view.delegate = self
 
-            scrollViewContent.addSubview(view) {
-                $0.top.equalToSuperview()
+            addSubview(view) {
+                $0.top.equalToSuperview().offset(topBarHeight)
                 $0.left.right.equalToSuperview().inset(24)
                 $0.height.equalTo(39)
             }
         }
 
-        // main block view
-
-        setupMainBlock(in: scrollViewContent, topAlignView: monthSelector)
+        setupPageController()
     }
 
-    private func setupMainBlock(in contentView: UIView, topAlignView: UIView) {
+    private func setupPageController() {
+        let contentView = UIView().then { view in
 
-        mainBlock = LoaderView().then { view in
-
-            view.layer.cornerRadius = 8
-            view.layer.masksToBounds = true
-
-            mainContentView = ArbDetailContentView().then { mainContentView in
-
-                mainContentView.backgroundColor = .clear
-
-                mainContentView.onMarginChanged { [unowned self] text in
-                    self.viewModel.applyUserTarget(text)
-                }
-
-                view.addSubview(mainContentView) {
-                    $0.edges.equalToSuperview()
-                }
+            addSubview(view) {
+                $0.left.right.bottom.equalToSuperview()
+                $0.top.equalTo(monthSelector.snp.bottom)
             }
+        }
 
-            contentView.addSubview(view) {
-                $0.top.equalTo(topAlignView.snp.bottom).offset(8)
-                $0.left.right.equalTo(topAlignView)
-                $0.bottom.equalToSuperview()
-            }
+        let controllers = arb.months.compactMap { _ -> ArbDetailPageViewController in
+            let viewController = ArbDetailPageViewController()
+            viewController.delegate = self
+            return viewController
+        }
+
+        contentPageVC = UISliderViewController(controllers: controllers).then { sliderViewController in
+
+            sliderViewController.coordinatorDelegate = self
+
+            add(sliderViewController, to: contentView)
         }
     }
 
@@ -144,18 +110,43 @@ class ArbDetailViewController: BaseViewController {
     }
 }
 
+extension ArbDetailViewController: UISliderViewControllerDelegate {
+
+    func uiSliderViewControllerDidShowController(at index: Int) {
+        viewModel.switchToMonth(at: index)
+    }
+}
+
+extension ArbDetailViewController: ResultMonthSelectorDelegate {
+
+    func resultMonthSelectorDidTapLeftButton(view: ResultMonthSelector) {
+        contentPageVC.showPrevious()
+    }
+
+    func resultMonthSelectorDidTapRightButton(view: ResultMonthSelector) {
+        contentPageVC.showNext()
+    }
+}
+
+extension ArbDetailViewController: ArbDetailPageViewControllerDelegate {
+
+    func arbDetailPageViewControllerDidChangeMargin(_ controller: ArbDetailPageViewController, margin: String) {
+        viewModel.applyUserTarget(margin)
+    }
+}
+
 extension ArbDetailViewController: ArbDetailViewModelDelegate {
 
     func didChangeLoadingState(_ isLoading: Bool) {
         if isLoading {
-            loaderDelay.addOperation { [weak self] in
+            contentPageVC.selectedController.loaderDelay.addOperation { [weak self] in
                 guard let strongSelf = self else { return }
 
-                strongSelf.mainBlock.startAnimating()
+                strongSelf.contentPageVC.selectedController.mainBlock.startAnimating()
             }
         } else {
-            mainBlock.stopAnimating()
-            loaderDelay.stopAllOperations()
+            contentPageVC.selectedController.mainBlock.stopAnimating()
+            contentPageVC.selectedController.loaderDelay.stopAllOperations()
         }
     }
 
@@ -164,21 +155,10 @@ extension ArbDetailViewController: ArbDetailViewModelDelegate {
 
     func didLoadCells(_ cells: [ArbDetailViewModel.Cell]) {
         reloadMonthsData()
-        mainContentView.applyCells(cells)
+        contentPageVC.selectedController.mainContentView.applyCells(cells)
     }
 
     func didReloadCells(_ cells: [ArbDetailViewModel.Cell]) {
-        mainContentView.reloadCells(cells)
-    }
-}
-
-extension ArbDetailViewController: ResultMonthSelectorDelegate {
-
-    func resultMonthSelectorDidTapLeftButton(view: ResultMonthSelector) {
-        viewModel.switchToPrevMonth()
-    }
-
-    func resultMonthSelectorDidTapRightButton(view: ResultMonthSelector) {
-        viewModel.switchToNextMonth()
+        contentPageVC.selectedController.mainContentView.reloadCells(cells)
     }
 }

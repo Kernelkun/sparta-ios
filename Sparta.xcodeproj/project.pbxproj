@@ -154,6 +154,8 @@
 		D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB53B1256EFC6500AD2D1A /* KeychainAccess */; };
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
+		D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */; };
+		D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1126723C20001B1924 /* UISliderViewController.swift */; };
 		D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D170D32587880F0059A1F1 /* LineButtonView.swift */; };
 		D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */; };
 		D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */; };
@@ -322,6 +324,8 @@
 		D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailPageViewController.swift; sourceTree = "<group>"; };
+		D9C71C1126723C20001B1924 /* UISliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISliderViewController.swift; sourceTree = "<group>"; };
 		D9D170D32587880F0059A1F1 /* LineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineButtonView.swift; sourceTree = "<group>"; };
 		D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewController.swift; sourceTree = "<group>"; };
 		D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewModel.swift; sourceTree = "<group>"; };
@@ -709,6 +713,7 @@
 		D98AF6BD25BA197900A5BC96 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				D9C71C0E26722318001B1924 /* Childs */,
 				D977B3A125C330CF009A9483 /* Helpers */,
 				D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */,
 				D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */,
@@ -1014,6 +1019,7 @@
 			children = (
 				D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */,
 				D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */,
+				D9C71C1126723C20001B1924 /* UISliderViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1120,6 +1126,14 @@
 				D9264BE02574F0D9001477DA /* ForgotPassword */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		D9C71C0E26722318001B1924 /* Childs */ = {
+			isa = PBXGroup;
+			children = (
+				D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */,
+			);
+			path = Childs;
 			sourceTree = "<group>";
 		};
 		D9D170D2258788060059A1F1 /* Views */ = {
@@ -1473,6 +1487,7 @@
 				D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */,
 				D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */,
 				D9A91BFA25A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift in Sources */,
+				D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */,
 				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
 				D959C1002582307A006CE2D1 /* SettingsTitledTableViewCell.swift in Sources */,
 				D959C0F925822F9C006CE2D1 /* SettingsViewModel.swift in Sources */,
@@ -1493,6 +1508,7 @@
 				D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */,
 				D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */,
 				D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */,
+				D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */,
 				D9A91CB525A9A81500423704 /* FreightResultViewModel.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
