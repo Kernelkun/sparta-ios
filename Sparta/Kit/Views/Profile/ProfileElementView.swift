@@ -32,7 +32,7 @@ class ProfileElementView<I: ListableItem>: TappableView {
     private var selectedView: UIView!
     private var titleLabel: UIView!
     private var lineView: UIView!
-    private var deleteButton: TappableButton!
+    private var deleteZoneView: TappableView!
 
     private var _onRemoveClosure: TypeClosure<I>?
 
@@ -107,19 +107,32 @@ class ProfileElementView<I: ListableItem>: TappableView {
             }
         }
 
-        deleteButton = TappableButton(type: .custom).then { button in
+        deleteZoneView = TappableView().then { view in
 
-            button.clickableInset = -10
-            button.setBackgroundImage(UIImage(named: "ic_remove"), for: .normal)
-            button.onTap { [unowned self] _ in
+            view.backgroundColor = .clear
+            view.onTap { [unowned self] _ in
                 self._onRemoveClosure?(self.profile)
             }
 
-            addSubview(button) {
-                let sideSize = 21.5
+            let sideSize = 21.5
+
+            _ = UIImageView().then { imageView in
+
+                imageView.image = UIImage(named: "ic_remove")
+                imageView.isUserInteractionEnabled = true
+
+                view.addSubview(imageView) {
+                    $0.top.equalToSuperview()
+                    $0.right.equalToSuperview()
+                    $0.size.equalTo(sideSize)
+                }
+            }
+
+            addSubview(view) {
                 $0.top.equalToSuperview().offset(-(sideSize / 2.6))
                 $0.right.equalToSuperview().offset(sideSize / 2.6)
-                $0.size.equalTo(sideSize)
+                $0.width.equalTo(sideSize)
+                $0.bottom.equalToSuperview()
             }
         }
 
@@ -129,6 +142,6 @@ class ProfileElementView<I: ListableItem>: TappableView {
     private func updateUI() {
         selectedView.alpha = isActive ? 1 : 0
         lineView.alpha = isActive ? 0 : 1
-        deleteButton.alpha = isVisibleDeleteButton ? 1 : 0
+        deleteZoneView.alpha = isVisibleDeleteButton ? 1 : 0
     }
 }

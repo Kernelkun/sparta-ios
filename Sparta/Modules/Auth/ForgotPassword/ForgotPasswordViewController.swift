@@ -27,7 +27,7 @@ protocol ForgotPasswordViewCoordinatorDelegate: AnyObject {
     func forgotPasswordViewControllerDidTapLogin(_ controller: ForgotPasswordViewController)
 }
 
-class ForgotPasswordViewController: BaseVMViewController<ForgotPasswordViewModel> {
+class ForgotPasswordViewController: BaseViewController {
 
     // MARK: - Public properties
 
@@ -37,14 +37,49 @@ class ForgotPasswordViewController: BaseVMViewController<ForgotPasswordViewModel
 
     private var loginField: RoundedTextField!
     private var signInButton: BorderedButton!
-    private var logoView: AvatarView!
+    private var logoView: UIImageView!
+
+    private let viewModel: ForgotPasswordViewModel
+    private let loginState: LoginStateModel?
+
+    // MARK: - Initializers
+
+    init(loginState: LoginStateModel? = nil) {
+        self.loginState = loginState
+        self.viewModel = ForgotPasswordViewModel()
+
+        super.init(nibName: nil, bundle: nil)
+
+        viewModel.delegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("ForgotPasswordViewController")
+    }
 
     // MARK: - Lifecycle
+
+    override func loadView() {
+        view = UIImageView().then { view in
+
+            view.image = UIImage(named: "sign_in_background")
+            view.contentMode = .scaleToFill
+            view.isUserInteractionEnabled = true
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIView.setAnimationsEnabled(false)
+        loginField?.textField.becomeFirstResponder()
+        UIView.setAnimationsEnabled(true)
     }
 
     //
@@ -83,22 +118,11 @@ class ForgotPasswordViewController: BaseVMViewController<ForgotPasswordViewModel
     // MARK: - Private methods
 
     private func setupUI() {
+        logoView = UIImageView().then { imageView in
 
-        _ = UIImageView().then { view in
+            imageView.image = UIImage(named: "ic_applogo")
 
-            view.image = UIImage(named: "sign_in_background")
-            view.contentMode = .scaleToFill
-
-            addSubview(view) {
-                $0.edges.equalToSuperview()
-            }
-        }
-
-        logoView = AvatarView().then { view in
-
-            view.content = .image(UIImage(named: "ic_applogo")!)
-
-            addSubview(view) {
+            addSubview(imageView) {
                 $0.width.height.equalTo(150)
                 $0.top.equalToSuperview().offset(topBarHeight + UIForgotPasswordConstants.logoOffset)
                 $0.centerX.equalToSuperview()
@@ -107,13 +131,14 @@ class ForgotPasswordViewController: BaseVMViewController<ForgotPasswordViewModel
 
         loginField = RoundedTextField().then { field in
 
-            field.icon = UIImage(named: "ic_field_user")
-            field.placeholder = "Email"
-            field.backgroundColor = .authFieldBackground
-
             field.onTextChanged { [unowned self] text in
                 self.viewModel.loginText = text
             }
+
+            field.icon = UIImage(named: "ic_field_user")
+            field.placeholder = "Email"
+            field.backgroundColor = .authFieldBackground
+            field.textField.initialText = loginState?.emailText
 
             addSubview(field) {
                 $0.top.equalTo(logoView.snp.bottom).offset(UIForgotPasswordConstants.loginFieldOffset)
@@ -124,7 +149,7 @@ class ForgotPasswordViewController: BaseVMViewController<ForgotPasswordViewModel
 
         signInButton = BorderedButton(type: .system).then { button in
 
-            button.setTitle("Sign in", for: .normal)
+            button.setTitle("Recover password", for: .normal)
 
             button.onTap { [unowned self] _ in
                 self.viewModel.userTappedRecovery()

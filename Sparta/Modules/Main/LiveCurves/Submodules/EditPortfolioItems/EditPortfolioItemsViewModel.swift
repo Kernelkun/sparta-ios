@@ -36,7 +36,7 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
         }
     }
 
-    private let lcSyncManager = App.instance.liveCurvesSyncManager
+    private let liveCurvesSyncManager = App.instance.liveCurvesSyncManager
     private let networkManager = LiveCurvesNetworkManager()
 
     // MARK: - Public methods
@@ -50,7 +50,7 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
             if case let .success(responseModel) = result,
                let list = responseModel.model?.list {
 
-                if let selectedProfile = strongSelf.lcSyncManager.profile {
+                if let selectedProfile = strongSelf.liveCurvesSyncManager.profile {
                     strongSelf.selectedProfile = selectedProfile
                 }
 
@@ -75,10 +75,10 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
 
         profiles = profiles.filter { $0 != profile }
 
-        networkManager.deletePortfolio(id: profile.id, completion: { _ in })
+        liveCurvesSyncManager.removeProfile(profile)
 
-        if let firstProfile = profiles.first {
-            selectedProfile = firstProfile
+        if let selectedProfile = liveCurvesSyncManager.profile {
+            self.selectedProfile = selectedProfile
         }
 
         onMainThread {

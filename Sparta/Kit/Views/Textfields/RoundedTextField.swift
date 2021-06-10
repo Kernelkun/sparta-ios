@@ -74,7 +74,9 @@ class RoundedTextField: UIView {
     var popupSource: UIViewController?
 
     func onTextChanged(completion: @escaping StringClosure) {
-        textField.onChanged { [unowned self] in completion(self.textField.text ?? "") }
+        textField.onChanged { [unowned self] in
+            completion(self.textField.text ?? "")
+        }
     }
 
     override func becomeFirstResponder() -> Bool {

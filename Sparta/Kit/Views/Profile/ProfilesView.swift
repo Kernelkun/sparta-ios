@@ -169,6 +169,7 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
                 view.onTap { [unowned self] view in
                     guard let view = view as? ProfileElementView<I> else { return }
 
+                    self.scrollContentView.bringSubviewToFront(view)
                     self.selectedProfile = view.profile
                     self.updateElementsUI()
                     self._onChooseProfileClosure?(view.profile)

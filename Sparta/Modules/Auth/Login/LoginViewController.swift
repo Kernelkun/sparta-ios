@@ -24,7 +24,7 @@ enum UILoginConstants {
 
 protocol LoginViewCoordinatorDelegate: AnyObject {
     func loginViewControllerDidFinish(_ controller: LoginViewController)
-    func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController)
+    func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController, state: LoginStateModel)
 }
 
 class LoginViewController: BaseVMViewController<LoginViewModel> {
@@ -38,9 +38,18 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
     private var loginField: RoundedTextField!
     private var passwordField: RoundedTextField!
     private var signInButton: BorderedButton!
-    private var logoView: AvatarView!
+    private var logoView: UIImageView!
 
     // MARK: - Lifecycle
+
+    override func loadView() {
+        view = UIImageView().then { view in
+
+            view.image = UIImage(named: "sign_in_background")
+            view.contentMode = .scaleToFill
+            view.isUserInteractionEnabled = true
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,21 +102,11 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
     private func setupUI() {
 
-        _ = UIImageView().then { view in
+        logoView = UIImageView().then { imageView in
 
-            view.image = UIImage(named: "sign_in_background")
-            view.contentMode = .scaleToFill
+            imageView.image = UIImage(named: "ic_applogo")
 
-            addSubview(view) {
-                $0.edges.equalToSuperview()
-            }
-        }
-
-        logoView = AvatarView().then { view in
-
-            view.content = .image(UIImage(named: "ic_applogo")!)
-
-            addSubview(view) {
+            addSubview(imageView) {
                 $0.width.height.equalTo(150)
                 $0.top.equalToSuperview().offset(topBarHeight + UILoginConstants.logoOffset)
                 $0.centerX.equalToSuperview()
@@ -174,7 +173,8 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
             button.setTitleColor(.primaryText, for: .normal)
 
             button.onTap { [unowned self] _ in
-                self.coordinatorDelegate?.loginViewControllerDidChooseForgotPassword(self)
+                let loginState: LoginStateModel = .init(emailText: loginField.textField.text)
+                self.coordinatorDelegate?.loginViewControllerDidChooseForgotPassword(self, state: loginState)
             }
 
             addSubview(button) {

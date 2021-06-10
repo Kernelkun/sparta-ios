@@ -53,12 +53,10 @@ class AuthenticationFlowCoordinator: Coordinator {
     private func setupNavigationControllerIfNeeded(rootViewController: UIViewController) {
         guard navigationController == nil else { return }
 
-        navigationController = UINavigationController(rootViewController: rootViewController).then { nc in
+        navigationController = UINavigationController(rootViewController: rootViewController).then { navigationVC in
 
-//            Router.instance.navigationViewController = nc
-
-            nc.interactivePopGestureRecognizer?.isEnabled = true
-            nc.isNavigationBarHidden = true
+            navigationVC.interactivePopGestureRecognizer?.isEnabled = true
+            navigationVC.isNavigationBarHidden = true
         }
     }
 }
@@ -96,8 +94,8 @@ extension AuthenticationFlowCoordinator: LoginViewCoordinatorDelegate {
         appCoordinator.start()
     }
 
-    func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController) {
-        let vc = ForgotPasswordViewController()
+    func loginViewControllerDidChooseForgotPassword(_ controller: LoginViewController, state: LoginStateModel) {
+        let vc = ForgotPasswordViewController(loginState: state)
         vc.coordinatorDelegate = self
 
         navigationController?.pushViewController(vc, animated: true)

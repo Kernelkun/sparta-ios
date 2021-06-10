@@ -34,6 +34,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
 
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationItem.backButtonTitle = "Back"
         
         setupUI()
 

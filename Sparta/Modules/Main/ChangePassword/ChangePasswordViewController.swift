@@ -93,7 +93,6 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
     // MARK: - Private methods
 
     private func setupUI() {
-
         title = "Change password"
 
         contentScrollView = UIScrollView().then { scrollView in
