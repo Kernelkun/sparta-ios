@@ -11,7 +11,7 @@ import SwiftyJSON
 import NetworkingModels
 import SpartaHelpers
 
-protocol FreightResultViewModelDelegate: class {
+protocol FreightResultViewModelDelegate: AnyObject {
     func didChangeLoadingState(_ isLoading: Bool)
     func didCatchAnError(_ error: String)
     func didUpdateMonthsInformation()
@@ -34,6 +34,10 @@ class FreightResultViewModel: NSObject, BaseViewModel {
 
     var formattedMonthTitle: String {
         calculator.inputData.month.formattedString(AppFormatter.fullMonthAndYear)
+    }
+
+    var monthsCount: Int {
+        calculator.monthsCount
     }
 
     // MARK: - Private properties
@@ -60,6 +64,12 @@ class FreightResultViewModel: NSObject, BaseViewModel {
 
     func switchToNextMonth() {
         calculator.switchToNextMonth()
+        delegate?.didUpdateMonthsInformation()
+        calculator.calculate()
+    }
+
+    func switchToMonth(at index: Int) {
+        calculator.switchToMonth(at: index)
         delegate?.didUpdateMonthsInformation()
         calculator.calculate()
     }

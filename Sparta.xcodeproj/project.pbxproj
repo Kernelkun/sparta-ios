@@ -156,6 +156,7 @@
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
 		D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */; };
 		D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1126723C20001B1924 /* UISliderViewController.swift */; };
+		D9C71C1A26734C76001B1924 /* FreightResultPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1926734C76001B1924 /* FreightResultPageViewController.swift */; };
 		D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D170D32587880F0059A1F1 /* LineButtonView.swift */; };
 		D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */; };
 		D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */; };
@@ -326,6 +327,7 @@
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailPageViewController.swift; sourceTree = "<group>"; };
 		D9C71C1126723C20001B1924 /* UISliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISliderViewController.swift; sourceTree = "<group>"; };
+		D9C71C1926734C76001B1924 /* FreightResultPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultPageViewController.swift; sourceTree = "<group>"; };
 		D9D170D32587880F0059A1F1 /* LineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineButtonView.swift; sourceTree = "<group>"; };
 		D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewController.swift; sourceTree = "<group>"; };
 		D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewModel.swift; sourceTree = "<group>"; };
@@ -917,6 +919,7 @@
 		D9A91CB125A9A7F400423704 /* Result */ = {
 			isa = PBXGroup;
 			children = (
+				D9C71C1826734C48001B1924 /* Childs */,
 				D9A91CB625A9A95D00423704 /* Helpers */,
 				D9A91CB425A9A81500423704 /* FreightResultViewModel.swift */,
 				D9A91CB225A9A80B00423704 /* FreightResultViewController.swift */,
@@ -1132,6 +1135,14 @@
 			isa = PBXGroup;
 			children = (
 				D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */,
+			);
+			path = Childs;
+			sourceTree = "<group>";
+		};
+		D9C71C1826734C48001B1924 /* Childs */ = {
+			isa = PBXGroup;
+			children = (
+				D9C71C1926734C76001B1924 /* FreightResultPageViewController.swift */,
 			);
 			path = Childs;
 			sourceTree = "<group>";
@@ -1452,6 +1463,7 @@
 				D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
 				D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */,
+				D9C71C1A26734C76001B1924 /* FreightResultPageViewController.swift in Sources */,
 				D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,

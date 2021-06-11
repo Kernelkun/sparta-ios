@@ -12,13 +12,8 @@ class FreightResultViewController: BaseViewController {
 
     // MARK: - UI
 
-    private var contentScrollView: UIScrollView!
     private var monthSelector: FreightResultMonthSelector!
-    private var mainBlock: LoaderView!
-    private var mainTopStackView: UIStackView!
-    private var mainBottomStackView: UIStackView!
-
-    private let loaderDelay = DelayObject(delayInterval: 0.1)
+    private var contentPageVC: UISliderViewController<FreightResultPageViewController>!
 
     // MARK: - Private properties
 
@@ -68,83 +63,40 @@ class FreightResultViewController: BaseViewController {
     }
 
     private func setupUI() {
-
-        contentScrollView = UIScrollView().then { scrollView in
-
-            scrollView.showsVerticalScrollIndicator = false
-
-            addSubview(scrollView) {
-                $0.top.equalToSuperview().offset(topBarHeight)
-                $0.left.bottom.right.equalToSuperview()
-            }
-        }
-
-        let scrollViewContent = UIView().then { view in
-
-            view.backgroundColor = .clear
-
-            contentScrollView.addSubview(view) {
-                $0.left.top.right.equalToSuperview()
-                $0.bottom.lessThanOrEqualToSuperview().priority(.high)
-                $0.centerX.equalToSuperview()
-            }
-        }
-
         monthSelector = FreightResultMonthSelector().then { view in
 
             view.backgroundColor = .clear
             view.delegate = self
 
-            scrollViewContent.addSubview(view) {
-                $0.top.equalToSuperview()
+            addSubview(view) {
+                $0.top.equalToSuperview().offset(topBarHeight)
                 $0.left.right.equalToSuperview().inset(24)
                 $0.height.equalTo(45)
             }
         }
 
-        // main block view
-
-        setupMainBlock(in: scrollViewContent, topAlignView: monthSelector)
+        setupPageController()
     }
 
-    private func setupMainBlock(in contentView: UIView, topAlignView: UIView) {
+    private func setupPageController() {
+        let contentView = UIView().then { view in
 
-        mainBlock = LoaderView().then { view in
-
-            view.backgroundColor = .barBackground
-            view.layer.cornerRadius = 8
-            view.layer.masksToBounds = true
-
-            mainTopStackView = UIStackView().then { stackView in
-
-                stackView.axis = .vertical
-                stackView.distribution = .equalSpacing
-                stackView.spacing = 9
-                stackView.alignment = .fill
-
-                view.addSubview(stackView) {
-                    $0.left.top.right.equalToSuperview().inset(8)
-                }
+            addSubview(view) {
+                $0.left.right.bottom.equalToSuperview()
+                $0.top.equalTo(monthSelector.snp.bottom)
             }
+        }
 
-            mainBottomStackView = UIStackView().then { stackView in
+        var controllers: [FreightResultPageViewController] = []
+        for _ in 0..<viewModel.monthsCount {
+            controllers.append(FreightResultPageViewController())
+        }
 
-                stackView.axis = .vertical
-                stackView.distribution = .equalSpacing
-                stackView.spacing = 9
-                stackView.alignment = .fill
+        contentPageVC = UISliderViewController(controllers: controllers).then { sliderViewController in
 
-                view.addSubview(stackView) {
-                    $0.left.bottom.right.equalToSuperview().inset(8)
-                    $0.top.equalTo(mainTopStackView.snp.bottom).offset(18)
-                }
-            }
+            sliderViewController.coordinatorDelegate = self
 
-            contentView.addSubview(view) {
-                $0.top.equalTo(topAlignView.snp.bottom).offset(8)
-                $0.left.right.equalTo(topAlignView)
-                $0.bottom.equalToSuperview()
-            }
+            add(sliderViewController, to: contentView)
         }
     }
 }
@@ -153,25 +105,23 @@ extension FreightResultViewController: FreightResultViewModelDelegate {
 
     func didChangeLoadingState(_ isLoading: Bool) {
         if isLoading {
-            loaderDelay.addOperation { [weak self] in
+            contentPageVC.selectedController.loaderDelay.addOperation { [weak self] in
                 guard let strongSelf = self else { return }
 
-                strongSelf.mainBlock.startAnimating()
-            }
+                strongSelf.contentPageVC.selectedController.mainBlock.startAnimating()
+            } 
         } else {
-            mainBlock.stopAnimating()
-            loaderDelay.stopAllOperations()
+            contentPageVC.selectedController.mainBlock.stopAnimating()
+            contentPageVC.selectedController.loaderDelay.stopAllOperations()
         }
     }
 
     func didCatchAnError(_ error: String) {
-
     }
 
     func didFinishCalculations(_ calculatedTypes: [FreightCalculator.CalculatedType]) {
-
-        mainTopStackView.removeAllSubviews()
-        mainBottomStackView.removeAllSubviews()
+        contentPageVC.selectedController.mainTopStackView.removeAllSubviews()
+        contentPageVC.selectedController.mainBottomStackView.removeAllSubviews()
 
         calculatedTypes.forEach { type in
 
@@ -180,31 +130,31 @@ extension FreightResultViewController: FreightResultViewModelDelegate {
             switch type {
             case .journeyDistance(let value):
                 view.apply(key: "Journey Distance", value: value)
-                mainBottomStackView.addArrangedSubview(view)
+                contentPageVC.selectedController.mainBottomStackView.addArrangedSubview(view)
 
             case .journeyTime(let value):
                 view.apply(key: "Journey Time", value: value)
-                mainBottomStackView.addArrangedSubview(view)
+                contentPageVC.selectedController.mainBottomStackView.addArrangedSubview(view)
 
             case .route(let title, let value):
                 view.apply(key: title, value: value)
-                mainTopStackView.addArrangedSubview(view)
+                contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
 
             case .rate(let value):
                 view.apply(key: "Rate", value: value)
-                mainTopStackView.addArrangedSubview(view)
+                contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
 
             case .cpBasis(let value):
                 view.apply(key: "Basis", value: value)
-                mainTopStackView.addArrangedSubview(view)
+                contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
 
             case .marketCondition(let value):
                 view.apply(key: "Market Condition", value: value)
-                mainTopStackView.addArrangedSubview(view)
+                contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
 
             case .overage(let value):
                 view.apply(key: "Overage", value: value)
-                mainTopStackView.addArrangedSubview(view)
+                contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
             }
 
             view.snp.makeConstraints {
@@ -220,13 +170,20 @@ extension FreightResultViewController: FreightResultViewModelDelegate {
     }
 }
 
+extension FreightResultViewController: UISliderViewControllerDelegate {
+
+    func uiSliderViewControllerDidShowController(at index: Int) {
+        viewModel.switchToMonth(at: index)
+    }
+}
+
 extension FreightResultViewController: FreightResultMonthSelectorDelegate {
 
     func freightResultMonthSelectorDidTapLeftButton(view: FreightResultMonthSelector) {
-        viewModel.switchToPrevMonth()
+        contentPageVC.showPrevious()
     }
 
     func freightResultMonthSelectorDidTapRightButton(view: FreightResultMonthSelector) {
-        viewModel.switchToNextMonth()
+        contentPageVC.showNext()
     }
 }
