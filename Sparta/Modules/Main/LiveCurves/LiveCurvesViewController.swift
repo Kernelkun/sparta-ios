@@ -19,6 +19,8 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
     // MARK: - Private properties
 
+    private let pageConfigurator = LiveCurvesPageConfigurator()
+
     // MARK: - Initializers
 
     override func loadView() {
@@ -143,7 +145,11 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     }
 
     private func showPortfolioAddItemsScreen() {
-        navigationController?.pushViewController(LCPortfolioAddItemViewController(nibName: nil, bundle: nil), animated: true)
+        let viewController = LCPortfolioAddItemViewController(nibName: nil, bundle: nil)
+        viewController.onAddItem { [unowned self] in
+            pageConfigurator.needToScrollBottom = true
+        }
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -214,7 +220,13 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
     }
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates) { [unowned self] in
+
+            if pageConfigurator.needToScrollBottom {
+                gridView.scrollToBottom()
+                pageConfigurator.needToScrollBottom = false
+            }
+        }
     }
 
     func didReceiveProfilesInfo(profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {

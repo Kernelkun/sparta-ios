@@ -14,8 +14,9 @@ class LCPortfolioAddItemViewController: BaseTableVMViewController<LCPortfolioAdd
     // MARK: - Private properties
 
     private let searchDelay = DelayObject(delayInterval: 0.5)
-
     private var searchController: UISearchController!
+
+    private var _onAddItemClosure: EmptyClosure?
 
     // MARK: - Lifecycle
 
@@ -29,6 +30,12 @@ class LCPortfolioAddItemViewController: BaseTableVMViewController<LCPortfolioAdd
         // view model
 
         viewModel.loadData()
+    }
+
+    // MARK: - Public methods
+
+    func onAddItem(completion: @escaping EmptyClosure) {
+        _onAddItemClosure = completion
     }
 
     // MARK: - Private methods
@@ -178,6 +185,7 @@ extension LCPortfolioAddItemViewController: LCPortfolioAddItemViewModelDelegate 
     }
 
     func didSuccessAddItem() {
+        _onAddItemClosure?()
         navigationController?.popViewController(animated: true)
     }
 }

@@ -126,6 +126,12 @@ class GridView: UIView {
         contentView.contentCollectionGridLayout.cellHeights = heights
     }
 
+    func scrollToBottom() {
+//        let yOffset = contentView.contentCollectionGridLayout.cellHeights.reduce(0, +)
+        contentCollectionView.scrollToBottom()
+        gradesCollectionView.scrollToBottom()
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
