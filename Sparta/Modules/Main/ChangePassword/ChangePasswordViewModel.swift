@@ -145,7 +145,7 @@ extension ChangePasswordViewModel {
 
         guard newPasswordString == reNewPasswordString  else {
             delegate?.didCatchAnError(
-                "Passwords is not equal. Please enter again."
+                "New password and repeat password must match"
             )
             return
         }

@@ -19,15 +19,25 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
     // MARK: - Private properties
 
+    private let pageConfigurator = LiveCurvesPageConfigurator()
+
     // MARK: - Initializers
 
     override func loadView() {
+
+        let emptyView = EmptyStateView(titleText: "This portfolio is empty", buttonText: "Add product")
+        emptyView.onButtonTap { [unowned self] in
+            self.showPortfolioAddItemsScreen()
+        }
+
         let gridContructor = GridView.GridViewConstructor(rowsCount: viewModel.presentationStyle.rowsCount,
                                                           gradeHeight: 30,
                                                           collectionColumnWidth: 70,
-                                                          tableColumnWidth: 130)
+                                                          tableColumnWidth: 130,
+                                                          emptyView: emptyView)
 
-        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: true)
+        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: true,
+                                                         isEditable: false)
 
         view = UIView().then { view in
 
@@ -39,12 +49,6 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
                 profilesView.onChooseAdd { [unowned self] in
                     navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
-                }
-
-                profilesView.onLongPressProfile { profile in
-                    UIActionSheetFactory.showDeletePortolioConfirmation(in: self) { [unowned self] in
-                        self.viewModel.removeProfile(profile)
-                    }
                 }
 
                 view.addSubview(profilesView) {
@@ -122,7 +126,7 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         navigationItem.title = nil
 
         let plusButton = UIBarButtonItemFactory.plusButton { [unowned self] _ in
-            navigationController?.pushViewController(LCPortfolioAddItemViewController(nibName: nil, bundle: nil), animated: true)
+            self.showPortfolioAddItemsScreen()
         }
 
         let isActivePeriodButton = viewModel.presentationStyle == .quartersAndYears
@@ -138,6 +142,14 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 25),
                                               periodButton, UIBarButtonItemFactory.fixedSpace(space: 25),
                                               plusButton]
+    }
+
+    private func showPortfolioAddItemsScreen() {
+        let viewController = LCPortfolioAddItemViewController(nibName: nil, bundle: nil)
+        viewController.onAddItem { [unowned self] in
+            pageConfigurator.needToScrollBottom = true
+        }
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -208,7 +220,13 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
     }
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
-        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
+        gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates) { [unowned self] in
+
+            if pageConfigurator.needToScrollBottom {
+                gridView.scrollToBottom()
+                pageConfigurator.needToScrollBottom = false
+            }
+        }
     }
 
     func didReceiveProfilesInfo(profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {

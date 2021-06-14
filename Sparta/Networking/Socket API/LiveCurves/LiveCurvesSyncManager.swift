@@ -40,6 +40,9 @@ protocol LiveCurvesSyncManagerProtocol {
     /// Change profile setting
     func setProfile(_ profile: LiveCurveProfileCategory)
 
+    /// Add profile to list. This method will not send request to server.
+    func addProfile(_ profile: LiveCurveProfileCategory, makeActive: Bool)
+
     /// Remove specific profile
     func removeProfile(_ profile: LiveCurveProfileCategory)
 }
@@ -140,8 +143,24 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
         updateLiveCurves(for: profile)
     }
 
+    func addProfile(_ profile: LiveCurveProfileCategory, makeActive: Bool) {
+        _profiles.append(profile)
+
+        if makeActive {
+            setProfile(profile)
+        }
+    }
+
     func removeProfile(_ profile: LiveCurveProfileCategory) {
         guard _profiles.count > 1 else { return }
+
+        if let indexOfSelectedPortfolio = _profiles.index(where: { $0 == profile }) {
+            let newIndex = indexOfSelectedPortfolio - 1
+
+            if newIndex >= 0 {
+                self.profile = _profiles[newIndex]
+            }
+        }
 
         _profiles = SynchronizedArray(_profiles.filter { $0 != profile })
 

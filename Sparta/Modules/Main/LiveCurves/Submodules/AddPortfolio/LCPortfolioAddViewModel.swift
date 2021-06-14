@@ -34,6 +34,7 @@ class LCPortfolioAddViewModel: NSObject, BaseViewModel {
         }
     }
 
+    private let liveCurvesSyncManager = App.instance.liveCurvesSyncManager
     private let lcNetworkManager = LiveCurvesNetworkManager()
 
     // MARK: - Public methods
@@ -49,7 +50,11 @@ class LCPortfolioAddViewModel: NSObject, BaseViewModel {
         lcNetworkManager.createPortfolio(name: name) { [weak self] result in
             guard let strongSelf = self else { return }
 
-            if case let .success(responseModel) = result, responseModel.model != nil {
+            if case let .success(responseModel) = result,
+               let profile = responseModel.model {
+
+                strongSelf.liveCurvesSyncManager.addProfile(profile, makeActive: true)
+
                 onMainThread {
                     strongSelf.delegate?.didSuccessCreatePortfolio()
                 }

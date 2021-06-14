@@ -35,7 +35,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
     // MARK: - Private properties
 
-    private let liveCurvesSyncManager = App.instance.liveCurvesSyncManager
+    private var liveCurvesSyncManager = App.instance.liveCurvesSyncManager
     private var fetchedLiveCurves: [LiveCurve] = []
 
     // MARK: - Public methods
@@ -57,10 +57,6 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
     func changeProfile(_ profile: LiveCurveProfileCategory) {
         liveCurvesSyncManager.setProfile(profile)
-    }
-
-    func removeProfile(_ profile: LiveCurveProfileCategory) {
-        liveCurvesSyncManager.removeProfile(profile)
     }
 
     func togglePresentationStyle() {

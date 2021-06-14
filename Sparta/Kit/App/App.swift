@@ -29,7 +29,7 @@ class App {
     // sockets managers
 
     let blenderSyncManager: BlenderSyncManager
-    let liveCurvesSyncManager: LiveCurvesSyncManager
+    let liveCurvesSyncManager: LiveCurvesSyncManagerProtocol
     let arbsSyncManager: ArbsSyncManager
     let sockets: SocketAPI
     

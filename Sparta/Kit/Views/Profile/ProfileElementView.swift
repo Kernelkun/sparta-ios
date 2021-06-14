@@ -19,6 +19,12 @@ class ProfileElementView<I: ListableItem>: TappableView {
         }
     }
 
+    var isVisibleDeleteButton: Bool {
+        didSet {
+            updateUI()
+        }
+    }
+
     let profile: I
 
     // MARK: - Private properties
@@ -26,14 +32,16 @@ class ProfileElementView<I: ListableItem>: TappableView {
     private var selectedView: UIView!
     private var titleLabel: UIView!
     private var lineView: UIView!
+    private var deleteZoneView: TappableView!
 
-    private var _onLongPressClosure: TypeClosure<I>?
+    private var _onRemoveClosure: TypeClosure<I>?
 
     // MARK: - Initializers
 
     init(profile: I) {
         self.profile = profile
         isActive = false
+        isVisibleDeleteButton = false
 
         super.init(frame: .zero)
 
@@ -54,8 +62,8 @@ class ProfileElementView<I: ListableItem>: TappableView {
         lineView.isHidden = true
     }
 
-    func onLongPress(completion: @escaping TypeClosure<I>) {
-        _onLongPressClosure = completion
+    func onRemove(completion: @escaping TypeClosure<I>) {
+        _onRemoveClosure = completion
     }
 
     // MARK: - Private methods
@@ -99,23 +107,41 @@ class ProfileElementView<I: ListableItem>: TappableView {
             }
         }
 
-        // gestures
+        deleteZoneView = TappableView().then { view in
 
-        addGestures()
+            view.backgroundColor = .clear
+            view.onTap { [unowned self] _ in
+                self._onRemoveClosure?(self.profile)
+            }
+
+            let sideSize = 21.5
+
+            _ = UIImageView().then { imageView in
+
+                imageView.image = UIImage(named: "ic_remove")
+                imageView.isUserInteractionEnabled = true
+
+                view.addSubview(imageView) {
+                    $0.top.equalToSuperview()
+                    $0.right.equalToSuperview()
+                    $0.size.equalTo(sideSize)
+                }
+            }
+
+            addSubview(view) {
+                $0.top.equalToSuperview().offset(-(sideSize / 2.6))
+                $0.right.equalToSuperview().offset(sideSize / 2.6)
+                $0.width.equalTo(sideSize + 6)
+                $0.bottom.equalToSuperview()
+            }
+        }
+
+        updateUI()
     }
 
     private func updateUI() {
         selectedView.alpha = isActive ? 1 : 0
         lineView.alpha = isActive ? 0 : 1
-    }
-
-    private func addGestures() {
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressEvent))
-        addGestureRecognizer(longPressGesture)
-    }
-
-    @objc
-    private func longPressEvent() {
-        _onLongPressClosure?(profile)
+        deleteZoneView.alpha = isVisibleDeleteButton ? 1 : 0
     }
 }

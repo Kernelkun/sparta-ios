@@ -107,12 +107,19 @@ class EditPortfolioItemsViewController: BaseTableVMViewController<EditPortfolioI
     }
 
     private func configureHeaderView() -> ProfilesView<LiveCurveProfileCategory> {
-        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: false)
+        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: false,
+                                                         isEditable: true)
 
         return ProfilesView(constructor: profilesContructor).then { profilesView in
 
             profilesView.onChooseProfile { [unowned self] profile in
                 self.viewModel.changeProfile(profile)
+            }
+
+            profilesView.onRemoveProfile { profile in
+                UIActionSheetFactory.showDeletePortolioConfirmation(in: self) { [unowned self] in
+                    self.viewModel.delete(profile: profile)
+                }
             }
 
             profilesView.onChooseAdd { [unowned self] in

@@ -21,7 +21,8 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         let constructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
                                                        gradeHeight: 50,
                                                        collectionColumnWidth: 70,
-                                                       tableColumnWidth: 160)
+                                                       tableColumnWidth: 160,
+                                                       emptyView: UIView())
 
         gridView = GridView(constructor: constructor)
         view = gridView

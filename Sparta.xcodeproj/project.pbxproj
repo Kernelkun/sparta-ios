@@ -75,6 +75,7 @@
 		D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */; };
 		D98AF6E525BB02D700A5BC96 /* CoreStore in Frameworks */ = {isa = PBXBuildFile; productRef = D98AF6E425BB02D700A5BC96 /* CoreStore */; };
 		D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */; };
+		D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99624CB266E6CDE001CD262 /* EmptyStateView.swift */; };
 		D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */; };
 		D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */; };
 		D99ACC3125AF8210007DAB6D /* LiveChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC3025AF8210007DAB6D /* LiveChartsViewModel.swift */; };
@@ -153,6 +154,10 @@
 		D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB53B1256EFC6500AD2D1A /* KeychainAccess */; };
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
+		D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */; };
+		D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1126723C20001B1924 /* UISliderViewController.swift */; };
+		D9C71C1A26734C76001B1924 /* FreightResultPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1926734C76001B1924 /* FreightResultPageViewController.swift */; };
+		D9C71C1C26735EB5001B1924 /* LiveCurvesPageConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1B26735EB5001B1924 /* LiveCurvesPageConfigurator.swift */; };
 		D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D170D32587880F0059A1F1 /* LineButtonView.swift */; };
 		D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */; };
 		D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */; };
@@ -162,6 +167,7 @@
 		D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */; };
 		D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */; };
 		D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */; };
+		D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */; };
 		D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */; };
 		D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */; };
 		D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */; };
@@ -242,6 +248,7 @@
 		D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedButton.swift; sourceTree = "<group>"; };
 		D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsViewModel+Models.swift"; sourceTree = "<group>"; };
 		D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbTappableCell.swift; sourceTree = "<group>"; };
+		D99624CB266E6CDE001CD262 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManager.swift; sourceTree = "<group>"; };
 		D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewController.swift; sourceTree = "<group>"; };
 		D99ACC3025AF8210007DAB6D /* LiveChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewModel.swift; sourceTree = "<group>"; };
@@ -319,6 +326,10 @@
 		D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailPageViewController.swift; sourceTree = "<group>"; };
+		D9C71C1126723C20001B1924 /* UISliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISliderViewController.swift; sourceTree = "<group>"; };
+		D9C71C1926734C76001B1924 /* FreightResultPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultPageViewController.swift; sourceTree = "<group>"; };
+		D9C71C1B26735EB5001B1924 /* LiveCurvesPageConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesPageConfigurator.swift; sourceTree = "<group>"; };
 		D9D170D32587880F0059A1F1 /* LineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineButtonView.swift; sourceTree = "<group>"; };
 		D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewController.swift; sourceTree = "<group>"; };
 		D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewModel.swift; sourceTree = "<group>"; };
@@ -328,6 +339,7 @@
 		D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesEndPoint.swift; sourceTree = "<group>"; };
 		D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesNetworkManager.swift; sourceTree = "<group>"; };
 		D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPortfolioAddItemViewModel+Models.swift"; sourceTree = "<group>"; };
+		D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStateModel.swift; sourceTree = "<group>"; };
 		D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderSyncManager.swift; sourceTree = "<group>"; };
 		D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthDetailModel.swift; sourceTree = "<group>"; };
 		D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -525,6 +537,7 @@
 				D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */,
 				D959C0E925822D12006CE2D1 /* LiveCurvesViewModel.swift */,
 				D959C0E625822D09006CE2D1 /* LiveCurvesViewController.swift */,
+				D9C71C1B26735EB5001B1924 /* LiveCurvesPageConfigurator.swift */,
 			);
 			path = LiveCurves;
 			sourceTree = "<group>";
@@ -649,6 +662,7 @@
 			children = (
 				D97895E12583785B009E4A56 /* CountryCodeModel.swift */,
 				D97895E32583B800009E4A56 /* PickerIdValued.swift */,
+				D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */,
 				D9B7CCD225C1C4F10023FDF2 /* ArbMonth */,
 			);
 			path = Models;
@@ -704,6 +718,7 @@
 		D98AF6BD25BA197900A5BC96 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				D9C71C0E26722318001B1924 /* Childs */,
 				D977B3A125C330CF009A9483 /* Helpers */,
 				D98AF6C225BA199500A5BC96 /* ArbDetailViewModel.swift */,
 				D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */,
@@ -789,6 +804,7 @@
 				D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */,
 				D9A91CBE25AC691C00423704 /* LoaderView.swift */,
 				D9B7CCD825C1C9590023FDF2 /* ProgressView.swift */,
+				D99624CB266E6CDE001CD262 /* EmptyStateView.swift */,
 				D9A8042C25714595000ADE6B /* Buttons */,
 				D9B50E2525740F810018F3D7 /* Textfields */,
 				D944CEF82577B884009115FD /* Collection */,
@@ -906,6 +922,7 @@
 		D9A91CB125A9A7F400423704 /* Result */ = {
 			isa = PBXGroup;
 			children = (
+				D9C71C1826734C48001B1924 /* Childs */,
 				D9A91CB625A9A95D00423704 /* Helpers */,
 				D9A91CB425A9A81500423704 /* FreightResultViewModel.swift */,
 				D9A91CB225A9A80B00423704 /* FreightResultViewController.swift */,
@@ -1008,6 +1025,7 @@
 			children = (
 				D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */,
 				D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */,
+				D9C71C1126723C20001B1924 /* UISliderViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1114,6 +1132,22 @@
 				D9264BE02574F0D9001477DA /* ForgotPassword */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		D9C71C0E26722318001B1924 /* Childs */ = {
+			isa = PBXGroup;
+			children = (
+				D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */,
+			);
+			path = Childs;
+			sourceTree = "<group>";
+		};
+		D9C71C1826734C48001B1924 /* Childs */ = {
+			isa = PBXGroup;
+			children = (
+				D9C71C1926734C76001B1924 /* FreightResultPageViewController.swift */,
+			);
+			path = Childs;
 			sourceTree = "<group>";
 		};
 		D9D170D2258788060059A1F1 /* Views */ = {
@@ -1371,6 +1405,7 @@
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
 				D9B7CCD425C1C53B0023FDF2 /* ArbMonth+Margin.swift in Sources */,
+				D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
 				D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */,
@@ -1381,6 +1416,7 @@
 				D93BC63D258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift in Sources */,
 				D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */,
 				D9B50E2725740F9B0018F3D7 /* RoundedTextField.swift in Sources */,
+				D9C71C1C26735EB5001B1924 /* LiveCurvesPageConfigurator.swift in Sources */,
 				D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
 				D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */,
@@ -1430,6 +1466,8 @@
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
 				D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
+				D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */,
+				D9C71C1A26734C76001B1924 /* FreightResultPageViewController.swift in Sources */,
 				D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
@@ -1465,6 +1503,7 @@
 				D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */,
 				D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */,
 				D9A91BFA25A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift in Sources */,
+				D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */,
 				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
 				D959C1002582307A006CE2D1 /* SettingsTitledTableViewCell.swift in Sources */,
 				D959C0F925822F9C006CE2D1 /* SettingsViewModel.swift in Sources */,
@@ -1485,6 +1524,7 @@
 				D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */,
 				D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */,
 				D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */,
+				D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */,
 				D9A91CB525A9A81500423704 /* FreightResultViewModel.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
@@ -1631,7 +1671,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1639,7 +1679,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Sources/Sparta-Bridging-Header.h";
@@ -1657,7 +1697,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1665,7 +1705,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Sources/Sparta-Bridging-Header.h";

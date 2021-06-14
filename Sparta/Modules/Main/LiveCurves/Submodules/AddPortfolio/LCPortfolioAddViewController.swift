@@ -81,6 +81,8 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
             field.placeholder = "Add a portfolio name"
+            field.textField.enterType = .charactersLimit(range: 0...AppFormatter.Restrictions.maxPortfolioNameLength,
+                                                         isNumeric: false)
 
             field.onTextChanged { [unowned self] text in
                 self.viewModel.selectedName = text

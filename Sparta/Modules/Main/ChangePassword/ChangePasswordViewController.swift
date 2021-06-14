@@ -93,7 +93,6 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
     // MARK: - Private methods
 
     private func setupUI() {
-
         title = "Change password"
 
         contentScrollView = UIScrollView().then { scrollView in
@@ -124,7 +123,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
         if state == .initial {
             topView = UILabel().then { label in
 
-                label.text = "The current password is a default password,\nplease change this password to a more\nsecure value"
+                label.text = "It seems this is the first time you log in. Please, change your password."
                 label.textColor = .accountMainText
                 label.font = .main(weight: .regular, size: 15)
                 label.numberOfLines = 0
