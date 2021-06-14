@@ -80,7 +80,6 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
 
     private func setupNavigationUI() {
         navigationItem.title = nil
-
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "ARBs")
     }
 }

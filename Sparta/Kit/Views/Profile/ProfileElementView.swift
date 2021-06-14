@@ -131,7 +131,7 @@ class ProfileElementView<I: ListableItem>: TappableView {
             addSubview(view) {
                 $0.top.equalToSuperview().offset(-(sideSize / 2.6))
                 $0.right.equalToSuperview().offset(sideSize / 2.6)
-                $0.width.equalTo(sideSize)
+                $0.width.equalTo(sideSize + 6)
                 $0.bottom.equalToSuperview()
             }
         }

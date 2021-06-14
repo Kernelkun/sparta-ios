@@ -154,13 +154,17 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
     func removeProfile(_ profile: LiveCurveProfileCategory) {
         guard _profiles.count > 1 else { return }
 
+        if let indexOfSelectedPortfolio = _profiles.index(where: { $0 == profile }) {
+            let newIndex = indexOfSelectedPortfolio - 1
+
+            if newIndex >= 0 {
+                self.profile = _profiles[newIndex]
+            }
+        }
+
         _profiles = SynchronizedArray(_profiles.filter { $0 != profile })
 
         networkManager.deletePortfolio(id: profile.id, completion: { _ in })
-
-        if self.profile == profile {
-            self.profile = _profiles.last
-        }
 
         updateProfiles()
     }

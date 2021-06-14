@@ -87,7 +87,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
         firstLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .right
+            label.textAlignment = .center
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -95,7 +95,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
         secondLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .right
+            label.textAlignment = .center
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -103,7 +103,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
         thirdLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .right
+            label.textAlignment = .center
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -111,7 +111,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
         fourthLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .right
+            label.textAlignment = .center
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -119,7 +119,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
         fifthLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .right
+            label.textAlignment = .center
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -127,7 +127,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
         sixLabel = KeyedLabel<String>().then { label in
 
-            label.textAlignment = .right
+            label.textAlignment = .center
             label.textColor = .tablePoint
             label.font = .main(weight: .regular, size: 13)
             label.isUserInteractionEnabled = true
@@ -143,7 +143,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             stackView.addArrangedSubview(sixLabel)
 
             stackView.axis = .vertical
-            stackView.alignment = .trailing
+            stackView.alignment = .center
             stackView.spacing = 4
             stackView.distribution = .equalSpacing
 

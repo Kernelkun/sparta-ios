@@ -25,7 +25,7 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
     override func loadView() {
 
-        let emptyView = EmptyStateView(titleText: "This portfolio is empty", buttonText: "Add Live Curves")
+        let emptyView = EmptyStateView(titleText: "This portfolio is empty", buttonText: "Add product")
         emptyView.onButtonTap { [unowned self] in
             self.showPortfolioAddItemsScreen()
         }

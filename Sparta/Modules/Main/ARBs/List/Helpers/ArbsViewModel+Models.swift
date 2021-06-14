@@ -16,7 +16,10 @@ extension ArbsViewModel {
         case info(arb: Arb)
 
         static var arb: Cell {
-            let title: NSString = "ARB"
+            let emptyString = "\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}"
+            let title: NSString = """
+                \(emptyString) \(emptyString) \(emptyString) \(emptyString) \(emptyString) \(emptyString)   ARB
+            """ as NSString
             let attributedString = NSMutableAttributedString(string: title as String)
 
             let paragraphStyle = NSMutableParagraphStyle()
@@ -43,21 +46,18 @@ extension ArbsViewModel {
             let attributedString = NSMutableAttributedString(string: title)
 
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .right
+            paragraphStyle.alignment = .center
 
             attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: (title as NSString).range(of: title))
             return .grade(attributedString: attributedString)
         }
+
         static var userMargin: Cell {
-            let emptyString = "\u{200B}"
-            let title: String =
-                """
-                My \(emptyString) \n\(emptyString)Margin \(emptyString)
-                """
+            let title: String = "My\nMargin"
             let attributedString = NSMutableAttributedString(string: title)
 
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .right
+            paragraphStyle.alignment = .center
 
             attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: (title as NSString).range(of: title))
             return .grade(attributedString: attributedString)
@@ -67,7 +67,7 @@ extension ArbsViewModel {
             let attributedString = NSMutableAttributedString(string: title as String)
 
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .right
+            paragraphStyle.alignment = .center
 
             attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: title.range(of: title as String))
 
