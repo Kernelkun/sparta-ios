@@ -126,6 +126,10 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         navigationItem.title = nil
 
         let plusButton = UIBarButtonItemFactory.plusButton { [unowned self] _ in
+            guard viewModel.isAbleToAddNewPortfolio else {
+                UIAlertFactory.showLCPortfoliosLimitReached(in: self)
+                return
+            }
             self.showPortfolioAddItemsScreen()
         }
 
