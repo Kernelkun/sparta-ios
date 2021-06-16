@@ -33,6 +33,11 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
 
+    var isAbleToAddNewPortfolio: Bool {
+        let liveCurvesCount = liveCurvesSyncManager.profile?.liveCurves.count ?? 0
+        return liveCurvesCount < AppFormatter.Restrictions.maxPortfolioItemsNumbers
+    }
+
     // MARK: - Private properties
 
     private var liveCurvesSyncManager = App.instance.liveCurvesSyncManager

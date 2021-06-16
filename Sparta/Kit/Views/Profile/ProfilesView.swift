@@ -227,7 +227,7 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
     private func scrollTo(view: UIView) {
         let scrollWidth = scrollView.frame.width
         let scrollHeight = scrollView.frame.height
-        let desiredXCoor = view.frame.origin.x - ((scrollWidth / 2) - (view.frame.width /*/ 2*/) )
+        let desiredXCoor = view.frame.origin.x - ((scrollWidth / 2) - (view.frame.width / 2) )
         let rect = CGRect(x: desiredXCoor, y: 0, width: scrollWidth, height: scrollHeight)
 
         scrollView.scrollRectToVisible(rect, animated: true)
