@@ -61,7 +61,7 @@ class SeasonalityButton: BiggerAreaButton {
             setBackgroundImage(UIImage(named: "ic_seasonality")?.withTintColor(.controlTintActive),
                                for: .normal)
         } else {
-            setBackgroundImage(UIImage(named: "ic_seasonality"),for: .normal)
+            setBackgroundImage(UIImage(named: "ic_seasonality"), for: .normal)
         }
     }
 
@@ -73,4 +73,3 @@ class SeasonalityButton: BiggerAreaButton {
         _tapEventClosure?(isActive)
     }
 }
-

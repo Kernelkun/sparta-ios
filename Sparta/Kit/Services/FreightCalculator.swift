@@ -20,7 +20,9 @@ class FreightCalculator {
     // MARK: - Public properties
 
     weak var delegate: FreightCalculatorDelegate?
-
+    var monthsCount: Int {
+        availableMonths.count
+    }
     private(set) var inputData: InputData
 
     // MARK: - Private properties
@@ -73,6 +75,10 @@ class FreightCalculator {
         let nextMonthIndex = availableMonths.index(after: currentMonthIndex)
 
         inputData.month = availableMonths[nextMonthIndex]
+    }
+
+    func switchToMonth(at index: Int) {
+        inputData.month = availableMonths[index]
     }
 
     func calculate() {

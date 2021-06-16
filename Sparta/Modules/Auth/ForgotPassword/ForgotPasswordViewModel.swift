@@ -7,8 +7,9 @@
 
 import Foundation
 import Networking
+import SpartaHelpers
 
-protocol ForgotPasswordViewModelDelegate: class {
+protocol ForgotPasswordViewModelDelegate: AnyObject {
     func didChangeSendingState(_ isSending: Bool)
     func cleanupInputErrors()
     func didCatchAnError(_ description: String)

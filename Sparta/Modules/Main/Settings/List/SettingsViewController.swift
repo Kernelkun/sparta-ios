@@ -79,7 +79,6 @@ class SettingsViewController: BaseVMViewController<SettingsViewModel> {
 
     private func setupNavigationUI() {
         navigationItem.title = nil
-        navigationItem.backButtonTitle = "Settings"
 
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Settings")
     }

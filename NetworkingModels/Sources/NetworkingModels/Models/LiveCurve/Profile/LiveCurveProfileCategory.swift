@@ -10,14 +10,19 @@ import Foundation
 import SwiftyJSON
 import SpartaHelpers
 
-public struct LiveCurveProfileCategory: BackendModel {
+public struct LiveCurveProfileCategory: BackendModel, ListableItem {
 
     //
     // MARK: - Public properties
 
     public let id: Int
     public let name: String
-    public let liveCurves: [LiveCurveProfileItem]
+    public var liveCurves: [LiveCurveProfileItem]
+
+    // MARK: - Listable Item
+
+    public var identifier: Int { id }
+    public var title: String { name }
 
     //
     // MARK: - Default Initializers

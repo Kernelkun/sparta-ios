@@ -7,6 +7,7 @@
 
 import Foundation
 import Networking
+import SpartaHelpers
 
 protocol LoginViewModelDelegate: AnyObject {
     func didChangeSendingState(_ isSending: Bool)
@@ -58,7 +59,6 @@ class LoginViewModel: NSObject, BaseViewModel {
                 App.instance.saveLoginData(model)
                 strongSelf.fetchProfile()
 
-
             case .failure(let error):
 
                 var errorText = "Something went wrong"
@@ -83,7 +83,7 @@ class LoginViewModel: NSObject, BaseViewModel {
             switch result {
             case .success(let responseModel) where responseModel.model != nil:
 
-                App.instance.saveUser(responseModel.model!) //swiftlint:disable:current force_unwrapping
+                App.instance.saveUser(responseModel.model!) //swiftlint:disable:this force_unwrapping
 
                 onMainThread {
                     strongSelf.isSending = false

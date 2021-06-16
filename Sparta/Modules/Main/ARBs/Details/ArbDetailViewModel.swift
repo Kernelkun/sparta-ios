@@ -91,6 +91,13 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
         delegate?.didLoadCells(loadCellsForSelectedMonth())
     }
 
+    func switchToMonth(at index: Int) {
+        guard arb.months.count > index else { return }
+
+        selectedArbMonth = arb.months[index]
+        delegate?.didLoadCells(loadCellsForSelectedMonth())
+    }
+
     func applyUserTarget(_ userTarget: String) {
         if let userTarget = userTarget.nullable?.toDouble {
             selectedArbMonth.dbProperties.saveUserTarget(value: userTarget)

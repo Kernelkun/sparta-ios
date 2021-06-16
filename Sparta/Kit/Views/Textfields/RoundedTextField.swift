@@ -8,7 +8,7 @@
 import UIKit
 import SpartaHelpers
 
-protocol RoundedTextFieldDelegate: class {
+protocol RoundedTextFieldDelegate: AnyObject {
     func roundedTextFieldDidBeginEditing(_ textField: RoundedTextField)
     func roundedTextFieldDidEndEditing(_ textField: RoundedTextField)
 }
@@ -74,7 +74,13 @@ class RoundedTextField: UIView {
     var popupSource: UIViewController?
 
     func onTextChanged(completion: @escaping StringClosure) {
-        textField.onChanged { [unowned self] in completion(self.textField.text ?? "") }
+        textField.onChanged { [unowned self] in
+            completion(self.textField.text ?? "")
+        }
+    }
+
+    override func becomeFirstResponder() -> Bool {
+        textField.becomeFirstResponder()
     }
 
     //

@@ -27,7 +27,15 @@ public struct LiveCurve: BackendModel {
     public let longName: String
 
     public var priceCode: String { name + monthCode }
+
     public var displayName: String { name }
+    public var displayPrice: String {
+        if isEmpty {
+            return "-"
+        } else {
+            return priceValue.symbols2Value
+        }
+    }
 
     public var indexOfMonth: Int? {
         if Self.months.contains(monthCode) {
@@ -39,8 +47,8 @@ public struct LiveCurve: BackendModel {
 
     public static var months: [String] {
         ["BOM", "M01", "M02", "M03", "M04", "M05",
-         /*"M06", "M07", "M08", "M09", "M10", "M11",*/
-         /*"M12", "M13", "M14", "M15", "M16"*/]
+         "M06", "M07", "M08", "M09", "M10", "M11",
+         "M12", "M13", "M14", "M15", "M16"]
     }
 
     public static var quartersAndYears: [String] {

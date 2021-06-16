@@ -33,9 +33,14 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
 
+    var isAbleToAddNewPortfolio: Bool {
+        let liveCurvesCount = liveCurvesSyncManager.profile?.liveCurves.count ?? 0
+        return liveCurvesCount < AppFormatter.Restrictions.maxPortfolioItemsNumbers
+    }
+
     // MARK: - Private properties
 
-    private let liveCurvesSyncManager = App.instance.liveCurvesSyncManager
+    private var liveCurvesSyncManager = App.instance.liveCurvesSyncManager
     private var fetchedLiveCurves: [LiveCurve] = []
 
     // MARK: - Public methods
@@ -90,13 +95,14 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
                 value.forEach { liveCurve in
                     guard let indexOfMonth = liveCurve.indexOfMonth else { return }
 
-                    cells[indexOfMonth] = Cell.info(monthInfo: .init(priceValue: liveCurve.priceValue,
+                    cells[indexOfMonth] = Cell.info(monthInfo: .init(priceValue: liveCurve.displayPrice,
                                                                      priceCode: liveCurve.priceCode))
                 }
 
                 let tempSection = Section(name: key, cells: cells)
+                return tempSection
 
-                if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
+                /*if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
 
                     var updatedSection = collectionDataSource[indexOfSection]
 
@@ -109,7 +115,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
                     return updatedSection
                 } else {
                     return tempSection
-                }
+                }*/
             }
     }
 
@@ -167,7 +173,7 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 
                 let priceCode = liveCurve.priceCode
 
-                collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: .init(priceValue: liveCurve.priceValue,
+                collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: .init(priceValue: liveCurve.displayPrice,
                                                                                                      priceCode: priceCode))
             }
         }

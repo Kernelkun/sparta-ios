@@ -59,7 +59,7 @@ class AnalyticsNetworkManager: BaseNetworkManager {
                                       "monthName": month.name,
                                       "userTarget": userTarget]
 
-        router.request(.updateArbUserTarget(parameters: parameters)) { data, response, error in
+        router.request(.updateArbUserTarget(parameters: parameters)) { _, response, _ in
             if let response = response as? HTTPURLResponse, response.statusCode == 200 {
                 completion(true)
             } else {
@@ -74,7 +74,7 @@ class AnalyticsNetworkManager: BaseNetworkManager {
                                       "routeCode": month.routeCode,
                                       "monthName": month.name]
 
-        router.request(.deleteArbUserTarget(parameters: parameters)) { data, response, error in
+        router.request(.deleteArbUserTarget(parameters: parameters)) { _, response, _ in
             if let response = response as? HTTPURLResponse, response.statusCode == 200 {
                 completion(true)
             } else {
