@@ -10,7 +10,7 @@ import Starscream
 import SwiftyJSON
 import Reachability
 
-public protocol SocketAPIDelegate: class {
+public protocol SocketAPIDelegate: AnyObject {
     func socketConnectionEstablished()
     func socketConnectionLost()
     func socketConnectionDidChangeState(_ newState: SocketAPI.State)

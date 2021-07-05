@@ -67,6 +67,7 @@
 		D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */; };
 		D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
+		D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */; };
 		D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */; };
 		D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */; };
 		D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */; };
@@ -242,6 +243,7 @@
 		D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewModel.swift; sourceTree = "<group>"; };
 		D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesViewModel+Models.swift"; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
+		D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsGradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsStatusCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewController.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 		D91A96B9258BB56C008487A8 /* LiveCurves */ = {
 			isa = PBXGroup;
 			children = (
+				D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */,
 				D9A067122587BECA00C0D1E5 /* LiveCurvesSyncManager.swift */,
 				D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */,
 			);
@@ -1449,6 +1452,7 @@
 				D9B7CCE225C305AC0023FDF2 /* ResultManualStatusView.swift in Sources */,
 				D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */,
 				D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */,
+				D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */,
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift in Sources */,

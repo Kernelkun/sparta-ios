@@ -13,7 +13,7 @@ import SwiftyJSON
 /// of adding observers with no need to parse object that raises an event.
 
 /// Represents the object that can listen to folder actions.
-public protocol SocketActionObserver: class {
+public protocol SocketActionObserver: AnyObject {
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON)
 }
 

@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import NetworkingModels
 
 class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
     // MARK: - UI
 
+    private var profilesView: ProfilesView<LiveCurveProfileCategory>!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
     private var popup = PopupViewController()
@@ -18,14 +20,43 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
-                                                       gradeHeight: 50,
-                                                       collectionColumnWidth: 70,
-                                                       tableColumnWidth: 160,
-                                                       emptyView: UIView())
 
-        gridView = GridView(constructor: constructor)
-        view = gridView
+        let gridContructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
+                                                          gradeHeight: 50,
+                                                          collectionColumnWidth: 70,
+                                                          tableColumnWidth: 160,
+                                                          emptyView: UIView())
+
+        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: false,
+                                                         isEditable: false)
+
+        view = UIView().then { view in
+
+            profilesView = ProfilesView(constructor: profilesContructor).then { profilesView in
+
+                profilesView.onChooseProfile { [unowned self] profile in
+                    //                    self.viewModel.changeProfile(profile)
+                }
+
+                profilesView.onChooseAdd { [unowned self] in
+                    navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
+                }
+
+                view.addSubview(profilesView) {
+                    $0.top.equalToSuperview().offset(topBarHeight)
+                    $0.left.right.equalToSuperview()
+                    $0.height.equalTo(45)
+                }
+            }
+
+            gridView = GridView(constructor: gridContructor).then { gridView in
+
+                view.addSubview(gridView) {
+                    $0.left.right.bottom.equalToSuperview()
+                    $0.top.equalTo(profilesView.snp.bottom)
+                }
+            }
+        }
     }
 
     // MARK: - Lifecycle
@@ -60,7 +91,6 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         // grid view
 
         gridView.dataSource = self
-        gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
         // sockets status view
@@ -82,9 +112,16 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Blender")
 
-        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { isOn in
+        let seasonalityButton = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { isOn in
             self.viewModel.isSeasonalityOn = isOn
         })
+
+        let editButton = UIBarButtonItemFactory.editButton { [unowned self] _ in
+            navigationController?.pushViewController(EditPortfolioItemsViewController(), animated: true)
+        }
+
+        navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 25),
+                                              seasonalityButton]
     }
 
     private func showDescription(for indexPath: IndexPath) {
