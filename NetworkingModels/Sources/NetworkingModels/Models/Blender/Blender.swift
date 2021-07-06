@@ -24,7 +24,6 @@ public struct Blender: BackendModel {
     // for presenting
 
     public var isCustom: Bool
-    public var isFavourite: Bool
     public var priorityIndex: Int = -1
 
     // use this identifier to identify this object as unique on the backside
@@ -42,7 +41,6 @@ public struct Blender: BackendModel {
         months = json["months"].arrayValue.compactMap { BlenderMonth(json: $0) }
         isCustom = json["isCustom"].boolValue
         loadRegion = BlenderRegion(json: json["loadRegion"])
-        isFavourite = false
     }
 }
 

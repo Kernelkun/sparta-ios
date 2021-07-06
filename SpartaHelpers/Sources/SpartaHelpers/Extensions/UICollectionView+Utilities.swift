@@ -60,12 +60,12 @@ public extension UICollectionView {
 
         performBatchUpdates({
 
-            if !insertions.isEmpty {
-                insertSections(insertions)
-            }
-
             if !removals.isEmpty {
                 deleteSections(removals)
+            }
+
+            if !insertions.isEmpty {
+                insertSections(insertions)
             }
 
             if !updates.isEmpty {

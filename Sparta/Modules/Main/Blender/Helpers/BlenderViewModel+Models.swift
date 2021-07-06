@@ -19,9 +19,11 @@ extension BlenderViewModel {
     }
 
     struct Section {
+        let gradeCode: String
         var cells: [Cell]
     }
 }
+
 extension BlenderViewModel.Cell: Equatable {
 
     static func == (lhs: Self, rhs: Self) -> Bool {
@@ -40,5 +42,12 @@ extension BlenderViewModel.Cell: Equatable {
         }
 
         return false
+    }
+}
+
+extension BlenderViewModel.Section: Equatable {
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.gradeCode.lowercased() == rhs.gradeCode.lowercased()
     }
 }

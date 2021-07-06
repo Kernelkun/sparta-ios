@@ -12,7 +12,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
     // MARK: - UI
 
-    private var profilesView: ProfilesView<LiveCurveProfileCategory>!
+    private var profilesView: ProfilesView<BlenderProfileCategory>!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
     private var popup = PopupViewController()
@@ -35,7 +35,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
             profilesView = ProfilesView(constructor: profilesContructor).then { profilesView in
 
                 profilesView.onChooseProfile { [unowned self] profile in
-                    //                    self.viewModel.changeProfile(profile)
+                    self.viewModel.changeProfile(profile)
                 }
 
                 profilesView.onChooseAdd { [unowned self] in
@@ -168,7 +168,7 @@ extension BlenderViewController: GridViewDataSource {
     }
 
     func numberOfSections() -> Int {
-        viewModel.tableDataSource.count
+        viewModel.collectionDataSource.count
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
@@ -190,10 +190,6 @@ extension BlenderViewController: GridViewDataSource {
 
         if case let BlenderViewModel.Cell.title(blender) = cellType {
             cell.apply(blender: blender)
-
-            cell.onToggleFavourite { [unowned self] blender in
-                self.viewModel.toggleFavourite(blender: blender)
-            }
         }
 
         return cell
@@ -222,11 +218,20 @@ extension BlenderViewController: BlenderViewModelDelegate {
         gridView.reloadGrades()
     }
 
+    func didReceiveUpdatesForPresentationStyle() {
+        gridView.setInfoRowsCount(viewModel.monthsCount())
+//        gridView.reloadInfo()
+    }
+
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
         gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
         socketsStatusView.apply(color: color, title: title, formattedDate: formattedDate)
+    }
+
+    func didReceiveProfilesInfo(profiles: [BlenderProfileCategory], selectedProfile: BlenderProfileCategory?) {
+        profilesView.apply(profiles, selectedProfile: selectedProfile)
     }
 }
