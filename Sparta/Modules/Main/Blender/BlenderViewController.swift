@@ -74,11 +74,11 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         viewModel.delegate = self
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         // view model
-        
+
         viewModel.loadData()
     }
 
@@ -117,7 +117,7 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         })
 
         let editButton = UIBarButtonItemFactory.editButton { [unowned self] _ in
-            navigationController?.pushViewController(EditPortfolioItemsViewController(), animated: true)
+            navigationController?.pushViewController(BlenderEditPortfolioItemsViewController(), animated: true)
         }
 
         navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 25),
@@ -220,7 +220,6 @@ extension BlenderViewController: BlenderViewModelDelegate {
 
     func didReceiveUpdatesForPresentationStyle() {
         gridView.setInfoRowsCount(viewModel.monthsCount())
-//        gridView.reloadInfo()
     }
 
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {

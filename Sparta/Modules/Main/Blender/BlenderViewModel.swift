@@ -50,7 +50,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
         updateConnectionInfo()
 
         blenderManager.delegate = self
-        blenderManager.startReceivingData()
+        blenderManager.start()
 
         // sockets
 

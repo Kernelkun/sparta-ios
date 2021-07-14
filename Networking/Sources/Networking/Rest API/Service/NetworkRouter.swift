@@ -78,6 +78,17 @@ public class NetworkRouter<EndPoint: EndPointType>: NetworkRouterProtocol {
                                              bodyEncoding: bodyEncoding,
                                              urlParameters: urlParameters,
                                              request: &request)
+
+            case .requestAnyAndHeaders(let bodyParameters,
+                                       let bodyEncoding,
+                                       let urlParameters,
+                                       let additionalHeaders):
+
+                self.addAdditionalHeaders(additionalHeaders, request: &request)
+                try self.configureParameters(bodyParameters: bodyParameters,
+                                             bodyEncoding: bodyEncoding,
+                                             urlParameters: urlParameters,
+                                             request: &request)
                 
             case .requestWithFile(let file, let parameters, let additionalHeaders):
                 
@@ -113,7 +124,7 @@ public class NetworkRouter<EndPoint: EndPointType>: NetworkRouterProtocol {
     
     // MARK: - Private methods
     
-    private func configureParameters(bodyParameters: Parameters?,
+    private func configureParameters(bodyParameters: Any?,
                                      bodyEncoding: ParameterEncoding,
                                      urlParameters: Parameters?,
                                      request: inout URLRequest) throws {

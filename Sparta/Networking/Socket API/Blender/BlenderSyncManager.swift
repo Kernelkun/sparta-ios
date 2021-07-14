@@ -36,7 +36,7 @@ class BlenderSyncManager {
         }
     }
 
-    private(set) lazy var profile: BlenderProfileCategory = _profiles.first! //swiftlint:disable:this force_unwrapping
+    private(set) var profile: BlenderProfileCategory = BlenderProfileCategory(region: .ara)
 
     // MARK: - Private properties
 
@@ -46,10 +46,9 @@ class BlenderSyncManager {
         operationQueue.qualityOfService = .background
         return operationQueue
     }()
-    private var _blenders: SynchronizedArray<Blender> = SynchronizedArray<Blender>()
-    private lazy var _profiles = SynchronizedArray<BlenderProfileCategory>([BlenderProfileCategory(region: .ara),
-                                                                            BlenderProfileCategory(region: .hou)])
-    private let profileManager = ProfileNetworkManager()
+    private(set) lazy var profiles = SynchronizedArray<BlenderProfileCategory>([BlenderProfileCategory(region: .ara),
+                                                                                BlenderProfileCategory(region: .hou)])
+    private let networkManager = BlenderNetworkManager()
 
     // MARK: - Initializers
 
@@ -57,11 +56,44 @@ class BlenderSyncManager {
         observeSocket(for: .blender)
     }
 
+    deinit {
+        stopObservingSocket(for: .blender)
+    }
+
     // MARK: - Public methods
 
-    func startReceivingData() {
-        updateBlenders(for: profile)
-        App.instance.socketsConnect(toServer: .blender)
+    func start() {
+        networkManager.fetchBlenderTable { [weak self] result in
+            guard let strongSelf = self else { return }
+
+            if case let .success(responseModel) = result,
+               let list = responseModel.model?.list {
+
+                // load profiles
+
+                strongSelf.profiles = SynchronizedArray(strongSelf.profiles.compactMap { profile -> BlenderProfileCategory in
+                    var profile = profile
+                    profile.blenders = []
+
+                    let filteredBlenders = list.filter { $0.loadRegion == profile.region }
+
+                    for (index, blender) in filteredBlenders.enumerated() {
+                        var blender = blender
+                        blender.priorityIndex = index
+                        profile.blenders.append(blender)
+                    }
+
+                    return profile
+                })
+
+                strongSelf.profile = strongSelf.profiles.first!
+
+                onMainThread {
+                    strongSelf.updateBlenders(for: strongSelf.profile)
+                    App.instance.socketsConnect(toServer: .blender)
+                }
+            }
+        }
     }
 
     func setProfile(_ profile: BlenderProfileCategory) {
@@ -75,27 +107,20 @@ class BlenderSyncManager {
      * In case method not found element in fetched elements array - method will return received(parameter variable) value
      */
     func fetchUpdatedState(for blender: Blender) -> Blender {
-        guard let indexOfBlender = _blenders.index(where: { $0 == blender }) else { return blender }
+        guard let indexOfProfile = profiles.index(where: { $0.region == blender.loadRegion }),
+              let indexOfBlender = profiles[indexOfProfile]?.blenders.firstIndex(where: { $0 == blender }) else { return blender }
 
-        return _blenders[indexOfBlender] ?? blender
+        return profiles[indexOfProfile]?.blenders[indexOfBlender] ?? blender
     }
 
     // MARK: - Private methods
 
-    private func patchBlender(_ newBlender: inout Blender) {
-        newBlender.priorityIndex = _blenders.index(where: { $0 == newBlender }) ?? -1
-    }
-
     private func updateBlenders(for profile: BlenderProfileCategory) {
         onMainThread {
-            self.delegate?.blenderSyncManagerDidFetch(blenders: self.filteredProfileBlenders(),
-                                                      profiles: self._profiles.arrayValue,
+            self.delegate?.blenderSyncManagerDidFetch(blenders: self.profile.blenders,
+                                                      profiles: self.profiles.arrayValue,
                                                       selectedProfile: self.profile)
         }
-    }
-
-    private func filteredProfileBlenders() -> [Blender] {
-        _blenders.filter { $0.loadRegion == profile.region }
     }
 }
 
@@ -107,20 +132,11 @@ extension BlenderSyncManager: SocketActionObserver {
 
         lastSyncDate = Date()
 
-        if !_blenders.contains(blender) {
+        if let profileIndex = profiles.index(where: { $0.region == blender.loadRegion }),
+           let blenderIndex = profiles[profileIndex]?.blenders.firstIndex(of: blender) {
 
-            _blenders.append(blender)
-            patchBlender(&blender)
-
-            if blender.loadRegion == profile.region {
-                onMainThread {
-                    self.delegate?.blenderSyncManagerDidReceive(blender: blender)
-                }
-            }
-        } else if let blenderIndex = _blenders.index(where: { $0 == blender }) {
-
-            patchBlender(&blender)
-            _blenders[blenderIndex] = blender
+            blender.priorityIndex = blenderIndex
+            profiles[profileIndex]?.blenders[blenderIndex] = blender
 
             if blender.loadRegion == profile.region {
                 onMainThread {
@@ -128,6 +144,28 @@ extension BlenderSyncManager: SocketActionObserver {
                 }
             }
         }
+
+        /*if !_blenders.contains(blender) {
+
+         _blenders.append(blender)
+         patchBlender(&blender)
+
+         if blender.loadRegion == profile.region {
+         onMainThread {
+         self.delegate?.blenderSyncManagerDidReceive(blender: blender)
+         }
+         }
+         } else if let blenderIndex = _blenders.index(where: { $0 == blender }) {
+
+         patchBlender(&blender)
+         _blenders[blenderIndex] = blender
+
+         if blender.loadRegion == profile.region {
+         onMainThread {
+         self.delegate?.blenderSyncManagerDidReceiveUpdates(for: blender)
+         }
+         }
+         }*/
 
         // notify observers
 

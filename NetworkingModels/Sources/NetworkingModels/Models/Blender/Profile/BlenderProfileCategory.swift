@@ -41,6 +41,6 @@ public struct BlenderProfileCategory: ListableItem {
 extension BlenderProfileCategory: Equatable {
 
     public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.region.id == rhs.region.id
+        lhs.region == rhs.region
     }
 }

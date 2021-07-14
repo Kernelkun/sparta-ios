@@ -28,6 +28,6 @@ public struct BlenderRegion: BackendModel {
 extension BlenderRegion: Equatable {
 
     public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id
+        lhs.name.lowercased() == rhs.name.lowercased()
     }
 }
