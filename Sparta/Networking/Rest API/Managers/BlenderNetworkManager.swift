@@ -27,7 +27,7 @@ class BlenderNetworkManager: BaseNetworkManager {
     }
 
     func changePortfolioItemsOrder(region: BlenderRegion, orders: [Parameters], completion: @escaping BoolClosure) {
-        router.request(.changePortfolioOrder(regionId: region.id, parameters: orders)) { _, response, _ in
+        router.request(.changePortfolioOrder(regionName: region.name.uppercased(), parameters: orders)) { _, response, _ in
             if let response = response as? HTTPURLResponse, response.statusCode == 200 {
                 completion(true)
             } else {

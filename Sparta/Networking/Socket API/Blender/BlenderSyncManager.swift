@@ -36,7 +36,7 @@ class BlenderSyncManager {
         }
     }
 
-    private(set) var profile: BlenderProfileCategory = BlenderProfileCategory(region: .ara)
+    private(set) lazy var profile = profiles.first!
 
     // MARK: - Private properties
 
@@ -71,6 +71,8 @@ class BlenderSyncManager {
 
                 // load profiles
 
+                let selectedProfile = strongSelf.profile
+
                 strongSelf.profiles = SynchronizedArray(strongSelf.profiles.compactMap { profile -> BlenderProfileCategory in
                     var profile = profile
                     profile.blenders = []
@@ -86,7 +88,7 @@ class BlenderSyncManager {
                     return profile
                 })
 
-                strongSelf.profile = strongSelf.profiles.first!
+                strongSelf.profile = strongSelf.profiles.first { $0 == selectedProfile }!
 
                 onMainThread {
                     strongSelf.updateBlenders(for: strongSelf.profile)

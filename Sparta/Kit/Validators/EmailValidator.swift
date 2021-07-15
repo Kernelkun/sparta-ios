@@ -14,12 +14,12 @@ class EmailValidator: Validator {
     func isValid(value: String?) -> Bool {
 
         guard let value = value else {
-            errorMessage = "E-mail is required and can't be empty."
+            errorMessage = "Validator.Error.EmptyEmail".localized
             return false
         }
 
         guard isValidEmail(value) else {
-            errorMessage = "Please enter a valid e-mail address."
+            errorMessage = "Validator.Error.InvalidEmail".localized
             return false
         }
 

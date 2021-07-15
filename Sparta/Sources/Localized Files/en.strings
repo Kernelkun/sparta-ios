@@ -1,0 +1,61 @@
+//
+//  en.strings
+//  Sparta
+//
+//  Created by Yaroslav Babalich on 14.07.2021.
+//
+
+// general
+
+"Alert.Error.Title" = "Error";
+"Save.Title" = "Save";
+"Name.Title" = "Name";
+"Search.Title" = "Search";
+
+// validators
+
+"Validator.Error.EmptyEmail" = "E-mail is required and can't be empty.";
+"Validator.Error.InvalidEmail" = "Please enter a valid e-mail address.";
+
+// networking
+
+"Networking.Error.Response" = "Can't parse response from server";
+"Networking.Error.UnhandledResponse" = "Something went wrong";
+"Networking.Error.InvalidCreds" = "Invalid creds, please enter new one";
+"Networking.Error.UserProfile" = "Can't fetch user profile. Please try again.";
+"Networking.Error.NotExistEmail" = "User with this email doesn't exist";
+
+// login page
+
+"LoginPage.Field.Email.Placeholder" = "Email";
+"LoginPage.Field.Password.Placeholder" = "Password";
+"LoginPage.Button.SignIn.Title" = "Sign in";
+"LoginPage.Button.FgtPassword.Title" = "Forgot Password";
+
+// forgot password page
+
+"ForgotPasssword.Field.Email.Placeholder" = "Email";
+"ForgotPasssword.Button.RcvPassword.Title" = "Recover password";
+"ForgotPasssword.Button.Login.Title" = "Login";
+"ForgotPasssword.SuccessResult.Title" = "Recover password";
+"ForgotPasssword.SuccessResult.Message" = "We have sent information about how to recover your account to your email";
+
+// tabs page
+
+"MainTabsPage.LiveCurves.Title" = "Live Curves";
+"MainTabsPage.ARBs.Title" = "ARBs";
+"MainTabsPage.Blender.Title" = "Blender";
+"MainTabsPage.Freight.Title" = "Blender";
+"MainTabsPage.Settings.Title" = "Blender";
+
+// portfolios
+
+"Portfolio.Empty.Title" = "This portfolio is empty";
+"Portfolio.Empty.Button.AddProduct.Title" = "Add product";
+"Portfolio.EditItems.PageTitle" = "Edit items";
+"Portfolio.Add.PageTitle" = "New portfolio";
+"Portfolio.Add.PageField.Placeholder" = "Add a portfolio name";
+"Portfolio.Add.Error.InvalidName" = "Please enter valid portfolio name";
+"Portfolio.Add.Error.UnableToCreate" = "Something wrong happened with creating profile";
+"Portfolio.AddItems.PageTitle" = "Add items";
+"Portfolio.AddItems.Error.UnableToAdd" = "Something wrong happened with adding items";

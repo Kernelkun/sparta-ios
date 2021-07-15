@@ -41,7 +41,7 @@ class LCPortfolioAddViewModel: NSObject, BaseViewModel {
 
     func createPortfolio() {
         guard let name = selectedName, !name.isEmpty else {
-            delegate?.didCatchAnError("Please enter valid portfolio name")
+            delegate?.didCatchAnError("Portfolio.Add.Error.InvalidName".localized)
             return
         }
 
@@ -60,7 +60,7 @@ class LCPortfolioAddViewModel: NSObject, BaseViewModel {
                 }
             } else {
                 onMainThread {
-                    strongSelf.delegate?.didCatchAnError("Something wrong happened with creating profile")
+                    strongSelf.delegate?.didCatchAnError("Portfolio.Add.Error.UnableToCreate".localized)
                 }
             }
 

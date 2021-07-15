@@ -12,7 +12,7 @@ import App
 
 enum BlenderEndPoint {
     case getBlenderTable
-    case changePortfolioOrder(regionId: Int, parameters: [Parameters])
+    case changePortfolioOrder(regionName: String, parameters: [Parameters])
     case deleteCustomBlender(gradeCode: String)
 }
 
@@ -23,7 +23,7 @@ extension BlenderEndPoint: EndPointType {
     var path: String {
         switch self {
         case .getBlenderTable: return "/blender/table"
-        case .changePortfolioOrder(let regionId, _): return "/blender/customization/grades/\(regionId)/order"
+        case .changePortfolioOrder(let regionName, _): return "/blender/customization/grades/\(regionName)/order"
         case .deleteCustomBlender: return "/blender/customization/grades"
         }
     }

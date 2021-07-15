@@ -43,7 +43,7 @@ class BlenderEditPortfolioItemsViewModel: NSObject, BaseViewModel {
 
     func loadData() {
         profiles = blendersSyncManager.profiles.arrayValue
-        selectedProfile = profiles.first!
+        selectedProfile = blendersSyncManager.profile
 
         onMainThread {
             self.delegate?.didReceiveProfilesInfo(profiles: self.profiles,

@@ -78,6 +78,7 @@
 		D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */; };
 		D98AF6E525BB02D700A5BC96 /* CoreStore in Frameworks */ = {isa = PBXBuildFile; productRef = D98AF6E425BB02D700A5BC96 /* CoreStore */; };
 		D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */; };
+		D98FD750269EFAC60068A0BB /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = D98FD74F269EFAC60068A0BB /* en.strings */; };
 		D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99624CB266E6CDE001CD262 /* EmptyStateView.swift */; };
 		D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */; };
 		D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */; };
@@ -257,6 +258,7 @@
 		D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedButton.swift; sourceTree = "<group>"; };
 		D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsViewModel+Models.swift"; sourceTree = "<group>"; };
 		D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbTappableCell.swift; sourceTree = "<group>"; };
+		D98FD74F269EFAC60068A0BB /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
 		D99624CB266E6CDE001CD262 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManager.swift; sourceTree = "<group>"; };
 		D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewController.swift; sourceTree = "<group>"; };
@@ -742,6 +744,14 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
+		D98FD74E269EFA9B0068A0BB /* Localized Files */ = {
+			isa = PBXGroup;
+			children = (
+				D98FD74F269EFAC60068A0BB /* en.strings */,
+			);
+			path = "Localized Files";
+			sourceTree = "<group>";
+		};
 		D99A73E8259C7B24009E3559 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1127,6 +1137,7 @@
 		D9BB5363256EC68800AD2D1A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D98FD74E269EFA9B0068A0BB /* Localized Files */,
 				D98011A12652BC9900B8AA70 /* Colors */,
 				D9B50E332574228A0018F3D7 /* Fonts */,
 				D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */,
@@ -1348,6 +1359,7 @@
 				D9B50E42257433340018F3D7 /* OpenSans-SemiBold.ttf in Resources */,
 				D9B50E3B257423140018F3D7 /* OpenSans-LightItalic.ttf in Resources */,
 				D9BB5390256EF85600AD2D1A /* Colors.xcassets in Resources */,
+				D98FD750269EFAC60068A0BB /* en.strings in Resources */,
 				D9BB538D256EF83D00AD2D1A /* Assets.xcassets in Resources */,
 				D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */,
 			);

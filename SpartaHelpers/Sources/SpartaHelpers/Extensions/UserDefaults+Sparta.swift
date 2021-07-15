@@ -10,6 +10,7 @@ import UIKit
 public enum UserDefaultsKey: String {
 
     case launchCount
+    case languageCode
 }
 
 public extension UserDefaults {

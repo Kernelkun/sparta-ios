@@ -136,7 +136,7 @@ class ForgotPasswordViewController: BaseViewController {
             }
 
             field.icon = UIImage(named: "ic_field_user")
-            field.placeholder = "Email"
+            field.placeholder = "ForgotPasssword.Field.Email.Placeholder".localized
             field.backgroundColor = .authFieldBackground
             field.textField.initialText = loginState?.emailText
 
@@ -149,7 +149,7 @@ class ForgotPasswordViewController: BaseViewController {
 
         signInButton = BorderedButton(type: .system).then { button in
 
-            button.setTitle("Recover password", for: .normal)
+            button.setTitle("ForgotPasssword.Button.RcvPassword.Title".localized, for: .normal)
 
             button.onTap { [unowned self] _ in
                 self.viewModel.userTappedRecovery()
@@ -164,7 +164,7 @@ class ForgotPasswordViewController: BaseViewController {
 
         _ = TappableButton(type: .system).then { button in
 
-            button.setTitle("Login", for: .normal)
+            button.setTitle("ForgotPasssword.Button.Login.Title".localized, for: .normal)
             button.setTitleColor(.primaryText, for: .normal)
 
             button.onTap { [unowned self] _ in
@@ -190,12 +190,12 @@ extension ForgotPasswordViewController: ForgotPasswordViewModelDelegate {
     }
 
     func didCatchAnError(_ description: String) {
-        Alert.showOk(title: "Error", message: description, show: self, completion: nil)
+        Alert.showOk(title: "Alert.Error.Title".localized, message: description, show: self, completion: nil)
     }
 
     func didFinishSuccess() {
-        Alert.showOk(title: "Recover password",
-                     message: "We have sent information about how to recover your account to your email",
+        Alert.showOk(title: "ForgotPasssword.SuccessResult.Title".localized,
+                     message: "ForgotPasssword.SuccessResult.Message".localized,
                      show: self) { [unowned self] _ in
 
             self.coordinatorDelegate?.forgotPasswordViewControllerDidFinish(self)
