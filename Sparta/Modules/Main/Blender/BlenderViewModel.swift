@@ -23,7 +23,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
     // MARK: - Public properties
 
-    var tableGrade = Cell.grade(title: "Grade")
+    var tableGrade = Cell.grade(title: "Grade.Title".localized)
     lazy var collectionGrades: [Cell] = Array(repeating: .emptyGrade, count: monthsCount())
 
     var tableDataSource: [Cell] = []
@@ -188,8 +188,6 @@ extension BlenderViewModel {
             return offset
         }
 
-        print("DEBUG ***:   \(#function), Inserted: \(insertedIndexs.debugDescription), Deleted: \(removedIndexs.debugDescription)")
-
         fetchedBlenders = blenders
 
         tableDataSource = newTableDataSource
@@ -213,22 +211,6 @@ extension BlenderViewModel: AppObserver {
 extension BlenderViewModel: BlenderSyncManagerDelegate {
 
     func blenderSyncManagerDidFetch(blenders: [Blender], profiles: [BlenderProfileCategory], selectedProfile: BlenderProfileCategory?) {
-        print("DEBUG ***: \(#function)")
-//        var reloadIndexs: [Int] = []
-//
-//        for i in 0..<collectionDataSource.count {
-//            reloadIndexs.append(i)
-//        }
-//
-//        onMainThread {
-//            self.delegate?.didUpdateDataSourceSections(insertions: [],
-//                                                       removals: IndexSet(reloadIndexs),
-//                                                       updates: [])
-//        }
-//
-//        tableDataSource = []
-//        collectionDataSource = []
-
         delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)
         delegate?.didReceiveUpdatesForPresentationStyle()
 
@@ -237,8 +219,6 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
     }
 
     func blenderSyncManagerDidReceive(blender: Blender) {
-        print("DEBUG ***: \(#function)")
-
         var updatedBlenders = fetchedBlenders
         updatedBlenders.append(blender)
 
@@ -247,13 +227,13 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
     }
 
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender) {
-//        if let indexOfBlender = fetchedBlenders.firstIndex(of: blender) {
-//            fetchedBlenders[indexOfBlender] = blender
-//            tableDataSource[indexOfBlender] = Cell.title(blender: blender)
-//            collectionDataSource[indexOfBlender].cells = blender.months.compactMap { Cell.info(month: $0) }
-//        }
-//
-//        updateGrades()
+        if let indexOfBlender = fetchedBlenders.firstIndex(of: blender) {
+            fetchedBlenders[indexOfBlender] = blender
+            tableDataSource[indexOfBlender] = Cell.title(blender: blender)
+            collectionDataSource[indexOfBlender].cells = blender.months.compactMap { Cell.info(month: $0) }
+        }
+
+        updateGrades()
     }
 
     func blenderSyncManagerDidChangeSyncDate(_ newDate: Date?) {

@@ -15,6 +15,7 @@
 "Closed.Title" = "Closed";
 "Connecting.Title" = "Connecting";
 "Connected.Title" = "Connected";
+"Grade.Title" = "Grade";
 
 // validators
 
@@ -49,8 +50,8 @@
 "MainTabsPage.LiveCurves.Title" = "Live Curves";
 "MainTabsPage.ARBs.Title" = "ARBs";
 "MainTabsPage.Blender.Title" = "Blender";
-"MainTabsPage.Freight.Title" = "Blender";
-"MainTabsPage.Settings.Title" = "Blender";
+"MainTabsPage.Freight.Title" = "Freight";
+"MainTabsPage.Settings.Title" = "Settings";
 
 // portfolios
 
@@ -92,3 +93,8 @@
 "ArbDetailPage.Key.CifRefyMargin.Title" = "CIF Refy Margin";
 "ArbDetailPage.Key.CodBlenderMargin.Title" = "CoD Blender Margin";
 "ArbDetailPage.Button.InputTgt.Title" = "Input My Target";
+
+// blender page
+
+"BlenderPage.Popup.Component.Title" = "Component";
+"BlenderPage.Popup.BlendVol.Title" = "Blend vol%";

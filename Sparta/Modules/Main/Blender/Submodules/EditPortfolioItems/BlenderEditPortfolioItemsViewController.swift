@@ -62,7 +62,7 @@ class BlenderEditPortfolioItemsViewController: BaseTableVMViewController<Blender
     }
 
     private func setupNavigationUI() {
-        title = "Edit items"
+        title = "Portfolio.EditItems.PageTitle".localized
 
         setupNavigationBarAppearance(backgroundColor: .barBackground)
     }

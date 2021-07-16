@@ -24,7 +24,7 @@ class BlenderEditPortfolioItemsViewModel: NSObject, BaseViewModel {
 
     weak var delegate: BlenderEditPortfolioItemsViewModelDelegate?
     var profiles: [BlenderProfileCategory] = []
-    var selectedProfile: BlenderProfileCategory = BlenderProfileCategory(region: .ara)
+    var selectedProfile = BlenderProfileCategory(region: .ara)
 
     // MARK: - Private properties
 
@@ -49,25 +49,6 @@ class BlenderEditPortfolioItemsViewModel: NSObject, BaseViewModel {
             self.delegate?.didReceiveProfilesInfo(profiles: self.profiles,
                                                   selectedProfile: self.selectedProfile)
         }
-
-        /*networkManager.fetchBlenderTable { [weak self] result in
-         guard let strongSelf = self else { return }
-
-         if case let .success(responseModel) = result,
-         let list = responseModel.model?.list {
-
-         var araCategory = BlenderProfileCategory(region: .ara)
-         var houCategory = BlenderProfileCategory(region: .hou)
-
-         strongSelf.profiles = [araCategory, houCategory]
-         strongSelf.selectedProfile = strongSelf.profiles.first { $0.region == $0.region }
-
-         araCategory.blenders = list.filter { $0.loadRegion == .ara }
-         houCategory.blenders = list.filter { $0.loadRegion == .hou }
-
-
-         }
-         }*/
     }
 
     func changeProfile(_ profile: BlenderProfileCategory) {
