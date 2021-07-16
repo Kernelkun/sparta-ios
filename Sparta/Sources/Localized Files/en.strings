@@ -11,6 +11,10 @@
 "Save.Title" = "Save";
 "Name.Title" = "Name";
 "Search.Title" = "Search";
+"LastUpdated.Title" = "Last updated";
+"Closed.Title" = "Closed";
+"Connecting.Title" = "Connecting";
+"Connected.Title" = "Connected";
 
 // validators
 
@@ -59,3 +63,32 @@
 "Portfolio.Add.Error.UnableToCreate" = "Something wrong happened with creating profile";
 "Portfolio.AddItems.PageTitle" = "Add items";
 "Portfolio.AddItems.Error.UnableToAdd" = "Something wrong happened with adding items";
+
+
+// arbs page
+
+"ArbsPage.Grade.Arb.Title" = "ARB";
+"ArbsPage.Grade.OpenClose.Title" = "Open\\Close";
+"ArbsPage.Grade.DlvMonth.Title" = "Dlv\nMonth";
+"ArbsPage.Grade.MyTgt.Title" = "My\nTGT";
+"ArbsPage.Grade.MyMargin.Title" = "My\nMargin";
+"ArbsPage.Grade.DlvPrice.Title" = "Dlv\nPrice";
+"ArbsPage.Status.InputTgt.Title" = "Input TGT";
+
+// arb detail page
+
+"ArbDetailPage.Key.Status.Title" = "Arb Open/Close";
+"ArbDetailPage.Key.Target.Title" = "My Target";
+"ArbDetailPage.Key.BlendCost.Title" = "Blend Cost";
+"ArbDetailPage.Key.GasNap.Title" = "Gas/Nap";
+"ArbDetailPage.Key.Freight.Title" = "Freight";
+"ArbDetailPage.Key.TaArb.Title" = "TA Arb";
+"ArbDetailPage.Key.Ew.Title" = "E/W";
+"ArbDetailPage.Key.DlvPrice.Title" = "Dlv Price";
+"ArbDetailPage.Key.DlvPriceBasis.Title" = "Dlv Price Basis";
+"ArbDetailPage.Key.MyMargin.Title" = "My Margin";
+"ArbDetailPage.Key.BlenderMargin.Title" = "Blender Margin";
+"ArbDetailPage.Key.FobRefyMargin.Title" = "FOB Refy Margin";
+"ArbDetailPage.Key.CifRefyMargin.Title" = "CIF Refy Margin";
+"ArbDetailPage.Key.CodBlenderMargin.Title" = "CoD Blender Margin";
+"ArbDetailPage.Button.InputTgt.Title" = "Input My Target";

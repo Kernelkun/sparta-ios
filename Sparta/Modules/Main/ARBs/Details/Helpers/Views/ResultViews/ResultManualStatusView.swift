@@ -39,7 +39,7 @@ class ResultManualStatusView: UIView {
 
         keyLabel = UILabel().then { label in
 
-            label.text = "Input My Target"
+            label.text = "ArbDetailPage.Button.InputTgt.Title".localized
             label.font = .main(weight: .regular, size: 17)
             label.textColor = .controlTintActive
             label.textAlignment = .left
@@ -51,4 +51,3 @@ class ResultManualStatusView: UIView {
         }
     }
 }
-

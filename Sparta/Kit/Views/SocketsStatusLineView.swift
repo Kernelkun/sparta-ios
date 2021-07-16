@@ -91,6 +91,6 @@ class SocketsStatusLineView: UIView {
             return
         }
 
-        dateLabel.text = "Last updated" + " " + text
+        dateLabel.text = "LastUpdated.Title".localized + " " + text
     }
 }

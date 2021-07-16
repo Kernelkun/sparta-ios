@@ -30,46 +30,46 @@ extension ArbDetailViewModel {
         var displayTitle: String {
             switch self {
             case .status:
-                return "Arb Open/Close"
+                return "ArbDetailPage.Key.Status.Title".localized
 
             case .target:
-                return "My Target"
+                return "ArbDetailPage.Key.Target.Title".localized
 
             case .blendCost:
-                return "Blend Cost"
+                return "ArbDetailPage.Key.BlendCost.Title".localized
 
             case .gasNap:
-                return "Gas/Nap"
+                return "ArbDetailPage.Key.GasNap.Title".localized
 
             case .freight:
-                return "Freight"
+                return "ArbDetailPage.Key.Freight.Title".localized
 
             case .taArb:
-                return "TA Arb"
+                return "ArbDetailPage.Key.TaArb.Title".localized
 
             case .ew:
-                return "E/W"
+                return "ArbDetailPage.Key.Ew.Title".localized
 
             case .dlvPrice:
-                return "Dlv Price"
+                return "ArbDetailPage.Key.DlvPrice.Title".localized
 
             case .dlvPriceBasis:
-                return "Dlv Price Basis"
+                return "ArbDetailPage.Key.DlvPriceBasis.Title".localized
 
             case .myMargin:
-                return "My Margin"
+                return "ArbDetailPage.Key.MyMargin.Title".localized
 
             case .blenderMargin:
-                return "Blender Margin"
+                return "ArbDetailPage.Key.BlenderMargin.Title".localized
 
             case .fobRefyMargin:
-                return "FOB Refy Margin"
+                return "ArbDetailPage.Key.FobRefyMargin.Title".localized
 
             case .cifRefyMargin:
-                return "CIF Refy Margin"
+                return "ArbDetailPage.Key.CifRefyMargin.Title".localized
 
             case .codBlenderMargin:
-                return "CoD Blender Margin"
+                return "ArbDetailPage.Key.CodBlenderMargin.Title".localized
 
             case .emptySpace:
                 return ""
