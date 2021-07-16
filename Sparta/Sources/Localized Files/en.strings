@@ -25,6 +25,7 @@
 // networking
 
 "Networking.Error.Response" = "Can't parse response from server";
+"Networking.Error.Fetch" = "Can't fetch data from server";
 "Networking.Error.UnhandledResponse" = "Something went wrong";
 "Networking.Error.InvalidCreds" = "Invalid creds, please enter new one";
 "Networking.Error.UserProfile" = "Can't fetch user profile. Please try again.";
@@ -98,3 +99,35 @@
 
 "BlenderPage.Popup.Component.Title" = "Component";
 "BlenderPage.Popup.BlendVol.Title" = "Blend vol%";
+
+// freight page
+
+"FreightPage.Button.Calculate.Title" = "Calculate";
+"FreightPage.Selector.VesselType.SubTitle" = "Vessel Type";
+"FreightPage.Selector.VesselType.Placeholder" = "Select vessel type";
+"FreightPage.Selector.Month.SubTitle" = "Month";
+"FreightPage.Selector.Month.Placeholder" = "Select month";
+"FreightPage.Selector.Port.SubTitle" = "Port";
+"FreightPage.Selector.Port.Placeholder" = "Select port";
+"FreightPage.Selector.DischargePort.SubTitle" = "Discharge Port";
+"FreightPage.Selector.DischargePort.Placeholder" = "Select discharge port";
+"FreightPage.Selector.VesselSpeed.SubTitle" = "Vessel Speed";
+"FreightPage.Selector.VesselSpeed.Placeholder" = "Vessel Speed";
+"FreightPage.Selector.LoadedQuantity.SubTitle" = "Loaded Quantity";
+"FreightPage.Selector.LoadedQuantity.Placeholder" = "Loaded Quantity";
+"FreightPage.Error.Month" = "Please select month";
+"FreightPage.Error.Port" = "Please select port";
+"FreightPage.Error.DischargePort" = "Please select discharge port";
+"FreightPage.Error.VesselType" = "Please select vessel type";
+"FreightPage.Error.VesselSpeed" = "Please enter vessel speed";
+"FreightPage.Error.LoadedQuantity" = "Please enter loaded quantity";
+
+// freight results
+
+"FreightResultPage.PageTitle" = "Results";
+"FreightResultPage.Key.JourneyDistance.Title" = "Journey Distance";
+"FreightResultPage.Key.JourneyTime.Title" = "Journey Time";
+"FreightResultPage.Key.Rate.Title" = "Rate";
+"FreightResultPage.Key.Basis.Title" = "Basis";
+"FreightResultPage.Key.MarketCondition.Title" = "Market Condition";
+"FreightResultPage.Key.Overage.Title" = "Overage";

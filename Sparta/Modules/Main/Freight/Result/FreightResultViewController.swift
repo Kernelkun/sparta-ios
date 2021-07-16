@@ -58,7 +58,7 @@ class FreightResultViewController: BaseViewController {
     // MARK: - Private methods
 
     private func setupNavigationUI() {
-        navigationItem.title = "Results"
+        navigationItem.title = "FreightResultPage.PageTitle".localized
         navigationBar(hide: false)
     }
 
@@ -129,11 +129,13 @@ extension FreightResultViewController: FreightResultViewModelDelegate {
 
             switch type {
             case .journeyDistance(let value):
-                view.apply(key: "Journey Distance", value: value)
+                view.apply(key: "FreightResultPage.Key.JourneyDistance.Title".localized,
+                           value: value)
                 contentPageVC.selectedController.mainBottomStackView.addArrangedSubview(view)
 
             case .journeyTime(let value):
-                view.apply(key: "Journey Time", value: value)
+                view.apply(key: "FreightResultPage.Key.JourneyTime.Title".localized,
+                           value: value)
                 contentPageVC.selectedController.mainBottomStackView.addArrangedSubview(view)
 
             case .route(let title, let value):
@@ -141,19 +143,23 @@ extension FreightResultViewController: FreightResultViewModelDelegate {
                 contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
 
             case .rate(let value):
-                view.apply(key: "Rate", value: value)
+                view.apply(key: "FreightResultPage.Key.Rate.Title".localized,
+                           value: value)
                 contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
 
             case .cpBasis(let value):
-                view.apply(key: "Basis", value: value)
+                view.apply(key: "FreightResultPage.Key.Basis.Title".localized,
+                           value: value)
                 contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
 
             case .marketCondition(let value):
-                view.apply(key: "Market Condition", value: value)
+                view.apply(key: "FreightResultPage.Key.MarketCondition.Title".localized,
+                           value: value)
                 contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
 
             case .overage(let value):
-                view.apply(key: "Overage", value: value)
+                view.apply(key: "FreightResultPage.Key.Overage.Title".localized,
+                           value: value)
                 contentPageVC.selectedController.mainTopStackView.addArrangedSubview(view)
             }
 
