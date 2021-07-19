@@ -150,7 +150,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     private func inputTGTView() -> UILabel {
         UILabel().then { label in
 
-            label.text = "Input TGT"
+            label.text = "ArbsPage.Status.InputTgt.Title".localized
             label.textColor = .controlTintActive
             label.font = .main(weight: .regular, size: 11)
             label.isUserInteractionEnabled = true

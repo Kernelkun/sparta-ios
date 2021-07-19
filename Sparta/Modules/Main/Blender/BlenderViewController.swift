@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import NetworkingModels
 
 class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 
     // MARK: - UI
 
+    private var profilesView: ProfilesView<BlenderProfileCategory>!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
     private var popup = PopupViewController()
@@ -18,14 +20,43 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
-                                                       gradeHeight: 50,
-                                                       collectionColumnWidth: 70,
-                                                       tableColumnWidth: 160,
-                                                       emptyView: UIView())
 
-        gridView = GridView(constructor: constructor)
-        view = gridView
+        let gridContructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
+                                                          gradeHeight: 50,
+                                                          collectionColumnWidth: 70,
+                                                          tableColumnWidth: 160,
+                                                          emptyView: UIView())
+
+        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: false,
+                                                         isEditable: false)
+
+        view = UIView().then { view in
+
+            profilesView = ProfilesView(constructor: profilesContructor).then { profilesView in
+
+                profilesView.onChooseProfile { [unowned self] profile in
+                    self.viewModel.changeProfile(profile)
+                }
+
+                profilesView.onChooseAdd { [unowned self] in
+                    navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
+                }
+
+                view.addSubview(profilesView) {
+                    $0.top.equalToSuperview().offset(topBarHeight)
+                    $0.left.right.equalToSuperview()
+                    $0.height.equalTo(45)
+                }
+            }
+
+            gridView = GridView(constructor: gridContructor).then { gridView in
+
+                view.addSubview(gridView) {
+                    $0.left.right.bottom.equalToSuperview()
+                    $0.top.equalTo(profilesView.snp.bottom)
+                }
+            }
+        }
     }
 
     // MARK: - Lifecycle
@@ -43,11 +74,11 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         viewModel.delegate = self
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         // view model
-        
+
         viewModel.loadData()
     }
 
@@ -60,7 +91,6 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         // grid view
 
         gridView.dataSource = self
-        gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
         // sockets status view
@@ -80,11 +110,18 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Blender")
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "MainTabsPage.Blender.Title".localized)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { isOn in
+        let seasonalityButton = UIBarButtonItemFactory.seasonalityBlock(onValueChanged: { isOn in
             self.viewModel.isSeasonalityOn = isOn
         })
+
+        let editButton = UIBarButtonItemFactory.editButton { [unowned self] _ in
+            navigationController?.pushViewController(BlenderEditPortfolioItemsViewController(), animated: true)
+        }
+
+        navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 25),
+                                              seasonalityButton]
     }
 
     private func showDescription(for indexPath: IndexPath) {
@@ -131,7 +168,7 @@ extension BlenderViewController: GridViewDataSource {
     }
 
     func numberOfSections() -> Int {
-        viewModel.tableDataSource.count
+        viewModel.collectionDataSource.count
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
@@ -153,10 +190,6 @@ extension BlenderViewController: GridViewDataSource {
 
         if case let BlenderViewModel.Cell.title(blender) = cellType {
             cell.apply(blender: blender)
-
-            cell.onToggleFavourite { [unowned self] blender in
-                self.viewModel.toggleFavourite(blender: blender)
-            }
         }
 
         return cell
@@ -185,11 +218,19 @@ extension BlenderViewController: BlenderViewModelDelegate {
         gridView.reloadGrades()
     }
 
+    func didReceiveUpdatesForPresentationStyle() {
+        gridView.setInfoRowsCount(viewModel.monthsCount())
+    }
+
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet) {
         gridView.updateDataSourceSections(insertions: insertions, removals: removals, updates: updates)
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
         socketsStatusView.apply(color: color, title: title, formattedDate: formattedDate)
+    }
+
+    func didReceiveProfilesInfo(profiles: [BlenderProfileCategory], selectedProfile: BlenderProfileCategory?) {
+        profilesView.apply(profiles, selectedProfile: selectedProfile)
     }
 }

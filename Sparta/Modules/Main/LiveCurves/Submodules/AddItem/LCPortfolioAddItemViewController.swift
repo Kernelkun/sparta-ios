@@ -61,10 +61,10 @@ class LCPortfolioAddItemViewController: BaseTableVMViewController<LCPortfolioAdd
     }
 
     private func setupSearchController() {
-        title = "Add items"
+        title = "Portfolio.AddItems.PageTitle".localized
 
         searchController = UISearchController(searchResultsController: nil).then { vc in
-            vc.setup(placeholder: "Search", searchResultsUpdater: self)
+            vc.setup(placeholder: "Search.Title".localized, searchResultsUpdater: self)
             vc.delegate = self
         }
 

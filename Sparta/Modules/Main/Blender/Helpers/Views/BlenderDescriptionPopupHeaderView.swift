@@ -41,7 +41,7 @@ class BlenderDescriptionPopupHeaderView: UITableViewHeaderFooterView {
             label.textColor = UIColor.primaryText.withAlphaComponent(0.7)
             label.font = .main(weight: .lightItalic, size: 10)
             label.numberOfLines = 2
-            label.text = "Component"
+            label.text = "BlenderPage.Popup.Component.Title".localized
 
             addSubview(label) {
                 $0.top.equalToSuperview().offset(16)
@@ -57,7 +57,7 @@ class BlenderDescriptionPopupHeaderView: UITableViewHeaderFooterView {
             label.textColor = UIColor.primaryText.withAlphaComponent(0.7)
             label.font = .main(weight: .lightItalic, size: 10)
             label.numberOfLines = 1
-            label.text = "Blend vol%"
+            label.text = "BlenderPage.Popup.BlendVol.Title".localized
 
             addSubview(label) {
                 $0.right.equalToSuperview().inset(4)

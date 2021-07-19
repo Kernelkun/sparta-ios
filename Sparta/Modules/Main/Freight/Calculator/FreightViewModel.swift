@@ -59,34 +59,33 @@ class FreightViewModel: NSObject, BaseViewModel {
     }
 
     func saveData() {
-
         guard let selectedMonth = selectedMonth else {
-            delegate?.didCatchAnError("Please select month")
+            delegate?.didCatchAnError("FreightPage.Error.Month".localized)
             return
         }
 
         guard let selectedPort = selectedFreightPort else {
-            delegate?.didCatchAnError("Please select port")
+            delegate?.didCatchAnError("FreightPage.Error.Port".localized)
             return
         }
 
         guard let selectedDischargePort = selectedDischargePort else {
-            delegate?.didCatchAnError("Please select discharge port")
+            delegate?.didCatchAnError("FreightPage.Error.DischargePort".localized)
             return
         }
 
         guard let selectedVesselType = selectedVesselType else {
-            delegate?.didCatchAnError("Please select vessel type")
+            delegate?.didCatchAnError("FreightPage.Error.VesselType".localized)
             return
         }
 
         guard let selectedVesselSpeed = selectedVesselSpeed, !selectedVesselSpeed.isEmpty else {
-            delegate?.didCatchAnError("Please enter vessel speed")
+            delegate?.didCatchAnError("FreightPage.Error.VesselSpeed".localized)
             return
         }
 
         guard let selectedLoadedQuantity = selectedLoadedQuantity, !selectedLoadedQuantity.isEmpty else {
-            delegate?.didCatchAnError("Please enter loaded quantity")
+            delegate?.didCatchAnError("FreightPage.Error.LoadedQuantity".localized)
             return
         }
 

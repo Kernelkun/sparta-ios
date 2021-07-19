@@ -10,7 +10,7 @@ import NetworkingModels
 import SpartaHelpers
 import Networking
 
-protocol SyncServiceDelegate: class {
+protocol SyncServiceDelegate: AnyObject {
     func syncServiceDidFinishSyncInitialData()
 }
 

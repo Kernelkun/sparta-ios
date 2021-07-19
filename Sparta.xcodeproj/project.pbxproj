@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B815729BD8EA30417EDD7786 /* Pods_Sparta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */; };
+		D9016002269893D300F144F5 /* BlenderEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9016001269893D300F144F5 /* BlenderEndPoint.swift */; };
+		D90160042698948D00F144F5 /* BlenderNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90160032698948D00F144F5 /* BlenderNetworkManager.swift */; };
 		D906529725D2EB6800892C89 /* ResultKeyValueUnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906529625D2EB6800892C89 /* ResultKeyValueUnitsView.swift */; };
 		D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */; };
 		D91AB43B265FDAAA00BDD75D /* ProfilesViewConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AB43A265FDAAA00BDD75D /* ProfilesViewConstructor.swift */; };
@@ -67,6 +69,7 @@
 		D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */; };
 		D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
+		D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */; };
 		D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */; };
 		D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */; };
 		D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */; };
@@ -75,6 +78,7 @@
 		D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */; };
 		D98AF6E525BB02D700A5BC96 /* CoreStore in Frameworks */ = {isa = PBXBuildFile; productRef = D98AF6E425BB02D700A5BC96 /* CoreStore */; };
 		D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */; };
+		D98FD750269EFAC60068A0BB /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = D98FD74F269EFAC60068A0BB /* en.strings */; };
 		D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99624CB266E6CDE001CD262 /* EmptyStateView.swift */; };
 		D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */; };
 		D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */; };
@@ -98,6 +102,8 @@
 		D9A3BD5E2575258500224535 /* App in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD5D2575258500224535 /* App */; };
 		D9A3BD612575262B00224535 /* NetworkingModels in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD602575262B00224535 /* NetworkingModels */; };
 		D9A3BD662575274300224535 /* SpartaHelpers in Frameworks */ = {isa = PBXBuildFile; productRef = D9A3BD652575274300224535 /* SpartaHelpers */; };
+		D9A41AEA269C89AB0057ABCD /* BlenderEditPortfolioItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A41AE9269C89AB0057ABCD /* BlenderEditPortfolioItemsViewController.swift */; };
+		D9A41AEC269C89B40057ABCD /* BlenderEditPortfolioItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A41AEB269C89B40057ABCD /* BlenderEditPortfolioItemsViewModel.swift */; };
 		D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */; };
 		D9A8041A25713DC2000ADE6B /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D9A8041925713DC2000ADE6B /* Then */; };
 		D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A80434257145E8000ADE6B /* Typealiases.swift */; };
@@ -185,6 +191,8 @@
 /* Begin PBXFileReference section */
 		244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sparta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3DBBAA9893FB1A41E3B001D /* Pods-Sparta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sparta.debug.xcconfig"; path = "Target Support Files/Pods-Sparta/Pods-Sparta.debug.xcconfig"; sourceTree = "<group>"; };
+		D9016001269893D300F144F5 /* BlenderEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderEndPoint.swift; sourceTree = "<group>"; };
+		D90160032698948D00F144F5 /* BlenderNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderNetworkManager.swift; sourceTree = "<group>"; };
 		D906529625D2EB6800892C89 /* ResultKeyValueUnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyValueUnitsView.swift; sourceTree = "<group>"; };
 		D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D91AB43A265FDAAA00BDD75D /* ProfilesViewConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewConstructor.swift; sourceTree = "<group>"; };
@@ -242,6 +250,7 @@
 		D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewModel.swift; sourceTree = "<group>"; };
 		D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesViewModel+Models.swift"; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
+		D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsGradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsStatusCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewController.swift; sourceTree = "<group>"; };
@@ -249,6 +258,7 @@
 		D98AF6C625BAC69500A5BC96 /* KeyedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedButton.swift; sourceTree = "<group>"; };
 		D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsViewModel+Models.swift"; sourceTree = "<group>"; };
 		D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbTappableCell.swift; sourceTree = "<group>"; };
+		D98FD74F269EFAC60068A0BB /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
 		D99624CB266E6CDE001CD262 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManager.swift; sourceTree = "<group>"; };
 		D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +282,8 @@
 		D9A27972259399C0009D066E /* SocketAPI+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SocketAPI+UI.swift"; sourceTree = "<group>"; };
 		D9A3BD5B257522C400224535 /* App */ = {isa = PBXFileReference; lastKnownFileType = folder; path = App; sourceTree = "<group>"; };
 		D9A3BD632575273200224535 /* SpartaHelpers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpartaHelpers; sourceTree = "<group>"; };
+		D9A41AE9269C89AB0057ABCD /* BlenderEditPortfolioItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderEditPortfolioItemsViewController.swift; sourceTree = "<group>"; };
+		D9A41AEB269C89B40057ABCD /* BlenderEditPortfolioItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderEditPortfolioItemsViewModel.swift; sourceTree = "<group>"; };
 		D9A7E96D258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D9A80434257145E8000ADE6B /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
 		D9A80440257146D1000ADE6B /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
@@ -392,6 +404,7 @@
 		D91A96B9258BB56C008487A8 /* LiveCurves */ = {
 			isa = PBXGroup;
 			children = (
+				D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */,
 				D9A067122587BECA00C0D1E5 /* LiveCurvesSyncManager.swift */,
 				D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */,
 			);
@@ -465,6 +478,7 @@
 		D944CEF42577B7B7009115FD /* Blender */ = {
 			isa = PBXGroup;
 			children = (
+				D9A41AE5269C892A0057ABCD /* Submodules */,
 				D944CF0B2577E234009115FD /* Helpers */,
 				D944CF042577E096009115FD /* BlenderViewModel.swift */,
 				D944CEF52577B7C9009115FD /* BlenderViewController.swift */,
@@ -625,6 +639,7 @@
 				D944CEF025767306009115FD /* ProfileNetworkManager.swift */,
 				D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */,
 				D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */,
+				D90160032698948D00F144F5 /* BlenderNetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -637,6 +652,7 @@
 				D944CEED2576725D009115FD /* ProfileEndPoint.swift */,
 				D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */,
 				D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */,
+				D9016001269893D300F144F5 /* BlenderEndPoint.swift */,
 			);
 			path = EndPoints;
 			sourceTree = "<group>";
@@ -728,6 +744,14 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
+		D98FD74E269EFA9B0068A0BB /* Localized Files */ = {
+			isa = PBXGroup;
+			children = (
+				D98FD74F269EFAC60068A0BB /* en.strings */,
+			);
+			path = "Localized Files";
+			sourceTree = "<group>";
+		};
 		D99A73E8259C7B24009E3559 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -785,6 +809,30 @@
 				D9ECEC3A257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift */,
 			);
 			path = BlenderDescriptionPopupView;
+			sourceTree = "<group>";
+		};
+		D9A41AE5269C892A0057ABCD /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+				D9A41AE7269C89870057ABCD /* EditPortfolioItems */,
+			);
+			path = Submodules;
+			sourceTree = "<group>";
+		};
+		D9A41AE6269C89540057ABCD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D9A41AE7269C89870057ABCD /* EditPortfolioItems */ = {
+			isa = PBXGroup;
+			children = (
+				D9A41AEB269C89B40057ABCD /* BlenderEditPortfolioItemsViewModel.swift */,
+				D9A41AE9269C89AB0057ABCD /* BlenderEditPortfolioItemsViewController.swift */,
+			);
+			path = EditPortfolioItems;
 			sourceTree = "<group>";
 		};
 		D9A7E96C258BBA3B00052232 /* Cells */ = {
@@ -1089,6 +1137,7 @@
 		D9BB5363256EC68800AD2D1A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D98FD74E269EFA9B0068A0BB /* Localized Files */,
 				D98011A12652BC9900B8AA70 /* Colors */,
 				D9B50E332574228A0018F3D7 /* Fonts */,
 				D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */,
@@ -1174,6 +1223,7 @@
 		D9D4FC28264ED4D000A2A1DA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D9A41AE6269C89540057ABCD /* Cells */,
 				D9D4FC29264ED4D600A2A1DA /* BaseViewController.swift */,
 				D97926F82657C1A10004E230 /* BaseTableViewController.swift */,
 				D9B50E182571818E0018F3D7 /* BaseVMViewController.swift */,
@@ -1309,6 +1359,7 @@
 				D9B50E42257433340018F3D7 /* OpenSans-SemiBold.ttf in Resources */,
 				D9B50E3B257423140018F3D7 /* OpenSans-LightItalic.ttf in Resources */,
 				D9BB5390256EF85600AD2D1A /* Colors.xcassets in Resources */,
+				D98FD750269EFAC60068A0BB /* en.strings in Resources */,
 				D9BB538D256EF83D00AD2D1A /* Assets.xcassets in Resources */,
 				D9BB5355256E8E6800AD2D1A /* LaunchScreen.storyboard in Resources */,
 			);
@@ -1415,6 +1466,7 @@
 				D94ACF19266529FB003BCC14 /* UIActionSheetFactory.swift in Sources */,
 				D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */,
 				D9A839C4265E4D1B0074E134 /* EditPortfolioItemsViewModel.swift in Sources */,
+				D9016002269893D300F144F5 /* BlenderEndPoint.swift in Sources */,
 				D9A91C1025A4AB0200423704 /* AnalyticsManager.swift in Sources */,
 				D93BC63D258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift in Sources */,
 				D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */,
@@ -1433,6 +1485,7 @@
 				D959C0DE2582295F006CE2D1 /* ArbsViewController.swift in Sources */,
 				D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */,
 				D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */,
+				D9A41AEC269C89B40057ABCD /* BlenderEditPortfolioItemsViewModel.swift in Sources */,
 				D99ACC3125AF8210007DAB6D /* LiveChartsViewModel.swift in Sources */,
 				D9ECEC4A257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift in Sources */,
 				D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */,
@@ -1449,6 +1502,7 @@
 				D9B7CCE225C305AC0023FDF2 /* ResultManualStatusView.swift in Sources */,
 				D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */,
 				D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */,
+				D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */,
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift in Sources */,
@@ -1474,6 +1528,7 @@
 				D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
+				D90160042698948D00F144F5 /* BlenderNetworkManager.swift in Sources */,
 				D9716CEC2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift in Sources */,
 				D9B7CCDF25C305A20023FDF2 /* ResultAutoStatusView.swift in Sources */,
 				D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */,
@@ -1525,6 +1580,7 @@
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
 				D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */,
 				D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */,
+				D9A41AEA269C89AB0057ABCD /* BlenderEditPortfolioItemsViewController.swift in Sources */,
 				D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */,
 				D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */,
 				D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */,
@@ -1675,7 +1731,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1683,7 +1739,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Sources/Sparta-Bridging-Header.h";
@@ -1701,7 +1757,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1709,7 +1765,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sparta/Sources/Sparta-Bridging-Header.h";

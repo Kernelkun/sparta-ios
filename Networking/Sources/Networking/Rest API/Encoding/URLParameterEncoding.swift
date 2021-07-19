@@ -9,14 +9,13 @@
 import Foundation
 import SpartaHelpers
 
-public struct URLParameterEncoder: ParameterEncoder {
+public struct URLParameterEncoder: ParameterURLEncoder {
     
     public func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws {
         
         guard let url = urlRequest.url else { throw NetworkError.missingURL }
         
-        if var urlComponents = URLComponents(url: url,
-                                             resolvingAgainstBaseURL: false), !parameters.isEmpty {
+        if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
             
             urlComponents.queryItems = [URLQueryItem]()
             

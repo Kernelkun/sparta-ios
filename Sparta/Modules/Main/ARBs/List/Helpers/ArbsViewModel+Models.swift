@@ -18,7 +18,7 @@ extension ArbsViewModel {
         static var arb: Cell {
             let emptyString = "\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}"
             let title: NSString = """
-                \(emptyString) \(emptyString) \(emptyString) \(emptyString) \(emptyString) \(emptyString)   ARB
+                \(emptyString) \(emptyString) \(emptyString) \(emptyString) \(emptyString) \(emptyString)   \("ArbsPage.Grade.Arb.Title".localized)
             """ as NSString
             let attributedString = NSMutableAttributedString(string: title as String)
 
@@ -31,7 +31,7 @@ extension ArbsViewModel {
         }
 
         static var status: Cell {
-            let title: NSString = "Open\\Close"
+            let title: NSString = "ArbsPage.Grade.OpenClose.Title".localized as NSString
             let attributedString = NSMutableAttributedString(string: title as String)
 
             attributedString.addAttributes([.font: UIFont.main(weight: .regular, size: 10)],
@@ -40,9 +40,12 @@ extension ArbsViewModel {
             return .grade(attributedString: attributedString)
         }
         
-        static var deliveryMonth: Cell { .grade(attributedString: NSAttributedString(string: "Dlv\nMonth")) }
+        static var deliveryMonth: Cell {
+            .grade(attributedString: NSAttributedString(string: "ArbsPage.Grade.DlvMonth.Title".localized))
+        }
+
         static var userTgt: Cell {
-            let title: String = "My\nTGT"
+            let title: String = "ArbsPage.Grade.MyTgt.Title".localized
             let attributedString = NSMutableAttributedString(string: title)
 
             let paragraphStyle = NSMutableParagraphStyle()
@@ -53,7 +56,7 @@ extension ArbsViewModel {
         }
 
         static var userMargin: Cell {
-            let title: String = "My\nMargin"
+            let title: String = "ArbsPage.Grade.MyMargin.Title".localized
             let attributedString = NSMutableAttributedString(string: title)
 
             let paragraphStyle = NSMutableParagraphStyle()
@@ -63,7 +66,7 @@ extension ArbsViewModel {
             return .grade(attributedString: attributedString)
         }
         static var deliveryPrice: Cell {
-            let title: NSString = "Dlv\nPrice"
+            let title: NSString = "ArbsPage.Grade.DlvPrice.Title".localized as NSString
             let attributedString = NSMutableAttributedString(string: title as String)
 
             let paragraphStyle = NSMutableParagraphStyle()

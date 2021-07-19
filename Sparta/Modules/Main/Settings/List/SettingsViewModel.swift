@@ -62,7 +62,7 @@ extension SettingsViewModel {
 
         var displayName: String {
             switch self {
-            case .account: return "Account"
+            case .account: return "SettingsPage.List.Account.Title".localized
             case .subscription: return "Subscription"
             case .alarms: return "Alarms"
             case .support: return "Support"

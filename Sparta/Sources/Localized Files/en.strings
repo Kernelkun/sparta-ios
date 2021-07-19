@@ -1,0 +1,173 @@
+//
+//  en.strings
+//  Sparta
+//
+//  Created by Yaroslav Babalich on 14.07.2021.
+//
+
+// general
+
+"Alert.Error.Title" = "Error";
+"Save.Title" = "Save";
+"Name.Title" = "Name";
+"Search.Title" = "Search";
+"LastUpdated.Title" = "Last updated";
+"Closed.Title" = "Closed";
+"Connecting.Title" = "Connecting";
+"Connected.Title" = "Connected";
+"Grade.Title" = "Grade";
+"Logout.Title" = "Logout";
+"ChangePassword.Title" = "Change Password";
+
+// validators
+
+"Validator.Error.EmptyEmail" = "E-mail is required and can't be empty.";
+"Validator.Error.InvalidEmail" = "Please enter a valid e-mail address.";
+"Validator.Error.InvalidPassword" = "Password is required and can't be empty.";
+"Validator.Error.NotEqualPasswords" = "New password and repeat password must match";
+"Validator.Error.NotMatchPasswordReq" = "Password must be at least 8 characters long, contain a number, a lowercase and a uppercase letter";
+"Validator.Error.InvalidSessionUser" = "Something went wrong. Please re-login to the app.";
+
+// networking
+
+"Networking.Error.Response" = "Can't parse response from server";
+"Networking.Error.Fetch" = "Can't fetch data from server";
+"Networking.Error.UnhandledResponse" = "Something went wrong";
+"Networking.Error.InvalidCreds" = "Invalid creds, please enter new one";
+"Networking.Error.UserProfile" = "Can't fetch user profile. Please try again.";
+"Networking.Error.NotExistEmail" = "User with this email doesn't exist";
+"Networking.Error.IncorrectOldPassword" = "Old password is incorrect, please enter new one";
+
+// login page
+
+"LoginPage.Field.Email.Placeholder" = "Email";
+"LoginPage.Field.Password.Placeholder" = "Password";
+"LoginPage.Button.SignIn.Title" = "Sign in";
+"LoginPage.Button.FgtPassword.Title" = "Forgot Password";
+
+// forgot password page
+
+"ForgotPasssword.Field.Email.Placeholder" = "Email";
+"ForgotPasssword.Button.RcvPassword.Title" = "Recover password";
+"ForgotPasssword.Button.Login.Title" = "Login";
+"ForgotPasssword.SuccessResult.Title" = "Recover password";
+"ForgotPasssword.SuccessResult.Message" = "We have sent information about how to recover your account to your email";
+
+// tabs page
+
+"MainTabsPage.LiveCurves.Title" = "Live Curves";
+"MainTabsPage.ARBs.Title" = "ARBs";
+"MainTabsPage.Blender.Title" = "Blender";
+"MainTabsPage.Freight.Title" = "Freight";
+"MainTabsPage.Settings.Title" = "Settings";
+
+// portfolios
+
+"Portfolio.Empty.Title" = "This portfolio is empty";
+"Portfolio.Empty.Button.AddProduct.Title" = "Add product";
+"Portfolio.EditItems.PageTitle" = "Edit items";
+"Portfolio.Add.PageTitle" = "New portfolio";
+"Portfolio.Add.PageField.Placeholder" = "Add a portfolio name";
+"Portfolio.Add.Error.InvalidName" = "Please enter valid portfolio name";
+"Portfolio.Add.Error.UnableToCreate" = "Something wrong happened with creating profile";
+"Portfolio.AddItems.PageTitle" = "Add items";
+"Portfolio.AddItems.Error.UnableToAdd" = "Something wrong happened with adding items";
+
+
+// arbs page
+
+"ArbsPage.Grade.Arb.Title" = "ARB";
+"ArbsPage.Grade.OpenClose.Title" = "Open\\Close";
+"ArbsPage.Grade.DlvMonth.Title" = "Dlv\nMonth";
+"ArbsPage.Grade.MyTgt.Title" = "My\nTGT";
+"ArbsPage.Grade.MyMargin.Title" = "My\nMargin";
+"ArbsPage.Grade.DlvPrice.Title" = "Dlv\nPrice";
+"ArbsPage.Status.InputTgt.Title" = "Input TGT";
+
+// arb detail page
+
+"ArbDetailPage.Key.Status.Title" = "Arb Open/Close";
+"ArbDetailPage.Key.Target.Title" = "My Target";
+"ArbDetailPage.Key.BlendCost.Title" = "Blend Cost";
+"ArbDetailPage.Key.GasNap.Title" = "Gas/Nap";
+"ArbDetailPage.Key.Freight.Title" = "Freight";
+"ArbDetailPage.Key.TaArb.Title" = "TA Arb";
+"ArbDetailPage.Key.Ew.Title" = "E/W";
+"ArbDetailPage.Key.DlvPrice.Title" = "Dlv Price";
+"ArbDetailPage.Key.DlvPriceBasis.Title" = "Dlv Price Basis";
+"ArbDetailPage.Key.MyMargin.Title" = "My Margin";
+"ArbDetailPage.Key.BlenderMargin.Title" = "Blender Margin";
+"ArbDetailPage.Key.FobRefyMargin.Title" = "FOB Refy Margin";
+"ArbDetailPage.Key.CifRefyMargin.Title" = "CIF Refy Margin";
+"ArbDetailPage.Key.CodBlenderMargin.Title" = "CoD Blender Margin";
+"ArbDetailPage.Button.InputTgt.Title" = "Input My Target";
+
+// blender page
+
+"BlenderPage.Popup.Component.Title" = "Component";
+"BlenderPage.Popup.BlendVol.Title" = "Blend vol%";
+
+// freight page
+
+"FreightPage.Button.Calculate.Title" = "Calculate";
+"FreightPage.Selector.VesselType.SubTitle" = "Vessel Type";
+"FreightPage.Selector.VesselType.Placeholder" = "Select vessel type";
+"FreightPage.Selector.Month.SubTitle" = "Month";
+"FreightPage.Selector.Month.Placeholder" = "Select month";
+"FreightPage.Selector.Port.SubTitle" = "Port";
+"FreightPage.Selector.Port.Placeholder" = "Select port";
+"FreightPage.Selector.DischargePort.SubTitle" = "Discharge Port";
+"FreightPage.Selector.DischargePort.Placeholder" = "Select discharge port";
+"FreightPage.Selector.VesselSpeed.SubTitle" = "Vessel Speed";
+"FreightPage.Selector.VesselSpeed.Placeholder" = "Vessel Speed";
+"FreightPage.Selector.LoadedQuantity.SubTitle" = "Loaded Quantity";
+"FreightPage.Selector.LoadedQuantity.Placeholder" = "Loaded Quantity";
+"FreightPage.Error.Month" = "Please select month";
+"FreightPage.Error.Port" = "Please select port";
+"FreightPage.Error.DischargePort" = "Please select discharge port";
+"FreightPage.Error.VesselType" = "Please select vessel type";
+"FreightPage.Error.VesselSpeed" = "Please enter vessel speed";
+"FreightPage.Error.LoadedQuantity" = "Please enter loaded quantity";
+
+// freight results page
+
+"FreightResultPage.PageTitle" = "Results";
+"FreightResultPage.Key.JourneyDistance.Title" = "Journey Distance";
+"FreightResultPage.Key.JourneyTime.Title" = "Journey Time";
+"FreightResultPage.Key.Rate.Title" = "Rate";
+"FreightResultPage.Key.Basis.Title" = "Basis";
+"FreightResultPage.Key.MarketCondition.Title" = "Market Condition";
+"FreightResultPage.Key.Overage.Title" = "Overage";
+
+// settings page
+
+"SettingsPage.List.Account.Title" = "Account";
+"SettingsPage.Account.FirstName.SubTitle" = "First Name";
+"SettingsPage.Account.FirstName.Placeholder" = "First Name";
+"SettingsPage.Account.LastName.SubTitle" = "Last Name";
+"SettingsPage.Account.LastName.Placeholder" = "Last Name";
+"SettingsPage.Account.MobileNumber.SubTitle" = "Mobile Number";
+"SettingsPage.Account.MobileNumber.Placeholder" = "Mobile Number";
+"SettingsPage.Account.MobileNumber.Code.Placeholder" = "+ 00";
+"SettingsPage.Account.Role.SubTitle" = "Role";
+"SettingsPage.Account.Role.Placeholder" = "Role";
+"SettingsPage.Account.PrimaryProduct.SubTitle" = "Primary Product";
+"SettingsPage.Account.PrimaryProduct.Placeholder" = "Primary Product";
+"SettingsPage.Account.PrimaryTradeArea.SubTitle" = "Primary Trade Area";
+"SettingsPage.Account.PrimaryTradeArea.Placeholder" = "Primary Trade Area";
+"SettingsPage.Account.PrimaryPort.SubTitle" = "Primary Port";
+"SettingsPage.Account.PrimaryPort.Placeholder" = "Primary Port";
+
+// change password page
+
+"ChangePasswordPage.FirstTime.Description" = "It seems this is the first time you log in. Please, change your password.";
+"ChangePasswordPage.Field.OldPassword.SubTitle" = "Old password";
+"ChangePasswordPage.Field.OldPassword.Placeholder" = "Enter old password";
+"ChangePasswordPage.Field.NewPassword.SubTitle" = "New password";
+"ChangePasswordPage.Field.NewPassword.Placeholder" = "Enter new password";
+"ChangePasswordPage.Field.RepeatNewPassword.SubTitle" = "Repeat new password";
+"ChangePasswordPage.Field.RepeatNewPassword.Placeholder" = "Confirm new password";
+
+// blur page
+
+"BlurPage.Loading.Title" = "Syncing initial data";

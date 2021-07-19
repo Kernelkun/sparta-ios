@@ -9,6 +9,10 @@
 import Foundation
 
 public protocol ParameterEncoder {
+    func encode(urlRequest: inout URLRequest, with parameters: Any) throws
+}
+
+public protocol ParameterURLEncoder {
     func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws
 }
 
@@ -19,7 +23,7 @@ public enum ParameterEncoding {
     case urlAndJsonEncoding
     
     public func encode(urlRequest: inout URLRequest,
-                       bodyParameters: Parameters?,
+                       bodyParameters: Any?,
                        urlParameters: Parameters?) throws {
         do {
             switch self {

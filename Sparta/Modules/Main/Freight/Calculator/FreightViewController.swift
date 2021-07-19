@@ -98,7 +98,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
         _ = BorderedButton(type: .system).then { button in
 
-            button.setTitle("Calculate", for: .normal)
+            button.setTitle("FreightPage.Button.Calculate.Title".localized, for: .normal)
             button.layer.cornerRadius = 3
 
             button.onTap { [unowned self] _ in
@@ -116,8 +116,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
     private func setupNavigationUI() {
         navigationItem.title = nil
-
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Freight")
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "MainTabsPage.Freight.Title".localized)
     }
 
     private func setupMonthViews(in contentView: UIView) -> UIView {
@@ -138,7 +137,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
         return UILabel().then { label in
 
-            label.text = "Month"
+            label.text = "FreightPage.Selector.Month.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -168,7 +167,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
         return UILabel().then { label in
 
-            label.text = "Port"
+            label.text = "FreightPage.Selector.Port.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -198,7 +197,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
         return UILabel().then { label in
 
-            label.text = "Discharge Port"
+            label.text = "FreightPage.Selector.DischargePort.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -228,7 +227,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
         return UILabel().then { label in
 
-            label.text = "Vessel Type"
+            label.text = "FreightPage.Selector.VesselType.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -246,7 +245,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "Vessel speed"
+            field.placeholder = "FreightPage.Selector.VesselSpeed.Placeholder".localized
 
             field.textField.enterType = .numbers(symbolsAfterDot: 2)
 
@@ -263,7 +262,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
         return UILabel().then { label in
 
-            label.text = "Vessel Speed"
+            label.text = "FreightPage.Selector.VesselSpeed.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -281,7 +280,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "Loaded Quantity"
+            field.placeholder = "FreightPage.Selector.LoadedQuantity.Placeholder".localized
 
             field.textField.enterType = .numbers(symbolsAfterDot: 2)
 
@@ -298,7 +297,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
         return UILabel().then { label in
 
-            label.text = "Loaded Quantity"
+            label.text = "FreightPage.Selector.LoadedQuantity.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -332,9 +331,6 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
         if let selectedTextField = view.selectedField {
             let newFrame = selectedTextField.convert(selectedTextField.frame, to: view)
-
-            print("newFrame: \(newFrame), keyboardFrame: \(frame)")
-
             let maxFieldFrame = newFrame.maxY + 100
 
             if maxFieldFrame > frame.minY {
@@ -351,22 +347,26 @@ extension FreightViewController: FreightViewModelDelegate {
         // months
 
         monthField.inputValues = viewModel.months
-        monthField.apply(selectedValue: viewModel.selectedMonth, placeholder: "Select month")
+        monthField.apply(selectedValue: viewModel.selectedMonth,
+                         placeholder: "FreightPage.Selector.Month.Placeholder".localized)
 
         // freight ports
 
         portField.inputValues = viewModel.freightPorts
-        portField.apply(selectedValue: viewModel.selectedFreightPort, placeholder: "Select port")
+        portField.apply(selectedValue: viewModel.selectedFreightPort,
+                        placeholder: "FreightPage.Selector.Port.Placeholder".localized)
 
         // discharge ports
 
         dischargePortField.inputValues = viewModel.dischargePorts
-        dischargePortField.apply(selectedValue: viewModel.selectedDischargePort, placeholder: "Select discharge port")
+        dischargePortField.apply(selectedValue: viewModel.selectedDischargePort,
+                                 placeholder: "FreightPage.Selector.DischargePort.Placeholder".localized)
 
         // vessel type
 
         vesselTypePortField.inputValues = viewModel.vesselTypes
-        vesselTypePortField.apply(selectedValue: viewModel.selectedVesselType, placeholder: "Select vessel type")
+        vesselTypePortField.apply(selectedValue: viewModel.selectedVesselType,
+                                  placeholder: "FreightPage.Selector.VesselType.Placeholder".localized)
 
         // speed
 
@@ -382,17 +382,20 @@ extension FreightViewController: FreightViewModelDelegate {
         // freight ports
 
         portField.inputValues = viewModel.freightPorts
-        portField.apply(selectedValue: viewModel.selectedFreightPort, placeholder: "Select port")
+        portField.apply(selectedValue: viewModel.selectedFreightPort,
+                        placeholder: "FreightPage.Selector.Port.Placeholder".localized)
 
         // discharge ports
 
         dischargePortField.inputValues = viewModel.dischargePorts
-        dischargePortField.apply(selectedValue: viewModel.selectedDischargePort, placeholder: "Select discharge port")
+        dischargePortField.apply(selectedValue: viewModel.selectedDischargePort,
+                                 placeholder: "FreightPage.Selector.DischargePort.Placeholder".localized)
 
         // vessel type
 
         vesselTypePortField.inputValues = viewModel.vesselTypes
-        vesselTypePortField.apply(selectedValue: viewModel.selectedVesselType, placeholder: "Select vessel type")
+        vesselTypePortField.apply(selectedValue: viewModel.selectedVesselType,
+                                  placeholder: "FreightPage.Selector.VesselType.Placeholder".localized)
 
         // speed
 
@@ -404,7 +407,7 @@ extension FreightViewController: FreightViewModelDelegate {
     }
 
     func didCatchAnError(_ error: String) {
-        Alert.showOk(title: "Error", message: error, show: self, completion: nil)
+        Alert.showOk(title: "Alert.Error.Title".localized, message: error, show: self, completion: nil)
     }
 
     func didFinishCalculations(with inputData: FreightCalculator.InputData) {

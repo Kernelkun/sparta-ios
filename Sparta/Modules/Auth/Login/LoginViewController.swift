@@ -116,7 +116,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
         loginField = RoundedTextField().then { field in
 
             field.icon = UIImage(named: "ic_field_user")
-            field.placeholder = "Email"
+            field.placeholder = "LoginPage.Field.Email.Placeholder".localized
             field.backgroundColor = .authFieldBackground
 
             field.onTextChanged { [unowned self] text in
@@ -133,7 +133,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
         passwordField = RoundedTextField().then { field in
 
             field.icon = UIImage(named: "ic_field_lock")
-            field.placeholder = "Password"
+            field.placeholder = "LoginPage.Field.Password.Placeholder".localized
             field.textField.isSecureTextEntry = true
             field.backgroundColor = .authFieldBackground
 
@@ -153,7 +153,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
         signInButton = BorderedButton(type: .custom).then { button in
 
-            button.setTitle("Sign in", for: .normal)
+            button.setTitle("LoginPage.Button.SignIn.Title".localized, for: .normal)
 
             button.onTap { [unowned self] _ in
                 self.viewModel.userTappedLogin()
@@ -169,7 +169,7 @@ class LoginViewController: BaseVMViewController<LoginViewModel> {
 
         _ = TappableButton(type: .system).then { button in
 
-            button.setTitle("Forgot Password", for: .normal)
+            button.setTitle("LoginPage.Button.FgtPassword.Title".localized, for: .normal)
             button.setTitleColor(.primaryText, for: .normal)
 
             button.onTap { [unowned self] _ in
@@ -199,7 +199,7 @@ extension LoginViewController: LoginViewModelDelegate {
     }
 
     func didCatchAnError(_ description: String) {
-        Alert.showOk(title: "Error", message: description, show: self, completion: nil)
+        Alert.showOk(title: "Alert.Error.Title".localized, message: description, show: self, completion: nil)
     }
 
     func didFinishSuccess() {

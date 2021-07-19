@@ -29,13 +29,6 @@ class EditPortfolioItemsTableViewCell: UITableViewCell {
         fatalError("EditPortfolioItemsTableViewCell")
     }
 
-    // MARK: - Public methods
-
-    func apply(item: LCPortfolioAddItemViewModel.Item) {
-        titleLabel.text = "Title"
-//        titleLabel.textColor = item.isActive ? .primaryText : UIColor.primaryText.withAlphaComponent(0.47)
-    }
-
     // MARK: - Private methods
 
     private func setupUI() {

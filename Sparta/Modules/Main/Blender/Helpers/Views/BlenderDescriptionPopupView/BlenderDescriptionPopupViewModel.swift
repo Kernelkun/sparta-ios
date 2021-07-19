@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BlenderDescriptionPopupViewModelDelegate: class {
+protocol BlenderDescriptionPopupViewModelDelegate: AnyObject {
     func didLoadData()
 }
 

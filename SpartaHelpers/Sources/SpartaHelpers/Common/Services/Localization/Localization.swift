@@ -36,7 +36,7 @@ public protocol Localizable { // swiftlint:disable:this file_types_order
 
 public extension Localizable {
 
-    var tableName: String { ""/*AppStyleManager.instance.language.code*/ }
+    var tableName: String { LocalizationManager.shared.preferredLanguage }
 
     var localized: String {
         return localized(from: tableName)

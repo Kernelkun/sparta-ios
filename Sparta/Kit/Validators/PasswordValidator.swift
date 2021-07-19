@@ -14,7 +14,7 @@ class PasswordValidator: Validator {
     func isValid(value: String?) -> Bool {
 
         guard value != nil else {
-            errorMessage = "Password is required and can't be empty."
+            errorMessage = "Validator.Error.InvalidPassword".localized
             return false
         }
 
@@ -25,7 +25,7 @@ class PasswordValidator: Validator {
     func isValidForSetup(value: String?) -> Bool {
 
         guard let value = value, isValidPassword(value) else {
-            errorMessage = "Password must be at least 8 characters long, contain a number, a lowercase and a uppercase letter"
+            errorMessage = "Validator.Error.NotMatchPasswordReq".localized
             return false
         }
 

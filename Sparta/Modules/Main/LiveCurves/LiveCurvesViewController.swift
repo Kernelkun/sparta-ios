@@ -25,7 +25,8 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
 
     override func loadView() {
 
-        let emptyView = EmptyStateView(titleText: "This portfolio is empty", buttonText: "Add product")
+        let emptyView = EmptyStateView(titleText: "Portfolio.Empty.Title".localized,
+                                       buttonText: "Portfolio.Empty.Button.AddProduct.Title".localized)
         emptyView.onButtonTap { [unowned self] in
             self.showPortfolioAddItemsScreen()
         }
@@ -142,7 +143,8 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
             navigationController?.pushViewController(EditPortfolioItemsViewController(), animated: true)
         }
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Live Curves")
+        let title = "MainTabsPage.LiveCurves.Title".localized
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: title)
         navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 25),
                                               periodButton, UIBarButtonItemFactory.fixedSpace(space: 25),
                                               plusButton]
