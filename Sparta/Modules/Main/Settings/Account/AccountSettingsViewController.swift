@@ -120,7 +120,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         // change password view
 
-        let changePasswordView = LineButtonView(title: "Change Password").then { view in
+        let changePasswordView = LineButtonView(title: "ChangePassword.Title".localized).then { view in
 
             view.onTap { [unowned self] in
                 let vc = ChangePasswordViewController(state: .secondary)
@@ -139,7 +139,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         saveButton = BorderedButton(type: .system).then { button in
 
-            button.setTitle("Save", for: .normal)
+            button.setTitle("Save.Title".localized, for: .normal)
             button.layer.cornerRadius = 3
 
             button.onTap { [unowned self] _ in
@@ -156,7 +156,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
     }
 
     private func setupNavigationUI() {
-        navigationItem.title = "Account"
+        navigationItem.title = "SettingsPage.List.Account.Title".localized
     }
 
     private func setupFirstNameViews(in contentView: UIView) {
@@ -165,7 +165,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "First Name"
+            field.placeholder = "SettingsPage.Account.FirstName.Placeholder".localized
 
             field.onTextChanged { [unowned self] text in
                 self.viewModel.selectedFirstName = text
@@ -180,7 +180,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         firstNameLabel = UILabel().then { label in
 
-            label.text = "First Name"
+            label.text = "SettingsPage.Account.FirstName.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -197,7 +197,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "Last Name"
+            field.placeholder = "SettingsPage.Account.LastName.Placeholder".localized
 
             field.onTextChanged { [unowned self] text in
                 self.viewModel.selectedLastName = text
@@ -212,7 +212,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         lastNameLabel = UILabel().then { label in
 
-            label.text = "Last Name"
+            label.text = "SettingsPage.Account.LastName.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -243,7 +243,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "Mobile Number"
+            field.placeholder = "SettingsPage.Account.MobileNumber.Placeholder".localized
             field.textField.keyboardType = .phonePad
 
             field.onTextChanged { [unowned self] text in
@@ -260,7 +260,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         phoneNumberLabel = UILabel().then { label in
 
-            label.text = "Mobile Number"
+            label.text = "SettingsPage.Account.MobileNumber.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -290,7 +290,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         roleLabel = UILabel().then { label in
 
-            label.text = "Role"
+            label.text = "SettingsPage.Account.Role.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -320,7 +320,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         productLabel = UILabel().then { label in
 
-            label.text = "Primary Product"
+            label.text = "SettingsPage.Account.PrimaryProduct.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -350,7 +350,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         tradeAreaLabel = UILabel().then { label in
 
-            label.text = "Primary Trade Area"
+            label.text = "SettingsPage.Account.PrimaryTradeArea.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -380,7 +380,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
         portLabel = UILabel().then { label in
 
-            label.text = "Primary Port"
+            label.text = "SettingsPage.Account.PrimaryPort.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -412,7 +412,8 @@ extension AccountSettingsViewController: AccountSettingsViewModelDelegate {
         // phone number fields
 
         phoneNumberCodeField.inputValues = viewModel.countriesCodes
-        phoneNumberCodeField.apply(selectedValue: viewModel.selectedCountryCode, placeholder: "+ 00")
+        phoneNumberCodeField.apply(selectedValue: viewModel.selectedCountryCode,
+                                   placeholder: "SettingsPage.Account.MobileNumber.Code.Placeholder".localized)
 
         phoneNumberField.textField.initialText = viewModel.selectedPhoneNumber
     }
@@ -422,26 +423,30 @@ extension AccountSettingsViewController: AccountSettingsViewModelDelegate {
         // role fields
 
         roleField.inputValues = viewModel.userRoles
-        roleField.apply(selectedValue: viewModel.selectedUserRole, placeholder: "Role")
+        roleField.apply(selectedValue: viewModel.selectedUserRole,
+                        placeholder: "SettingsPage.Account.Role.Placeholder".localized)
 
         // primary products
 
         productField.inputValues = viewModel.products
-        productField.apply(selectedValue: viewModel.selectedPrimaryProduct, placeholder: "Primary Product")
+        productField.apply(selectedValue: viewModel.selectedPrimaryProduct,
+                           placeholder: "SettingsPage.Account.PrimaryProduct.Placeholder".localized)
 
         // trade area
 
         tradeAreaField.inputValues = viewModel.tradeAreas
-        tradeAreaField.apply(selectedValue: viewModel.selectedTradeArea, placeholder: "Primary Trade Area")
+        tradeAreaField.apply(selectedValue: viewModel.selectedTradeArea,
+                             placeholder: "SettingsPage.Account.PrimaryTradeArea.Placeholder".localized)
 
         // ports
 
         portField.inputValues = viewModel.ports
-        portField.apply(selectedValue: viewModel.selectedPort, placeholder: "Primary Port")
+        portField.apply(selectedValue: viewModel.selectedPort,
+                        placeholder: "SettingsPage.Account.PrimaryPort.Placeholder".localized)
     }
 
     func didCatchAnError(_ error: String) {
-        Alert.showOk(title: "Error", message: error, show: self, completion: nil)
+        Alert.showOk(title: "Alert.Error.Title".localized, message: error, show: self, completion: nil)
     }
 
     func didChangeSendingState(_ isSending: Bool, for state: AccountSettingsViewModel.LoadingState) {

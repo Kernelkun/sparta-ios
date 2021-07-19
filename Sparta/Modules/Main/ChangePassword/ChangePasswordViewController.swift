@@ -93,7 +93,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
     // MARK: - Private methods
 
     private func setupUI() {
-        title = "Change password"
+        title = "ChangePassword.Title".localized
 
         contentScrollView = UIScrollView().then { scrollView in
 
@@ -123,7 +123,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
         if state == .initial {
             topView = UILabel().then { label in
 
-                label.text = "It seems this is the first time you log in. Please, change your password."
+                label.text = "ChangePasswordPage.FirstTime.Description".localized
                 label.textColor = .accountMainText
                 label.font = .main(weight: .regular, size: 15)
                 label.numberOfLines = 0
@@ -150,7 +150,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "Enter old password"
+            field.placeholder = "ChangePasswordPage.Field.OldPassword.Placeholder".localized
 
             field.textField.isSecureTextEntry = true
             field.showSecurityToggleButton = true
@@ -168,7 +168,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
 
         let oldPasswordLabel = UILabel().then { label in
 
-            label.text = "Old password"
+            label.text = "ChangePasswordPage.Field.OldPassword.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -183,7 +183,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "Enter new password"
+            field.placeholder = "ChangePasswordPage.Field.NewPassword.Placeholder".localized
 
             field.textField.isSecureTextEntry = true
             field.showSecurityToggleButton = true
@@ -201,7 +201,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
 
         let newPasswordLabel = UILabel().then { label in
 
-            label.text = "New password"
+            label.text = "ChangePasswordPage.Field.NewPassword.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -216,7 +216,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "Confirm new password"
+            field.placeholder = "ChangePasswordPage.Field.RepeatNewPassword.Placeholder".localized
 
             field.textField.isSecureTextEntry = true
             field.showSecurityToggleButton = true
@@ -234,7 +234,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
 
         _ = UILabel().then { label in
 
-            label.text = "Repeat new password"
+            label.text = "ChangePasswordPage.Field.RepeatNewPassword.SubTitle".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -250,7 +250,7 @@ class ChangePasswordViewController: BaseVMViewController<ChangePasswordViewModel
 
         changePasswordButton = BorderedButton(type: .system).then { button in
 
-            button.setTitle("Change password", for: .normal)
+            button.setTitle("ChangePassword.Title".localized, for: .normal)
 
             button.onTap { [unowned self] _ in
                 self.viewModel.userTappedChangePassword()
@@ -276,7 +276,7 @@ extension ChangePasswordViewController: ChangePasswordViewModelDelegate {
     }
 
     func didCatchAnError(_ description: String) {
-        Alert.showOk(title: "Error", message: description, show: self, completion: nil)
+        Alert.showOk(title: "Alert.Error.Title".localized, message: description, show: self, completion: nil)
     }
 
     func didFinishSuccess() {

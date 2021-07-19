@@ -82,7 +82,7 @@ class AppCoordinator {
         }
 
         guard app.isInitialDataSynced else {
-            blurCoordinator.start(forced: true, status: "Syncing initial data")
+            blurCoordinator.start(forced: true, status: "BlurPage.Loading.Title".localized)
             app.syncInitialData()
             return
         }

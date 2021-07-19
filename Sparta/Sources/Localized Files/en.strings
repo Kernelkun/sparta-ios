@@ -16,11 +16,17 @@
 "Connecting.Title" = "Connecting";
 "Connected.Title" = "Connected";
 "Grade.Title" = "Grade";
+"Logout.Title" = "Logout";
+"ChangePassword.Title" = "Change Password";
 
 // validators
 
 "Validator.Error.EmptyEmail" = "E-mail is required and can't be empty.";
 "Validator.Error.InvalidEmail" = "Please enter a valid e-mail address.";
+"Validator.Error.InvalidPassword" = "Password is required and can't be empty.";
+"Validator.Error.NotEqualPasswords" = "New password and repeat password must match";
+"Validator.Error.NotMatchPasswordReq" = "Password must be at least 8 characters long, contain a number, a lowercase and a uppercase letter";
+"Validator.Error.InvalidSessionUser" = "Something went wrong. Please re-login to the app.";
 
 // networking
 
@@ -30,6 +36,7 @@
 "Networking.Error.InvalidCreds" = "Invalid creds, please enter new one";
 "Networking.Error.UserProfile" = "Can't fetch user profile. Please try again.";
 "Networking.Error.NotExistEmail" = "User with this email doesn't exist";
+"Networking.Error.IncorrectOldPassword" = "Old password is incorrect, please enter new one";
 
 // login page
 
@@ -122,7 +129,7 @@
 "FreightPage.Error.VesselSpeed" = "Please enter vessel speed";
 "FreightPage.Error.LoadedQuantity" = "Please enter loaded quantity";
 
-// freight results
+// freight results page
 
 "FreightResultPage.PageTitle" = "Results";
 "FreightResultPage.Key.JourneyDistance.Title" = "Journey Distance";
@@ -131,3 +138,36 @@
 "FreightResultPage.Key.Basis.Title" = "Basis";
 "FreightResultPage.Key.MarketCondition.Title" = "Market Condition";
 "FreightResultPage.Key.Overage.Title" = "Overage";
+
+// settings page
+
+"SettingsPage.List.Account.Title" = "Account";
+"SettingsPage.Account.FirstName.SubTitle" = "First Name";
+"SettingsPage.Account.FirstName.Placeholder" = "First Name";
+"SettingsPage.Account.LastName.SubTitle" = "Last Name";
+"SettingsPage.Account.LastName.Placeholder" = "Last Name";
+"SettingsPage.Account.MobileNumber.SubTitle" = "Mobile Number";
+"SettingsPage.Account.MobileNumber.Placeholder" = "Mobile Number";
+"SettingsPage.Account.MobileNumber.Code.Placeholder" = "+ 00";
+"SettingsPage.Account.Role.SubTitle" = "Role";
+"SettingsPage.Account.Role.Placeholder" = "Role";
+"SettingsPage.Account.PrimaryProduct.SubTitle" = "Primary Product";
+"SettingsPage.Account.PrimaryProduct.Placeholder" = "Primary Product";
+"SettingsPage.Account.PrimaryTradeArea.SubTitle" = "Primary Trade Area";
+"SettingsPage.Account.PrimaryTradeArea.Placeholder" = "Primary Trade Area";
+"SettingsPage.Account.PrimaryPort.SubTitle" = "Primary Port";
+"SettingsPage.Account.PrimaryPort.Placeholder" = "Primary Port";
+
+// change password page
+
+"ChangePasswordPage.FirstTime.Description" = "It seems this is the first time you log in. Please, change your password.";
+"ChangePasswordPage.Field.OldPassword.SubTitle" = "Old password";
+"ChangePasswordPage.Field.OldPassword.Placeholder" = "Enter old password";
+"ChangePasswordPage.Field.NewPassword.SubTitle" = "New password";
+"ChangePasswordPage.Field.NewPassword.Placeholder" = "Enter new password";
+"ChangePasswordPage.Field.RepeatNewPassword.SubTitle" = "Repeat new password";
+"ChangePasswordPage.Field.RepeatNewPassword.Placeholder" = "Confirm new password";
+
+// blur page
+
+"BlurPage.Loading.Title" = "Syncing initial data";

@@ -43,7 +43,7 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
 
     private func changePassword(oldPassword: String, newPassword: String) {
         guard let userId = App.instance.currentUser?.id else {
-            delegate?.didCatchAnError("Something went wrong. Please re-login to the app.")
+            delegate?.didCatchAnError("Validator.Error.InvalidSessionUser".localized)
             return
         }
 
@@ -67,7 +67,7 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
                 guard response.model != nil else {
                     onMainThread {
                         strongSelf.isSending = false
-                        strongSelf.delegate?.didCatchAnError("Can't parse response from server")
+                        strongSelf.delegate?.didCatchAnError("Networking.Error.Response".localized)
                     }
                     return
                 }
@@ -81,10 +81,10 @@ class ChangePasswordViewModel: NSObject, BaseViewModel {
 
             case .failure(let error):
 
-                var errorText = "Something went wrong"
+                var errorText = "Networking.Error.UnhandledResponse".localized
 
                 if error == .error400 {
-                    errorText = "Old password is incorrect, please enter new one"
+                    errorText = "Networking.Error.IncorrectOldPassword".localized
                 }
 
                 onMainThread {
@@ -145,7 +145,7 @@ extension ChangePasswordViewModel {
 
         guard newPasswordString == reNewPasswordString  else {
             delegate?.didCatchAnError(
-                "New password and repeat password must match"
+                "Validator.Error.NotEqualPasswords".localized
             )
             return
         }

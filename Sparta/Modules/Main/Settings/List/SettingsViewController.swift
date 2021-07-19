@@ -41,7 +41,7 @@ class SettingsViewController: BaseVMViewController<SettingsViewModel> {
 
         view.backgroundColor = UIColor(hex: 0x1D1D1D).withAlphaComponent(0.94)
 
-        let logoutButton = LineButtonView(title: "Logout").then { view in
+        let logoutButton = LineButtonView(title: "Logout.Title".localized).then { view in
 
             view.onTap { [unowned self] in
                 self.viewModel.logout()
@@ -80,7 +80,7 @@ class SettingsViewController: BaseVMViewController<SettingsViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
 
-        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "Settings")
+        navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "MainTabsPage.Settings.Title".localized)
     }
 }
 

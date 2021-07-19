@@ -109,7 +109,7 @@ extension FreightResultViewController: FreightResultViewModelDelegate {
                 guard let strongSelf = self else { return }
 
                 strongSelf.contentPageVC.selectedController.mainBlock.startAnimating()
-            } 
+            }
         } else {
             contentPageVC.selectedController.mainBlock.stopAnimating()
             contentPageVC.selectedController.loaderDelay.stopAllOperations()
