@@ -156,6 +156,8 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
 extension BlenderViewController: GridViewDataSource {
 
     func gradeTitleForInfoCollectionView(at row: Int) -> NSAttributedString? {
+        guard row < viewModel.collectionGrades.count else { return nil }
+
         if case let BlenderViewModel.Cell.grade(title) = viewModel.collectionGrades[row] {
             return NSAttributedString(string: title)
         } else { return nil }

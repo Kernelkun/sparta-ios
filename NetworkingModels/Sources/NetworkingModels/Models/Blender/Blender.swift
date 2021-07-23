@@ -18,7 +18,7 @@ public struct Blender: BackendModel {
     public let basis: String
     public let naphtha: String
     public let escalation: String
-    public let months: [BlenderMonth]
+    public var months: [BlenderMonth]
     public let loadRegion: BlenderRegion
 
     // for presenting

@@ -212,9 +212,10 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
 
     func blenderSyncManagerDidFetch(blenders: [Blender], profiles: [BlenderProfileCategory], selectedProfile: BlenderProfileCategory?) {
         delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)
-        delegate?.didReceiveUpdatesForPresentationStyle()
 
         updateBlenders(for: sortedBlenders(blenders))
+
+        delegate?.didReceiveUpdatesForPresentationStyle()
         updateGrades()
     }
 

@@ -77,7 +77,11 @@ class BlenderSyncManager {
                     var profile = profile
                     profile.blenders = []
 
-                    let filteredBlenders = list.filter { $0.loadRegion == profile.region }
+                    let filteredBlenders = list.filter { $0.loadRegion == profile.region }.compactMap { blender -> Blender in
+                        var blender = blender
+                        strongSelf.patchBlender(&blender)
+                        return blender
+                    }
 
                     for (index, blender) in filteredBlenders.enumerated() {
                         var blender = blender
@@ -124,6 +128,12 @@ class BlenderSyncManager {
                                                       selectedProfile: self.profile)
         }
     }
+
+    private func patchBlender(_ blender: inout Blender) {
+        if blender.loadRegion == .hou {
+            blender.months = Array(blender.months[0...1])
+        }
+    }
 }
 
 extension BlenderSyncManager: SocketActionObserver {
@@ -137,6 +147,7 @@ extension BlenderSyncManager: SocketActionObserver {
         if let profileIndex = profiles.index(where: { $0.region == blender.loadRegion }),
            let blenderIndex = profiles[profileIndex]?.blenders.firstIndex(of: blender) {
 
+            patchBlender(&blender)
             blender.priorityIndex = blenderIndex
             profiles[profileIndex]?.blenders[blenderIndex] = blender
 
@@ -146,28 +157,6 @@ extension BlenderSyncManager: SocketActionObserver {
                 }
             }
         }
-
-        /*if !_blenders.contains(blender) {
-
-         _blenders.append(blender)
-         patchBlender(&blender)
-
-         if blender.loadRegion == profile.region {
-         onMainThread {
-         self.delegate?.blenderSyncManagerDidReceive(blender: blender)
-         }
-         }
-         } else if let blenderIndex = _blenders.index(where: { $0 == blender }) {
-
-         patchBlender(&blender)
-         _blenders[blenderIndex] = blender
-
-         if blender.loadRegion == profile.region {
-         onMainThread {
-         self.delegate?.blenderSyncManagerDidReceiveUpdates(for: blender)
-         }
-         }
-         }*/
 
         // notify observers
 
