@@ -47,7 +47,7 @@ class ArbsSyncManager {
     private var _arbs: SynchronizedArray<Arb> = SynchronizedArray<Arb>()
     private var _favourites: SynchronizedArray<Favourite> = SynchronizedArray<Favourite>()
 
-    private let analyticsManager = AnalyticsNetworkManager()
+    private let arbsManager = ArbsNetworkManager()
     private let profileManager = ProfileNetworkManager()
 
     // MARK: - Initializers
@@ -72,7 +72,7 @@ class ArbsSyncManager {
         var favourites: [Favourite] = []
 
         group.enter()
-        analyticsManager.fetchArbsTable { result in
+        arbsManager.fetchArbsTable { result in
 
             if case let .success(responseModel) = result,
                let list = responseModel.model?.list {
@@ -195,7 +195,7 @@ class ArbsSyncManager {
     // MARK: - User TGT
 
     func updateUserTarget(_ userTarget: Double, for arbMonth: ArbMonth) {
-        analyticsManager.updateArbUserTarget(userTarget, for: arbMonth) { [weak self] result in
+        arbsManager.updateArbUserTarget(userTarget, for: arbMonth) { [weak self] result in
             guard let strongSelf = self, result else { return }
 
             if let arbIndex = strongSelf._arbs.index(where: { $0.months.contains(arbMonth) }),
@@ -215,7 +215,7 @@ class ArbsSyncManager {
     }
 
     func deleteUserTarget(for arbMonth: ArbMonth) {
-        analyticsManager.deleteArbUserTarget(for: arbMonth) { [weak self] result in
+        arbsManager.deleteArbUserTarget(for: arbMonth) { [weak self] result in
             guard let strongSelf = self, result else { return }
 
             if let arbIndex = strongSelf._arbs.index(where: { $0.months.contains(arbMonth) }),

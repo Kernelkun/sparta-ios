@@ -50,6 +50,9 @@
 		D959C1002582307A006CE2D1 /* SettingsTitledTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C0FF2582307A006CE2D1 /* SettingsTitledTableViewCell.swift */; };
 		D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C10525824EE4006CE2D1 /* AccountSettingsViewController.swift */; };
 		D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C10825824EF1006CE2D1 /* AccountSettingsViewModel.swift */; };
+		D95F3F8C26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95F3F8B26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift */; };
+		D95F3F8E26AAD84800F20A74 /* ArbsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95F3F8D26AAD84800F20A74 /* ArbsNetworkManager.swift */; };
+		D95F3F9026AAD88A00F20A74 /* ArbsEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95F3F8F26AAD88A00F20A74 /* ArbsEndPoint.swift */; };
 		D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BE4257650B40038175A /* ChangePasswordViewController.swift */; };
 		D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BE8257650BF0038175A /* ChangePasswordViewModel.swift */; };
 		D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */; };
@@ -183,6 +186,7 @@
 		D9ECEC4D257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC4C257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift */; };
 		D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */; };
 		D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */; };
+		D9EE1C8C26AAC8BE00306566 /* ArbsPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */; };
 		D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */; };
 		D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */; };
 		D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */; };
@@ -231,6 +235,9 @@
 		D959C0FF2582307A006CE2D1 /* SettingsTitledTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTitledTableViewCell.swift; sourceTree = "<group>"; };
 		D959C10525824EE4006CE2D1 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		D959C10825824EF1006CE2D1 /* AccountSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewModel.swift; sourceTree = "<group>"; };
+		D95F3F8B26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundViewModel.swift; sourceTree = "<group>"; };
+		D95F3F8D26AAD84800F20A74 /* ArbsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsNetworkManager.swift; sourceTree = "<group>"; };
+		D95F3F8F26AAD88A00F20A74 /* ArbsEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsEndPoint.swift; sourceTree = "<group>"; };
 		D96C8BE4257650B40038175A /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		D96C8BE8257650BF0038175A /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
@@ -362,6 +369,7 @@
 		D9ECEC4C257AED52005DFFD7 /* BlenderDescriptionPopupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderDescriptionPopupHeaderView.swift; sourceTree = "<group>"; };
 		D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableUISwitch.swift; sourceTree = "<group>"; };
 		D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateService.swift; sourceTree = "<group>"; };
+		D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundViewController.swift; sourceTree = "<group>"; };
 		D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultMonthSelector.swift; sourceTree = "<group>"; };
 		D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyValueView.swift; sourceTree = "<group>"; };
 		D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyInputView.swift; sourceTree = "<group>"; };
@@ -539,6 +547,7 @@
 		D959C0DC2582293E006CE2D1 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
+				D9EE1C8A26AAC89D00306566 /* Playground */,
 				D98AF6BD25BA197900A5BC96 /* Details */,
 				D98AF6BC25BA197100A5BC96 /* List */,
 			);
@@ -640,6 +649,7 @@
 				D9A2796C259352FB009D066E /* AnalyticsNetworkManager.swift */,
 				D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */,
 				D90160032698948D00F144F5 /* BlenderNetworkManager.swift */,
+				D95F3F8D26AAD84800F20A74 /* ArbsNetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -653,6 +663,7 @@
 				D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */,
 				D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */,
 				D9016001269893D300F144F5 /* BlenderEndPoint.swift */,
+				D95F3F8F26AAD88A00F20A74 /* ArbsEndPoint.swift */,
 			);
 			path = EndPoints;
 			sourceTree = "<group>";
@@ -1258,6 +1269,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D9EE1C8A26AAC89D00306566 /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				D95F3F8B26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift */,
+				D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */,
+			);
+			path = Playground;
+			sourceTree = "<group>";
+		};
 		D9F996DE25BDFDC00075F1A9 /* ResultViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1460,6 +1480,7 @@
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
 				D9B7CCD425C1C53B0023FDF2 /* ArbMonth+Margin.swift in Sources */,
 				D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */,
+				D95F3F8E26AAD84800F20A74 /* ArbsNetworkManager.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
 				D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */,
@@ -1551,7 +1572,9 @@
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
 				D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */,
 				D9A839C2265E4D120074E134 /* EditPortfolioItemsViewController.swift in Sources */,
+				D95F3F8C26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift in Sources */,
 				D93BC634258BF9300026BF8E /* UIGridViewConstants.swift in Sources */,
+				D95F3F9026AAD88A00F20A74 /* ArbsEndPoint.swift in Sources */,
 				D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */,
 				D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */,
 				D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */,
@@ -1568,6 +1591,7 @@
 				D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */,
 				D9C71C522678A46E001B1924 /* UIAlertFactory.swift in Sources */,
 				D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */,
+				D9EE1C8C26AAC8BE00306566 /* ArbsPlaygroundViewController.swift in Sources */,
 				D92A374325DD60D800C0F9C8 /* StarButton.swift in Sources */,
 				D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */,
 				D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */,
