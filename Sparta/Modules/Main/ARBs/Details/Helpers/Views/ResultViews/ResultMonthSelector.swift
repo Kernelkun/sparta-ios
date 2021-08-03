@@ -8,7 +8,7 @@
 import UIKit
 import SpartaHelpers
 
-protocol ResultMonthSelectorDelegate: class {
+protocol ResultMonthSelectorDelegate: AnyObject {
     func resultMonthSelectorDidTapLeftButton(view: ResultMonthSelector)
     func resultMonthSelectorDidTapRightButton(view: ResultMonthSelector)
 }

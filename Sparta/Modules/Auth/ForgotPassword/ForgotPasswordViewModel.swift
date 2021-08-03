@@ -49,7 +49,7 @@ class ForgotPasswordViewModel: NSObject, BaseViewModel {
                 guard response.model != nil else {
                     onMainThread {
                         strongSelf.isSending = false
-                        strongSelf.delegate?.didCatchAnError("Can't parse response from server")
+                        strongSelf.delegate?.didCatchAnError("Networking.Error.Response".localized)
                     }
                     return
                 }
@@ -61,10 +61,10 @@ class ForgotPasswordViewModel: NSObject, BaseViewModel {
 
             case .failure(let error):
 
-                var errorText = "Something went wrong"
+                var errorText = "Networking.Error.UnhandledResponse".localized
 
                 if error == .error400 {
-                    errorText = "User with this email doesn't exist"
+                    errorText = "Networking.Error.NotExistEmail".localized
                 }
 
                 onMainThread {

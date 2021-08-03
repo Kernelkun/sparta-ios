@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CoordinatorDelegate: class {
+protocol CoordinatorDelegate: AnyObject {
     func coordinatorDidStart(_ coordinator: Coordinator)
     func coordinatorDidFinish(_ coordinator: Coordinator)
 }

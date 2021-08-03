@@ -13,7 +13,9 @@ import SpartaHelpers
 
 protocol BlenderViewModelDelegate: AnyObject {
     func didReceiveUpdatesForGrades()
+    func didReceiveUpdatesForPresentationStyle()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
+    func didReceiveProfilesInfo(profiles: [BlenderProfileCategory], selectedProfile: BlenderProfileCategory?)
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)
 }
 
@@ -21,8 +23,8 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
     // MARK: - Public properties
 
-    var tableGrade = Cell.grade(title: "Grade")
-    var collectionGrades: [Cell] = Array(repeating: .emptyGrade, count: 6)
+    var tableGrade = Cell.grade(title: "Grade.Title".localized)
+    lazy var collectionGrades: [Cell] = Array(repeating: .emptyGrade, count: monthsCount())
 
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
@@ -48,7 +50,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
         updateConnectionInfo()
 
         blenderManager.delegate = self
-        blenderManager.startReceivingData()
+        blenderManager.start()
 
         // sockets
 
@@ -56,7 +58,6 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     func fetchDescription(for indexPath: IndexPath) -> BlenderMonthDetailModel? {
-
         let section = indexPath.section
         let monthIndex = indexPath.row
 
@@ -68,11 +69,20 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
         let month = blender.months[monthIndex]
 
-        let mainKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = [
-            .init(key: "Argus Ebob Barge Swap", value: month.basisValue + " $/mt", priorityIndex: 0),
-            .init(key: "Gas-Naphtha", value: month.naphthaValue + " $/mt", priorityIndex: 1),
-            .init(key: "Escalation", value: blender.escalation, priorityIndex: 2)
-        ]
+        var mainKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []
+
+        let priceInfo = blender.priceInfo.sorted(by: { $0.order < $1.order })
+
+        for (index, priceInfo) in priceInfo.enumerated() {
+            if let priceValue = month.priceValue.first(where: { $0.id == priceInfo.id }) {
+                mainKeyValues.append(.init(key: priceInfo.name,
+                                           value: priceValue.value + " \(priceInfo.unit)", priorityIndex: index))
+            }
+        }
+
+        if blenderManager.profile.region == .ara {
+            mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: 2))
+        }
 
         var componentsKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []
 
@@ -81,6 +91,10 @@ class BlenderViewModel: NSObject, BaseViewModel {
         }
 
         return BlenderMonthDetailModel(mainKeyValues: mainKeyValues, componentsKeyValues: componentsKeyValues)
+    }
+
+    func changeProfile(_ profile: BlenderProfileCategory) {
+        blenderManager.setProfile(profile)
     }
 
     func sendAnalyticsEventPopupShown() {
@@ -98,26 +112,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     func monthsCount() -> Int {
-        6
-    }
-
-    func toggleFavourite(blender: Blender) {
-        if let index = fetchedBlenders.firstIndex(of: blender) {
-
-            // update blenders favourite states
-
-            fetchedBlenders[index].isFavourite.toggle()
-            blenderManager.updateFavouriteState(for: fetchedBlenders[index])
-            sortBlenders()
-
-            if let indexes = generateDataSourceUpdates() {
-                onMainThread {
-                    self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(indexes.1),
-                                                               removals: IndexSet(indexes.0),
-                                                               updates: [])
-                }
-            }
-        }
+        blenderManager.profile.region == .ara ? 6 : 2
     }
 
     // MARK: - Private methods
@@ -134,25 +129,25 @@ class BlenderViewModel: NSObject, BaseViewModel {
                                                    updates: IndexSet(indexesForUpdates))
     }
 
-    private func createTableDataSource() -> [Cell] {
-        fetchedBlenders.compactMap { .title(blender: $0) }
+    private func createTableDataSource(for blenders: [Blender]) -> [Cell] {
+        blenders.compactMap { .title(blender: $0) }
     }
 
-    private func createCollectionDataSource() -> [Section] {
-        fetchedBlenders.compactMap { blender in
-
-            var cells: [Cell] = Array(repeating: Cell.info(month: .empty), count: monthsCount())
+    private func createCollectionDataSource(for blenders: [Blender]) -> [Section] {
+        blenders.compactMap { blender in
+            var cells: [Cell] = Array(repeating: Cell.info(month: .empty), count: blender.months.count)
 
             for (index, month) in blender.months.enumerated() {
                 cells[index] = Cell.info(month: month)
             }
 
-            return Section(cells: cells)
+            return Section(gradeCode: blender.gradeCode, cells: cells)
         }
     }
 
     private func updateGrades() {
-        collectionGrades = fetchedBlenders.last?.months.compactMap { Cell.grade(title: $0.name) } ?? []
+        collectionGrades = fetchedBlenders.last?.months.compactMap { Cell.grade(title: $0.name) }
+            ?? Array(repeating: .emptyGrade, count: monthsCount())
 
         onMainThread {
             self.delegate?.didReceiveUpdatesForGrades()
@@ -160,7 +155,6 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     private func updateConnectionInfo() {
-
         let app = App.instance
         let socketsState = app.socketsState
         let formattedDate = blenderManager.lastSyncDate?.formattedString(AppFormatter.timeDate)
@@ -177,29 +171,19 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
 extension BlenderViewModel {
 
-    private func sortBlenders() {
-
+    private func sortedBlenders(_ blenders: [Blender]) -> [Blender] {
         func sortPredicate(lhs: Blender, rhs: Blender) -> Bool {
-            if lhs.isFavourite && rhs.isFavourite {
-                return lhs.priorityIndex < rhs.priorityIndex
-            } else if lhs.isFavourite && !rhs.isFavourite {
-                return true
-            } else if !lhs.isFavourite && rhs.isFavourite {
-                return false
-            } else {
-                return lhs.priorityIndex < rhs.priorityIndex
-            }
+            lhs.priorityIndex < rhs.priorityIndex
         }
 
-        fetchedBlenders = fetchedBlenders.sorted { sortPredicate(lhs: $0, rhs: $1) }
+        return blenders.sorted { sortPredicate(lhs: $0, rhs: $1) }
     }
 
-    private func updateBlenders() {
+    private func updateBlenders(for blenders: [Blender]) {
+        let newTableDataSource = createTableDataSource(for: blenders)
+        let newCollectionDataSource = createCollectionDataSource(for: blenders)
 
-        let newTableDataSource = createTableDataSource()
-        let newCollectionDataSource = createCollectionDataSource()
-
-        let changes = newTableDataSource.difference(from: tableDataSource)
+        let changes = newCollectionDataSource.difference(from: collectionDataSource)
 
         let insertedIndexs = changes.insertions.compactMap { change -> Int? in
             guard case let .insert(offset, _, _) = change else { return nil }
@@ -212,6 +196,8 @@ extension BlenderViewModel {
 
             return offset
         }
+
+        fetchedBlenders = blenders
 
         tableDataSource = newTableDataSource
         collectionDataSource = newCollectionDataSource
@@ -220,37 +206,6 @@ extension BlenderViewModel {
             self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(insertedIndexs),
                                                        removals: IndexSet(removedIndexs),
                                                        updates: [])
-        }
-    }
-
-    private func generateDataSourceUpdates() -> ([Int], [Int])? {
-
-        let newTableDataSource = createTableDataSource()
-        let newCollectionDataSource = createCollectionDataSource()
-
-        let changes = newTableDataSource.difference(from: tableDataSource)
-
-        let insertedIndexs = changes.insertions.compactMap { change -> Int? in
-            guard case let .insert(offset, _, _) = change else { return nil }
-
-            return offset
-        }
-
-        let removedIndexs = changes.removals.compactMap { change -> Int? in
-            guard case let .remove(offset, _, _) = change else { return nil }
-
-            return offset
-        }
-
-        if !removedIndexs.isEmpty && !insertedIndexs.isEmpty,
-           removedIndexs.count == insertedIndexs.count {
-
-            tableDataSource = newTableDataSource
-            collectionDataSource = newCollectionDataSource
-
-            return (removedIndexs, insertedIndexs)
-        } else {
-            return nil
         }
     }
 }
@@ -264,21 +219,20 @@ extension BlenderViewModel: AppObserver {
 
 extension BlenderViewModel: BlenderSyncManagerDelegate {
 
-    func blenderSyncManagerDidFetch(blenders: [Blender]) {
-        onMainThread {
-            self.fetchedBlenders = blenders
-            self.sortBlenders()
+    func blenderSyncManagerDidFetch(blenders: [Blender], profiles: [BlenderProfileCategory], selectedProfile: BlenderProfileCategory?) {
+        delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)
 
-            self.updateBlenders()
-            self.updateGrades()
-        }
+        updateBlenders(for: sortedBlenders(blenders))
+
+        delegate?.didReceiveUpdatesForPresentationStyle()
+        updateGrades()
     }
 
     func blenderSyncManagerDidReceive(blender: Blender) {
-        fetchedBlenders.append(blender)
-        sortBlenders()
+        var updatedBlenders = fetchedBlenders
+        updatedBlenders.append(blender)
 
-        updateBlenders()
+        updateBlenders(for: sortedBlenders(updatedBlenders))
         updateGrades()
     }
 

@@ -11,7 +11,7 @@ import SwiftyJSON
 import NetworkingModels
 import SpartaHelpers
 
-protocol ArbDetailViewModelDelegate: class {
+protocol ArbDetailViewModelDelegate: AnyObject {
     func didChangeLoadingState(_ isLoading: Bool)
     func didCatchAnError(_ error: String)
     func didLoadCells(_ cells: [ArbDetailViewModel.Cell])

@@ -36,7 +36,7 @@ class MainTabsViewController: UITabBarController {
 
         if viewModel.isVisibleLivePricesBlock {
             let first = LiveCurvesViewController()
-            setTabBarItem(first, "Live Curves", "ic_tab_second")
+            setTabBarItem(first, "MainTabsPage.LiveCurves.Title".localized, "ic_tab_second")
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: first)
             navigation.setKey(.liveCurves)
@@ -46,7 +46,7 @@ class MainTabsViewController: UITabBarController {
 
         if viewModel.isVisibleArbsBlock {
             let second = ArbsViewController()
-            setTabBarItem(second, "ARBs", "ic_tab_first")
+            setTabBarItem(second, "MainTabsPage.ARBs.Title".localized, "ic_tab_first")
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: second)
             navigation.setKey(.arbs)
@@ -56,7 +56,7 @@ class MainTabsViewController: UITabBarController {
 
         if viewModel.isVisibleBlenderBlock {
             let third = BlenderViewController()
-            setTabBarItem(third, "Blender", "ic_tab_third")
+            setTabBarItem(third, "MainTabsPage.Blender.Title".localized, "ic_tab_third")
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: third)
             navigation.setKey(.blender)
@@ -66,7 +66,7 @@ class MainTabsViewController: UITabBarController {
 
         if viewModel.isVisibleFreightBlock {
             let fourth = FreightViewController()
-            setTabBarItem(fourth, "Freight", "ic_tab_fourth")
+            setTabBarItem(fourth, "MainTabsPage.Freight.Title".localized, "ic_tab_fourth")
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: fourth)
             navigation.setKey(.freight)
@@ -75,7 +75,7 @@ class MainTabsViewController: UITabBarController {
         }
 
         let fifth = SettingsViewController()
-        setTabBarItem(fifth, "Settings", "ic_tab_fifth")
+        setTabBarItem(fifth, "MainTabsPage.Settings.Title".localized, "ic_tab_fifth")
 
         let navigation = KeyedNavigationController<Tab>(rootViewController: fifth)
         navigation.setKey(.settings)

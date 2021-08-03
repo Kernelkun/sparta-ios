@@ -117,7 +117,10 @@ class BlenderDescriptionPopupView: UIView {
         tableView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
         if keyPath == "contentSize" {
             if let newvalue = change?[.newKey] {
 

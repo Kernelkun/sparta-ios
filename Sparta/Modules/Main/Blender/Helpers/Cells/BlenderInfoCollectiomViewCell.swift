@@ -15,13 +15,9 @@ class BlenderGradeCollectionViewCell: UICollectionViewCell {
 
     private(set) var blender: Blender!
 
-    // MARK: - Private accessors
-
-    private var _tapFavouriteClosure: TypeClosure<Blender>?
-
     // MARK: - UI
 
-    private var starButton: StarButton!
+    private var customImage: UIImageView!
     private var titleLabel: UILabel!
     private var bottomLine: UIView!
 
@@ -50,7 +46,7 @@ class BlenderGradeCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        starButton.isActive = false
+        customImage.isHidden = true
         titleLabel.text = nil
         stopObservingAllBlendersEvents()
     }
@@ -64,10 +60,6 @@ class BlenderGradeCollectionViewCell: UICollectionViewCell {
         updateUI(for: self.blender)
     }
 
-    func onToggleFavourite(completion: @escaping TypeClosure<Blender>) {
-        _tapFavouriteClosure = completion
-    }
-
     // MARK: - Private methods
 
     private func setupUI() {
@@ -75,22 +67,13 @@ class BlenderGradeCollectionViewCell: UICollectionViewCell {
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
 
-        starButton = StarButton().then { button in
+        customImage = UIImageView().then { imageView in
 
-            button.clickableInset = -10
+            imageView.image = UIImage(named: "ic_custom")
 
-            button.onTap { [unowned self] button in
-                guard let button = button as? StarButton else { return }
-
-                button.isActive.toggle()
-                self._tapFavouriteClosure?(self.blender)
-            }
-
-            button.backgroundColor = .clear
-
-            contentView.addSubview(button) {
-                $0.size.equalTo(19)
-                $0.left.equalToSuperview().offset(14)
+            contentView.addSubview(imageView) {
+                $0.size.equalTo(20)
+                $0.left.equalToSuperview().offset(4)
                 $0.centerY.equalToSuperview()
             }
         }
@@ -114,7 +97,7 @@ class BlenderGradeCollectionViewCell: UICollectionViewCell {
 
             contentView.addSubview(view) {
                 $0.right.equalToSuperview()
-                $0.left.equalTo(starButton.snp.right).offset(12)
+                $0.left.equalTo(customImage.snp.right).offset(6)
                 $0.top.equalToSuperview()
                 $0.bottom.equalToSuperview().inset(CGFloat.separatorWidth)
             }
@@ -133,7 +116,7 @@ class BlenderGradeCollectionViewCell: UICollectionViewCell {
 
     private func updateUI(for blender: Blender) {
         titleLabel.text = blender.grade
-        starButton.isActive = blender.isFavourite
+        customImage.isHidden = !blender.isCustom
     }
 }
 

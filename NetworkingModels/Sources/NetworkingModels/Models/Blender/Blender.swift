@@ -18,17 +18,17 @@ public struct Blender: BackendModel {
     public let basis: String
     public let naphtha: String
     public let escalation: String
-    public let months: [BlenderMonth]
+    public var months: [BlenderMonth]
+    public let loadRegion: BlenderRegion
+    public let priceInfo: [PriceInfo]
 
     // for presenting
 
-    public var isFavourite: Bool
+    public var isCustom: Bool
     public var priorityIndex: Int = -1
 
     // use this identifier to identify this object as unique on the backside
-    public var serverUniqueIdentifier: String {
-        grade
-    }
+    public var serverUniqueIdentifier: String { grade }
 
     //
     // MARK: - Default Initializers
@@ -40,7 +40,9 @@ public struct Blender: BackendModel {
         naphtha = json["naphtha"].stringValue
         escalation = json["escalation"].stringValue
         months = json["months"].arrayValue.compactMap { BlenderMonth(json: $0) }
-        isFavourite = false
+        isCustom = json["isCustom"].boolValue
+        loadRegion = BlenderRegion(json: json["loadRegion"])
+        priceInfo = json["priceInfo"].arrayValue.compactMap { PriceInfo(json: $0) }
     }
 }
 

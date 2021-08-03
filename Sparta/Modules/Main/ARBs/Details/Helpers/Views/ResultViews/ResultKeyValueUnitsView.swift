@@ -86,4 +86,3 @@ class ResultKeyValueUnitsView<T: Hashable>: UIView, Identifiable {
         }
     }
 }
-

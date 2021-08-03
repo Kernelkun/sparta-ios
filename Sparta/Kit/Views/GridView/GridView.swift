@@ -77,6 +77,11 @@ class GridView: UIView {
     func setInfoRowsCount(_ rowsCount: Int) {
         constructor.rowsCount = rowsCount
         gradesView.reloadData(force: true)
+
+        let cellsWidth: [CGFloat] = Array(repeating: 0.0, count: rowsCount)
+            .compactMap { _ in constructor.collectionColumnWidth }
+
+        contentView.contentCollectionGridLayout.cellWidths = cellsWidth
         updateUI()
     }
 

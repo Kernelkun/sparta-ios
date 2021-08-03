@@ -48,8 +48,7 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
     // MARK: - Private methods
 
     private func setupUI() {
-
-        title = "New portfolio"
+        title = "Portfolio.Add.PageTitle".localized
 
         // name field
 
@@ -59,7 +58,7 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
 
         saveBtn = BorderedButton(type: .system).then { button in
 
-            button.setTitle("Save", for: .normal)
+            button.setTitle("Save.Title".localized, for: .normal)
             button.layer.cornerRadius = 3
 
             button.onTap { [unowned self] _ in
@@ -80,7 +79,7 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
 
             field.icon = nil
             field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "Add a portfolio name"
+            field.placeholder = "Portfolio.Add.PageField.Placeholder".localized
             field.textField.enterType = .charactersLimit(range: 0...AppFormatter.Restrictions.maxPortfolioNameLength,
                                                          isNumeric: false)
 
@@ -97,7 +96,7 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
 
         return UILabel().then { label in
 
-            label.text = "Name"
+            label.text = "Name.Title".localized
             label.textColor = .secondaryText
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
@@ -113,7 +112,7 @@ class LCPortfolioAddViewController: BaseVMViewController<LCPortfolioAddViewModel
 extension LCPortfolioAddViewController: LCPortfolioAddViewModelDelegate {
 
     func didCatchAnError(_ error: String) {
-        Alert.showOk(title: "Error", message: error, show: self, completion: nil)
+        Alert.showOk(title: "Alert.Error.Title".localized, message: error, show: self, completion: nil)
     }
 
     func didChangeLoadingState(_ isLoading: Bool) {

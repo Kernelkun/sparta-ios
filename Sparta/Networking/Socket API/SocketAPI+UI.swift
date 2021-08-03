@@ -24,11 +24,11 @@ extension SocketAPI.State {
 
     var title: String {
         if self < .connecting {
-            return "Closed"
+            return "Closed.Title".localized
         } else if self == .connecting {
-            return "Connecting"
+            return "Connecting.Title".localized
         } else if self >= .connected {
-            return "Connected"
+            return "Connected.Title".localized
         }
 
         return ""

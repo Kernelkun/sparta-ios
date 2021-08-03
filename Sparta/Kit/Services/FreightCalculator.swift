@@ -102,13 +102,13 @@ class FreightCalculator {
                     }
                 } else {
                     onMainThread {
-                        strongSelf.delegate?.didCatchAnError("Can't fetch data from server")
+                        strongSelf.delegate?.didCatchAnError("Networking.Error.Fetch".localized)
                     }
                 }
 
             case .success, .failure:
                 onMainThread {
-                    strongSelf.delegate?.didCatchAnError("Can't fetch data from server")
+                    strongSelf.delegate?.didCatchAnError("Networking.Error.Fetch".localized)
                 }
             }
 

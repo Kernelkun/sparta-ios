@@ -121,7 +121,7 @@ class LCPortfolioAddItemViewModel: NSObject, BaseViewModel {
                 }
             } else {
                 onMainThread {
-                    strongSelf.delegate?.didCatchAnError("Something wrong happened with adding items")
+                    strongSelf.delegate?.didCatchAnError("Portfolio.AddItems.Error.UnableToAdd".localized)
                 }
             }
 

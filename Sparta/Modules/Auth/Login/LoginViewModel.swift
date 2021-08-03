@@ -51,7 +51,7 @@ class LoginViewModel: NSObject, BaseViewModel {
                 guard let model = response.model else {
                     onMainThread {
                         strongSelf.isSending = false
-                        strongSelf.delegate?.didCatchAnError("Can't parse response from server")
+                        strongSelf.delegate?.didCatchAnError("Networking.Error.Response".localized)
                     }
                     return
                 }
@@ -61,10 +61,10 @@ class LoginViewModel: NSObject, BaseViewModel {
 
             case .failure(let error):
 
-                var errorText = "Something went wrong"
+                var errorText = "Networking.Error.UnhandledResponse".localized
 
                 if error == .error400 {
-                    errorText = "Invalid creds, please enter new one"
+                    errorText = "Networking.Error.InvalidCreds".localized
                 }
 
                 onMainThread {
@@ -94,7 +94,7 @@ class LoginViewModel: NSObject, BaseViewModel {
 
                 onMainThread {
                     strongSelf.isSending = false
-                    strongSelf.delegate?.didCatchAnError("Can't fetch user profile. Please try again.")
+                    strongSelf.delegate?.didCatchAnError("Networking.Error.UserProfile".localized)
                 }
             }
         }

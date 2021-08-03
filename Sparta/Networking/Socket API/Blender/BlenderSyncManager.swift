@@ -12,7 +12,7 @@ import NetworkingModels
 import SpartaHelpers
 
 protocol BlenderSyncManagerDelegate: AnyObject {
-    func blenderSyncManagerDidFetch(blenders: [Blender])
+    func blenderSyncManagerDidFetch(blenders: [Blender], profiles: [BlenderProfileCategory], selectedProfile: BlenderProfileCategory?)
     func blenderSyncManagerDidReceive(blender: Blender)
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender)
     func blenderSyncManagerDidChangeSyncDate(_ newDate: Date?)
@@ -36,6 +36,8 @@ class BlenderSyncManager {
         }
     }
 
+    private(set) lazy var profile = profiles.first!
+
     // MARK: - Private properties
 
     private var operationQueue: OperationQueue = {
@@ -44,10 +46,9 @@ class BlenderSyncManager {
         operationQueue.qualityOfService = .background
         return operationQueue
     }()
-    private var _blenders: SynchronizedArray<Blender> = SynchronizedArray<Blender>()
-    private var _favourites: SynchronizedArray<Favourite> = SynchronizedArray<Favourite>()
-
-    private let profileManager = ProfileNetworkManager()
+    private(set) lazy var profiles = SynchronizedArray<BlenderProfileCategory>([BlenderProfileCategory(region: .ara),
+                                                                                BlenderProfileCategory(region: .hou)])
+    private let networkManager = BlenderNetworkManager()
 
     // MARK: - Initializers
 
@@ -55,40 +56,55 @@ class BlenderSyncManager {
         observeSocket(for: .blender)
     }
 
+    deinit {
+        stopObservingSocket(for: .blender)
+    }
+
     // MARK: - Public methods
 
-    func startReceivingData() {
-
-        App.instance.socketsConnect(toServer: .blender)
-
-        func startObservingSocketsEvents() {
-            if !_blenders.isEmpty {
-
-                let blenders = _blenders.compactMap { blender -> Blender in
-                    var blender = blender
-                    patchBlender(&blender)
-                    return blender
-                }
-
-                _blenders = SynchronizedArray(blenders)
-
-                onMainThread {
-                    self.delegate?.blenderSyncManagerDidFetch(blenders: blenders)
-                }
-            }
-        }
-
-        profileManager.fetchBlenderFavouritesList { [weak self] result in
+    func start() {
+        networkManager.fetchBlenderTable { [weak self] result in
             guard let strongSelf = self else { return }
 
             if case let .success(responseModel) = result,
                let list = responseModel.model?.list {
 
-                strongSelf._favourites = SynchronizedArray(list)
-            }
+                // load profiles
 
-            startObservingSocketsEvents()
+                let selectedProfile = strongSelf.profile
+
+                strongSelf.profiles = SynchronizedArray(strongSelf.profiles.compactMap { profile -> BlenderProfileCategory in
+                    var profile = profile
+                    profile.blenders = []
+
+                    let filteredBlenders = list.filter { $0.loadRegion == profile.region }.compactMap { blender -> Blender in
+                        var blender = blender
+                        strongSelf.patchBlender(&blender)
+                        return blender
+                    }
+
+                    for (index, blender) in filteredBlenders.enumerated() {
+                        var blender = blender
+                        blender.priorityIndex = index
+                        profile.blenders.append(blender)
+                    }
+
+                    return profile
+                })
+
+                strongSelf.profile = strongSelf.profiles.first { $0 == selectedProfile }!
+
+                onMainThread {
+                    strongSelf.updateBlenders(for: strongSelf.profile)
+                    App.instance.socketsConnect(toServer: .blender)
+                }
+            }
         }
+    }
+
+    func setProfile(_ profile: BlenderProfileCategory) {
+        self.profile = profile
+        updateBlenders(for: profile)
     }
 
     /*
@@ -97,71 +113,26 @@ class BlenderSyncManager {
      * In case method not found element in fetched elements array - method will return received(parameter variable) value
      */
     func fetchUpdatedState(for blender: Blender) -> Blender {
-        guard let indexOfBlender = _blenders.index(where: { $0 == blender }) else { return blender }
+        guard let indexOfProfile = profiles.index(where: { $0.region == blender.loadRegion }),
+              let indexOfBlender = profiles[indexOfProfile]?.blenders.firstIndex(where: { $0 == blender }) else { return blender }
 
-        return _blenders[indexOfBlender] ?? blender
-    }
-
-    // MARK: - Favourite
-
-    func updateFavouriteState(for blender: Blender) {
-
-        // set up temporary value of favourite state for loaded blender
-        if let currentBlenderIndex = _blenders.index(where: { $0 == blender }) {
-            _blenders[currentBlenderIndex]?.isFavourite = blender.isFavourite
-        }
-
-        if blender.isFavourite {
-
-            if !_favourites.contains(where: { $0.code == blender.serverUniqueIdentifier }) {
-
-                // adding temporarry favourite value
-                _favourites.append(.init(id: 1, code: blender.serverUniqueIdentifier))
-
-                guard let userId = App.instance.currentUser?.id else { return }
-
-                let blenderUniqueId = blender.serverUniqueIdentifier
-                profileManager.addBlenderToFavouritesList(userId: userId, code: blenderUniqueId) { [weak self] result in
-                    guard let strongSelf = self else { return }
-
-                    // case if backside successfully add favourites record
-                    if case let .success(responseModel) = result,
-                       let model = responseModel.model,
-                       let favouriteIndex = strongSelf._favourites.index(where: { $0.code == model.code }),
-                       let blenderIndex = strongSelf._blenders.index(where: { $0 == blender }) {
-
-                        strongSelf._favourites[favouriteIndex] = model
-                    } else { // case if logic received bad response
-                        let filteredFavourites = strongSelf._favourites.filter { $0.code != blender.serverUniqueIdentifier }
-                        strongSelf._favourites = SynchronizedArray(filteredFavourites)
-
-                        if let currentBlenderIndex = strongSelf._blenders.index(where: { $0.serverUniqueIdentifier == blender.serverUniqueIdentifier }) {
-                            strongSelf._blenders[currentBlenderIndex]?.isFavourite = false
-                        }
-                    }
-                }
-            }
-        } else if let index = _favourites.index(where: { $0.code == blender.serverUniqueIdentifier }) {
-
-            let favouriteId = _favourites[index]!.id //swiftlint:disable:this force_unwrapping
-            profileManager.deleteBlenderFromFavouritesList(id: favouriteId, completion: { [weak self] result in
-                guard let strongSelf = self else { return }
-
-                if case let .success(responseModel) = result,
-                   responseModel.model != nil {
-
-                    let filteredFavourites = strongSelf._favourites.filter { $0.code != blender.serverUniqueIdentifier }
-                    strongSelf._favourites = SynchronizedArray(filteredFavourites)
-                }
-            })
-        }
+        return profiles[indexOfProfile]?.blenders[indexOfBlender] ?? blender
     }
 
     // MARK: - Private methods
 
-    private func patchBlender(_ newBlender: inout Blender) {
-        newBlender.isFavourite = _favourites.contains(where: { $0.code == newBlender.serverUniqueIdentifier })
-        newBlender.priorityIndex = _blenders.index(where: { $0 == newBlender }) ?? -1
+    private func updateBlenders(for profile: BlenderProfileCategory) {
+        onMainThread {
+            self.delegate?.blenderSyncManagerDidFetch(blenders: self.profile.blenders,
+                                                      profiles: self.profiles.arrayValue,
+                                                      selectedProfile: self.profile)
+        }
+    }
+
+    private func patchBlender(_ blender: inout Blender) {
+        if blender.loadRegion == .hou {
+            blender.months = Array(blender.months[0...1])
+        }
     }
 }
 
@@ -173,21 +144,17 @@ extension BlenderSyncManager: SocketActionObserver {
 
         lastSyncDate = Date()
 
-        if !_blenders.contains(blender) {
-
-            _blenders.append(blender)
-            patchBlender(&blender)
-
-            onMainThread {
-                self.delegate?.blenderSyncManagerDidReceive(blender: blender)
-            }
-        } else if let blenderIndex = _blenders.index(where: { $0 == blender }) {
+        if let profileIndex = profiles.index(where: { $0.region == blender.loadRegion }),
+           let blenderIndex = profiles[profileIndex]?.blenders.firstIndex(of: blender) {
 
             patchBlender(&blender)
-            _blenders[blenderIndex] = blender
+            blender.priorityIndex = blenderIndex
+            profiles[profileIndex]?.blenders[blenderIndex] = blender
 
-            onMainThread {
-                self.delegate?.blenderSyncManagerDidReceiveUpdates(for: blender)
+            if blender.loadRegion == profile.region {
+                onMainThread {
+                    self.delegate?.blenderSyncManagerDidReceiveUpdates(for: blender)
+                }
             }
         }
 
