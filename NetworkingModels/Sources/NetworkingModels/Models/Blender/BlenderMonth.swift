@@ -24,6 +24,7 @@ public struct BlenderMonth: BackendModel {
     public let naphthaValue: String
     public let components: [BlenderMonthComponent]
     public let priceValue: [PriceValue]
+    public let density: String
 
     public var observableName: String { name + gradeCode }
 
@@ -45,6 +46,7 @@ public struct BlenderMonth: BackendModel {
 
         components = month["components"]?.arrayValue.compactMap { BlenderMonthComponent(json: $0) } ?? []
         priceValue = month["priceValue"]?.arrayValue.compactMap { PriceValue(json: $0) } ?? []
+        density = month["density"]?.stringValue ?? ""
     }
 }
 

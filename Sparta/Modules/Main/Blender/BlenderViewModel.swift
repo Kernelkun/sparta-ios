@@ -80,8 +80,16 @@ class BlenderViewModel: NSObject, BaseViewModel {
             }
         }
 
+        // density of blend
+
+        let dependsFromName = "ethanol"
+        if !month.components.contains(where: { $0.name.lowercased().contains(dependsFromName) }),
+           let densityValue = month.density.toDouble?.symbols2Value {
+            mainKeyValues.append(.init(key: "Density of Blend ", value: densityValue, priorityIndex: mainKeyValues.count + 1))
+        }
+
         if blenderManager.profile.region == .ara {
-            mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: 2))
+            mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: mainKeyValues.count + 2))
         }
 
         var componentsKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []
