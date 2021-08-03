@@ -69,11 +69,20 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
         let month = blender.months[monthIndex]
 
-        let mainKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = [
-            .init(key: "Argus Ebob Barge Swap", value: month.basisValue + " $/mt", priorityIndex: 0),
-            .init(key: "Gas-Naphtha", value: month.naphthaValue + " $/mt", priorityIndex: 1),
-            .init(key: "Escalation", value: blender.escalation, priorityIndex: 2)
-        ]
+        var mainKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []
+
+        let priceInfo = blender.priceInfo.sorted(by: { $0.order < $1.order })
+
+        for (index, priceInfo) in priceInfo.enumerated() {
+            if let priceValue = month.priceValue.first(where: { $0.id == priceInfo.id }) {
+                mainKeyValues.append(.init(key: priceInfo.name,
+                                           value: priceValue.value + " \(priceInfo.unit)", priorityIndex: index))
+            }
+        }
+
+        if blenderManager.profile.region == .ara {
+            mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: 2))
+        }
 
         var componentsKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []
 
