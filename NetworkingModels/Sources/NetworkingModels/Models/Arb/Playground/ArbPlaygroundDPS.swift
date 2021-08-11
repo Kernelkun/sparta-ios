@@ -28,3 +28,10 @@ public struct ArbPlaygroundDPS: BackendModel {
         value = json["value"].doubleValue
     }
 }
+
+extension ArbPlaygroundDPS: Equatable {
+
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.name == rhs.name
+    }
+}

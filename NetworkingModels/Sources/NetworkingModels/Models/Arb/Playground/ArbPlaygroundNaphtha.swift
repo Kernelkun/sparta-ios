@@ -13,7 +13,7 @@ public struct ArbPlaygroundNaphtha: BackendModel {
     //
     // MARK: - Public properties
 
-    public let value: Double
+    public var value: Double
     public let pricingComponentsVolume: Double
 
     //

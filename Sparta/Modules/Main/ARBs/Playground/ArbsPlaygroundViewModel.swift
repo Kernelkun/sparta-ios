@@ -14,6 +14,10 @@ import SpartaHelpers
 protocol ArbsPlaygroundViewModelDelegate: AnyObject {
     func didChangeLoadingState(_ isLoading: Bool)
     func didCatchAnError(_ error: String)
+    func didLoadArbs(_ arbs: [Arb])
+    func didReceiveMonthInfoUpdates()
+    func didReceiveInputDataConstructor(_ constructor: ArbPlaygroundInputDataView.Constructor)
+    func didReceiveResultDataConstructors(_ constructors: [ArbPlaygroundResultViewConstructor])
 }
 
 class ArbsPlaygroundViewModel: NSObject, BaseViewModel {
@@ -22,211 +26,244 @@ class ArbsPlaygroundViewModel: NSObject, BaseViewModel {
 
     weak var delegate: ArbsPlaygroundViewModelDelegate?
 
+    var ableToSwitchPrevMonth: Bool {
+        guard let firstMonth = calculator?.arbPlayground?.months.first,
+              let selectedMonth = calculator?.arbPlaygroundMonth else { return false }
+
+        return firstMonth != selectedMonth
+    }
+
+    var ableToSwitchNextMonth: Bool {
+        guard let firstMonth = calculator?.arbPlayground?.months.last,
+              let selectedMonth = calculator?.arbPlaygroundMonth else { return false }
+
+        return firstMonth != selectedMonth
+    }
+
+    var formattedMonthTitle: String {
+        calculator?.arbPlaygroundMonth?.monthName ?? ""
+    }
+
+    var arb: Arb? {
+        calculator?.arb
+    }
+
+    private var isLoading: Bool = false {
+        didSet {
+            onMainThread {
+                self.delegate?.didChangeLoadingState(self.isLoading)
+            }
+        }
+    }
+
     // MARK: - Private properties
 
     private let arbsManager = ArbsNetworkManager()
     private var arbs: [Arb] = []
+    private var calculator: ArbsPlaygroundCalculator?
 
     // MARK: - Public methods
 
     func loadData() {
+        isLoading = true
+
         arbsManager.fetchArbsTable { [weak self] result in
             guard let strongSelf = self else { return }
+
+            strongSelf.isLoading = false
 
             if case let .success(responseModel) = result,
                let arbs = responseModel.model?.list {
 
                 strongSelf.arbs = arbs
+                strongSelf.calculator = .init(arbs: arbs)
+                strongSelf.calculator?.delegate = self
+                strongSelf.calculator?.chooseNewArb(arbs.first!)
 
-                // test code
-
-                strongSelf.arbsManager.fetchArbPlayground(for: strongSelf.arbs[2]) { result in
-
-                    if case let .success(responseModel) = result,
-                       let arbPlaygound = responseModel.model {
-
-                        strongSelf.calculate(for: arbPlaygound)
-                    }
+                onMainThread {
+                    strongSelf.delegate?.didLoadArbs(strongSelf.arbs)
+                    strongSelf.delegate?.didReceiveMonthInfoUpdates()
                 }
 
-                // end of test code
+                strongSelf.calculator?.calculate()
             }
         }
     }
 
-    private func calculate(for arbPlayground: ArbPlayground) {
-        print("DEBUG ***: Result of calculations")
-
-        let arb = arbs[2]
-        let month = arbPlayground.months[1]
-        let deliveredPriceSpreadsMonth = arbPlayground.deliveredPriceSpreads[0]
-
-        let blendCost = month.blendCost
-        let blendCostValue = (blendCost.value ?? 0.0).round(to: 2)
-        print("Blend Cost: \(blendCostValue), unit: \(blendCost.units)")
-
-        let gasNaphtha = month.naphtha
-        print("Gas Nap: \(gasNaphtha.value), pricingComponentsVolume: \(gasNaphtha.pricingComponentsVolume)")
-
-        let costs = month.costs
-        let costsValue = (month.costs.value ?? 0.0).round(to: 2)
-        print("Costs: \(costsValue), unit: \(costs.units)")
-
-        print("Dlv price basis: \(deliveredPriceSpreadsMonth.name)")
-
-        print("------")
-
-        print("Delivered Price: \(deliveredPriceSpreadsMonth.value)")
-
-        // rate
-        let loadedQuantity = month.loadedQuantity.value ?? 0.0
-        let freightRate = calculateRate(for: arb, loadedQuantity: loadedQuantity)
-
-        // priceBeforeTAEW
-
-        let priceBeforeTAEW = blendCostValue + freightRate + costsValue
-
-        // default calculations
-
-        let defaultCalculationSum = getDefaultCalculation(month: month,
-                                                          spreadMonths: arbPlayground.deliveredPriceSpreads,
-                                                          gradeCode: deliveredPriceSpreadsMonth.name)
-
-        // foundDlvdMonthName
-
-        let foundDlvdMonthName = arbPlayground.deliveredPriceSpreads.first(where: { $0.monthName == month.defaultSpreadMonthName })! // test code
-
-        // getSpreadSumForMonths
-
-        let spreadToSumDefault = getSpreadSumForMonths(month: month,
-                                                       dlvdPriceBasisMonth: foundDlvdMonthName,
-                                                       spreadMonths: arbPlayground.deliveredPriceSpreads)
-
-        let foundDlvdFromLabel = arbPlayground.deliveredPriceSpreads.first(where: { $0.monthName == "Aug 21" })!
-
-        let spreadToSum = getSpreadSumForMonths(month: month, dlvdPriceBasisMonth: foundDlvdFromLabel, spreadMonths: arbPlayground.deliveredPriceSpreads)
-
-        var deliveredPriceDefault = priceBeforeTAEW
-        var deliveredPrice = priceBeforeTAEW
-        var units = "$/mt"
-        var divider = 0.25
-
-        //        var taArb: Double? = 100
-
-        if let taArb = month.taArb.value { // or user can input it manually
-            deliveredPriceDefault = priceBeforeTAEW / 3.5 - taArb + defaultCalculationSum
-            deliveredPrice = priceBeforeTAEW / 3.5 - taArb + defaultCalculationSum
-            units = "cpg"
-            divider = 0.05
-        } else if let ew = month.ew.value {
-            deliveredPriceDefault = priceBeforeTAEW / 8.33 - ew + defaultCalculationSum
-            deliveredPrice = priceBeforeTAEW / 8.33 - ew + defaultCalculationSum;
-            units = "$/bbl"
-            divider = 0.05
-        } else {
-            deliveredPriceDefault = priceBeforeTAEW + defaultCalculationSum
-            deliveredPrice = priceBeforeTAEW + defaultCalculationSum
-        }
-
-        deliveredPriceDefault += spreadToSumDefault
-        deliveredPrice += spreadToSum
-
-        let blenderMargin = (month.salesPrice.value ?? 0.0) - deliveredPriceDefault
-        let fobRefyMargin = blenderMargin + Double(arbPlayground.pseudoRefineryFobValue)
-        let cifRefyMargin = blenderMargin + Double(arbPlayground.pseudoRefineryCifValue)
-        let userTargetMargin = "-" /*Number.isNaN(parseFloat(userTarget)) ? '-' : parseFloat(userTarget) - deliveredPriceDefault;*/
-
-
-        print("Results -------:")
-
-        print("Delivered Price: \(deliveredPrice)  \(units)")
-        print("Blender Margin: \(blenderMargin)  \(units)")
-        print("FobRefyMargin: \(fobRefyMargin)  \(units)")
-        print("CifRefyMargin: \(cifRefyMargin)  \(units)")
-        print("My TGT Margin: \(userTargetMargin)  \(units)")
+    func showPreviousMonth() {
+        calculator?.switchToPrevMonth()
     }
 
-    private func calculateRate(for arb: Arb, loadedQuantity: Double) -> Double {
-        let vessel = arb.freight.vessel
-        let lumpsum: Double
+    func showNextMonth() {
+        calculator?.switchToNextMonth()
+    }
 
-        if vessel.routeType.lowercased() == "LS".lowercased() {
-            lumpsum = vessel.routeTypeValue
-        } else {
-            let wsInPercentage = vessel.routeTypeValue / 100
+    func changeArb(_ newArb: Arb) {
+        calculator?.chooseNewArb(newArb)
+    }
 
-            if loadedQuantity <= vessel.cpBasis {
-                lumpsum = vessel.cpBasis * vessel.flatRate * wsInPercentage
+    func changeBlendCost(_ newValue: Double) {
+        calculator?.changeBlendCost(newValue)
+    }
+
+    func changeGasNap(_ newValue: Double) {
+        calculator?.changeGasNap(newValue)
+    }
+
+    func changeTaArb(_ newValue: Double) {
+        calculator?.changeTaArb(newValue)
+    }
+
+    func changeEw(_ newValue: Double) {
+        calculator?.changeEw(newValue)
+    }
+
+    func changeFreight(_ newValue: Int) {
+        calculator?.changeFreight(newValue)
+    }
+
+    func changeCosts(_ newValue: Double) {
+        calculator?.changeCosts(newValue)
+    }
+
+    func changeDeliveredPriceSpreadsMonth(_ month: ArbPlaygroundDPS) {
+        calculator?.changeDeliveredPriceSpreadsMonth(month)
+    }
+
+    func changeUserTgt(_ newValue: Double?) {
+        calculator?.changeUserTgt(newValue)
+    }
+}
+
+extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
+    func didChangeLoadingState(_ isLoading: Bool) {
+        self.isLoading = isLoading
+    }
+
+    func didCatchAnError(_ error: String) {
+    }
+
+    func arbsPlaygroundCalculatorDidChangeMonth(_ calculator: ArbsPlaygroundCalculator, month: ArbPlaygroundMonth) {
+        delegate?.didReceiveMonthInfoUpdates()
+    }
+
+    func arbsPlaygroundCalculatorDidChangePlaygroundInfo(_ calculator: ArbsPlaygroundCalculator,
+                                                         playground: ArbPlayground,
+                                                         month: ArbPlaygroundMonth,
+                                                         deliveredPriceSpreadsMonth: ArbPlaygroundDPS) {
+        delegate?.didReceiveMonthInfoUpdates()
+
+        // blend cost
+        let blendCostValue: Double = month.blendCost.value ?? 0.0
+        let blendCostRange: ClosedRange<Double> = -5...5
+
+        // gas nap
+        let gasNapValue: Double = month.naphtha.value
+        let gasNapRange: ClosedRange<Double> = gasNapValue - gasNapValue...abs(gasNapValue + gasNapValue)
+
+        // costs
+        let costsValue: Double = month.costs.value ?? 0.0
+        let costsRange: ClosedRange<Double> = costsValue - costsValue...abs(costsValue + costsValue)
+
+        let freightUnits = month.freight.units
+
+        var taArbConstructor: ArbPlaygroundPointViewConstructor<Double>?
+        var ewConstructor: ArbPlaygroundPointViewConstructor<Double>?
+        var freightConstructor: ArbPlaygroundPointViewConstructor<Int>?
+
+        switch freightUnits.lowercased() {
+        case "ws":
+            if let taArbValue = month.taArb.value {
+                let taArbRange: ClosedRange<Double> = taArbValue - taArbValue...abs(taArbValue + taArbValue)
+                taArbConstructor = .init(title: "TA Arb", units: month.taArb.units, range: taArbRange, step: 0.25, startValue: taArbValue)
+            }
+
+        case "ls":
+            if let ewValue = month.ew.value {
+                let ewRange: ClosedRange<Double> = ewValue - ewValue...abs(ewValue + ewValue)
+                ewConstructor = .init(title: "EW", units: month.taArb.units, range: ewRange, step: 0.1, startValue: ewValue)
+            }
+
+        default:
+            ewConstructor = nil
+            taArbConstructor = nil
+            freightConstructor = nil
+        }
+
+        if let freightValue = month.freight.value, month.freight.units.lowercased() != "none" {
+            let freightValueInt = Int(freightValue)
+            let freightRange: ClosedRange<Int> = freightValueInt - freightValueInt...abs(freightValueInt + freightValueInt)
+            freightConstructor = .init(title: "Freight", units: month.freight.units, range: freightRange, step: 25_000, startValue: freightValueInt)
+        }
+
+        let constructor = ArbPlaygroundInputDataView.Constructor(
+            blendCostConstructor: .init(title: "Blend Cost", units: "$/mt", range: blendCostRange, step: 0.25, startValue: blendCostValue),
+            gasNapConstructor: .init(title: "Gas-Nap", units: "$/mt", range: gasNapRange, step: 2.5, startValue: gasNapValue),
+            freightConstructor: freightConstructor,
+            taArbConstructor: taArbConstructor,
+            ewConstructor: ewConstructor,
+            costsConstructor: .init(title: "Costs", units: "$/mt", range: costsRange, step: 0.25, startValue: costsValue),
+            spreadMonthsConstructor: .init(gradeCode: "RBOB", dps: playground.deliveredPriceSpreads, selectedDPS: deliveredPriceSpreadsMonth)
+        )
+
+        delegate?.didReceiveInputDataConstructor(constructor)
+    }
+
+    func arbsPlaygroundCalculatordDidFinishCalculations(_ results: [ArbsPlaygroundCalculator.Result]) {
+
+        func getColor(for value: Double?) -> UIColor {
+            guard let value = value else { return .numberGray }
+
+            if value.isZero {
+                return .numberGray
+            } else if value.sign == .minus {
+                return .numberRed
             } else {
-                let firstCondition = loadedQuantity - vessel.cpBasis
-                lumpsum = vessel.cpBasis * vessel.flatRate * wsInPercentage + firstCondition * vessel.flatRate * wsInPercentage * vessel.overage
+                return .numberGreen
             }
         }
 
-        guard lumpsum != 0 && loadedQuantity != 0 else {
-            return 0
+        var generatedConstructors: [ArbPlaygroundResultViewConstructor] = []
+        results.forEach { result in
+            switch result {
+            case .blenderMargin(let value, let units):
+                generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "Blender Margin",
+                                                                                         value: value.toString,
+                                                                                         valueColor: getColor(for: value),
+                                                                                         units: units))
+
+            case .deliveredPrice(let value, let units):
+                generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "Delivered Price",
+                                                                                         value: value.toString,
+                                                                                         valueColor: getColor(for: value),
+                                                                                         units: units))
+
+            case .cifRefyMargin(let value, let units):
+                generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "CIF Refy Mrg",
+                                                                                         value: value.toString,
+                                                                                         valueColor: getColor(for: value),
+                                                                                         units: units))
+
+            case .fobRefyMargin(let value, let units):
+                generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "FOB Refy Mrg",
+                                                                                         value: value.toString,
+                                                                                         valueColor: getColor(for: value),
+                                                                                         units: units))
+
+            case .myTgt(let value, let units):
+                generatedConstructors.append(ArbPlaygroundResultInputPointViewConstructor(title: "My TGT",
+                                                                                          initialInputText: value?.toString,
+                                                                                          units: units))
+
+            case .myMargin(let value, let units):
+
+                generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "My TGT Margin",
+                                                                                         value: value == nil ? "-" : value!.toString,
+                                                                                         valueColor: getColor(for: value),
+                                                                                         units: units))
+            }
         }
 
-        return lumpsum / loadedQuantity
-    }
-
-    private func getDefaultCalculation(month: ArbPlaygroundMonth, spreadMonths: [ArbPlaygroundDPS], gradeCode: String) -> Double {
-        if month.monthName == month.arrivalMonthName {
-            return 0
-        }
-
-        if gradeCode.lowercased() == "rbob" {
-            return spreadMonths.first(where: { $0.monthName == month.arrivalMonthName })?.value ?? 0.0
-        }
-
-        if let monthIndex = spreadMonths.firstIndex(where: { $0.monthName == month.monthName }),
-           let defaultSpreadMonthIndex = spreadMonths.firstIndex(where: { $0.monthName == month.defaultSpreadMonthName }) {
-
-            return spreadMonths[monthIndex...defaultSpreadMonthIndex].compactMap { $0.value }.reduce(0, +)
-        } else {
-            return 0
-        }
-    }
-
-    private func getSpreadSumForMonths(month: ArbPlaygroundMonth, dlvdPriceBasisMonth: ArbPlaygroundDPS, spreadMonths: [ArbPlaygroundDPS]) -> Double {
-        /// Enter data
-
-        //        month, dlvdPriceBasisMonth, spreadMonths
-
-        //        if (month && dlvdPriceBasisMonth && month.defaultSpreadMonthName === dlvdPriceBasisMonth.monthName) {
-        //            return 0;
-        //          }
-        //
-        //          const defaultDlvdPriceMonthIndex = spreadMonths.findIndex(
-        //            (dpbmo) => dpbmo.monthName === month.defaultSpreadMonthName,
-        //          );
-        //          const selectedDlvdPriceMonthIndex = spreadMonths.findIndex(
-        //            (dpbmo) => dpbmo.monthName === dlvdPriceBasisMonth.monthName,
-        //          );
-        //
-        //          if (selectedDlvdPriceMonthIndex < defaultDlvdPriceMonthIndex) {
-        //            return spreadMonths[selectedDlvdPriceMonthIndex].value * -1;
-        //          }
-        //
-        //          return spreadMonths
-        //            .slice(defaultDlvdPriceMonthIndex, selectedDlvdPriceMonthIndex)
-        //            .reduce((acc, dpbmo) => acc + dpbmo.value, 0);
-
-
-        guard dlvdPriceBasisMonth.monthName != month.defaultSpreadMonthName else {
-            return 0
-        }
-
-        guard let defaultDlvdPriceMonthIndex = spreadMonths.firstIndex(where: { $0.monthName == month.defaultSpreadMonthName }),
-              let selectedDlvdPriceMonthIndex = spreadMonths.firstIndex(where: { $0.monthName == dlvdPriceBasisMonth.monthName })
-        else {
-            return 0
-        }
-
-        if selectedDlvdPriceMonthIndex < defaultDlvdPriceMonthIndex {
-            return spreadMonths[selectedDlvdPriceMonthIndex].value * -1;
-        }
-
-        return 0
+        delegate?.didReceiveResultDataConstructors(generatedConstructors)
     }
 }

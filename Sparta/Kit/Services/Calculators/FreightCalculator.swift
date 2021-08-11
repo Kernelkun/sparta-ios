@@ -82,7 +82,6 @@ class FreightCalculator {
     }
 
     func calculate() {
-
         isLoading = true
 
         let formattedMonth = inputData.month.formattedString(AppFormatter.serverShortDate)
@@ -185,9 +184,6 @@ class FreightCalculator {
 extension FreightCalculator {
 
     struct InputData {
-
-        // MARK: - Public variables
-
         var month: Date
         let portId: Int
         let dischargePortId: Int

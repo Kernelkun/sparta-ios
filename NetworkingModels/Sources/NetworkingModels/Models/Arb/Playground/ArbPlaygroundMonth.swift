@@ -16,18 +16,18 @@ public struct ArbPlaygroundMonth: BackendModel {
     public let monthName: String
     public let defaultSpreadMonthName: String
     public let arrivalMonthName: String
-    public let blendCost: ArbPlaygroundUnit
-    public let naphtha: ArbPlaygroundNaphtha
-    public let taArb: ArbPlaygroundUnit
-    public let ew: ArbPlaygroundUnit
-    public let freight: ArbPlaygroundUnit
-    public let costs: ArbPlaygroundUnit
+    public var blendCost: ArbPlaygroundUnit
+    public var naphtha: ArbPlaygroundNaphtha
+    public var taArb: ArbPlaygroundUnit
+    public var ew: ArbPlaygroundUnit
+    public var freight: ArbPlaygroundUnit
+    public var costs: ArbPlaygroundUnit
     public let cpBasis: ArbPlaygroundUnit
     public let loadedQuantity: ArbPlaygroundUnit
     public let flatRate: ArbPlaygroundUnit
     public let overage: ArbPlaygroundUnit
     public let salesPrice: ArbPlaygroundUnit
-    public let userTarget: ArbPlaygroundUnit
+    public var userTarget: ArbPlaygroundUnit
 
     //
     // MARK: - Default Initializers
@@ -48,5 +48,12 @@ public struct ArbPlaygroundMonth: BackendModel {
         overage = ArbPlaygroundUnit(json: json["overage"])
         salesPrice = ArbPlaygroundUnit(json: json["salesPrice"])
         userTarget = ArbPlaygroundUnit(json: json["userTarget"])
+    }
+}
+
+extension ArbPlaygroundMonth: Equatable {
+
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.monthName == rhs.monthName
     }
 }
