@@ -67,7 +67,7 @@ class ArbPlaygroundDPSPointView: UIView {
 
             label.font = .main(weight: .regular, size: 18)
             label.textAlignment = .left
-            label.textColor = .secondaryText
+            label.textColor = .plMainText
 
             addSubview(label) {
                 $0.centerY.equalToSuperview()

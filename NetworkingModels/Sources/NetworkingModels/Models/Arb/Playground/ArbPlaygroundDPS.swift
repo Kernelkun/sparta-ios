@@ -32,6 +32,6 @@ public struct ArbPlaygroundDPS: BackendModel {
 extension ArbPlaygroundDPS: Equatable {
 
     public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.name == rhs.name
+        lhs.monthName == rhs.monthName
     }
 }

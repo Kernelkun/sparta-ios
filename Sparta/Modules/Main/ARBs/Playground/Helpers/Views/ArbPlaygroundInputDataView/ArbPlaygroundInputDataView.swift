@@ -24,7 +24,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
         case gasNap(value: Double)
         case taArb(value: Double)
         case ew(value: Double) //swiftlint:disable:this identifier_name
-        case freight(value: Int)
+        case freight(value: Double)
         case costs(value: Double)
         case spreadMonth(value: ArbPlaygroundDPS)
     }
@@ -45,7 +45,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
     private var gasNapPointView: ArbPlaygroundPointView<Double>!
     private var taArbPointView: ArbPlaygroundPointView<Double>!
     private var ewPointView: ArbPlaygroundPointView<Double>!
-    private var freightPointView: ArbPlaygroundPointView<Int>!
+    private var freightPointView: ArbPlaygroundPointView<Double>!
     private var costsPointView: ArbPlaygroundPointView<Double>!
     private var dpsPointView: ArbPlaygroundDPSPointView!
 
@@ -219,7 +219,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
 
         case freightPointView:
             // swiftlint:disable:next force_cast
-            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .freight(value: newValue as! Int))
+            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .freight(value: newValue as! Double))
 
         case costsPointView:
             // swiftlint:disable:next force_cast
@@ -242,7 +242,7 @@ extension ArbPlaygroundInputDataView {
     struct Constructor {
         let blendCostConstructor: ArbPlaygroundPointViewConstructor<Double>
         let gasNapConstructor: ArbPlaygroundPointViewConstructor<Double>
-        let freightConstructor: ArbPlaygroundPointViewConstructor<Int>?
+        let freightConstructor: ArbPlaygroundPointViewConstructor<Double>?
         let taArbConstructor: ArbPlaygroundPointViewConstructor<Double>?
         let ewConstructor: ArbPlaygroundPointViewConstructor<Double>?
         let costsConstructor: ArbPlaygroundPointViewConstructor<Double>

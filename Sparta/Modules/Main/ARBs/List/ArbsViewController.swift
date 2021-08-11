@@ -81,9 +81,9 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "MainTabsPage.ARBs.Title".localized)
-        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.titleButton(text: "Playground", onTap: { [unowned self] _ in
+        navigationItem.rightBarButtonItem = UIBarButtonItemFactory.playgroundButton { [unowned self] _ in
             self.navigationController?.pushViewController(ArbsPlaygroundViewController(), animated: true)
-        })
+        }
     }
 }
 

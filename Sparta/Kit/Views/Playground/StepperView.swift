@@ -38,6 +38,8 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
     // MARK: - UI
 
     private var numberLabel: UILabel!
+    private var minusButton: TappableButton!
+    private var plusButton: TappableButton!
 
     // MARK: - Private properties
 
@@ -55,7 +57,7 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("StepperView")
+        fatalError(#function)
     }
 
     // MARK: - Public methods
@@ -70,7 +72,7 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
         backgroundColor = UIColor.plElementBackground
         layer.cornerRadius = 8
 
-        let minusButton = TappableButton().then { button in
+        minusButton = TappableButton().then { button in
 
             button.setImage(UIImage(named: "ic_element_minus"), for: .normal)
 
@@ -97,7 +99,7 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
             }
         }
 
-        let plusButton = TappableButton().then { button in
+        plusButton = TappableButton().then { button in
 
             button.setImage(UIImage(named: "ic_element_plus"), for: .normal)
 
@@ -111,7 +113,7 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
             }
         }
 
-        _ = UIView().then { view in
+        let rightLineView = UIView().then { view in
 
             view.backgroundColor = UIColor.plSeparator
             view.layer.cornerRadius = 0.5
@@ -127,13 +129,18 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
         numberLabel = UILabel().then { label in
 
             label.font = .main(weight: .regular, size: 17)
+            label.numberOfLines = 1
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.2
+            label.baselineAdjustment = .alignCenters
             label.textAlignment = .center
             label.textColor = UIColor.primaryText.withAlphaComponent(0.6)
 
             addSubview(label) {
-                $0.centerY.equalToSuperview()
                 $0.left.equalTo(minusButton.snp.right).offset(3)
                 $0.right.equalTo(plusButton.snp.left).inset(-3)
+                $0.centerY.equalToSuperview()
+                $0.height.equalTo(rightLineView)
             }
         }
     }
@@ -142,14 +149,25 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
         switch state {
         case .inactive:
             numberLabel.text = "-"
+            numberLabel.textColor = UIColor.primaryText.withAlphaComponent(0.2)
+            backgroundColor = .plInactiveElementBackground
+            minusButton.tintColor = .white.withAlphaComponent(0.2)
+            plusButton.tintColor = .white.withAlphaComponent(0.2)
+
         case .active(let constructor):
+            numberLabel.textColor = UIColor.primaryText.withAlphaComponent(0.6)
+            backgroundColor = .plElementBackground
+            minusButton.tintColor = .white
+            plusButton.tintColor = .white
+
             currentValue = constructor.startValue
             updateUIForValue()
         }
     }
 
     private func updateUIForValue() {
-        numberLabel.text = currentValue.symbols2Value
+        guard let currentValue = currentValue as? Double else { return }
+        numberLabel.text = currentValue.toFormattedString
     }
 
     private func decreaseValue() {

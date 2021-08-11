@@ -107,6 +107,7 @@ class ArbsPlaygroundViewController: BaseVMViewController<ArbsPlaygroundViewModel
         contentScrollView = UIScrollView().then { scrollView in
 
             scrollView.showsVerticalScrollIndicator = false
+            scrollView.isHidden = true
 
             addSubview(scrollView) {
                 $0.top.equalTo(monthSelector.snp.bottom).offset(8)
@@ -273,6 +274,9 @@ extension ArbsPlaygroundViewController: ResultMonthSelectorDelegate {
 extension ArbsPlaygroundViewController: ArbsPlaygroundViewModelDelegate {
 
     func didChangeLoadingState(_ isLoading: Bool) {
+        searchController.searchBar.isHidden = isLoading
+        contentScrollView.isHidden = isLoading
+        loadingView(isAnimating: isLoading)
     }
 
     func didCatchAnError(_ error: String) {
@@ -280,7 +284,6 @@ extension ArbsPlaygroundViewController: ArbsPlaygroundViewModelDelegate {
 
     func didLoadArbs(_ arbs: [Arb]) {
         searchWireframe.apply(arbs: arbs)
-//        searchController.sear
     }
 
     func didReceiveMonthInfoUpdates() {

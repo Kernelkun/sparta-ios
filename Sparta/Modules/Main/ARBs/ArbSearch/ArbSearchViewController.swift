@@ -137,7 +137,7 @@ extension ArbSearchViewController {
         let cell: LCPortfolioAddItemTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         let arb = viewModel.arbs[indexPath.row]
-        cell.textLabel?.text = arb.grade
+        cell.textLabel?.text = viewModel.title(for: arb)
 
         return cell
     }

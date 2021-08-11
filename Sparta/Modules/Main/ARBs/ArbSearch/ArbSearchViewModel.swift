@@ -60,6 +60,10 @@ class ArbSearchViewModel: NSObject, BaseViewModel {
         notify()
     }
 
+    func title(for arb: Arb) -> String {
+        arb.grade + " | " + arb.dischargePortName + " | " + arb.freightType
+    }
+
     // MARK: - Private methods
 
     private func filtered(by searchRequest: String?) -> [Arb] {

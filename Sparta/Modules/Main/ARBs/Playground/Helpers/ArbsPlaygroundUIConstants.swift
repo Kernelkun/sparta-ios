@@ -15,7 +15,7 @@ enum ArbsPlaygroundUIConstants {
     static let searchPlaceholderColor: UIColor = .plSearchPlaceholder
 
     static let activeTintColor: UIColor = .white
-    static let inactiveTintColor: UIColor = UIColor.white.withAlphaComponent(0.18)
-    static let inactiveElementBackground: UIColor = UIColor.white.withAlphaComponent(0.18)
+    static let inactiveTintColor: UIColor = .white.withAlphaComponent(0.18)
+    static let inactiveElementBackground: UIColor = .white.withAlphaComponent(0.18)
     static let activeElementBackground: UIColor = .plElementBackground
 }

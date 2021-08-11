@@ -102,8 +102,8 @@ class ArbsPlaygroundCalculator {
         calculate()
     }
 
-    func changeFreight(_ newValue: Int) {
-        arbPlaygroundMonth?.freight.value = Double(newValue)
+    func changeFreight(_ newValue: Double) {
+        arbPlaygroundMonth?.freight.value = newValue
         calculate()
     }
 
@@ -118,7 +118,7 @@ class ArbsPlaygroundCalculator {
     }
 
     func switchToPrevMonth() {
-        guard let arbPlayground = arbPlayground,
+        guard var arbPlayground = arbPlayground,
               let arbPlaygroundMonth = arbPlaygroundMonth,
               let deliveredPriceSpreadsMonth = deliveredPriceSpreadsMonth else { return }
 
@@ -130,15 +130,34 @@ class ArbsPlaygroundCalculator {
         let newArbMonth = arbPlayground.months[prevMonthIndex]
         self.arbPlaygroundMonth = newArbMonth
 
+        // months
+
+        if let startIndex = arbPlayground.deliveredPriceSpreads
+            .firstIndex(where: { $0.monthName.lowercased() == newArbMonth.monthName.lowercased() }) {
+
+            let finalIndex = startIndex + 4
+            if finalIndex < arbPlayground.deliveredPriceSpreads.count {
+                arbPlayground.deliveredPriceSpreads = Array(arbPlayground.deliveredPriceSpreads[startIndex...finalIndex])
+            } else {
+                arbPlayground.deliveredPriceSpreads = Array(arbPlayground.deliveredPriceSpreads[startIndex...])
+            }
+        }
+
+        if !arbPlayground.deliveredPriceSpreads.contains(deliveredPriceSpreadsMonth),
+           let firstMonth = arbPlayground.deliveredPriceSpreads.first {
+
+            self.deliveredPriceSpreadsMonth = firstMonth
+        }
+
         delegate?.arbsPlaygroundCalculatorDidChangePlaygroundInfo(self,
                                                                   playground: arbPlayground,
                                                                   month: newArbMonth,
-                                                                  deliveredPriceSpreadsMonth: deliveredPriceSpreadsMonth)
+                                                                  deliveredPriceSpreadsMonth: self.deliveredPriceSpreadsMonth!)
         calculate()
     }
 
     func switchToNextMonth() {
-        guard let arbPlayground = arbPlayground,
+        guard var arbPlayground = arbPlayground,
               let arbPlaygroundMonth = arbPlaygroundMonth,
               let deliveredPriceSpreadsMonth = deliveredPriceSpreadsMonth else { return }
 
@@ -150,10 +169,29 @@ class ArbsPlaygroundCalculator {
         let newArbMonth = arbPlayground.months[nextMonthIndex]
         self.arbPlaygroundMonth = newArbMonth
 
+        // months
+
+        if let startIndex = arbPlayground.deliveredPriceSpreads
+            .firstIndex(where: { $0.monthName.lowercased() == newArbMonth.monthName.lowercased() }) {
+
+            let finalIndex = startIndex + 4
+            if finalIndex < arbPlayground.deliveredPriceSpreads.count {
+                arbPlayground.deliveredPriceSpreads = Array(arbPlayground.deliveredPriceSpreads[startIndex...finalIndex])
+            } else {
+                arbPlayground.deliveredPriceSpreads = Array(arbPlayground.deliveredPriceSpreads[startIndex...])
+            }
+        }
+
+        if !arbPlayground.deliveredPriceSpreads.contains(deliveredPriceSpreadsMonth),
+           let firstMonth = arbPlayground.deliveredPriceSpreads.first {
+
+            self.deliveredPriceSpreadsMonth = firstMonth
+        }
+
         delegate?.arbsPlaygroundCalculatorDidChangePlaygroundInfo(self,
                                                                   playground: arbPlayground,
                                                                   month: newArbMonth,
-                                                                  deliveredPriceSpreadsMonth: deliveredPriceSpreadsMonth)
+                                                                  deliveredPriceSpreadsMonth: self.deliveredPriceSpreadsMonth!)
 
         calculate()
     }
@@ -173,10 +211,19 @@ class ArbsPlaygroundCalculator {
     // MARK: - Private methods
 
     private func applyDefaultArbPlaygroundSettings() {
-        guard let arbPlayground = arbPlayground else { return }
+        guard var arbPlayground = arbPlayground else { return }
 
         arbPlaygroundMonth = arbPlayground.months.first
         deliveredPriceSpreadsMonth = arbPlayground.deliveredPriceSpreads.first
+
+        // months
+
+        let finalIndex = 4
+        if finalIndex < arbPlayground.deliveredPriceSpreads.count {
+            arbPlayground.deliveredPriceSpreads = Array(arbPlayground.deliveredPriceSpreads[0...finalIndex])
+        } else {
+            arbPlayground.deliveredPriceSpreads = Array(arbPlayground.deliveredPriceSpreads[0...])
+        }
 
         guard let arbPlaygroundMonth = arbPlaygroundMonth,
               let deliveredPriceSpreadsMonth = deliveredPriceSpreadsMonth else { return }
@@ -215,7 +262,7 @@ class ArbsPlaygroundCalculator {
 
         // rate
         let loadedQuantity = month.loadedQuantity.value ?? 0.0
-        let freightRate = calculateRate(for: arb, loadedQuantity: loadedQuantity)
+        let freightRate = calculateRate(for: arb, loadedQuantity: loadedQuantity, freightRate: month.freight.value ?? 0.0)
 
         // priceBeforeTAEW
 
@@ -299,14 +346,14 @@ class ArbsPlaygroundCalculator {
         }
     }
 
-    private func calculateRate(for arb: Arb, loadedQuantity: Double) -> Double {
+    private func calculateRate(for arb: Arb, loadedQuantity: Double, freightRate: Double) -> Double {
         let vessel = arb.freight.vessel
         let lumpsum: Double
 
         if vessel.routeType.lowercased() == "LS".lowercased() {
-            lumpsum = vessel.routeTypeValue
+            lumpsum = freightRate //vessel.routeTypeValue
         } else {
-            let wsInPercentage = vessel.routeTypeValue / 100
+            let wsInPercentage = /*vessel.routeTypeValue*/ freightRate / 100
 
             if loadedQuantity <= vessel.cpBasis {
                 lumpsum = vessel.cpBasis * vessel.flatRate * wsInPercentage

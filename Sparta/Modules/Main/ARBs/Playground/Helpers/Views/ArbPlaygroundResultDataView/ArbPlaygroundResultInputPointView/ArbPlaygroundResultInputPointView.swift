@@ -67,7 +67,9 @@ class ArbPlaygroundResultInputPointView: UIView {
             textField.backgroundColor = .plElementBackground
             textField.icon = nil
             textField.textField.enterType = .numberLimit(range: -999.99...999.99)
-            textField.textField.textAlignment = .right
+            textField.textField.textAlignment = .center
+            textField.textField.font = .main(weight: .regular, size: 18)
+            textField.textField.textColor = .plMainText
 
             addSubview(textField) {
                 $0.centerY.equalToSuperview()

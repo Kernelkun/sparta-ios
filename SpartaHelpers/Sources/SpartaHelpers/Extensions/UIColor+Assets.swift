@@ -53,6 +53,8 @@ public extension UIColor {
 
     static var plElementBackground: UIColor { .assetColor(named: #function) }
 
+    static var plInactiveElementBackground: UIColor { .assetColor(named: #function) }
+
     static var plResultBlockBackground: UIColor { .assetColor(named: #function) }
 
     static var plSearchPlaceholder: UIColor { .assetColor(named: #function) }

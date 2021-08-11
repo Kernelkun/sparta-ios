@@ -18,7 +18,7 @@ public struct ArbPlayground: BackendModel {
     public let vesselType: String
     public let pseudoRefineryFobValue: Int
     public let pseudoRefineryCifValue: Int
-    public let deliveredPriceSpreads: [ArbPlaygroundDPS]
+    public var deliveredPriceSpreads: [ArbPlaygroundDPS]
     public let months: [ArbPlaygroundMonth]
 
     //

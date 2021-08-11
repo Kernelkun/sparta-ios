@@ -104,12 +104,15 @@ class ArbPlaygroundPointView<V>: UIView, StepperViewDelegate where V: Numeric, V
         switch state {
         case .inactive:
             titleLabel.text = "-"
+            titleLabel.textColor = ArbsPlaygroundUIConstants.inactiveTintColor
             unitsLabel.text = ""
             stepperView.state = .inactive
 
         case .active(let constructor):
             titleLabel.text = constructor.title
+            titleLabel.textColor = .plMainText
             unitsLabel.text = constructor.units
+
             stepperView.state = .active(constructor: .init(range: constructor.range,
                                                            step: constructor.step,
                                                            startValue: constructor.startValue))

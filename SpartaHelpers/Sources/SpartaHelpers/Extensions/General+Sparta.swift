@@ -21,17 +21,6 @@ public extension Int {
     }
 }
 
-public extension Numeric where Self: CVarArg {
-
-    var symbols2Value: String {
-        if self is Int {
-            return String(format: "%.d", self)
-        } else {
-            return String(format: "%.2f", self)
-        }
-    }
-}
-
 public extension Double {
 
     var toString: String { String(self) }
