@@ -20,6 +20,7 @@ public struct Blender: BackendModel {
     public let escalation: String
     public var months: [BlenderMonth]
     public let loadRegion: BlenderRegion
+    public let priceInfo: [PriceInfo]
 
     // for presenting
 
@@ -41,6 +42,7 @@ public struct Blender: BackendModel {
         months = json["months"].arrayValue.compactMap { BlenderMonth(json: $0) }
         isCustom = json["isCustom"].boolValue
         loadRegion = BlenderRegion(json: json["loadRegion"])
+        priceInfo = json["priceInfo"].arrayValue.compactMap { PriceInfo(json: $0) }
     }
 }
 
