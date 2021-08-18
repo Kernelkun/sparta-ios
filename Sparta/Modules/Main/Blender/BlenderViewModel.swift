@@ -81,18 +81,16 @@ class BlenderViewModel: NSObject, BaseViewModel {
         }
 
         // % Pxg of Nap
-        if let pxgNapValue = month.naphthaPricingComponentsVolume.toDouble?.symbols2Value {
-            mainKeyValues.append(.init(key: "% Pxg of Nap", value: pxgNapValue, priorityIndex: mainKeyValues.count))
+        if let pxgNapValue = month.naphthaPricingComponentsVolume.toDouble?.roundedString(to: 1) {
+            mainKeyValues.append(.init(key: "% Pxg of Nap", value: pxgNapValue + " %", priorityIndex: mainKeyValues.count))
         }
 
         // density of blend
-
-        let dependsFromName = "ethanol"
-        if !month.components.contains(where: { $0.name.lowercased().contains(dependsFromName) }),
-           let densityValue = month.density.toDouble?.symbols2Value {
-            mainKeyValues.append(.init(key: "Density of Blend", value: densityValue, priorityIndex: mainKeyValues.count + 1))
+        if let densityValue = month.density.toDouble?.roundedString(to: 4) {
+            mainKeyValues.append(.init(key: "Density", value: densityValue + " t/m³", priorityIndex: mainKeyValues.count + 1))
         }
 
+        // escalation
         if blenderManager.profile.region == .ara {
             mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: mainKeyValues.count + 2))
         }
