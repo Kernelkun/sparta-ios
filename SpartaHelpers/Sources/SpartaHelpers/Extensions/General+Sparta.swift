@@ -34,6 +34,7 @@ public extension Double {
         formatter.zeroSymbol = nil
         formatter.decimalSeparator = "."
         formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
         formatter.locale = Locale(identifier: "en")
         return formatter.string(from: NSNumber(value: self)) ?? String(self)
     }

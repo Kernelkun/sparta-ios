@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ArbPlaygroundPointViewDelegate: AnyObject {
-    func arbPlaygroundViewDidChangeValue<V>(_ view: ArbPlaygroundPointView<V>, newValue: V) where V: Numeric, V: Comparable, V: CVarArg
+    func arbPlaygroundViewDidChangeValue<V>(_ view: ArbPlaygroundPointView<V>, newValue: V, sign: FloatingPointSign) where V: Numeric, V: Comparable, V: CVarArg
 }
 
 class ArbPlaygroundPointView<V>: UIView, StepperViewDelegate where V: Numeric, V: Comparable, V: CVarArg {
@@ -121,9 +121,9 @@ class ArbPlaygroundPointView<V>: UIView, StepperViewDelegate where V: Numeric, V
 
     // MARK: - StepperViewDelegate
 
-    func stepperViewDidChangeValue<T>(_ view: StepperView<T>, newValue: T) where T: CVarArg, T: Comparable, T: Numeric {
+    func stepperViewDidChangeValue<T>(_ view: StepperView<T>, newValue: T, sign: FloatingPointSign) where T: CVarArg, T: Comparable, T: Numeric {
         guard let newValue = newValue as? V else { return }
 
-        delegate?.arbPlaygroundViewDidChangeValue(self, newValue: newValue)
+        delegate?.arbPlaygroundViewDidChangeValue(self, newValue: newValue, sign: sign)
     }
 }

@@ -82,7 +82,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
 
         // % Pxg of Nap
         if let pxgNapValue = month.naphthaPricingComponentsVolume.toDouble?.roundedString(to: 1) {
-            mainKeyValues.append(.init(key: "% Pxg of Nap", value: pxgNapValue + " %", priorityIndex: mainKeyValues.count))
+            mainKeyValues.append(.init(key: "% Pxg of Nap", value: pxgNapValue + "%", priorityIndex: mainKeyValues.count))
         }
 
         // density of blend

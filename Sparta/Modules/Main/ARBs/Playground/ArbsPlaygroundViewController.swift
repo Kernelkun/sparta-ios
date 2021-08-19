@@ -236,22 +236,22 @@ extension ArbsPlaygroundViewController: ArbPlaygroundInputDataViewDelegate {
 
     func arbPlaygroundInputDataViewDidChangeValue(_ view: ArbPlaygroundInputDataView, newValue: ArbPlaygroundInputDataView.ObjectValue) {
         switch newValue {
-        case .blendCost(let value):
+        case .blendCost(let value, _):
             viewModel.changeBlendCost(value)
 
-        case .gasNap(let value):
-            viewModel.changeBlendCost(value)
+        case .gasNap(let value, let sign):
+            viewModel.changeGasNap(value, sign: sign)
 
-        case .taArb(let value):
+        case .taArb(let value, _):
             viewModel.changeTaArb(value)
 
-        case .ew(let value):
+        case .ew(let value, _):
             viewModel.changeEw(value)
 
-        case .freight(let value):
+        case .freight(let value, _):
             viewModel.changeFreight(value)
 
-        case .costs(let value):
+        case .costs(let value, _):
             viewModel.changeCosts(value)
 
         case .spreadMonth(let value):

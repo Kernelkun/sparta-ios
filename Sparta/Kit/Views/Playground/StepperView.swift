@@ -15,7 +15,7 @@ struct StepperViewConstructor<T> where T: Numeric, T: Comparable, T: CVarArg {
 }
 
 protocol StepperViewDelegate: AnyObject {
-    func stepperViewDidChangeValue<T>(_ view: StepperView<T>, newValue: T) where T: Numeric, T: Comparable, T: CVarArg
+    func stepperViewDidChangeValue<T>(_ view: StepperView<T>, newValue: T, sign: FloatingPointSign) where T: Numeric, T: Comparable, T: CVarArg
 }
 
 class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
@@ -182,7 +182,7 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
         }
 
         updateUIForValue()
-        delegate?.stepperViewDidChangeValue(self, newValue: currentValue)
+        delegate?.stepperViewDidChangeValue(self, newValue: currentValue, sign: .minus)
     }
 
     private func increaseValue() {
@@ -197,6 +197,6 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
         }
 
         updateUIForValue()
-        delegate?.stepperViewDidChangeValue(self, newValue: currentValue)
+        delegate?.stepperViewDidChangeValue(self, newValue: currentValue, sign: .plus)
     }
 }

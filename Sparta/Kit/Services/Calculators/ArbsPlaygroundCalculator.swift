@@ -84,10 +84,25 @@ class ArbsPlaygroundCalculator {
 
     func changeBlendCost(_ newValue: Double) {
         arbPlaygroundMonth?.blendCost.value = newValue
+
+        if let arbPlaygroundMonth = arbPlaygroundMonth,
+           let index = arbPlayground?.months.firstIndex(of: arbPlaygroundMonth),
+           let naphthaValue = arbPlayground?.months[index].naphtha.value {
+
+            self.arbPlaygroundMonth?.naphtha.value = naphthaValue
+        }
+
         calculate()
     }
 
-    func changeGasNap(_ newValue: Double) {
+    func changeGasNap(_ newValue: Double, sign: FloatingPointSign) {
+        if let naphtha = arbPlaygroundMonth?.naphtha, let oldValue = arbPlaygroundMonth?.blendCost.value {
+            let difference = abs(newValue - naphtha.value) * (naphtha.pricingComponentsVolume / 100)
+
+            arbPlaygroundMonth?.blendCost.value = oldValue + Double(sign: sign, exponent: 0, significand: difference)
+
+        }
+
         arbPlaygroundMonth?.naphtha.value = newValue
         calculate()
     }

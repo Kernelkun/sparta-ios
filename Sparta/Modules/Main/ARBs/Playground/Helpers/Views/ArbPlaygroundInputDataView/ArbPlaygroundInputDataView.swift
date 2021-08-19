@@ -20,12 +20,12 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
     }
 
     enum ObjectValue {
-        case blendCost(value: Double)
-        case gasNap(value: Double)
-        case taArb(value: Double)
-        case ew(value: Double) //swiftlint:disable:this identifier_name
-        case freight(value: Double)
-        case costs(value: Double)
+        case blendCost(value: Double, sign: FloatingPointSign)
+        case gasNap(value: Double, sign: FloatingPointSign)
+        case taArb(value: Double, sign: FloatingPointSign)
+        case ew(value: Double, sign: FloatingPointSign) //swiftlint:disable:this identifier_name
+        case freight(value: Double, sign: FloatingPointSign)
+        case costs(value: Double, sign: FloatingPointSign)
         case spreadMonth(value: ArbPlaygroundDPS)
     }
 
@@ -199,31 +199,31 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
 
     // MARK: - ArbPlaygroundPointViewDelegate
 
-    func arbPlaygroundViewDidChangeValue<V>(_ view: ArbPlaygroundPointView<V>, newValue: V) where V: CVarArg, V: Comparable, V: Numeric {
+    func arbPlaygroundViewDidChangeValue<V>(_ view: ArbPlaygroundPointView<V>, newValue: V, sign: FloatingPointSign) where V: CVarArg, V: Comparable, V: Numeric {
         switch view {
         case blendCostPointView:
             // swiftlint:disable:next force_cast
-            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .blendCost(value: newValue as! Double))
+            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .blendCost(value: newValue as! Double, sign: sign))
 
         case gasNapPointView:
             // swiftlint:disable:next force_cast
-            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .gasNap(value: newValue as! Double))
+            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .gasNap(value: newValue as! Double, sign: sign))
 
         case taArbPointView:
             // swiftlint:disable:next force_cast
-            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .taArb(value: newValue as! Double))
+            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .taArb(value: newValue as! Double, sign: sign))
 
         case ewPointView:
             // swiftlint:disable:next force_cast
-            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .ew(value: newValue as! Double))
+            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .ew(value: newValue as! Double, sign: sign))
 
         case freightPointView:
             // swiftlint:disable:next force_cast
-            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .freight(value: newValue as! Double))
+            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .freight(value: newValue as! Double, sign: sign))
 
         case costsPointView:
             // swiftlint:disable:next force_cast
-            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .costs(value: newValue as! Double))
+            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .costs(value: newValue as! Double, sign: sign))
 
         default:
             break

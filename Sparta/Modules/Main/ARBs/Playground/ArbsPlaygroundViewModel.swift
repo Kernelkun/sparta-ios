@@ -104,8 +104,8 @@ class ArbsPlaygroundViewModel: NSObject, BaseViewModel {
         calculator?.changeBlendCost(newValue)
     }
 
-    func changeGasNap(_ newValue: Double) {
-        calculator?.changeGasNap(newValue)
+    func changeGasNap(_ newValue: Double, sign: FloatingPointSign) {
+        calculator?.changeGasNap(newValue, sign: sign)
     }
 
     func changeTaArb(_ newValue: Double) {
@@ -242,42 +242,47 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
             switch result {
             case .blenderMargin(let value, let units):
                 generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "Blender Margin",
-                                                                                         value: value.toString,
+                                                                                         value: value.toFormattedString,
                                                                                          valueColor: getColor(for: value),
                                                                                          units: units))
 
             case .deliveredPrice(let value, let units):
                 generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "Delivered Price",
-                                                                                         value: value.toString,
+                                                                                         value: value.toFormattedString,
                                                                                          valueColor: .plMainText,
                                                                                          units: units))
 
             case .cifRefyMargin(let value, let units):
                 generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "CIF Refy Mrg",
-                                                                                         value: value.toString,
+                                                                                         value: value.toFormattedString,
                                                                                          valueColor: getColor(for: value),
                                                                                          units: units))
 
             case .fobRefyMargin(let value, let units):
                 generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "FOB Refy Mrg",
-                                                                                         value: value.toString,
+                                                                                         value: value.toFormattedString,
                                                                                          valueColor: getColor(for: value),
                                                                                          units: units))
 
             case .myTgt(let value, let units):
                 generatedConstructors.append(ArbPlaygroundResultInputPointViewConstructor(title: "My TGT",
-                                                                                          initialInputText: value?.toString,
+                                                                                          initialInputText: value?.toFormattedString,
                                                                                           units: units))
 
             case .myMargin(let value, let units):
 
                 generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "My TGT Margin",
-                                                                                         value: value == nil ? "-" : value!.toString,
+                                                                                         value: value == nil ? "-" : value!.toFormattedString,
                                                                                          valueColor: getColor(for: value),
                                                                                          units: units))
             }
         }
 
         delegate?.didReceiveResultDataConstructors(generatedConstructors)
+
+        arbsPlaygroundCalculatorDidChangePlaygroundInfo(calculator!,
+                                                        playground: calculator!.arbPlayground!,
+                                                        month: calculator!.arbPlaygroundMonth!,
+                                                        deliveredPriceSpreadsMonth: calculator!.deliveredPriceSpreadsMonth!)
     }
 }
