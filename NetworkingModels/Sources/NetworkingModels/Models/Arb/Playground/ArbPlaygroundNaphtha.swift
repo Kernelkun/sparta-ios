@@ -14,7 +14,7 @@ public struct ArbPlaygroundNaphtha: BackendModel {
     // MARK: - Public properties
 
     public var value: Double
-    public let pricingComponentsVolume: Double
+    public var pricingComponentsVolume: Double
 
     //
     // MARK: - Default Initializers

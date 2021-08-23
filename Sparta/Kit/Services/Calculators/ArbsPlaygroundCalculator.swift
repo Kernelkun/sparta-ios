@@ -100,7 +100,6 @@ class ArbsPlaygroundCalculator {
             let difference = abs(newValue - naphtha.value) * (naphtha.pricingComponentsVolume / 100)
 
             arbPlaygroundMonth?.blendCost.value = oldValue + Double(sign: sign, exponent: 0, significand: difference)
-
         }
 
         arbPlaygroundMonth?.naphtha.value = newValue
@@ -144,6 +143,7 @@ class ArbsPlaygroundCalculator {
 
         let newArbMonth = arbPlayground.months[prevMonthIndex]
         self.arbPlaygroundMonth = newArbMonth
+        roundValuesForCalculation(&self.arbPlaygroundMonth!)
 
         // months
 
@@ -183,6 +183,7 @@ class ArbsPlaygroundCalculator {
 
         let newArbMonth = arbPlayground.months[nextMonthIndex]
         self.arbPlaygroundMonth = newArbMonth
+        roundValuesForCalculation(&self.arbPlaygroundMonth!)
 
         // months
 
@@ -225,10 +226,25 @@ class ArbsPlaygroundCalculator {
 
     // MARK: - Private methods
 
+    private func roundValuesForCalculation(_ month: inout ArbPlaygroundMonth) {
+        month.blendCost.value = month.blendCost.value?.round(nearest: 0.25)
+        month.naphtha.value = month.naphtha.value.round(nearest: 0.25)
+        month.naphtha.pricingComponentsVolume = month.naphtha.pricingComponentsVolume.round(nearest: 1)
+        month.taArb.value = month.taArb.value?.round(nearest: 0.05)
+        month.ew.value = month.ew.value?.round(nearest: 0.05)
+
+        if month.freight.units.lowercased() == "ls" {
+            month.freight.value = month.freight.value?.round(nearest: 5_000)
+        } else {
+            month.freight.value = month.freight.value?.round(nearest: 1)
+        }
+    }
+
     private func applyDefaultArbPlaygroundSettings() {
         guard var arbPlayground = arbPlayground else { return }
 
         arbPlaygroundMonth = arbPlayground.months.first
+        roundValuesForCalculation(&arbPlaygroundMonth!)
         deliveredPriceSpreadsMonth = arbPlayground.deliveredPriceSpreads.first
 
         // months
@@ -340,21 +356,21 @@ class ArbsPlaygroundCalculator {
         let gradeCode = arb.gradeCode.lowercased()
         var results: [Result] = []
 
-        results.append(.deliveredPrice(value: deliveredPrice.round(to: 2), units: units))
+        results.append(.deliveredPrice(value: deliveredPrice.round(nearest: 0.05, rule: .up), units: units))
 
         if gradeCode == "e5eurobob" {
-            results.append(.blenderMargin(value: blenderMargin.round(to: 2), units: units))
-            results.append(.fobRefyMargin(value: fobRefyMargin.round(to: 2), units: units))
+            results.append(.blenderMargin(value: blenderMargin.round(nearest: 0.05, rule: .up), units: units))
+            results.append(.fobRefyMargin(value: fobRefyMargin.round(nearest: 0.05, rule: .up), units: units))
         } else if gradeCode == "rbob"
                     || gradeCode == "sing92ron" {
 
-            results.append(.blenderMargin(value: blenderMargin.round(to: 2), units: units))
-            results.append(.fobRefyMargin(value: fobRefyMargin.round(to: 2), units: units))
-            results.append(.cifRefyMargin(value: cifRefyMargin.round(to: 2), units: units))
+            results.append(.blenderMargin(value: blenderMargin.round(nearest: 0.05, rule: .up), units: units))
+            results.append(.fobRefyMargin(value: fobRefyMargin.round(nearest: 0.05, rule: .up), units: units))
+            results.append(.cifRefyMargin(value: cifRefyMargin.round(nearest: 0.05, rule: .up), units: units))
         }
 
         results.append(.myTgt(value: month.userTarget.value, units: units))
-        results.append(.myMargin(value: userTargetMargin?.round(to: 2), units: units))
+        results.append(.myMargin(value: userTargetMargin?.round(nearest: 0.05, rule: .up), units: units))
 
         onMainThread {
             self.delegate?.arbsPlaygroundCalculatordDidFinishCalculations(results)
