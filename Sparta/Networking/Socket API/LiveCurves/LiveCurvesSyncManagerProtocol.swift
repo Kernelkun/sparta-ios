@@ -35,4 +35,7 @@ protocol LiveCurvesSyncManagerProtocol {
 
     /// Remove specific profile
     func removeProfile(_ profile: LiveCurveProfileCategory)
+
+    /// Change profiles order
+    func changeProfilesOrder(_ profiles: [LiveCurveProfileCategory])
 }

@@ -55,11 +55,11 @@ class ProfileElementView<I: ListableItem>: TappableView {
     // MARK: - Public methods
 
     func showLine() {
-        lineView.isHidden = false
+        lineView.alpha = 1
     }
 
     func hideLine() {
-        lineView.isHidden = true
+        lineView.alpha = 0
     }
 
     func onRemove(completion: @escaping TypeClosure<I>) {
@@ -69,8 +69,6 @@ class ProfileElementView<I: ListableItem>: TappableView {
     // MARK: - Private methods
 
     private func setupUI() {
-        backgroundColor = .clear
-
         selectedView = UIView().then { view in
 
             view.backgroundColor = .profileActiveBackground
@@ -109,7 +107,7 @@ class ProfileElementView<I: ListableItem>: TappableView {
 
         deleteZoneView = TappableView().then { view in
 
-            view.backgroundColor = .clear
+            view.backgroundColor = UIColor.clear
             view.onTap { [unowned self] _ in
                 self._onRemoveClosure?(self.profile)
             }

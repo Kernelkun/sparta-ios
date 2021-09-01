@@ -116,7 +116,6 @@ public extension String {
     // MARK: - Texts
 
     func size(constrained toWidth: CGFloat, attributes: [NSAttributedString.Key: Any]) -> CGSize {
-
         self.boundingRect(
             with: CGSize(width: toWidth, height: .greatestFiniteMagnitude),
             options: [.usesLineFragmentOrigin],

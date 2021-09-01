@@ -9,7 +9,7 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
+class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate, SQReorderableStackViewDelegate {
 
     // MARK: - Private properties
 
@@ -21,12 +21,11 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
     private var scrollView: UIScrollView!
     private var scrollContentView: UIView!
     private var elementsStackView: UIStackView!
-    private var elementViews: [ProfileElementView<I>] = []
-    private var activeElementView: ProfileElementView<I>?
 
     private var _onChooseAdd: EmptyClosure?
     private var _onChooseProfileClosure: TypeClosure<I>?
     private var _onRemoveProfileClosure: TypeClosure<I>?
+    private var _onReorderProfilesClosure: TypeClosure<[I]>?
 
     // MARK: - Initializers
 
@@ -61,6 +60,10 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
 
     func onRemoveProfile(completion: @escaping TypeClosure<I>) {
         _onRemoveProfileClosure = completion
+    }
+
+    func onReorderProfiles(completion: @escaping TypeClosure<[I]>) {
+        _onReorderProfilesClosure = completion
     }
 
     // MARK: - Private methods
@@ -155,12 +158,14 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
     private func setupElementsViews() {
         scrollContentView.removeAllSubviews()
 
-        elementsStackView = UIStackView().then { stackView in
+        elementsStackView = SQReorderableStackView().then { stackView in
 
             stackView.axis = .horizontal
             stackView.distribution = .fillProportionally
             stackView.spacing = 0
             stackView.alignment = .fill
+            stackView.reorderingEnabled = constructor.isEditable
+            stackView.reorderDelegate = self
 
             profiles.forEach { profile in
                 let view = ProfileElementView(profile: profile)
@@ -182,7 +187,6 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
                 }
 
                 stackView.addArrangedSubview(view)
-                elementViews.append(view)
             }
 
             scrollContentView.addSubview(stackView) {
@@ -194,30 +198,31 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
     }
 
     private func updateElementsUI() {
-        elementViews.forEach { view in
+        for (index, view) in elementsStackView.arrangedSubviews.enumerated() {
+            guard let view = view as? ProfileElementView<I> else { return }
+
             let isSelected = selectedProfile == view.profile
 
             view.showLine()
             view.isActive = isSelected
             view.isVisibleDeleteButton = isSelected && constructor.isEditable && profiles.count > 1
 
-            if let index = elementViews.firstIndex(of: view) {
-                let view = elementViews[index]
+            if index != 0 && view.isActive,
+               let previousView = elementsStackView.arrangedSubviews[index - 1] as? ProfileElementView<I> {
 
-                if index != 0 && view.isActive {
-                    let previousView = elementViews[index - 1]
-                    previousView.hideLine()
-                }
+                previousView.hideLine()
+            }
 
-                if index == elementViews.count - 1 {
-                    view.hideLine()
-                }
+            if index == elementsStackView.arrangedSubviews.count - 1 {
+                view.hideLine()
             }
         }
 
         // scroll to visible view
 
-        if let selectedView = elementViews.first(where: { $0.isActive }) {
+        if let views = elementsStackView.arrangedSubviews as? [ProfileElementView<I>],
+           let selectedView = views.first(where: { $0.isActive }) {
+
             onMainThread(delay: 0.1) { [unowned self] in
                 scrollTo(view: selectedView)
             }
@@ -227,9 +232,30 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate {
     private func scrollTo(view: UIView) {
         let scrollWidth = scrollView.frame.width
         let scrollHeight = scrollView.frame.height
-        let desiredXCoor = view.frame.origin.x - ((scrollWidth / 2) - (view.frame.width / 2) )
+        let desiredXCoor = view.frame.origin.x - ((scrollWidth / 2) - (view.frame.width + 6 / 2) )
         let rect = CGRect(x: desiredXCoor, y: 0, width: scrollWidth, height: scrollHeight)
 
         scrollView.scrollRectToVisible(rect, animated: true)
+    }
+
+    // MARK: - SQReorderableStackViewDelegate
+
+    func stackView(_ stackView: SQReorderableStackView, canReorderSubview subview: UIView, atIndex index: Int) -> Bool {
+        true
+    }
+
+    func stackView(_ stackView: SQReorderableStackView, shouldAllowSubview subview: UIView, toMoveToIndex index: Int) -> Bool {
+        true
+    }
+
+    func stackViewDidReorderArrangedSubviews(_ stackView: SQReorderableStackView) {
+        updateElementsUI()
+
+        let profiles = stackView.arrangedSubviews.compactMap { view -> I? in
+            guard let view = view as? ProfileElementView<I> else { return nil }
+            return view.profile
+        }
+        self.profiles = profiles
+        _onReorderProfilesClosure?(profiles)
     }
 }

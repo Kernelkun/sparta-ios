@@ -70,6 +70,15 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
         delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)
     }
 
+    func changeProfilesOrder(_ profiles: [LiveCurveProfileCategory]) {
+        self.profiles = profiles
+        liveCurvesSyncManager.changeProfilesOrder(profiles)
+
+        onMainThread {
+            self.delegate?.didReceiveProfilesInfo(profiles: self.profiles, selectedProfile: self.selectedProfile)
+        }
+    }
+
     func delete(profile: LiveCurveProfileCategory) {
         guard profiles.count > 1 else { return }
 

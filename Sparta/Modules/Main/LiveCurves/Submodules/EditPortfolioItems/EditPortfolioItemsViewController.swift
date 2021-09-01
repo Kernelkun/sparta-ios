@@ -122,6 +122,11 @@ class EditPortfolioItemsViewController: BaseTableVMViewController<EditPortfolioI
                 }
             }
 
+            profilesView.onReorderProfiles { [unowned self] profiles in
+                self.viewModel.changeProfilesOrder(profiles)
+            }
+
+
             profilesView.onChooseAdd { [unowned self] in
                 navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
             }
