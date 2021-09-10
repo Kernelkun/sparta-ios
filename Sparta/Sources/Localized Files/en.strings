@@ -102,6 +102,10 @@
 "ArbDetailPage.Key.CodBlenderMargin.Title" = "CoD Blender Margin";
 "ArbDetailPage.Button.InputTgt.Title" = "Input My Target";
 
+// arb playground page
+
+"ArbPlaygroundPage.PageTitle" = "Playground";
+
 // blender page
 
 "BlenderPage.Popup.Component.Title" = "Component";

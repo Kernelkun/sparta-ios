@@ -57,7 +57,7 @@ class ArbPlaygroundDPSPointView: UIView {
             }
 
             addSubview(view) {
-                $0.size.equalTo(CGSize(width: 109, height: 36))
+                $0.size.equalTo(CGSize(width: 109, height: 31))
                 $0.centerY.equalToSuperview()
                 $0.right.equalToSuperview().inset(3)
             }

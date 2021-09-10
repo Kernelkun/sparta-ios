@@ -45,9 +45,11 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
     private var gasNapPointView: ArbPlaygroundPointView<Double>!
     private var taArbPointView: ArbPlaygroundPointView<Double>!
     private var ewPointView: ArbPlaygroundPointView<Double>!
-    private var freightPointView: ArbPlaygroundPointView<Double>!
+    private var freightDPointView: ArbPlaygroundPointView<Double>!
+    private var freightIPointView: ArbPlaygroundPointView<Int>!
     private var costsPointView: ArbPlaygroundPointView<Double>!
     private var dpsPointView: ArbPlaygroundDPSPointView!
+    private var statusView: ResultAutoStatusView<String>!
 
     // MARK: - Initializers
 
@@ -65,12 +67,25 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
     // MARK: - Private methods
 
     private func setupUI() {
+
+        statusView = ResultAutoStatusView(id: String.randomPassword).then { view in
+
+            view.backgroundColor = .plResultBlockBackground
+            view.apply(position: .fifth)
+
+            addSubview(view) {
+                $0.top.equalToSuperview().offset(8)
+                $0.left.right.equalToSuperview()
+                $0.height.equalTo(32)
+            }
+        }
+
         blendCostPointView = ArbPlaygroundPointView().then { view in
 
             view.delegate = self
 
             view.snp.makeConstraints {
-                $0.height.equalTo(54)
+                $0.height.equalTo(48)
             }
         }
 
@@ -79,7 +94,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             view.delegate = self
 
             view.snp.makeConstraints {
-                $0.height.equalTo(54)
+                $0.height.equalTo(48)
             }
         }
 
@@ -88,7 +103,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             view.delegate = self
 
             view.snp.makeConstraints {
-                $0.height.equalTo(54)
+                $0.height.equalTo(48)
             }
         }
 
@@ -97,16 +112,25 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             view.delegate = self
 
             view.snp.makeConstraints {
-                $0.height.equalTo(54)
+                $0.height.equalTo(48)
             }
         }
 
-        freightPointView = ArbPlaygroundPointView().then { view in
+        freightDPointView = ArbPlaygroundPointView().then { view in
 
             view.delegate = self
 
             view.snp.makeConstraints {
-                $0.height.equalTo(54)
+                $0.height.equalTo(48)
+            }
+        }
+
+        freightIPointView = ArbPlaygroundPointView().then { view in
+
+            view.delegate = self
+
+            view.snp.makeConstraints {
+                $0.height.equalTo(48)
             }
         }
 
@@ -115,7 +139,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             view.delegate = self
 
             view.snp.makeConstraints {
-                $0.height.equalTo(54)
+                $0.height.equalTo(48)
             }
         }
 
@@ -124,7 +148,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             view.delegate = self
 
             view.snp.makeConstraints {
-                $0.height.equalTo(54)
+                $0.height.equalTo(48)
             }
         }
 
@@ -134,7 +158,8 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             stackView.addArrangedSubview(gasNapPointView)
             stackView.addArrangedSubview(taArbPointView)
             stackView.addArrangedSubview(ewPointView)
-            stackView.addArrangedSubview(freightPointView)
+            stackView.addArrangedSubview(freightDPointView)
+            stackView.addArrangedSubview(freightIPointView)
             stackView.addArrangedSubview(costsPointView)
             stackView.addArrangedSubview(dpsPointView)
 
@@ -144,7 +169,10 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             stackView.distribution = .fill
 
             addSubview(stackView) {
-                $0.edges.equalToSuperview()
+                $0.left.equalToSuperview().offset(16)
+                $0.right.equalToSuperview().inset(22)
+                $0.bottom.equalToSuperview()
+                $0.top.equalTo(statusView.snp.bottom)
             }
         }
     }
@@ -158,11 +186,13 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             taArbPointView.isHidden = false
             ewPointView.state = .inactive
             ewPointView.isHidden = true
-            freightPointView.state = .inactive
+            freightDPointView.state = .inactive
+            freightIPointView.isHidden = true
             costsPointView.state = .inactive
             dpsPointView.state = .inactive
 
         case .active(let constructor):
+            statusView.apply(position: constructor.statusPosition)
             blendCostPointView.state = .active(constructor: constructor.blendCostConstructor)
             gasNapPointView.state = .active(constructor: constructor.gasNapConstructor)
 
@@ -186,10 +216,17 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
                 ewPointView.isHidden = true
             }
 
-            if let freightConstructor = constructor.freightConstructor {
-                freightPointView.state = .active(constructor: freightConstructor)
+            if let freightConstructor = constructor.freightDConstructor {
+                freightDPointView.state = .active(constructor: freightConstructor)
             } else {
-                freightPointView.state = .inactive
+                freightDPointView.state = .inactive
+            }
+
+            if let freightConstructor = constructor.freightIConstructor {
+                freightIPointView.isHidden = false
+                freightIPointView.state = .active(constructor: freightConstructor)
+            } else {
+                freightIPointView.isHidden = true
             }
 
             costsPointView.state = .active(constructor: constructor.costsConstructor)
@@ -217,9 +254,16 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             // swiftlint:disable:next force_cast
             delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .ew(value: newValue as! Double, sign: sign))
 
-        case freightPointView:
-            // swiftlint:disable:next force_cast
-            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .freight(value: newValue as! Double, sign: sign))
+        case freightDPointView, freightIPointView:
+            var resultValue: Double
+
+            if let newValue = newValue as? Int {
+                resultValue = Double(newValue)
+            } else {
+                resultValue = newValue as! Double // swiftlint:disable:this force_cast
+            }
+
+            delegate?.arbPlaygroundInputDataViewDidChangeValue(self, newValue: .freight(value: resultValue, sign: sign))
 
         case costsPointView:
             // swiftlint:disable:next force_cast
@@ -240,9 +284,11 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
 extension ArbPlaygroundInputDataView {
 
     struct Constructor {
+        let statusPosition: ArbMonth.Position?
         let blendCostConstructor: ArbPlaygroundPointViewConstructor<Double>
         let gasNapConstructor: ArbPlaygroundPointViewConstructor<Double>
-        let freightConstructor: ArbPlaygroundPointViewConstructor<Double>?
+        let freightDConstructor: ArbPlaygroundPointViewConstructor<Double>?
+        let freightIConstructor: ArbPlaygroundPointViewConstructor<Int>?
         let taArbConstructor: ArbPlaygroundPointViewConstructor<Double>?
         let ewConstructor: ArbPlaygroundPointViewConstructor<Double>?
         let costsConstructor: ArbPlaygroundPointViewConstructor<Double>

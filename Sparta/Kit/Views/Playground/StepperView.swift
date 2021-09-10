@@ -166,8 +166,11 @@ class StepperView<T>: UIView where T: Numeric, T: Comparable, T: CVarArg {
     }
 
     private func updateUIForValue() {
-        guard let currentValue = currentValue as? Double else { return }
-        numberLabel.text = currentValue.toFormattedString
+        if let currentValue = currentValue as? Double {
+            numberLabel.text = currentValue.toFormattedString
+        } else if let currentValue = currentValue as? Int {
+            numberLabel.text = currentValue.toFormattedString
+        }
     }
 
     private func decreaseValue() {

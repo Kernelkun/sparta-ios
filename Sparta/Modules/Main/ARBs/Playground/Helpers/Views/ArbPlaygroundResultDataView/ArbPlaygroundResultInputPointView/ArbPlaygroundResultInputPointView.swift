@@ -40,7 +40,7 @@ class ArbPlaygroundResultInputPointView: UIView {
     private func setupUI() {
         titleLabel = UILabel().then { label in
 
-            label.font = .main(weight: .regular, size: 18)
+            label.font = .main(weight: .regular, size: 16)
             label.textAlignment = .left
             label.textColor = .plMainText
 
@@ -52,7 +52,7 @@ class ArbPlaygroundResultInputPointView: UIView {
 
         unitsLabel = UILabel().then { label in
 
-            label.font = .main(weight: .regular, size: 18)
+            label.font = .main(weight: .regular, size: 16)
             label.textAlignment = .right
             label.textColor = .plMainText
 
@@ -68,13 +68,13 @@ class ArbPlaygroundResultInputPointView: UIView {
             textField.icon = nil
             textField.textField.enterType = .numberLimit(range: -999.99...999.99)
             textField.textField.textAlignment = .center
-            textField.textField.font = .main(weight: .regular, size: 18)
+            textField.textField.font = .main(weight: .regular, size: 16)
             textField.textField.textColor = .plMainText
 
             addSubview(textField) {
                 $0.centerY.equalToSuperview()
                 $0.right.equalTo(unitsLabel.snp.left).offset(-6)
-                $0.size.equalTo(CGSize(width: 82, height: 33))
+                $0.size.equalTo(CGSize(width: 67, height: 26))
             }
         }
 

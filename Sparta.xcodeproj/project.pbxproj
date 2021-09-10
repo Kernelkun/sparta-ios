@@ -26,6 +26,7 @@
 		D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */; };
 		D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */; };
 		D9264BED25751298001477DA /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = D9264BEC25751298001477DA /* Networking */; };
+		D9288EF526EBB0E700236A4F /* ArbsPlaygroundPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9288EF426EBB0E600236A4F /* ArbsPlaygroundPageViewController.swift */; };
 		D92A374325DD60D800C0F9C8 /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A374225DD60D800C0F9C8 /* StarButton.swift */; };
 		D92A379625E261E200C0F9C8 /* BlenderViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A379525E261E200C0F9C8 /* BlenderViewModel+Models.swift */; };
 		D92FFF4425793BF100AB5405 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A118102579377500BB928E /* App.swift */; };
@@ -208,6 +209,7 @@
 		D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */; };
 		D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */; };
 		D9EE1C8C26AAC8BE00306566 /* ArbsPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */; };
+		D9F7C36226E7D2D80048595A /* ArbsPlaygroundWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7C36126E7D2D80048595A /* ArbsPlaygroundWireframe.swift */; };
 		D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */; };
 		D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */; };
 		D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */; };
@@ -234,6 +236,7 @@
 		D9264BE12574F0E9001477DA /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		D9264BE82574FF0D001477DA /* NetworkingModels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NetworkingModels; sourceTree = "<group>"; };
+		D9288EF426EBB0E600236A4F /* ArbsPlaygroundPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundPageViewController.swift; sourceTree = "<group>"; };
 		D92A374225DD60D800C0F9C8 /* StarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
 		D92A379525E261E200C0F9C8 /* BlenderViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlenderViewModel+Models.swift"; sourceTree = "<group>"; };
 		D93A889325700E95003ECB61 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -412,6 +415,7 @@
 		D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableUISwitch.swift; sourceTree = "<group>"; };
 		D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateService.swift; sourceTree = "<group>"; };
 		D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundViewController.swift; sourceTree = "<group>"; };
+		D9F7C36126E7D2D80048595A /* ArbsPlaygroundWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundWireframe.swift; sourceTree = "<group>"; };
 		D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultMonthSelector.swift; sourceTree = "<group>"; };
 		D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyValueView.swift; sourceTree = "<group>"; };
 		D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyInputView.swift; sourceTree = "<group>"; };
@@ -542,6 +546,14 @@
 				244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D9288EF326EBB0C300236A4F /* Childs */ = {
+			isa = PBXGroup;
+			children = (
+				D9288EF426EBB0E600236A4F /* ArbsPlaygroundPageViewController.swift */,
+			);
+			path = Childs;
 			sourceTree = "<group>";
 		};
 		D93A889225700E88003ECB61 /* Login */ = {
@@ -1430,9 +1442,11 @@
 		D9EE1C8A26AAC89D00306566 /* Playground */ = {
 			isa = PBXGroup;
 			children = (
+				D9288EF326EBB0C300236A4F /* Childs */,
 				D90DE02726BD8C0B00D1A8D9 /* Helpers */,
 				D95F3F8B26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift */,
 				D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */,
+				D9F7C36126E7D2D80048595A /* ArbsPlaygroundWireframe.swift */,
 			);
 			path = Playground;
 			sourceTree = "<group>";
@@ -1690,6 +1704,7 @@
 				D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */,
 				D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */,
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
+				D9F7C36226E7D2D80048595A /* ArbsPlaygroundWireframe.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
 				D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift in Sources */,
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
@@ -1773,6 +1788,7 @@
 				D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */,
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
 				D9A067132587BECA00C0D1E5 /* LiveCurvesSyncManager.swift in Sources */,
+				D9288EF526EBB0E700236A4F /* ArbsPlaygroundPageViewController.swift in Sources */,
 				D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */,
 				D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */,
 				D999387F26C2616A005AF406 /* ArbPlaygroundResultViewConstructor.swift in Sources */,
@@ -1935,7 +1951,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1961,7 +1977,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

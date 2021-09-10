@@ -36,6 +36,10 @@ class ArbsSyncManager {
         }
     }
 
+    var arbs: [Arb] {
+        _arbs.arrayValue
+    }
+
     // MARK: - Private properties
 
     private var operationQueue: OperationQueue = {

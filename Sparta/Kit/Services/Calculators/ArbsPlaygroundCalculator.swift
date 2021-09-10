@@ -25,6 +25,13 @@ class ArbsPlaygroundCalculator {
     weak var delegate: ArbsPlaygroundCalculatorDelegate?
 
     let arbs: [Arb]
+
+    var arbMonthPosition: ArbMonth.Position? {
+        guard let selectedArbMonthIndex = selectedArbMonthIndex else { return nil }
+
+        return arb.months[selectedArbMonthIndex].position
+    }
+
     private(set) var arbPlayground: ArbPlayground? {
         didSet { applyDefaultArbPlaygroundSettings() }
     }
@@ -42,12 +49,18 @@ class ArbsPlaygroundCalculator {
         }
     }
 
-    private(set) var arb: Arb!
+    private(set) var arb: Arb
+
+    private var selectedArbMonthIndex: Int? {
+        arb.months
+            .firstIndex(where: { $0.name.lowercased() == arbPlaygroundMonth?.monthName.lowercased() })
+    }
 
     // MARK: - Initializers
 
-    init(arbs: [Arb]) {
+    init(arbs: [Arb], selectedArb: Arb) {
         self.arbs = arbs
+        self.arb = selectedArb
     }
 
     // MARK: - Public methods
@@ -96,14 +109,17 @@ class ArbsPlaygroundCalculator {
     }
 
     func changeGasNap(_ newValue: Double, sign: FloatingPointSign) {
-        if let naphtha = arbPlaygroundMonth?.naphtha, let oldValue = arbPlaygroundMonth?.blendCost.value {
-            let difference = abs(newValue - naphtha.value) * (naphtha.pricingComponentsVolume / 100)
+        if let selectedMonth = arbPlayground?.months.first(where: { $0 == arbPlaygroundMonth }),
+           let blendCostValue = selectedMonth.blendCost.value {
 
-            arbPlaygroundMonth?.blendCost.value = oldValue + Double(sign: sign, exponent: 0, significand: difference)
+            let naphtha = selectedMonth.naphtha
+            let difference = naphtha.value - newValue
+            let result = difference * (naphtha.pricingComponentsVolume / 100)
+
+            arbPlaygroundMonth?.blendCost.value = (blendCostValue + result).round(nearest: 0.25, rule: .up)
+            arbPlaygroundMonth?.naphtha.value = newValue
+            calculate()
         }
-
-        arbPlaygroundMonth?.naphtha.value = newValue
-        calculate()
     }
 
     func changeTaArb(_ newValue: Double) {
@@ -127,6 +143,16 @@ class ArbsPlaygroundCalculator {
     }
 
     func changeUserTgt(_ newValue: Double?) {
+        if let selectedArbMonthIndex = selectedArbMonthIndex {
+            if let newValue = newValue, !newValue.isZero {
+                arb.months[selectedArbMonthIndex].userTarget = newValue
+                arb.months[selectedArbMonthIndex].dbProperties.saveUserTarget(value: newValue)
+            } else {
+                arb.months[selectedArbMonthIndex].userTarget = nil
+                arb.months[selectedArbMonthIndex].dbProperties.deleteUserTarget()
+            }
+        }
+
         arbPlaygroundMonth?.userTarget.value = newValue
         calculate()
     }
@@ -245,7 +271,7 @@ class ArbsPlaygroundCalculator {
 
         arbPlaygroundMonth = arbPlayground.months.first
         roundValuesForCalculation(&arbPlaygroundMonth!)
-        deliveredPriceSpreadsMonth = arbPlayground.deliveredPriceSpreads.first
+        deliveredPriceSpreadsMonth = arbPlayground.deliveredPriceSpreads.first(where: { $0.monthName == arbPlaygroundMonth?.defaultSpreadMonthName })
 
         // months
 
@@ -270,9 +296,9 @@ class ArbsPlaygroundCalculator {
     private func calculate(for arbPlayground: ArbPlayground) {
         print("DEBUG ***: Result of calculations")
 
-        guard let arb = arb,
-              let month = arbPlaygroundMonth,
-              let deliveredPriceSpreadsMonth = deliveredPriceSpreadsMonth else { return }
+        guard let month = arbPlaygroundMonth,
+              let deliveredPriceSpreadsMonth = deliveredPriceSpreadsMonth,
+              let selectedArbMonthIndex = selectedArbMonthIndex else { return }
 
         let blendCost = month.blendCost
         let blendCostValue = blendCost.value ?? 0.0//.round(to: 2)
@@ -349,7 +375,8 @@ class ArbsPlaygroundCalculator {
         let blenderMargin = (month.salesPrice.value ?? 0.0) - deliveredPriceDefault
         let fobRefyMargin = blenderMargin + Double(arbPlayground.pseudoRefineryFobValue)
         let cifRefyMargin = blenderMargin + Double(arbPlayground.pseudoRefineryCifValue)
-        let userTargetMargin: Double? = month.userTarget.value == nil ? nil : month.userTarget.value! - deliveredPriceDefault
+        let userTarget = arb.months[selectedArbMonthIndex].userTarget
+        let userTargetMargin: Double? = userTarget == nil ? nil : userTarget! - deliveredPriceDefault
 
         print("Results -------:")
 
@@ -367,6 +394,11 @@ class ArbsPlaygroundCalculator {
             results.append(.blenderMargin(value: blenderMargin.round(nearest: 0.05, rule: .up), units: units))
             results.append(.fobRefyMargin(value: fobRefyMargin.round(nearest: 0.05, rule: .up), units: units))
             results.append(.cifRefyMargin(value: cifRefyMargin.round(nearest: 0.05, rule: .up), units: units))
+        }
+
+        if let blenderMarginChangeOnDay = arb.months[selectedArbMonthIndex].genericBlenderMarginChangeOnDay?.value.toDouble {
+            results.append(.codBlenderMargin(value: blenderMarginChangeOnDay.round(nearest: 0.05, rule: .up),
+                                             units: units))
         }
 
         results.append(.myTgt(value: month.userTarget.value, units: units))
@@ -447,6 +479,7 @@ extension ArbsPlaygroundCalculator {
         case blenderMargin(value: Double, units: String)
         case fobRefyMargin(value: Double, units: String)
         case cifRefyMargin(value: Double, units: String)
+        case codBlenderMargin(value: Double, units: String)
         case myTgt(value: Double?, units: String)
         case myMargin(value: Double?, units: String)
     }

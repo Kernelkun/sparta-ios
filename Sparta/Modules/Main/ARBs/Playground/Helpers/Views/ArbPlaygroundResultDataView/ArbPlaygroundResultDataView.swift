@@ -75,7 +75,7 @@ class ArbPlaygroundResultDataView: UIView {
                     let pointView = ArbPlaygroundResultMainPointView(constructor: constructor).then { view in
 
                         view.snp.makeConstraints {
-                            $0.height.equalTo(43)
+                            $0.height.equalTo(32)
                         }
                     }
 
@@ -86,7 +86,7 @@ class ArbPlaygroundResultDataView: UIView {
                         view.inputField.delegate = self
 
                         view.snp.makeConstraints {
-                            $0.height.equalTo(43)
+                            $0.height.equalTo(32)
                         }
                     }
 

@@ -27,25 +27,25 @@ class ArbsPlaygroundViewModel: NSObject, BaseViewModel {
     weak var delegate: ArbsPlaygroundViewModelDelegate?
 
     var ableToSwitchPrevMonth: Bool {
-        guard let firstMonth = calculator?.arbPlayground?.months.first,
-              let selectedMonth = calculator?.arbPlaygroundMonth else { return false }
+        guard let firstMonth = calculator.arbPlayground?.months.first,
+              let selectedMonth = calculator.arbPlaygroundMonth else { return false }
 
         return firstMonth != selectedMonth
     }
 
     var ableToSwitchNextMonth: Bool {
-        guard let firstMonth = calculator?.arbPlayground?.months.last,
-              let selectedMonth = calculator?.arbPlaygroundMonth else { return false }
+        guard let firstMonth = calculator.arbPlayground?.months.last,
+              let selectedMonth = calculator.arbPlaygroundMonth else { return false }
 
         return firstMonth != selectedMonth
     }
 
     var formattedMonthTitle: String {
-        calculator?.arbPlaygroundMonth?.monthName ?? ""
+        calculator.arbPlaygroundMonth?.monthName ?? ""
     }
 
     var arb: Arb? {
-        calculator?.arb
+        calculator.arb
     }
 
     private var isLoading: Bool = false {
@@ -58,78 +58,71 @@ class ArbsPlaygroundViewModel: NSObject, BaseViewModel {
 
     // MARK: - Private properties
 
-    private let arbsManager = ArbsNetworkManager()
-    private var arbs: [Arb] = []
-    private var calculator: ArbsPlaygroundCalculator?
+    private let calculator: ArbsPlaygroundCalculator
+
+    // MARK: - Initializers
+
+    init(selectedArb: Arb) {
+        let arbs = ArbsSyncManager.intance.arbs
+        calculator = .init(arbs: arbs, selectedArb: selectedArb)
+        super.init()
+
+        calculator.delegate = self
+    }
 
     // MARK: - Public methods
 
     func loadData() {
-        isLoading = true
+        calculator.chooseNewArb(calculator.arb)
 
-        arbsManager.fetchArbsTable { [weak self] result in
-            guard let strongSelf = self else { return }
-
-            if case let .success(responseModel) = result,
-               let arbs = responseModel.model?.list {
-
-                strongSelf.arbs = arbs
-                strongSelf.calculator = .init(arbs: arbs)
-                strongSelf.calculator?.delegate = self
-                strongSelf.calculator?.chooseNewArb(arbs.first!)
-
-                onMainThread {
-                    strongSelf.delegate?.didLoadArbs(strongSelf.arbs)
-                    strongSelf.delegate?.didReceiveMonthInfoUpdates()
-                }
-
-                strongSelf.calculator?.calculate()
-            }
+        onMainThread {
+            self.delegate?.didLoadArbs(self.calculator.arbs)
+            self.delegate?.didReceiveMonthInfoUpdates()
         }
     }
 
     func showPreviousMonth() {
-        calculator?.switchToPrevMonth()
+        calculator.switchToPrevMonth()
     }
 
     func showNextMonth() {
-        calculator?.switchToNextMonth()
+        calculator.switchToNextMonth()
     }
 
     func changeArb(_ newArb: Arb) {
-        calculator?.chooseNewArb(newArb)
+        calculator.chooseNewArb(newArb)
     }
 
     func changeBlendCost(_ newValue: Double) {
-        calculator?.changeBlendCost(newValue)
+        calculator.changeBlendCost(newValue)
     }
 
     func changeGasNap(_ newValue: Double, sign: FloatingPointSign) {
-        calculator?.changeGasNap(newValue, sign: sign)
+        calculator.changeGasNap(newValue, sign: sign)
     }
 
     func changeTaArb(_ newValue: Double) {
-        calculator?.changeTaArb(newValue)
+        calculator.changeTaArb(newValue)
     }
 
     func changeEw(_ newValue: Double) {
-        calculator?.changeEw(newValue)
+        calculator.changeEw(newValue)
     }
 
     func changeFreight(_ newValue: Double) {
-        calculator?.changeFreight(newValue)
+        calculator.changeFreight(newValue)
     }
 
     func changeCosts(_ newValue: Double) {
-        calculator?.changeCosts(newValue)
+        calculator.changeCosts(newValue)
     }
 
     func changeDeliveredPriceSpreadsMonth(_ month: ArbPlaygroundDPS) {
-        calculator?.changeDeliveredPriceSpreadsMonth(month)
+        calculator.changeDeliveredPriceSpreadsMonth(month)
     }
 
     func changeUserTgt(_ newValue: Double?) {
-        calculator?.changeUserTgt(newValue)
+        calculator.changeUserTgt(newValue)
     }
 }
 
@@ -151,7 +144,7 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
                                                          deliveredPriceSpreadsMonth: ArbPlaygroundDPS) {
         delegate?.didReceiveMonthInfoUpdates()
 
-        func generateRange(with step: Double, initialValue: Double) -> ClosedRange<Double> {
+        func generateRange<V: Numeric>(with step: V, initialValue: V) -> ClosedRange<V> {
             initialValue - step...initialValue + step
         }
 
@@ -160,6 +153,8 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
         let blendCostRange: ClosedRange<Double> = generateRange(with: 2.5, initialValue: blendCostValue)
 
         // gas nap
+        let gasNapTitle = "Gas-Nap"
+        let gasNapSubTitle = "(Nap in Bld = \(month.naphtha.pricingComponentsVolume.round(nearest: 1))%)"
         let gasNapValue: Double = month.naphtha.value
         let gasNapRange: ClosedRange<Double> = generateRange(with: 25, initialValue: gasNapValue)
 
@@ -171,52 +166,56 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
 
         var taArbConstructor: ArbPlaygroundPointViewConstructor<Double>?
         var ewConstructor: ArbPlaygroundPointViewConstructor<Double>?
-        var freightConstructor: ArbPlaygroundPointViewConstructor<Double>?
+        var freightDConstructor: ArbPlaygroundPointViewConstructor<Double>?
+        var freightIConstructor: ArbPlaygroundPointViewConstructor<Int>?
 
         switch freightUnits.lowercased() {
         case "ws":
             if let taArbValue = month.taArb.value {
                 let taArbRange: ClosedRange<Double> = generateRange(with: 2.5, initialValue: taArbValue)
-                taArbConstructor = .init(title: "TA Arb", units: month.taArb.units, range: taArbRange, step: 0.25, startValue: taArbValue)
+                taArbConstructor = .init(title: "TA Arb", subTitle: nil, units: month.taArb.units, range: taArbRange, step: 0.25, startValue: taArbValue)
             }
 
         case "ls":
             if let ewValue = month.ew.value {
                 let ewRange: ClosedRange<Double> = generateRange(with: 2.5, initialValue: ewValue)
-                ewConstructor = .init(title: "EW", units: month.ew.units, range: ewRange, step: 0.25, startValue: ewValue)
+                ewConstructor = .init(title: "EW", subTitle: nil, units: month.ew.units, range: ewRange, step: 0.25, startValue: ewValue)
             }
 
         default:
             ewConstructor = nil
             taArbConstructor = nil
-            freightConstructor = nil
+            freightDConstructor = nil
+            freightIConstructor = nil
         }
 
         if let freightValue = month.freight.value, month.freight.units.lowercased() != "none" {
             let units: String
-            let step: Double
-            let freightRange: ClosedRange<Double>
 
             if month.freight.units.lowercased() == "ls" {
                 units = "$"
-                step = 25_000
-                freightRange = generateRange(with: 250_000, initialValue: freightValue)
+                let step: Int = 25_000
+                let freightRange: ClosedRange<Int> = generateRange(with: 250_000, initialValue: Int(freightValue))
+                freightIConstructor = .init(title: "Freight", subTitle: nil, units: units, range: freightRange, step: step, startValue: Int(freightValue))
+                freightDConstructor = nil
             } else {
                 units = "WS"
-                step = 2.5
-                freightRange = generateRange(with: 25, initialValue: freightValue)
+                let step: Double = 2.5
+                let freightRange: ClosedRange<Double> = generateRange(with: 25, initialValue: freightValue)
+                freightDConstructor = .init(title: "Freight", subTitle: nil, units: units, range: freightRange, step: step, startValue: freightValue)
+                freightIConstructor = nil
             }
-
-            freightConstructor = .init(title: "Freight", units: units, range: freightRange, step: step, startValue: freightValue)
         }
 
         let constructor = ArbPlaygroundInputDataView.Constructor(
-            blendCostConstructor: .init(title: "Blend Cost", units: "$/mt", range: blendCostRange, step: 0.25, startValue: blendCostValue),
-            gasNapConstructor: .init(title: "Gas-Nap", units: "$/mt", range: gasNapRange, step: 2.5, startValue: gasNapValue),
-            freightConstructor: freightConstructor,
+            statusPosition: calculator.arbMonthPosition,
+            blendCostConstructor: .init(title: "Blend Cost", subTitle: nil, units: "$/mt", range: blendCostRange, step: 0.25, startValue: blendCostValue),
+            gasNapConstructor: .init(title: gasNapTitle, subTitle: gasNapSubTitle, units: "$/mt", range: gasNapRange, step: 2.5, startValue: gasNapValue),
+            freightDConstructor: freightDConstructor,
+            freightIConstructor: freightIConstructor,
             taArbConstructor: taArbConstructor,
             ewConstructor: ewConstructor,
-            costsConstructor: .init(title: "Costs", units: "$/mt", range: costsRange, step: 0.25, startValue: costsValue),
+            costsConstructor: .init(title: "Costs", subTitle: nil, units: "$/mt", range: costsRange, step: 0.25, startValue: costsValue),
             spreadMonthsConstructor: .init(gradeCode: deliveredPriceSpreadsMonth.name, dps: playground.deliveredPriceSpreads, selectedDPS: deliveredPriceSpreadsMonth)
         )
 
@@ -264,6 +263,12 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
                                                                                          valueColor: getColor(for: value),
                                                                                          units: units))
 
+            case .codBlenderMargin(let value, let units):
+                generatedConstructors.append(ArbPlaygroundResultMainPointViewConstructor(title: "CoD Blender Margin",
+                                                                                         value: value.toFormattedString,
+                                                                                         valueColor: getColor(for: value),
+                                                                                         units: units))
+
             case .myTgt(let value, let units):
                 generatedConstructors.append(ArbPlaygroundResultInputPointViewConstructor(title: "My TGT",
                                                                                           initialInputText: value?.toFormattedString,
@@ -280,9 +285,9 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
 
         delegate?.didReceiveResultDataConstructors(generatedConstructors)
 
-        arbsPlaygroundCalculatorDidChangePlaygroundInfo(calculator!,
-                                                        playground: calculator!.arbPlayground!,
-                                                        month: calculator!.arbPlaygroundMonth!,
-                                                        deliveredPriceSpreadsMonth: calculator!.deliveredPriceSpreadsMonth!)
+        arbsPlaygroundCalculatorDidChangePlaygroundInfo(calculator,
+                                                        playground: calculator.arbPlayground!,
+                                                        month: calculator.arbPlaygroundMonth!,
+                                                        deliveredPriceSpreadsMonth: calculator.deliveredPriceSpreadsMonth!)
     }
 }

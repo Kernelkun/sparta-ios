@@ -9,9 +9,11 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-class ArbsPlaygroundViewController: BaseVMViewController<ArbsPlaygroundViewModel> {
+class ArbsPlaygroundViewController: BaseViewController {
 
     // MARK: - Private properties
+
+    private let viewModel: ArbsPlaygroundViewModel
 
     private var searchController: UISearchController!
     private var searchWireframe: ArbSearchWireframe!
@@ -20,6 +22,17 @@ class ArbsPlaygroundViewController: BaseVMViewController<ArbsPlaygroundViewModel
 
     private var inputDataView: ArbPlaygroundInputDataView!
     private var resultDataView: ArbPlaygroundResultDataView!
+
+    // MARK: - Initializers
+
+    init(viewModel: ArbsPlaygroundViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(#function)
+    }
 
     // MARK: - Lifecycle
 
@@ -94,9 +107,9 @@ class ArbsPlaygroundViewController: BaseVMViewController<ArbsPlaygroundViewModel
             view.delegate = self
 
             addSubview(view) {
-                $0.top.equalTo(self.view.snp_topMargin).offset(12)
+                $0.top.equalTo(self.view.snp_topMargin).offset(8)
                 $0.left.right.equalToSuperview().inset(16)
-                $0.height.equalTo(39)
+                $0.height.equalTo(31)
             }
         }
 
@@ -110,7 +123,7 @@ class ArbsPlaygroundViewController: BaseVMViewController<ArbsPlaygroundViewModel
             scrollView.isHidden = true
 
             addSubview(scrollView) {
-                $0.top.equalTo(monthSelector.snp.bottom).offset(8)
+                $0.top.equalTo(monthSelector.snp.bottom)
                 $0.left.bottom.right.equalToSuperview()
             }
         }
@@ -131,8 +144,7 @@ class ArbsPlaygroundViewController: BaseVMViewController<ArbsPlaygroundViewModel
             view.delegate = self
 
             scrollViewContent.addSubview(view) {
-                $0.left.equalToSuperview().offset(16)
-                $0.right.equalToSuperview().inset(22)
+                $0.left.right.equalToSuperview()
                 $0.top.equalToSuperview()
             }
         }
@@ -163,7 +175,7 @@ class ArbsPlaygroundViewController: BaseVMViewController<ArbsPlaygroundViewModel
     }
 
     private func setupNavigationUI() {
-        navigationItem.title = "Playground"
+        navigationItem.title = "ArbPlaygroundPage.PageTitle".localized
         navigationBar(hide: false)
     }
     

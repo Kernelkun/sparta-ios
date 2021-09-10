@@ -40,7 +40,7 @@ class ArbPlaygroundResultMainPointView: UIView {
     private func setupUI() {
         titleLabel = UILabel().then { label in
 
-            label.font = .main(weight: .regular, size: 18)
+            label.font = .main(weight: .regular, size: 16)
             label.textAlignment = .left
             label.textColor = .plMainText
 
@@ -52,7 +52,7 @@ class ArbPlaygroundResultMainPointView: UIView {
 
         unitsLabel = UILabel().then { label in
 
-            label.font = .main(weight: .regular, size: 18)
+            label.font = .main(weight: .regular, size: 16)
             label.textAlignment = .right
             label.textColor = .plMainText
 
@@ -64,7 +64,7 @@ class ArbPlaygroundResultMainPointView: UIView {
 
         valueLabel = UILabel().then { label in
 
-            label.font = .main(weight: .regular, size: 18)
+            label.font = .main(weight: .regular, size: 16)
             label.textAlignment = .right
             label.textColor = .plMainText
 

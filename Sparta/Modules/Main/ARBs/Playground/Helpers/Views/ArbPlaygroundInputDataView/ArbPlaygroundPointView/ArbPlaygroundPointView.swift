@@ -31,6 +31,7 @@ class ArbPlaygroundPointView<V>: UIView, StepperViewDelegate where V: Numeric, V
     // MARK: - UI
 
     private var titleLabel: UILabel!
+    private var subTitle: UILabel!
     private var stepperView: StepperView<V>!
     private var unitsLabel: UILabel!
 
@@ -55,8 +56,26 @@ class ArbPlaygroundPointView<V>: UIView, StepperViewDelegate where V: Numeric, V
             label.font = .main(weight: .regular, size: 18)
             label.textAlignment = .left
             label.textColor = .plMainText
+        }
 
-            addSubview(label) {
+        subTitle = UILabel().then { label in
+
+            label.font = .main(weight: .regular, size: 12)
+            label.textAlignment = .left
+            label.textColor = .plMainText
+        }
+
+        _ = UIStackView().then { stackView in
+
+            stackView.axis = .vertical
+            stackView.distribution = .equalSpacing
+            stackView.spacing = 0
+            stackView.alignment = .leading
+
+            stackView.addArrangedSubview(titleLabel)
+            stackView.addArrangedSubview(subTitle)
+
+            addSubview(stackView) {
                 $0.centerY.equalToSuperview()
                 $0.left.equalToSuperview()
             }
@@ -93,7 +112,7 @@ class ArbPlaygroundPointView<V>: UIView, StepperViewDelegate where V: Numeric, V
 
             addSubview(view) {
                 $0.width.equalTo(156)
-                $0.height.equalTo(36)
+                $0.height.equalTo(32)
                 $0.centerY.equalTo(unitsLabel)
                 $0.right.equalTo(unitsLabel.snp.left).offset(-10)
             }
@@ -112,6 +131,13 @@ class ArbPlaygroundPointView<V>: UIView, StepperViewDelegate where V: Numeric, V
             titleLabel.text = constructor.title
             titleLabel.textColor = .plMainText
             unitsLabel.text = constructor.units
+
+            if let subTitle = constructor.subTitle {
+                self.subTitle.isHidden = false
+                self.subTitle.text = subTitle
+            } else {
+                subTitle.isHidden = true
+            }
 
             stepperView.state = .active(constructor: .init(range: constructor.range,
                                                            step: constructor.step,
