@@ -18,10 +18,7 @@ class ArbsPlaygroundViewController: BaseViewController {
     private var searchController: UISearchController!
     private var searchWireframe: ArbSearchWireframe!
     private var monthSelector: ResultMonthSelector!
-    private var contentScrollView: UIScrollView!
-
-    private var inputDataView: ArbPlaygroundInputDataView!
-    private var resultDataView: ArbPlaygroundResultDataView!
+    private var contentPageVC: UISliderViewController<ArbsPlaygroundPageViewController>!
 
     // MARK: - Initializers
 
@@ -72,19 +69,20 @@ class ArbsPlaygroundViewController: BaseViewController {
     override func updateUIForKeyboardPresented(_ presented: Bool, frame: CGRect) {
         super.updateUIForKeyboardPresented(presented, frame: frame)
 
+        let selectedVC = contentPageVC.selectedController
         if presented && addedSize == .zero {
-            var oldContentSize = contentScrollView.contentSize
+            var oldContentSize = selectedVC.contentScrollView.contentSize
             oldContentSize.height += frame.size.height
 
             addedSize.height = frame.size.height
 
-            contentScrollView.contentSize = oldContentSize
+            selectedVC.contentScrollView.contentSize = oldContentSize
         } else if !presented && addedSize != .zero {
-            var oldContentSize = contentScrollView.contentSize
+            var oldContentSize = selectedVC.contentScrollView.contentSize
             oldContentSize.height -= addedSize.height
             addedSize = .zero
 
-            contentScrollView.contentSize = oldContentSize
+            selectedVC.contentScrollView.contentSize = oldContentSize
         }
 
         if let selectedTextField = view.selectedField {
@@ -92,7 +90,7 @@ class ArbsPlaygroundViewController: BaseViewController {
             let maxFieldFrame = newFrame.maxY + 100
 
             if maxFieldFrame > frame.minY {
-                contentScrollView.contentOffset = CGPoint(x: 0, y: maxFieldFrame - frame.minY)
+                selectedVC.contentScrollView.contentOffset = CGPoint(x: 0, y: maxFieldFrame - frame.minY)
             }
         }
     }
@@ -114,63 +112,29 @@ class ArbsPlaygroundViewController: BaseViewController {
         }
 
         reloadMonthsData()
+        setupPageController()
+    }
 
-        ///
+    private func setupPageController() {
+        let contentView = UIView().then { view in
 
-        contentScrollView = UIScrollView().then { scrollView in
-
-            scrollView.showsVerticalScrollIndicator = false
-            scrollView.isHidden = true
-
-            addSubview(scrollView) {
+            addSubview(view) {
+                $0.left.right.bottom.equalToSuperview()
                 $0.top.equalTo(monthSelector.snp.bottom)
-                $0.left.bottom.right.equalToSuperview()
             }
         }
 
-        let scrollViewContent = UIView().then { view in
-
-            view.backgroundColor = .clear
-
-            contentScrollView.addSubview(view) {
-                $0.left.top.right.equalToSuperview()
-                $0.bottom.lessThanOrEqualToSuperview().priority(.high)
-                $0.centerX.equalToSuperview()
-            }
+        let controllers = viewModel.arb.months.compactMap { _ -> ArbsPlaygroundPageViewController in
+            let viewController = ArbsPlaygroundPageViewController()
+            viewController.delegate = self
+            return viewController
         }
 
-        inputDataView = ArbPlaygroundInputDataView().then { view in
+        contentPageVC = UISliderViewController(controllers: controllers).then { sliderViewController in
 
-            view.delegate = self
+            sliderViewController.coordinatorDelegate = self
 
-            scrollViewContent.addSubview(view) {
-                $0.left.right.equalToSuperview()
-                $0.top.equalToSuperview()
-            }
-        }
-
-        // result block
-
-        let resultView = UIView().then { view in
-
-            view.backgroundColor = .plResultBlockBackground
-            view.layer.cornerRadius = 10
-
-            scrollViewContent.addSubview(view) {
-                $0.top.equalTo(inputDataView.snp.bottom)
-                $0.left.right.equalToSuperview().inset(16)
-                $0.bottom.equalToSuperview()
-            }
-        }
-
-        resultDataView = ArbPlaygroundResultDataView().then { view in
-
-            view.delegate = self
-
-            resultView.addSubview(view) {
-                $0.left.right.equalToSuperview().inset(12)
-                $0.top.bottom.equalToSuperview()
-            }
+            add(sliderViewController, to: contentView)
         }
     }
 
@@ -226,7 +190,11 @@ class ArbsPlaygroundViewController: BaseViewController {
     }
 }
 
-extension ArbsPlaygroundViewController: RoundedTextFieldDelegate {
+extension ArbsPlaygroundViewController: UISliderViewControllerDelegate {
+
+    func uiSliderViewControllerDidShowController(at index: Int) {
+         viewModel.switchToMonth(at: index)
+    }
 }
 
 extension ArbsPlaygroundViewController: ArbSearchControllerCoordinatorDelegate {
@@ -237,16 +205,13 @@ extension ArbsPlaygroundViewController: ArbSearchControllerCoordinatorDelegate {
     }
 }
 
-extension ArbsPlaygroundViewController: ArbPlaygroundResultDataViewDelegate {
+extension ArbsPlaygroundViewController: ArbsPlaygroundPageViewControllerDelegate {
 
-    func arbPlaygroundResultDataViewDidChangeTGTValue(_ view: ArbPlaygroundResultDataView, newValue: Double?) {
+    func arbPlaygroundPageResultDataViewDidChangeTGTValue(_ view: ArbPlaygroundResultDataView, newValue: Double?) {
         viewModel.changeUserTgt(newValue)
     }
-}
 
-extension ArbsPlaygroundViewController: ArbPlaygroundInputDataViewDelegate {
-
-    func arbPlaygroundInputDataViewDidChangeValue(_ view: ArbPlaygroundInputDataView, newValue: ArbPlaygroundInputDataView.ObjectValue) {
+    func arbPlaygroundPageInputDataViewDidChangeValue(_ view: ArbPlaygroundInputDataView, newValue: ArbPlaygroundInputDataView.ObjectValue) {
         switch newValue {
         case .blendCost(let value, _):
             viewModel.changeBlendCost(value)
@@ -275,11 +240,11 @@ extension ArbsPlaygroundViewController: ArbPlaygroundInputDataViewDelegate {
 extension ArbsPlaygroundViewController: ResultMonthSelectorDelegate {
 
     func resultMonthSelectorDidTapLeftButton(view: ResultMonthSelector) {
-        viewModel.showPreviousMonth()
+        contentPageVC.showPrevious()
     }
 
     func resultMonthSelectorDidTapRightButton(view: ResultMonthSelector) {
-        viewModel.showNextMonth()
+        contentPageVC.showNext()
     }
 }
 
@@ -287,7 +252,6 @@ extension ArbsPlaygroundViewController: ArbsPlaygroundViewModelDelegate {
 
     func didChangeLoadingState(_ isLoading: Bool) {
         searchController.searchBar.isHidden = isLoading
-        contentScrollView.isHidden = isLoading
         loadingView(isAnimating: isLoading)
     }
 
@@ -301,16 +265,15 @@ extension ArbsPlaygroundViewController: ArbsPlaygroundViewModelDelegate {
     func didReceiveMonthInfoUpdates() {
         reloadMonthsData()
 
-        if let arb = viewModel.arb {
-            searchController.setup(placeholder: arb.grade + " | " + arb.dischargePortName + " | " + arb.freightType)
-        }
+        let arb = viewModel.arb
+        searchController.setup(placeholder: arb.grade + " | " + arb.dischargePortName + " | " + arb.freightType)
     }
 
     func didReceiveInputDataConstructor(_ constructor: ArbPlaygroundInputDataView.Constructor) {
-        inputDataView.state = .active(constructor: constructor)
+        contentPageVC.selectedController.inputDataView.state = .active(constructor: constructor)
     }
 
     func didReceiveResultDataConstructors(_ constructors: [ArbPlaygroundResultViewConstructor]) {
-        resultDataView.state = .active(constructors: constructors)
+        contentPageVC.selectedController.resultDataView.state = .active(constructors: constructors)
     }
 }

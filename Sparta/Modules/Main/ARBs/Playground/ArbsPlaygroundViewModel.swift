@@ -27,26 +27,24 @@ class ArbsPlaygroundViewModel: NSObject, BaseViewModel {
     weak var delegate: ArbsPlaygroundViewModelDelegate?
 
     var ableToSwitchPrevMonth: Bool {
-        guard let firstMonth = calculator.arbPlayground?.months.first,
-              let selectedMonth = calculator.arbPlaygroundMonth else { return false }
+        guard let firstMonth = calculator.settings.arbPlayground?.months.first,
+              let selectedMonth = calculator.settings.arbPlaygroundMonth else { return false }
 
         return firstMonth != selectedMonth
     }
 
     var ableToSwitchNextMonth: Bool {
-        guard let firstMonth = calculator.arbPlayground?.months.last,
-              let selectedMonth = calculator.arbPlaygroundMonth else { return false }
+        guard let firstMonth = calculator.settings.arbPlayground?.months.last,
+              let selectedMonth = calculator.settings.arbPlaygroundMonth else { return false }
 
         return firstMonth != selectedMonth
     }
 
     var formattedMonthTitle: String {
-        calculator.arbPlaygroundMonth?.monthName ?? ""
+        calculator.settings.arbPlaygroundMonth?.monthName ?? ""
     }
 
-    var arb: Arb? {
-        calculator.arb
-    }
+    var arb: Arb { calculator.arb }
 
     private var isLoading: Bool = false {
         didSet {
@@ -79,6 +77,10 @@ class ArbsPlaygroundViewModel: NSObject, BaseViewModel {
             self.delegate?.didLoadArbs(self.calculator.arbs)
             self.delegate?.didReceiveMonthInfoUpdates()
         }
+    }
+
+    func switchToMonth(at index: Int) {
+        calculator.switchToMonth(at: index)
     }
 
     func showPreviousMonth() {
@@ -141,7 +143,8 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
     func arbsPlaygroundCalculatorDidChangePlaygroundInfo(_ calculator: ArbsPlaygroundCalculator,
                                                          playground: ArbPlayground,
                                                          month: ArbPlaygroundMonth,
-                                                         deliveredPriceSpreadsMonth: ArbPlaygroundDPS) {
+                                                         deliveredPriceSpreadsMonth: ArbPlaygroundDPS,
+                                                         visibleDeliveredPriceSpreadsMonths: [ArbPlaygroundDPS]) {
         delegate?.didReceiveMonthInfoUpdates()
 
         func generateRange<V: Numeric>(with step: V, initialValue: V) -> ClosedRange<V> {
@@ -216,7 +219,7 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
             taArbConstructor: taArbConstructor,
             ewConstructor: ewConstructor,
             costsConstructor: .init(title: "Costs", subTitle: nil, units: "$/mt", range: costsRange, step: 0.25, startValue: costsValue),
-            spreadMonthsConstructor: .init(gradeCode: deliveredPriceSpreadsMonth.name, dps: playground.deliveredPriceSpreads, selectedDPS: deliveredPriceSpreadsMonth)
+            spreadMonthsConstructor: .init(gradeCode: deliveredPriceSpreadsMonth.name, dps: visibleDeliveredPriceSpreadsMonths, selectedDPS: deliveredPriceSpreadsMonth)
         )
 
         delegate?.didReceiveInputDataConstructor(constructor)
@@ -286,8 +289,10 @@ extension ArbsPlaygroundViewModel: ArbsPlaygroundCalculatorDelegate {
         delegate?.didReceiveResultDataConstructors(generatedConstructors)
 
         arbsPlaygroundCalculatorDidChangePlaygroundInfo(calculator,
-                                                        playground: calculator.arbPlayground!,
-                                                        month: calculator.arbPlaygroundMonth!,
-                                                        deliveredPriceSpreadsMonth: calculator.deliveredPriceSpreadsMonth!)
+                                                        playground: calculator.settings.arbPlayground!,
+                                                        month: calculator.settings.arbPlaygroundMonth!,
+                                                        deliveredPriceSpreadsMonth: calculator.settings.deliveredPriceSpreadsMonth!,
+                                                        visibleDeliveredPriceSpreadsMonths: calculator.settings.visibleDeliveredPriceSpreadsMonth
+                                                        )
     }
 }

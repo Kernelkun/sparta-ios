@@ -180,6 +180,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
     private func updateUI() {
         switch state {
         case .inactive:
+            isHidden = true
             blendCostPointView.state = .inactive
             gasNapPointView.state = .inactive
             taArbPointView.state = .inactive
@@ -192,6 +193,7 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             dpsPointView.state = .inactive
 
         case .active(let constructor):
+            isHidden = false
             statusView.apply(position: constructor.statusPosition)
             blendCostPointView.state = .active(constructor: constructor.blendCostConstructor)
             gasNapPointView.state = .active(constructor: constructor.gasNapConstructor)

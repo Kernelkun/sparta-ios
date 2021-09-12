@@ -27,6 +27,7 @@
 		D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */; };
 		D9264BED25751298001477DA /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = D9264BEC25751298001477DA /* Networking */; };
 		D9288EF526EBB0E700236A4F /* ArbsPlaygroundPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9288EF426EBB0E600236A4F /* ArbsPlaygroundPageViewController.swift */; };
+		D9288EF826EE12A900236A4F /* ArbsPlaygroundCalculator+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9288EF726EE12A900236A4F /* ArbsPlaygroundCalculator+Settings.swift */; };
 		D92A374325DD60D800C0F9C8 /* StarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A374225DD60D800C0F9C8 /* StarButton.swift */; };
 		D92A379625E261E200C0F9C8 /* BlenderViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92A379525E261E200C0F9C8 /* BlenderViewModel+Models.swift */; };
 		D92FFF4425793BF100AB5405 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A118102579377500BB928E /* App.swift */; };
@@ -237,6 +238,7 @@
 		D9264BE42574F0F2001477DA /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		D9264BE82574FF0D001477DA /* NetworkingModels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = NetworkingModels; sourceTree = "<group>"; };
 		D9288EF426EBB0E600236A4F /* ArbsPlaygroundPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundPageViewController.swift; sourceTree = "<group>"; };
+		D9288EF726EE12A900236A4F /* ArbsPlaygroundCalculator+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsPlaygroundCalculator+Settings.swift"; sourceTree = "<group>"; };
 		D92A374225DD60D800C0F9C8 /* StarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarButton.swift; sourceTree = "<group>"; };
 		D92A379525E261E200C0F9C8 /* BlenderViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlenderViewModel+Models.swift"; sourceTree = "<group>"; };
 		D93A889325700E95003ECB61 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -495,8 +497,8 @@
 		D90E5A9726BBEDAA00D05473 /* Calculators */ = {
 			isa = PBXGroup;
 			children = (
+				D9288EF626EE0DAB00236A4F /* ArbsPlayground */,
 				D9A91CB725A9AAD300423704 /* FreightCalculator.swift */,
-				D90E5A9826BBEDC900D05473 /* ArbsPlaygroundCalculator.swift */,
 			);
 			path = Calculators;
 			sourceTree = "<group>";
@@ -554,6 +556,15 @@
 				D9288EF426EBB0E600236A4F /* ArbsPlaygroundPageViewController.swift */,
 			);
 			path = Childs;
+			sourceTree = "<group>";
+		};
+		D9288EF626EE0DAB00236A4F /* ArbsPlayground */ = {
+			isa = PBXGroup;
+			children = (
+				D9288EF726EE12A900236A4F /* ArbsPlaygroundCalculator+Settings.swift */,
+				D90E5A9826BBEDC900D05473 /* ArbsPlaygroundCalculator.swift */,
+			);
+			path = ArbsPlayground;
 			sourceTree = "<group>";
 		};
 		D93A889225700E88003ECB61 /* Login */ = {
@@ -1756,6 +1767,7 @@
 				D90DE03026BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift in Sources */,
 				D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */,
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
+				D9288EF826EE12A900236A4F /* ArbsPlaygroundCalculator+Settings.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
 				D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */,

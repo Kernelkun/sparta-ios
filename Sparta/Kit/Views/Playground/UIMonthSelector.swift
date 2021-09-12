@@ -16,6 +16,10 @@ class UIMonthSelector<M: PickerValued>: UIView, UIPickerViewDelegate, UIPickerVi
     var selectedValue: M? {
         didSet {
             nameLabel?.text = selectedValue?.title
+
+//            if let firstIndex = inputValues.firstIndex(where: { $0.title == selectedValue?.title }) {
+//                pickerView?.selectRow(firstIndex, inComponent: 1, animated: false)
+//            }
         }
     }
 
