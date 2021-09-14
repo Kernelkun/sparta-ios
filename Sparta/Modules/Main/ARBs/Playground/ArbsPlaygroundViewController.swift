@@ -51,13 +51,8 @@ class ArbsPlaygroundViewController: BaseViewController {
         super.viewWillAppear(animated)
 
         setupSearchController()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
 
         // view model
-
         viewModel.loadData()
     }
 
@@ -102,6 +97,7 @@ class ArbsPlaygroundViewController: BaseViewController {
 
         monthSelector = ResultMonthSelector().then { view in
 
+            view.isHidden = true
             view.delegate = self
 
             addSubview(view) {
@@ -151,6 +147,7 @@ class ArbsPlaygroundViewController: BaseViewController {
             vc.delegate = searchWireframe.viewController
         }
 
+        searchController.searchBar.isHidden = true
         searchController.showsSearchResultsController = true
         navigationItem.searchController = searchController
         setupNavigationBarAppearance(backgroundColor: .barBackground)
@@ -251,7 +248,7 @@ extension ArbsPlaygroundViewController: ResultMonthSelectorDelegate {
 extension ArbsPlaygroundViewController: ArbsPlaygroundViewModelDelegate {
 
     func didChangeLoadingState(_ isLoading: Bool) {
-        searchController.searchBar.isHidden = isLoading
+        monthSelector.isHidden = isLoading
         loadingView(isAnimating: isLoading)
     }
 
@@ -259,6 +256,7 @@ extension ArbsPlaygroundViewController: ArbsPlaygroundViewModelDelegate {
     }
 
     func didLoadArbs(_ arbs: [Arb]) {
+        searchController.searchBar.isHidden = false
         searchWireframe.apply(arbs: arbs)
     }
 

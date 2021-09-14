@@ -10,6 +10,7 @@ import NetworkingModels
 
 protocol ArbPlaygroundInputDataViewDelegate: AnyObject {
     func arbPlaygroundInputDataViewDidChangeValue(_ view: ArbPlaygroundInputDataView, newValue: ArbPlaygroundInputDataView.ObjectValue)
+    func arbPlaygroundInputDataViewDidTapInputTgt(_ view: ArbPlaygroundInputDataView)
 }
 
 class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPlaygroundDPSPointViewDelegate {
@@ -71,7 +72,9 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
         statusView = ResultAutoStatusView(id: String.randomPassword).then { view in
 
             view.backgroundColor = .plResultBlockBackground
-            view.apply(position: .fifth)
+            view.onInputTgtTap { [unowned self] in
+                self.delegate?.arbPlaygroundInputDataViewDidTapInputTgt(self)
+            }
 
             addSubview(view) {
                 $0.top.equalToSuperview().offset(8)

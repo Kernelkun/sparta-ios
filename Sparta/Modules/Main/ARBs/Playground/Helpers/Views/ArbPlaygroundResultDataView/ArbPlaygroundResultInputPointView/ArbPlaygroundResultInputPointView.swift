@@ -35,6 +35,12 @@ class ArbPlaygroundResultInputPointView: UIView {
         fatalError(#function)
     }
 
+    // MARK: - Public methods
+
+    override func becomeFirstResponder() -> Bool {
+        inputField.becomeFirstResponder()
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {

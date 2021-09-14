@@ -16,10 +16,12 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
     // MARK: - UI
 
     private var keyLabel: UILabel!
+    private var keyButton: TappableButton!
     private var progressView: ProgressView!
 
     // MARK: - Private properties
 
+    private var _onInputTgtTapClosure: EmptyClosure?
     private var _textChangeClosure: TypeClosure<String>?
 
     // MARK: - Initializers
@@ -44,19 +46,27 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
         }
     }
 
+    func onInputTgtTap(completion: @escaping EmptyClosure) {
+        _onInputTgtTapClosure = completion
+    }
+
     // MARK: - Private methods
 
     private func setupInputTargetView() {
         removeAllSubviews()
 
-        keyLabel = UILabel().then { label in
+        keyButton = TappableButton().then { button in
 
-            label.text = "ArbDetailPage.Button.InputTgt.Title".localized
-            label.font = .main(weight: .regular, size: 17)
-            label.textColor = .controlTintActive
-            label.textAlignment = .left
+            button.setTitle("ArbDetailPage.Button.InputTgt.Title".localized, for: .normal)
+            button.setTitleColor(.controlTintActive, for: .normal)
+            button.titleLabel?.font = .main(weight: .regular, size: 17)
+            button.titleLabel?.textAlignment = .left
 
-            addSubview(label) {
+            button.onTap { [unowned self] _ in
+                self._onInputTgtTapClosure?()
+            }
+
+            addSubview(button) {
                 $0.left.equalToSuperview().offset(16)
                 $0.centerY.equalToSuperview()
             }

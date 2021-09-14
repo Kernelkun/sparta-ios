@@ -46,6 +46,14 @@ class ArbPlaygroundResultDataView: UIView {
         fatalError(#function)
     }
 
+    // MARK: - Public methods
+
+    func becomeTgtFirstResponder() {
+        for view in mainStackView.arrangedSubviews where view is ArbPlaygroundResultInputPointView {
+            view.becomeFirstResponder()
+        }
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {

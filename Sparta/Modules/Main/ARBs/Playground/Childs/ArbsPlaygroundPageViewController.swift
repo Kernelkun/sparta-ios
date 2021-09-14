@@ -141,6 +141,10 @@ extension ArbsPlaygroundPageViewController: ArbPlaygroundResultDataViewDelegate 
 
 extension ArbsPlaygroundPageViewController: ArbPlaygroundInputDataViewDelegate {
 
+    func arbPlaygroundInputDataViewDidTapInputTgt(_ view: ArbPlaygroundInputDataView) {
+        resultDataView.becomeTgtFirstResponder()
+    }
+
     func arbPlaygroundInputDataViewDidChangeValue(_ view: ArbPlaygroundInputDataView, newValue: ArbPlaygroundInputDataView.ObjectValue) {
         delegate?.arbPlaygroundPageInputDataViewDidChangeValue(view, newValue: newValue)
     }
