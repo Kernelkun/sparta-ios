@@ -248,6 +248,34 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate, SQReorderable
         true
     }
 
+    func stackView(_ stackView: SQReorderableStackView, didDragToReorderInForwardDirection forward: Bool, maxPoint: CGPoint, minPoint: CGPoint) {
+        let scrollWidth = scrollView.frame.width
+        let visibleMaxPosition = scrollWidth + scrollView.contentOffset.x
+        let visibleMaxRestPosition = (scrollView.contentSize.width - visibleMaxPosition)
+        let visibleMinPosition = scrollView.contentSize.width - (scrollWidth + visibleMaxRestPosition)
+
+        let minPosition = visibleMinPosition + 50
+        let maxPosition = visibleMaxPosition - 50
+
+        if forward && minPoint.x < minPosition && scrollView.contentOffset.x > 0 {
+            let finishPosition = scrollView.contentOffset.x - 100
+
+            if finishPosition > 0 {
+                scrollView.setContentOffset(.init(x: finishPosition, y: 0), animated: true)
+            } else {
+                scrollView.setContentOffset(.init(x: 0, y: 0), animated: true)
+            }
+        } else if !forward && maxPoint.x > maxPosition && (scrollView.contentOffset.x + scrollWidth) < scrollView.contentSize.width {
+            let finishPosition = scrollView.contentOffset.x + 100
+
+            if (finishPosition + scrollWidth) < scrollView.contentSize.width {
+                scrollView.setContentOffset(.init(x: finishPosition, y: 0), animated: true)
+            } else {
+                scrollView.setContentOffset(.init(x: scrollView.contentSize.width - scrollWidth, y: 0), animated: true)
+            }
+        }
+    }
+
     func stackViewDidReorderArrangedSubviews(_ stackView: SQReorderableStackView) {
         updateElementsUI()
 

@@ -71,7 +71,7 @@ public class SQReorderableStackView: UIStackView, UIGestureRecognizerDelegate {
     public var temporaryViewScale: CGFloat = 1.1
 
     /// The releative scale of the other subviews's size during reordering. Default is `0.95`
-    public var otherViewsScale: CGFloat = 0.95
+    public var otherViewsScale: CGFloat = 1
 
     /// The alpha of the held view's snapshot curing reordering. Defaults is `0.9`
     public var temporaryViewAlpha: CGFloat = 0.9
