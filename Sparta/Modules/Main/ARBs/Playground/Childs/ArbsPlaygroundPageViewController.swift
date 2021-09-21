@@ -113,7 +113,7 @@ class ArbsPlaygroundPageViewController: BaseViewController {
             scrollViewContent.addSubview(view) {
                 $0.top.equalTo(inputDataView.snp.bottom)
                 $0.left.right.equalToSuperview().inset(16)
-                $0.bottom.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(8)
             }
         }
 
