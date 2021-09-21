@@ -66,7 +66,6 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func loadingView(isAnimating: Bool) {
-
         if isAnimating {
 
             loadingView.alpha = 0

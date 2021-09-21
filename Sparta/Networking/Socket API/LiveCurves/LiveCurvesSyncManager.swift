@@ -140,6 +140,19 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
         updateProfiles()
     }
 
+    func changeProfilesOrder(_ profiles: [LiveCurveProfileCategory]) {
+        _profiles = SynchronizedArray(profiles)
+
+        let parameters = profiles.compactMap {
+            ["id": $0.id, "order": profiles.firstIndex(of: $0) ?? 0]
+        }
+
+        networkManager.changePortfoliosOrder(orders: parameters) { _ in
+        }
+        
+        updateProfiles()
+    }
+
     // MARK: - Private methods
 
     private func updateLiveCurves(for profile: LiveCurveProfileCategory) {

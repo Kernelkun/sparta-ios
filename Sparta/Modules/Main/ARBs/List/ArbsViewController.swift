@@ -123,7 +123,8 @@ extension ArbsViewController: GridViewDataSource {
             cell.onTap { [unowned self] arb in
                 guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                self.navigationController?.pushViewController(ArbDetailViewController(arb: newArb), animated: true)
+                let wireframe = ArbsPlaygroundWireframe(selectedArb: newArb)
+                self.navigationController?.pushViewController(wireframe.viewController, animated: true)
             }
 
             cell.onToggleFavourite { [unowned self] arb in
@@ -149,7 +150,8 @@ extension ArbsViewController: GridViewDataSource {
             cell.onTap { [unowned self] arb in
                 guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                self.navigationController?.pushViewController(ArbDetailViewController(arb: newArb), animated: true)
+                let wireframe = ArbsPlaygroundWireframe(selectedArb: newArb)
+                self.navigationController?.pushViewController(wireframe.viewController, animated: true)
             }
         }
 

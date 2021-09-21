@@ -75,7 +75,7 @@ class ArbDetailContentView: UIView {
             case .status(let position):
 
                 if let subview: ResultAutoStatusView<String> = findSubviews(cell.displayTitle).first {
-                    subview.apply(key: cell.displayTitle, position: position)
+                    subview.apply(position: position)
                 }
 
             case .blendCost(let value, let color, let units), .gasNap(let value, let color, let units),
@@ -173,7 +173,7 @@ class ArbDetailContentView: UIView {
     private func statusView(title: String, position: ArbMonth.Position?, height: CGFloat = 38) -> ResultAutoStatusView<String> {
         ResultAutoStatusView(id: title).then { view in
 
-            view.apply(key: title, position: position)
+            view.apply(position: position)
 
             view.snp.makeConstraints {
                 $0.height.equalTo(height)

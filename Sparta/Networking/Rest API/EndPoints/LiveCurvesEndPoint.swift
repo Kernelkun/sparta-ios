@@ -17,6 +17,7 @@ enum LiveCurvesEndPoint {
     case getProducts
     case addPortfolio(name: String)
     case deletePortfolio(id: Int)
+    case changePortfoliosOrder(parameters: Parameters)
     case addProduct(portfolioId: Int, productId: Int)
     case deletePortfolioItem(portfolioId: Int, liveCurveId: Int)
     case changePortfolioOrder(portfolioId: Int, parameters: Parameters)
@@ -34,6 +35,7 @@ extension LiveCurvesEndPoint: EndPointType {
         case .getProducts: return "/livecurves/products"
         case .addPortfolio: return "/livecurves/portfolios/"
         case .deletePortfolio(let id): return "/livecurves/portfolios/\(id)"
+        case .changePortfoliosOrder: return "/livecurves/portfolios/order"
         case .addProduct(let productId, _): return "/livecurves/portfolios/\(productId)/products"
         case .deletePortfolioItem(let portfolioId, let liveCurveId): return "/livecurves/portfolios/\(portfolioId)/products/\(liveCurveId)"
         case .changePortfolioOrder(let portfolioId, _): return "/livecurves/portfolios/\(portfolioId)/products/order"
@@ -43,7 +45,7 @@ extension LiveCurvesEndPoint: EndPointType {
     var httpMethod: HTTPMethod {
         switch self {
         case .getLiveCurves, .getPortfolios, .getProductGroups, .getProducts: return .get
-        case .addPortfolio, .addProduct, .changePortfolioOrder: return .post
+        case .addPortfolio, .addProduct, .changePortfolioOrder, .changePortfoliosOrder: return .post
         case .deletePortfolioItem, .deletePortfolio: return .delete
         }
     }
@@ -74,7 +76,7 @@ extension LiveCurvesEndPoint: EndPointType {
                                                 urlParameters: nil,
                                                 additionHeaders: headersWithToken)
 
-        case .changePortfolioOrder(_, let parameters):
+        case .changePortfolioOrder(_, let parameters), .changePortfoliosOrder(let parameters):
             return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
