@@ -50,6 +50,18 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate, SQReorderable
         setupElementsViews()
     }
 
+    func scrollToActive() {
+        guard elementsStackView != nil else { return }
+
+        if let views = elementsStackView.arrangedSubviews as? [ProfileElementView<I>],
+           let selectedView = views.first(where: { $0.isActive }) {
+
+            onMainThread(delay: 0.1) { [unowned self] in
+                scrollTo(view: selectedView)
+            }
+        }
+    }
+
     func onChooseAdd(completion: @escaping EmptyClosure) {
         _onChooseAdd = completion
     }
@@ -220,13 +232,7 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate, SQReorderable
 
         // scroll to visible view
 
-        if let views = elementsStackView.arrangedSubviews as? [ProfileElementView<I>],
-           let selectedView = views.first(where: { $0.isActive }) {
-
-            onMainThread(delay: 0.1) { [unowned self] in
-                scrollTo(view: selectedView)
-            }
-        }
+        scrollToActive()
     }
 
     private func scrollTo(view: UIView) {

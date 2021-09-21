@@ -149,6 +149,8 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
 
         networkManager.changePortfoliosOrder(orders: parameters) { _ in
         }
+        
+        updateProfiles()
     }
 
     // MARK: - Private methods

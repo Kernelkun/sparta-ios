@@ -109,7 +109,6 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
                                                                  updates: [])
                     }
                 }
-            } else {
             }
         }
     }
@@ -122,6 +121,7 @@ class EditPortfolioItemsViewModel: NSObject, BaseViewModel {
         }
 
         networkManager.changePortfolioItemsOrder(portfolioId: selectedProfile.id, orders: parameters) { _ in
+
         }
     }
 

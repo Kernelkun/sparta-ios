@@ -160,7 +160,6 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
         liveCurves.append(liveCurve)
 
         updateDataSource(liveCurves)
-
         updateGrades()
     }
 
@@ -172,9 +171,8 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
                let indexInDataSource = collectionDataSource.firstIndex(where: { $0.name == liveCurve.name }) {
 
                 let priceCode = liveCurve.priceCode
-
-                collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: .init(priceValue: liveCurve.displayPrice,
-                                                                                                     priceCode: priceCode))
+                let monthInfo: LiveCurveMonthInfoModel = .init(priceValue: liveCurve.displayPrice, priceCode: priceCode)
+                collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: monthInfo)
             }
         }
 

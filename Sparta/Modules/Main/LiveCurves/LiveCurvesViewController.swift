@@ -87,6 +87,8 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        profilesView.scrollToActive()
+
         // view model
 
         viewModel.loadData()
@@ -237,6 +239,12 @@ extension LiveCurvesViewController: LiveCurvesViewModelDelegate {
 
     func didReceiveProfilesInfo(profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {
         profilesView.apply(profiles, selectedProfile: selectedProfile)
+
+        if let selectedProfile = selectedProfile {
+            gridView.emptyView(isPresented: selectedProfile.liveCurves.isEmpty)
+        } else {
+            gridView.emptyView(isPresented: false)
+        }
     }
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
