@@ -57,21 +57,13 @@ extension ArbsPlaygroundCalculator {
 
         private func applyDefaultDeliveredPriceSpreadsMonthSettings(for arbPlaygroundMonth: ArbPlaygroundMonth) {
             guard let arbPlayground = _initialArbPlayground,
-                  var deliveredPriceSpreadsMonthIndex = arbPlayground.deliveredPriceSpreads
+                  let deliveredPriceSpreadsMonthIndex = arbPlayground.deliveredPriceSpreads
                     .firstIndex(where: { $0.monthName == arbPlaygroundMonth.defaultSpreadMonthName })
-//                  let currentMonthIndex = arbPlayground.deliveredPriceSpreads
-//                    .firstIndex(where: { $0.monthName == arbPlaygroundMonth.monthName })
                   else { return }
 
             // months
 
-            var finalMonthsSteps = 4
-
-//            if deliveredPriceSpreadsMonthIndex != currentMonthIndex {
-//                deliveredPriceSpreadsMonthIndex -= 1
-//                finalMonthsSteps = 5
-//            }
-
+            let finalMonthsSteps = 4
             let finalIndex = deliveredPriceSpreadsMonthIndex + finalMonthsSteps
             if finalIndex < arbPlayground.deliveredPriceSpreads.count {
                 self.visibleDeliveredPriceSpreadsMonth = Array(arbPlayground.deliveredPriceSpreads[deliveredPriceSpreadsMonthIndex...deliveredPriceSpreadsMonthIndex + finalMonthsSteps])

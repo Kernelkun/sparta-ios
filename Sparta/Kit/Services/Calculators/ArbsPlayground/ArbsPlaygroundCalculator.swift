@@ -277,7 +277,7 @@ class ArbsPlaygroundCalculator {
 
         // foundDlvdMonthName
 
-        let foundDlvdMonthName = arbPlayground.deliveredPriceSpreads.first(where: { $0.monthName == month.defaultSpreadMonthName })! // test code
+        let foundDlvdMonthName = arbPlayground.deliveredPriceSpreads.first(where: { $0.monthName == month.defaultSpreadMonthName })!
 
         // getSpreadSumForMonths
 
@@ -292,20 +292,15 @@ class ArbsPlaygroundCalculator {
         var deliveredPriceDefault = priceBeforeTAEW
         var deliveredPrice = priceBeforeTAEW
         var units = "$/mt"
-        var divider = 0.25
-
-        //        var taArb: Double? = 100
 
         if let taArb = month.taArb.value { // or user can input it manually
             deliveredPriceDefault = priceBeforeTAEW / 3.5 - taArb + defaultCalculationSum
             deliveredPrice = priceBeforeTAEW / 3.5 - taArb + defaultCalculationSum
             units = "cpg"
-            divider = 0.05
-        } else if let ew = month.ew.value {
+        } else if let ew = month.ew.value { // swiftlint:disable:this identifier_name
             deliveredPriceDefault = priceBeforeTAEW / 8.33 - ew + defaultCalculationSum
             deliveredPrice = priceBeforeTAEW / 8.33 - ew + defaultCalculationSum
             units = "$/bbl"
-            divider = 0.05
         } else {
             deliveredPriceDefault = priceBeforeTAEW + defaultCalculationSum
             deliveredPrice = priceBeforeTAEW + defaultCalculationSum

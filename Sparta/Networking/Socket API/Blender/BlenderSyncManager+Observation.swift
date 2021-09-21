@@ -15,7 +15,7 @@ import Networking
 /// of adding observers with no need to parse object that raises an event.
 
 /// Represents the object that can listen to folder actions.
-protocol BlenderObserver: class {
+protocol BlenderObserver: AnyObject {
     func blenderDidReceiveResponse(for blenderMonth: BlenderMonth)
     func blenderDidReceiveUpdates(_ blender: Blender)
 }

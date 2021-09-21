@@ -15,7 +15,7 @@ import Networking
 /// of adding observers with no need to parse object that raises an event.
 
 /// Represents the object that can listen to folder actions.
-protocol ArbsObserver: class {
+protocol ArbsObserver: AnyObject {
     func arbsDidReceiveResponse(for arb: Arb)
 }
 

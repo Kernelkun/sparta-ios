@@ -297,6 +297,8 @@
 		D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesViewModel+Models.swift"; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
 		D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesSyncManagerProtocol.swift; sourceTree = "<group>"; };
+		D98A2F8026F9E20200833684 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D98A2F8126F9E20B00833684 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsGradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsStatusCollectionViewCell.swift; sourceTree = "<group>"; };
 		D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailViewController.swift; sourceTree = "<group>"; };
@@ -1293,6 +1295,8 @@
 		D9BB533C256E8E6600AD2D1A = {
 			isa = PBXGroup;
 			children = (
+				D98A2F8026F9E20200833684 /* README.md */,
+				D98A2F8126F9E20B00833684 /* .swiftlint.yml */,
 				D9A3BD5B257522C400224535 /* App */,
 				D93A889E25713BA0003ECB61 /* Networking */,
 				D9264BE82574FF0D001477DA /* NetworkingModels */,

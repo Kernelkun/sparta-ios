@@ -149,7 +149,7 @@ private_outlet:
     allow_private_set: true
 
 line_length:
-    warning: 130
+    warning: 150
     error: 200
     ignores_function_declarations: true
     ignores_urls: true

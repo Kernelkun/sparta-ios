@@ -128,7 +128,7 @@ class ArbsSyncManager {
             notifyObservers(about: _arbs[arbIndex]!) //swiftlint:disable:this force_unwrapping
 
             onMainThread {
-                self.delegate?.arbsSyncManagerDidReceiveUpdates(for: self._arbs[arbIndex]!) //swiftlint:disable:this line_length
+                self.delegate?.arbsSyncManagerDidReceiveUpdates(for: self._arbs[arbIndex]!) //swiftlint:disable:this force_unwrapping
             }
         }
     }
