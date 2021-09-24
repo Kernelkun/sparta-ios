@@ -18,6 +18,8 @@
 "Grade.Title" = "Grade";
 "Logout.Title" = "Logout";
 "ChangePassword.Title" = "Change Password";
+"Delete.Title" = "Delete";
+"Cancel.Title" = "Cancel";
 
 // validators
 
@@ -72,6 +74,7 @@
 "Portfolio.Add.Error.UnableToCreate" = "Something wrong happened with creating profile";
 "Portfolio.AddItems.PageTitle" = "Add items";
 "Portfolio.AddItems.Error.UnableToAdd" = "Something wrong happened with adding items";
+"Portfolio.RemoveItems.Title" = "Confirm portfolio removing";
 
 
 // arbs page

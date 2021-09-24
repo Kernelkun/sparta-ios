@@ -70,6 +70,11 @@ class EditPortfolioItemsViewController: BaseTableVMViewController<EditPortfolioI
     private func setupTableView() {
 
         tableView.do { tableView in
+
+            if #available(iOS 15.0, *) {
+                tableView.sectionHeaderTopPadding = 0
+            }
+            tableView.automaticallyAdjustsScrollIndicatorInsets = false
             tableView.tableFooterView = UIView()
             tableView.dataSource = self
             tableView.separatorColor = .separator
@@ -116,8 +121,10 @@ class EditPortfolioItemsViewController: BaseTableVMViewController<EditPortfolioI
                 self.viewModel.changeProfile(profile)
             }
 
-            profilesView.onRemoveProfile { profile in
-                UIActionSheetFactory.showDeletePortolioConfirmation(in: self) { [unowned self] in
+            profilesView.onRemoveProfile { [unowned self] profile in
+                let sourceFrame = profilesView.scrollView.convert(profilesView.selectedView!.frame, to: view)
+                UIActionSheetFactory.showDeletePortolioConfirmation(in: self, sourceFrame: sourceFrame) { [unowned self] in
+                    print(profilesView.selectedView?.profile)
                     self.viewModel.delete(profile: profile)
                 }
             }
@@ -125,7 +132,6 @@ class EditPortfolioItemsViewController: BaseTableVMViewController<EditPortfolioI
             profilesView.onReorderProfiles { [unowned self] profiles in
                 self.viewModel.changeProfilesOrder(profiles)
             }
-
 
             profilesView.onChooseAdd { [unowned self] in
                 navigationController?.pushViewController(LCPortfolioAddViewController(), animated: true)
