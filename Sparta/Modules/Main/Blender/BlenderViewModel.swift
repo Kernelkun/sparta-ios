@@ -80,8 +80,19 @@ class BlenderViewModel: NSObject, BaseViewModel {
             }
         }
 
+        // % Pxg of Nap
+        if let pxgNapValue = month.naphthaPricingComponentsVolume.toDouble?.roundedString(to: 1) {
+            mainKeyValues.append(.init(key: "% Pxg of Nap", value: pxgNapValue + "%", priorityIndex: mainKeyValues.count))
+        }
+
+        // density of blend
+        if let densityValue = month.density.toDouble?.roundedString(to: 4) {
+            mainKeyValues.append(.init(key: "Density", value: densityValue + " t/m³", priorityIndex: mainKeyValues.count + 1))
+        }
+
+        // escalation
         if blenderManager.profile.region == .ara {
-            mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: 2))
+            mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: mainKeyValues.count + 2))
         }
 
         var componentsKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []

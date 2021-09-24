@@ -49,7 +49,7 @@ class SettingsViewController: BaseVMViewController<SettingsViewModel> {
 
             addSubview(view) {
                 $0.left.right.equalToSuperview()
-                $0.bottom.equalToSuperview().inset(19)
+                $0.bottom.equalToSuperview().inset(24)
             }
         }
 
@@ -73,6 +73,21 @@ class SettingsViewController: BaseVMViewController<SettingsViewModel> {
                 $0.top.equalToSuperview().offset(topBarHeight + 8)
                 $0.left.right.equalToSuperview()
                 $0.bottom.equalTo(logoutButton.snp.top)
+            }
+        }
+
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+           let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+
+            _ = UILabel().then { label in
+                label.font = .main(weight: .regular, size: 13)
+                label.textColor = .secondaryText
+                label.text = "Sparta v\(version) (Build \(build))"
+
+                addSubview(label) {
+                    $0.centerX.equalToSuperview()
+                    $0.bottom.equalToSuperview().offset(-5)
+                }
             }
         }
     }

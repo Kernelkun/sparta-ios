@@ -30,15 +30,12 @@ class MainFlowCoordinator: Coordinator {
         let vc = MainTabsViewController()
 //        vc.coordinatorDelegate = self
 
-        navigationController = UINavigationController(rootViewController: vc).then { nc in
+        navigationController = UINavigationController(rootViewController: vc).then { navigationC in
 
-//            Router.instance.navigationViewController = nc
-
-            nc.interactivePopGestureRecognizer?.isEnabled = true
-            nc.interactivePopGestureRecognizer?.delegate = self
-            nc.delegate = self
-
-            nc.isNavigationBarHidden = true
+            navigationC.interactivePopGestureRecognizer?.isEnabled = true
+            navigationC.interactivePopGestureRecognizer?.delegate = self
+            navigationC.delegate = self
+            navigationC.isNavigationBarHidden = true
         }
 
         window.rootViewController = navigationController

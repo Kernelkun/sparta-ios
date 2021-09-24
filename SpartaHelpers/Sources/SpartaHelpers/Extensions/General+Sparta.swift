@@ -17,6 +17,8 @@ public extension Int {
         formatter.allowsFloats = false
         formatter.zeroSymbol = nil
         formatter.locale = Locale(identifier: "en")
+        formatter.maximumFractionDigits = 0
+        formatter.minimumFractionDigits = 0
         return formatter.string(from: NSNumber(integerLiteral: self)) ?? String(self)
     }
 }
@@ -34,6 +36,7 @@ public extension Double {
         formatter.zeroSymbol = nil
         formatter.decimalSeparator = "."
         formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
         formatter.locale = Locale(identifier: "en")
         return formatter.string(from: NSNumber(value: self)) ?? String(self)
     }

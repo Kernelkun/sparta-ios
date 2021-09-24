@@ -19,6 +19,7 @@ public struct Arb: BackendModel {
     public let dischargePortName: String
     public let escalation: String
     public let freightType: String
+    public let freight: ArbFreight
     public var months: [ArbMonth]
 
     // for presenting
@@ -46,7 +47,8 @@ public struct Arb: BackendModel {
         dischargePortName = json["dischargePortName"].stringValue
         escalation = json["escalation"].stringValue
         months = json["months"].arrayValue.compactMap { ArbMonth(json: $0) }
-        freightType = json["freight"].dictionaryValue["vessel"]?.dictionaryValue["type"]?.stringValue ?? ""
+        freight = ArbFreight(json: json["freight"])
+        freightType = freight.vessel.type
         isFavourite = false
     }
 }

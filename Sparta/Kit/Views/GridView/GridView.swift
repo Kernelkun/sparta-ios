@@ -94,6 +94,12 @@ class GridView: UIView {
         updateUI()
     }
 
+    func emptyView(isPresented: Bool) {
+        constructor.emptyView.isHidden = !isPresented
+        gradesView.isHidden = isPresented
+        contentView.isHidden = isPresented
+    }
+
     func updateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet, completion: EmptyClosure? = nil) {
         guard !insertions.isEmpty || !removals.isEmpty || !updates.isEmpty else {
             completion?()

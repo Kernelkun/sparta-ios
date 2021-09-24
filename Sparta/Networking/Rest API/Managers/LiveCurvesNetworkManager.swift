@@ -68,6 +68,16 @@ class LiveCurvesNetworkManager: BaseNetworkManager {
         }
     }
 
+    func changePortfoliosOrder(orders: [Parameters], completion: @escaping BoolClosure) {
+        router.request(.changePortfoliosOrder(parameters: ["order": orders])) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+
     func addProduct(portfolioId: Int, productId: Int, completion: @escaping TypeClosure<Swift.Result<ResponseModel<EmptyResponseModel>, SpartaError>>) {
         router.request(.addProduct(portfolioId: portfolioId, productId: productId)) { [weak self] data, response, error in
             guard let strongSelf = self else { return }

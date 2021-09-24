@@ -16,10 +16,12 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
     // MARK: - UI
 
     private var keyLabel: UILabel!
+    private var keyButton: TappableButton!
     private var progressView: ProgressView!
 
     // MARK: - Private properties
 
+    private var _onInputTgtTapClosure: EmptyClosure?
     private var _textChangeClosure: TypeClosure<String>?
 
     // MARK: - Initializers
@@ -35,14 +37,17 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
 
     // MARK: - Public methods
 
-    func apply(key: String, position: ArbMonth.Position?) {
+    func apply(position: ArbMonth.Position?) {
         if let position = position {
             setupProgressView()
-            keyLabel.text = key
             progressView.apply(progressPercentage: position.percentage, color: position.color)
         } else {
             setupInputTargetView()
         }
+    }
+
+    func onInputTgtTap(completion: @escaping EmptyClosure) {
+        _onInputTgtTapClosure = completion
     }
 
     // MARK: - Private methods
@@ -50,17 +55,19 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
     private func setupInputTargetView() {
         removeAllSubviews()
 
-        backgroundColor = .clear
+        keyButton = TappableButton().then { button in
 
-        keyLabel = UILabel().then { label in
+            button.setTitle("ArbDetailPage.Button.InputTgt.Title".localized, for: .normal)
+            button.setTitleColor(.controlTintActive, for: .normal)
+            button.titleLabel?.font = .main(weight: .regular, size: 17)
+            button.titleLabel?.textAlignment = .left
 
-            label.text = "ArbDetailPage.Button.InputTgt.Title".localized
-            label.font = .main(weight: .regular, size: 17)
-            label.textColor = .controlTintActive
-            label.textAlignment = .left
+            button.onTap { [unowned self] _ in
+                self._onInputTgtTapClosure?()
+            }
 
-            addSubview(label) {
-                $0.left.equalToSuperview().offset(8)
+            addSubview(button) {
+                $0.left.equalToSuperview().offset(16)
                 $0.centerY.equalToSuperview()
             }
         }
@@ -69,17 +76,15 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
     private func setupProgressView() {
         removeAllSubviews()
 
-        backgroundColor = UIColor.accountFieldBackground
-        layer.cornerRadius = 4
-
         keyLabel = UILabel().then { label in
 
+            label.text = "ArbDetailPage.Key.Status.Title".localized
             label.font = .main(weight: .regular, size: 17)
             label.textColor = .accountMainText
             label.textAlignment = .center
 
             addSubview(label) {
-                $0.left.equalToSuperview().offset(8)
+                $0.left.equalToSuperview().offset(16)
                 $0.centerY.equalToSuperview()
             }
         }
@@ -89,7 +94,7 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
             addSubview(progressView) {
                 $0.width.equalTo(67)
                 $0.height.equalTo(8)
-                $0.right.equalToSuperview().inset(8)
+                $0.right.equalToSuperview().inset(22)
                 $0.centerY.equalToSuperview()
             }
         }
