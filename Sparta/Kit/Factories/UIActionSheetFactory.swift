@@ -10,17 +10,25 @@ import SpartaHelpers
 
 enum UIActionSheetFactory {
 
-    static func showDeletePortolioConfirmation(in controller: UIViewController, onDelete: @escaping EmptyClosure) {
-        let alertController = UIAlertController(title: nil, message: "Confirm portfolio removing", preferredStyle: .actionSheet)
+    static func showDeletePortolioConfirmation(in controller: UIViewController, sourceFrame: CGRect? = nil, onDelete: @escaping EmptyClosure) {
+        let alertController = UIAlertController(title: nil, message: "Portfolio.RemoveItems.Title".localized, preferredStyle: .actionSheet)
 
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+        let deleteAction = UIAlertAction(title: "Delete.Title".localized, style: .destructive, handler: { _ in
             onDelete()
         })
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: "Cancel.Title".localized, style: .cancel)
 
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
+        alertController.modalPresentationStyle = .popover
+
+        if let popoverPresentationController = alertController.popoverPresentationController,
+            let sourceFrame = sourceFrame {
+            
+            popoverPresentationController.sourceView = controller.view
+            popoverPresentationController.sourceRect = sourceFrame
+        }
 
         controller.present(alertController, animated: true, completion: nil)
     }

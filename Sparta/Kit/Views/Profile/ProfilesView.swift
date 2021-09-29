@@ -11,6 +11,17 @@ import SpartaHelpers
 
 class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate, SQReorderableStackViewDelegate {
 
+    // MARK: - Public properties
+
+    var selectedView: ProfileElementView<I>? {
+        elementsStackView.arrangedSubviews.first(where: {
+            guard let view = $0 as? ProfileElementView<I> else { return false }
+
+            let isSelected = selectedProfile == view.profile
+            return isSelected
+        }) as? ProfileElementView<I>
+    }
+
     // MARK: - Private properties
 
     private let constructor: ProfilesViewConstructor
@@ -18,7 +29,7 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate, SQReorderable
     private var profiles: [I] = []
     private var selectedProfile: I?
 
-    private var scrollView: UIScrollView!
+    var scrollView: UIScrollView!
     private var scrollContentView: UIView!
     private var elementsStackView: UIStackView!
 
@@ -218,6 +229,10 @@ class ProfilesView<I: ListableItem>: UIView, UIScrollViewDelegate, SQReorderable
             view.showLine()
             view.isActive = isSelected
             view.isVisibleDeleteButton = isSelected && constructor.isEditable && profiles.count > 1
+
+            if isSelected {
+                elementsStackView.bringSubviewToFront(view)
+            }
 
             if index != 0 && view.isActive,
                let previousView = elementsStackView.arrangedSubviews[index - 1] as? ProfileElementView<I> {
