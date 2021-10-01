@@ -36,7 +36,7 @@ class BlenderSyncManager {
         }
     }
 
-    private(set) lazy var profile = profiles.first!
+    private(set) lazy var profile = profiles.first.required()
 
     // MARK: - Private properties
 

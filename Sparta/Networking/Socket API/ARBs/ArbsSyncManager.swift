@@ -12,7 +12,7 @@ import NetworkingModels
 import SpartaHelpers
 
 protocol ArbsSyncManagerDelegate: AnyObject {
-    func arbsSyncManagerDidFetch(arbs: [Arb])
+    func arbsSyncManagerDidFetch(arbs: [Arb], profiles: [ArbProfileCategory], selectedProfile: ArbProfileCategory?)
     func arbsSyncManagerDidReceive(arb: Arb)
     func arbsSyncManagerDidReceiveUpdates(for arb: Arb)
     func arbsSyncManagerDidChangeSyncDate(_ newDate: Date?)
@@ -36,6 +36,8 @@ class ArbsSyncManager {
         }
     }
 
+    private(set) var profile: ArbProfileCategory?
+
     var arbs: [Arb] {
         _arbs.arrayValue
     }
@@ -50,6 +52,8 @@ class ArbsSyncManager {
     }()
     private var _arbs: SynchronizedArray<Arb> = SynchronizedArray<Arb>()
     private var _favourites: SynchronizedArray<Favourite> = SynchronizedArray<Favourite>()
+
+    private(set) lazy var profiles = SynchronizedArray<ArbProfileCategory>()
 
     private let arbsManager = ArbsNetworkManager()
     private let profileManager = ProfileNetworkManager()
@@ -110,9 +114,46 @@ class ArbsSyncManager {
                 strongSelf.patchArb(&strongSelf._arbs[index]!) //swiftlint:disable:this force_unwrapping
             }
 
-            strongSelf.delegate?.arbsSyncManagerDidFetch(arbs: strongSelf._arbs.compactMap { $0 })
+            // load profiles
+
+            let selectedProfile = strongSelf.profile
+
+            let profiles = strongSelf._arbs.compactMap { $0.portfolio }.unique.compactMap { profile -> ArbProfileCategory in
+                var profileCategory = ArbProfileCategory(portfolio: profile)
+
+                /*let filteredArbs = arbs.filter { $0.portfolio == profile }.compactMap { arb -> Arb in
+                    var arb = arb
+                    strongSelf.patchArb(&arb)
+                    return arb
+                }*/
+
+//                profileCategory.arbs = filteredArbs
+
+                return profileCategory
+            }
+
+            strongSelf.profiles = SynchronizedArray(profiles)
+
+            if selectedProfile != nil {
+                strongSelf.profile = strongSelf.profiles.first { $0 == selectedProfile }!
+            } else {
+                strongSelf.profile = strongSelf.profiles.first.required()
+            }
+
+
+            onMainThread {
+                strongSelf.updateArbs(for: strongSelf.profile.required())
+//                strongSelf.updateBlenders(for: strongSelf.profile)
+//                App.instance.socketsConnect(toServer: .blender)
+            }
+
             strongSelf.lastSyncDate = Date()
         }
+    }
+
+    func setProfile(_ profile: ArbProfileCategory) {
+        self.profile = profile
+        updateArbs(for: profile)
     }
 
     func notifyAboutUpdated(arbMonth: ArbMonth) {
@@ -240,6 +281,14 @@ class ArbsSyncManager {
 
     // MARK: - Private methods
 
+    private func updateArbs(for profile: ArbProfileCategory) {
+        onMainThread {
+            self.delegate?.arbsSyncManagerDidFetch(arbs: self._arbs.filter { $0.portfolio == profile.portfolio },
+                                                   profiles: self.profiles.arrayValue,
+                                                   selectedProfile: profile)
+        }
+    }
+
     private func patchArb(_ newArb: inout Arb) {
         newArb.isFavourite = _favourites.contains(where: { $0.code == newArb.serverUniqueIdentifier })
         newArb.priorityIndex = _arbs.index(where: { $0 == newArb }) ?? -1
@@ -248,7 +297,6 @@ class ArbsSyncManager {
 extension ArbsSyncManager: SocketActionObserver {
 
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON) {
-
         let arbSocket = ArbSocket(json: data)
 
         guard arbSocket.socketType == .arbMonth else { return }

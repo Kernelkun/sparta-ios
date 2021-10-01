@@ -108,6 +108,7 @@ class AppCoordinator {
     // MARK: - Private methods
 
     private func setupAppearances() {
+        // navigation bar
         let titleAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 16, weight: .semibold),
                                                               .foregroundColor: UIColor.primaryText]
 

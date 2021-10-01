@@ -55,7 +55,7 @@ extension ArbsEndPoint: EndPointType {
         case .getArbsTable:
             return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .urlEncoding,
-                                                urlParameters: ["arbsMonths": 6],
+                                                urlParameters: ["arbsMonths": 6, "portfolioIds": "1,2"],
                                                 additionHeaders: headersWithToken)
 
         case .getArbPlayground(let parameters):

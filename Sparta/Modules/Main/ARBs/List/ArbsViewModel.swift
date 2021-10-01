@@ -14,6 +14,7 @@ import SpartaHelpers
 protocol ArbsViewModelDelegate: AnyObject {
     func didReceiveUpdatesForGrades()
     func didUpdateDataSourceSections(insertions: IndexSet, removals: IndexSet, updates: IndexSet)
+    func didReceiveProfilesInfo(profiles: [ArbProfileCategory], selectedProfile: ArbProfileCategory?)
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?)
 }
 
@@ -72,6 +73,10 @@ class ArbsViewModel: NSObject, BaseViewModel {
         guard let arbIndex = fetchedArbs.firstIndex(of: arb) else { return nil }
 
         return fetchedArbs[arbIndex]
+    }
+
+    func changeProfile(_ profile: ArbProfileCategory) {
+        arbsSyncManager.setProfile(profile)
     }
 
     // MARK: - Private methods
@@ -191,7 +196,9 @@ extension ArbsViewModel: AppObserver {
 
 extension ArbsViewModel: ArbsSyncManagerDelegate {
 
-    func arbsSyncManagerDidFetch(arbs: [Arb]) {
+    func arbsSyncManagerDidFetch(arbs: [Arb], profiles: [ArbProfileCategory], selectedProfile: ArbProfileCategory?) {
+        delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)
+
         fetchedArbs = arbs
         sortArbs()
         updateDataSource()

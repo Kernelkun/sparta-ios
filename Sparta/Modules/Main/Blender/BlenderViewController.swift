@@ -20,7 +20,6 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-
         let gridContructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
                                                           gradeHeight: 50,
                                                           collectionColumnWidth: 70,

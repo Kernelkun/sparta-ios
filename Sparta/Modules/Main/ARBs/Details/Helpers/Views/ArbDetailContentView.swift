@@ -171,8 +171,10 @@ class ArbDetailContentView: UIView {
     }
 
     private func statusView(title: String, position: ArbMonth.Position?, height: CGFloat = 38) -> ResultAutoStatusView<String> {
-        ResultAutoStatusView(id: title).then { view in
+        ResultAutoStatusView(id: title, sideInset: 8).then { view in
 
+            view.backgroundColor = UIColor.accountFieldBackground
+            view.layer.cornerRadius = 4
             view.apply(position: position)
 
             view.snp.makeConstraints {

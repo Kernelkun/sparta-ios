@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import NetworkingModels
 
 class ArbsViewController: BaseVMViewController<ArbsViewModel> {
 
     // MARK: - UI
 
+    private var profilesView: ProfilesView<ArbProfileCategory>!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
 
@@ -19,14 +21,39 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
-                                                       gradeHeight: 50,
-                                                       collectionColumnWidth: 65,
-                                                       tableColumnWidth: 160,
-                                                       emptyView: UIView())
 
-        gridView = GridView(constructor: constructor)
-        view = gridView
+        let gridConstructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
+                                                           gradeHeight: 50,
+                                                           collectionColumnWidth: 65,
+                                                           tableColumnWidth: 160,
+                                                           emptyView: UIView())
+
+        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: false,
+                                                         isEditable: false)
+
+        view = UIView().then { view in
+
+            profilesView = ProfilesView(constructor: profilesContructor).then { profilesView in
+
+                profilesView.onChooseProfile { [unowned self] profile in
+                    self.viewModel.changeProfile(profile)
+                }
+
+                view.addSubview(profilesView) {
+                    $0.top.equalToSuperview().offset(topBarHeight)
+                    $0.left.right.equalToSuperview()
+                    $0.height.equalTo(45)
+                }
+            }
+
+            gridView = GridView(constructor: gridConstructor).then { gridView in
+
+                view.addSubview(gridView) {
+                    $0.left.right.bottom.equalToSuperview()
+                    $0.top.equalTo(profilesView.snp.bottom)
+                }
+            }
+        }
     }
 
     // MARK: - Lifecycle
@@ -61,7 +88,6 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         // grid view
 
         gridView.dataSource = self
-        gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
         // sockets status view
@@ -123,8 +149,13 @@ extension ArbsViewController: GridViewDataSource {
             cell.onTap { [unowned self] arb in
                 guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                let wireframe = ArbsPlaygroundWireframe(selectedArb: newArb)
-                self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+                if arb.portfolio.name.lowercased() == "ara" {
+                    let wireframe = ArbsPlaygroundWireframe(selectedArb: newArb)
+                    self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+                } else {
+                    let wireframe = ArbDetailWireframe(selectedArb: newArb)
+                    self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+                }
             }
 
             cell.onToggleFavourite { [unowned self] arb in
@@ -208,5 +239,9 @@ extension ArbsViewController: ArbsViewModelDelegate {
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
         socketsStatusView.apply(color: color, title: title, formattedDate: formattedDate)
+    }
+
+    func didReceiveProfilesInfo(profiles: [ArbProfileCategory], selectedProfile: ArbProfileCategory?) {
+        profilesView.apply(profiles, selectedProfile: selectedProfile)
     }
 }
