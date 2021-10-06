@@ -124,7 +124,6 @@ class EditPortfolioItemsViewController: BaseTableVMViewController<EditPortfolioI
             profilesView.onRemoveProfile { [unowned self] profile in
                 let sourceFrame = profilesView.scrollView.convert(profilesView.selectedView!.frame, to: view)
                 UIActionSheetFactory.showDeletePortolioConfirmation(in: self, sourceFrame: sourceFrame) { [unowned self] in
-                    print(profilesView.selectedView?.profile)
                     self.viewModel.delete(profile: profile)
                 }
             }

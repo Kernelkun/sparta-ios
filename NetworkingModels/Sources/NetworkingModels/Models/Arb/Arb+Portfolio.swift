@@ -26,6 +26,18 @@ public extension Arb {
     }
 }
 
+extension Arb.Portfolio {
+
+    public var isAra: Bool {
+        name.lowercased() == "ara"
+    }
+
+    public var isHou: Bool {
+        name.lowercased() == "hou"
+    }
+
+}
+
 extension Arb.Portfolio: Equatable {
 
     public static func ==(lhs: Self, rhs: Self) -> Bool {

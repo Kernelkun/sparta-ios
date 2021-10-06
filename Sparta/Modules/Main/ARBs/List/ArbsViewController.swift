@@ -108,6 +108,16 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         navigationItem.title = nil
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "MainTabsPage.ARBs.Title".localized)
     }
+
+    private func navigateToArbDetails(_ arb: Arb) {
+        if arb.portfolio.isAra {
+            let wireframe = ArbsPlaygroundWireframe(selectedArb: arb)
+            self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+        } else {
+            let wireframe = ArbDetailWireframe(selectedArb: arb)
+            self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+        }
+    }
 }
 
 extension ArbsViewController: GridViewDataSource {
@@ -129,7 +139,11 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
-        150
+        if case let ArbsViewModel.Cell.title(arb) = viewModel.tableDataSource[section] {
+            return ArbsUIConstants.cellHeight(for: arb.portfolio)
+        }
+
+        return ArbsUIConstants.defaultCellHeight
     }
 
     func numberOfRowsForGradeCollectionView(in section: Int) -> Int {
@@ -149,13 +163,7 @@ extension ArbsViewController: GridViewDataSource {
             cell.onTap { [unowned self] arb in
                 guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                if arb.portfolio.name.lowercased() == "ara" {
-                    let wireframe = ArbsPlaygroundWireframe(selectedArb: newArb)
-                    self.navigationController?.pushViewController(wireframe.viewController, animated: true)
-                } else {
-                    let wireframe = ArbDetailWireframe(selectedArb: newArb)
-                    self.navigationController?.pushViewController(wireframe.viewController, animated: true)
-                }
+                self.navigateToArbDetails(newArb)
             }
 
             cell.onToggleFavourite { [unowned self] arb in
@@ -167,7 +175,6 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
-
         let section = viewModel.collectionDataSource[indexPath.section]
         let gradeType = viewModel.collectionGrades[indexPath.row]
 
@@ -181,8 +188,7 @@ extension ArbsViewController: GridViewDataSource {
             cell.onTap { [unowned self] arb in
                 guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                let wireframe = ArbsPlaygroundWireframe(selectedArb: newArb)
-                self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+                self.navigateToArbDetails(newArb)
             }
         }
 

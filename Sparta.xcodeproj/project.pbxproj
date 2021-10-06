@@ -20,6 +20,7 @@
 		D90E5A9926BBEDC900D05473 /* ArbsPlaygroundCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90E5A9826BBEDC900D05473 /* ArbsPlaygroundCalculator.swift */; };
 		D90E5A9C26BC092A00D05473 /* ArbSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90E5A9B26BC092A00D05473 /* ArbSearchViewController.swift */; };
 		D90E5A9E26BC093900D05473 /* ArbSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90E5A9D26BC093900D05473 /* ArbSearchViewModel.swift */; };
+		D913955C270C500000867D5A /* Arb+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D913955B270C500000867D5A /* Arb+UI.swift */; };
 		D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */; };
 		D91AB43B265FDAAA00BDD75D /* ProfilesViewConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AB43A265FDAAA00BDD75D /* ProfilesViewConstructor.swift */; };
 		D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */; };
@@ -211,6 +212,7 @@
 		D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */; };
 		D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */; };
 		D9EE1C8C26AAC8BE00306566 /* ArbsPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */; };
+		D9F6B6AF270DC2AC00334AFF /* ArbsUIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6B6AE270DC2AB00334AFF /* ArbsUIConstants.swift */; };
 		D9F7C36226E7D2D80048595A /* ArbsPlaygroundWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7C36126E7D2D80048595A /* ArbsPlaygroundWireframe.swift */; };
 		D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */; };
 		D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */; };
@@ -232,6 +234,7 @@
 		D90E5A9826BBEDC900D05473 /* ArbsPlaygroundCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundCalculator.swift; sourceTree = "<group>"; };
 		D90E5A9B26BC092A00D05473 /* ArbSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbSearchViewController.swift; sourceTree = "<group>"; };
 		D90E5A9D26BC093900D05473 /* ArbSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbSearchViewModel.swift; sourceTree = "<group>"; };
+		D913955B270C500000867D5A /* Arb+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Arb+UI.swift"; sourceTree = "<group>"; };
 		D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D91AB43A265FDAAA00BDD75D /* ProfilesViewConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewConstructor.swift; sourceTree = "<group>"; };
 		D91CE9C02595098C00E6374E /* MainTabsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabsViewModel.swift; sourceTree = "<group>"; };
@@ -421,6 +424,7 @@
 		D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableUISwitch.swift; sourceTree = "<group>"; };
 		D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateService.swift; sourceTree = "<group>"; };
 		D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundViewController.swift; sourceTree = "<group>"; };
+		D9F6B6AE270DC2AB00334AFF /* ArbsUIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsUIConstants.swift; sourceTree = "<group>"; };
 		D9F7C36126E7D2D80048595A /* ArbsPlaygroundWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundWireframe.swift; sourceTree = "<group>"; };
 		D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultMonthSelector.swift; sourceTree = "<group>"; };
 		D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyValueView.swift; sourceTree = "<group>"; };
@@ -505,6 +509,14 @@
 				D9A91CB725A9AAD300423704 /* FreightCalculator.swift */,
 			);
 			path = Calculators;
+			sourceTree = "<group>";
+		};
+		D913955A270C4FEF00867D5A /* Arb */ = {
+			isa = PBXGroup;
+			children = (
+				D913955B270C500000867D5A /* Arb+UI.swift */,
+			);
+			path = Arb;
 			sourceTree = "<group>";
 		};
 		D91A96B9258BB56C008487A8 /* LiveCurves */ = {
@@ -827,6 +839,7 @@
 				D97895E32583B800009E4A56 /* PickerIdValued.swift */,
 				D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */,
 				D963452826C1529D000DD791 /* ArbPlaygroundDPS+PickerValued.swift */,
+				D913955A270C4FEF00867D5A /* Arb */,
 				D9B7CCD225C1C4F10023FDF2 /* ArbMonth */,
 			);
 			path = Models;
@@ -875,6 +888,7 @@
 				D9A91BF525A346D400423704 /* Helpers */,
 				D959C0E125822969006CE2D1 /* ArbsViewModel.swift */,
 				D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */,
+				D9F6B6AE270DC2AB00334AFF /* ArbsUIConstants.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1752,6 +1766,7 @@
 				D999387426C1BAC1005AF406 /* BaseWireframe.swift in Sources */,
 				D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
+				D913955C270C500000867D5A /* Arb+UI.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
 				D90160042698948D00F144F5 /* BlenderNetworkManager.swift in Sources */,
 				D9716CEC2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift in Sources */,
@@ -1780,6 +1795,7 @@
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
 				D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */,
 				D9A839C2265E4D120074E134 /* EditPortfolioItemsViewController.swift in Sources */,
+				D9F6B6AF270DC2AC00334AFF /* ArbsUIConstants.swift in Sources */,
 				D95F3F8C26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift in Sources */,
 				D93BC634258BF9300026BF8E /* UIGridViewConstants.swift in Sources */,
 				D95F3F9026AAD88A00F20A74 /* ArbsEndPoint.swift in Sources */,
