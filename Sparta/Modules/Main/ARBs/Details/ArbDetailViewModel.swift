@@ -126,10 +126,10 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
                                 units: blendCostUnitValue))
 
         // gas/naphta
-
-        cells.append(.gasNap(value: selectedArbMonth.gasMinusNaphtha.value,
-                             color: selectedArbMonth.gasMinusNaphtha.valueColor,
-                             units: gasNapUnitValue))
+//
+//        cells.append(.gasNap(value: selectedArbMonth.gasMinusNaphtha.value,
+//                             color: selectedArbMonth.gasMinusNaphtha.valueColor,
+//                             units: gasNapUnitValue))
 
         // freight
 
