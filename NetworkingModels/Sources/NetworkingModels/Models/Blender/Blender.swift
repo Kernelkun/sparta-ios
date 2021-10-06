@@ -21,6 +21,7 @@ public struct Blender: BackendModel {
     public var months: [BlenderMonth]
     public let loadRegion: BlenderRegion
     public let priceInfo: [PriceInfo]
+    public let portfolioConfiguration: PortfolioConfiguration
 
     // for presenting
 
@@ -43,6 +44,7 @@ public struct Blender: BackendModel {
         isCustom = json["isCustom"].boolValue
         loadRegion = BlenderRegion(json: json["loadRegion"])
         priceInfo = json["priceInfo"].arrayValue.compactMap { PriceInfo(json: $0) }
+        portfolioConfiguration = PortfolioConfiguration(json: json)
     }
 }
 

@@ -58,14 +58,15 @@ class BlenderDescriptionTableViewCell: UITableViewCell {
 
         valueLabel = UILabel().then { label in
 
-            label.textAlignment = .center
+            label.textAlignment = .right
             label.textColor = .primaryText
             label.font = .main(weight: .regular, size: 10)
-            label.numberOfLines = 1
+            label.numberOfLines = 2
 
             contentView.addSubview(label) {
+                $0.left.equalTo(titleLabel.snp.right).offset(16)
                 $0.right.equalToSuperview().inset(4)
-                $0.centerY.equalToSuperview()
+                $0.top.bottom.equalToSuperview().inset(4)
             }
         }
 

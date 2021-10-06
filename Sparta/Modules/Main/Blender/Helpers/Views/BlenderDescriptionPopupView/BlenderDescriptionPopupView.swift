@@ -78,6 +78,10 @@ class BlenderDescriptionPopupView: UIView {
 
         tableView = UITableView().then { tableView in
 
+            if #available(iOS 15.0, *) {
+                tableView.sectionHeaderTopPadding = 0
+            }
+
             tableView.applyCorners(4)
             tableView.backgroundColor = .mainBackground
             tableView.tableFooterView = UIView(frame: .zero)

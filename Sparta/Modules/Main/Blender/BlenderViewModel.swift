@@ -95,6 +95,10 @@ class BlenderViewModel: NSObject, BaseViewModel {
             mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: mainKeyValues.count + 2))
         }
 
+        if blender.isCustom, let blenderConfigurationName = blender.portfolioConfiguration.name?.nullable {
+            mainKeyValues.append(.init(key: "Configuration", value: blenderConfigurationName, priorityIndex: mainKeyValues.count + 3))
+        }
+
         var componentsKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []
 
         for (index, element) in month.components.enumerated() {
