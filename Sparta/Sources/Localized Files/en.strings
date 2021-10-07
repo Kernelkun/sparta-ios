@@ -87,6 +87,9 @@
 "ArbsPage.Grade.DlvPrice.Title" = "Dlv\nPrice";
 "ArbsPage.Status.InputTgt.Title" = "Input TGT";
 
+"ArbsPage.Portfolio.Ara.Description" = "Prices displayed in $/mt vs Argus EBOB unless stated otherwise";
+"ArbsPage.Portfolio.Hou.Description" = "Prices displayed in cpg vs RBOB Future unless stated otherwise";
+
 // arb detail page
 
 "ArbDetailPage.Key.Status.Title" = "Arb Open/Close";

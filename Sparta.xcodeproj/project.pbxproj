@@ -50,6 +50,9 @@
 		D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228425826AE6005FA057 /* PhoneNumberKit-Static */; };
 		D94E228725826AE6005FA057 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228625826AE6005FA057 /* PhoneNumberKit */; };
 		D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E228825826CEE005FA057 /* UITextFieldSelector.swift */; };
+		D95449EE270E2A6B00BD2B75 /* CollapsableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95449ED270E2A6B00BD2B75 /* CollapsableView.swift */; };
+		D95449F1270EE8DD00BD2B75 /* ProfileDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95449F0270EE8DD00BD2B75 /* ProfileDescriptionView.swift */; };
+		D95449F3270EEDA400BD2B75 /* ArbPortfolio+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95449F2270EEDA400BD2B75 /* ArbPortfolio+UI.swift */; };
 		D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D954A14A2590B3E300FAE766 /* SeasonalityButton.swift */; };
 		D959C0DE2582295F006CE2D1 /* ArbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */; };
 		D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D959C0E125822969006CE2D1 /* ArbsViewModel.swift */; };
@@ -262,6 +265,9 @@
 		D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectiomViewCell.swift; sourceTree = "<group>"; };
 		D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D94E228825826CEE005FA057 /* UITextFieldSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldSelector.swift; sourceTree = "<group>"; };
+		D95449ED270E2A6B00BD2B75 /* CollapsableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableView.swift; sourceTree = "<group>"; };
+		D95449F0270EE8DD00BD2B75 /* ProfileDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDescriptionView.swift; sourceTree = "<group>"; };
+		D95449F2270EEDA400BD2B75 /* ArbPortfolio+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbPortfolio+UI.swift"; sourceTree = "<group>"; };
 		D954A14A2590B3E300FAE766 /* SeasonalityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonalityButton.swift; sourceTree = "<group>"; };
 		D959C0DD2582295F006CE2D1 /* ArbsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsViewController.swift; sourceTree = "<group>"; };
 		D959C0E125822969006CE2D1 /* ArbsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsViewModel.swift; sourceTree = "<group>"; };
@@ -515,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				D913955B270C500000867D5A /* Arb+UI.swift */,
+				D95449F2270EEDA400BD2B75 /* ArbPortfolio+UI.swift */,
 			);
 			path = Arb;
 			sourceTree = "<group>";
@@ -532,6 +539,7 @@
 		D91AB439265FBF0B00BDD75D /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				D95449EF270EE83B00BD2B75 /* ProfileDescription */,
 				D980119F2652AE5400B8AA70 /* ProfileElementView.swift */,
 				D980119D2652A99B00B8AA70 /* ProfilesView.swift */,
 				D91AB43A265FDAAA00BDD75D /* ProfilesViewConstructor.swift */,
@@ -669,6 +677,14 @@
 				D99A73E8259C7B24009E3559 /* ARBs */,
 			);
 			path = "Socket API";
+			sourceTree = "<group>";
+		};
+		D95449EF270EE83B00BD2B75 /* ProfileDescription */ = {
+			isa = PBXGroup;
+			children = (
+				D95449F0270EE8DD00BD2B75 /* ProfileDescriptionView.swift */,
+			);
+			path = ProfileDescription;
 			sourceTree = "<group>";
 		};
 		D959C0DC2582293E006CE2D1 /* ARBs */ = {
@@ -1056,14 +1072,6 @@
 		D9A8041F25714404000ADE6B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D9A80440257146D1000ADE6B /* AvatarView.swift */,
-				D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */,
-				D94E228825826CEE005FA057 /* UITextFieldSelector.swift */,
-				D970047925892AEB000E4A01 /* LoadingView.swift */,
-				D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */,
-				D9A91CBE25AC691C00423704 /* LoaderView.swift */,
-				D9B7CCD825C1C9590023FDF2 /* ProgressView.swift */,
-				D99624CB266E6CDE001CD262 /* EmptyStateView.swift */,
 				D9A8042C25714595000ADE6B /* Buttons */,
 				D9B50E2525740F810018F3D7 /* Textfields */,
 				D944CEF82577B884009115FD /* Collection */,
@@ -1072,6 +1080,15 @@
 				D9A91C1E25A5CF1600423704 /* Navigation */,
 				D91AB439265FBF0B00BDD75D /* Profile */,
 				D96F47B226BD5A150063AB90 /* Playground */,
+				D9A80440257146D1000ADE6B /* AvatarView.swift */,
+				D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */,
+				D94E228825826CEE005FA057 /* UITextFieldSelector.swift */,
+				D970047925892AEB000E4A01 /* LoadingView.swift */,
+				D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */,
+				D9A91CBE25AC691C00423704 /* LoaderView.swift */,
+				D9B7CCD825C1C9590023FDF2 /* ProgressView.swift */,
+				D99624CB266E6CDE001CD262 /* EmptyStateView.swift */,
+				D95449ED270E2A6B00BD2B75 /* CollapsableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1714,6 +1731,7 @@
 				D9B50E0F257180A70018F3D7 /* AuthenticationFlowCoordinator.swift in Sources */,
 				D944CEFD2577B8E1009115FD /* GridCell.swift in Sources */,
 				D959C0F625822F94006CE2D1 /* SettingsViewController.swift in Sources */,
+				D95449EE270E2A6B00BD2B75 /* CollapsableView.swift in Sources */,
 				D959C0DE2582295F006CE2D1 /* ArbsViewController.swift in Sources */,
 				D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */,
 				D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */,
@@ -1796,6 +1814,7 @@
 				D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */,
 				D9A839C2265E4D120074E134 /* EditPortfolioItemsViewController.swift in Sources */,
 				D9F6B6AF270DC2AC00334AFF /* ArbsUIConstants.swift in Sources */,
+				D95449F3270EEDA400BD2B75 /* ArbPortfolio+UI.swift in Sources */,
 				D95F3F8C26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift in Sources */,
 				D93BC634258BF9300026BF8E /* UIGridViewConstants.swift in Sources */,
 				D95F3F9026AAD88A00F20A74 /* ArbsEndPoint.swift in Sources */,
@@ -1845,6 +1864,7 @@
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
 				D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */,
+				D95449F1270EE8DD00BD2B75 /* ProfileDescriptionView.swift in Sources */,
 				D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

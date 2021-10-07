@@ -13,6 +13,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     // MARK: - UI
 
     private var profilesView: ProfilesView<ArbProfileCategory>!
+    private var subProfileView: ProfileDescription!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
 
@@ -46,11 +47,19 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
                 }
             }
 
+            subProfileView = ProfileDescription().then { contentView in
+
+                view.addSubview(contentView) {
+                    $0.left.right.equalTo(profilesView)
+                    $0.top.equalTo(profilesView.snp.bottom)
+                }
+            }
+
             gridView = GridView(constructor: gridConstructor).then { gridView in
 
                 view.addSubview(gridView) {
                     $0.left.right.bottom.equalToSuperview()
-                    $0.top.equalTo(profilesView.snp.bottom)
+                    $0.top.equalTo(subProfileView.snp.bottom)
                 }
             }
         }
@@ -249,5 +258,11 @@ extension ArbsViewController: ArbsViewModelDelegate {
 
     func didReceiveProfilesInfo(profiles: [ArbProfileCategory], selectedProfile: ArbProfileCategory?) {
         profilesView.apply(profiles, selectedProfile: selectedProfile)
+
+        if let descriptionText = selectedProfile?.portfolio.descriptionText?.nullable {
+            subProfileView.show(text: descriptionText)
+        } else {
+            subProfileView.hide()
+        }
     }
 }
