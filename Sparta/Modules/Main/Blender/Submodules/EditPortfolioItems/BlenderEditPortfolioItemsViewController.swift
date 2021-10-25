@@ -70,6 +70,11 @@ class BlenderEditPortfolioItemsViewController: BaseTableVMViewController<Blender
     private func setupTableView() {
 
         tableView.do { tableView in
+
+            if #available(iOS 15, *) {
+                tableView.sectionHeaderTopPadding = 0
+            }
+
             tableView.tableFooterView = UIView()
             tableView.dataSource = self
             tableView.separatorColor = .separator

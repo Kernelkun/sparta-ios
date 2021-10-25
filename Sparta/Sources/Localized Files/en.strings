@@ -102,10 +102,10 @@
 "ArbDetailPage.Key.DlvPrice.Title" = "Dlv Price";
 "ArbDetailPage.Key.DlvPriceBasis.Title" = "Dlv Price Basis";
 "ArbDetailPage.Key.MyMargin.Title" = "My Margin";
-"ArbDetailPage.Key.BlenderMargin.Title" = "Refy Margin";
+"ArbDetailPage.Key.BlenderMargin.Title" = "Ref Margin";
 "ArbDetailPage.Key.FobRefyMargin.Title" = "FOB Refy Margin";
 "ArbDetailPage.Key.CifRefyMargin.Title" = "CIF Refy Margin";
-"ArbDetailPage.Key.CodBlenderMargin.Title" = "CoD Refy Margin";
+"ArbDetailPage.Key.CodBlenderMargin.Title" = "CoD, Ref Margin";
 "ArbDetailPage.Button.InputTgt.Title" = "Input My Target";
 
 // arb playground page

@@ -24,7 +24,7 @@ class BlenderEditPortfolioItemsViewModel: NSObject, BaseViewModel {
 
     weak var delegate: BlenderEditPortfolioItemsViewModelDelegate?
     var profiles: [BlenderProfileCategory] = []
-    var selectedProfile = BlenderProfileCategory(region: .ara)
+    var selectedProfile = BlenderProfileCategory(portfolio: .ara)
 
     // MARK: - Private properties
 
@@ -82,7 +82,7 @@ class BlenderEditPortfolioItemsViewModel: NSObject, BaseViewModel {
             ["gradeCode": $0.gradeCode, "position": selectedProfile.blenders.firstIndex(of: $0) ?? 0]
         }
 
-        networkManager.changePortfolioItemsOrder(region: selectedProfile.region, orders: parameters, completion: { _ in })
+        networkManager.changePortfolioItemsOrder(region: item.loadRegion, orders: parameters, completion: { _ in })
     }
 
     // MARK: - Private methods
@@ -91,7 +91,7 @@ class BlenderEditPortfolioItemsViewModel: NSObject, BaseViewModel {
         guard let itemIndex = selectedProfile.blenders.firstIndex(of: item) else { return nil }
 
         let blenders = profiles
-            .first(where: { $0.region == selectedProfile.region })?.blenders
+            .first(where: { $0.portfolio == selectedProfile.portfolio })?.blenders
             .filter { $0.gradeCode != item.gradeCode } ?? []
 
         if let indexOfProfile = profiles.firstIndex(of: selectedProfile) {

@@ -91,7 +91,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
         }
 
         // escalation
-        if blenderManager.profile.region == .ara {
+        if blenderManager.profile.portfolio == .ara {
             mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: mainKeyValues.count + 2))
         }
 
@@ -127,7 +127,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     func monthsCount() -> Int {
-        blenderManager.profile.region == .ara ? 6 : 2
+        blenderManager.profile.portfolio == .ara ? 6 : 2
     }
 
     // MARK: - Private methods
