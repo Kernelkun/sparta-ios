@@ -8,7 +8,14 @@
 import UIKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder {
+
+    // MARK: - Public properties
+
+    var orientationLock = UIInterfaceOrientationMask.portrait
+}
+
+extension AppDelegate: UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -28,23 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
-}
 
-extension Double {
-    func round(nearest: Double, rule: FloatingPointRoundingRule) -> Double {
-        let n = 1 / nearest
-        let numberToRound = self * n
-        return numberToRound.rounded(rule) / n
-    }
-
-    func round(nearest: Double) -> Double {
-        let n = 1 / nearest
-        let numberToRound = self * n
-        return numberToRound.rounded() / n
-    }
-
-    func floor(nearest: Double) -> Double {
-        let intDiv = Double(Int(self / nearest))
-        return intDiv * nearest
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        orientationLock
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkingModels
+import SpartaHelpers
 
 protocol ArbsPlaygroundCalculatorDelegate: AnyObject {
     func didChangeLoadingState(_ isLoading: Bool)

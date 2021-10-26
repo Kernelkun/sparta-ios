@@ -23,6 +23,10 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
+
+    // MARK: - Interface options
+
+    var preferredInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
     
     // MARK: - Private accessors
     
@@ -52,11 +56,24 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 
         view.addGestureRecognizer(tapRecognizer)
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        InterfaceOrientationUtility.lockOrientation(preferredInterfaceOrientations,
+                                                    rotateTo: .portrait)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         enterCount += 1
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        InterfaceOrientationUtility.lockOrientation(.all)
     }
     
     // MARK: - Public methods
