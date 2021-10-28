@@ -12,7 +12,7 @@ class AppDelegate: UIResponder {
 
     // MARK: - Public properties
 
-    var orientationLock = UIInterfaceOrientationMask.portrait
+    var orientationLock: UIInterfaceOrientationMask = .all
 }
 
 extension AppDelegate: UIApplicationDelegate {
@@ -36,7 +36,8 @@ extension AppDelegate: UIApplicationDelegate {
         return true
     }
 
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+    func application(_ application: UIApplication,
+                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         orientationLock
     }
 }

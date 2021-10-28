@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIApplication {
+public extension UIApplication {
 
     /// Check if the application runs on iPhone X like phones
     static var isDeviceWithSafeArea: Bool {
