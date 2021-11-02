@@ -13,7 +13,8 @@ class ArbsPlaygroundPCWireframe: BaseWireframe<ArbsPlaygroundPCViewController> {
     // MARK: - Initializers
 
     init() {
-        let viewController = ArbsPlaygroundPCViewController()
+        let viewModel = ArbsPlaygroundPCViewModel()
+        let viewController = ArbsPlaygroundPCViewController(viewModel: viewModel)
         super.init(viewController: viewController)
     }
 }

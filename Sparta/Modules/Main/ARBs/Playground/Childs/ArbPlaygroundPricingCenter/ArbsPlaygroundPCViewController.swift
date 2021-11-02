@@ -10,12 +10,30 @@ import UIKit
 
 class ArbsPlaygroundPCViewController: BaseViewController {
 
+    // MARK: - Private properties
+
+    private let viewModel: ArbsPlaygroundPCViewModelInterface
+
+    // MARK: - Initializers
+
+    init(viewModel: ArbsPlaygroundPCViewModelInterface) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(#function)
+    }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
+
+        // view model
+        viewModel.loadData()
     }
 
     // MARK: - Private methods

@@ -220,6 +220,10 @@
 		D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */; };
 		D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */; };
 		D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */; };
+		D9DF2C91272C28AA00EDE415 /* ArbVSelectorsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */; };
+		D9DF2C93272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF2C92272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift */; };
+		D9DF2C9C272D238000EDE415 /* OTPStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF2C9B272D238000EDE415 /* OTPStackView.swift */; };
+		D9DF2C9F272D23A400EDE415 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF2C9E272D23A400EDE415 /* OTPTextField.swift */; };
 		D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */; };
 		D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */; };
 		D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */; };
@@ -449,6 +453,10 @@
 		D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesNetworkManager.swift; sourceTree = "<group>"; };
 		D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPortfolioAddItemViewModel+Models.swift"; sourceTree = "<group>"; };
 		D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStateModel.swift; sourceTree = "<group>"; };
+		D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbVSelectorsRequest.swift; sourceTree = "<group>"; };
+		D9DF2C92272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundPCInterfaces.swift; sourceTree = "<group>"; };
+		D9DF2C9B272D238000EDE415 /* OTPStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPStackView.swift; sourceTree = "<group>"; };
+		D9DF2C9E272D23A400EDE415 /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderSyncManager.swift; sourceTree = "<group>"; };
 		D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthDetailModel.swift; sourceTree = "<group>"; };
 		D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -826,6 +834,7 @@
 		D96C8BED2576651C0038175A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				D9DF2C8F272C280A00EDE415 /* Requests */,
 				D96C8BEF2576651C0038175A /* BaseNetworkManager.swift */,
 				D96C8BEE2576651C0038175A /* AuthNetworkManager.swift */,
 				D944CEF025767306009115FD /* ProfileNetworkManager.swift */,
@@ -1094,6 +1103,7 @@
 			isa = PBXGroup;
 			children = (
 				D9A47F61272AB05600B319E7 /* Helpers */,
+				D9DF2C92272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift */,
 				D9A47F5F272AA03300B319E7 /* ArbsPlaygroundPCViewModel.swift */,
 				D9A47F5B272AA01A00B319E7 /* ArbsPlaygroundPCViewController.swift */,
 				D9A47F5D272AA02800B319E7 /* ArbsPlaygroundPCWireframe.swift */,
@@ -1389,6 +1399,7 @@
 		D9B50E2525740F810018F3D7 /* Textfields */ = {
 			isa = PBXGroup;
 			children = (
+				D9DF2C9D272D238800EDE415 /* OTP */,
 				D9B50E2A25740FEB0018F3D7 /* LimitedTextField.swift */,
 				D9B50E2625740F9B0018F3D7 /* RoundedTextField.swift */,
 			);
@@ -1574,6 +1585,23 @@
 				D9D4FC2F264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		D9DF2C8F272C280A00EDE415 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		D9DF2C9D272D238800EDE415 /* OTP */ = {
+			isa = PBXGroup;
+			children = (
+				D9DF2C9E272D23A400EDE415 /* OTPTextField.swift */,
+				D9DF2C9B272D238000EDE415 /* OTPStackView.swift */,
+			);
+			path = OTP;
 			sourceTree = "<group>";
 		};
 		D9ECEC39257A9A6D005DFFD7 /* Views */ = {
@@ -1801,6 +1829,7 @@
 				D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */,
 				D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
+				D9DF2C9F272D23A400EDE415 /* OTPTextField.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
 				D9B7CCD425C1C53B0023FDF2 /* ArbMonth+Margin.swift in Sources */,
 				D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */,
@@ -1868,6 +1897,7 @@
 				D999386F26C1B99C005AF406 /* ArbSearchInterfaces.swift in Sources */,
 				D906529725D2EB6800892C89 /* ResultKeyValueUnitsView.swift in Sources */,
 				D9A91CB825A9AAD400423704 /* FreightCalculator.swift in Sources */,
+				D9DF2C9C272D238000EDE415 /* OTPStackView.swift in Sources */,
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */,
@@ -1945,6 +1975,7 @@
 				D959C0F925822F9C006CE2D1 /* SettingsViewModel.swift in Sources */,
 				D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */,
 				D963452C26C154F4000DD791 /* ArbPlaygroundDPSPointViewConstructor.swift in Sources */,
+				D9DF2C91272C28AA00EDE415 /* ArbVSelectorsRequest.swift in Sources */,
 				D9C71C522678A46E001B1924 /* UIAlertFactory.swift in Sources */,
 				D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */,
 				D90DE03A26BE6EE400D1A8D9 /* ArbPlaygroundInputDataView.swift in Sources */,
@@ -1961,6 +1992,7 @@
 				D999387F26C2616A005AF406 /* ArbPlaygroundResultViewConstructor.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D90E5A9C26BC092A00D05473 /* ArbSearchViewController.swift in Sources */,
+				D9DF2C93272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift in Sources */,
 				D90DE02C26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
