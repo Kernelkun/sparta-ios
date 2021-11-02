@@ -8,6 +8,7 @@
 import UIKit
 import NetworkingModels
 import SpartaHelpers
+import Networking
 
 class ArbTestViewController: BaseViewController {
 
@@ -36,6 +37,8 @@ class ArbTestViewController: BaseViewController {
         super.viewDidLoad()
 
         setupUI()
+
+        App.instance.socketsConnect(toServer: .visualisations)
     }
 
     //

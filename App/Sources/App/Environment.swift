@@ -49,6 +49,7 @@ public struct Environment {
     public static let socketBlenderURL = Self.baseDataURL + "/blender?regions=ARA,HOU&portfolioIds=1,2,3"
     public static let socketLiveCurvesURL = Self.baseDataURL + "/socket/v2/curves"
     public static let socketArbsURL = Self.baseDataURL + "/socket/arbs?arbsmonths=6&portfolioIds=1,2"
+    public static let socketVisualisationsURL = Self.baseDataURL + "/socket/visualizations"
 
     // API KEY's
 
