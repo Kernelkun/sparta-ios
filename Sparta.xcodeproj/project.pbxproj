@@ -91,6 +91,9 @@
 		D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */; };
 		D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
+		D985DE782731B27B007FCBED /* ArbsVSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D985DE772731B27B007FCBED /* ArbsVSyncManager.swift */; };
+		D985DE7A2731B289007FCBED /* ArbsVSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D985DE792731B289007FCBED /* ArbsVSyncManager+Observation.swift */; };
+		D985DE7C2731B29A007FCBED /* ArbsSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D985DE7B2731B29A007FCBED /* ArbsSyncManagerProtocol.swift */; };
 		D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */; };
 		D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */; };
 		D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */; };
@@ -322,6 +325,9 @@
 		D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewModel.swift; sourceTree = "<group>"; };
 		D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesViewModel+Models.swift"; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
+		D985DE772731B27B007FCBED /* ArbsVSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVSyncManager.swift; sourceTree = "<group>"; };
+		D985DE792731B289007FCBED /* ArbsVSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsVSyncManager+Observation.swift"; sourceTree = "<group>"; };
+		D985DE7B2731B29A007FCBED /* ArbsSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		D98A2F8026F9E20200833684 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D98A2F8126F9E20B00833684 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -709,6 +715,7 @@
 				D93BC63E258CF8530026BF8E /* Blender */,
 				D91A96B9258BB56C008487A8 /* LiveCurves */,
 				D99A73E8259C7B24009E3559 /* ARBs */,
+				D985DE762731B23A007FCBED /* ARBsVisualisations */,
 			);
 			path = "Socket API";
 			sourceTree = "<group>";
@@ -931,6 +938,16 @@
 				D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D985DE762731B23A007FCBED /* ARBsVisualisations */ = {
+			isa = PBXGroup;
+			children = (
+				D985DE7B2731B29A007FCBED /* ArbsSyncManagerProtocol.swift */,
+				D985DE772731B27B007FCBED /* ArbsVSyncManager.swift */,
+				D985DE792731B289007FCBED /* ArbsVSyncManager+Observation.swift */,
+			);
+			path = ARBsVisualisations;
 			sourceTree = "<group>";
 		};
 		D98AF6BC25BA197100A5BC96 /* List */ = {
@@ -1875,6 +1892,7 @@
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9F7C36226E7D2D80048595A /* ArbsPlaygroundWireframe.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
+				D985DE782731B27B007FCBED /* ArbsVSyncManager.swift in Sources */,
 				D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift in Sources */,
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
 				D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */,
@@ -1935,6 +1953,7 @@
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
 				D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */,
 				D9A839C2265E4D120074E134 /* EditPortfolioItemsViewController.swift in Sources */,
+				D985DE7C2731B29A007FCBED /* ArbsSyncManagerProtocol.swift in Sources */,
 				D9F6B6AF270DC2AC00334AFF /* ArbsUIConstants.swift in Sources */,
 				D9A47F66272AB68900B319E7 /* APPCUIConstants.swift in Sources */,
 				D95449F3270EEDA400BD2B75 /* ArbPortfolio+UI.swift in Sources */,
@@ -1991,6 +2010,7 @@
 				D90DE03226BDC4F200D1A8D9 /* ArbPlaygroundResultInputPointView.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
+				D985DE7A2731B289007FCBED /* ArbsVSyncManager+Observation.swift in Sources */,
 				D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */,
 				D95449F1270EE8DD00BD2B75 /* ProfileDescriptionView.swift in Sources */,
 				D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */,

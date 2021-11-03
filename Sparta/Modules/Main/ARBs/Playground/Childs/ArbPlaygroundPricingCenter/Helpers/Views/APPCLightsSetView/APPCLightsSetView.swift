@@ -31,13 +31,17 @@ class APPCLightsSetView: UIView {
 
         _ = UIStackView().then { stackView in
 
-            stackView.axis = .horizontal
-            stackView.distribution = .fillEqually
-            stackView.spacing = APPCUIConstants.priceItemSpace
+            stackView.axis = .vertical
+            stackView.distribution = .fill
+            stackView.spacing = APPCUIConstants.priceItemsLineSpace
             stackView.alignment = .fill
 
-            for _ in 0..<6 {
-                let view = APPCLightView()
+            for _ in 0..<3 {
+                let view = APPCLightView().then {
+                    $0.snp.makeConstraints {
+                        $0.height.equalTo(40)
+                    }
+                }
                 stackView.addArrangedSubview(view)
             }
 
@@ -48,6 +52,5 @@ class APPCLightsSetView: UIView {
     }
 
     private func updateUI() {
-
     }
 }

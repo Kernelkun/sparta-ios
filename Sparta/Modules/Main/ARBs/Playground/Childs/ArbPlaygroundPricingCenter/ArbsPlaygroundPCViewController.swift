@@ -14,6 +14,8 @@ class ArbsPlaygroundPCViewController: BaseViewController {
 
     private let viewModel: ArbsPlaygroundPCViewModelInterface
 
+    private var tableView: UITableView!
+
     // MARK: - Initializers
 
     init(viewModel: ArbsPlaygroundPCViewModelInterface) {
@@ -56,7 +58,7 @@ class ArbsPlaygroundPCViewController: BaseViewController {
             }
         }
 
-        let tableView = UITableView().then { tableView in
+        tableView = UITableView().then { tableView in
 
             if #available(iOS 15.0, *) {
                 tableView.sectionHeaderTopPadding = 0

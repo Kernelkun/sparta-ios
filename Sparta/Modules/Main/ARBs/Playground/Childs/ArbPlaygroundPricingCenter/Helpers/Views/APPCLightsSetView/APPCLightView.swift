@@ -60,7 +60,6 @@ class APPCLightView: UIView {
     }
 
     private func updateUI() {
-
     }
 }
 

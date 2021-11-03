@@ -34,37 +34,31 @@ class APPCTableViewCell: UITableViewCell {
         tintColor = .controlTintActive
         selectionStyle = .none
 
-        let lightsView1 = APPCLightsSetView().then { view in
+        let lightsView1 = APPCLightsSetView()
 
-            view.snp.makeConstraints {
-                $0.height.equalTo(40)
-            }
-        }
+        let lightsView2 = APPCLightsSetView()
 
-        let lightsView2 = APPCLightsSetView().then { view in
+        let lightsView3 = APPCLightsSetView()
 
-            view.snp.makeConstraints {
-                $0.height.equalTo(40)
-            }
-        }
+        let lightsView4 = APPCLightsSetView()
 
-        let lightsView3 = APPCLightsSetView().then { view in
+        let lightsView5 = APPCLightsSetView()
 
-            view.snp.makeConstraints {
-                $0.height.equalTo(40)
-            }
-        }
+        let lightsView6 = APPCLightsSetView()
 
         _ = UIStackView().then { stackView in
 
-            stackView.axis = .vertical
-            stackView.distribution = .fill
-            stackView.spacing = APPCUIConstants.priceItemsLineSpace
+            stackView.axis = .horizontal
+            stackView.distribution = .fillEqually
+            stackView.spacing = APPCUIConstants.priceItemSpace
             stackView.alignment = .fill
 
             stackView.addArrangedSubview(lightsView1)
             stackView.addArrangedSubview(lightsView2)
             stackView.addArrangedSubview(lightsView3)
+            stackView.addArrangedSubview(lightsView4)
+            stackView.addArrangedSubview(lightsView5)
+            stackView.addArrangedSubview(lightsView6)
 
             contentView.addSubview(stackView) {
                 $0.left.equalToSuperview().offset(APPCUIConstants.leftMenuWidth)
