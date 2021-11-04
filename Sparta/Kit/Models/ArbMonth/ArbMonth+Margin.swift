@@ -153,7 +153,7 @@ extension ArbMonth {
     // MARK: - Private properties
 
     private var gradesWithAutomatedMargin: [String] {
-        ["E5EUROBOB", "RBOB", "SING92RON"]
+        ["E5EUROBOB", "RBOB", "SING92RON", "SING92RONHOUREF"]
     }
 }
 
