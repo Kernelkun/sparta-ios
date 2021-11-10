@@ -51,7 +51,6 @@ class ArbsSyncManager {
         return operationQueue
     }()
     private var _arbs: SynchronizedArray<Arb> = SynchronizedArray<Arb>()
-    private var _favourites: SynchronizedArray<Favourite> = SynchronizedArray<Favourite>()
 
     private(set) lazy var profiles = SynchronizedArray<ArbProfileCategory>()
 
@@ -77,7 +76,6 @@ class ArbsSyncManager {
         let group = DispatchGroup()
 
         var arbs: [Arb] = []
-        var favourites: [Favourite] = []
 
         group.enter()
         arbsManager.fetchArbsTable { result in
@@ -94,11 +92,11 @@ class ArbsSyncManager {
         group.enter()
         profileManager.fetchArbsFavouritesList { result in
 
-            if case let .success(responseModel) = result,
+            /*if case let .success(responseModel) = result,
                let list = responseModel.model?.list {
 
                 favourites = Array(list)
-            }
+            }*/
 
             group.leave()
         }
@@ -106,7 +104,6 @@ class ArbsSyncManager {
         group.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
 
-            strongSelf._favourites = SynchronizedArray<Favourite>(favourites)
             strongSelf._arbs = SynchronizedArray<Arb>(arbs)
 
             // patch new arb with current UI state
@@ -185,58 +182,6 @@ class ArbsSyncManager {
         return _arbs[indexOfArb] ?? arb
     }
 
-    // MARK: - Favourite
-
-    func updateFavouriteState(for arb: Arb) {
-
-        // set up temporary value of favourite state for loaded arb
-        if let currentArbIndex = _arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
-            _arbs[currentArbIndex]?.isFavourite = arb.isFavourite
-        }
-
-        if arb.isFavourite {
-
-            if !_favourites.contains(where: { $0.code == arb.serverUniqueIdentifier }) {
-
-                // adding temporarry favourite value
-                _favourites.append(.init(id: 1, code: arb.serverUniqueIdentifier))
-
-                guard let userId = App.instance.currentUser?.id else { return }
-
-                profileManager.addArbToFavouritesList(userId: userId, code: arb.serverUniqueIdentifier) { [weak self] result in
-                    guard let strongSelf = self else { return }
-
-                    // case if backside successfully add favourites record
-                    if case let .success(responseModel) = result,
-                       let model = responseModel.model,
-                       let favouriteIndex = strongSelf._favourites.index(where: { $0.code == model.code }),
-                       let arbIndex = strongSelf._arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
-
-                        strongSelf._favourites[favouriteIndex] = model
-                        strongSelf._arbs[arbIndex]?.isFavourite = true
-                    } else { // case if logic received bad response
-                        strongSelf._favourites = SynchronizedArray(strongSelf._favourites.filter { $0.code != arb.serverUniqueIdentifier })
-
-                        if let currentArbIndex = strongSelf._arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
-                            strongSelf._arbs[currentArbIndex]?.isFavourite = false
-                        }
-                    }
-                }
-            }
-        } else if let index = _favourites.index(where: { $0.code == arb.serverUniqueIdentifier }) {
-
-            profileManager.deleteArbFromFavouritesList(id: _favourites[index]!.id, completion: { [weak self] result in
-                guard let strongSelf = self else { return }
-
-                if case let .success(responseModel) = result,
-                   responseModel.model != nil {
-
-                    strongSelf._favourites = SynchronizedArray(strongSelf._favourites.filter { $0.code != arb.serverUniqueIdentifier })
-                }
-            })
-        }
-    }
-
     // MARK: - User TGT
 
     func updateUserTarget(_ userTarget: Double, for arbMonth: ArbMonth) {
@@ -290,7 +235,6 @@ class ArbsSyncManager {
     }
 
     private func patchArb(_ newArb: inout Arb) {
-        newArb.isFavourite = _favourites.contains(where: { $0.code == newArb.serverUniqueIdentifier })
         newArb.priorityIndex = _arbs.index(where: { $0 == newArb }) ?? -1
     }
 }

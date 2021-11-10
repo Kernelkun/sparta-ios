@@ -25,7 +25,6 @@ public struct Arb: BackendModel {
 
     // for presenting
 
-    public var isFavourite: Bool
     public var priorityIndex: Int = -1
 
     // use this identifier to identify this object as unique
@@ -51,7 +50,6 @@ public struct Arb: BackendModel {
         portfolio = Portfolio(json: json)
         freight = ArbFreight(json: json["freight"])
         freightType = freight.vessel.type
-        isFavourite = false
     }
 }
 

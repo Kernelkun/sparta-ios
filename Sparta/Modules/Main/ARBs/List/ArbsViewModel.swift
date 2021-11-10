@@ -50,25 +50,6 @@ class ArbsViewModel: NSObject, BaseViewModel {
         collectionGrades.count
     }
 
-    func toggleFavourite(arb: Arb) {
-        if let index = fetchedArbs.firstIndex(of: arb) {
-
-            // update arbs favourite states
-
-            fetchedArbs[index].isFavourite.toggle()
-            arbsSyncManager.updateFavouriteState(for: fetchedArbs[index])
-            sortArbs()
-
-            if let indexes = generateDataSourceUpdates() {
-                onMainThread {
-                    self.delegate?.didUpdateDataSourceSections(insertions: IndexSet(indexes.1),
-                                                               removals: IndexSet(indexes.0),
-                                                               updates: [])
-                }
-            }
-        }
-    }
-
     func fetchUpdatedArb(for arb: Arb) -> Arb? {
         guard let arbIndex = fetchedArbs.firstIndex(of: arb) else { return nil }
 
@@ -113,15 +94,7 @@ extension ArbsViewModel {
     private func sortArbs() {
 
         func sortPredicate(lhs: Arb, rhs: Arb) -> Bool {
-            if lhs.isFavourite && rhs.isFavourite {
-                return lhs.priorityIndex < rhs.priorityIndex
-            } else if lhs.isFavourite && !rhs.isFavourite {
-                return true
-            } else if !lhs.isFavourite && rhs.isFavourite {
-                return false
-            } else {
-                return lhs.priorityIndex < rhs.priorityIndex
-            }
+            lhs.priorityIndex < rhs.priorityIndex
         }
 
         fetchedArbs = fetchedArbs.sorted { sortPredicate(lhs: $0, rhs: $1) }

@@ -17,7 +17,6 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
     private var firstDescriptionLabel: UILabel!
     private var secondDescriptionLabel: UILabel!
     private var bottomLine: UIView!
-    private var starButton: StarButton!
 
     // MARK: - Public accessors
 
@@ -27,7 +26,6 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
     // MARK: - Private accessors
 
     private var _tapClosure: TypeClosure<Arb>?
-    private var _tapFavouriteClosure: TypeClosure<Arb>?
 
     // MARK: - Initializers
 
@@ -54,16 +52,11 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        starButton.isActive = false
         titleLabel.attributedText = nil
         stopObservingAllArbsEvents()
     }
 
     // MARK: - Public methods
-
-    func onToggleFavourite(completion: @escaping TypeClosure<Arb>) {
-        _tapFavouriteClosure = completion
-    }
 
     func onTap(completion: @escaping TypeClosure<Arb>) {
         _tapClosure = completion
@@ -81,24 +74,6 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
     private func setupUI() {
 
         tintColor = .controlTintActive
-
-        starButton = StarButton().then { button in
-
-            button.clickableInset = -10
-
-            button.onTap { [unowned self] button in
-                guard let button = button as? StarButton else { return }
-
-                button.isActive.toggle()
-                self._tapFavouriteClosure?(self.arb)
-            }
-
-            contentView.addSubview(button) {
-                $0.size.equalTo(19)
-                $0.left.equalToSuperview().offset(14)
-                $0.top.equalToSuperview().offset(10)
-            }
-        }
 
         _ = TappableView().then { view in
 
@@ -123,7 +98,7 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
 
             contentView.addSubview(view) {
                 $0.right.equalToSuperview()
-                $0.left.equalTo(starButton.snp.right).offset(12)
+                $0.left.equalToSuperview().offset(12)
                 $0.top.equalToSuperview()
                 $0.bottom.equalToSuperview().inset(CGFloat.separatorWidth)
             }
@@ -158,10 +133,6 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
                                        range: fullString.range(of: freightType))
 
         titleLabel.attributedText = attributedString
-
-        // favourite
-
-        starButton.isActive = arb.isFavourite
     }
 }
 
