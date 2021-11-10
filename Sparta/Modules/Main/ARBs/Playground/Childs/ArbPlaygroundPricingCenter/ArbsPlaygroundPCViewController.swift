@@ -5,8 +5,8 @@
 //  Created by Yaroslav Babalich on 28.10.2021.
 //
 
-import Foundation
 import UIKit
+import NetworkingModels
 
 class ArbsPlaygroundPCViewController: BaseViewController {
 
@@ -14,6 +14,7 @@ class ArbsPlaygroundPCViewController: BaseViewController {
 
     private let viewModel: ArbsPlaygroundPCViewModelInterface
 
+    private var arbsSelector: UIMonthSelector<ArbV.Selector>!
     private var tableView: UITableView!
 
     // MARK: - Initializers
@@ -41,13 +42,23 @@ class ArbsPlaygroundPCViewController: BaseViewController {
     // MARK: - Private methods
 
     private func setupUI() {
+
+        arbsSelector = UIMonthSelector<ArbV.Selector>().then { selector in
+
+            addSubview(selector) {
+                $0.left.top.equalToSuperview().inset(4)
+                $0.size.equalTo(CGSize(width: 160, height: 31))
+            }
+        }
+
         let contentView = UIView().then { view in
 
             view.backgroundColor = .secondaryBackground
             view.layer.cornerRadius = 13
 
             addSubview(view) {
-                $0.edges.equalToSuperview().inset(4)
+                $0.top.equalTo(arbsSelector.snp.bottom).offset(8)
+                $0.left.right.bottom.equalToSuperview().inset(4)
             }
         }
 
@@ -100,5 +111,13 @@ extension ArbsPlaygroundPCViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: APPCTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         return cell
+    }
+}
+
+extension ArbsPlaygroundPCViewController: ArbsPlaygroundPCViewModelDelegate {
+
+    func arbsPlaygroundPCViewModelDidFetchSelectors(_ selectors: [ArbV.Selector]) {
+        arbsSelector.inputValues = selectors
+        arbsSelector.apply(selectedValue: selectors.first.required())
     }
 }

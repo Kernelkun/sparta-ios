@@ -21,6 +21,8 @@ class ArbTestViewController: BaseViewController {
     private var arbMenuContentView: UIView!
     private var arbMenu: ArbPlaygroundMenuView!
 
+    private var arbVSyncManager = ArbsVSyncManager()
+
     // MARK: - Initializers
 
     init() {
@@ -38,7 +40,7 @@ class ArbTestViewController: BaseViewController {
 
         setupUI()
 
-        App.instance.socketsConnect(toServer: .visualisations)
+        arbVSyncManager.start()
     }
 
     //

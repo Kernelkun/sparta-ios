@@ -16,5 +16,7 @@ class ArbsPlaygroundPCWireframe: BaseWireframe<ArbsPlaygroundPCViewController> {
         let viewModel = ArbsPlaygroundPCViewModel()
         let viewController = ArbsPlaygroundPCViewController(viewModel: viewModel)
         super.init(viewController: viewController)
+
+        viewModel.delegate = viewController
     }
 }

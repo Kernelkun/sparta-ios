@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import NetworkingModels
 
 protocol ArbsPlaygroundPCViewModelDelegate: AnyObject {
-
+    func arbsPlaygroundPCViewModelDidFetchSelectors(_ selectors: [ArbV.Selector])
 }
 
 protocol ArbsPlaygroundPCViewModelInterface {

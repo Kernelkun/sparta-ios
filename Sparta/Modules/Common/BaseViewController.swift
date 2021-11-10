@@ -61,7 +61,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewWillAppear(animated)
 
         InterfaceOrientationUtility.lockOrientation(preferredInterfaceOrientations,
-                                                    rotateTo: .landscapeRight)
+                                                    rotateTo: .portrait)
     }
     
     override func viewDidAppear(_ animated: Bool) {

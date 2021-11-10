@@ -95,6 +95,7 @@
 		D985DE7A2731B289007FCBED /* ArbsVSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D985DE792731B289007FCBED /* ArbsVSyncManager+Observation.swift */; };
 		D985DE7C2731B29A007FCBED /* ArbsSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D985DE7B2731B29A007FCBED /* ArbsSyncManagerProtocol.swift */; };
 		D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */; };
+		D987D9C0273A860700ACED30 /* ArbVSelector+PickerValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D987D9BF273A860700ACED30 /* ArbVSelector+PickerValued.swift */; };
 		D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */; };
 		D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */; };
 		D98AF6BF25BA198900A5BC96 /* ArbDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6BE25BA198900A5BC96 /* ArbDetailViewController.swift */; };
@@ -206,6 +207,7 @@
 		D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53A0256EF9E400AD2D1A /* Globals.swift */; };
 		D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB53B1256EFC6500AD2D1A /* KeychainAccess */; };
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
+		D9C0E446273AF27500B78637 /* ArbVTableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C0E445273AF27500B78637 /* ArbVTableRequest.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
 		D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */; };
 		D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1126723C20001B1924 /* UISliderViewController.swift */; };
@@ -329,6 +331,7 @@
 		D985DE792731B289007FCBED /* ArbsVSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsVSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D985DE7B2731B29A007FCBED /* ArbsSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesSyncManagerProtocol.swift; sourceTree = "<group>"; };
+		D987D9BF273A860700ACED30 /* ArbVSelector+PickerValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbVSelector+PickerValued.swift"; sourceTree = "<group>"; };
 		D98A2F8026F9E20200833684 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D98A2F8126F9E20B00833684 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsGradeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -440,6 +443,7 @@
 		D9BB538F256EF85600AD2D1A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
+		D9C0E445273AF27500B78637 /* ArbVTableRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbVTableRequest.swift; sourceTree = "<group>"; };
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailPageViewController.swift; sourceTree = "<group>"; };
 		D9C71C1126723C20001B1924 /* UISliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISliderViewController.swift; sourceTree = "<group>"; };
@@ -897,6 +901,7 @@
 				D97895E32583B800009E4A56 /* PickerIdValued.swift */,
 				D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */,
 				D963452826C1529D000DD791 /* ArbPlaygroundDPS+PickerValued.swift */,
+				D987D9BF273A860700ACED30 /* ArbVSelector+PickerValued.swift */,
 				D913955A270C4FEF00867D5A /* Arb */,
 				D9B7CCD225C1C4F10023FDF2 /* ArbMonth */,
 			);
@@ -1536,6 +1541,15 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		D9C0E444273AF24B00B78637 /* Visualisations */ = {
+			isa = PBXGroup;
+			children = (
+				D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */,
+				D9C0E445273AF27500B78637 /* ArbVTableRequest.swift */,
+			);
+			path = Visualisations;
+			sourceTree = "<group>";
+		};
 		D9C71C0E26722318001B1924 /* Childs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1602,7 +1616,7 @@
 		D9DF2C8F272C280A00EDE415 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */,
+				D9C0E444273AF24B00B78637 /* Visualisations */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1880,6 +1894,7 @@
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
 				D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */,
 				D9A91CB325A9A80B00423704 /* FreightResultViewController.swift in Sources */,
+				D9C0E446273AF27500B78637 /* ArbVTableRequest.swift in Sources */,
 				D959C0EF25822EE0006CE2D1 /* FreightViewController.swift in Sources */,
 				D92A379625E261E200C0F9C8 /* BlenderViewModel+Models.swift in Sources */,
 				D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift in Sources */,
@@ -1915,6 +1930,7 @@
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
 				D999387D26C26145005AF406 /* ArbPlaygroundResultInputPointViewConstructor.swift in Sources */,
 				D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */,
+				D987D9C0273A860700ACED30 /* ArbVSelector+PickerValued.swift in Sources */,
 				D9A80450257147EC000ADE6B /* UIBarButtonItemFactory.swift in Sources */,
 				D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */,
 				D9C71C1A26734C76001B1924 /* FreightResultPageViewController.swift in Sources */,

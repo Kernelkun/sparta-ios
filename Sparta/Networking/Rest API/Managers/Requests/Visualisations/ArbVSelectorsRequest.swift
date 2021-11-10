@@ -26,7 +26,7 @@ struct ArbVSelectorsRequest: NetworkParameters {
 
 extension ArbVSelectorsRequest {
     enum SelectorType: String {
-        case pricingCenter = "pricingCenter"
-        case comparisonByDestination = "comparisonByDestination"
+        case pricingCenter
+        case comparisonByDestination
     }
 }

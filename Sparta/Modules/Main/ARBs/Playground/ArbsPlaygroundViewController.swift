@@ -120,7 +120,7 @@ class ArbsPlaygroundViewController: BaseViewController {
             }
         }
 
-        /*let controllers = viewModel.arb.months.compactMap { _ -> ArbsPlaygroundPageViewController in
+        let controllers = viewModel.arb.months.compactMap { _ -> ArbsPlaygroundPageViewController in
             let viewController = ArbsPlaygroundPageViewController()
             viewController.delegate = self
             return viewController
@@ -131,24 +131,7 @@ class ArbsPlaygroundViewController: BaseViewController {
             sliderViewController.coordinatorDelegate = self
 
             add(sliderViewController, to: contentView)
-        }*/
-
-        let historicalGraphItem = ArbPlaygroundMenuItemView(systemImageName: "point.filled.topleft.down.curvedto.point.bottomright.up",
-                                                            title: "Historic\nGraph")
-
-        let blndGraph = ArbPlaygroundMenuItemView(systemImageName: "chart.line.uptrend.xyaxis",
-                                                            title: "Blnd\nGraph")
-
-        let tableItem = ArbPlaygroundMenuItemView(systemImageName: "tablecells.fill.badge.ellipsis",
-                                                            title: "Table")
-
-        let menuView = ArbPlaygroundMenuView(items: [historicalGraphItem, blndGraph, tableItem]).then { view in
-
-            contentView.addSubview(view) {
-                $0.bottom.right.equalToSuperview().inset(24)
-            }
         }
-
     }
 
     private func setupNavigationUI() {
@@ -312,10 +295,10 @@ extension ArbsPlaygroundViewController: ArbsPlaygroundViewModelDelegate {
     }
 
     func didReceiveInputDataConstructor(_ constructor: ArbPlaygroundInputDataView.Constructor) {
-//        contentPageVC.selectedController.inputDataView.state = .active(constructor: constructor)
+        contentPageVC.selectedController.inputDataView.state = .active(constructor: constructor)
     }
 
     func didReceiveResultDataConstructors(_ constructors: [ArbPlaygroundResultViewConstructor]) {
-//        contentPageVC.selectedController.resultDataView.state = .active(constructors: constructors)
+        contentPageVC.selectedController.resultDataView.state = .active(constructors: constructors)
     }
 }

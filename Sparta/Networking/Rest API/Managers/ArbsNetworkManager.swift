@@ -71,8 +71,18 @@ class ArbsNetworkManager: BaseNetworkManager {
         }
     }
 
-    func fetchVArbsSelectorList(request: ArbVSelectorsRequest, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<ArbVSelector>>, SpartaError>>) {
+    // visualisations request
+
+    func fetchVArbsSelectorList(request: ArbVSelectorsRequest, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<ArbV.Selector>>, SpartaError>>) {
         router.request(.getArbVSelectorsList(parameters: request)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func fetchVTableArbsInfo(request: ArbVTableRequest, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<ArbV>>, SpartaError>>) {
+        router.request(.getArbsVTableInfo(parameters: request)) { [weak self] data, response, error in
             guard let strongSelf = self else { return }
 
             completion(strongSelf.handleResult(data: data, response: response, error: error))

@@ -104,7 +104,6 @@ class UIMonthSelector<M: PickerValued>: UIView, UIPickerViewDelegate, UIPickerVi
             label.font = .main(weight: .regular, size: 18)
             label.textAlignment = .center
             label.textColor = UIColor.plMainText
-            label.text = "Sep 21"
 
             addSubview(label) {
                 $0.centerY.equalTo(leftArrowImageView).offset(-1)
