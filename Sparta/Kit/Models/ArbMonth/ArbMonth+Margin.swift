@@ -29,11 +29,11 @@ struct ArbMonthDBProperties {
     }
 
     func saveUserTarget(value: UserTarget) {
-        ArbsSyncManager.intance.updateUserTarget(value, for: month)
+        App.instance.arbsSyncManager.updateUserTarget(value, for: month)
     }
 
     func deleteUserTarget() {
-        ArbsSyncManager.intance.deleteUserTarget(for: month)
+        App.instance.arbsSyncManager.deleteUserTarget(for: month)
     }
 }
 

@@ -206,6 +206,10 @@
 		D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */; };
 		D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */; };
 		D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */; };
+		D9E810CA273C5728003C42C0 /* ArbsSyncManager+StatesObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E810C9273C5728003C42C0 /* ArbsSyncManager+StatesObservation.swift */; };
+		D9E810CC273D1276003C42C0 /* ArbsSyncInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E810CB273D1276003C42C0 /* ArbsSyncInterface.swift */; };
+		D9E810CE273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E810CD273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift */; };
+		D9E810D0273E8E66003C42C0 /* GetArbsTableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E810CF273E8E66003C42C0 /* GetArbsTableRequest.swift */; };
 		D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */; };
 		D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */; };
 		D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */; };
@@ -421,6 +425,10 @@
 		D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesNetworkManager.swift; sourceTree = "<group>"; };
 		D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPortfolioAddItemViewModel+Models.swift"; sourceTree = "<group>"; };
 		D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStateModel.swift; sourceTree = "<group>"; };
+		D9E810C9273C5728003C42C0 /* ArbsSyncManager+StatesObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsSyncManager+StatesObservation.swift"; sourceTree = "<group>"; };
+		D9E810CB273D1276003C42C0 /* ArbsSyncInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsSyncInterface.swift; sourceTree = "<group>"; };
+		D9E810CD273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetArbsPortfoliosRequest.swift; sourceTree = "<group>"; };
+		D9E810CF273E8E66003C42C0 /* GetArbsTableRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetArbsTableRequest.swift; sourceTree = "<group>"; };
 		D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderSyncManager.swift; sourceTree = "<group>"; };
 		D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthDetailModel.swift; sourceTree = "<group>"; };
 		D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -662,6 +670,7 @@
 		D94BCA4D25792A9D0076C2AB /* Rest API */ = {
 			isa = PBXGroup;
 			children = (
+				D9E810C7273C54FD003C42C0 /* Models */,
 				D96C8BF3257665220038175A /* EndPoints */,
 				D96C8BED2576651C0038175A /* Managers */,
 			);
@@ -980,8 +989,10 @@
 		D99A73E8259C7B24009E3559 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
+				D9E810CB273D1276003C42C0 /* ArbsSyncInterface.swift */,
 				D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */,
 				D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */,
+				D9E810C9273C5728003C42C0 /* ArbsSyncManager+StatesObservation.swift */,
 			);
 			path = ARBs;
 			sourceTree = "<group>";
@@ -1479,6 +1490,23 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		D9E810C7273C54FD003C42C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D9E810C8273C5504003C42C0 /* Request */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D9E810C8273C5504003C42C0 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				D9E810CD273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift */,
+				D9E810CF273E8E66003C42C0 /* GetArbsTableRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		D9ECEC39257A9A6D005DFFD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1686,6 +1714,7 @@
 				D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */,
 				D9B7CCD925C1C9590023FDF2 /* ProgressView.swift in Sources */,
 				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
+				D9E810CC273D1276003C42C0 /* ArbsSyncInterface.swift in Sources */,
 				D959C0F225822EEB006CE2D1 /* FreightViewModel.swift in Sources */,
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
@@ -1697,10 +1726,12 @@
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */,
 				D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */,
+				D9E810CE273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift in Sources */,
 				D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */,
 				D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
+				D9E810D0273E8E66003C42C0 /* GetArbsTableRequest.swift in Sources */,
 				D9B7CCD425C1C53B0023FDF2 /* ArbMonth+Margin.swift in Sources */,
 				D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */,
 				D95F3F8E26AAD84800F20A74 /* ArbsNetworkManager.swift in Sources */,
@@ -1761,6 +1792,7 @@
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
 				D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */,
 				D9A2796D259352FB009D066E /* AnalyticsNetworkManager.swift in Sources */,
+				D9E810CA273C5728003C42C0 /* ArbsSyncManager+StatesObservation.swift in Sources */,
 				D999386F26C1B99C005AF406 /* ArbSearchInterfaces.swift in Sources */,
 				D906529725D2EB6800892C89 /* ResultKeyValueUnitsView.swift in Sources */,
 				D9A91CB825A9AAD400423704 /* FreightCalculator.swift in Sources */,

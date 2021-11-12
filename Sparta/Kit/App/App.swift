@@ -30,7 +30,7 @@ class App {
 
     let blenderSyncManager: BlenderSyncManager
     let liveCurvesSyncManager: LiveCurvesSyncManagerProtocol
-    let arbsSyncManager: ArbsSyncManager
+    let arbsSyncManager: ArbsSyncInterface
     let sockets: SocketAPI
     
     weak var delegate: AppFlowDelegate?
@@ -85,7 +85,7 @@ class App {
 
         blenderSyncManager = BlenderSyncManager.intance
         liveCurvesSyncManager = LiveCurvesSyncManager()
-        arbsSyncManager = ArbsSyncManager.intance
+        arbsSyncManager = ArbsSyncManager()
         stateService = AppStateService()
 
         reachability = try! Reachability() // swiftlint:disable:this force_try

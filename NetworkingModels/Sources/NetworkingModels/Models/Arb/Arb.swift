@@ -47,7 +47,8 @@ public struct Arb: BackendModel {
         dischargePortName = json["dischargePortName"].stringValue
         escalation = json["escalation"].stringValue
         months = json["months"].arrayValue.compactMap { ArbMonth(json: $0) }
-        portfolio = Portfolio(json: json)
+        portfolio = Portfolio(id: json["portfolioId"].intValue,
+                              name: json["portfolioName"].stringValue)
         freight = ArbFreight(json: json["freight"])
         freightType = freight.vessel.type
     }

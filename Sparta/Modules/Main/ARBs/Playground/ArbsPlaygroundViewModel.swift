@@ -61,7 +61,7 @@ class ArbsPlaygroundViewModel: NSObject, BaseViewModel {
     // MARK: - Initializers
 
     init(selectedArb: Arb) {
-        let arbs = ArbsSyncManager.intance.arbs
+        let arbs = App.instance.arbsSyncManager.portfolios.first(where: { $0.portfolio.isAra })?.arbs ?? []
         calculator = .init(arbs: arbs, selectedArb: selectedArb)
         super.init()
 

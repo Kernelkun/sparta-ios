@@ -35,13 +35,24 @@ class ArbsViewModel: NSObject, BaseViewModel {
     private let arbsSyncManager = App.instance.arbsSyncManager
     private var fetchedArbs: [Arb] = []
 
+    // MARK: - Initializers
+
+    override init() {
+        super.init()
+
+        observeArbsSyncManagerStates()
+    }
+
+    deinit {
+        stopObservingAllArbsSyncManagerStates()
+    }
+
     // MARK: - Public methods
 
     func loadData() {
         updateConnectionInfo()
-        
-        arbsSyncManager.delegate = self
-        arbsSyncManager.startReceivingData()
+
+        arbsSyncManager.start()
 
         delegate?.didReceiveUpdatesForGrades()
     }
@@ -56,8 +67,8 @@ class ArbsViewModel: NSObject, BaseViewModel {
         return fetchedArbs[arbIndex]
     }
 
-    func changeProfile(_ profile: ArbProfileCategory) {
-        arbsSyncManager.setProfile(profile)
+    func changeProfile(_ portfolio: ArbProfileCategory) {
+        arbsSyncManager.setPortfolio(portfolio)
     }
 
     // MARK: - Private methods
@@ -167,7 +178,10 @@ extension ArbsViewModel: AppObserver {
     }
 }
 
-extension ArbsViewModel: ArbsSyncManagerDelegate {
+extension ArbsViewModel: ArbsSyncManagerObserver {
+
+    func arbsSyncManagerDidChangeLoadingState(_ isLoading: Bool) {
+    }
 
     func arbsSyncManagerDidFetch(arbs: [Arb], profiles: [ArbProfileCategory], selectedProfile: ArbProfileCategory?) {
         delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)

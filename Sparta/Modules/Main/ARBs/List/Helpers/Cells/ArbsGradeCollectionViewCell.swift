@@ -63,7 +63,7 @@ class ArbsGradeCollectionViewCell: UICollectionViewCell {
     }
 
     func apply(arb: Arb) {
-        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
+        self.arb = App.instance.arbsSyncManager.fetchUpdatedState(for: arb)
 
         observeArbs(arb)
         setupUI(for: self.arb)
