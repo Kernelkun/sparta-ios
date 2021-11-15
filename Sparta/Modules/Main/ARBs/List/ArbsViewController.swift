@@ -116,6 +116,12 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "MainTabsPage.ARBs.Title".localized)
+
+        let editButton = UIBarButtonItemFactory.editButton { [unowned self] _ in
+            navigationController?.pushViewController(ArbsEditPortfolioItemsViewController(), animated: true)
+        }
+
+        navigationItem.rightBarButtonItems = [editButton]
     }
 
     private func navigateToArbDetails(_ arb: Arb) {

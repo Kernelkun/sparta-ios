@@ -37,6 +37,16 @@ class ArbsNetworkManager: BaseNetworkManager {
         }
     }
 
+    func changePortfolioItemsOrder(request: UpdateArbsPIOrderRequest, completion: @escaping BoolClosure) {
+        router.request(.changePortfolioOrder(request: request)) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+
     func updateArbUserTarget(_ userTarget: Double, for month: ArbMonth, completion: @escaping TypeClosure<Bool>) {
 
         let parameters: Parameters = ["gradeCode": month.gradeCode,

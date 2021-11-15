@@ -22,6 +22,7 @@ public struct Arb: BackendModel {
     public let freight: ArbFreight
     public var months: [ArbMonth]
     public var portfolio: Portfolio
+    public var order: Int
 
     // for presenting
 
@@ -51,6 +52,7 @@ public struct Arb: BackendModel {
                               name: json["portfolioName"].stringValue)
         freight = ArbFreight(json: json["freight"])
         freightType = freight.vessel.type
+        order = json["order"].intValue
     }
 }
 

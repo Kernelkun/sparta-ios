@@ -13,6 +13,7 @@ import App
 enum ArbsEndPoint {
     case getArbsPortfolios(parameters: NetworkParameters)
     case getArbsTable(parameters: NetworkParameters)
+    case changePortfolioOrder(request: UpdateArbsPIOrderRequest)
     case updateArbUserTarget(parameters: Parameters)
     case deleteArbUserTarget(parameters: Parameters)
     case getArbPlayground(parameters: Parameters)
@@ -29,6 +30,7 @@ extension ArbsEndPoint: EndPointType {
         case .updateArbUserTarget: return "/arbs/user/target"
         case .deleteArbUserTarget: return "/arbs/user/target"
         case .getArbPlayground: return "/arbs/playground"
+        case .changePortfolioOrder(let request): return "/arbs/portfolios/\(request.portfolio.id)/destinations/order"
         }
     }
 
@@ -37,6 +39,7 @@ extension ArbsEndPoint: EndPointType {
         case .getArbsTable, .getArbPlayground, .getArbsPortfolios: return .get
         case .updateArbUserTarget: return .post
         case .deleteArbUserTarget: return .delete
+        case .changePortfolioOrder: return .put
         }
     }
 
@@ -48,6 +51,12 @@ extension ArbsEndPoint: EndPointType {
                                                 urlParameters: parameters.urlParameters,
                                                 additionHeaders: headersWithToken)
 
+        case .changePortfolioOrder(let request):
+            return .requestParametersAndHeaders(bodyParameters: request.bodyParameters,
+                                                bodyEncoding: request.bodyEncoding,
+                                                urlParameters: request.urlParameters,
+                                                additionHeaders: headersWithToken)
+
         case .updateArbUserTarget(let parameters):
             return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
@@ -57,12 +66,6 @@ extension ArbsEndPoint: EndPointType {
         case .deleteArbUserTarget(let parameters):
             return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
-                                                urlParameters: nil,
-                                                additionHeaders: headersWithToken)
-
-        case .getArbsTable:
-            return .requestParametersAndHeaders(bodyParameters: nil,
-                                                bodyEncoding: .urlEncoding,
                                                 urlParameters: nil,
                                                 additionHeaders: headersWithToken)
 

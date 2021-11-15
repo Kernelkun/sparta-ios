@@ -101,6 +101,9 @@
 		D98AF6E525BB02D700A5BC96 /* CoreStore in Frameworks */ = {isa = PBXBuildFile; productRef = D98AF6E425BB02D700A5BC96 /* CoreStore */; };
 		D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */; };
 		D98FD750269EFAC60068A0BB /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = D98FD74F269EFAC60068A0BB /* en.strings */; };
+		D991963C273ED33900A45363 /* ArbsEditPortfolioItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D991963B273ED33900A45363 /* ArbsEditPortfolioItemsViewController.swift */; };
+		D991963E273ED34900A45363 /* ArbsEditPortfolioItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D991963D273ED34900A45363 /* ArbsEditPortfolioItemsViewModel.swift */; };
+		D9919640273ED57F00A45363 /* UpdateArbsPIOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D991963F273ED57F00A45363 /* UpdateArbsPIOrderRequest.swift */; };
 		D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99624CB266E6CDE001CD262 /* EmptyStateView.swift */; };
 		D999386F26C1B99C005AF406 /* ArbSearchInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999386E26C1B99C005AF406 /* ArbSearchInterfaces.swift */; };
 		D999387126C1BA3A005AF406 /* ArbSearchWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D999387026C1BA3A005AF406 /* ArbSearchWireframe.swift */; };
@@ -321,6 +324,9 @@
 		D98AF6C925BADA4B00A5BC96 /* ArbsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsViewModel+Models.swift"; sourceTree = "<group>"; };
 		D98AF6FD25BB36A000A5BC96 /* ArbTappableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbTappableCell.swift; sourceTree = "<group>"; };
 		D98FD74F269EFAC60068A0BB /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		D991963B273ED33900A45363 /* ArbsEditPortfolioItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsEditPortfolioItemsViewController.swift; sourceTree = "<group>"; };
+		D991963D273ED34900A45363 /* ArbsEditPortfolioItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsEditPortfolioItemsViewModel.swift; sourceTree = "<group>"; };
+		D991963F273ED57F00A45363 /* UpdateArbsPIOrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateArbsPIOrderRequest.swift; sourceTree = "<group>"; };
 		D99624CB266E6CDE001CD262 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		D999386E26C1B99C005AF406 /* ArbSearchInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbSearchInterfaces.swift; sourceTree = "<group>"; };
 		D999387026C1BA3A005AF406 /* ArbSearchWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbSearchWireframe.swift; sourceTree = "<group>"; };
@@ -699,6 +705,7 @@
 		D959C0DC2582293E006CE2D1 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
+				D991963A273ED32300A45363 /* EditPortfolioItems */,
 				D999386D26C1B789005AF406 /* ArbSearch */,
 				D9EE1C8A26AAC89D00306566 /* Playground */,
 				D98AF6BD25BA197900A5BC96 /* Details */,
@@ -936,6 +943,15 @@
 				D98FD74F269EFAC60068A0BB /* en.strings */,
 			);
 			path = "Localized Files";
+			sourceTree = "<group>";
+		};
+		D991963A273ED32300A45363 /* EditPortfolioItems */ = {
+			isa = PBXGroup;
+			children = (
+				D991963D273ED34900A45363 /* ArbsEditPortfolioItemsViewModel.swift */,
+				D991963B273ED33900A45363 /* ArbsEditPortfolioItemsViewController.swift */,
+			);
+			path = EditPortfolioItems;
 			sourceTree = "<group>";
 		};
 		D999386D26C1B789005AF406 /* ArbSearch */ = {
@@ -1503,6 +1519,7 @@
 			children = (
 				D9E810CD273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift */,
 				D9E810CF273E8E66003C42C0 /* GetArbsTableRequest.swift */,
+				D991963F273ED57F00A45363 /* UpdateArbsPIOrderRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1720,6 +1737,7 @@
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
 				D9A91BFC25A3627C00423704 /* ArbsUserTgtCollectionViewCell.swift in Sources */,
+				D991963E273ED34900A45363 /* ArbsEditPortfolioItemsViewModel.swift in Sources */,
 				D999388126C29213005AF406 /* ArbsPlaygroundUIConstants.swift in Sources */,
 				D9D4FC2B264ED4ED00A2A1DA /* BaseTableVMViewController.swift in Sources */,
 				D9A27973259399C0009D066E /* SocketAPI+UI.swift in Sources */,
@@ -1832,6 +1850,7 @@
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
 				D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */,
 				D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */,
+				D9919640273ED57F00A45363 /* UpdateArbsPIOrderRequest.swift in Sources */,
 				D96F47B426BD5A280063AB90 /* UIMonthSelector.swift in Sources */,
 				D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */,
 				D98AF6C725BAC69500A5BC96 /* KeyedButton.swift in Sources */,
@@ -1880,6 +1899,7 @@
 				D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */,
 				D999387F26C2616A005AF406 /* ArbPlaygroundResultViewConstructor.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
+				D991963C273ED33900A45363 /* ArbsEditPortfolioItemsViewController.swift in Sources */,
 				D90E5A9C26BC092A00D05473 /* ArbSearchViewController.swift in Sources */,
 				D90DE02C26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
