@@ -11,36 +11,23 @@ import Networking
 import NetworkingModels
 import SpartaHelpers
 
-protocol ArbsSyncManagerDelegate: AnyObject {
-    func arbsSyncManagerDidFetch(arbs: [Arb], profiles: [ArbProfileCategory], selectedProfile: ArbProfileCategory?)
-    func arbsSyncManagerDidReceive(arb: Arb)
-    func arbsSyncManagerDidReceiveUpdates(for arb: Arb)
-    func arbsSyncManagerDidChangeSyncDate(_ newDate: Date?)
-}
+class ArbsSyncManager: ArbsSyncInterface {
 
-class ArbsSyncManager {
-
-    // MARK: - Singleton
-
-    static let intance = ArbsSyncManager()
+    var portfolios: [ArbProfileCategory] {
+        _portfolios.arrayValue
+    }
 
     // MARK: - Public properties
-
-    weak var delegate: ArbsSyncManagerDelegate?
 
     private(set) var lastSyncDate: Date? {
         didSet {
             onMainThread {
-                self.delegate?.arbsSyncManagerDidChangeSyncDate(self.lastSyncDate)
+                self.notifyObserversAboutDidChangeSyncDate(self.lastSyncDate)
             }
         }
     }
 
-    private(set) var profile: ArbProfileCategory?
-
-    var arbs: [Arb] {
-        _arbs.arrayValue
-    }
+    private(set) var portfolio: ArbProfileCategory?
 
     // MARK: - Private properties
 
@@ -50,23 +37,24 @@ class ArbsSyncManager {
         operationQueue.qualityOfService = .background
         return operationQueue
     }()
-    private var _arbs: SynchronizedArray<Arb> = SynchronizedArray<Arb>()
-    private var _favourites: SynchronizedArray<Favourite> = SynchronizedArray<Favourite>()
 
-    private(set) lazy var profiles = SynchronizedArray<ArbProfileCategory>()
+    private var _portfolios = SynchronizedArray<ArbProfileCategory>()
 
     private let arbsManager = ArbsNetworkManager()
-    private let profileManager = ProfileNetworkManager()
 
     // MARK: - Initializers
 
-    fileprivate init() {
+    init() {
         observeSocket(for: .arbs)
+    }
+
+    deinit {
+        stopObservingAllSocketServers()
     }
 
     // MARK: - Public methods
 
-    func startReceivingData() {
+    func start() {
 
         // socket connection
 
@@ -76,102 +64,67 @@ class ArbsSyncManager {
         
         let group = DispatchGroup()
 
+        var portfolios: [Arb.Portfolio] = []
         var arbs: [Arb] = []
-        var favourites: [Favourite] = []
 
         group.enter()
-        arbsManager.fetchArbsTable { result in
+        arbsManager.fetchArbsPortfolios(request: .init(type: .comparisonByRegion)) { [weak self] result in
+            guard let strongSelf = self else { return }
 
             if case let .success(responseModel) = result,
                let list = responseModel.model?.list {
+                portfolios = list
 
-                arbs = Array(list)
+                strongSelf.arbsManager.fetchArbsTable(request: .init(portfolios: portfolios)) { [weak self] result in
+                    guard let strongSelf = self else { return }
+
+                    if case let .success(responseModel) = result,
+                       let list = responseModel.model?.list {
+                        arbs = list
+
+                        group.leave()
+                    } else {
+                        group.leave()
+                    }
+                }
+            } else {
+                group.leave()
             }
-
-            group.leave()
-        }
-
-        group.enter()
-        profileManager.fetchArbsFavouritesList { result in
-
-            if case let .success(responseModel) = result,
-               let list = responseModel.model?.list {
-
-                favourites = Array(list)
-            }
-
-            group.leave()
         }
 
         group.notify(queue: .main) { [weak self] in
             guard let strongSelf = self else { return }
 
-            strongSelf._favourites = SynchronizedArray<Favourite>(favourites)
-            strongSelf._arbs = SynchronizedArray<Arb>(arbs)
+            let groupedArbs = Dictionary(grouping: arbs, by: { $0.portfolio.name.lowercased() })
 
-            // patch new arb with current UI state
-            for index in strongSelf._arbs.indices {
-                strongSelf.patchArb(&strongSelf._arbs[index]!) //swiftlint:disable:this force_unwrapping
-            }
+            strongSelf._portfolios = SynchronizedArray<ArbProfileCategory>(portfolios.compactMap { portfolio in
+                var category = ArbProfileCategory(portfolio: portfolio)
 
-            // load profiles
+                let profileName = category.portfolio.name.lowercased()
+                if let arbs = groupedArbs[profileName] {
+                    category.arbs = arbs
+                }
 
-            let selectedProfile = strongSelf.profile
+                return category
+            })
 
-            let profiles = strongSelf._arbs.compactMap { $0.portfolio }.unique.compactMap { profile -> ArbProfileCategory in
-                var profileCategory = ArbProfileCategory(portfolio: profile)
-
-                /*let filteredArbs = arbs.filter { $0.portfolio == profile }.compactMap { arb -> Arb in
-                    var arb = arb
-                    strongSelf.patchArb(&arb)
-                    return arb
-                }*/
-
-//                profileCategory.arbs = filteredArbs
-
-                return profileCategory
-            }
-
-            strongSelf.profiles = SynchronizedArray(profiles)
-
-            if selectedProfile != nil {
-                strongSelf.profile = strongSelf.profiles.first { $0 == selectedProfile }!
+            if strongSelf.portfolio != nil {
+                strongSelf.portfolio = strongSelf._portfolios.first { $0 == strongSelf.portfolio }!
             } else {
-                strongSelf.profile = strongSelf.profiles.first.required()
+                strongSelf.portfolio = strongSelf._portfolios.first.required()
             }
-
 
             onMainThread {
-                strongSelf.updateArbs(for: strongSelf.profile.required())
-//                strongSelf.updateBlenders(for: strongSelf.profile)
-//                App.instance.socketsConnect(toServer: .blender)
+                strongSelf.updateArbs(for: strongSelf.portfolio.required())
             }
 
             strongSelf.lastSyncDate = Date()
         }
     }
 
-    func setProfile(_ profile: ArbProfileCategory) {
-        self.profile = profile
-        updateArbs(for: profile)
-    }
-
-    func notifyAboutUpdated(arbMonth: ArbMonth) {
-        if let arbIndex = _arbs.index(where: { $0.months.contains(arbMonth) }),
-           let indexOfMonth = _arbs[arbIndex]!.months.firstIndex(of: arbMonth) { //swiftlint:disable:this force_unwrapping
-
-            lastSyncDate = Date()
-
-            _arbs[arbIndex]!.months[indexOfMonth].update(from: arbMonth) //swiftlint:disable:this force_unwrapping
-
-            patchArb(&_arbs[arbIndex]!) //swiftlint:disable:this force_unwrapping
-
-            notifyObservers(about: _arbs[arbIndex]!) //swiftlint:disable:this force_unwrapping
-
-            onMainThread {
-                self.delegate?.arbsSyncManagerDidReceiveUpdates(for: self._arbs[arbIndex]!) //swiftlint:disable:this force_unwrapping
-            }
-        }
+    func setPortfolio(_ portfolio: ArbProfileCategory) {
+        self.portfolio = portfolio
+        updateArbs(for: portfolio)
     }
 
     /*
@@ -180,61 +133,13 @@ class ArbsSyncManager {
      * In case method not found element in fetched elements array - method will return received(parameter variable) value
      */
     func fetchUpdatedState(for arb: Arb) -> Arb {
-        guard let indexOfArb = _arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) else { return arb }
+        let indexOfPortfolio = _portfolios.index { $0.arbs.contains(arb) }
 
-        return _arbs[indexOfArb] ?? arb
-    }
+        guard let indexOfPortfolio = indexOfPortfolio,
+              let indexOfArb = _portfolios[indexOfPortfolio]
+                .required().arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) else { return arb }
 
-    // MARK: - Favourite
-
-    func updateFavouriteState(for arb: Arb) {
-
-        // set up temporary value of favourite state for loaded arb
-        if let currentArbIndex = _arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
-            _arbs[currentArbIndex]?.isFavourite = arb.isFavourite
-        }
-
-        if arb.isFavourite {
-
-            if !_favourites.contains(where: { $0.code == arb.serverUniqueIdentifier }) {
-
-                // adding temporarry favourite value
-                _favourites.append(.init(id: 1, code: arb.serverUniqueIdentifier))
-
-                guard let userId = App.instance.currentUser?.id else { return }
-
-                profileManager.addArbToFavouritesList(userId: userId, code: arb.serverUniqueIdentifier) { [weak self] result in
-                    guard let strongSelf = self else { return }
-
-                    // case if backside successfully add favourites record
-                    if case let .success(responseModel) = result,
-                       let model = responseModel.model,
-                       let favouriteIndex = strongSelf._favourites.index(where: { $0.code == model.code }),
-                       let arbIndex = strongSelf._arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
-
-                        strongSelf._favourites[favouriteIndex] = model
-                        strongSelf._arbs[arbIndex]?.isFavourite = true
-                    } else { // case if logic received bad response
-                        strongSelf._favourites = SynchronizedArray(strongSelf._favourites.filter { $0.code != arb.serverUniqueIdentifier })
-
-                        if let currentArbIndex = strongSelf._arbs.index(where: { $0.uniqueIdentifier == arb.uniqueIdentifier }) {
-                            strongSelf._arbs[currentArbIndex]?.isFavourite = false
-                        }
-                    }
-                }
-            }
-        } else if let index = _favourites.index(where: { $0.code == arb.serverUniqueIdentifier }) {
-
-            profileManager.deleteArbFromFavouritesList(id: _favourites[index]!.id, completion: { [weak self] result in
-                guard let strongSelf = self else { return }
-
-                if case let .success(responseModel) = result,
-                   responseModel.model != nil {
-
-                    strongSelf._favourites = SynchronizedArray(strongSelf._favourites.filter { $0.code != arb.serverUniqueIdentifier })
-                }
-            })
-        }
+        return _portfolios[indexOfPortfolio].required().arbs[indexOfArb]
     }
 
     // MARK: - User TGT
@@ -243,37 +148,39 @@ class ArbsSyncManager {
         arbsManager.updateArbUserTarget(userTarget, for: arbMonth) { [weak self] result in
             guard let strongSelf = self, result else { return }
 
-            if let arbIndex = strongSelf._arbs.index(where: { $0.months.contains(arbMonth) }),
-               let indexOfMonth = strongSelf._arbs[arbIndex]!.months.firstIndex(of: arbMonth) {
+            if let indexOfPortfolio = strongSelf.indexOfPortfolio(for: arbMonth),
+               let arbIndex = strongSelf._portfolios[indexOfPortfolio].required().arbs.index(where: { $0.months.contains(arbMonth) }),
+               let indexOfMonth = strongSelf._portfolios[indexOfPortfolio].required().arbs[arbIndex].months.firstIndex(of: arbMonth) {
 
                 strongSelf.lastSyncDate = Date()
 
-                strongSelf._arbs[arbIndex]!.months[indexOfMonth].userTarget = userTarget
+                strongSelf._portfolios[indexOfPortfolio]!.arbs[arbIndex].months[indexOfMonth].userTarget = userTarget //swiftlint:disable:this force_unwrapping
 
-                strongSelf.notifyObservers(about: strongSelf._arbs[arbIndex]!)
+                strongSelf.notifyObservers(about: strongSelf._portfolios[indexOfPortfolio].required().arbs[arbIndex])
 
                 onMainThread {
-                    strongSelf.delegate?.arbsSyncManagerDidReceiveUpdates(for: strongSelf._arbs[arbIndex]!)
+                    strongSelf.notifyObserversAboutDidReceiveUpdates(for: strongSelf._portfolios[indexOfPortfolio].required().arbs[arbIndex])
                 }
             }
         }
     }
-
+    
     func deleteUserTarget(for arbMonth: ArbMonth) {
         arbsManager.deleteArbUserTarget(for: arbMonth) { [weak self] result in
             guard let strongSelf = self, result else { return }
 
-            if let arbIndex = strongSelf._arbs.index(where: { $0.months.contains(arbMonth) }),
-               let indexOfMonth = strongSelf._arbs[arbIndex]?.months.firstIndex(of: arbMonth) {
+            if let indexOfPortfolio = strongSelf.indexOfPortfolio(for: arbMonth),
+               let arbIndex = strongSelf._portfolios[indexOfPortfolio].required().arbs.firstIndex(where: { $0.months.contains(arbMonth) }),
+               let indexOfMonth = strongSelf._portfolios[indexOfPortfolio].required().arbs[arbIndex].months.firstIndex(of: arbMonth) {
 
                 strongSelf.lastSyncDate = Date()
 
-                strongSelf._arbs[arbIndex]!.months[indexOfMonth].userTarget = nil
+                strongSelf._portfolios[indexOfPortfolio]!.arbs[arbIndex].months[indexOfMonth].userTarget = nil //swiftlint:disable:this force_unwrapping
 
-                strongSelf.notifyObservers(about: strongSelf._arbs[arbIndex]!)
+                strongSelf.notifyObservers(about: strongSelf._portfolios[indexOfPortfolio].required().arbs[arbIndex])
 
                 onMainThread {
-                    strongSelf.delegate?.arbsSyncManagerDidReceiveUpdates(for: strongSelf._arbs[arbIndex]!)
+                    strongSelf.notifyObserversAboutDidReceiveUpdates(for: strongSelf._portfolios[indexOfPortfolio].required().arbs[arbIndex])
                 }
             }
         }
@@ -281,17 +188,35 @@ class ArbsSyncManager {
 
     // MARK: - Private methods
 
-    private func updateArbs(for profile: ArbProfileCategory) {
+    private func notifyAboutUpdated(arbMonth: ArbMonth) {
+        guard let indexOfPortfolio = indexOfPortfolio(for: arbMonth),
+              let arbIndex = _portfolios[indexOfPortfolio].required().arbs.firstIndex(where: { $0.months.contains(arbMonth) }),
+              let indexOfMonth = _portfolios[indexOfPortfolio].required().arbs[arbIndex].months.firstIndex(of: arbMonth) else { return }
+
+        lastSyncDate = Date()
+
+        _portfolios[indexOfPortfolio]!.arbs[arbIndex].months[indexOfMonth].update(from: arbMonth) //swiftlint:disable:this force_unwrapping
+
+        notifyObservers(about: _portfolios[indexOfPortfolio].required().arbs[arbIndex])
+
         onMainThread {
-            self.delegate?.arbsSyncManagerDidFetch(arbs: self._arbs.filter { $0.portfolio == profile.portfolio },
-                                                   profiles: self.profiles.arrayValue,
-                                                   selectedProfile: profile)
+            self.notifyObserversAboutDidReceiveUpdates(for: self._portfolios[indexOfPortfolio].required().arbs[arbIndex])
         }
     }
 
-    private func patchArb(_ newArb: inout Arb) {
-        newArb.isFavourite = _favourites.contains(where: { $0.code == newArb.serverUniqueIdentifier })
-        newArb.priorityIndex = _arbs.index(where: { $0 == newArb }) ?? -1
+    private func updateArbs(for portfolio: ArbProfileCategory) {
+        onMainThread {
+            self.notifyObserversAboutDidFetch(arbs: portfolio.arbs,
+                                              profiles: self._portfolios.arrayValue,
+                                              selectedProfile: portfolio)
+        }
+    }
+
+    private func indexOfPortfolio(for arbMonth: ArbMonth) -> Int? {
+        _portfolios.index { portfolio in
+            let indexOfMonth = portfolio.arbs.first(where: { $0.months.contains(arbMonth) })
+            return indexOfMonth == nil ? false : true
+        }
     }
 }
 extension ArbsSyncManager: SocketActionObserver {

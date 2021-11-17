@@ -26,7 +26,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         let gridConstructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
                                                            gradeHeight: 50,
                                                            collectionColumnWidth: 65,
-                                                           tableColumnWidth: 160,
+                                                           tableColumnWidth: 140,
                                                            emptyView: UIView())
 
         let profilesContructor = ProfilesViewConstructor(addButtonAvailability: false,
@@ -116,6 +116,12 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "MainTabsPage.ARBs.Title".localized)
+
+        let editButton = UIBarButtonItemFactory.editButton { [unowned self] _ in
+            navigationController?.pushViewController(ArbsEditPortfolioItemsViewController(), animated: true)
+        }
+
+        navigationItem.rightBarButtonItems = [editButton]
     }
 
     private func navigateToArbDetails(_ arb: Arb) {
@@ -173,10 +179,6 @@ extension ArbsViewController: GridViewDataSource {
                 guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
                 self.navigateToArbDetails(newArb)
-            }
-
-            cell.onToggleFavourite { [unowned self] arb in
-                self.viewModel.toggleFavourite(arb: arb)
             }
         }
 

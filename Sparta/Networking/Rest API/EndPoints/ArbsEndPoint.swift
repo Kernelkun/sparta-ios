@@ -11,7 +11,9 @@ import Networking
 import App
 
 enum ArbsEndPoint {
-    case getArbsTable
+    case getArbsPortfolios(parameters: NetworkParameters)
+    case getArbsTable(parameters: NetworkParameters)
+    case changePortfolioOrder(request: UpdateArbsPIOrderRequest)
     case updateArbUserTarget(parameters: Parameters)
     case deleteArbUserTarget(parameters: Parameters)
     case getArbPlayground(parameters: Parameters)
@@ -23,23 +25,38 @@ extension ArbsEndPoint: EndPointType {
 
     var path: String {
         switch self {
-        case .getArbsTable: return "/arbs/table"
+        case .getArbsPortfolios: return "/arbs/portfolios"
+        case .getArbsTable: return "/arbs/portfolios/tableFull"
         case .updateArbUserTarget: return "/arbs/user/target"
         case .deleteArbUserTarget: return "/arbs/user/target"
         case .getArbPlayground: return "/arbs/playground"
+        case .changePortfolioOrder(let request): return "/arbs/portfolios/\(request.portfolio.id)/destinations/order"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getArbsTable, .getArbPlayground: return .get
+        case .getArbsTable, .getArbPlayground, .getArbsPortfolios: return .get
         case .updateArbUserTarget: return .post
         case .deleteArbUserTarget: return .delete
+        case .changePortfolioOrder: return .put
         }
     }
 
     var task: HTTPTask {
         switch self {
+        case .getArbsPortfolios(let parameters), .getArbsTable(let parameters):
+            return .requestParametersAndHeaders(bodyParameters: parameters.bodyParameters,
+                                                bodyEncoding: parameters.bodyEncoding,
+                                                urlParameters: parameters.urlParameters,
+                                                additionHeaders: headersWithToken)
+
+        case .changePortfolioOrder(let request):
+            return .requestParametersAndHeaders(bodyParameters: request.bodyParameters,
+                                                bodyEncoding: request.bodyEncoding,
+                                                urlParameters: request.urlParameters,
+                                                additionHeaders: headersWithToken)
+
         case .updateArbUserTarget(let parameters):
             return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
@@ -50,12 +67,6 @@ extension ArbsEndPoint: EndPointType {
             return .requestParametersAndHeaders(bodyParameters: parameters,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
-                                                additionHeaders: headersWithToken)
-
-        case .getArbsTable:
-            return .requestParametersAndHeaders(bodyParameters: nil,
-                                                bodyEncoding: .urlEncoding,
-                                                urlParameters: ["arbsMonths": 6, "portfolioIds": "1,2"],
                                                 additionHeaders: headersWithToken)
 
         case .getArbPlayground(let parameters):

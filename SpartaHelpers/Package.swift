@@ -15,7 +15,8 @@ let package = Package(
             targets: ["SpartaHelpers"]),
     ],
     dependencies: [
-        .package(name: "SnapKit", url: "https://github.com/SnapKit/SnapKit.git", from: "5.0.1")
+        .package(name: "SnapKit", url: "https://github.com/SnapKit/SnapKit.git", from: "5.0.1"),
+        .package(name: "KeychainAccess", url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.1.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
