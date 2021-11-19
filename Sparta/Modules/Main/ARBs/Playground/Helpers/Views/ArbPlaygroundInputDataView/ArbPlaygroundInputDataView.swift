@@ -69,9 +69,9 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
 
     private func setupUI() {
 
-        statusView = ResultAutoStatusView(id: String.randomPassword).then { view in
+        statusView = ResultAutoStatusView(id: String.randomPassword, sideInset: 16).then { view in
 
-            view.backgroundColor = .plResultBlockBackground
+            view.backgroundColor = .clear
             view.onInputTgtTap { [unowned self] in
                 self.delegate?.arbPlaygroundInputDataViewDidTapInputTgt(self)
             }

@@ -20,7 +20,6 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-
         let gridContructor = GridView.GridViewConstructor(rowsCount: viewModel.monthsCount(),
                                                           gradeHeight: 50,
                                                           collectionColumnWidth: 70,
@@ -135,7 +134,6 @@ class BlenderViewController: BaseVMViewController<BlenderViewModel> {
         }
 
         popupView.onContentChangeSize { [unowned self] in
-
             self.popup.contentView?.snp.updateConstraints {
                 $0.height.equalTo(popupView.calculatedHeight)
             }

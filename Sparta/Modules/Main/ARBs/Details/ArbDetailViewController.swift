@@ -71,7 +71,7 @@ class ArbDetailViewController: BaseViewController {
             view.delegate = self
 
             addSubview(view) {
-                $0.top.equalToSuperview().offset(topBarHeight)
+                $0.top.equalToSuperview().offset(topBarHeight + 8)
                 $0.left.right.equalToSuperview().inset(24)
                 $0.height.equalTo(39)
             }

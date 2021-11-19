@@ -11,6 +11,12 @@ import Foundation
 public typealias HTTPHeaders = [String: String]
 public typealias Parameters = [String: Any]
 
+public protocol NetworkParameters {
+    var bodyParameters: Parameters? { get }
+    var urlParameters: Parameters? { get }
+    var bodyEncoding: ParameterEncoding { get }
+}
+
 public enum MimeType: String {
     case imageJPG = "image/jpg"
     case imagePNG = "image/png"

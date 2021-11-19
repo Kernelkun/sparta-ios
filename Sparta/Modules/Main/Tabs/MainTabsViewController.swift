@@ -86,11 +86,49 @@ class MainTabsViewController: UITabBarController {
 
         viewControllers = tabs
 
-        // style
+        // styles
 
-        UITabBar.appearance().tintColor = .tabBarTintActive
-        UITabBar.appearance().unselectedItemTintColor = .tabBarTintInactive
-        UITabBar.appearance().barTintColor = .barBackground
+        setupStyles()
+    }
+
+    private func setupStyles() {
+        // tabbar
+
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .barBackground
+
+            tabBar.standardAppearance = appearance
+            updateTabBarAppearance()
+        } else {
+            UITabBar.appearance().tintColor = .tabBarTintActive
+            UITabBar.appearance().unselectedItemTintColor = .tabBarTintInactive
+            UITabBar.appearance().barTintColor = .barBackground
+        }
+    }
+
+    @available(iOS 15.0, *)
+    private func updateTabBarAppearance() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = .barBackground
+
+        updateTabBarItemAppearance(appearance: tabBarAppearance.compactInlineLayoutAppearance)
+        updateTabBarItemAppearance(appearance: tabBarAppearance.inlineLayoutAppearance)
+        updateTabBarItemAppearance(appearance: tabBarAppearance.stackedLayoutAppearance)
+
+        tabBar.standardAppearance = tabBarAppearance
+        tabBar.scrollEdgeAppearance = tabBarAppearance
+    }
+
+    @available(iOS 13.0, *)
+    private func updateTabBarItemAppearance(appearance: UITabBarItemAppearance) {
+        let tintColor: UIColor = .tabBarTintActive
+        let unselectedItemTintColor: UIColor = .tabBarTintInactive
+
+        appearance.selected.iconColor = tintColor
+        appearance.normal.iconColor = unselectedItemTintColor
     }
 }
 

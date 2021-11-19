@@ -36,7 +36,7 @@ class BlenderSyncManager {
         }
     }
 
-    private(set) lazy var profile = profiles.first!
+    private(set) lazy var profile = profiles.first.required()
 
     // MARK: - Private properties
 
@@ -46,8 +46,10 @@ class BlenderSyncManager {
         operationQueue.qualityOfService = .background
         return operationQueue
     }()
-    private(set) lazy var profiles = SynchronizedArray<BlenderProfileCategory>([BlenderProfileCategory(region: .ara),
-                                                                                BlenderProfileCategory(region: .hou)])
+    private(set) lazy var profiles = SynchronizedArray<BlenderProfileCategory>([BlenderProfileCategory(portfolio: .ara),
+                                                                                BlenderProfileCategory(portfolio: .houRefinery),
+                                                                                BlenderProfileCategory(portfolio: .houBlender)
+                                                                                ])
     private let networkManager = BlenderNetworkManager()
 
     // MARK: - Initializers
@@ -77,7 +79,7 @@ class BlenderSyncManager {
                     var profile = profile
                     profile.blenders = []
 
-                    let filteredBlenders = list.filter { $0.loadRegion == profile.region }.compactMap { blender -> Blender in
+                    let filteredBlenders = list.filter { $0.portfolio == profile.portfolio }.compactMap { blender -> Blender in
                         var blender = blender
                         strongSelf.patchBlender(&blender)
                         return blender
@@ -113,7 +115,7 @@ class BlenderSyncManager {
      * In case method not found element in fetched elements array - method will return received(parameter variable) value
      */
     func fetchUpdatedState(for blender: Blender) -> Blender {
-        guard let indexOfProfile = profiles.index(where: { $0.region == blender.loadRegion }),
+        guard let indexOfProfile = profiles.index(where: { $0.portfolio == blender.portfolio }),
               let indexOfBlender = profiles[indexOfProfile]?.blenders.firstIndex(where: { $0 == blender }) else { return blender }
 
         return profiles[indexOfProfile]?.blenders[indexOfBlender] ?? blender
@@ -130,7 +132,8 @@ class BlenderSyncManager {
     }
 
     private func patchBlender(_ blender: inout Blender) {
-        if blender.loadRegion == .hou {
+        let month2Regions: [Blender.Portfolio] = [.houBlender, .houRefinery]
+        if month2Regions.contains(blender.portfolio) {
             blender.months = Array(blender.months[0...1])
         }
     }
@@ -144,14 +147,14 @@ extension BlenderSyncManager: SocketActionObserver {
 
         lastSyncDate = Date()
 
-        if let profileIndex = profiles.index(where: { $0.region == blender.loadRegion }),
+        if let profileIndex = profiles.index(where: { $0.portfolio == blender.portfolio }),
            let blenderIndex = profiles[profileIndex]?.blenders.firstIndex(of: blender) {
 
             patchBlender(&blender)
             blender.priorityIndex = blenderIndex
             profiles[profileIndex]?.blenders[blenderIndex] = blender
 
-            if blender.loadRegion == profile.region {
+            if blender.portfolio == profile.portfolio {
                 onMainThread {
                     self.delegate?.blenderSyncManagerDidReceiveUpdates(for: blender)
                 }

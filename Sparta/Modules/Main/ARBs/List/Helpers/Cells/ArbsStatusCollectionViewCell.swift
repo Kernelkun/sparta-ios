@@ -57,7 +57,7 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     // MARK: - Public methods
 
     func apply(arb: Arb) {
-        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
+        self.arb = App.instance.arbsSyncManager.fetchUpdatedState(for: arb)
 
         observeArbs(arb)
         updateUI(for: arb)
@@ -73,7 +73,6 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         viewsStackView.removeAllSubviews()
 
         arb.months.forEach { month in
-
             if let position = month.position {
                 viewsStackView.addArrangedSubview(progressView(position: position))
             } else {
@@ -81,15 +80,14 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
             }
         }
 
+        // in some case we could have 5 months insteda of 6
         if viewsStackView.arrangedSubviews.count == 5 {
-            let hotfixLabel = inputTGTView()
-            hotfixLabel.text = "-"
+            let hotfixLabel = inputTGTView(title: "-")
             viewsStackView.addArrangedSubview(hotfixLabel)
         }
     }
 
     private func setupUI() {
-
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
@@ -98,12 +96,13 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         viewsStackView = UIStackView().then { stackView in
 
             stackView.axis = .vertical
-            stackView.alignment = .center
-            stackView.spacing = 9
-            stackView.distribution = .equalCentering
+            stackView.alignment = .fill
+            stackView.spacing = ArbsUIConstants.listStackViewElementSpace
+            stackView.distribution = .fill
 
             contentView.addSubview(stackView) {
-                $0.center.equalToSuperview()
+                $0.top.equalToSuperview().inset(ArbsUIConstants.listStackViewTopSpace)
+                $0.left.right.equalToSuperview()
             }
         }
 
@@ -138,26 +137,33 @@ class ArbsStatusCollectionViewCell: UICollectionViewCell, ArbTappableCell {
                 }
             }
 
-            view.backgroundColor = .clear
-
             view.snp.makeConstraints {
-                $0.width.equalTo(36)
-                $0.height.equalTo(13)
+                $0.height.equalTo(ArbsUIConstants.listStackViewElementHeight)
             }
         }
     }
 
-    private func inputTGTView() -> UILabel {
-        UILabel().then { label in
+    private func inputTGTView(title: String? = nil) -> UIView {
+        UIView().then { view in
 
-            label.text = "ArbsPage.Status.InputTgt.Title".localized
-            label.textColor = .controlTintActive
-            label.font = .main(weight: .regular, size: 11)
-            label.isUserInteractionEnabled = true
-            label.clipsToBounds = false
+            _ = UILabel().then { label in
 
-            label.snp.makeConstraints {
-                $0.height.equalTo(13)
+                let title = title?.nullable != nil ? title.required() : "ArbsPage.Status.InputTgt.Title".localized
+                label.text = title
+                label.textColor = .controlTintActive
+                label.textAlignment = .center
+                label.font = .main(weight: .regular, size: 11)
+                label.isUserInteractionEnabled = true
+                label.clipsToBounds = false
+
+                view.addSubview(label) {
+                    $0.center.equalToSuperview()
+                    $0.size.equalToSuperview()
+                }
+            }
+
+            view.snp.makeConstraints {
+                $0.height.equalTo(ArbsUIConstants.listStackViewElementHeight)
             }
         }
     }

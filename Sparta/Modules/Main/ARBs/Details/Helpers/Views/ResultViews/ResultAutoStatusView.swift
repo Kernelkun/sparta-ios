@@ -21,13 +21,15 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
 
     // MARK: - Private properties
 
+    private let sideInset: CGFloat
     private var _onInputTgtTapClosure: EmptyClosure?
     private var _textChangeClosure: TypeClosure<String>?
 
     // MARK: - Initializers
 
-    init(id: T) {
+    init(id: T, sideInset: CGFloat) {
         self.id = id
+        self.sideInset = sideInset
         super.init(frame: .zero)
     }
 
@@ -67,7 +69,7 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
             }
 
             addSubview(button) {
-                $0.left.equalToSuperview().offset(16)
+                $0.left.equalToSuperview().offset(sideInset)
                 $0.centerY.equalToSuperview()
             }
         }
@@ -84,7 +86,7 @@ class ResultAutoStatusView<T: Hashable>: UIView, Identifiable {
             label.textAlignment = .center
 
             addSubview(label) {
-                $0.left.equalToSuperview().offset(16)
+                $0.left.equalToSuperview().offset(sideInset)
                 $0.centerY.equalToSuperview()
             }
         }

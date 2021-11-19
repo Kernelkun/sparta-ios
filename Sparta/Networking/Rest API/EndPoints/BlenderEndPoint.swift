@@ -41,7 +41,7 @@ extension BlenderEndPoint: EndPointType {
         case .getBlenderTable:
             return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .urlEncoding,
-                                                urlParameters: ["regions": "ARA,HOU"],
+                                                urlParameters: ["regions": "ARA,HOU", "portfolioIds": "1,2,3"],
                                                 additionHeaders: headersWithToken)
 
         case .changePortfolioOrder(_, let parameters):

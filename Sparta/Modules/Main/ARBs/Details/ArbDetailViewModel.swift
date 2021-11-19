@@ -126,10 +126,10 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
                                 units: blendCostUnitValue))
 
         // gas/naphta
-
-        cells.append(.gasNap(value: selectedArbMonth.gasMinusNaphtha.value,
-                             color: selectedArbMonth.gasMinusNaphtha.valueColor,
-                             units: gasNapUnitValue))
+//
+//        cells.append(.gasNap(value: selectedArbMonth.gasMinusNaphtha.value,
+//                             color: selectedArbMonth.gasMinusNaphtha.valueColor,
+//                             units: gasNapUnitValue))
 
         // freight
 
@@ -177,19 +177,19 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
 
         // pseudoFobRefinery
 
-        if let pseudoFobRefinery = selectedArbMonth.pseudoFobRefinery {
-            cells.append(.fobRefyMargin(value: pseudoFobRefinery.value,
-                                        color: pseudoFobRefinery.valueColor,
-                                        units: mainUnitValue))
-        }
+//        if let pseudoFobRefinery = selectedArbMonth.pseudoFobRefinery {
+//            cells.append(.fobRefyMargin(value: pseudoFobRefinery.value,
+//                                        color: pseudoFobRefinery.valueColor,
+//                                        units: mainUnitValue))
+//        }
 
         // pseudoCifRefinery
 
-        if let pseudoCifRefinery = selectedArbMonth.pseudoCifRefinery {
-            cells.append(.cifRefyMargin(value: pseudoCifRefinery.value,
-                                        color: pseudoCifRefinery.valueColor,
-                                        units: mainUnitValue))
-        }
+//        if let pseudoCifRefinery = selectedArbMonth.pseudoCifRefinery {
+//            cells.append(.cifRefyMargin(value: pseudoCifRefinery.value,
+//                                        color: pseudoCifRefinery.valueColor,
+//                                        units: mainUnitValue))
+//        }
 
         // blender margin CoD
 

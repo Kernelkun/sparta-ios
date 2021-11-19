@@ -48,4 +48,3 @@ extension Double {
         return intDiv * nearest
     }
 }
-

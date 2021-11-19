@@ -15,19 +15,19 @@ public struct BlenderProfileCategory: ListableItem {
     //
     // MARK: - Public properties
 
-    public let region: BlenderRegion
+    public let portfolio: Blender.Portfolio
     public var blenders: [Blender]
 
     // MARK: - Listable Item
 
-    public var identifier: Int { region.id }
-    public var title: String { region.name }
+    public var identifier: Int { portfolio.id }
+    public var title: String { portfolio.name }
 
     //
     // MARK: - Default Initializers
 
-    public init(region: BlenderRegion) {
-        self.region = region
+    public init(portfolio: Blender.Portfolio) {
+        self.portfolio = portfolio
         blenders = []
     }
 
@@ -41,6 +41,6 @@ public struct BlenderProfileCategory: ListableItem {
 extension BlenderProfileCategory: Equatable {
 
     public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.region == rhs.region
+        lhs.portfolio == rhs.portfolio
     }
 }

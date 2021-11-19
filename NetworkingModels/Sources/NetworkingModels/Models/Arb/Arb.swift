@@ -21,10 +21,11 @@ public struct Arb: BackendModel {
     public let freightType: String
     public let freight: ArbFreight
     public var months: [ArbMonth]
+    public var portfolio: Portfolio
+    public var order: Int
 
     // for presenting
 
-    public var isFavourite: Bool
     public var priorityIndex: Int = -1
 
     // use this identifier to identify this object as unique
@@ -47,9 +48,11 @@ public struct Arb: BackendModel {
         dischargePortName = json["dischargePortName"].stringValue
         escalation = json["escalation"].stringValue
         months = json["months"].arrayValue.compactMap { ArbMonth(json: $0) }
+        portfolio = Portfolio(id: json["portfolioId"].intValue,
+                              name: json["portfolioName"].stringValue)
         freight = ArbFreight(json: json["freight"])
         freightType = freight.vessel.type
-        isFavourite = false
+        order = json["order"].intValue
     }
 }
 

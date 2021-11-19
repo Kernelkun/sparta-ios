@@ -13,21 +13,12 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
 
     // MARK: - UI
 
-    private var firstLabel: KeyedLabel<String>!
-    private var secondLabel: KeyedLabel<String>!
-    private var thirdLabel: KeyedLabel<String>!
-    private var fourthLabel: KeyedLabel<String>!
-    private var fifthLabel: KeyedLabel<String>!
-    private var sixLabel: KeyedLabel<String>!
     private var bottomLine: UIView!
-
-    private var labels: [KeyedLabel<String>] {
-        [firstLabel, secondLabel, thirdLabel, fourthLabel, fifthLabel, sixLabel]
-    }
+    private var labelsStackView: UIStackView!
 
     // MARK: - Private properties
 
-    private var lastPriceCode: String!
+    private var lastAddedLabels: [KeyedLabel<String>] = []
     private var _tapClosure: TypeClosure<Arb>?
 
     // MARK: - Public accessors
@@ -66,7 +57,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     // MARK: - Public methods
 
     func apply(arb: Arb) {
-        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
+        self.arb = App.instance.arbsSyncManager.fetchUpdatedState(for: arb)
 
         setupUI(for: arb)
         observeArbs(arb)
@@ -85,70 +76,15 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
 
-        firstLabel = KeyedLabel<String>().then { label in
-
-            label.textAlignment = .center
-            label.textColor = .tablePoint
-            label.font = .main(weight: .regular, size: 13)
-            label.isUserInteractionEnabled = true
-        }
-
-        secondLabel = KeyedLabel<String>().then { label in
-
-            label.textAlignment = .center
-            label.textColor = .tablePoint
-            label.font = .main(weight: .regular, size: 13)
-            label.isUserInteractionEnabled = true
-        }
-
-        thirdLabel = KeyedLabel<String>().then { label in
-
-            label.textAlignment = .center
-            label.textColor = .tablePoint
-            label.font = .main(weight: .regular, size: 13)
-            label.isUserInteractionEnabled = true
-        }
-
-        fourthLabel = KeyedLabel<String>().then { label in
-
-            label.textAlignment = .center
-            label.textColor = .tablePoint
-            label.font = .main(weight: .regular, size: 13)
-            label.isUserInteractionEnabled = true
-        }
-
-        fifthLabel = KeyedLabel<String>().then { label in
-
-            label.textAlignment = .center
-            label.textColor = .tablePoint
-            label.font = .main(weight: .regular, size: 13)
-            label.isUserInteractionEnabled = true
-        }
-
-        sixLabel = KeyedLabel<String>().then { label in
-
-            label.textAlignment = .center
-            label.textColor = .tablePoint
-            label.font = .main(weight: .regular, size: 13)
-            label.isUserInteractionEnabled = true
-        }
-
-        _ = UIStackView().then { stackView in
-
-            stackView.addArrangedSubview(firstLabel)
-            stackView.addArrangedSubview(secondLabel)
-            stackView.addArrangedSubview(thirdLabel)
-            stackView.addArrangedSubview(fourthLabel)
-            stackView.addArrangedSubview(fifthLabel)
-            stackView.addArrangedSubview(sixLabel)
+        labelsStackView = UIStackView().then { stackView in
 
             stackView.axis = .vertical
-            stackView.alignment = .center
-            stackView.spacing = 4
-            stackView.distribution = .equalSpacing
+            stackView.alignment = .fill
+            stackView.spacing = ArbsUIConstants.listStackViewElementSpace
+            stackView.distribution = .fill
 
             contentView.addSubview(stackView) {
-                $0.centerY.equalToSuperview()
+                $0.top.equalToSuperview().inset(ArbsUIConstants.listStackViewTopSpace)
                 $0.left.right.equalToSuperview()
             }
         }
@@ -169,30 +105,55 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     }
 
     private func setupUI(for arb: Arb) {
-        for (index, label) in labels.enumerated() {
-            guard index < arb.months.count else {
-                label.text = "-"
-                label.textColor = .controlTintActive
-                return
-            }
+        labelsStackView.removeAllArrangedSubviews()
+        lastAddedLabels = []
 
-            let month = arb.months[index]
+        let months = arb.months
+        let monthsCount = arb.presentationMonthsCount
 
-            if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
-                label.text = userTarget
-                label.textColor = .tablePoint
+        for index in 0..<monthsCount {
+
+            var title: String
+            var titleColor: UIColor
+            var labelKey: String
+
+            if months.count > index {
+                let month = months[index]
+
+                if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
+                    title = userTarget
+                    titleColor = .tablePoint
+                } else {
+                    title = "-"
+                    titleColor = .controlTintActive
+                }
+
+                labelKey = month.uniqueIdentifier
             } else {
-                label.text = "-"
-                label.textColor = .controlTintActive
+                title = "-"
+                titleColor = .controlTintActive
+                labelKey = String.randomPassword
             }
 
-            label.setKey(month.uniqueIdentifier)
+            let label = keyedLabel(title: title, titleColor: titleColor, key: labelKey)
+            let view = UIView().then { view in
+
+                view.backgroundColor = .clear
+
+                view.addSubview(label) {
+                    $0.edges.equalToSuperview()
+                    $0.height.equalTo(ArbsUIConstants.listStackViewElementHeight)
+                }
+            }
+
+            labelsStackView.addArrangedSubview(view)
+            lastAddedLabels.append(label)
         }
     }
 
     private func updateUI(for arb: Arb) {
         arb.months.forEach { month in
-            guard let label = labels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
+            guard let label = lastAddedLabels.first(where: { $0.key == month.uniqueIdentifier }) else { return }
 
             if let userTarget = month.dbProperties.fetchUserTarget()?.toDisplayFormattedString {
                 label.text = userTarget
@@ -201,6 +162,17 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
                 label.text = "-"
                 label.textColor = .controlTintActive
             }
+        }
+    }
+
+    private func keyedLabel(title: String, titleColor: UIColor, key: String) -> KeyedLabel<String> {
+        KeyedLabel<String>().then { label in
+            label.textAlignment = .center
+            label.textColor = titleColor
+            label.font = .main(weight: .regular, size: 13)
+            label.isUserInteractionEnabled = true
+            label.text = title
+            label.setKey(key)
         }
     }
 

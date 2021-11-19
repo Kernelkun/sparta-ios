@@ -91,8 +91,12 @@ class BlenderViewModel: NSObject, BaseViewModel {
         }
 
         // escalation
-        if blenderManager.profile.region == .ara {
+        if blenderManager.profile.portfolio == .ara {
             mainKeyValues.append(.init(key: "Escalation", value: blender.escalation, priorityIndex: mainKeyValues.count + 2))
+        }
+
+        if blender.isCustom, let blenderConfigurationName = blender.portfolioConfiguration.name?.nullable {
+            mainKeyValues.append(.init(key: "Configuration", value: blenderConfigurationName, priorityIndex: mainKeyValues.count + 3))
         }
 
         var componentsKeyValues: [BlenderMonthDetailModel.KeyValueParameter] = []
@@ -123,7 +127,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     func monthsCount() -> Int {
-        blenderManager.profile.region == .ara ? 6 : 2
+        blenderManager.profile.portfolio == .ara ? 6 : 2
     }
 
     // MARK: - Private methods

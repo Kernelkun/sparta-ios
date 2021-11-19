@@ -18,6 +18,8 @@
 "Grade.Title" = "Grade";
 "Logout.Title" = "Logout";
 "ChangePassword.Title" = "Change Password";
+"Delete.Title" = "Delete";
+"Cancel.Title" = "Cancel";
 
 // validators
 
@@ -72,6 +74,7 @@
 "Portfolio.Add.Error.UnableToCreate" = "Something wrong happened with creating profile";
 "Portfolio.AddItems.PageTitle" = "Add items";
 "Portfolio.AddItems.Error.UnableToAdd" = "Something wrong happened with adding items";
+"Portfolio.RemoveItems.Title" = "Confirm portfolio removing";
 
 
 // arbs page
@@ -83,6 +86,9 @@
 "ArbsPage.Grade.MyMargin.Title" = "My\nMargin";
 "ArbsPage.Grade.DlvPrice.Title" = "Dlv\nPrice";
 "ArbsPage.Status.InputTgt.Title" = "Input TGT";
+
+"ArbsPage.Portfolio.Ara.Description" = "Prices displayed in $/mt vs Argus EBOB unless stated otherwise";
+"ArbsPage.Portfolio.Hou.Description" = "Prices displayed in cpg vs RBOB Future unless stated otherwise";
 
 // arb detail page
 
@@ -96,10 +102,10 @@
 "ArbDetailPage.Key.DlvPrice.Title" = "Dlv Price";
 "ArbDetailPage.Key.DlvPriceBasis.Title" = "Dlv Price Basis";
 "ArbDetailPage.Key.MyMargin.Title" = "My Margin";
-"ArbDetailPage.Key.BlenderMargin.Title" = "Blender Margin";
+"ArbDetailPage.Key.BlenderMargin.Title" = "Ref Margin";
 "ArbDetailPage.Key.FobRefyMargin.Title" = "FOB Refy Margin";
 "ArbDetailPage.Key.CifRefyMargin.Title" = "CIF Refy Margin";
-"ArbDetailPage.Key.CodBlenderMargin.Title" = "CoD Blender Margin";
+"ArbDetailPage.Key.CodBlenderMargin.Title" = "CoD, Ref Margin";
 "ArbDetailPage.Button.InputTgt.Title" = "Input My Target";
 
 // arb playground page

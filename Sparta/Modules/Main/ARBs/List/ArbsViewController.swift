@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import NetworkingModels
 
 class ArbsViewController: BaseVMViewController<ArbsViewModel> {
 
     // MARK: - UI
 
+    private var profilesView: ProfilesView<ArbProfileCategory>!
+    private var subProfileView: ProfileDescription!
     private var gridView: GridView!
     private var socketsStatusView: SocketsStatusLineView!
 
@@ -19,14 +22,47 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     // MARK: - Initializers
 
     override func loadView() {
-        let constructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
-                                                       gradeHeight: 50,
-                                                       collectionColumnWidth: 65,
-                                                       tableColumnWidth: 160,
-                                                       emptyView: UIView())
 
-        gridView = GridView(constructor: constructor)
-        view = gridView
+        let gridConstructor = GridView.GridViewConstructor(rowsCount: viewModel.rowsCount(),
+                                                           gradeHeight: 50,
+                                                           collectionColumnWidth: 65,
+                                                           tableColumnWidth: 140,
+                                                           emptyView: UIView())
+
+        let profilesContructor = ProfilesViewConstructor(addButtonAvailability: false,
+                                                         isEditable: false)
+
+        view = UIView().then { view in
+
+            profilesView = ProfilesView(constructor: profilesContructor).then { profilesView in
+
+                profilesView.onChooseProfile { [unowned self] profile in
+                    self.viewModel.changeProfile(profile)
+                }
+
+                view.addSubview(profilesView) {
+                    $0.top.equalToSuperview().offset(topBarHeight)
+                    $0.left.right.equalToSuperview()
+                    $0.height.equalTo(45)
+                }
+            }
+
+            subProfileView = ProfileDescription().then { contentView in
+
+                view.addSubview(contentView) {
+                    $0.left.right.equalTo(profilesView)
+                    $0.top.equalTo(profilesView.snp.bottom)
+                }
+            }
+
+            gridView = GridView(constructor: gridConstructor).then { gridView in
+
+                view.addSubview(gridView) {
+                    $0.left.right.bottom.equalToSuperview()
+                    $0.top.equalTo(subProfileView.snp.bottom)
+                }
+            }
+        }
     }
 
     // MARK: - Lifecycle
@@ -61,7 +97,6 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
         // grid view
 
         gridView.dataSource = self
-        gridView.apply(topSpace: topBarHeight)
         gridView.applyContentInset(.init(top: 0, left: 0, bottom: 25, right: 0))
 
         // sockets status view
@@ -81,6 +116,22 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
     private func setupNavigationUI() {
         navigationItem.title = nil
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: "MainTabsPage.ARBs.Title".localized)
+
+        let editButton = UIBarButtonItemFactory.editButton { [unowned self] _ in
+            navigationController?.pushViewController(ArbsEditPortfolioItemsViewController(), animated: true)
+        }
+
+        navigationItem.rightBarButtonItems = [editButton]
+    }
+
+    private func navigateToArbDetails(_ arb: Arb) {
+        if arb.portfolio.isAra {
+            let wireframe = ArbsPlaygroundWireframe(selectedArb: arb)
+            self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+        } else {
+            let wireframe = ArbDetailWireframe(selectedArb: arb)
+            self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+        }
     }
 }
 
@@ -103,7 +154,11 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func sectionHeight(_ section: Int) -> CGFloat {
-        150
+        if case let ArbsViewModel.Cell.title(arb) = viewModel.tableDataSource[section] {
+            return ArbsUIConstants.cellHeight(for: arb.portfolio)
+        }
+
+        return ArbsUIConstants.defaultCellHeight
     }
 
     func numberOfRowsForGradeCollectionView(in section: Int) -> Int {
@@ -123,12 +178,7 @@ extension ArbsViewController: GridViewDataSource {
             cell.onTap { [unowned self] arb in
                 guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                let wireframe = ArbsPlaygroundWireframe(selectedArb: newArb)
-                self.navigationController?.pushViewController(wireframe.viewController, animated: true)
-            }
-
-            cell.onToggleFavourite { [unowned self] arb in
-                self.viewModel.toggleFavourite(arb: arb)
+                self.navigateToArbDetails(newArb)
             }
         }
 
@@ -136,7 +186,6 @@ extension ArbsViewController: GridViewDataSource {
     }
 
     func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
-
         let section = viewModel.collectionDataSource[indexPath.section]
         let gradeType = viewModel.collectionGrades[indexPath.row]
 
@@ -150,8 +199,7 @@ extension ArbsViewController: GridViewDataSource {
             cell.onTap { [unowned self] arb in
                 guard let newArb = self.viewModel.fetchUpdatedArb(for: arb) else { return }
 
-                let wireframe = ArbsPlaygroundWireframe(selectedArb: newArb)
-                self.navigationController?.pushViewController(wireframe.viewController, animated: true)
+                self.navigateToArbDetails(newArb)
             }
         }
 
@@ -208,5 +256,15 @@ extension ArbsViewController: ArbsViewModelDelegate {
 
     func didChangeConnectionData(title: String, color: UIColor, formattedDate: String?) {
         socketsStatusView.apply(color: color, title: title, formattedDate: formattedDate)
+    }
+
+    func didReceiveProfilesInfo(profiles: [ArbProfileCategory], selectedProfile: ArbProfileCategory?) {
+        profilesView.apply(profiles, selectedProfile: selectedProfile)
+
+        if let descriptionText = selectedProfile?.portfolio.descriptionText?.nullable {
+            subProfileView.show(text: descriptionText)
+        } else {
+            subProfileView.hide()
+        }
     }
 }

@@ -89,7 +89,7 @@ class ArbDetailPageViewController: BaseViewController {
             contentView.addSubview(view) {
                 $0.top.equalToSuperview().offset(8)
                 $0.left.right.equalToSuperview().inset(24)
-                $0.bottom.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(16)
             }
         }
     }

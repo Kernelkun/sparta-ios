@@ -25,4 +25,3 @@ public enum SpartaError: Error, Equatable {
         }
     }
 }
-

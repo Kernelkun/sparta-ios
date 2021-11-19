@@ -12,13 +12,9 @@ class BaseTableViewController: UITableViewController {
 
     // MARK: - Public properties
 
-    var isFirstLoad: Bool {
-        return enterCount == 1
-    }
+    var isFirstLoad: Bool { enterCount == 1 }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 
     // MARK: - Private accessors
 
@@ -42,8 +38,5 @@ class BaseTableViewController: UITableViewController {
 
     private func setupUI() {
         view.backgroundColor = UIColor.mainBackground
-
-//        navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.navigationBar.barTintColor = .red
     }
 }
