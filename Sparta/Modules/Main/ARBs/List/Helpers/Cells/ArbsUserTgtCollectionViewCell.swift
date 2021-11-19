@@ -57,7 +57,7 @@ class ArbsUserTgtCollectionViewCell: UICollectionViewCell, ArbTappableCell {
     // MARK: - Public methods
 
     func apply(arb: Arb) {
-        self.arb = ArbsSyncManager.intance.fetchUpdatedState(for: arb)
+        self.arb = App.instance.arbsSyncManager.fetchUpdatedState(for: arb)
 
         setupUI(for: arb)
         observeArbs(arb)

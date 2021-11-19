@@ -18,12 +18,32 @@ class ArbsNetworkManager: BaseNetworkManager {
 
     // MARK: - Public methods
 
-    func fetchArbsTable(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<Arb>>, SpartaError>>) {
+    func fetchArbsPortfolios(request: GetArbsPortfoliosRequest,
+                             completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<Arb.Portfolio>>, SpartaError>>) {
 
-        router.request(.getArbsTable) { [weak self] data, response, error in
+        router.request(.getArbsPortfolios(parameters: request)) { [weak self] data, response, error in
             guard let strongSelf = self else { return }
 
             completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func fetchArbsTable(request: GetArbsTableRequest, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<Arb>>, SpartaError>>) {
+
+        router.request(.getArbsTable(parameters: request)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func changePortfolioItemsOrder(request: UpdateArbsPIOrderRequest, completion: @escaping BoolClosure) {
+        router.request(.changePortfolioOrder(request: request)) { _, response, _ in
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                completion(true)
+            } else {
+                completion(false)
+            }
         }
     }
 

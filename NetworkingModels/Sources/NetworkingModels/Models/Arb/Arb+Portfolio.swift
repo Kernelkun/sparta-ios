@@ -16,12 +16,20 @@ public extension Arb {
 
         public let id: Int
         public let name: String
+        public let order: Int
 
         // MARK: - Initialziers
 
         public init(json: JSON) {
-            id = json["portfolioId"].intValue
-            name = json["portfolioName"].stringValue
+            id = json["id"].intValue
+            name = json["name"].stringValue
+            order = json["order"].intValue
+        }
+
+        public init(id: Int, name: String, order: Int = 0) {
+            self.id = id
+            self.name = name
+            self.order = order
         }
     }
 }
@@ -36,6 +44,11 @@ extension Arb.Portfolio {
         name.lowercased() == "hou"
     }
 
+    public enum PortfolioType: String {
+        case comparisonByMonth
+        case comparisonByDestination
+        case comparisonByRegion
+    }
 }
 
 extension Arb.Portfolio: Equatable {

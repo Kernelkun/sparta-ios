@@ -47,8 +47,9 @@ class BlenderSyncManager {
         return operationQueue
     }()
     private(set) lazy var profiles = SynchronizedArray<BlenderProfileCategory>([BlenderProfileCategory(portfolio: .ara),
-                                                                                BlenderProfileCategory(portfolio: .houBlender),
-                                                                                BlenderProfileCategory(portfolio: .houRefinery)])
+                                                                                BlenderProfileCategory(portfolio: .houRefinery),
+                                                                                BlenderProfileCategory(portfolio: .houBlender)
+                                                                                ])
     private let networkManager = BlenderNetworkManager()
 
     // MARK: - Initializers
