@@ -172,9 +172,9 @@
 		D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBE25AC691C00423704 /* LoaderView.swift */; };
 		D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CC125AC6EB800423704 /* DelayObject.swift */; };
 		D9A930812728154800F5432E /* InterfaceOrientationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A930802728154800F5432E /* InterfaceOrientationUtility.swift */; };
-		D9A930832728273200F5432E /* ArbPlaygroundMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A930822728273200F5432E /* ArbPlaygroundMenuView.swift */; };
-		D9A930862728279D00F5432E /* ArbPlaygroundMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A930852728279D00F5432E /* ArbPlaygroundMenuItemView.swift */; };
-		D9A9308827285CA800F5432E /* ArbTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A9308727285CA800F5432E /* ArbTestViewController.swift */; };
+		D9A930832728273200F5432E /* ArbsMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A930822728273200F5432E /* ArbsMenuView.swift */; };
+		D9A930862728279D00F5432E /* ArbsMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A930852728279D00F5432E /* ArbsMenuItemView.swift */; };
+		D9A9308827285CA800F5432E /* ArbsContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A9308727285CA800F5432E /* ArbsContentViewController.swift */; };
 		D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */; };
 		D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */; };
 		D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E06257180520018F3D7 /* Coordinator.swift */; };
@@ -416,9 +416,9 @@
 		D9A91D0925ADEDED00423704 /* Sparta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sparta-Bridging-Header.h"; sourceTree = "<group>"; };
 		D9A91D0A25ADF03800423704 /* Segment_Amplitude.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Segment_Amplitude.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9A930802728154800F5432E /* InterfaceOrientationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceOrientationUtility.swift; sourceTree = "<group>"; };
-		D9A930822728273200F5432E /* ArbPlaygroundMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundMenuView.swift; sourceTree = "<group>"; };
-		D9A930852728279D00F5432E /* ArbPlaygroundMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundMenuItemView.swift; sourceTree = "<group>"; };
-		D9A9308727285CA800F5432E /* ArbTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbTestViewController.swift; sourceTree = "<group>"; };
+		D9A930822728273200F5432E /* ArbsMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsMenuView.swift; sourceTree = "<group>"; };
+		D9A930852728279D00F5432E /* ArbsMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsMenuItemView.swift; sourceTree = "<group>"; };
+		D9A9308727285CA800F5432E /* ArbsContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsContentViewController.swift; sourceTree = "<group>"; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
 		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -755,6 +755,7 @@
 				D9EE1C8A26AAC89D00306566 /* Playground */,
 				D98AF6BD25BA197900A5BC96 /* Details */,
 				D98AF6BC25BA197100A5BC96 /* List */,
+				D9E74673274A550300A4A292 /* ContentView */,
 			);
 			path = ARBs;
 			sourceTree = "<group>";
@@ -1357,8 +1358,8 @@
 		D9A930842728278D00F5432E /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				D9A930852728279D00F5432E /* ArbPlaygroundMenuItemView.swift */,
-				D9A930822728273200F5432E /* ArbPlaygroundMenuView.swift */,
+				D9A930852728279D00F5432E /* ArbsMenuItemView.swift */,
+				D9A930822728273200F5432E /* ArbsMenuView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1659,6 +1660,14 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		D9E74673274A550300A4A292 /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				D9A9308727285CA800F5432E /* ArbsContentViewController.swift */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
+		};
 		D9ECEC39257A9A6D005DFFD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1676,7 +1685,6 @@
 				D95F3F8B26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift */,
 				D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */,
 				D9F7C36126E7D2D80048595A /* ArbsPlaygroundWireframe.swift */,
-				D9A9308727285CA800F5432E /* ArbTestViewController.swift */,
 			);
 			path = Playground;
 			sourceTree = "<group>";
@@ -1873,7 +1881,7 @@
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
-				D9A930832728273200F5432E /* ArbPlaygroundMenuView.swift in Sources */,
+				D9A930832728273200F5432E /* ArbsMenuView.swift in Sources */,
 				D9A91BFC25A3627C00423704 /* ArbsUserTgtCollectionViewCell.swift in Sources */,
 				D999388126C29213005AF406 /* ArbsPlaygroundUIConstants.swift in Sources */,
 				D9D4FC2B264ED4ED00A2A1DA /* BaseTableVMViewController.swift in Sources */,
@@ -2001,7 +2009,7 @@
 				D970047A25892AEB000E4A01 /* LoadingView.swift in Sources */,
 				D90DE03026BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift in Sources */,
 				D9A47F69272AB71800B319E7 /* APPCDatesHeaderItemView.swift in Sources */,
-				D9A9308827285CA800F5432E /* ArbTestViewController.swift in Sources */,
+				D9A9308827285CA800F5432E /* ArbsContentViewController.swift in Sources */,
 				D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */,
 				D9A47F64272AB36F00B319E7 /* APPCDatesHeaderView.swift in Sources */,
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
@@ -2015,7 +2023,7 @@
 				D9F6B6AF270DC2AC00334AFF /* ArbsUIConstants.swift in Sources */,
 				D9A47F66272AB68900B319E7 /* APPCUIConstants.swift in Sources */,
 				D95449F3270EEDA400BD2B75 /* ArbPortfolio+UI.swift in Sources */,
-				D9A930862728279D00F5432E /* ArbPlaygroundMenuItemView.swift in Sources */,
+				D9A930862728279D00F5432E /* ArbsMenuItemView.swift in Sources */,
 				D95F3F8C26AAD0C200F20A74 /* ArbsPlaygroundViewModel.swift in Sources */,
 				D93BC634258BF9300026BF8E /* UIGridViewConstants.swift in Sources */,
 				D95F3F9026AAD88A00F20A74 /* ArbsEndPoint.swift in Sources */,

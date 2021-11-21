@@ -34,12 +34,6 @@ class MainTabsViewController: UITabBarController {
 
         var tabs: [KeyedNavigationController<Tab>] = []
 
-        let testVC = ArbTestViewController()
-        let navigation1 = KeyedNavigationController<Tab>(rootViewController: testVC)
-        setTabBarItem(testVC, "Vis", "ic_tab_second")
-        navigation1.setKey(.liveCurves)
-        tabs.append(navigation1)
-
         if viewModel.isVisibleLivePricesBlock {
             let first = LiveCurvesViewController()
             setTabBarItem(first, "MainTabsPage.LiveCurves.Title".localized, "ic_tab_second")
@@ -51,7 +45,7 @@ class MainTabsViewController: UITabBarController {
         }
 
         if viewModel.isVisibleArbsBlock {
-            let second = ArbsViewController()
+            let second = ArbsContentViewController()
             setTabBarItem(second, "MainTabsPage.ARBs.Title".localized, "ic_tab_first")
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: second)
