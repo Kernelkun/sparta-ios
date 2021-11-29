@@ -222,6 +222,21 @@
 		D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */; };
 		D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */; };
 		D9D4FC36264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */; };
+		D9D5517B274E4AB300E39D63 /* ArbsVContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D5517A274E4AB300E39D63 /* ArbsVContentViewController.swift */; };
+		D9D5517D274E4AC300E39D63 /* ArbsVContentWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D5517C274E4AC300E39D63 /* ArbsVContentWireframe.swift */; };
+		D9D5517E274E4ED100E39D63 /* Scrollable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746E3274E3E0E00A4A292 /* Scrollable.swift */; };
+		D9D5517F274E4ED300E39D63 /* BarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746E5274E3E0E00A4A292 /* BarController.swift */; };
+		D9D55180274E4EDA00E39D63 /* GestureStateObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746E7274E3E0E00A4A292 /* GestureStateObservable.swift */; };
+		D9D55181274E4EDA00E39D63 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746E8274E3E0E00A4A292 /* Observable.swift */; };
+		D9D55182274E4EDA00E39D63 /* KVObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746E9274E3E0E00A4A292 /* KVObservable.swift */; };
+		D9D55183274E4EDE00E39D63 /* IgnoreTopDeltaYTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746EE274E3E0E00A4A292 /* IgnoreTopDeltaYTransformer.swift */; };
+		D9D55184274E4EDE00E39D63 /* StateReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746EB274E3E0E00A4A292 /* StateReducer.swift */; };
+		D9D55185274E4EDE00E39D63 /* CutOutStateRangeDeltaYTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746EC274E3E0E00A4A292 /* CutOutStateRangeDeltaYTransformer.swift */; };
+		D9D55186274E4EDE00E39D63 /* IgnoreBottomDeltaYTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746ED274E3E0E00A4A292 /* IgnoreBottomDeltaYTransformer.swift */; };
+		D9D55187274E4EE300E39D63 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746F0274E3E0E00A4A292 /* State.swift */; };
+		D9D55188274E4EE300E39D63 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746F2274E3E0E00A4A292 /* Configuration.swift */; };
+		D9D55189274E4EE300E39D63 /* StateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746F1274E3E0E00A4A292 /* StateRange.swift */; };
+		D9D5518A274E4EE700E39D63 /* CGFloat+AirBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746F5274E3E0E00A4A292 /* CGFloat+AirBar.swift */; };
 		D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */; };
 		D9DF2C91272C28AA00EDE415 /* ArbVSelectorsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */; };
 		D9DF2C93272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF2C92272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift */; };
@@ -249,6 +264,19 @@
 		D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DF25BDFE500075F1A9 /* ResultKeyValueView.swift */; };
 		D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996E325BECF110075F1A9 /* ResultKeyInputView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D9E746BF274E3D5F00A4A292 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		244E2E9B927B31DEA13515B7 /* Pods_Sparta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sparta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -465,6 +493,8 @@
 		D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesEndPoint.swift; sourceTree = "<group>"; };
 		D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesNetworkManager.swift; sourceTree = "<group>"; };
 		D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPortfolioAddItemViewModel+Models.swift"; sourceTree = "<group>"; };
+		D9D5517A274E4AB300E39D63 /* ArbsVContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVContentViewController.swift; sourceTree = "<group>"; };
+		D9D5517C274E4AC300E39D63 /* ArbsVContentWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVContentWireframe.swift; sourceTree = "<group>"; };
 		D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStateModel.swift; sourceTree = "<group>"; };
 		D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbVSelectorsRequest.swift; sourceTree = "<group>"; };
 		D9DF2C92272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundPCInterfaces.swift; sourceTree = "<group>"; };
@@ -477,6 +507,19 @@
 		D9E7466D2747C6C000A4A292 /* GetArbsTableRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetArbsTableRequest.swift; sourceTree = "<group>"; };
 		D9E7466E2747C6C000A4A292 /* UpdateArbsPIOrderRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateArbsPIOrderRequest.swift; sourceTree = "<group>"; };
 		D9E7466F2747C6C000A4A292 /* GetArbsPortfoliosRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetArbsPortfoliosRequest.swift; sourceTree = "<group>"; };
+		D9E746E3274E3E0E00A4A292 /* Scrollable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrollable.swift; sourceTree = "<group>"; };
+		D9E746E5274E3E0E00A4A292 /* BarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarController.swift; sourceTree = "<group>"; };
+		D9E746E7274E3E0E00A4A292 /* GestureStateObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureStateObservable.swift; sourceTree = "<group>"; };
+		D9E746E8274E3E0E00A4A292 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		D9E746E9274E3E0E00A4A292 /* KVObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObservable.swift; sourceTree = "<group>"; };
+		D9E746EB274E3E0E00A4A292 /* StateReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateReducer.swift; sourceTree = "<group>"; };
+		D9E746EC274E3E0E00A4A292 /* CutOutStateRangeDeltaYTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CutOutStateRangeDeltaYTransformer.swift; sourceTree = "<group>"; };
+		D9E746ED274E3E0E00A4A292 /* IgnoreBottomDeltaYTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IgnoreBottomDeltaYTransformer.swift; sourceTree = "<group>"; };
+		D9E746EE274E3E0E00A4A292 /* IgnoreTopDeltaYTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IgnoreTopDeltaYTransformer.swift; sourceTree = "<group>"; };
+		D9E746F0274E3E0E00A4A292 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		D9E746F1274E3E0E00A4A292 /* StateRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRange.swift; sourceTree = "<group>"; };
+		D9E746F2274E3E0E00A4A292 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		D9E746F5274E3E0E00A4A292 /* CGFloat+AirBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+AirBar.swift"; sourceTree = "<group>"; };
 		D9ECEC30257A62D9005DFFD7 /* BlenderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderSyncManager.swift; sourceTree = "<group>"; };
 		D9ECEC33257A9391005DFFD7 /* BlenderMonthDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderMonthDetailModel.swift; sourceTree = "<group>"; };
 		D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -756,6 +799,7 @@
 				D98AF6BD25BA197900A5BC96 /* Details */,
 				D98AF6BC25BA197100A5BC96 /* List */,
 				D9E74673274A550300A4A292 /* ContentView */,
+				D9D55179274E4A9400E39D63 /* Visualisations */,
 			);
 			path = ARBs;
 			sourceTree = "<group>";
@@ -1524,6 +1568,7 @@
 				D99B2F3225753AC20080B90B /* Validators */,
 				D97895E0258377D1009E4A56 /* Models */,
 				D9A91CC025AC6EA400423704 /* Objects */,
+				D9E746E2274E3E0E00A4A292 /* ScrollableKit */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -1620,6 +1665,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		D9D55179274E4A9400E39D63 /* Visualisations */ = {
+			isa = PBXGroup;
+			children = (
+				D9D5517A274E4AB300E39D63 /* ArbsVContentViewController.swift */,
+				D9D5517C274E4AC300E39D63 /* ArbsVContentWireframe.swift */,
+			);
+			path = Visualisations;
+			sourceTree = "<group>";
+		};
 		D9E7465D2747C5F500A4A292 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1666,6 +1720,58 @@
 				D9A9308727285CA800F5432E /* ArbsContentViewController.swift */,
 			);
 			path = ContentView;
+			sourceTree = "<group>";
+		};
+		D9E746E2274E3E0E00A4A292 /* ScrollableKit */ = {
+			isa = PBXGroup;
+			children = (
+				D9E746E3274E3E0E00A4A292 /* Scrollable.swift */,
+				D9E746E5274E3E0E00A4A292 /* BarController.swift */,
+				D9E746E6274E3E0E00A4A292 /* Observables */,
+				D9E746EA274E3E0E00A4A292 /* Reducer */,
+				D9E746EF274E3E0E00A4A292 /* Models */,
+				D9E746F4274E3E0E00A4A292 /* Helpers */,
+			);
+			path = ScrollableKit;
+			sourceTree = "<group>";
+		};
+		D9E746E6274E3E0E00A4A292 /* Observables */ = {
+			isa = PBXGroup;
+			children = (
+				D9E746E7274E3E0E00A4A292 /* GestureStateObservable.swift */,
+				D9E746E8274E3E0E00A4A292 /* Observable.swift */,
+				D9E746E9274E3E0E00A4A292 /* KVObservable.swift */,
+			);
+			path = Observables;
+			sourceTree = "<group>";
+		};
+		D9E746EA274E3E0E00A4A292 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				D9E746EB274E3E0E00A4A292 /* StateReducer.swift */,
+				D9E746EC274E3E0E00A4A292 /* CutOutStateRangeDeltaYTransformer.swift */,
+				D9E746ED274E3E0E00A4A292 /* IgnoreBottomDeltaYTransformer.swift */,
+				D9E746EE274E3E0E00A4A292 /* IgnoreTopDeltaYTransformer.swift */,
+			);
+			path = Reducer;
+			sourceTree = "<group>";
+		};
+		D9E746EF274E3E0E00A4A292 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D9E746F0274E3E0E00A4A292 /* State.swift */,
+				D9E746F1274E3E0E00A4A292 /* StateRange.swift */,
+				D9E746F2274E3E0E00A4A292 /* Configuration.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D9E746F4274E3E0E00A4A292 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D9E746F5274E3E0E00A4A292 /* CGFloat+AirBar.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D9ECEC39257A9A6D005DFFD7 /* Views */ = {
@@ -1715,6 +1821,7 @@
 				D9BB5343256E8E6600AD2D1A /* Resources */,
 				D9C52E3E256F09C0007E3744 /* SwiftLint Check */,
 				85CDFEEA5227D4BD144B6E9F /* [CP] Embed Pods Frameworks */,
+				D9E746BF274E3D5F00A4A292 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1883,11 +1990,13 @@
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
 				D9A930832728273200F5432E /* ArbsMenuView.swift in Sources */,
 				D9A91BFC25A3627C00423704 /* ArbsUserTgtCollectionViewCell.swift in Sources */,
+				D9D55188274E4EE300E39D63 /* Configuration.swift in Sources */,
 				D999388126C29213005AF406 /* ArbsPlaygroundUIConstants.swift in Sources */,
 				D9D4FC2B264ED4ED00A2A1DA /* BaseTableVMViewController.swift in Sources */,
 				D9A27973259399C0009D066E /* SocketAPI+UI.swift in Sources */,
 				D9A80435257145E8000ADE6B /* Typealiases.swift in Sources */,
 				D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */,
+				D9D5517E274E4ED100E39D63 /* Scrollable.swift in Sources */,
 				D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */,
 				D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
@@ -1938,6 +2047,7 @@
 				D9ECEC4A257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift in Sources */,
 				D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */,
 				D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */,
+				D9D55183274E4EDE00E39D63 /* IgnoreTopDeltaYTransformer.swift in Sources */,
 				D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */,
 				D96F47AF26BC5E540063AB90 /* StepperView.swift in Sources */,
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
@@ -1965,9 +2075,11 @@
 				D906529725D2EB6800892C89 /* ResultKeyValueUnitsView.swift in Sources */,
 				D9A91CB825A9AAD400423704 /* FreightCalculator.swift in Sources */,
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
+				D9D5517F274E4ED300E39D63 /* BarController.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */,
 				D977B3A425C330E9009A9483 /* ArbDetailContentView.swift in Sources */,
+				D9D5518A274E4EE700E39D63 /* CGFloat+AirBar.swift in Sources */,
 				D93BC638258C14530026BF8E /* GradeTitleView.swift in Sources */,
 				D99B2F3425753ADF0080B90B /* Validator.swift in Sources */,
 				D90E5A9E26BC093900D05473 /* ArbSearchViewModel.swift in Sources */,
@@ -1975,6 +2087,8 @@
 				D9A2797125939632009D066E /* App+Observation.swift in Sources */,
 				D9A47F6D272AE88900B319E7 /* APPCLightsSetView.swift in Sources */,
 				D9A839C8265E50D70074E134 /* EditPortfolioItemsTableViewCell.swift in Sources */,
+				D9D5517B274E4AB300E39D63 /* ArbsVContentViewController.swift in Sources */,
+				D9D5517D274E4AC300E39D63 /* ArbsVContentWireframe.swift in Sources */,
 				D9A067362589183C00C0D1E5 /* ContentGridView.swift in Sources */,
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
 				D999387D26C26145005AF406 /* ArbPlaygroundResultInputPointViewConstructor.swift in Sources */,
@@ -1989,6 +2103,7 @@
 				D913955C270C500000867D5A /* Arb+UI.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
 				D90160042698948D00F144F5 /* BlenderNetworkManager.swift in Sources */,
+				D9D55181274E4EDA00E39D63 /* Observable.swift in Sources */,
 				D9716CEC2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift in Sources */,
 				D9B7CCDF25C305A20023FDF2 /* ResultAutoStatusView.swift in Sources */,
 				D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */,
@@ -2029,9 +2144,12 @@
 				D95F3F9026AAD88A00F20A74 /* ArbsEndPoint.swift in Sources */,
 				D91CE9C12595098C00E6374E /* MainTabsViewModel.swift in Sources */,
 				D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */,
+				D9D55185274E4EDE00E39D63 /* CutOutStateRangeDeltaYTransformer.swift in Sources */,
 				D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */,
 				D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */,
 				D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */,
+				D9D55186274E4EDE00E39D63 /* IgnoreBottomDeltaYTransformer.swift in Sources */,
+				D9D55184274E4EDE00E39D63 /* StateReducer.swift in Sources */,
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
 				D9A47F5E272AA02800B319E7 /* ArbsPlaygroundPCWireframe.swift in Sources */,
 				D9A47F73272B004A00B319E7 /* APPCTableViewCell.swift in Sources */,
@@ -2055,10 +2173,13 @@
 				D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */,
 				D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */,
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
+				D9D55180274E4EDA00E39D63 /* GestureStateObservable.swift in Sources */,
+				D9D55189274E4EE300E39D63 /* StateRange.swift in Sources */,
 				D9A067132587BECA00C0D1E5 /* LiveCurvesSyncManager.swift in Sources */,
 				D9288EF526EBB0E700236A4F /* ArbsPlaygroundPageViewController.swift in Sources */,
 				D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */,
 				D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */,
+				D9D55182274E4EDA00E39D63 /* KVObservable.swift in Sources */,
 				D999387F26C2616A005AF406 /* ArbPlaygroundResultViewConstructor.swift in Sources */,
 				D9E746692747C64000A4A292 /* ArbsEditPortfolioItemsViewController.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
@@ -2083,6 +2204,7 @@
 				D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */,
 				D95449F1270EE8DD00BD2B75 /* ProfileDescriptionView.swift in Sources */,
 				D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */,
+				D9D55187274E4EE300E39D63 /* State.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2220,6 +2342,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A3DBBAA9893FB1A41E3B001D /* Pods-Sparta.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -2248,6 +2371,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;

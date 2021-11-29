@@ -127,7 +127,7 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     func monthsCount() -> Int {
-        blenderManager.profile.portfolio == .ara ? 6 : 2
+        blenderManager.profile.portfolio == .ara ? 6 : 4
     }
 
     // MARK: - Private methods

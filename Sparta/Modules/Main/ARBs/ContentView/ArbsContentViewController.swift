@@ -85,6 +85,9 @@ class ArbsContentViewController: BaseViewController {
         case .dashboard:
             self.navigationBar(hide: true)
             InterfaceOrientationUtility.lockOrientation(.landscape, rotateTo: .landscapeRight)
+
+            let arbsViewController = ArbsVContentViewController()
+            add(arbsViewController, to: contentView)
         }
     }
 

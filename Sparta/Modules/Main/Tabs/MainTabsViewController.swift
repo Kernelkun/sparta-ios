@@ -34,6 +34,17 @@ class MainTabsViewController: UITabBarController {
 
         var tabs: [KeyedNavigationController<Tab>] = []
 
+        // HOTFIX: ARBs has to be second one
+        if viewModel.isVisibleArbsBlock {
+            let second = ArbsContentViewController()
+            setTabBarItem(second, "MainTabsPage.ARBs.Title".localized, "ic_tab_first")
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: second)
+            navigation.setKey(.arbs)
+
+            tabs.append(navigation)
+        }
+
         if viewModel.isVisibleLivePricesBlock {
             let first = LiveCurvesViewController()
             setTabBarItem(first, "MainTabsPage.LiveCurves.Title".localized, "ic_tab_second")
@@ -44,15 +55,6 @@ class MainTabsViewController: UITabBarController {
             tabs.append(navigation)
         }
 
-        if viewModel.isVisibleArbsBlock {
-            let second = ArbsContentViewController()
-            setTabBarItem(second, "MainTabsPage.ARBs.Title".localized, "ic_tab_first")
-
-            let navigation = KeyedNavigationController<Tab>(rootViewController: second)
-            navigation.setKey(.arbs)
-
-            tabs.append(navigation)
-        }
 
         if viewModel.isVisibleBlenderBlock {
             let third = BlenderViewController()
