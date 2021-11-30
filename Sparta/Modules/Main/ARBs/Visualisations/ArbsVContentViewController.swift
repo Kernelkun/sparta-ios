@@ -49,6 +49,8 @@ class ArbsVContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .mainBackground
+
         contentScrollView = UIScrollView().then { scrollView in
 
             scrollView.showsVerticalScrollIndicator = false
@@ -116,7 +118,7 @@ class ArbsVContentViewController: UIViewController {
         airBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
         airBar.layer.shadowRadius = 4
         airBar.layer.shadowOpacity = 0.4
-        airBar.backgroundColor = .blue
+        airBar.backgroundColor = .mainBackground
 //
 ////        airBar.addSubview(backgroundView)
 //        airBar.addSubview(darkMenuView)
@@ -147,8 +149,8 @@ class ArbsVContentViewController: UIViewController {
         coordinator.animate(alongsideTransition: { _ in
 //            self.airBar.frame = CGRect(x: self.airBar.frame.minX, y: self.airBar.frame.minY, width: size.width, height: self.airBar.frame.height)
 //            self.backgroundView.frame = CGRect(x: self.backgroundView.frame.minX, y: self.backgroundView.frame.minY, width: size.width, height: self.backgroundView.frame.height)
-            self.normalView.frame = CGRect(x: self.normalView.frame.minX, y: self.normalView.frame.minY, width: size.width, height: self.normalView.frame.height)
-            self.expandedView.frame = CGRect(x: self.expandedView.frame.minX, y: self.expandedView.frame.minY, width: size.width, height: self.expandedView.frame.height)
+//            self.normalView.frame = CGRect(x: self.normalView.frame.minX, y: self.normalView.frame.minY, width: size.width, height: self.normalView.frame.height)
+//            self.expandedView.frame = CGRect(x: self.expandedView.frame.minX, y: self.expandedView.frame.minY, width: size.width, height: self.expandedView.frame.height)
         }, completion: nil)
     }
 
