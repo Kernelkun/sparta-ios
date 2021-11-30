@@ -29,6 +29,12 @@ class ArbsSyncManager: ArbsSyncInterface {
 
     private(set) var portfolio: ArbProfileCategory?
 
+    public var houMonthsCount: Int {
+        guard let currentUser = App.instance.syncService.currentUser else { return 2 }
+
+        return currentUser.houArbMonths
+    }
+
     // MARK: - Private properties
 
     private var operationQueue: OperationQueue = {

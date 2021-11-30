@@ -24,6 +24,9 @@ protocol ArbsSyncInterface {
     /// Profiles list
     var portfolios: [ArbProfileCategory] { get }
 
+    /// HOU months count
+    var houMonthsCount: Int { get }
+
     /// Launch service. To receive any updates need to use this method
     func start()
 

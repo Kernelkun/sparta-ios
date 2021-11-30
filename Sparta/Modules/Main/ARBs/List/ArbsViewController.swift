@@ -155,7 +155,7 @@ extension ArbsViewController: GridViewDataSource {
 
     func sectionHeight(_ section: Int) -> CGFloat {
         if case let ArbsViewModel.Cell.title(arb) = viewModel.tableDataSource[section] {
-            return ArbsUIConstants.cellHeight(for: arb.portfolio)
+            return ArbsUIConstants.cellHeight(for: arb)
         }
 
         return ArbsUIConstants.defaultCellHeight

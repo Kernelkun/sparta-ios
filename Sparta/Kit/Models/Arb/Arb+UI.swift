@@ -10,6 +10,12 @@ import NetworkingModels
 extension Arb {
 
     var presentationMonthsCount: Int {
-        portfolio.isAra ? 6 : 2
+        if portfolio.isAra {
+            return 6
+        } else {
+            guard let user = App.instance.currentUser else { return 2 }
+
+            return user.houArbMonths
+        }
     }
 }

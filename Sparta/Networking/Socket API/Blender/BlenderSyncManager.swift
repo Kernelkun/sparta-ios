@@ -38,6 +38,12 @@ class BlenderSyncManager {
 
     private(set) lazy var profile = profiles.first.required()
 
+    public var houMonthsCount: Int {
+        guard let currentUser = App.instance.syncService.currentUser else { return 2 }
+
+        return currentUser.houBlenderMonths
+    }
+
     // MARK: - Private properties
 
     private var operationQueue: OperationQueue = {
@@ -134,7 +140,9 @@ class BlenderSyncManager {
     private func patchBlender(_ blender: inout Blender) {
         let month2Regions: [Blender.Portfolio] = [.houBlender, .houRefinery]
         if month2Regions.contains(blender.portfolio) {
-            blender.months = Array(blender.months[0...1])
+            guard houMonthsCount <= blender.months.count else { return }
+
+            blender.months = Array(blender.months[0..<houMonthsCount])
         }
     }
 }
