@@ -1,5 +1,5 @@
 //
-//  UITextFieldSelector.swift
+//  UISelector.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 10.12.2020.
@@ -8,7 +8,7 @@
 import UIKit
 import SpartaHelpers
 
-class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelegate, UIPickerViewDataSource {
+class UISelector<M: PickerValued>: RoundedTextField, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Public properties
 
@@ -26,19 +26,22 @@ class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelega
 
     // MARK: - Private properties
 
+    private let uiConfigurator: UISelectorUIConfigurator
+
     private var _onTapClosure: EmptyClosure?
     private var _onChooseClosure: TypeClosure<M>?
 
     // MARK: - Initializers
 
-    init() {
+    init(uiConfigurator: UISelectorUIConfigurator = .freightStyle) {
+        self.uiConfigurator = uiConfigurator
         super.init(frame: .zero)
 
         setup()
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(#function)
     }
 
     // MARK: - Public methods
@@ -66,8 +69,8 @@ class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelega
 
         // general UI
 
-        backgroundColor = UIColor.accountFieldBackground
-        layer.cornerRadius = 8
+        backgroundColor = uiConfigurator.backgroundColor
+        layer.cornerRadius = uiConfigurator.radius
 
         // hidden text field
 
@@ -83,25 +86,28 @@ class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelega
 
         // main text field
 
-        let rightViewWithSpace = UIView(frame: CGRect(x: 0, y: 0, width: 43, height: frame.height))
+        let rightViewWithSpace = UIView(frame: CGRect(x: 0, y: 0, width: uiConfigurator.rightSpace, height: frame.height))
 
         _ = UIImageView().then { v in
 
-            v.image = UIImage(named: "ic_bottom_chevron")
-            v.tintColor = .primaryText
+            v.image = uiConfigurator.rightImage
+            v.tintColor = uiConfigurator.rightImageTintColor
             v.contentMode = .center
 
             rightViewWithSpace.addSubview(v) { make in
-                make.size.equalTo(16)
+                make.size.equalTo(uiConfigurator.rightImageSize)
                 make.centerY.equalToSuperview()
                 make.left.right.equalToSuperview().inset(12)
             }
         }
 
         textField.isUserInteractionEnabled = false
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: uiConfigurator.leftSpace, height: 0))
         textField.rightView = rightViewWithSpace
         textField.rightViewMode = .always
+
+        textField.defaultTextAttributes = [.foregroundColor: uiConfigurator.mainColor,
+                                           .font: uiConfigurator.mainFont]
 
         // picker view
 

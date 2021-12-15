@@ -1,0 +1,106 @@
+//
+//  ArbVHeaderView.swift
+//  Sparta
+//
+//  Created by Yaroslav Babalich on 01.12.2021.
+//
+
+import UIKit
+import SpartaHelpers
+
+class ArbVHeaderView: UIView {
+
+    // MARK: - Private properties
+
+    private var topContentView: UIView!
+    private var bottomContentView: UIView!
+    private var mainStackView: UIStackView!
+
+    // MARK: - Initializers
+
+    init() {
+        super.init(frame: .zero)
+        setupUI()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(#function)
+    }
+
+    // MARK: - Public methods
+
+    func applyState(isMinimized: Bool) {
+        bottomContentView.isHidden = isMinimized
+    }
+
+    // MARK: - Private methods
+
+    private func setupUI() {
+        backgroundColor = .neutral75
+
+        topContentView = UIView().then { view in
+
+            view.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+
+            view.snp.makeConstraints {
+                $0.height.equalTo(35)
+            }
+        }
+
+        bottomContentView = UIView().then { view in
+
+            view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+
+            view.snp.makeConstraints {
+                $0.height.equalTo(35)
+            }
+        }
+
+        mainStackView = UIStackView().then { stackView in
+
+            stackView.spacing = 10
+            stackView.axis = .vertical
+            stackView.alignment = .fill
+            stackView.distribution = .equalSpacing
+
+            stackView.addArrangedSubview(topContentView)
+            stackView.addArrangedSubview(bottomContentView)
+
+            addSubview(stackView) {
+                $0.top.equalToSuperview().offset(10)
+                $0.left.right.equalToSuperview()
+            }
+        }
+
+        let segmetedView = MainSegmentedView(items: MainSegmentedView.MenuItem.allCases).then { view in
+
+            topContentView.addSubview(view) {
+                $0.height.equalTo(32)
+                $0.left.equalToSuperview()
+                $0.centerY.equalToSuperview()
+            }
+        }
+
+        let destinationSelector = UISelector<PickerIdValued<Date>>(uiConfigurator: .visualisationStyle).then { view in
+
+//            view.onChooseValue { [unowned self] value in
+//                self.viewModel.selectedFreightPort = value
+//                self.viewModel.reloadMainOptions()
+//            }
+
+            topContentView.addSubview(view) {
+                $0.size.equalTo(CGSize(width: 228, height: 32))
+                $0.centerY.equalToSuperview()
+                $0.left.equalTo(segmetedView.snp.right).offset(15)
+            }
+        }
+
+        let playgroundButton = ArbsVPlaygroundButton().then { button in
+
+            topContentView.addSubview(button) {
+                $0.centerY.right.equalToSuperview()
+                $0.size.equalTo(35)
+            }
+        }
+    }
+}

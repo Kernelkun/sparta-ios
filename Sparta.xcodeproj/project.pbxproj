@@ -49,7 +49,7 @@
 		D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */; };
 		D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228425826AE6005FA057 /* PhoneNumberKit-Static */; };
 		D94E228725826AE6005FA057 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228625826AE6005FA057 /* PhoneNumberKit */; };
-		D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E228825826CEE005FA057 /* UITextFieldSelector.swift */; };
+		D94E228925826CEE005FA057 /* UISelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E228825826CEE005FA057 /* UISelector.swift */; };
 		D95449EE270E2A6B00BD2B75 /* CollapsableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95449ED270E2A6B00BD2B75 /* CollapsableView.swift */; };
 		D95449F1270EE8DD00BD2B75 /* ProfileDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95449F0270EE8DD00BD2B75 /* ProfileDescriptionView.swift */; };
 		D95449F3270EEDA400BD2B75 /* ArbPortfolio+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95449F2270EEDA400BD2B75 /* ArbPortfolio+UI.swift */; };
@@ -85,6 +85,9 @@
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D97926F92657C1A10004E230 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97926F82657C1A10004E230 /* BaseTableViewController.swift */; };
+		D97A6CC82757ACCA005C1666 /* UISelector+Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A6CC72757ACCA005C1666 /* UISelector+Configurator.swift */; };
+		D97A6CCA2757C128005C1666 /* ArbsVPlaygroundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A6CC92757C128005C1666 /* ArbsVPlaygroundButton.swift */; };
+		D97A6CCC2757C52D005C1666 /* ArbVHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97A6CCB2757C52D005C1666 /* ArbVHeaderView.swift */; };
 		D980119E2652A99B00B8AA70 /* ProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D980119D2652A99B00B8AA70 /* ProfilesView.swift */; };
 		D98011A02652AE5400B8AA70 /* ProfileElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D980119F2652AE5400B8AA70 /* ProfileElementView.swift */; };
 		D98011C5265548DA00B8AA70 /* LCPortfolioAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C4265548D900B8AA70 /* LCPortfolioAddViewController.swift */; };
@@ -237,6 +240,8 @@
 		D9D55188274E4EE300E39D63 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746F2274E3E0E00A4A292 /* Configuration.swift */; };
 		D9D55189274E4EE300E39D63 /* StateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746F1274E3E0E00A4A292 /* StateRange.swift */; };
 		D9D5518A274E4EE700E39D63 /* CGFloat+AirBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E746F5274E3E0E00A4A292 /* CGFloat+AirBar.swift */; };
+		D9DD516E2756ACC7005BAD96 /* MainSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DD516D2756ACC7005BAD96 /* MainSegmentedView.swift */; };
+		D9DD51712756AD72005BAD96 /* MainSegmentedView+ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DD51702756AD72005BAD96 /* MainSegmentedView+ItemView.swift */; };
 		D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */; };
 		D9DF2C91272C28AA00EDE415 /* ArbVSelectorsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */; };
 		D9DF2C93272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF2C92272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift */; };
@@ -320,7 +325,7 @@
 		D94ACF18266529FB003BCC14 /* UIActionSheetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionSheetFactory.swift; sourceTree = "<group>"; };
 		D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectiomViewCell.swift; sourceTree = "<group>"; };
 		D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectionViewCell.swift; sourceTree = "<group>"; };
-		D94E228825826CEE005FA057 /* UITextFieldSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldSelector.swift; sourceTree = "<group>"; };
+		D94E228825826CEE005FA057 /* UISelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISelector.swift; sourceTree = "<group>"; };
 		D95449ED270E2A6B00BD2B75 /* CollapsableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableView.swift; sourceTree = "<group>"; };
 		D95449F0270EE8DD00BD2B75 /* ProfileDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDescriptionView.swift; sourceTree = "<group>"; };
 		D95449F2270EEDA400BD2B75 /* ArbPortfolio+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbPortfolio+UI.swift"; sourceTree = "<group>"; };
@@ -356,6 +361,9 @@
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D97926F82657C1A10004E230 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		D97A6CC72757ACCA005C1666 /* UISelector+Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISelector+Configurator.swift"; sourceTree = "<group>"; };
+		D97A6CC92757C128005C1666 /* ArbsVPlaygroundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVPlaygroundButton.swift; sourceTree = "<group>"; };
+		D97A6CCB2757C52D005C1666 /* ArbVHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbVHeaderView.swift; sourceTree = "<group>"; };
 		D980119D2652A99B00B8AA70 /* ProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesView.swift; sourceTree = "<group>"; };
 		D980119F2652AE5400B8AA70 /* ProfileElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileElementView.swift; sourceTree = "<group>"; };
 		D98011C4265548D900B8AA70 /* LCPortfolioAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewController.swift; sourceTree = "<group>"; };
@@ -495,6 +503,8 @@
 		D9D4FC35264F0AAA00A2A1DA /* LCPortfolioAddItemViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPortfolioAddItemViewModel+Models.swift"; sourceTree = "<group>"; };
 		D9D5517A274E4AB300E39D63 /* ArbsVContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVContentViewController.swift; sourceTree = "<group>"; };
 		D9D5517C274E4AC300E39D63 /* ArbsVContentWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVContentWireframe.swift; sourceTree = "<group>"; };
+		D9DD516D2756ACC7005BAD96 /* MainSegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSegmentedView.swift; sourceTree = "<group>"; };
+		D9DD51702756AD72005BAD96 /* MainSegmentedView+ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainSegmentedView+ItemView.swift"; sourceTree = "<group>"; };
 		D9DE4A5B26714AF200F658D4 /* LoginStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStateModel.swift; sourceTree = "<group>"; };
 		D9DF2C90272C28AA00EDE415 /* ArbVSelectorsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbVSelectorsRequest.swift; sourceTree = "<group>"; };
 		D9DF2C92272C2C8500EDE415 /* ArbsPlaygroundPCInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundPCInterfaces.swift; sourceTree = "<group>"; };
@@ -968,6 +978,32 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		D97A6CC42757AC26005C1666 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D97A6CC52757AC2C005C1666 /* Views */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D97A6CC52757AC2C005C1666 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D97A6CC92757C128005C1666 /* ArbsVPlaygroundButton.swift */,
+				D97A6CCB2757C52D005C1666 /* ArbVHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D97A6CC62757ACB8005C1666 /* Selector */ = {
+			isa = PBXGroup;
+			children = (
+				D97A6CC72757ACCA005C1666 /* UISelector+Configurator.swift */,
+				D94E228825826CEE005FA057 /* UISelector.swift */,
+			);
+			path = Selector;
+			sourceTree = "<group>";
+		};
 		D980119C2652715B00B8AA70 /* AddItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -1238,6 +1274,8 @@
 		D9A8041F25714404000ADE6B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D97A6CC62757ACB8005C1666 /* Selector */,
+				D9DD516C2756AACD005BAD96 /* Segments */,
 				D9A8042C25714595000ADE6B /* Buttons */,
 				D9B50E2525740F810018F3D7 /* Textfields */,
 				D944CEF82577B884009115FD /* Collection */,
@@ -1248,7 +1286,6 @@
 				D96F47B226BD5A150063AB90 /* Playground */,
 				D9A80440257146D1000ADE6B /* AvatarView.swift */,
 				D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */,
-				D94E228825826CEE005FA057 /* UITextFieldSelector.swift */,
 				D970047925892AEB000E4A01 /* LoadingView.swift */,
 				D9A2796E259377C5009D066E /* SocketsStatusLineView.swift */,
 				D9A91CBE25AC691C00423704 /* LoaderView.swift */,
@@ -1668,10 +1705,28 @@
 		D9D55179274E4A9400E39D63 /* Visualisations */ = {
 			isa = PBXGroup;
 			children = (
+				D97A6CC42757AC26005C1666 /* Helpers */,
 				D9D5517A274E4AB300E39D63 /* ArbsVContentViewController.swift */,
 				D9D5517C274E4AC300E39D63 /* ArbsVContentWireframe.swift */,
 			);
 			path = Visualisations;
+			sourceTree = "<group>";
+		};
+		D9DD516C2756AACD005BAD96 /* Segments */ = {
+			isa = PBXGroup;
+			children = (
+				D9DD516F2756AD58005BAD96 /* MainSegmentedView */,
+			);
+			path = Segments;
+			sourceTree = "<group>";
+		};
+		D9DD516F2756AD58005BAD96 /* MainSegmentedView */ = {
+			isa = PBXGroup;
+			children = (
+				D9DD51702756AD72005BAD96 /* MainSegmentedView+ItemView.swift */,
+				D9DD516D2756ACC7005BAD96 /* MainSegmentedView.swift */,
+			);
+			path = MainSegmentedView;
 			sourceTree = "<group>";
 		};
 		D9E7465D2747C5F500A4A292 /* ARBs */ = {
@@ -1979,12 +2034,14 @@
 				D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */,
 				D94BCA452577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift in Sources */,
 				D9D4FC2C264ED53F00A2A1DA /* BaseViewController.swift in Sources */,
+				D97A6CCA2757C128005C1666 /* ArbsVPlaygroundButton.swift in Sources */,
 				D980119E2652A99B00B8AA70 /* ProfilesView.swift in Sources */,
 				D98011A02652AE5400B8AA70 /* ProfileElementView.swift in Sources */,
 				D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */,
 				D9B7CCD925C1C9590023FDF2 /* ProgressView.swift in Sources */,
 				D9B50E30257413800018F3D7 /* PopupTextViewController.swift in Sources */,
 				D959C0F225822EEB006CE2D1 /* FreightViewModel.swift in Sources */,
+				D97A6CC82757ACCA005C1666 /* UISelector+Configurator.swift in Sources */,
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
@@ -2008,6 +2065,7 @@
 				D95F3F8E26AAD84800F20A74 /* ArbsNetworkManager.swift in Sources */,
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
+				D9DD51712756AD72005BAD96 /* MainSegmentedView+ItemView.swift in Sources */,
 				D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */,
 				D9E746632747C5F500A4A292 /* ArbsSyncInterface.swift in Sources */,
 				D9A47F60272AA03300B319E7 /* ArbsPlaygroundPCViewModel.swift in Sources */,
@@ -2029,7 +2087,7 @@
 				D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */,
 				D9A91BFE25A3786300423704 /* ArbsUserMarginCollectionViewCell.swift in Sources */,
 				D9A47F6B272AE62A00B319E7 /* APPCLightView.swift in Sources */,
-				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
+				D94E228925826CEE005FA057 /* UISelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,
 				D9E746722747C6C000A4A292 /* GetArbsPortfoliosRequest.swift in Sources */,
 				D963452926C1529D000DD791 /* ArbPlaygroundDPS+PickerValued.swift in Sources */,
@@ -2077,6 +2135,7 @@
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
 				D9D5517F274E4ED300E39D63 /* BarController.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
+				D97A6CCC2757C52D005C1666 /* ArbVHeaderView.swift in Sources */,
 				D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */,
 				D977B3A425C330E9009A9483 /* ArbDetailContentView.swift in Sources */,
 				D9D5518A274E4EE700E39D63 /* CGFloat+AirBar.swift in Sources */,
@@ -2164,6 +2223,7 @@
 				D963452C26C154F4000DD791 /* ArbPlaygroundDPSPointViewConstructor.swift in Sources */,
 				D9DF2C91272C28AA00EDE415 /* ArbVSelectorsRequest.swift in Sources */,
 				D9C71C522678A46E001B1924 /* UIAlertFactory.swift in Sources */,
+				D9DD516E2756ACC7005BAD96 /* MainSegmentedView.swift in Sources */,
 				D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */,
 				D90DE03A26BE6EE400D1A8D9 /* ArbPlaygroundInputDataView.swift in Sources */,
 				D9E746642747C5F500A4A292 /* ArbsSyncManager+StatesObservation.swift in Sources */,

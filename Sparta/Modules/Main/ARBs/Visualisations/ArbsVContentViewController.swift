@@ -12,7 +12,7 @@ class ArbsVContentViewController: UIViewController {
     // MARK: - Private Properties
 
     fileprivate var contentScrollView: UIScrollView!
-    fileprivate var airBar: UIView!
+    fileprivate var airBar: ArbVHeaderView!
 //    fileprivate var backgroundView: UIView!
     fileprivate var darkMenuView: UIView!
     fileprivate var lightMenuView: UIView!
@@ -36,7 +36,7 @@ class ArbsVContentViewController: UIViewController {
     }
 
     private enum Constants {
-        static let normalStateHeight: CGFloat = 80
+        static let normalStateHeight: CGFloat = 100
         static let compactStateHeight: CGFloat = 60
         static let expandedStateHeight: CGFloat = 100
     }
@@ -44,16 +44,32 @@ class ArbsVContentViewController: UIViewController {
     fileprivate var numberOfItems = 10
     fileprivate var secondTableViewShown: Bool?
 
+    // MARK: - Initializers
+
+    init(pricingCenter)
+
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .mainBackground
+        view.backgroundColor = .neutral75
+
+        let sideView = UIView().then { view in
+
+            view.backgroundColor = .yellow
+
+            addSubview(view) {
+                $0.top.bottom.equalToSuperview()
+                $0.left.equalTo(view.safeAreaLayoutGuide.snp.right)
+                $0.right.equalToSuperview()
+            }
+        }
 
         contentScrollView = UIScrollView().then { scrollView in
 
             scrollView.showsVerticalScrollIndicator = false
+//            scrollView.delegate
 
             view.addSubview(scrollView) {
                 $0.top.bottom.equalToSuperview()
@@ -114,11 +130,20 @@ class ArbsVContentViewController: UIViewController {
 ////        backButton.imageEdgeInsets = UIEdgeInsets(top: 14, left: 10, bottom: 14, right: 10)
 ////        backButton.addTarget(self, action: #selector(self.handleBackButtonPressed(_:)), for: .touchUpInside)
 //
-        airBar = UIView()
-        airBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
-        airBar.layer.shadowRadius = 4
-        airBar.layer.shadowOpacity = 0.4
-        airBar.backgroundColor = .mainBackground
+
+
+        airBar = ArbVHeaderView().then { view in
+
+//            view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 100)
+            self.view.addSubview(view) {
+                $0.right.equalTo(self.view.safeAreaLayoutGuide.snp.right)
+                $0.left.equalTo(self.view.safeAreaLayoutGuide.snp.left)
+                $0.height.equalTo(100)
+            }
+        }
+
+
+
 //
 ////        airBar.addSubview(backgroundView)
 //        airBar.addSubview(darkMenuView)
@@ -126,7 +151,7 @@ class ArbsVContentViewController: UIViewController {
 //        airBar.addSubview(normalView)
 //        airBar.addSubview(expandedView)
 ////        airBar.addSubview(backButton)
-        view.addSubview(airBar)
+//        view.addSubview(airBar)
 
         let configuration = Configuration(
             compactStateHeight: Constants.compactStateHeight,
@@ -230,15 +255,23 @@ class ArbsVContentViewController: UIViewController {
         let height = state.height()
         let transitionProgress = state.transitionProgress()
 
+        print("SCROLL offset *: \(state.offset)")
+
         shouldHideStatusBar = transitionProgress > 0 && transitionProgress < 1
         prefersStatusBarStyle = transitionProgress > 0.5 ? .lightContent : .default
 
-        airBar.frame = CGRect(
-            x: airBar.frame.origin.x,
-            y: airBar.frame.origin.y,
-            width: airBar.frame.width,
-            height: height // <~ Animated property
-        )
+//        airBar.frame = CGRect(
+//            x: airBar.frame.origin.x,
+//            y: airBar.frame.origin.y,
+//            width: airBar.frame.width,
+//            height: height // <~ Animated property
+//        )
+
+        airBar.snp.updateConstraints {
+            $0.height.equalTo(height)
+        }
+
+        airBar.applyState(isMinimized: transitionProgress < 1)
 
 //        backgroundView.frame = CGRect(
 //            x: backgroundView.frame.origin.x,

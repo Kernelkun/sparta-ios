@@ -20,20 +20,20 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
     private var lastNameField: RoundedTextField!
     private var lastNameLabel: UILabel!
 
-    private var phoneNumberCodeField: UITextFieldSelector<CountryCodeModel>!
+    private var phoneNumberCodeField: UISelector<CountryCodeModel>!
     private var phoneNumberField: RoundedTextField!
     private var phoneNumberLabel: UILabel!
 
-    private var roleField: UITextFieldSelector<PickerIdValued<Int>>!
+    private var roleField: UISelector<PickerIdValued<Int>>!
     private var roleLabel: UILabel!
 
-    private var productField: UITextFieldSelector<PickerIdValued<Int>>!
+    private var productField: UISelector<PickerIdValued<Int>>!
     private var productLabel: UILabel!
 
-    private var tradeAreaField: UITextFieldSelector<PickerIdValued<Int>>!
+    private var tradeAreaField: UISelector<PickerIdValued<Int>>!
     private var tradeAreaLabel: UILabel!
 
-    private var portField: UITextFieldSelector<PickerIdValued<Int>>!
+    private var portField: UISelector<PickerIdValued<Int>>!
     private var portLabel: UILabel!
 
     private var saveButton: BorderedButton!
@@ -226,7 +226,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupPhoneNumberViews(in contentView: UIView) {
 
-        phoneNumberCodeField = UITextFieldSelector().then { view in
+        phoneNumberCodeField = UISelector().then { view in
 
             view.onChooseValue { [unowned self] selectedValue in
                 self.viewModel.selectedCountryCode = selectedValue
@@ -274,7 +274,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupRoleViews(in contentView: UIView) {
 
-        roleField = UITextFieldSelector().then { view in
+        roleField = UISelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedUserRole = value
@@ -304,7 +304,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupProductViews(in contentView: UIView) {
 
-        productField = UITextFieldSelector().then { view in
+        productField = UISelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedPrimaryProduct = value
@@ -334,7 +334,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupTradeAreaViews(in contentView: UIView) {
 
-        tradeAreaField = UITextFieldSelector().then { view in
+        tradeAreaField = UISelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedTradeArea = value
@@ -364,7 +364,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupPortViews(in contentView: UIView) {
 
-        portField = UITextFieldSelector().then { view in
+        portField = UISelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedPort = value
