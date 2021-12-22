@@ -12,11 +12,15 @@ final class ArbsVContentWireframe: BaseWireframe<ArbsVContentViewController> {
 
     // MARK: - Initializers
 
-    init(selectedArb: Arb) {
-//        let viewModel = ArbsPlaygroundViewModel(selectedArb: selectedArb)
+    init() {
         let viewController = ArbsVContentViewController()
-        super.init(viewController: viewController)
 
-//        viewModel.delegate = viewController
+        let configurator = ArbsVContentViewController.Configurator(
+            pcChildController: ArbsVChildPCViewController(parrentController: viewController),
+            acChhildController: ArbsVChildACViewController(parrentController: viewController)
+        )
+
+        viewController.configurator = configurator
+        super.init(viewController: viewController)
     }
 }

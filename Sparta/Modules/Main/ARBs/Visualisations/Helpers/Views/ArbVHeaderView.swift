@@ -8,13 +8,22 @@
 import UIKit
 import SpartaHelpers
 
+protocol ArbVHeaderViewDelegate: AnyObject {
+    func arbVHeaderViewDidChangeSegmentedViewValue(_ view: ArbVHeaderView, item: MainSegmentedView.MenuItem)
+}
+
 class ArbVHeaderView: UIView {
+
+    // MARK: - Public properties
+
+    weak var delegate: ArbVHeaderViewDelegate?
 
     // MARK: - Private properties
 
     private var topContentView: UIView!
     private var bottomContentView: UIView!
     private var mainStackView: UIStackView!
+    private var segmetedView: MainSegmentedView!
 
     // MARK: - Initializers
 
@@ -72,7 +81,11 @@ class ArbVHeaderView: UIView {
             }
         }
 
-        let segmetedView = MainSegmentedView(items: MainSegmentedView.MenuItem.allCases).then { view in
+        segmetedView = MainSegmentedView(items: MainSegmentedView.MenuItem.allCases).then { view in
+
+            view.onSelect { [unowned self] item in
+                self.delegate?.arbVHeaderViewDidChangeSegmentedViewValue(self, item: item)
+            }
 
             topContentView.addSubview(view) {
                 $0.height.equalTo(32)

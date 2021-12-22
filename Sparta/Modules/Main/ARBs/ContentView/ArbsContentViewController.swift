@@ -89,8 +89,8 @@ class ArbsContentViewController: BaseViewController {
             self.navigationBar(hide: true)
             InterfaceOrientationUtility.lockOrientation(.landscape, rotateTo: .landscapeRight)
 
-            let arbsViewController = ArbsVContentViewController()
-            add(arbsViewController, to: contentView)
+            let wireframeVContentWireframe = ArbsVContentWireframe()
+            add(wireframeVContentWireframe.viewController, to: contentView)
 
             // show tabBar
             tabBarController?.setTabBarHidden(true, animated: true)

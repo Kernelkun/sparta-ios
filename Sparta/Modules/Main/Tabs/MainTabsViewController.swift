@@ -55,7 +55,6 @@ class MainTabsViewController: UITabBarController {
             tabs.append(navigation)
         }
 
-
         if viewModel.isVisibleBlenderBlock {
             let third = BlenderViewController()
             setTabBarItem(third, "MainTabsPage.Blender.Title".localized, "ic_tab_third")

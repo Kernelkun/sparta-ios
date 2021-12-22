@@ -7,12 +7,20 @@
 
 import UIKit
 
-class ArbsVContentViewController: UIViewController {
+class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterface {
+
+    func addObserver(_ observer: ArbsVContentControllerObserver) {
+    }
+
+    func removeObserver(_ observer: ArbsVContentControllerObserver) {
+    }
+
 
     // MARK: - Private Properties
 
     fileprivate var contentScrollView: UIScrollView!
-    fileprivate var airBar: ArbVHeaderView!
+    var airBar: ArbVHeaderView!
+    var configurator: Configurator!
 //    fileprivate var backgroundView: UIView!
     fileprivate var darkMenuView: UIView!
     fileprivate var lightMenuView: UIView!
@@ -46,7 +54,7 @@ class ArbsVContentViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(pricingCenter)
+//    init(pricingCenter)
 
     // MARK: - View Lifecycle
 

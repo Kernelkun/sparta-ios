@@ -10,6 +10,12 @@ import SpartaHelpers
 
 class MainSegmentedView: UIControl {
 
+    // MARK: - Public properties
+
+    var selectedIndex = 0 {
+        didSet { updateUI() }
+    }
+
     // MARK: - Private properties
 
     private let items: [MenuItem]
@@ -52,10 +58,11 @@ class MainSegmentedView: UIControl {
             items.forEach { item in
                 let itemView = ItemView(item: item)
                 itemView.onTap { [unowned self] view in
-                    guard let view = view as? ItemView else { return }
+                    guard let view = view as? ItemView,
+                          let indexOfView = mainStackView.arrangedSubviews.index(of: view) else { return }
 
+                    self.selectedIndex = indexOfView
                     _onChooseClosure?(view.item)
-                    animateLineToView(view)
                 }
                 stackView.addArrangedSubview(itemView)
             }
@@ -66,6 +73,13 @@ class MainSegmentedView: UIControl {
         }
 
         setupSView()
+    }
+
+    private func updateUI() {
+        guard selectedIndex < mainStackView.arrangedSubviews.count,
+              let selectedItem = mainStackView.arrangedSubviews[selectedIndex] as? ItemView else { return }
+
+        animateLineToView(selectedItem)
     }
 
     private func setupSView() {
@@ -84,9 +98,7 @@ class MainSegmentedView: UIControl {
         guard let frame = getFrameOfView(view) else { return }
 
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
-
             let insetedFrame = frame.inset(by: .init(top: 2, left: 1, bottom: 2, right: 1))
-
             self.selectionView.frame = insetedFrame
         }
 
