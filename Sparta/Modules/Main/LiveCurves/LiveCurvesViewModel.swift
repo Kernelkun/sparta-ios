@@ -80,7 +80,7 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
             .sorted(by: { value1, value2 in
                 value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
             })
-            .compactMap { .grade(title: $0.key) }
+            .compactMap { .gradeUnit(title: $0.key, unit: $0.value.first.required().unit) }
     }
 
     private func createCollectionDataSource(from liveCurves: [LiveCurve]) -> [Section] {
