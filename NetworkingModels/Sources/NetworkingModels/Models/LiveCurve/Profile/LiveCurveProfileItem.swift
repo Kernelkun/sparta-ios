@@ -20,6 +20,7 @@ public struct LiveCurveProfileItem: BackendModel {
     public let shortName: String
     public let longName: String
     public let order: Int
+    public let unit: String
 
     //
     // MARK: - Default Initializers
@@ -30,6 +31,7 @@ public struct LiveCurveProfileItem: BackendModel {
         shortName = json["shortName"].stringValue
         longName = json["longName"].stringValue
         order = json["order"].intValue
+        unit = json["unit"].stringValue
     }
 }
 
