@@ -17,6 +17,7 @@ public struct LiveCurveProfileProduct: BackendModel {
     public let id: Int
     public let shortName: String
     public let longName: String
+    public let unit: String
     public let productGroups: [Group]
 
     //
@@ -26,6 +27,7 @@ public struct LiveCurveProfileProduct: BackendModel {
         id = json["id"].intValue
         shortName = json["shortName"].stringValue
         longName = json["longName"].stringValue
+        unit = json["unit"].stringValue
         productGroups = json["productGroups"].arrayValue.compactMap { Group(json: $0) }
     }
 }
