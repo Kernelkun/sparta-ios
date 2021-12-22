@@ -53,7 +53,7 @@ class LiveCurveGradeTableViewCell: UICollectionViewCell {
 
         unitsLabel = UILabel().then { label in
 
-            label.textAlignment = .right
+            label.textAlignment = .left
             label.textColor = .white
             label.numberOfLines = 1
             label.font = .main(weight: .regular, size: 14)
