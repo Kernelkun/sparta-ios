@@ -7,6 +7,7 @@
 
 import UIKit
 import NetworkingModels
+import SpartaHelpers
 
 class ArbsPlaygroundPCViewController: BaseViewController {
 
@@ -65,11 +66,12 @@ class ArbsPlaygroundPCViewController: BaseViewController {
         let datesHeaderView = APPCDatesHeaderView().then { view in
 
             contentView.addSubview(view) {
-                $0.left.right.top.equalToSuperview()
+                $0.left.top.equalToSuperview()
+                $0.right.equalToSuperview().inset(8)
             }
         }
 
-        tableView = UITableView().then { tableView in
+        tableView = ContentSizedTableView().then { tableView in
 
             if #available(iOS 15.0, *) {
                 tableView.sectionHeaderTopPadding = 0

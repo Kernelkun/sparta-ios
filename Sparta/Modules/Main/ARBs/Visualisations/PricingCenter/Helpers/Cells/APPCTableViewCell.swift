@@ -22,7 +22,7 @@ class APPCTableViewCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("APPCTableViewCell")
+        fatalError(#function)
     }
 
     // MARK: - Private methods
@@ -34,19 +34,98 @@ class APPCTableViewCell: UITableViewCell {
         tintColor = .controlTintActive
         selectionStyle = .none
 
+        // identifier view
+
+        let identifierView = APPCIdentifierView(
+            title: "ara".uppercased(),
+            subTitle: "lr1".uppercased()
+        )
+
+        // labels
+
+        let firstLabel = UILabel().then { label in
+
+            label.text = "Blender Mrg"
+            label.textAlignment = .right
+            label.textColor = .primaryText
+            label.font = .main(weight: .regular, size: 11)
+            label.numberOfLines = 0
+
+            label.snp.makeConstraints {
+                $0.height.equalTo(40)
+            }
+        }
+
+        let secondLabel = UILabel().then { label in
+
+            label.text = "NWE Ref Mrg"
+            label.textAlignment = .right
+            label.textColor = .primaryText
+            label.font = .main(weight: .regular, size: 11)
+            label.numberOfLines = 0
+
+            label.snp.makeConstraints {
+                $0.height.equalTo(40)
+            }
+        }
+
+        let thirdLabel = UILabel().then { label in
+
+            label.text = "FOB ARA Ref Mrg"
+            label.textAlignment = .right
+            label.textColor = .primaryText
+            label.font = .main(weight: .regular, size: 11)
+            label.numberOfLines = 0
+
+            label.snp.makeConstraints {
+                $0.height.equalTo(40)
+            }
+        }
+
+        let labelsStackView = UIStackView().then { stackView in
+
+            stackView.axis = .vertical
+            stackView.distribution = .equalSpacing
+            stackView.spacing = APPCUIConstants.priceItemsLineSpace
+            stackView.alignment = .fill
+
+            stackView.addArrangedSubview(firstLabel)
+            stackView.addArrangedSubview(secondLabel)
+            stackView.addArrangedSubview(thirdLabel)
+        }
+
+        let leftContentView = UIView().then { view in
+
+            view.addSubview(identifierView) {
+                $0.top.equalToSuperview().offset(8)
+                $0.left.equalToSuperview().offset(8)
+                $0.size.equalTo(CGSize(width: 50, height: 38))
+            }
+
+            view.addSubview(labelsStackView) {
+                $0.left.equalTo(identifierView.snp.right).offset(8)
+                $0.bottom.equalToSuperview()
+                $0.top.equalToSuperview().offset(8)
+                $0.right.equalToSuperview().inset(8)
+            }
+
+            contentView.addSubview(view) {
+                $0.top.left.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(16)
+                $0.width.equalTo(APPCUIConstants.leftMenuWidth)
+            }
+        }
+
+        // mains views
+
         let lightsView1 = APPCLightsSetView()
-
         let lightsView2 = APPCLightsSetView()
-
         let lightsView3 = APPCLightsSetView()
-
         let lightsView4 = APPCLightsSetView()
-
         let lightsView5 = APPCLightsSetView()
-
         let lightsView6 = APPCLightsSetView()
 
-        _ = UIStackView().then { stackView in
+        let numbersStackView = UIStackView().then { stackView in
 
             stackView.axis = .horizontal
             stackView.distribution = .fillEqually
@@ -61,64 +140,10 @@ class APPCTableViewCell: UITableViewCell {
             stackView.addArrangedSubview(lightsView6)
 
             contentView.addSubview(stackView) {
-                $0.left.equalToSuperview().offset(APPCUIConstants.leftMenuWidth)
                 $0.top.equalToSuperview().offset(8)
+                $0.left.equalTo(leftContentView.snp.right)
                 $0.right.equalToSuperview()
                 $0.bottom.equalToSuperview().inset(16)
-            }
-        }
-
-        _ = UILabel().then { label in
-
-            label.text = "Blender Mrg"
-            label.textAlignment = .right
-            label.textColor = .primaryText
-            label.font = .main(weight: .regular, size: 11)
-            label.numberOfLines = 0
-
-            contentView.addSubview(label) {
-                $0.centerY.equalTo(lightsView1)
-                $0.right.equalTo(lightsView1.snp.left).offset(-APPCUIConstants.priceItemSpace)
-            }
-        }
-
-        _ = UILabel().then { label in
-
-            label.text = "NWE Ref Mrg"
-            label.textAlignment = .right
-            label.textColor = .primaryText
-            label.font = .main(weight: .regular, size: 11)
-            label.numberOfLines = 0
-
-            contentView.addSubview(label) {
-                $0.centerY.equalTo(lightsView2)
-                $0.right.equalTo(lightsView1.snp.left).offset(-APPCUIConstants.priceItemSpace)
-            }
-        }
-
-        _ = UILabel().then { label in
-
-            label.text = "FOB ARA Ref Mrg"
-            label.textAlignment = .right
-            label.textColor = .primaryText
-            label.font = .main(weight: .regular, size: 11)
-            label.numberOfLines = 0
-
-            contentView.addSubview(label) {
-                $0.centerY.equalTo(lightsView3)
-                $0.right.equalTo(lightsView1.snp.left).offset(-APPCUIConstants.priceItemSpace)
-                $0.bottom.equalToSuperview()
-            }
-        }
-
-        // identifier view
-
-        let identifierView = APPCIdentifierView(title: "ara".uppercased(),
-                                                subTitle: "lr1".uppercased()).then { view in
-
-            addSubview(view) {
-                $0.top.equalToSuperview().offset(8)
-                $0.left.equalToSuperview().offset(8)
             }
         }
     }

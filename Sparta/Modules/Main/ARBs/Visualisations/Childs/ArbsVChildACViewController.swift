@@ -17,6 +17,11 @@ class ArbsVChildACViewController: ArbsVChildViewController {
         setupUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+
     override func arbsVContentControllerDidChangeScrollState(
         _ controller: ArbsVContentControllerInterface,
         newState: State
@@ -32,6 +37,24 @@ class ArbsVChildACViewController: ArbsVChildViewController {
     // MARK: - Private methods
 
     private func setupUI() {
+        let contentView = UIView().then { contentView in
 
+            contentView.backgroundColor = .orange
+
+            addSubview(contentView) {
+                $0.height.equalTo(400)
+                $0.edges.equalToSuperview()
+            }
+        }
+
+        let testView = UIView().then { view in
+
+            view.backgroundColor = .white
+
+            contentView.addSubview(view) {
+                $0.size.equalTo(CGSize(width: 100, height: 150))
+                $0.left.top.equalToSuperview()
+            }
+        }
     }
 }

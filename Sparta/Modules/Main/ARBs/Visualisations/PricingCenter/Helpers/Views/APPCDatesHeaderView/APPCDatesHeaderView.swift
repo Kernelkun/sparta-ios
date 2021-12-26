@@ -18,7 +18,7 @@ class APPCDatesHeaderView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(#function)
     }
 
     // MARK: - Private methods

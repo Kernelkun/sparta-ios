@@ -9,12 +9,21 @@ import UIKit
 
 class ArbsVChildPCViewController: ArbsVChildViewController {
 
+    // MARK: - Private properties
+
+    private let pcWireframe = ArbsPlaygroundPCWireframe()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
     }
 
     override func arbsVContentControllerDidChangeScrollState(
@@ -26,30 +35,17 @@ class ArbsVChildPCViewController: ArbsVChildViewController {
         let height = newState.height()
         let transitionProgress = newState.transitionProgress()
 
-        parrentController.airBar.applyState(isMinimized: transitionProgress < 1)
+
+//        parrentController.airBar.snp.updateConstraints {
+//            $0.height.equalTo(60)
+//        }
+
+        parrentController.airBar.applyState(isMinimized: /*transitionProgress < 1*/ true)
     }
 
     // MARK: - Private methods
 
     private func setupUI() {
-        let contentView = UIView().then { contentView in
-
-            contentView.backgroundColor = .yellow
-
-            addSubview(contentView) {
-                $0.height.equalTo(400)
-                $0.edges.equalToSuperview()
-            }
-        }
-
-        let testView = UIView().then { view in
-
-            view.backgroundColor = .white
-
-            contentView.addSubview(view) {
-                $0.size.equalTo(CGSize(width: 100, height: 150))
-                $0.left.top.equalToSuperview()
-            }
-        }
+        add(pcWireframe.viewController, to: view)
     }
 }

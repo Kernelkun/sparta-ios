@@ -6,21 +6,15 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterface {
-
-    func addObserver(_ observer: ArbsVContentControllerObserver) {
-    }
-
-    func removeObserver(_ observer: ArbsVContentControllerObserver) {
-    }
-
 
     // MARK: - Private Properties
 
     fileprivate var contentScrollView: UIScrollView!
+    private var scrollViewContent: UIView!
     var airBar: ArbVHeaderView!
-    var configurator: Configurator!
 //    fileprivate var backgroundView: UIView!
     fileprivate var darkMenuView: UIView!
     fileprivate var lightMenuView: UIView!
@@ -44,17 +38,29 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
     }
 
     private enum Constants {
-        static let normalStateHeight: CGFloat = 100
-        static let compactStateHeight: CGFloat = 60
-        static let expandedStateHeight: CGFloat = 100
+        static let normalStateHeight: CGFloat = 50
+        static let compactStateHeight: CGFloat = 100
+        static let expandedStateHeight: CGFloat = 200
     }
 
     fileprivate var numberOfItems = 10
     fileprivate var secondTableViewShown: Bool?
 
+    // MARK: - Private properties
+
+    var configurator: Configurator!
+
+    var observers: WeakSet<ArbsVContentControllerObserver> = []
+
     // MARK: - Initializers
 
-//    init(pricingCenter)
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(#function)
+    }
 
     // MARK: - View Lifecycle
 
@@ -90,12 +96,12 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 //            }
         }
 
-        let scrollViewContent = UIView().then { view in
+        scrollViewContent = UIView().then { view in
 
             view.backgroundColor = .red
 
             contentScrollView.addSubview(view) {
-                $0.height.equalTo(1000)
+//                $0.height.equalTo(1000)
                 $0.edges.equalToSuperview()
                 $0.centerX.equalToSuperview()
             }
@@ -106,8 +112,9 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
             view.backgroundColor = .white
 
             scrollViewContent.addSubview(view) {
-                $0.size.equalTo(100)
-                $0.left.top.equalToSuperview()
+                $0.width.equalTo(100)
+                $0.height.equalTo(1000)
+                $0.left.top.bottom.equalToSuperview()
             }
         }
 
@@ -139,14 +146,16 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 ////        backButton.addTarget(self, action: #selector(self.handleBackButtonPressed(_:)), for: .touchUpInside)
 //
 
+        let arbHeaderConfigurator = ArbVHeaderView.Configurator(selectedIndexOfMenuItem: 0)
 
-        airBar = ArbVHeaderView().then { view in
+        airBar = ArbVHeaderView(configurator: arbHeaderConfigurator).then { view in
 
-//            view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 100)
+            view.delegate = self
+
             self.view.addSubview(view) {
                 $0.right.equalTo(self.view.safeAreaLayoutGuide.snp.right)
                 $0.left.equalTo(self.view.safeAreaLayoutGuide.snp.left)
-                $0.height.equalTo(100)
+                $0.height.equalTo(50)
             }
         }
 
@@ -172,8 +181,10 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
         }
 
         barController = Sparta.BarController(configuration: configuration, stateObserver: barStateObserver)
+        barController.expand(on: true)
 
         toggleSecondTable(on: false)
+        presentController(at: 0)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -185,6 +196,29 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 //            self.normalView.frame = CGRect(x: self.normalView.frame.minX, y: self.normalView.frame.minY, width: size.width, height: self.normalView.frame.height)
 //            self.expandedView.frame = CGRect(x: self.expandedView.frame.minX, y: self.expandedView.frame.minY, width: size.width, height: self.expandedView.frame.height)
         }, completion: nil)
+    }
+
+    func presentController(at index: Int) {
+        switch index {
+        case 0:
+            scrollViewContent.removeAllSubviews()
+            add(configurator.pcChildController, to: scrollViewContent)
+        case 1:
+            scrollViewContent.removeAllSubviews()
+            add(configurator.acChhildController, to: scrollViewContent)
+        default:
+            break
+        }
+    }
+
+    // MARK: - Public methods
+
+    func addObserver(_ observer: ArbsVContentControllerObserver) {
+        observers.insert(observer)
+    }
+
+    func removeObserver(_ observer: ArbsVContentControllerObserver) {
+        observers.remove(observer)
     }
 
     // MARK: - Status Bar
@@ -279,7 +313,11 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
             $0.height.equalTo(height)
         }
 
-        airBar.applyState(isMinimized: transitionProgress < 1)
+//        airBar.applyState(isMinimized: transitionProgress < 1)
+
+        for observer in observers {
+            observer.arbsVContentControllerDidChangeScrollState(self, newState: state)
+        }
 
 //        backgroundView.frame = CGRect(
 //            x: backgroundView.frame.origin.x,
@@ -322,5 +360,18 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
         )
 
         darkMenuView.frame = lightMenuView.frame*/
+    }
+}
+
+extension ArbsVContentViewController: ArbVHeaderViewDelegate {
+
+    func arbVHeaderViewDidChangeSegmentedViewValue(_ view: ArbVHeaderView, item: MainSegmentedView.MenuItem) {
+        switch item {
+        case .pricingCenter:
+            presentController(at: 0)
+
+        case .arbsComparation:
+            presentController(at: 1)
+        }
     }
 }

@@ -21,6 +21,7 @@ final class ArbsVContentWireframe: BaseWireframe<ArbsVContentViewController> {
         )
 
         viewController.configurator = configurator
+
         super.init(viewController: viewController)
     }
 }

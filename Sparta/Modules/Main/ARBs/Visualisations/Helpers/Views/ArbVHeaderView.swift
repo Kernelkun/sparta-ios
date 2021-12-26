@@ -20,6 +20,8 @@ class ArbVHeaderView: UIView {
 
     // MARK: - Private properties
 
+    private let configurator: Configurator
+
     private var topContentView: UIView!
     private var bottomContentView: UIView!
     private var mainStackView: UIStackView!
@@ -27,8 +29,10 @@ class ArbVHeaderView: UIView {
 
     // MARK: - Initializers
 
-    init() {
+    init(configurator: Configurator) {
+        self.configurator = configurator
         super.init(frame: .zero)
+
         setupUI()
     }
 
@@ -81,7 +85,10 @@ class ArbVHeaderView: UIView {
             }
         }
 
-        segmetedView = MainSegmentedView(items: MainSegmentedView.MenuItem.allCases).then { view in
+        segmetedView = MainSegmentedView(
+            items: MainSegmentedView.MenuItem.allCases,
+            selectedIndex: configurator.selectedIndexOfMenuItem
+        ).then { view in
 
             view.onSelect { [unowned self] item in
                 self.delegate?.arbVHeaderViewDidChangeSegmentedViewValue(self, item: item)
@@ -115,5 +122,12 @@ class ArbVHeaderView: UIView {
                 $0.size.equalTo(35)
             }
         }
+    }
+}
+
+extension ArbVHeaderView {
+
+    struct Configurator {
+        let selectedIndexOfMenuItem: Int
     }
 }

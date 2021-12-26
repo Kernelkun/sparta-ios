@@ -28,7 +28,7 @@ class APPCIdentifierView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(#function)
     }
 
     // MARK: - Private methods
@@ -44,6 +44,10 @@ class APPCIdentifierView: UIView {
             label.textColor = .primaryText
             label.font = .main(weight: .medium, size: 14)
             label.numberOfLines = 0
+
+            addSubview(label) {
+                $0.left.top.right.equalToSuperview().inset(4)
+            }
         }
 
         subTitleLabel = UILabel().then { label in
@@ -53,21 +57,10 @@ class APPCIdentifierView: UIView {
             label.textColor = .primaryText
             label.font = .main(weight: .regular, size: 12)
             label.numberOfLines = 0
-        }
 
-        _ = UIStackView().then { stackView in
-
-            stackView.axis = .vertical
-            stackView.distribution = .fill
-            stackView.spacing = 0
-            stackView.alignment = .leading
-
-            stackView.addArrangedSubview(titleLabel)
-            stackView.addArrangedSubview(subTitleLabel)
-
-            addSubview(stackView) {
-                $0.left.top.bottom.equalToSuperview().inset(4)
-                $0.right.equalToSuperview().inset(19)
+            addSubview(label) {
+                $0.top.equalTo(titleLabel.snp.bottom)
+                $0.left.bottom.right.equalToSuperview().inset(4)
             }
         }
     }

@@ -33,6 +33,5 @@ class ArbsVChildViewController: BaseViewController, ArbsVContentControllerObserv
     // MARK: - ArbsVContentControllerObserver
 
     func arbsVContentControllerDidChangeScrollState(_ controller: ArbsVContentControllerInterface, newState: State) {
-
     }
 }
