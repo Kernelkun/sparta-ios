@@ -22,7 +22,7 @@ class APPCDatesHeaderView: UIView {
     }
 
     // MARK: - Private methods
-
+        
     private func setupUI() {
 
         _ = UIStackView().then { stackView in
