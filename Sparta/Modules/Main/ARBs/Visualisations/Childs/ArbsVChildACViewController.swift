@@ -27,14 +27,12 @@ class ArbsVChildACViewController: ArbsVChildViewController {
 
     override func arbsVContentControllerDidChangeScrollState(
         _ controller: ArbsVContentControllerInterface,
-        newState: State
+        newState: AVBarController.State
     ) {
         super.arbsVContentControllerDidChangeScrollState(controller, newState: newState)
 
-        let height = newState.height()
-        let transitionProgress = newState.transitionProgress()
-
-        parrentController.airBar.applyState(isMinimized: transitionProgress < 1)
+//        parrentController.airBar.applyState(isMinimized: transitionProgress < 1)
+        parrentController.airBar.topRightContentView.backgroundColor = .yellow
     }
 
     // MARK: - Private methods

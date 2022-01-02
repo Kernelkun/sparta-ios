@@ -185,6 +185,7 @@
 		D9B28BBC2779D2D5003FDB8A /* AACLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B28BBB2779D2D5003FDB8A /* AACLightView.swift */; };
 		D9B28BBE2779D345003FDB8A /* AACLightsSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B28BBD2779D345003FDB8A /* AACLightsSetView.swift */; };
 		D9B28BC02779D37C003FDB8A /* AACTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B28BBF2779D37C003FDB8A /* AACTableViewCell.swift */; };
+		D9B28BC22779EF85003FDB8A /* AVBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B28BC12779EF85003FDB8A /* AVBarController.swift */; };
 		D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */; };
 		D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */; };
 		D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E06257180520018F3D7 /* Coordinator.swift */; };
@@ -474,6 +475,7 @@
 		D9B28BBB2779D2D5003FDB8A /* AACLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AACLightView.swift; sourceTree = "<group>"; };
 		D9B28BBD2779D345003FDB8A /* AACLightsSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AACLightsSetView.swift; sourceTree = "<group>"; };
 		D9B28BBF2779D37C003FDB8A /* AACTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AACTableViewCell.swift; sourceTree = "<group>"; };
+		D9B28BC12779EF85003FDB8A /* AVBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVBarController.swift; sourceTree = "<group>"; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
 		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -997,6 +999,7 @@
 			isa = PBXGroup;
 			children = (
 				D97A6CC52757AC2C005C1666 /* Views */,
+				D9B28BC12779EF85003FDB8A /* AVBarController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1746,8 +1749,8 @@
 		D9D55179274E4A9400E39D63 /* Visualisations */ = {
 			isa = PBXGroup;
 			children = (
-				D9F46537276A179400B8524E /* Childs */,
 				D97A6CC42757AC26005C1666 /* Helpers */,
+				D9F46537276A179400B8524E /* Childs */,
 				D9F4653B276A183A00B8524E /* ArbsVContentInterfaces.swift */,
 				D9D5517A274E4AB300E39D63 /* ArbsVContentViewController.swift */,
 				D9F46541276A21D100B8524E /* ArbsVContentViewController+Configurator.swift */,
@@ -2261,6 +2264,7 @@
 				D9A067162587CD6D00C0D1E5 /* GradesGridView.swift in Sources */,
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
 				D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */,
+				D9B28BC22779EF85003FDB8A /* AVBarController.swift in Sources */,
 				D96F47B426BD5A280063AB90 /* UIMonthSelector.swift in Sources */,
 				D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */,
 				D98AF6C725BAC69500A5BC96 /* KeyedButton.swift in Sources */,

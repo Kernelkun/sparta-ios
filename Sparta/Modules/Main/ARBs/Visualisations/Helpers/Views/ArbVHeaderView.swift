@@ -18,12 +18,13 @@ class ArbVHeaderView: UIView {
 
     weak var delegate: ArbVHeaderViewDelegate?
 
+    private(set) var topRightContentView: UIView!
+    private(set) var bottomContentView: UIView!
+
     // MARK: - Private properties
 
     private let configurator: Configurator
-
     private var topContentView: UIView!
-    private var bottomContentView: UIView!
     private var mainStackView: UIStackView!
     private var segmetedView: MainSegmentedView!
 
@@ -53,7 +54,7 @@ class ArbVHeaderView: UIView {
 
         topContentView = UIView().then { view in
 
-            view.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+            view.backgroundColor = .clear
 
             view.snp.makeConstraints {
                 $0.height.equalTo(35)
@@ -101,7 +102,27 @@ class ArbVHeaderView: UIView {
             }
         }
 
-        let destinationSelector = UISelector<PickerIdValued<Date>>(uiConfigurator: .visualisationStyle).then { view in
+        let playgroundButton = ArbsVPlaygroundButton().then { button in
+
+            topContentView.addSubview(button) {
+                $0.centerY.right.equalToSuperview()
+                $0.size.equalTo(35)
+            }
+        }
+
+        topRightContentView = UIView().then { view in
+
+            view.backgroundColor = .red
+
+            topContentView.addSubview(view) {
+                $0.left.equalTo(segmetedView.snp.right)
+                $0.right.equalTo(playgroundButton.snp.left)
+                $0.height.equalTo(32)
+                $0.centerY.equalToSuperview()
+            }
+        }
+
+        /*let destinationSelector = UISelector<PickerIdValued<Date>>(uiConfigurator: .visualisationStyle).then { view in
 
 //            view.onChooseValue { [unowned self] value in
 //                self.viewModel.selectedFreightPort = value
@@ -113,15 +134,7 @@ class ArbVHeaderView: UIView {
                 $0.centerY.equalToSuperview()
                 $0.left.equalTo(segmetedView.snp.right).offset(15)
             }
-        }
-
-        let playgroundButton = ArbsVPlaygroundButton().then { button in
-
-            topContentView.addSubview(button) {
-                $0.centerY.right.equalToSuperview()
-                $0.size.equalTo(35)
-            }
-        }
+        }*/
     }
 }
 

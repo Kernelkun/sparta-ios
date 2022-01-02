@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ArbsVContentControllerObserver: AnyObject {
-    func arbsVContentControllerDidChangeScrollState(_ controller: ArbsVContentControllerInterface, newState: State)
+    func arbsVContentControllerDidChangeScrollState(_ controller: ArbsVContentControllerInterface, newState: AVBarController.State)
 }
 
 protocol ArbsVContentControllerInterface: AnyObject {
