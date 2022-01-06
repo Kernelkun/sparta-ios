@@ -91,6 +91,11 @@
 		D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */; };
 		D98011C926567FB400B8AA70 /* LiveCurvesViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */; };
 		D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */; };
+		D9840D032784460D0036C374 /* SettingsMobileFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9840D022784460D0036C374 /* SettingsMobileFieldView.swift */; };
+		D9840D05278449BC0036C374 /* SettingsCountrySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9840D04278449BC0036C374 /* SettingsCountrySelectorView.swift */; };
+		D9840D0927844E300036C374 /* SettingsMobileField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9840D0827844E300036C374 /* SettingsMobileField.swift */; };
+		D9840D0C27846AD60036C374 /* CMPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9840D0B27846AD60036C374 /* CMPViewController.swift */; };
+		D9840D13278608E40036C374 /* MobileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9840D12278608E40036C374 /* MobileParser.swift */; };
 		D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */; };
 		D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B525BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift */; };
 		D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98AF6B925BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift */; };
@@ -313,6 +318,11 @@
 		D98011C6265548E400B8AA70 /* LCPortfolioAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddViewModel.swift; sourceTree = "<group>"; };
 		D98011C826567FB300B8AA70 /* LiveCurvesViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesViewModel+Models.swift"; sourceTree = "<group>"; };
 		D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurveMonthInfoModel.swift; sourceTree = "<group>"; };
+		D9840D022784460D0036C374 /* SettingsMobileFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMobileFieldView.swift; sourceTree = "<group>"; };
+		D9840D04278449BC0036C374 /* SettingsCountrySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCountrySelectorView.swift; sourceTree = "<group>"; };
+		D9840D0827844E300036C374 /* SettingsMobileField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMobileField.swift; sourceTree = "<group>"; };
+		D9840D0B27846AD60036C374 /* CMPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPViewController.swift; sourceTree = "<group>"; };
+		D9840D12278608E40036C374 /* MobileParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileParser.swift; sourceTree = "<group>"; };
 		D986AD3926936139007B679E /* LiveCurvesSyncManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesSyncManagerProtocol.swift; sourceTree = "<group>"; };
 		D98A2F8026F9E20200833684 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D98A2F8126F9E20B00833684 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -775,6 +785,7 @@
 		D959C10425824ED7006CE2D1 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				D9840D01278445F90036C374 /* Helpers */,
 				D9700477258928DA000E4A01 /* AccountSettingsViewModel+Models.swift */,
 				D959C10825824EF1006CE2D1 /* AccountSettingsViewModel.swift */,
 				D959C10525824EE4006CE2D1 /* AccountSettingsViewController.swift */,
@@ -912,6 +923,32 @@
 				D981844D258ACF83006D8086 /* LiveCurveMonthInfoModel.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D9840D01278445F90036C374 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D9840D0627844D400036C374 /* MobileField */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D9840D0627844D400036C374 /* MobileField */ = {
+			isa = PBXGroup;
+			children = (
+				D9840D04278449BC0036C374 /* SettingsCountrySelectorView.swift */,
+				D9840D0827844E300036C374 /* SettingsMobileField.swift */,
+				D9840D022784460D0036C374 /* SettingsMobileFieldView.swift */,
+			);
+			path = MobileField;
+			sourceTree = "<group>";
+		};
+		D9840D0A27846AB80036C374 /* CountryMobilePicker */ = {
+			isa = PBXGroup;
+			children = (
+				D9840D0B27846AD60036C374 /* CMPViewController.swift */,
+			);
+			path = CountryMobilePicker;
 			sourceTree = "<group>";
 		};
 		D98AF6BC25BA197100A5BC96 /* List */ = {
@@ -1256,6 +1293,7 @@
 			isa = PBXGroup;
 			children = (
 				D9A91CC125AC6EB800423704 /* DelayObject.swift */,
+				D9840D12278608E40036C374 /* MobileParser.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1328,6 +1366,7 @@
 		D9B50E2E257413630018F3D7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9840D0A27846AB80036C374 /* CountryMobilePicker */,
 				D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */,
 				D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */,
 				D9C71C1126723C20001B1924 /* UISliderViewController.swift */,
@@ -1746,6 +1785,7 @@
 				D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */,
 				D9E810CE273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift in Sources */,
 				D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */,
+				D9840D0927844E300036C374 /* SettingsMobileField.swift in Sources */,
 				D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
@@ -1772,6 +1812,7 @@
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
 				D999387126C1BA3A005AF406 /* ArbSearchWireframe.swift in Sources */,
 				D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */,
+				D9840D0C27846AD60036C374 /* CMPViewController.swift in Sources */,
 				D9A91BFE25A3786300423704 /* ArbsUserMarginCollectionViewCell.swift in Sources */,
 				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,
@@ -1832,6 +1873,7 @@
 				D9DE4A5C26714AF200F658D4 /* LoginStateModel.swift in Sources */,
 				D9C71C1A26734C76001B1924 /* FreightResultPageViewController.swift in Sources */,
 				D999387426C1BAC1005AF406 /* BaseWireframe.swift in Sources */,
+				D9840D032784460D0036C374 /* SettingsMobileFieldView.swift in Sources */,
 				D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D913955C270C500000867D5A /* Arb+UI.swift in Sources */,
@@ -1850,6 +1892,7 @@
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
 				D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */,
 				D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */,
+				D9840D13278608E40036C374 /* MobileParser.swift in Sources */,
 				D9919640273ED57F00A45363 /* UpdateArbsPIOrderRequest.swift in Sources */,
 				D96F47B426BD5A280063AB90 /* UIMonthSelector.swift in Sources */,
 				D9A279642592012E009D066E /* BlenderDescriptionPopupViewModel.swift in Sources */,
@@ -1918,6 +1961,7 @@
 				D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */,
 				D95449F1270EE8DD00BD2B75 /* ProfileDescriptionView.swift in Sources */,
 				D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */,
+				D9840D05278449BC0036C374 /* SettingsCountrySelectorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2061,7 +2105,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
