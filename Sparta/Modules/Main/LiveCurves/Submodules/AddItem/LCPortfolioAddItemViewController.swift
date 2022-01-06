@@ -69,7 +69,6 @@ class LCPortfolioAddItemViewController: BaseTableVMViewController<LCPortfolioAdd
         }
 
         searchController.obscuresBackgroundDuringPresentation = false
-
         navigationItem.searchController = searchController
 
         setupNavigationBarAppearance(backgroundColor: .barBackground)

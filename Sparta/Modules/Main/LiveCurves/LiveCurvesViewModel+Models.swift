@@ -20,6 +20,7 @@ extension LiveCurvesViewModel {
 
     struct Section {
         let name: String
+        let code: String
         var cells: [Cell]
     }
 

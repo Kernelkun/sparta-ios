@@ -62,3 +62,4 @@ extension LiveCurvesSyncManager {
         queue.addOperation { observers.forEach { $0.liveCurvesDidReceiveResponse(for: liveCurve) } }
     }
 }
+ 
