@@ -11,6 +11,7 @@ import SwiftyJSON
 import NetworkingModels
 import PhoneNumberKit
 import SpartaHelpers
+import PhoneNumberKit
 
 protocol AccountSettingsViewModelDelegate: AnyObject {
     func didLoadData()
@@ -38,8 +39,7 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
     var selectedFirstName: String?
     var selectedLastName: String?
 
-    var selectedCountryCode: CountryCodeModel?
-    var selectedPhoneNumber: String?
+    var selectedPhoneNumber: PhoneNumber?
 
     var selectedUserRole: PickerIdValued<Int>?
     var selectedPrimaryProduct: PickerIdValued<Int>?
@@ -136,13 +136,8 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
             return
         }
 
-        guard let selectedCountryCode = selectedCountryCode else {
-            delegate?.didCatchAnError("Select please phone country code")
-            return
-        }
-
         guard let selectedPhoneNumber = selectedPhoneNumber else {
-            delegate?.didCatchAnError("Enter please phone number")
+            delegate?.didCatchAnError("Enter please correct phone number")
             return
         }
 
@@ -153,8 +148,7 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
 
         var parameters: Parameters = [:]
 
-        parameters["mobile_prefix"] = selectedCountryCode.id
-        parameters["mobile_number"] = selectedPhoneNumber
+        parameters["mobile_number"] = MobileParser.generateNationalNumber(from: selectedPhoneNumber)
         parameters["user_role"] = selectedUserRole.id
 
         if let selectedPrimaryProduct = selectedPrimaryProduct {
@@ -227,13 +221,9 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
 
         // phone number
 
-        if let mobilePrefixIndex = user?.mobilePrefixIndex,
-           let phonePrefix = _phonePrefixes.first(where: { $0.id == mobilePrefixIndex }) {
-
-            selectedCountryCode = createCountryCodeModel(from: phonePrefix)
+        if let enteredNumber = user?.mobileNumber {
+            selectedPhoneNumber = MobileParser.retreivePhoneNumber(from: enteredNumber)
         }
-
-        selectedPhoneNumber = user?.mobileNumber
 
         // role
 
@@ -247,7 +237,7 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
 
         if let selectedPrimaryProductIndex = user?.primaryProduct,
            let selectedRole = _userRoles.first(where: { $0.primaryProducts.contains(where: { $0.id == selectedPrimaryProductIndex }) }),
-           let selectedProduct = selectedRole.primaryProducts.first(where: { $0.id == selectedPrimaryProductIndex })  {
+           let selectedProduct = selectedRole.primaryProducts.first(where: { $0.id == selectedPrimaryProductIndex }) {
 
             selectedPrimaryProduct = PickerIdValued(id: selectedProduct.id, title: selectedProduct.name, fullTitle: selectedProduct.name)
         }
