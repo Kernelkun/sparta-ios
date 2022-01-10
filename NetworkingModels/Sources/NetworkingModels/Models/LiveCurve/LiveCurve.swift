@@ -27,7 +27,7 @@ public struct LiveCurve: BackendModel {
     public let name: String
     public let longName: String
 
-    public var priceCode: String { name + monthCode }
+    public var priceCode: String { code + monthCode }
 
     public var displayName: String { name }
     public var displayPrice: String {

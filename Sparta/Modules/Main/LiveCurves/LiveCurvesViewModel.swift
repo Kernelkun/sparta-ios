@@ -76,15 +76,15 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
     // MARK: - Private methods
 
     private func createTableDataSource(from liveCurves: [LiveCurve]) -> [Cell] {
-        Dictionary(grouping: liveCurves, by: { $0.displayName })
+        Dictionary(grouping: liveCurves, by: { $0.code })
             .sorted(by: { value1, value2 in
                 value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
             })
-            .compactMap { .gradeUnit(title: $0.key, unit: $0.value.first.required().unit) }
+            .compactMap { .gradeUnit(title: $0.value.first.required().displayName, unit: $0.value.first.required().unit) }
     }
 
     private func createCollectionDataSource(from liveCurves: [LiveCurve]) -> [Section] {
-        Dictionary(grouping: liveCurves, by: { $0.displayName })
+        Dictionary(grouping: liveCurves, by: { $0.code })
             .sorted(by: { value1, value2 -> Bool in
                 value1.value.first?.priorityIndex ?? 0 < value2.value.first?.priorityIndex ?? 1
             })
@@ -99,23 +99,24 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
                                                                      priceCode: liveCurve.priceCode))
                 }
 
-                let tempSection = Section(name: key, cells: cells)
+                let firstObject = value.first.required()
+                let tempSection = Section(name: firstObject.displayName, code: firstObject.code, cells: cells)
                 return tempSection
 
                 /*if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
 
-                    var updatedSection = collectionDataSource[indexOfSection]
+                 var updatedSection = collectionDataSource[indexOfSection]
 
-                    for liveCurve in value {
-                        if let indexOfMonth = liveCurve.indexOfMonth {
-                            updatedSection.cells[indexOfMonth] = tempSection.cells[indexOfMonth]
-                        }
-                    }
+                 for liveCurve in value {
+                 if let indexOfMonth = liveCurve.indexOfMonth {
+                 updatedSection.cells[indexOfMonth] = tempSection.cells[indexOfMonth]
+                 }
+                 }
 
-                    return updatedSection
-                } else {
-                    return tempSection
-                }*/
+                 return updatedSection
+                 } else {
+                 return tempSection
+                 }*/
             }
     }
 
@@ -168,7 +169,7 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
             fetchedLiveCurves[indexOfLiveCurve] = liveCurve
 
             if let indexOfMonth = liveCurve.indexOfMonth,
-               let indexInDataSource = collectionDataSource.firstIndex(where: { $0.name == liveCurve.name }) {
+               let indexInDataSource = collectionDataSource.firstIndex(where: { $0.code == liveCurve.code }) {
 
                 let priceCode = liveCurve.priceCode
                 let monthInfo: LiveCurveMonthInfoModel = .init(priceValue: liveCurve.displayPrice, priceCode: priceCode)
