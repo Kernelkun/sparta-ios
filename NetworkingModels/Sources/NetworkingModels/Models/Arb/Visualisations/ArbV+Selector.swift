@@ -18,6 +18,7 @@ public extension ArbV {
         public let isDefault: Bool
         public let gradeName: String
         public let portName: String
+        public let shortName: String
 
         //
         // MARK: - Default Initializers
@@ -27,6 +28,7 @@ public extension ArbV {
             isDefault = json["default"].boolValue
             gradeName = json["gradeName"].stringValue
             portName = json["portName"].stringValue
+            shortName = json["shortName"].stringValue
         }
     }
 }
