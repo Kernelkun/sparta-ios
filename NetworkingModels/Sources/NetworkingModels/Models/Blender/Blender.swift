@@ -15,6 +15,7 @@ public struct Blender: BackendModel {
 
     public let grade: String
     public let gradeCode: String
+    public let referenceCode: String
     public let basis: String
     public let naphtha: String
     public let escalation: String
@@ -23,6 +24,7 @@ public struct Blender: BackendModel {
     public let priceInfo: [PriceInfo]
     public let portfolioConfiguration: PortfolioConfiguration
     public let portfolio: Portfolio
+    public let type: `Type`
 
     // for presenting
 
@@ -30,7 +32,7 @@ public struct Blender: BackendModel {
     public var priorityIndex: Int = -1
 
     // use this identifier to identify this object as unique on the backside
-    public var serverUniqueIdentifier: String { grade }
+    public var serverUniqueIdentifier: String { gradeCode }
 
     //
     // MARK: - Default Initializers
@@ -47,6 +49,9 @@ public struct Blender: BackendModel {
         priceInfo = json["priceInfo"].arrayValue.compactMap { PriceInfo(json: $0) }
         portfolioConfiguration = PortfolioConfiguration(json: json)
         portfolio = Portfolio(json: json)
+
+        referenceCode = json["referenceCode"].stringValue
+        type = Type(rawValue: json["type"].stringValue)
     }
 }
 

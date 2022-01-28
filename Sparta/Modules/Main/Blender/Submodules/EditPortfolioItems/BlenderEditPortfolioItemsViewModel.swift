@@ -42,8 +42,17 @@ class BlenderEditPortfolioItemsViewModel: NSObject, BaseViewModel {
     // MARK: - Public methods
 
     func loadData() {
-        profiles = blendersSyncManager.profiles.arrayValue
-        selectedProfile = blendersSyncManager.profile
+        profiles = blendersSyncManager.profiles.arrayValue.compactMap { category in
+            var category = category
+            category.blenders = category.blenders.filter({ $0.isParrent })
+            return category
+        }
+
+        if let indexOfProfile = profiles.firstIndex(of: blendersSyncManager.profile) {
+            selectedProfile = profiles[indexOfProfile]
+        } else {
+            selectedProfile = blendersSyncManager.profile
+        }
 
         onMainThread {
             self.delegate?.didReceiveProfilesInfo(profiles: self.profiles,

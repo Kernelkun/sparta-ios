@@ -53,8 +53,8 @@ class BlenderGradeCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
     
-    func apply(blender: Blender) {
-        self.blender = BlenderSyncManager.intance.fetchUpdatedState(for: blender)
+    func apply(blenderCell: BlenderViewModel.BlenderCell) {
+        self.blender = BlenderSyncManager.intance.fetchUpdatedState(for: blenderCell.blender)
 
         observeBlenders(blender)
         updateUI(for: self.blender)

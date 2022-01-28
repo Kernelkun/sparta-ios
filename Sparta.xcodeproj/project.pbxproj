@@ -20,6 +20,7 @@
 		D90E5A9926BBEDC900D05473 /* ArbsPlaygroundCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90E5A9826BBEDC900D05473 /* ArbsPlaygroundCalculator.swift */; };
 		D90E5A9C26BC092A00D05473 /* ArbSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90E5A9B26BC092A00D05473 /* ArbSearchViewController.swift */; };
 		D90E5A9E26BC093900D05473 /* ArbSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90E5A9D26BC093900D05473 /* ArbSearchViewModel.swift */; };
+		D9100EF8278EDEAB0032F4AD /* Blender+UIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9100EF7278EDEAB0032F4AD /* Blender+UIType.swift */; };
 		D913955C270C500000867D5A /* Arb+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D913955B270C500000867D5A /* Arb+UI.swift */; };
 		D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */; };
 		D91AB43B265FDAAA00BDD75D /* ProfilesViewConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91AB43A265FDAAA00BDD75D /* ProfilesViewConstructor.swift */; };
@@ -45,7 +46,7 @@
 		D944CEFD2577B8E1009115FD /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEFC2577B8E1009115FD /* GridCell.swift */; };
 		D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CF042577E096009115FD /* BlenderViewModel.swift */; };
 		D94ACF19266529FB003BCC14 /* UIActionSheetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94ACF18266529FB003BCC14 /* UIActionSheetFactory.swift */; };
-		D94BCA452577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */; };
+		D94BCA452577F7ED0076C2AB /* BlenderGradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA442577F7ED0076C2AB /* BlenderGradeCollectionViewCell.swift */; };
 		D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */; };
 		D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228425826AE6005FA057 /* PhoneNumberKit-Static */; };
 		D94E228725826AE6005FA057 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94E228625826AE6005FA057 /* PhoneNumberKit */; };
@@ -227,6 +228,7 @@
 		D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */; };
 		D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */; };
 		D9EE1C8C26AAC8BE00306566 /* ArbsPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */; };
+		D9EE8A4B278F4CC500321339 /* BlenderGradeNestedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EE8A4A278F4CC500321339 /* BlenderGradeNestedCollectionViewCell.swift */; };
 		D9F6B6AF270DC2AC00334AFF /* ArbsUIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6B6AE270DC2AB00334AFF /* ArbsUIConstants.swift */; };
 		D9F7C36226E7D2D80048595A /* ArbsPlaygroundWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7C36126E7D2D80048595A /* ArbsPlaygroundWireframe.swift */; };
 		D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */; };
@@ -249,6 +251,7 @@
 		D90E5A9826BBEDC900D05473 /* ArbsPlaygroundCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundCalculator.swift; sourceTree = "<group>"; };
 		D90E5A9B26BC092A00D05473 /* ArbSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbSearchViewController.swift; sourceTree = "<group>"; };
 		D90E5A9D26BC093900D05473 /* ArbSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbSearchViewModel.swift; sourceTree = "<group>"; };
+		D9100EF7278EDEAB0032F4AD /* Blender+UIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Blender+UIType.swift"; sourceTree = "<group>"; };
 		D913955B270C500000867D5A /* Arb+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Arb+UI.swift"; sourceTree = "<group>"; };
 		D91A96B7258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveCurvesSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D91AB43A265FDAAA00BDD75D /* ProfilesViewConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewConstructor.swift; sourceTree = "<group>"; };
@@ -274,7 +277,7 @@
 		D944CEFC2577B8E1009115FD /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
 		D944CF042577E096009115FD /* BlenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderViewModel.swift; sourceTree = "<group>"; };
 		D94ACF18266529FB003BCC14 /* UIActionSheetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionSheetFactory.swift; sourceTree = "<group>"; };
-		D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectiomViewCell.swift; sourceTree = "<group>"; };
+		D94BCA442577F7ED0076C2AB /* BlenderGradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderGradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D94E228825826CEE005FA057 /* UITextFieldSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldSelector.swift; sourceTree = "<group>"; };
 		D95449ED270E2A6B00BD2B75 /* CollapsableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableView.swift; sourceTree = "<group>"; };
@@ -454,6 +457,7 @@
 		D9ECEC50257D69B3005DFFD7 /* TappableUISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableUISwitch.swift; sourceTree = "<group>"; };
 		D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateService.swift; sourceTree = "<group>"; };
 		D9EE1C8B26AAC8BE00306566 /* ArbsPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundViewController.swift; sourceTree = "<group>"; };
+		D9EE8A4A278F4CC500321339 /* BlenderGradeNestedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderGradeNestedCollectionViewCell.swift; sourceTree = "<group>"; };
 		D9F6B6AE270DC2AB00334AFF /* ArbsUIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsUIConstants.swift; sourceTree = "<group>"; };
 		D9F7C36126E7D2D80048595A /* ArbsPlaygroundWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundWireframe.swift; sourceTree = "<group>"; };
 		D9F996DA25BDFC4B0075F1A9 /* ResultMonthSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultMonthSelector.swift; sourceTree = "<group>"; };
@@ -539,6 +543,14 @@
 				D9A91CB725A9AAD300423704 /* FreightCalculator.swift */,
 			);
 			path = Calculators;
+			sourceTree = "<group>";
+		};
+		D9100EF6278EDD7A0032F4AD /* Blender */ = {
+			isa = PBXGroup;
+			children = (
+				D9100EF7278EDEAB0032F4AD /* Blender+UIType.swift */,
+			);
+			path = Blender;
 			sourceTree = "<group>";
 		};
 		D913955A270C4FEF00867D5A /* Arb */ = {
@@ -665,7 +677,8 @@
 		D944CF002577DF28009115FD /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				D94BCA442577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift */,
+				D94BCA442577F7ED0076C2AB /* BlenderGradeCollectionViewCell.swift */,
+				D9EE8A4A278F4CC500321339 /* BlenderGradeNestedCollectionViewCell.swift */,
 				D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */,
 				D9ECEC49257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift */,
 			);
@@ -884,6 +897,7 @@
 				D963452826C1529D000DD791 /* ArbPlaygroundDPS+PickerValued.swift */,
 				D913955A270C4FEF00867D5A /* Arb */,
 				D9B7CCD225C1C4F10023FDF2 /* ArbMonth */,
+				D9100EF6278EDD7A0032F4AD /* Blender */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1763,7 +1777,7 @@
 				D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */,
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
 				D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */,
-				D94BCA452577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift in Sources */,
+				D94BCA452577F7ED0076C2AB /* BlenderGradeCollectionViewCell.swift in Sources */,
 				D9D4FC2C264ED53F00A2A1DA /* BaseViewController.swift in Sources */,
 				D980119E2652A99B00B8AA70 /* ProfilesView.swift in Sources */,
 				D98011A02652AE5400B8AA70 /* ProfileElementView.swift in Sources */,
@@ -1844,6 +1858,7 @@
 				D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */,
 				D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */,
 				D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */,
+				D9EE8A4B278F4CC500321339 /* BlenderGradeNestedCollectionViewCell.swift in Sources */,
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9F7C36226E7D2D80048595A /* ArbsPlaygroundWireframe.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
@@ -1856,6 +1871,7 @@
 				D906529725D2EB6800892C89 /* ResultKeyValueUnitsView.swift in Sources */,
 				D9A91CB825A9AAD400423704 /* FreightCalculator.swift in Sources */,
 				D944CEF125767306009115FD /* ProfileNetworkManager.swift in Sources */,
+				D9100EF8278EDEAB0032F4AD /* Blender+UIType.swift in Sources */,
 				D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */,
 				D9F996DB25BDFC4B0075F1A9 /* ResultMonthSelector.swift in Sources */,
 				D977B3A425C330E9009A9483 /* ArbDetailContentView.swift in Sources */,
@@ -2104,7 +2120,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2112,7 +2128,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2132,7 +2148,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2140,7 +2156,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

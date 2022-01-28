@@ -56,8 +56,8 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func apply(month: BlenderMonth, isSeasonalityOn: Bool, for indexPath: IndexPath) {
-        self.month = month
+    func apply(monthCell: BlenderViewModel.BlenderMonthCell, isSeasonalityOn: Bool, for indexPath: IndexPath) {
+        self.month = monthCell.month
         self.indexPath = indexPath
 
         stopObservingAllBlendersMonthsEvents()
@@ -71,6 +71,12 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
             applyDescriptionUI()
         } else {
             applyTitledUI()
+        }
+
+        if monthCell.isParrent {
+            contentView.backgroundColor = .clear
+        } else {
+            contentView.backgroundColor = .blenderNestedBackground
         }
     }
 

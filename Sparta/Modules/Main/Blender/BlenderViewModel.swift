@@ -155,19 +155,30 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     private func createTableDataSource(for blenders: [Blender]) -> [Cell] {
-        blenders.compactMap { .title(blender: $0) }
+        var cells: [Cell] = []
+        for (index, blender) in blenders.enumerated() {
+            cells.append(.title(blenderCell: BlenderCell(blender: blender)))
+        }
+        return cells
     }
 
     private func createCollectionDataSource(for blenders: [Blender]) -> [Section] {
-        blenders.compactMap { blender in
-            var cells: [Cell] = Array(repeating: Cell.info(month: .empty), count: blender.months.count)
+        var sections: [Section] = []
+
+        for (blenderIndex, blender) in blenders.enumerated() {
+            var cells: [Cell] = Array(repeating: Cell.emptyGrade, count: blender.months.count)
 
             for (index, month) in blender.months.enumerated() {
-                cells[index] = Cell.info(month: month)
+
+                cells[index] = Cell.info(blenderMonthCell: BlenderMonthCell(
+                    month: month,
+                    isParrent: blender.isParrent))
             }
 
-            return Section(gradeCode: blender.gradeCode, cells: cells)
+            sections.append(Section(gradeCode: blender.gradeCode, cells: cells))
         }
+
+        return sections
     }
 
     private func updateGrades() {
@@ -264,8 +275,9 @@ extension BlenderViewModel: BlenderSyncManagerDelegate {
     func blenderSyncManagerDidReceiveUpdates(for blender: Blender) {
         if let indexOfBlender = fetchedBlenders.firstIndex(of: blender) {
             fetchedBlenders[indexOfBlender] = blender
-            tableDataSource[indexOfBlender] = Cell.title(blender: blender)
-            collectionDataSource[indexOfBlender].cells = blender.months.compactMap { Cell.info(month: $0) }
+            tableDataSource[indexOfBlender] = Cell.title(blenderCell: .init(blender: blender))
+            collectionDataSource[indexOfBlender].cells = blender.months.compactMap { Cell.info(blenderMonthCell: BlenderMonthCell(month: $0,
+                                                                                                                                  isParrent: blender.isParrent)) }
         }
 
         updateGrades()
