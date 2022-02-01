@@ -67,7 +67,11 @@ class BlenderInfoCollectionViewCell: UICollectionViewCell {
         titleLabel.textColor = self.month.textColor
         descriptionLabel.text = self.month.seasonality
 
-        if isSeasonalityOn {
+        func ableToPresentDescriptionUI() -> Bool {
+            isSeasonalityOn && monthCell.isParrent && month.seasonality.nullable != nil
+        }
+
+        if ableToPresentDescriptionUI() {
             applyDescriptionUI()
         } else {
             applyTitledUI()

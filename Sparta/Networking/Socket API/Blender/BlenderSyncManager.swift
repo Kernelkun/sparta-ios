@@ -89,8 +89,14 @@ class BlenderSyncManager {
 
                     for blender in list.filter({ $0.portfolio == profile.portfolio && $0.isParrent }) {
 
-                        var allBlends = list.filter({ $0.referenceCode == blender.referenceCode && $0.isChild })
-                        allBlends.insert(blender, at: 0)
+                        var allBlends: [Blender] = []
+
+                        if blender.type == .regrade || blender.type == .userCustom {
+                            allBlends = [blender]
+                        } else {
+                            allBlends = list.filter({ $0.referenceCode == blender.referenceCode && $0.isChild })
+                            allBlends.insert(blender, at: 0)
+                        }
 
                         let patchedBlenders: [Blender] = allBlends.compactMap { blender in
 

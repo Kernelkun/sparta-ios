@@ -8,6 +8,6 @@
 import NetworkingModels
 
 extension Blender {
-    var isParrent: Bool { type == .normal || type == .regrade }
+    var isParrent: Bool { type == .normal || type == .regrade || type == .userCustom }
     var isChild: Bool { type == .counterSesonality }
 }

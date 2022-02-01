@@ -123,9 +123,9 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     func height(for section: Int) -> CGFloat {
-        guard !isSeasonalityOn else { return 70 }
+        guard isSeasonalityOn, fetchedBlenders[section].isParrent else { return 50 }
 
-        return selectedSection == section ? 130 : 50
+        return 70
     }
 
     func monthsCount() -> Int {

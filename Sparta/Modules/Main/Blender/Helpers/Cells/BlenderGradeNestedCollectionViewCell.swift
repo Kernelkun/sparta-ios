@@ -130,4 +130,3 @@ extension BlenderGradeNestedCollectionViewCell: BlenderObserver {
         }
     }
 }
-
