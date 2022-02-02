@@ -36,6 +36,8 @@ public struct ArbMonth: BackendModel {
     public private(set) var pseudoCifRefinery: ColoredNumber?
     public var userTarget: Double?
 
+    public let deliveredPriceDifferentials: [PriceDifferentials]
+
     // use this identifier to identify this object as unique
     public var uniqueIdentifier: String {
         name + gradeCode + routeCode
@@ -88,6 +90,8 @@ public struct ArbMonth: BackendModel {
         if json["pseudoCifRefinery"].dictionary != nil {
             pseudoCifRefinery = ColoredNumber(json: json["pseudoCifRefinery"])
         } else {  pseudoCifRefinery = nil }
+
+        deliveredPriceDifferentials = json["deliveredPriceDifferentials"].arrayValue.compactMap { PriceDifferentials(json: $0) }
 
         userTarget = json["userTarget"].double
     }

@@ -25,7 +25,17 @@ class ArbsViewModel: NSObject, BaseViewModel {
     weak var delegate: ArbsViewModelDelegate?
 
     var tableGrade: Cell = .arb
-    var collectionGrades: [Cell] = [.status, .deliveryMonth, .deliveryPrice, .userTgt, .userMargin]
+    var collectionGrades: [Cell] {
+        guard let portfolio = arbsSyncManager.portfolio else {
+            return [.status, .deliveryMonth, .deliveryPrice, .vsHou, .userTgt, .userMargin]
+        }
+
+        if portfolio.portfolio.isAra {
+            return [.status, .deliveryMonth, .deliveryPrice, .vsHou, .userTgt, .userMargin]
+        } else {
+            return [.status, .deliveryMonth, .deliveryPrice, .vsAra, .userTgt, .userMargin]
+        }
+    }
 
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
@@ -69,6 +79,7 @@ class ArbsViewModel: NSObject, BaseViewModel {
 
     func changeProfile(_ portfolio: ArbProfileCategory) {
         arbsSyncManager.setPortfolio(portfolio)
+        delegate?.didReceiveUpdatesForGrades()
     }
 
     // MARK: - Private methods
@@ -79,7 +90,7 @@ class ArbsViewModel: NSObject, BaseViewModel {
 
     private func createCollectionDataSource() -> [Section] {
         return fetchedArbs.compactMap {
-            let cells: [Cell] = [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]
+            let cells: [Cell] = [.info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0), .info(arb: $0)]
             return .init(name: $0.grade, cells: cells)
         }
     }
