@@ -167,6 +167,9 @@
 		D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBC25AB55A400423704 /* FreightResultKeyValueView.swift */; };
 		D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CBE25AC691C00423704 /* LoaderView.swift */; };
 		D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A91CC125AC6EB800423704 /* DelayObject.swift */; };
+		D9ABAE9227AC20DB0078E2CB /* LCWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ABAE9127AC20DB0078E2CB /* LCWebViewController.swift */; };
+		D9ABAE9427AC21040078E2CB /* LCWebWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ABAE9327AC21040078E2CB /* LCWebWireframe.swift */; };
+		D9ABAE9627AC215B0078E2CB /* LCWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ABAE9527AC215B0078E2CB /* LCWebViewModel.swift */; };
 		D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */; };
 		D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */; };
 		D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B50E06257180520018F3D7 /* Coordinator.swift */; };
@@ -395,6 +398,9 @@
 		D9A91CC125AC6EB800423704 /* DelayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayObject.swift; sourceTree = "<group>"; };
 		D9A91D0925ADEDED00423704 /* Sparta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sparta-Bridging-Header.h"; sourceTree = "<group>"; };
 		D9A91D0A25ADF03800423704 /* Segment_Amplitude.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Segment_Amplitude.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9ABAE9127AC20DB0078E2CB /* LCWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebViewController.swift; sourceTree = "<group>"; };
+		D9ABAE9327AC21040078E2CB /* LCWebWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebWireframe.swift; sourceTree = "<group>"; };
+		D9ABAE9527AC215B0078E2CB /* LCWebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebViewModel.swift; sourceTree = "<group>"; };
 		D9B50DFE25717F2E0018F3D7 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D9B50E0225717F4D0018F3D7 /* Keychain+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Keys.swift"; sourceTree = "<group>"; };
 		D9B50E06257180520018F3D7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -1053,8 +1059,8 @@
 		D99ACC2B25AF81EE007DAB6D /* LiveCharts */ = {
 			isa = PBXGroup;
 			children = (
-				D99ACC3025AF8210007DAB6D /* LiveChartsViewModel.swift */,
-				D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */,
+				D9ABAE9027AC20C30078E2CB /* LCWebview */,
+				D9ABAE8F27AC20810078E2CB /* OldLibrary */,
 			);
 			path = LiveCharts;
 			sourceTree = "<group>";
@@ -1296,6 +1302,25 @@
 				D9840D12278608E40036C374 /* MobileParser.swift */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		D9ABAE8F27AC20810078E2CB /* OldLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				D99ACC3025AF8210007DAB6D /* LiveChartsViewModel.swift */,
+				D99ACC2C25AF8201007DAB6D /* LiveChartsViewController.swift */,
+			);
+			path = OldLibrary;
+			sourceTree = "<group>";
+		};
+		D9ABAE9027AC20C30078E2CB /* LCWebview */ = {
+			isa = PBXGroup;
+			children = (
+				D9ABAE9527AC215B0078E2CB /* LCWebViewModel.swift */,
+				D9ABAE9127AC20DB0078E2CB /* LCWebViewController.swift */,
+				D9ABAE9327AC21040078E2CB /* LCWebWireframe.swift */,
+			);
+			path = LCWebview;
 			sourceTree = "<group>";
 		};
 		D9B50DFC25717F180018F3D7 /* Services */ = {
@@ -1760,6 +1785,7 @@
 			files = (
 				D98011C5265548DA00B8AA70 /* LCPortfolioAddViewController.swift in Sources */,
 				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
+				D9ABAE9627AC215B0078E2CB /* LCWebViewModel.swift in Sources */,
 				D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */,
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
 				D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */,
@@ -1827,6 +1853,7 @@
 				D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */,
 				D9A41AEC269C89B40057ABCD /* BlenderEditPortfolioItemsViewModel.swift in Sources */,
 				D99ACC3125AF8210007DAB6D /* LiveChartsViewModel.swift in Sources */,
+				D9ABAE9427AC21040078E2CB /* LCWebWireframe.swift in Sources */,
 				D9ECEC4A257AE624005DFFD7 /* BlenderDescriptionTableViewCell.swift in Sources */,
 				D9A91CBB25AB459100423704 /* FreightResultMonthSelector.swift in Sources */,
 				D9ECEC31257A62D9005DFFD7 /* BlenderSyncManager.swift in Sources */,
@@ -1834,6 +1861,7 @@
 				D96F47AF26BC5E540063AB90 /* StepperView.swift in Sources */,
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
 				D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */,
+				D9ABAE9227AC20DB0078E2CB /* LCWebViewController.swift in Sources */,
 				D9A91CB325A9A80B00423704 /* FreightResultViewController.swift in Sources */,
 				D959C0EF25822EE0006CE2D1 /* FreightViewController.swift in Sources */,
 				D92A379625E261E200C0F9C8 /* BlenderViewModel+Models.swift in Sources */,

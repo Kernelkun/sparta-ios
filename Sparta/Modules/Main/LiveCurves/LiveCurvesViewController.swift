@@ -145,10 +145,15 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
             navigationController?.pushViewController(EditPortfolioItemsViewController(), animated: true)
         }
 
+        let testLCWebButton = UIBarButtonItemFactory.titleButton(text: "LC") { [unowned self] _ in
+            navigationController?.pushViewController(LCWebViewController(), animated: true)
+        }
+
         let title = "MainTabsPage.LiveCurves.Title".localized
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: title)
         navigationItem.rightBarButtonItems = [editButton, UIBarButtonItemFactory.fixedSpace(space: 25),
                                               periodButton, UIBarButtonItemFactory.fixedSpace(space: 25),
+                                              testLCWebButton, UIBarButtonItemFactory.fixedSpace(space: 25),
                                               plusButton]
     }
 
