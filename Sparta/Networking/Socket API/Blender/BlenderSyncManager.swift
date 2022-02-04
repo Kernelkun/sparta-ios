@@ -85,17 +85,42 @@ class BlenderSyncManager {
                     var profile = profile
                     profile.blenders = []
 
-                    let filteredBlenders = list.filter { $0.portfolio == profile.portfolio }.compactMap { blender -> Blender in
-                        var blender = blender
-                        strongSelf.patchBlender(&blender)
-                        return blender
+                    var priorityIndex = 0
+
+                    for blender in list.filter({ $0.portfolio == profile.portfolio && $0.isParrent }) {
+
+                        var allBlends: [Blender] = []
+
+                        if blender.type == .regrade || blender.type == .userCustom {
+                            allBlends = [blender]
+                        } else {
+                            allBlends = list.filter({ $0.referenceCode == blender.referenceCode && $0.isChild })
+                            allBlends.insert(blender, at: 0)
+                        }
+
+                        let patchedBlenders: [Blender] = allBlends.compactMap { blender in
+
+                            defer { priorityIndex += 1 }
+
+                            var blender = blender
+                            blender.priorityIndex = priorityIndex
+                            strongSelf.patchBlender(&blender)
+
+                            return blender
+                        }
+
+                        profile.blenders.append(contentsOf: patchedBlenders)
                     }
 
-                    for (index, blender) in filteredBlenders.enumerated() {
-                        var blender = blender
-                        blender.priorityIndex = index
-                        profile.blenders.append(blender)
+                    /*let filteredBlenders = .compactMap { blender -> Blender in
+
                     }
+
+                    for (index, blender) in filteredBlenders.sorted(by: { $0.referenceCode > $1.referenceCode }).enumerated() {
+                        var blender = blender
+
+
+                    }*/
 
                     return profile
                 })

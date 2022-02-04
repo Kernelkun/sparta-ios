@@ -186,13 +186,19 @@ extension BlenderViewController: GridViewDataSource {
     func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cellType = viewModel.tableDataSource[indexPath.section]
 
-        let cell: BlenderGradeCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
-
-        if case let BlenderViewModel.Cell.title(blender) = cellType {
-            cell.apply(blender: blender)
+        if case let BlenderViewModel.Cell.title(blenderCell) = cellType {
+            if blenderCell.isParrent {
+                let cell: BlenderGradeCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+                cell.apply(blenderCell: blenderCell)
+                return cell
+            } else {
+                let cell: BlenderGradeNestedCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+                cell.apply(blenderCell: blenderCell)
+                return cell
+            }
         }
 
-        return cell
+        return UICollectionViewCell()
     }
 
     func cellForInfoCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
@@ -200,12 +206,11 @@ extension BlenderViewController: GridViewDataSource {
 
         let cell: BlenderInfoCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-        if case let BlenderViewModel.Cell.info(month) = cellType {
-            cell.apply(month: month, isSeasonalityOn: viewModel.isSeasonalityOn, for: indexPath)
+        if case let BlenderViewModel.Cell.info(monthCell) = cellType {
+            cell.apply(monthCell: monthCell, isSeasonalityOn: viewModel.isSeasonalityOn, for: indexPath)
 
             cell.onTap { [unowned self] indexPath in
                 self.showDescription(for: indexPath)
-//                self.viewModel.activateSection(indexPath.section)
             }
         }
 

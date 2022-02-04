@@ -7,13 +7,24 @@
 
 import Foundation
 import NetworkingModels
+import UIKit
 
 extension BlenderViewModel {
 
+    struct BlenderCell {
+        let blender: Blender
+        var isParrent: Bool { blender.isParrent }
+    }
+
+    struct BlenderMonthCell {
+        let month: BlenderMonth
+        let isParrent: Bool
+    }
+
     enum Cell {
         case grade(title: String)
-        case title(blender: Blender)
-        case info(month: BlenderMonth)
+        case title(blenderCell: BlenderCell)
+        case info(blenderMonthCell: BlenderMonthCell)
 
         static let emptyGrade: Cell = .grade(title: "")
     }
@@ -31,14 +42,14 @@ extension BlenderViewModel.Cell: Equatable {
            case let BlenderViewModel.Cell.grade(rightGrade) = rhs {
 
             return leftGrade.lowercased() == rightGrade.lowercased()
-        } else if case let BlenderViewModel.Cell.title(leftArb) = lhs,
-                  case let BlenderViewModel.Cell.title(rightArb) = rhs {
+        } else if case let BlenderViewModel.Cell.title(leftBlender) = lhs,
+                  case let BlenderViewModel.Cell.title(rightBlender) = rhs {
 
-            return leftArb == rightArb
-        } else if case let BlenderViewModel.Cell.info(leftArb) = lhs,
-                  case let BlenderViewModel.Cell.info(rightArb) = rhs {
+            return leftBlender.blender == rightBlender.blender
+        } else if case let BlenderViewModel.Cell.info(leftBlenderMonth) = lhs,
+                  case let BlenderViewModel.Cell.info(rightBlenderMonth) = rhs {
 
-            return leftArb == rightArb
+            return leftBlenderMonth.month == rightBlenderMonth.month
         }
 
         return false
