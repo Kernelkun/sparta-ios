@@ -225,6 +225,13 @@ extension ArbsViewController: GridViewDataSource {
 
             return cell
 
+        case .vsAra, .vsHou:
+            let cell: ArbsPriceDifferentialsCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
+
+            fillCell(cell)
+
+            return cell
+
         case .userTgt:
             let cell: ArbsUserTgtCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
 

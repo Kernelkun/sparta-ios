@@ -122,6 +122,7 @@ class ContentGridView: UIView {
             // arbs
             collectionView.register(ArbsDeliveryMonthCollectionViewCell.self)
             collectionView.register(ArbsDeliveryPriceCollectionViewCell.self)
+            collectionView.register(ArbsPriceDifferentialsCollectionViewCell.self)
             collectionView.register(ArbsUserTgtCollectionViewCell.self)
             collectionView.register(ArbsUserMarginCollectionViewCell.self)
             collectionView.register(ArbsStatusCollectionViewCell.self)

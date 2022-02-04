@@ -81,8 +81,7 @@ class ArbsSyncManager: ArbsSyncInterface {
                let list = responseModel.model?.list {
                 portfolios = list
 
-                strongSelf.arbsManager.fetchArbsTable(request: .init(portfolios: portfolios)) { [weak self] result in
-                    guard let strongSelf = self else { return }
+                strongSelf.arbsManager.fetchArbsTable(request: .init(portfolios: portfolios)) { result in
 
                     if case let .success(responseModel) = result,
                        let list = responseModel.model?.list {

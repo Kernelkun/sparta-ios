@@ -65,8 +65,33 @@ extension ArbsViewModel {
             attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: (title as NSString).range(of: title))
             return .grade(attributedString: attributedString)
         }
+
         static var deliveryPrice: Cell {
             let title: NSString = "ArbsPage.Grade.DlvPrice.Title".localized as NSString
+            let attributedString = NSMutableAttributedString(string: title as String)
+
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+
+            attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: title.range(of: title as String))
+
+            return .grade(attributedString: attributedString)
+        }
+
+        static var vsAra: Cell {
+            let title: NSString = "ArbsPage.Status.vsARA.Title".localized as NSString
+            let attributedString = NSMutableAttributedString(string: title as String)
+
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+
+            attributedString.addAttributes([.paragraphStyle: paragraphStyle], range: title.range(of: title as String))
+
+            return .grade(attributedString: attributedString)
+        }
+
+        static var vsHou: Cell {
+            let title: NSString = "ArbsPage.Status.vsHOU.Title".localized as NSString
             let attributedString = NSMutableAttributedString(string: title as String)
 
             let paragraphStyle = NSMutableParagraphStyle()
