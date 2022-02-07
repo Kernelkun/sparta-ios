@@ -14,6 +14,7 @@ class LCWebViewController: UIViewController {
 
     private var scrollView: UIScrollView!
     private var webView: WKWebView!
+    private var cardContentView: CardViewInterface!
 
     // MARK: - Lifecycle
 
@@ -53,7 +54,7 @@ class LCWebViewController: UIViewController {
         ////            return
         ////        }
 
-        scrollView = UIScrollView().then { scrollView in
+        /*scrollView = UIScrollView().then { scrollView in
 
             scrollView.showsVerticalScrollIndicator = false
             scrollView.delegate = self
@@ -84,36 +85,81 @@ class LCWebViewController: UIViewController {
                 $0.left.right.equalToSuperview()
                 $0.height.equalTo(150)
             }
-        }
+        }*/
 
-        webView = WKWebView()
+        title = "Live Charts"
 
+        view.backgroundColor = .mainBackground
 
-        webView.navigationDelegate = self
-        webView.uiDelegate = self
-        webView.scrollView.bounces = false
-        webView.scrollView.isScrollEnabled = false
-        webView.scrollView.minimumZoomScale = 1.0
-        webView.scrollView.maximumZoomScale = 1.0
-        webView.scrollView.delegate = self
-        webView.load(request)
+        webView = WKWebView().then { webView in
 
-        scrollViewContent.addSubview(webView) {
-            $0.top.equalTo(testView.snp.bottom).offset(24)
-            $0.left.right.equalToSuperview()
-            $0.height.equalTo(700)
-        }
+            webView.navigationDelegate = self
+            webView.uiDelegate = self
+            webView.scrollView.bounces = false
+            webView.scrollView.isScrollEnabled = false
+            webView.scrollView.minimumZoomScale = 1.0
+            webView.scrollView.maximumZoomScale = 1.0
+            webView.scrollView.delegate = self
+            webView.load(request)
 
-        let bottomView = UIView().then { view in
-
-            view.backgroundColor = .yellow
-
-            scrollViewContent.addSubview(view) {
-                $0.top.equalTo(webView.snp.bottom).offset(24)
+            addSubview(webView) {
+                $0.top.equalToSuperview().offset(topBarHeight)
                 $0.left.right.equalToSuperview()
-                $0.height.equalTo(150)
-                $0.bottom.equalToSuperview()
+                $0.bottom.equalToSuperview().offset(-190)
             }
+        }
+
+        cardContentView = CardContentView().then { view in
+
+            view.backgroundColor = UIColor(hex: 0x404040)
+            view.frame = view.collapsedFrame(superviewFrame: self.view.frame)
+            view.delegate = self
+
+            /*orderView = OrderSummaryContentView().then { contentView in
+
+                view.contentView.addSubview(contentView) {
+                    $0.edges.equalToSuperview()
+                }
+            }*/
+
+            let arrowImage = UIImageView().then { imageView in
+
+                imageView.image = UIImage(named: "ic_top_arrow")?.withTintColor(.controlTintActive)
+//                imageView.tintColor = .controlTintActive
+                imageView.contentMode = .scaleAspectFit
+
+                view.addSubview(imageView) {
+                    $0.size.equalTo(CGSize(width: 40, height: 20))
+                    $0.top.equalToSuperview().offset(4)
+                    $0.centerX.equalToSuperview()
+                }
+            }
+
+            let topImage = UIImageView().then { imageView in
+
+                imageView.image = UIImage(named: "img_test_screen_1")
+                imageView.contentMode = .scaleAspectFit
+
+                view.addSubview(imageView) {
+//                    $0.size.equalTo(CGSize(width: 40, height: 20))
+                    $0.top.equalTo(arrowImage.snp.bottom).offset(-50)
+                    $0.left.right.equalToSuperview().inset(8)
+                }
+            }
+
+            let bottomImage = UIImageView().then { imageView in
+
+                imageView.image = UIImage(named: "img_test_screen_2")
+                imageView.contentMode = .scaleAspectFit
+
+                view.addSubview(imageView) {
+//                    $0.size.equalTo(CGSize(width: 40, height: 20))
+                    $0.top.equalTo(topImage.snp.bottom).offset(-220)
+                    $0.left.right.equalToSuperview().inset(8)
+                }
+            }
+
+            self.view.addSubview(view)
         }
     }
 }
@@ -139,6 +185,13 @@ extension LCWebViewController: UIScrollViewDelegate {
 //                webView.scrollView.isScrollEnabled = false
 //            }
 //        }
+    }
+}
+
+extension LCWebViewController: CardViewDelegate {
+
+    func cardViewDidChangeState(_ view: CardViewInterface, state: CardViewState) {
+        
     }
 }
 

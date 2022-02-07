@@ -11,6 +11,8 @@
 		D9016002269893D300F144F5 /* BlenderEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9016001269893D300F144F5 /* BlenderEndPoint.swift */; };
 		D90160042698948D00F144F5 /* BlenderNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90160032698948D00F144F5 /* BlenderNetworkManager.swift */; };
 		D906529725D2EB6800892C89 /* ResultKeyValueUnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906529625D2EB6800892C89 /* ResultKeyValueUnitsView.swift */; };
+		D906BE5527AE97F6002D70BB /* CardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE5427AE97F6002D70BB /* CardContentView.swift */; };
+		D906BE5727AE9803002D70BB /* CardViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE5627AE9803002D70BB /* CardViewInterface.swift */; };
 		D90DE02A26BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02926BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift */; };
 		D90DE02C26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02B26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift */; };
 		D90DE03026BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02F26BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift */; };
@@ -243,6 +245,8 @@
 		D9016001269893D300F144F5 /* BlenderEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderEndPoint.swift; sourceTree = "<group>"; };
 		D90160032698948D00F144F5 /* BlenderNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderNetworkManager.swift; sourceTree = "<group>"; };
 		D906529625D2EB6800892C89 /* ResultKeyValueUnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyValueUnitsView.swift; sourceTree = "<group>"; };
+		D906BE5427AE97F6002D70BB /* CardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentView.swift; sourceTree = "<group>"; };
+		D906BE5627AE9803002D70BB /* CardViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewInterface.swift; sourceTree = "<group>"; };
 		D90DE02926BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundPointView.swift; sourceTree = "<group>"; };
 		D90DE02B26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundDPSPointView.swift; sourceTree = "<group>"; };
 		D90DE02F26BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundResultMainPointView.swift; sourceTree = "<group>"; };
@@ -499,6 +503,15 @@
 				ECE37CD97007A384FB972084 /* Pods-Sparta.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D906BE5327AE97E5002D70BB /* CardView */ = {
+			isa = PBXGroup;
+			children = (
+				D906BE5627AE9803002D70BB /* CardViewInterface.swift */,
+				D906BE5427AE97F6002D70BB /* CardContentView.swift */,
+			);
+			path = CardView;
 			sourceTree = "<group>";
 		};
 		D90DE02726BD8C0B00D1A8D9 /* Helpers */ = {
@@ -1142,6 +1155,7 @@
 		D9A8041F25714404000ADE6B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D906BE5327AE97E5002D70BB /* CardView */,
 				D9A8042C25714595000ADE6B /* Buttons */,
 				D9B50E2525740F810018F3D7 /* Textfields */,
 				D944CEF82577B884009115FD /* Collection */,
@@ -1862,6 +1876,7 @@
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
 				D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */,
 				D9ABAE9227AC20DB0078E2CB /* LCWebViewController.swift in Sources */,
+				D906BE5727AE9803002D70BB /* CardViewInterface.swift in Sources */,
 				D9A91CB325A9A80B00423704 /* FreightResultViewController.swift in Sources */,
 				D959C0EF25822EE0006CE2D1 /* FreightViewController.swift in Sources */,
 				D92A379625E261E200C0F9C8 /* BlenderViewModel+Models.swift in Sources */,
@@ -1975,6 +1990,7 @@
 				D90DE02C26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift in Sources */,
 				D959C10625824EE4006CE2D1 /* AccountSettingsViewController.swift in Sources */,
 				D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */,
+				D906BE5527AE97F6002D70BB /* CardContentView.swift in Sources */,
 				D9A91CBF25AC691C00423704 /* LoaderView.swift in Sources */,
 				D981844E258ACF83006D8086 /* LiveCurveMonthInfoModel.swift in Sources */,
 				D9A41AEA269C89AB0057ABCD /* BlenderEditPortfolioItemsViewController.swift in Sources */,
