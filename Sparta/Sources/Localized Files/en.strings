@@ -57,6 +57,7 @@
 
 // tabs page
 
+"MainTabsPage.LiveCharts.Title" = "Live Charts";
 "MainTabsPage.LiveCurves.Title" = "Live Curves";
 "MainTabsPage.ARBs.Title" = "ARBs";
 "MainTabsPage.Blender.Title" = "Blender";
@@ -181,3 +182,8 @@
 // blur page
 
 "BlurPage.Loading.Title" = "Syncing initial data";
+
+
+// live charts
+
+"LiveCharts.ItemsField.Title" = "Select Item";

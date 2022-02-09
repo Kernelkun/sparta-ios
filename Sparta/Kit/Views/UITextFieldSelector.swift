@@ -147,7 +147,10 @@ class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelega
     @objc
     private func onTapEvent() {
         _onTapClosure?()
-        privateTextField.becomeFirstResponder()
+
+        if !inputValues.isEmpty {
+            privateTextField.becomeFirstResponder()
+        }
     }
 
     @objc

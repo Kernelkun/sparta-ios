@@ -24,6 +24,8 @@ class MainTabsViewController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+//        moreNavigationController.topViewController?.view.backgroundColor = .red
+
         let setTabBarItem = { (vc: UIViewController, title: String, imageName: String) in
 
             vc.title = title//.localized
@@ -43,6 +45,19 @@ class MainTabsViewController: UITabBarController {
 
             tabs.append(navigation)
         }
+
+        // live charts navigation
+
+        let lcViewController = LCWebWireframe().viewController
+
+        setTabBarItem(lcViewController, "MainTabsPage.LiveCharts.Title".localized, "ic_tab_lc")
+
+        let lcNavigation = KeyedNavigationController<Tab>(rootViewController: lcViewController)
+        lcNavigation.setKey(.liveCharts)
+
+        tabs.append(lcNavigation)
+
+        // arbs navigation
 
         if viewModel.isVisibleArbsBlock {
             let second = ArbsViewController()
@@ -151,6 +166,7 @@ extension MainTabsViewController {
 
     fileprivate enum Tab: Hashable {
         case arbs
+        case liveCharts
         case liveCurves
         case blender
         case freight
@@ -160,6 +176,9 @@ extension MainTabsViewController {
             switch self {
             case .arbs:
                 return "arbs"
+
+            case .liveCharts:
+                return "live charts"
 
             case .liveCurves:
                 return "live curves"

@@ -13,6 +13,14 @@
 		D906529725D2EB6800892C89 /* ResultKeyValueUnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906529625D2EB6800892C89 /* ResultKeyValueUnitsView.swift */; };
 		D906BE5527AE97F6002D70BB /* CardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE5427AE97F6002D70BB /* CardContentView.swift */; };
 		D906BE5727AE9803002D70BB /* CardViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE5627AE9803002D70BB /* CardViewInterface.swift */; };
+		D906BE5A27B2774B002D70BB /* ScrollableHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE5927B2774A002D70BB /* ScrollableHelpers.swift */; };
+		D906BE5C27B3D91B002D70BB /* LCWebInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE5B27B3D91B002D70BB /* LCWebInterfaces.swift */; };
+		D906BE5F27B3D9AB002D70BB /* LCWebTradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE5E27B3D9AB002D70BB /* LCWebTradeViewController.swift */; };
+		D906BE6227B3E01D002D70BB /* MovingDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6127B3E01D002D70BB /* MovingDirection.swift */; };
+		D906BE6527B41EDA002D70BB /* LCWebResultItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6427B41EDA002D70BB /* LCWebResultItemView.swift */; };
+		D906BE6727B420C5002D70BB /* LCWebResultHLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6627B420C5002D70BB /* LCWebResultHLView.swift */; };
+		D906BE6927B425C1002D70BB /* LCWebHistoricalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6827B425C1002D70BB /* LCWebHistoricalDataView.swift */; };
+		D906BE6D27B42622002D70BB /* LCWebHistoricalDataItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6C27B42622002D70BB /* LCWebHistoricalDataItemView.swift */; };
 		D90DE02A26BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02926BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift */; };
 		D90DE02C26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02B26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift */; };
 		D90DE03026BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02F26BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift */; };
@@ -247,6 +255,14 @@
 		D906529625D2EB6800892C89 /* ResultKeyValueUnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultKeyValueUnitsView.swift; sourceTree = "<group>"; };
 		D906BE5427AE97F6002D70BB /* CardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentView.swift; sourceTree = "<group>"; };
 		D906BE5627AE9803002D70BB /* CardViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewInterface.swift; sourceTree = "<group>"; };
+		D906BE5927B2774A002D70BB /* ScrollableHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableHelpers.swift; sourceTree = "<group>"; };
+		D906BE5B27B3D91B002D70BB /* LCWebInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebInterfaces.swift; sourceTree = "<group>"; };
+		D906BE5E27B3D9AB002D70BB /* LCWebTradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebTradeViewController.swift; sourceTree = "<group>"; };
+		D906BE6127B3E01D002D70BB /* MovingDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingDirection.swift; sourceTree = "<group>"; };
+		D906BE6427B41EDA002D70BB /* LCWebResultItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebResultItemView.swift; sourceTree = "<group>"; };
+		D906BE6627B420C5002D70BB /* LCWebResultHLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebResultHLView.swift; sourceTree = "<group>"; };
+		D906BE6827B425C1002D70BB /* LCWebHistoricalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebHistoricalDataView.swift; sourceTree = "<group>"; };
+		D906BE6C27B42622002D70BB /* LCWebHistoricalDataItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebHistoricalDataItemView.swift; sourceTree = "<group>"; };
 		D90DE02926BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundPointView.swift; sourceTree = "<group>"; };
 		D90DE02B26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundDPSPointView.swift; sourceTree = "<group>"; };
 		D90DE02F26BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundResultMainPointView.swift; sourceTree = "<group>"; };
@@ -512,6 +528,58 @@
 				D906BE5427AE97F6002D70BB /* CardContentView.swift */,
 			);
 			path = CardView;
+			sourceTree = "<group>";
+		};
+		D906BE5827B276F9002D70BB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D906BE6327B41EB9002D70BB /* Views */,
+				D906BE5927B2774A002D70BB /* ScrollableHelpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D906BE5D27B3D981002D70BB /* Childs */ = {
+			isa = PBXGroup;
+			children = (
+				D906BE5E27B3D9AB002D70BB /* LCWebTradeViewController.swift */,
+			);
+			path = Childs;
+			sourceTree = "<group>";
+		};
+		D906BE6027B3E006002D70BB /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				D906BE6127B3E01D002D70BB /* MovingDirection.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		D906BE6327B41EB9002D70BB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D906BE6B27B42609002D70BB /* HistoricalData */,
+				D906BE6A27B425EE002D70BB /* HL */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D906BE6A27B425EE002D70BB /* HL */ = {
+			isa = PBXGroup;
+			children = (
+				D906BE6427B41EDA002D70BB /* LCWebResultItemView.swift */,
+				D906BE6627B420C5002D70BB /* LCWebResultHLView.swift */,
+			);
+			path = HL;
+			sourceTree = "<group>";
+		};
+		D906BE6B27B42609002D70BB /* HistoricalData */ = {
+			isa = PBXGroup;
+			children = (
+				D906BE6C27B42622002D70BB /* LCWebHistoricalDataItemView.swift */,
+				D906BE6827B425C1002D70BB /* LCWebHistoricalDataView.swift */,
+			);
+			path = HistoricalData;
 			sourceTree = "<group>";
 		};
 		D90DE02726BD8C0B00D1A8D9 /* Helpers */ = {
@@ -1072,7 +1140,7 @@
 		D99ACC2B25AF81EE007DAB6D /* LiveCharts */ = {
 			isa = PBXGroup;
 			children = (
-				D9ABAE9027AC20C30078E2CB /* LCWebview */,
+				D9ABAE9027AC20C30078E2CB /* LCWebView */,
 				D9ABAE8F27AC20810078E2CB /* OldLibrary */,
 			);
 			path = LiveCharts;
@@ -1327,14 +1395,17 @@
 			path = OldLibrary;
 			sourceTree = "<group>";
 		};
-		D9ABAE9027AC20C30078E2CB /* LCWebview */ = {
+		D9ABAE9027AC20C30078E2CB /* LCWebView */ = {
 			isa = PBXGroup;
 			children = (
+				D906BE5D27B3D981002D70BB /* Childs */,
+				D906BE5827B276F9002D70BB /* Helpers */,
+				D906BE5B27B3D91B002D70BB /* LCWebInterfaces.swift */,
 				D9ABAE9527AC215B0078E2CB /* LCWebViewModel.swift */,
 				D9ABAE9127AC20DB0078E2CB /* LCWebViewController.swift */,
 				D9ABAE9327AC21040078E2CB /* LCWebWireframe.swift */,
 			);
-			path = LCWebview;
+			path = LCWebView;
 			sourceTree = "<group>";
 		};
 		D9B50DFC25717F180018F3D7 /* Services */ = {
@@ -1497,6 +1568,7 @@
 				D99B2F3225753AC20080B90B /* Validators */,
 				D97895E0258377D1009E4A56 /* Models */,
 				D9A91CC025AC6EA400423704 /* Objects */,
+				D906BE6027B3E006002D70BB /* Enums */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -1813,6 +1885,8 @@
 				D9E810CC273D1276003C42C0 /* ArbsSyncInterface.swift in Sources */,
 				D959C0F225822EEB006CE2D1 /* FreightViewModel.swift in Sources */,
 				D954A14B2590B3E300FAE766 /* SeasonalityButton.swift in Sources */,
+				D906BE5A27B2774B002D70BB /* ScrollableHelpers.swift in Sources */,
+				D906BE6727B420C5002D70BB /* LCWebResultHLView.swift in Sources */,
 				D93BC640258CF86C0026BF8E /* BlenderSyncManager+Observation.swift in Sources */,
 				D9A11812257937A600BB928E /* App+Reconnection.swift in Sources */,
 				D9A91BFC25A3627C00423704 /* ArbsUserTgtCollectionViewCell.swift in Sources */,
@@ -1825,6 +1899,7 @@
 				D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */,
 				D9E810CE273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift in Sources */,
 				D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */,
+				D906BE6527B41EDA002D70BB /* LCWebResultItemView.swift in Sources */,
 				D9840D0927844E300036C374 /* SettingsMobileField.swift in Sources */,
 				D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
@@ -1857,6 +1932,7 @@
 				D94E228925826CEE005FA057 /* UITextFieldSelector.swift in Sources */,
 				D9A067382589186200C0D1E5 /* GridView.swift in Sources */,
 				D963452926C1529D000DD791 /* ArbPlaygroundDPS+PickerValued.swift in Sources */,
+				D906BE5F27B3D9AB002D70BB /* LCWebTradeViewController.swift in Sources */,
 				D9B50E2B25740FEB0018F3D7 /* LimitedTextField.swift in Sources */,
 				D9B50E0F257180A70018F3D7 /* AuthenticationFlowCoordinator.swift in Sources */,
 				D944CEFD2577B8E1009115FD /* GridCell.swift in Sources */,
@@ -1890,6 +1966,8 @@
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,
 				D9F7C36226E7D2D80048595A /* ArbsPlaygroundWireframe.swift in Sources */,
 				D9A80441257146D1000ADE6B /* AvatarView.swift in Sources */,
+				D906BE6D27B42622002D70BB /* LCWebHistoricalDataItemView.swift in Sources */,
+				D906BE5C27B3D91B002D70BB /* LCWebInterfaces.swift in Sources */,
 				D9D4FC30264ED8C200A2A1DA /* LCPortfolioAddItemTableViewCell.swift in Sources */,
 				D92FFF4425793BF100AB5405 /* App.swift in Sources */,
 				D9A91CBD25AB55A400423704 /* FreightResultKeyValueView.swift in Sources */,
@@ -1908,6 +1986,7 @@
 				D999387726C25E5D005AF406 /* ArbPlaygroundResultDataView.swift in Sources */,
 				D9A2797125939632009D066E /* App+Observation.swift in Sources */,
 				D9A839C8265E50D70074E134 /* EditPortfolioItemsTableViewCell.swift in Sources */,
+				D906BE6927B425C1002D70BB /* LCWebHistoricalDataView.swift in Sources */,
 				D9A067362589183C00C0D1E5 /* ContentGridView.swift in Sources */,
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
 				D999387D26C26145005AF406 /* ArbPlaygroundResultInputPointViewConstructor.swift in Sources */,
@@ -1962,6 +2041,7 @@
 				D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */,
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
 				D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */,
+				D906BE6227B3E01D002D70BB /* MovingDirection.swift in Sources */,
 				D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */,
 				D9A91BFA25A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift in Sources */,
 				D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */,
@@ -2148,7 +2228,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2156,7 +2236,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2176,7 +2256,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2184,7 +2264,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
