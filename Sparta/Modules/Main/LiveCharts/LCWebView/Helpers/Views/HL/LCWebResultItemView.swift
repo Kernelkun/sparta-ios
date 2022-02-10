@@ -57,7 +57,6 @@ class LCWebResultItemView: UIView {
             }
         }
     }
-
 }
 
 extension LCWebResultItemView {

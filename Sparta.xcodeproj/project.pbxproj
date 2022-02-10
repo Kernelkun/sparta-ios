@@ -21,6 +21,8 @@
 		D906BE6727B420C5002D70BB /* LCWebResultHLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6627B420C5002D70BB /* LCWebResultHLView.swift */; };
 		D906BE6927B425C1002D70BB /* LCWebHistoricalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6827B425C1002D70BB /* LCWebHistoricalDataView.swift */; };
 		D906BE6D27B42622002D70BB /* LCWebHistoricalDataItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6C27B42622002D70BB /* LCWebHistoricalDataItemView.swift */; };
+		D906BE7027B5318A002D70BB /* SearchViewWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE6F27B53189002D70BB /* SearchViewWireframe.swift */; };
+		D906BE7227B5319C002D70BB /* SearchViewInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D906BE7127B5319C002D70BB /* SearchViewInterfaces.swift */; };
 		D90DE02A26BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02926BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift */; };
 		D90DE02C26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02B26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift */; };
 		D90DE03026BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90DE02F26BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift */; };
@@ -263,6 +265,8 @@
 		D906BE6627B420C5002D70BB /* LCWebResultHLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebResultHLView.swift; sourceTree = "<group>"; };
 		D906BE6827B425C1002D70BB /* LCWebHistoricalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebHistoricalDataView.swift; sourceTree = "<group>"; };
 		D906BE6C27B42622002D70BB /* LCWebHistoricalDataItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebHistoricalDataItemView.swift; sourceTree = "<group>"; };
+		D906BE6F27B53189002D70BB /* SearchViewWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewWireframe.swift; sourceTree = "<group>"; };
+		D906BE7127B5319C002D70BB /* SearchViewInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewInterfaces.swift; sourceTree = "<group>"; };
 		D90DE02926BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundPointView.swift; sourceTree = "<group>"; };
 		D90DE02B26BD9B9300D1A8D9 /* ArbPlaygroundDPSPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundDPSPointView.swift; sourceTree = "<group>"; };
 		D90DE02F26BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbPlaygroundResultMainPointView.swift; sourceTree = "<group>"; };
@@ -580,6 +584,15 @@
 				D906BE6827B425C1002D70BB /* LCWebHistoricalDataView.swift */,
 			);
 			path = HistoricalData;
+			sourceTree = "<group>";
+		};
+		D906BE6E27B53179002D70BB /* SearchController */ = {
+			isa = PBXGroup;
+			children = (
+				D906BE7127B5319C002D70BB /* SearchViewInterfaces.swift */,
+				D906BE6F27B53189002D70BB /* SearchViewWireframe.swift */,
+			);
+			path = SearchController;
 			sourceTree = "<group>";
 		};
 		D90DE02726BD8C0B00D1A8D9 /* Helpers */ = {
@@ -1476,6 +1489,7 @@
 		D9B50E2E257413630018F3D7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D906BE6E27B53179002D70BB /* SearchController */,
 				D9840D0A27846AB80036C374 /* CountryMobilePicker */,
 				D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */,
 				D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */,
@@ -1940,6 +1954,7 @@
 				D95449EE270E2A6B00BD2B75 /* CollapsableView.swift in Sources */,
 				D959C0DE2582295F006CE2D1 /* ArbsViewController.swift in Sources */,
 				D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */,
+				D906BE7027B5318A002D70BB /* SearchViewWireframe.swift in Sources */,
 				D9264BE22574F0E9001477DA /* ForgotPasswordViewController.swift in Sources */,
 				D9A41AEC269C89B40057ABCD /* BlenderEditPortfolioItemsViewModel.swift in Sources */,
 				D99ACC3125AF8210007DAB6D /* LiveChartsViewModel.swift in Sources */,
@@ -2040,6 +2055,7 @@
 				D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */,
 				D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */,
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
+				D906BE7227B5319C002D70BB /* SearchViewInterfaces.swift in Sources */,
 				D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */,
 				D906BE6227B3E01D002D70BB /* MovingDirection.swift in Sources */,
 				D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */,

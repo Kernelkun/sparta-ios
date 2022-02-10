@@ -27,10 +27,10 @@ class LCWebHistoricalDataItemView: UIView {
         let firstTitleString = "Last Price"
         let secondTitleString = "Change vs Yesterday Close"
 
-        let titleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryText,
+        let titleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.neutral35,
                                                               .font: UIFont.main(weight: .medium, size: 12)]
 
-        let valueAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.numberGray,
+        let valueAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.neutral10,
                                                               .font: UIFont.main(weight: .regular, size: 16)]
 
         func attributedString(for string: String, attributes: [NSAttributedString.Key: Any]) -> NSMutableAttributedString {

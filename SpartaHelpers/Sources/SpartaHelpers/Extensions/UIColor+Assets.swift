@@ -6,6 +6,7 @@
 //
 
 import UIKit.UIColor
+import UIKit
 
 public extension UIColor {
 
@@ -58,4 +59,16 @@ public extension UIColor {
     static var plResultBlockBackground: UIColor { .assetColor(named: #function) }
 
     static var plSearchPlaceholder: UIColor { .assetColor(named: #function) }
+
+    // MARK: - New colors
+
+    static var neutral00: UIColor { .assetColor(named: #function) }
+
+    static var neutral10: UIColor { .assetColor(named: #function) }
+
+    static var neutral35: UIColor { .assetColor(named: #function) }
+
+    static var neutral75: UIColor { .assetColor(named: #function) }
+
+    static var neutral85: UIColor { .assetColor(named: #function) }
 }

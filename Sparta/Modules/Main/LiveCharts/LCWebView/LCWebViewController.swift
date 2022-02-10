@@ -12,7 +12,7 @@ class LCWebViewController: UIViewController {
     // MARK: - Private properties
 
     private var scrollView: UIScrollView!
-    private var itemsField: UITextFieldSelector<PickerIdValued<Int>>!
+    private var itemsField: UITextFieldSelector<PickerIdValued<String>>!
     private var monthSelector: ResultMonthSelector!
 
     // MARK: - Lifecycle
@@ -33,7 +33,7 @@ class LCWebViewController: UIViewController {
         scrollView = UIScrollView().then { scrollView in
 
             scrollView.showsVerticalScrollIndicator = false
-            scrollView.backgroundColor = UIColor(hex: 0x2E2E2E)
+            scrollView.backgroundColor = .neutral75
 
             addSubview(scrollView) {
                 $0.top.equalToSuperview().offset(topBarHeight + 12)
@@ -55,7 +55,7 @@ class LCWebViewController: UIViewController {
         let itemsLabel = UILabel().then { label in
 
             label.text = "LiveCharts.ItemsField.Title".localized
-            label.textColor = .secondaryText
+            label.textColor = .neutral00
             label.font = .main(weight: .regular, size: 14)
             label.numberOfLines = 0
 
@@ -67,9 +67,9 @@ class LCWebViewController: UIViewController {
 
         itemsField = UITextFieldSelector().then { view in
 
-            view.onTap { [unowned self] in
-
-            }
+            view.backgroundColor = .neutral85
+            view.onTap { }
+            view.apply(selectedValue: .init(id: "ID", title: "Brent Swap", fullTitle: "Brent Swap"), placeholder: "Select item")
 
             scrollViewContent.addSubview(view) {
                 $0.top.equalTo(itemsLabel.snp.bottom)
@@ -80,8 +80,11 @@ class LCWebViewController: UIViewController {
 
         monthSelector = ResultMonthSelector().then { view in
 
-//            view.isHidden = true
+            view.backgroundColor = .neutral85
             view.delegate = self
+            view.titleText = "September 2021"
+            view.isEnabledLeftButton = false
+            view.isEnabledRightButton = false
 
             scrollViewContent.addSubview(view) {
                 $0.top.equalTo(itemsField.snp.bottom).offset(16)

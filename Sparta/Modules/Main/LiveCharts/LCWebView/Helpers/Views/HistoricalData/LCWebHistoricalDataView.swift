@@ -25,12 +25,12 @@ class LCWebHistoricalDataView: UIView {
 
     private func setupUI() {
         layer.cornerRadius = 10
-        backgroundColor = UIColor.accountFieldBackground
+        backgroundColor = UIColor.neutral85
 
         let titleLabel = UILabel().then { label in
 
             label.text = "Historical data"
-            label.textColor = .secondaryText
+            label.textColor = .neutral00
             label.font = .main(weight: .regular, size: 16)
             label.numberOfLines = 0
 

@@ -25,12 +25,12 @@ class LCWebResultHLView: UIView {
 
     private func setupUI() {
         layer.cornerRadius = 10
-        backgroundColor = UIColor.accountFieldBackground
+        backgroundColor = UIColor.neutral85
 
         let highItemTitleString = "Today's High"
         let lowItemTitleString = "Today's Low"
 
-        let titleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.secondaryText,
+        let titleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.neutral35,
                                                               .font: UIFont.main(weight: .regular, size: 12)]
 
         let greenValueAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.numberGreen,
