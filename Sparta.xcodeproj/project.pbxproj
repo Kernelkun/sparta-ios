@@ -221,6 +221,7 @@
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
 		D9BEB61727B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB61627B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift */; };
 		D9BEB61C27B7FA2800E56E1B /* FullScreenChartViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB61B27B7FA2800E56E1B /* FullScreenChartViewManager.swift */; };
+		D9BEB61E27B805AA00E56E1B /* InterfaceOrientationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB61D27B805AA00E56E1B /* InterfaceOrientationUtility.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
 		D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */; };
 		D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1126723C20001B1924 /* UISliderViewController.swift */; };
@@ -472,6 +473,7 @@
 		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
 		D9BEB61627B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebHistoricalDataItemView.swift; sourceTree = "<group>"; };
 		D9BEB61B27B7FA2800E56E1B /* FullScreenChartViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenChartViewManager.swift; sourceTree = "<group>"; };
+		D9BEB61D27B805AA00E56E1B /* InterfaceOrientationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceOrientationUtility.swift; sourceTree = "<group>"; };
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailPageViewController.swift; sourceTree = "<group>"; };
 		D9C71C1126723C20001B1924 /* UISliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISliderViewController.swift; sourceTree = "<group>"; };
@@ -564,7 +566,6 @@
 		D906BE5D27B3D981002D70BB /* Childs */ = {
 			isa = PBXGroup;
 			children = (
-				D906BE5E27B3D9AB002D70BB /* LCWebTradeViewController.swift */,
 			);
 			path = Childs;
 			sourceTree = "<group>";
@@ -1479,6 +1480,7 @@
 				D9B50DFD25717F230018F3D7 /* Keychain */,
 				D9B50E1C257184080018F3D7 /* SyncService.swift */,
 				D9ECEC54257E62B6005DFFD7 /* AppStateService.swift */,
+				D9BEB61D27B805AA00E56E1B /* InterfaceOrientationUtility.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1544,6 +1546,7 @@
 				D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */,
 				D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */,
 				D9C71C1126723C20001B1924 /* UISliderViewController.swift */,
+				D906BE5E27B3D9AB002D70BB /* LCWebTradeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2105,6 +2108,7 @@
 				D90DE03026BDC1DC00D1A8D9 /* ArbPlaygroundResultMainPointView.swift in Sources */,
 				D99ACC2D25AF8201007DAB6D /* LiveChartsViewController.swift in Sources */,
 				D9BB5349256E8E6600AD2D1A /* AppDelegate.swift in Sources */,
+				D9BEB61E27B805AA00E56E1B /* InterfaceOrientationUtility.swift in Sources */,
 				D9288EF826EE12A900236A4F /* ArbsPlaygroundCalculator+Settings.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,

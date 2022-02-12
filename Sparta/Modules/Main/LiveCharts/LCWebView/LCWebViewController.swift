@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class LCWebViewController: UIViewController {
 
@@ -14,6 +15,8 @@ class LCWebViewController: UIViewController {
     private var scrollView: UIScrollView!
     private var itemsField: UITextFieldSelector<PickerIdValued<String>>!
     private var selectorsField: UITextFieldSelector<PickerIdValued<String>>!
+
+    private var fullScreenChartManager = FullScreenChartViewManager()
 
     // MARK: - Lifecycle
 
@@ -114,7 +117,7 @@ class LCWebViewController: UIViewController {
 
         let tradeViewContent = UIView().then { view in
 
-            let tradeViewController = LCWebTradeViewController()
+            let tradeViewController = LCWebTradeViewController(buttonType: .expand)
             tradeViewController.delegate = self
             add(tradeViewController, to: view)
 
@@ -166,5 +169,9 @@ extension LCWebViewController: LCWebTradeViewDelegate {
         }
 
         scrollView.contentOffset = CGPoint(x: 0, y: currentOffset)
+    }
+
+    func lcWebTradeViewControllerDidTapSizeButton(_ viewController: LCWebTradeViewController, buttonType: LCWebTradeViewController.ButtonType) {
+        fullScreenChartManager.show()
     }
 }

@@ -16,24 +16,17 @@ class FullScreenChartViewManager {
 
     // MARK: - Public methods
 
-    func show(frame: CGRect, tabs: [TabMenuItem]) {
+    func show() {
         guard !isPresented else { return }
 
         isPresented = true
 
-        /*func close(completion: @escaping EmptyClosure) {
-            UIView.animate(withDuration: 0.1) {
-                self.window?.alpha = 0.0
-            } completion: { _ in
-                self.window?.isHidden = true
-                self.window = nil
-                completion()
-            }
-        }*/
+        let controller = LCWebTradeViewController(buttonType: .collapse)
+        controller.delegate = self
 
-        let controller = FloatyMenuViewController(tabs: tabs)
+        InterfaceOrientationUtility.lockOrientation(.landscape, rotateTo: .landscapeRight)
 
-        window = UIWindow(frame: frame)
+        window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = controller
         window?.windowLevel = UIWindow.Level.normal + 2
         window?.makeKeyAndVisible()
@@ -47,3 +40,13 @@ class FullScreenChartViewManager {
     }
 }
 
+extension FullScreenChartViewManager: LCWebTradeViewDelegate {
+
+    func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection) {
+    }
+
+    func lcWebTradeViewControllerDidTapSizeButton(_ viewController: LCWebTradeViewController, buttonType: LCWebTradeViewController.ButtonType) {
+        InterfaceOrientationUtility.lockOrientation(.portrait, rotateTo: .portrait)
+        hide()
+    }
+}
