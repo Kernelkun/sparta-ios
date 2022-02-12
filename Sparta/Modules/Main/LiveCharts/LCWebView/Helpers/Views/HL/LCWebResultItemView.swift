@@ -44,10 +44,10 @@ class LCWebResultItemView: UIView {
 
         _ = UIStackView().then { stackView in
 
-            stackView.alignment = .center
-            stackView.distribution = .equalSpacing
+            stackView.alignment = .fill
+            stackView.distribution = .fill
             stackView.spacing = 4
-            stackView.axis = .vertical
+            stackView.axis = .horizontal
 
             stackView.addArrangedSubview(titleLabel)
             stackView.addArrangedSubview(valueLabel)

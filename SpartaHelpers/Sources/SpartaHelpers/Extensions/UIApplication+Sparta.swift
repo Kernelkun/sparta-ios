@@ -10,7 +10,7 @@ import UIKit
 extension UIApplication {
 
     /// Check if the application runs on iPhone X like phones
-    static var isDeviceWithSafeArea: Bool {
+    public static var isDeviceWithSafeArea: Bool {
         if let topPadding = keyWindowIOS13Safe?.safeAreaInsets.bottom, topPadding > 0 {
             return true
         }
@@ -18,7 +18,7 @@ extension UIApplication {
     }
 
     /// Get the safe area insets if available
-    static var safeAreaInsets: UIEdgeInsets {
+    public static var safeAreaInsets: UIEdgeInsets {
         if let safeAreaInsets = keyWindowIOS13Safe?.safeAreaInsets {
             return safeAreaInsets
         }

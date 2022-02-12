@@ -8,6 +8,36 @@
 import UIKit
 import SpartaHelpers
 
+struct UITextFieldSelectorConfigurator {
+
+    let leftSpace: CGFloat
+    let imageRightSpace: CGFloat
+    let imageLeftSpace: CGFloat
+    let image: UIImage?
+    let imageSize: CGSize
+    let cornerRadius: CGFloat
+    let defaultTextAttributes: [NSAttributedString.Key: Any]
+
+    init(
+        leftSpace: CGFloat = 16,
+        imageRightSpace: CGFloat = 12,
+        imageLeftSpace: CGFloat = 12,
+        image: UIImage? = UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17)),
+        imageSize: CGSize = CGSize(width: 17.8, height: 10.2),
+        cornerRadius: CGFloat = 8,
+        defaultTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.primaryText,
+                                                                .font: UIFont.main(weight: .regular, size: 15)]
+    ) {
+        self.leftSpace = leftSpace
+        self.imageRightSpace = imageRightSpace
+        self.imageLeftSpace = imageLeftSpace
+        self.image = image
+        self.imageSize = imageSize
+        self.cornerRadius = cornerRadius
+        self.defaultTextAttributes = defaultTextAttributes
+    }
+}
+
 class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Public properties
@@ -26,19 +56,22 @@ class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelega
 
     // MARK: - Private properties
 
+    private let configurator: UITextFieldSelectorConfigurator
+
     private var _onTapClosure: EmptyClosure?
     private var _onChooseClosure: TypeClosure<M>?
 
     // MARK: - Initializers
 
-    init() {
+    init(configurator: UITextFieldSelectorConfigurator = UITextFieldSelectorConfigurator()) {
+        self.configurator = configurator
         super.init(frame: .zero)
 
         setup()
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(#function)
     }
 
     // MARK: - Public methods
@@ -67,7 +100,7 @@ class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelega
         // general UI
 
         backgroundColor = UIColor.accountFieldBackground
-        layer.cornerRadius = 8
+        layer.cornerRadius = configurator.cornerRadius
 
         // hidden text field
 
@@ -83,25 +116,33 @@ class UITextFieldSelector<M: PickerValued>: RoundedTextField, UIPickerViewDelega
 
         // main text field
 
-        let rightViewWithSpace = UIView(frame: CGRect(x: 0, y: 0, width: 43, height: frame.height))
+        let totalWidth = configurator.imageLeftSpace + configurator.imageRightSpace + configurator.imageSize.width
 
-        _ = UIImageView().then { v in
+        let rightView = UIView(frame: CGRect(x: 0, y: 0, width: totalWidth, height: frame.height))
 
-            v.image = UIImage(named: "ic_bottom_chevron")
-            v.tintColor = .primaryText
-            v.contentMode = .center
+        _ = UIImageView().then { imageView in
 
-            rightViewWithSpace.addSubview(v) { make in
-                make.size.equalTo(16)
-                make.centerY.equalToSuperview()
-                make.left.right.equalToSuperview().inset(12)
+            imageView.image = configurator.image
+            imageView.tintColor = .neutral35
+            imageView.contentMode = .center
+
+            rightView.addSubview(imageView) {
+                $0.size.equalTo(configurator.imageSize)
+                $0.centerY.equalToSuperview()
+                $0.right.equalToSuperview().inset(configurator.imageRightSpace)
+                $0.left.equalToSuperview().offset(configurator.imageLeftSpace)
             }
         }
 
         textField.isUserInteractionEnabled = false
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-        textField.rightView = rightViewWithSpace
+
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: configurator.leftSpace, height: 0))
+        textField.leftViewMode = .always
+        //
+        textField.rightView = rightView
         textField.rightViewMode = .always
+        //
+        textField.defaultTextAttributes = configurator.defaultTextAttributes
 
         // picker view
 

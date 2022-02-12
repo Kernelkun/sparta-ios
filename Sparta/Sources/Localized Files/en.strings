@@ -57,6 +57,7 @@
 
 // tabs page
 
+"MainTabsPage.Other.Title" = "Other";
 "MainTabsPage.LiveCharts.Title" = "Live Charts";
 "MainTabsPage.LiveCurves.Title" = "Live Curves";
 "MainTabsPage.ARBs.Title" = "ARBs";

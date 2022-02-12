@@ -13,7 +13,7 @@ class LCWebViewController: UIViewController {
 
     private var scrollView: UIScrollView!
     private var itemsField: UITextFieldSelector<PickerIdValued<String>>!
-    private var monthSelector: ResultMonthSelector!
+    private var selectorsField: UITextFieldSelector<PickerIdValued<String>>!
 
     // MARK: - Lifecycle
 
@@ -36,7 +36,7 @@ class LCWebViewController: UIViewController {
             scrollView.backgroundColor = .neutral75
 
             addSubview(scrollView) {
-                $0.top.equalToSuperview().offset(topBarHeight + 12)
+                $0.top.equalToSuperview().offset(topBarHeight)
                 $0.left.bottom.right.equalToSuperview()
             }
         }
@@ -52,44 +52,63 @@ class LCWebViewController: UIViewController {
             }
         }
 
-        let itemsLabel = UILabel().then { label in
+        let itemsFieldConfigurator = UITextFieldSelectorConfigurator(
+            leftSpace: 10,
+            imageRightSpace: 11,
+            imageLeftSpace: 3,
+            cornerRadius: 10,
+            defaultTextAttributes: [NSAttributedString.Key.foregroundColor: UIColor.primaryText,
+                                    NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 18)]
+        )
 
-            label.text = "LiveCharts.ItemsField.Title".localized
-            label.textColor = .neutral00
-            label.font = .main(weight: .regular, size: 14)
-            label.numberOfLines = 0
-
-            scrollViewContent.addSubview(label) {
-                $0.top.equalToSuperview().offset(16)
-                $0.left.equalToSuperview().offset(16)
-            }
-        }
-
-        itemsField = UITextFieldSelector().then { view in
+        itemsField = UITextFieldSelector(configurator: itemsFieldConfigurator).then { view in
 
             view.backgroundColor = .neutral85
             view.onTap { }
             view.apply(selectedValue: .init(id: "ID", title: "Brent Swap", fullTitle: "Brent Swap"), placeholder: "Select item")
+        }
 
-            scrollViewContent.addSubview(view) {
-                $0.top.equalTo(itemsLabel.snp.bottom)
+        let selectorsFieldConfigurator = UITextFieldSelectorConfigurator(
+            leftSpace: 10,
+            imageRightSpace: 11,
+            imageLeftSpace: 3,
+            image: UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20)),
+            imageSize: CGSize(width: 20, height: 18),
+            cornerRadius: 10,
+            defaultTextAttributes: [NSAttributedString.Key.foregroundColor: UIColor.primaryText,
+                                    NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 18)]
+        )
+
+        selectorsField = UITextFieldSelector(configurator: selectorsFieldConfigurator).then { view in
+
+            view.backgroundColor = .neutral85
+            view.onTap { }
+            view.apply(selectedValue: .init(id: "ID", title: "Jan 22", fullTitle: "Jan 22"), placeholder: "Select item")
+        }
+
+        let selectorsStackView = UIStackView().then { stackView in
+
+            stackView.alignment = .fill
+            stackView.axis = .horizontal
+            stackView.spacing = 13
+            stackView.distribution = .fillEqually
+
+            stackView.addArrangedSubview(itemsField)
+            stackView.addArrangedSubview(selectorsField)
+
+            scrollViewContent.addSubview(stackView) {
+                $0.top.equalToSuperview().offset(8)
                 $0.left.right.equalToSuperview().inset(16)
-                $0.height.equalTo(48)
+                $0.height.equalTo(32)
             }
         }
 
-        monthSelector = ResultMonthSelector().then { view in
-
-            view.backgroundColor = .neutral85
-            view.delegate = self
-            view.titleText = "September 2021"
-            view.isEnabledLeftButton = false
-            view.isEnabledRightButton = false
+        let hlView = LCWebResultHLView().then { view in
 
             scrollViewContent.addSubview(view) {
-                $0.top.equalTo(itemsField.snp.bottom).offset(16)
-                $0.left.right.equalToSuperview().inset(16)
-                $0.height.equalTo(35)
+                $0.left.right.equalToSuperview()
+                $0.top.equalTo(selectorsStackView.snp.bottom).offset(8)
+                $0.height.equalTo(55)
             }
         }
 
@@ -100,27 +119,18 @@ class LCWebViewController: UIViewController {
             add(tradeViewController, to: view)
 
             scrollViewContent.addSubview(view) {
-                $0.top.equalTo(monthSelector.snp.bottom).offset(16)
+                $0.top.equalTo(hlView.snp.bottom).offset(1)
                 $0.left.right.equalToSuperview()
-                $0.height.equalTo(432)
-            }
-        }
-
-        let hlView = LCWebResultHLView().then { view in
-
-            scrollViewContent.addSubview(view) {
-                $0.left.right.equalToSuperview().inset(16)
-                $0.top.equalTo(tradeViewContent.snp.bottom).offset(16)
-                $0.height.equalTo(56)
+                $0.height.equalTo(470)
             }
         }
 
         _ = LCWebHistoricalDataView().then { view in
 
             scrollViewContent.addSubview(view) {
-                $0.left.right.equalToSuperview().inset(16)
-                $0.top.equalTo(hlView.snp.bottom).offset(16)
-                $0.bottom.equalToSuperview().inset(16)
+                $0.left.right.equalToSuperview()
+                $0.top.equalTo(tradeViewContent.snp.bottom).offset(1)
+                $0.bottom.equalToSuperview()
             }
         }
     }
@@ -136,11 +146,11 @@ class LCWebViewController: UIViewController {
 extension LCWebViewController: ResultMonthSelectorDelegate {
 
     func resultMonthSelectorDidTapLeftButton(view: ResultMonthSelector) {
-//        contentPageVC.showPrevious()
+        //        contentPageVC.showPrevious()
     }
 
     func resultMonthSelectorDidTapRightButton(view: ResultMonthSelector) {
-//        contentPageVC.showNext()
+        //        contentPageVC.showNext()
     }
 }
 

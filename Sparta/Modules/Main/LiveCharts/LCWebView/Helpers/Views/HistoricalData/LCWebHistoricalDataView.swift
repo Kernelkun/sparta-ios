@@ -24,21 +24,7 @@ class LCWebHistoricalDataView: UIView {
     // MARK: - Private methods
 
     private func setupUI() {
-        layer.cornerRadius = 10
-        backgroundColor = UIColor.neutral85
-
-        let titleLabel = UILabel().then { label in
-
-            label.text = "Historical data"
-            label.textColor = .neutral00
-            label.font = .main(weight: .regular, size: 16)
-            label.numberOfLines = 0
-
-            addSubview(label) {
-                $0.top.equalToSuperview().offset(12)
-                $0.left.equalToSuperview().offset(16)
-            }
-        }
+        backgroundColor = UIColor.neutral80
 
         _ = UIStackView().then { stackView in
 
@@ -48,13 +34,12 @@ class LCWebHistoricalDataView: UIView {
             stackView.alignment = .fill
 
             for _ in 0..<4 {
-                stackView.addArrangedSubview(LCWebHistoricalDataItemView())
+                stackView.addArrangedSubview(LCWebHistoricalDataLineView())
             }
 
             addSubview(stackView) {
-                $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-                $0.left.right.equalToSuperview().inset(16)
-                $0.bottom.equalToSuperview().inset(16)
+                $0.top.bottom.equalToSuperview().inset(16)
+                $0.left.right.equalToSuperview()
             }
         }
     }

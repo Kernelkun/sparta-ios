@@ -2,16 +2,21 @@
 //  LCWebHistoricalDataItemView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 09.02.2022.
+//  Created by Yaroslav Babalich on 11.02.2022.
 //
 
 import UIKit
 
 class LCWebHistoricalDataItemView: UIView {
 
+    // MARK: - Private properties
+
+    private let configurator: Configurator
+
     // MARK: - Initializers
 
-    init() {
+    init(configurator: Configurator) {
+        self.configurator = configurator
         super.init(frame: .zero)
 
         setupUI()
@@ -24,39 +29,41 @@ class LCWebHistoricalDataItemView: UIView {
     // MARK: - Private methods
 
     private func setupUI() {
-        let firstTitleString = "Last Price"
-        let secondTitleString = "Change vs Yesterday Close"
 
-        let titleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.neutral35,
-                                                              .font: UIFont.main(weight: .medium, size: 12)]
+        let titleLabel = UILabel().then { label in
 
-        let valueAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.neutral10,
-                                                              .font: UIFont.main(weight: .regular, size: 16)]
-
-        func attributedString(for string: String, attributes: [NSAttributedString.Key: Any]) -> NSMutableAttributedString {
-            NSMutableAttributedString(string: string, attributes: attributes)
+            label.attributedText = configurator.titleText
+            label.numberOfLines = 0
+            label.textAlignment = .left
         }
 
-        let firstItemView = LCWebResultItemView(configurator: .init(titleText: attributedString(for: firstTitleString, attributes: titleAttributes),
-                                                                    valueText: attributedString(for: "24.12", attributes: valueAttributes)))
+        let valueLabel = UILabel().then { label in
 
-        let secondItemView = LCWebResultItemView(configurator: .init(titleText: attributedString(for: secondTitleString, attributes: titleAttributes),
-                                                                     valueText: attributedString(for: "-9.32", attributes: valueAttributes)))
+            label.attributedText = configurator.valueText
+            label.numberOfLines = 0
+            label.textAlignment = .right
+        }
 
-        firstItemView.do { view in
+        _ = UIStackView().then { stackView in
 
-            addSubview(view) {
-                $0.left.top.bottom.equalToSuperview()
-                $0.width.equalToSuperview().multipliedBy(0.5)
+            stackView.alignment = .center
+            stackView.distribution = .equalSpacing
+            stackView.spacing = 4
+            stackView.axis = .vertical
+
+            stackView.addArrangedSubview(titleLabel)
+            stackView.addArrangedSubview(valueLabel)
+
+            addSubview(stackView) {
+                $0.edges.equalToSuperview()
             }
         }
+    }
+}
 
-        secondItemView.do { view in
-
-            addSubview(view) {
-                $0.right.top.bottom.equalToSuperview()
-                $0.width.equalToSuperview().multipliedBy(0.5)
-            }
-        }
+extension LCWebHistoricalDataItemView {
+    struct Configurator {
+        let titleText: NSAttributedString
+        let valueText: NSAttributedString
     }
 }
