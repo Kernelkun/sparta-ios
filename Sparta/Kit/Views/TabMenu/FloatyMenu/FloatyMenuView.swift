@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class FloatyMenuView: UIView {
+
+    // MARK: - Private properties
+
+    private var _onChooseClosure: TypeClosure<TabMenuItem>?
 
     // MARK: - UI
 
@@ -28,6 +33,10 @@ class FloatyMenuView: UIView {
 
     // MARK: - Public methods
 
+    func onChoose(completion: @escaping TypeClosure<TabMenuItem>) {
+        _onChooseClosure = completion
+    }
+
     func apply(items: [TabMenuItem]) {
         self.items = items
         stackView.removeAllSubviews()
@@ -35,10 +44,9 @@ class FloatyMenuView: UIView {
         items.forEach { item in
             let view = TabMenuItemView(item: item)
             view.onTap { [unowned self] tabView in
-                guard let view = tabView as? TabMenuItemView,
-                      let activeTabIndex = items.firstIndex(of: view.item) else { return }
+                guard let view = tabView as? TabMenuItemView else { return }
 
-//                self.selectedTabIndex = activeTabIndex
+                self._onChooseClosure?(view.item)
             }
             stackView.addArrangedSubview(view)
             view.snp.makeConstraints {
@@ -63,7 +71,7 @@ class FloatyMenuView: UIView {
             stackView.distribution = .equalSpacing
 
             addSubview(stackView) {
-                $0.left.right.equalToSuperview().inset(16)
+                $0.left.right.equalToSuperview().inset(25)
                 $0.top.bottom.equalToSuperview().inset(16)
             }
         }

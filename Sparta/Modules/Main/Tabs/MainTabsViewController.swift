@@ -208,14 +208,29 @@ class MainTabsViewController: BaseViewController {
 
 extension MainTabsViewController: TabMenuViewDelegate {
 
-    func tabMenuViewDidSelectTab(_ view: TabMenuView, tabItem: TabMenuItem, at index: Int) {
-        floatyMenuManager.hide()
-
-        if let navigationVC = tabItem.controller as? KeyedNavigationController<Tab>, navigationVC.key == .other {
+    func tabMenuViewDidSelectTab(_ view: TabMenuView, oldTabItem: TabMenuItem, newTabItem: TabMenuItem) {
+        if let navigationVC = newTabItem.controller as? KeyedNavigationController<Tab>, navigationVC.key == .other {
             floatyMenuManager.show(frame: contentView.frame, tabs: generateOtherMenuItems())
+
+            floatyMenuManager.onChoose { [unowned self] menuItem in
+                floatyMenuManager.hide()
+                tabMenuViewDidSelectTab(view, oldTabItem: oldTabItem, newTabItem: menuItem)
+            }
+
+            floatyMenuManager.onHide { [unowned self] in
+                tabMenuView.forceChangeItem(oldTabItem)
+            }
         } else {
-            add(tabItem.controller, to: contentView)
+            floatyMenuManager.hide()
+            contentView.removeAllSubviews()
+            add(newTabItem.controller, to: contentView)
         }
+    }
+
+    func tabMenuViewDidDoubleTapOnTab(_ view: TabMenuView, tabItem: TabMenuItem) {
+        guard let navigationVC = tabItem.controller as? KeyedNavigationController<Tab> else { return }
+
+        navigationVC.popToRootViewController(animated: true)
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class FullScreenChartViewManager {
 
@@ -20,11 +21,33 @@ class FullScreenChartViewManager {
         guard !isPresented else { return }
 
         isPresented = true
-
-        let controller = LCWebTradeViewController(buttonType: .collapse)
-        controller.delegate = self
-
         InterfaceOrientationUtility.lockOrientation(.landscape, rotateTo: .landscapeRight)
+
+        let edges: UIEdgeInsets
+
+        if !UIApplication.isDeviceWithSafeArea {
+            edges = .zero
+        } else {
+            edges = UIApplication.safeAreaInsets
+        }
+
+        let controller = LCWebTradeViewController(edges: edges)
+
+        _ = TappableButton().then { button in
+
+            button.backgroundColor = .neutral80
+            button.setImage(UIImage(named: "ic_chart_collapse"), for: .normal)
+            button.onTap { [unowned self] _ in
+                InterfaceOrientationUtility.lockOrientation(.portrait, rotateTo: .portrait)
+                hide()
+            }
+
+            controller.view.addSubview(button) {
+                $0.size.equalTo(40)
+                $0.bottom.equalToSuperview().inset(edges.bottom + 32)
+                $0.right.equalToSuperview().inset(edges.right + 12)
+            }
+        }
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = controller
@@ -37,16 +60,5 @@ class FullScreenChartViewManager {
 
         isPresented = false
         window = nil
-    }
-}
-
-extension FullScreenChartViewManager: LCWebTradeViewDelegate {
-
-    func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection) {
-    }
-
-    func lcWebTradeViewControllerDidTapSizeButton(_ viewController: LCWebTradeViewController, buttonType: LCWebTradeViewController.ButtonType) {
-        InterfaceOrientationUtility.lockOrientation(.portrait, rotateTo: .portrait)
-        hide()
     }
 }

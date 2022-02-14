@@ -21,7 +21,7 @@ class TabMenuItemView: TappableView {
 
     // MARK: - Private propertiesO
 
-    private var _tapClosure: TypeClosure<TabMenuItem>?
+    private var _doubleTapClosure: TypeClosure<TabMenuItem>?
 
     private var imageView: UIImageView!
     private var titleLabel: UILabel!
@@ -37,6 +37,12 @@ class TabMenuItemView: TappableView {
 
     required init?(coder: NSCoder) {
         fatalError(#function)
+    }
+
+    // MARK: - Public methods
+
+    func onDoubleTap(completion: @escaping TypeClosure<TabMenuItem>) {
+        _doubleTapClosure = completion
     }
 
     // MARK: - Private methods
@@ -79,10 +85,23 @@ class TabMenuItemView: TappableView {
         }
 
         updateUI()
+
+        // double tap gesture
+
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDoubleTapEvent))
+        doubleTapGesture.numberOfTapsRequired = 2
+        addGestureRecognizer(doubleTapGesture)
     }
 
     private func updateUI() {
         imageView.tintColor = isActive ? UIColor.controlTintActive : UIColor.neutral35
         titleLabel.textColor = isActive ? UIColor.controlTintActive : UIColor.neutral35
+    }
+
+    // MARK: - Events
+
+    @objc
+    private func onDoubleTapEvent() {
+        _doubleTapClosure?(item)
     }
 }

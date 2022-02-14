@@ -10,7 +10,8 @@ import NetworkingModels
 import SpartaHelpers
 
 protocol TabMenuViewDelegate: AnyObject {
-    func tabMenuViewDidSelectTab(_ view: TabMenuView, tabItem: TabMenuItem, at index: Int)
+    func tabMenuViewDidSelectTab(_ view: TabMenuView, oldTabItem: TabMenuItem, newTabItem: TabMenuItem)
+    func tabMenuViewDidDoubleTapOnTab(_ view: TabMenuView, tabItem: TabMenuItem)
 }
 
 class TabMenuView: UIView {
@@ -20,7 +21,7 @@ class TabMenuView: UIView {
     weak var delegate: TabMenuViewDelegate?
 
     var selectedTabIndex: Int = 0 {
-        didSet { renderSubItems() }
+        didSet { renderSubItems(oldIndex: oldValue, newIndex: selectedTabIndex) }
     }
     private(set) var items: [TabMenuItem] = []
 
@@ -52,12 +53,18 @@ class TabMenuView: UIView {
 
         items.forEach { item in
             let view = TabMenuItemView(item: item)
+
             view.onTap { [unowned self] tabView in
                 guard let view = tabView as? TabMenuItemView,
                       let activeTabIndex = items.firstIndex(of: view.item) else { return }
 
                 self.selectedTabIndex = activeTabIndex
             }
+
+            view.onDoubleTap { [unowned self] item in
+                delegate?.tabMenuViewDidDoubleTapOnTab(self, tabItem: item)
+            }
+
             stackView.addArrangedSubview(view)
         }
 
@@ -66,6 +73,12 @@ class TabMenuView: UIView {
 
     func onTap(completion: @escaping TypeClosure<TabMenuItem>) {
         _tapClosure = completion
+    }
+
+    func forceChangeItem(_ newTabItem: TabMenuItem) {
+        guard let itemIndex = items.firstIndex(of: newTabItem) else { return }
+
+        selectedTabIndex = itemIndex
     }
 
     // MARK: - Private methods
@@ -92,23 +105,21 @@ class TabMenuView: UIView {
             stackView.spacing = 8
 
             addSubview(stackView) {
-                $0.left.right.equalToSuperview()
+                $0.left.right.equalToSuperview().inset(6)
                 $0.bottom.equalToSuperview()
                 $0.top.equalTo(topLineView.snp.bottom)
             }
         }
     }
 
-    private func renderSubItems() {
+    private func renderSubItems(oldIndex: Int, newIndex: Int) {
         for (index, view) in stackView.arrangedSubviews.enumerated() {
             guard let view = view as? TabMenuItemView else { return }
 
-            let isActive = index == selectedTabIndex
+            let isActive = index == newIndex
             view.isActive = isActive
-
-            if isActive {
-                delegate?.tabMenuViewDidSelectTab(self, tabItem: view.item, at: index)
-            }
         }
+
+        delegate?.tabMenuViewDidSelectTab(self, oldTabItem: items[oldIndex], newTabItem: items[newIndex])
     }
 }

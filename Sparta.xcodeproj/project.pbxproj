@@ -222,6 +222,17 @@
 		D9BEB61727B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB61627B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift */; };
 		D9BEB61C27B7FA2800E56E1B /* FullScreenChartViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB61B27B7FA2800E56E1B /* FullScreenChartViewManager.swift */; };
 		D9BEB61E27B805AA00E56E1B /* InterfaceOrientationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB61D27B805AA00E56E1B /* InterfaceOrientationUtility.swift */; };
+		D9BEB64527B90E8100E56E1B /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = D9BEB64427B90E8100E56E1B /* PanModal */; };
+		D9BEB64727B90F0800E56E1B /* DateSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB64627B90F0800E56E1B /* DateSelectorViewController.swift */; };
+		D9BEB64927B9172E00E56E1B /* LiveChartsEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB64827B9172E00E56E1B /* LiveChartsEndPoint.swift */; };
+		D9BEB64B27B9181100E56E1B /* LiveChartsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB64A27B9181100E56E1B /* LiveChartsNetworkManager.swift */; };
+		D9BEB64D27B9217500E56E1B /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB64C27B9217500E56E1B /* SearchViewModel.swift */; };
+		D9BEB64F27B9218100E56E1B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB64E27B9218100E56E1B /* SearchViewController.swift */; };
+		D9BEB65227B923FC00E56E1B /* LCItemsSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB65127B923FC00E56E1B /* LCItemsSelectorViewController.swift */; };
+		D9BEB65427B9240A00E56E1B /* LCItemsSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB65327B9240A00E56E1B /* LCItemsSelectorViewModel.swift */; };
+		D9BEB65627B9241E00E56E1B /* LCItemsSelectorViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB65527B9241E00E56E1B /* LCItemsSelectorViewModel+Models.swift */; };
+		D9BEB65A27B9286500E56E1B /* LCItemsSelectorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB65927B9286500E56E1B /* LCItemsSelectorTableViewCell.swift */; };
+		D9BEB65C27B928B700E56E1B /* LCItemsSelectorHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB65B27B928B700E56E1B /* LCItemsSelectorHeaderTableView.swift */; };
 		D9C2CD7E256F0A93001699B3 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */; };
 		D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */; };
 		D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1126723C20001B1924 /* UISliderViewController.swift */; };
@@ -474,6 +485,16 @@
 		D9BEB61627B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebHistoricalDataItemView.swift; sourceTree = "<group>"; };
 		D9BEB61B27B7FA2800E56E1B /* FullScreenChartViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenChartViewManager.swift; sourceTree = "<group>"; };
 		D9BEB61D27B805AA00E56E1B /* InterfaceOrientationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceOrientationUtility.swift; sourceTree = "<group>"; };
+		D9BEB64627B90F0800E56E1B /* DateSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorViewController.swift; sourceTree = "<group>"; };
+		D9BEB64827B9172E00E56E1B /* LiveChartsEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsEndPoint.swift; sourceTree = "<group>"; };
+		D9BEB64A27B9181100E56E1B /* LiveChartsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsNetworkManager.swift; sourceTree = "<group>"; };
+		D9BEB64C27B9217500E56E1B /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		D9BEB64E27B9218100E56E1B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		D9BEB65127B923FC00E56E1B /* LCItemsSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCItemsSelectorViewController.swift; sourceTree = "<group>"; };
+		D9BEB65327B9240A00E56E1B /* LCItemsSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCItemsSelectorViewModel.swift; sourceTree = "<group>"; };
+		D9BEB65527B9241E00E56E1B /* LCItemsSelectorViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCItemsSelectorViewModel+Models.swift"; sourceTree = "<group>"; };
+		D9BEB65927B9286500E56E1B /* LCItemsSelectorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCItemsSelectorTableViewCell.swift; sourceTree = "<group>"; };
+		D9BEB65B27B928B700E56E1B /* LCItemsSelectorHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCItemsSelectorHeaderTableView.swift; sourceTree = "<group>"; };
 		D9C2CD7D256F0A93001699B3 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		D9C71C0F26722334001B1924 /* ArbDetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailPageViewController.swift; sourceTree = "<group>"; };
 		D9C71C1126723C20001B1924 /* UISliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISliderViewController.swift; sourceTree = "<group>"; };
@@ -523,6 +544,7 @@
 				D98AF6E525BB02D700A5BC96 /* CoreStore in Frameworks */,
 				D9BB5377256EF74A00AD2D1A /* NVActivityIndicatorView in Frameworks */,
 				D9A80445257146FC000ADE6B /* Nuke in Frameworks */,
+				D9BEB64527B90E8100E56E1B /* PanModal in Frameworks */,
 				D94E228525826AE6005FA057 /* PhoneNumberKit-Static in Frameworks */,
 				D9A3BD5E2575258500224535 /* App in Frameworks */,
 				D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */,
@@ -566,6 +588,8 @@
 		D906BE5D27B3D981002D70BB /* Childs */ = {
 			isa = PBXGroup;
 			children = (
+				D9BEB65027B9238800E56E1B /* LCItemsSelector */,
+				D9BEB64627B90F0800E56E1B /* DateSelectorViewController.swift */,
 			);
 			path = Childs;
 			sourceTree = "<group>";
@@ -610,6 +634,8 @@
 			isa = PBXGroup;
 			children = (
 				D906BE7127B5319C002D70BB /* SearchViewInterfaces.swift */,
+				D9BEB64C27B9217500E56E1B /* SearchViewModel.swift */,
+				D9BEB64E27B9218100E56E1B /* SearchViewController.swift */,
 				D906BE6F27B53189002D70BB /* SearchViewWireframe.swift */,
 			);
 			path = SearchController;
@@ -979,6 +1005,7 @@
 				D9D4FC33264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift */,
 				D90160032698948D00F144F5 /* BlenderNetworkManager.swift */,
 				D95F3F8D26AAD84800F20A74 /* ArbsNetworkManager.swift */,
+				D9BEB64A27B9181100E56E1B /* LiveChartsNetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -991,6 +1018,7 @@
 				D944CEED2576725D009115FD /* ProfileEndPoint.swift */,
 				D9A2796825934F27009D066E /* AnalyticsEndPoint.swift */,
 				D9D4FC31264EDFF100A2A1DA /* LiveCurvesEndPoint.swift */,
+				D9BEB64827B9172E00E56E1B /* LiveChartsEndPoint.swift */,
 				D9016001269893D300F144F5 /* BlenderEndPoint.swift */,
 				D95F3F8F26AAD88A00F20A74 /* ArbsEndPoint.swift */,
 			);
@@ -1669,6 +1697,34 @@
 			path = FullScreenChartView;
 			sourceTree = "<group>";
 		};
+		D9BEB65027B9238800E56E1B /* LCItemsSelector */ = {
+			isa = PBXGroup;
+			children = (
+				D9BEB65727B9280600E56E1B /* Views */,
+				D9BEB65527B9241E00E56E1B /* LCItemsSelectorViewModel+Models.swift */,
+				D9BEB65327B9240A00E56E1B /* LCItemsSelectorViewModel.swift */,
+				D9BEB65127B923FC00E56E1B /* LCItemsSelectorViewController.swift */,
+			);
+			path = LCItemsSelector;
+			sourceTree = "<group>";
+		};
+		D9BEB65727B9280600E56E1B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9BEB65827B9283700E56E1B /* Cells */,
+				D9BEB65B27B928B700E56E1B /* LCItemsSelectorHeaderTableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D9BEB65827B9283700E56E1B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D9BEB65927B9286500E56E1B /* LCItemsSelectorTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		D9C71C0E26722318001B1924 /* Childs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1816,6 +1872,7 @@
 				D94E228425826AE6005FA057 /* PhoneNumberKit-Static */,
 				D94E228625826AE6005FA057 /* PhoneNumberKit */,
 				D98AF6E425BB02D700A5BC96 /* CoreStore */,
+				D9BEB64427B90E8100E56E1B /* PanModal */,
 			);
 			productName = Sparta;
 			productReference = D9BB5345256E8E6600AD2D1A /* Sparta.app */;
@@ -1852,6 +1909,7 @@
 				D9A80443257146FC000ADE6B /* XCRemoteSwiftPackageReference "Nuke" */,
 				D94E228325826AE6005FA057 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
 				D98AF6E325BB02D700A5BC96 /* XCRemoteSwiftPackageReference "CoreStore" */,
+				D9BEB64327B90E8100E56E1B /* XCRemoteSwiftPackageReference "PanModal" */,
 			);
 			productRefGroup = D9BB5346256E8E6600AD2D1A /* Products */;
 			projectDirPath = "";
@@ -1949,6 +2007,7 @@
 				D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */,
 				D9ABAE9627AC215B0078E2CB /* LCWebViewModel.swift in Sources */,
 				D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */,
+				D9BEB64727B90F0800E56E1B /* DateSelectorViewController.swift in Sources */,
 				D9B50E0B257180800018F3D7 /* AppCoordinator.swift in Sources */,
 				D99B2F3B25753B200080B90B /* PasswordValidator.swift in Sources */,
 				D94BCA452577F7ED0076C2AB /* BlenderInfoCollectiomViewCell.swift in Sources */,
@@ -1981,6 +2040,7 @@
 				D9A91C1325A503DE00423704 /* AnalyticsManager+Models.swift in Sources */,
 				D959C0EA25822D12006CE2D1 /* LiveCurvesViewModel.swift in Sources */,
 				D944CEEE2576725D009115FD /* ProfileEndPoint.swift in Sources */,
+				D9BEB64927B9172E00E56E1B /* LiveChartsEndPoint.swift in Sources */,
 				D9E810D0273E8E66003C42C0 /* GetArbsTableRequest.swift in Sources */,
 				D9B7CCD425C1C53B0023FDF2 /* ArbMonth+Margin.swift in Sources */,
 				D99624CC266E6CDE001CD262 /* EmptyStateView.swift in Sources */,
@@ -1995,6 +2055,7 @@
 				D9A91C1025A4AB0200423704 /* AnalyticsManager.swift in Sources */,
 				D93BC63D258CAADF0026BF8E /* LiveCurveGradeTableViewCell.swift in Sources */,
 				D90DE02A26BD8CF800D1A8D9 /* ArbPlaygroundPointView.swift in Sources */,
+				D9BEB65227B923FC00E56E1B /* LCItemsSelectorViewController.swift in Sources */,
 				D906BE7827B59938002D70BB /* TabMenuItem.swift in Sources */,
 				D9D2EC722705BE37007AF869 /* ArbDetailWireframe.swift in Sources */,
 				D9B50E22257184780018F3D7 /* MainTabsViewController.swift in Sources */,
@@ -2002,6 +2063,7 @@
 				D9C71C1C26735EB5001B1924 /* LiveCurvesPageConfigurator.swift in Sources */,
 				D9A91C0125A3797800423704 /* KeyedLabel.swift in Sources */,
 				D90DE03526BE636B00D1A8D9 /* ArbPlaygroundPointViewConstructor.swift in Sources */,
+				D9BEB64B27B9181100E56E1B /* LiveChartsNetworkManager.swift in Sources */,
 				D93A889825700E9D003ECB61 /* LoginViewModel.swift in Sources */,
 				D999387126C1BA3A005AF406 /* ArbSearchWireframe.swift in Sources */,
 				D98AF6B625BA13A400A5BC96 /* ArbsGradeCollectionViewCell.swift in Sources */,
@@ -2072,6 +2134,7 @@
 				D9A839C8265E50D70074E134 /* EditPortfolioItemsTableViewCell.swift in Sources */,
 				D906BE6927B425C1002D70BB /* LCWebHistoricalDataView.swift in Sources */,
 				D9A067362589183C00C0D1E5 /* ContentGridView.swift in Sources */,
+				D9BEB65627B9241E00E56E1B /* LCItemsSelectorViewModel+Models.swift in Sources */,
 				D96C8BE9257650BF0038175A /* ChangePasswordViewModel.swift in Sources */,
 				D999387D26C26145005AF406 /* ArbPlaygroundResultInputPointViewConstructor.swift in Sources */,
 				D98AF6C325BA199500A5BC96 /* ArbDetailViewModel.swift in Sources */,
@@ -2080,6 +2143,7 @@
 				D9C71C1A26734C76001B1924 /* FreightResultPageViewController.swift in Sources */,
 				D999387426C1BAC1005AF406 /* BaseWireframe.swift in Sources */,
 				D9840D032784460D0036C374 /* SettingsMobileFieldView.swift in Sources */,
+				D9BEB64F27B9218100E56E1B /* SearchViewController.swift in Sources */,
 				D9D4FC32264EDFF100A2A1DA /* LiveCurvesEndPoint.swift in Sources */,
 				D91A96B8258BAED7008487A8 /* LiveCurvesSyncManager+Observation.swift in Sources */,
 				D913955C270C500000867D5A /* Arb+UI.swift in Sources */,
@@ -2111,6 +2175,7 @@
 				D9BEB61E27B805AA00E56E1B /* InterfaceOrientationUtility.swift in Sources */,
 				D9288EF826EE12A900236A4F /* ArbsPlaygroundCalculator+Settings.swift in Sources */,
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
+				D9BEB65427B9240A00E56E1B /* LCItemsSelectorViewModel.swift in Sources */,
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
 				D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */,
 				D9A839C2265E4D120074E134 /* EditPortfolioItemsViewController.swift in Sources */,
@@ -2123,6 +2188,7 @@
 				D9A7E96E258BBA6300052232 /* LiveCurveInfoCollectionViewCell.swift in Sources */,
 				D9ECEC3B257A9AB6005DFFD7 /* BlenderDescriptionPopupView.swift in Sources */,
 				D98011C7265548E400B8AA70 /* LCPortfolioAddViewModel.swift in Sources */,
+				D9BEB65C27B928B700E56E1B /* LCItemsSelectorHeaderTableView.swift in Sources */,
 				D906BE7E27B6771F002D70BB /* FloatyMenuView.swift in Sources */,
 				D96C8BF02576651C0038175A /* AuthNetworkManager.swift in Sources */,
 				D9B50E1D257184080018F3D7 /* SyncService.swift in Sources */,
@@ -2146,11 +2212,13 @@
 				D9A2796925934F27009D066E /* AnalyticsEndPoint.swift in Sources */,
 				D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */,
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
+				D9BEB64D27B9217500E56E1B /* SearchViewModel.swift in Sources */,
 				D9A067132587BECA00C0D1E5 /* LiveCurvesSyncManager.swift in Sources */,
 				D9288EF526EBB0E700236A4F /* ArbsPlaygroundPageViewController.swift in Sources */,
 				D9F996E025BDFE500075F1A9 /* ResultKeyValueView.swift in Sources */,
 				D9A2796F259377C5009D066E /* SocketsStatusLineView.swift in Sources */,
 				D999387F26C2616A005AF406 /* ArbPlaygroundResultViewConstructor.swift in Sources */,
+				D9BEB65A27B9286500E56E1B /* LCItemsSelectorTableViewCell.swift in Sources */,
 				D9B50E07257180520018F3D7 /* Coordinator.swift in Sources */,
 				D991963C273ED33900A45363 /* ArbsEditPortfolioItemsViewController.swift in Sources */,
 				D90E5A9C26BC092A00D05473 /* ArbSearchViewController.swift in Sources */,
@@ -2434,6 +2502,14 @@
 				minimumVersion = 4.2.1;
 			};
 		};
+		D9BEB64327B90E8100E56E1B /* XCRemoteSwiftPackageReference "PanModal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/slackhq/PanModal";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2492,6 +2568,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D9BB53B0256EFC6500AD2D1A /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		D9BEB64427B90E8100E56E1B /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9BEB64327B90E8100E56E1B /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

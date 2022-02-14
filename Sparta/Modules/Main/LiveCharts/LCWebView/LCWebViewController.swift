@@ -7,6 +7,7 @@
 
 import UIKit
 import SpartaHelpers
+import PanModal
 
 class LCWebViewController: UIViewController {
 
@@ -67,7 +68,9 @@ class LCWebViewController: UIViewController {
         itemsField = UITextFieldSelector(configurator: itemsFieldConfigurator).then { view in
 
             view.backgroundColor = .neutral85
-            view.onTap { }
+            view.onTap { [unowned self] in
+                navigationController?.pushViewController(LCItemsSelectorViewController(), animated: true)
+            }
             view.apply(selectedValue: .init(id: "ID", title: "Brent Swap", fullTitle: "Brent Swap"), placeholder: "Select item")
         }
 
@@ -85,7 +88,9 @@ class LCWebViewController: UIViewController {
         selectorsField = UITextFieldSelector(configurator: selectorsFieldConfigurator).then { view in
 
             view.backgroundColor = .neutral85
-            view.onTap { }
+            view.onTap { [unowned self] in
+                presentPanModal(DateSelectorViewController())
+            }
             view.apply(selectedValue: .init(id: "ID", title: "Jan 22", fullTitle: "Jan 22"), placeholder: "Select item")
         }
 
@@ -117,9 +122,24 @@ class LCWebViewController: UIViewController {
 
         let tradeViewContent = UIView().then { view in
 
-            let tradeViewController = LCWebTradeViewController(buttonType: .expand)
+            let tradeViewController = LCWebTradeViewController(edges: .zero)
             tradeViewController.delegate = self
             add(tradeViewController, to: view)
+
+            _ = TappableButton().then { button in
+
+                button.backgroundColor = .neutral80
+                button.setImage(UIImage(named: "ic_chart_expand"), for: .normal)
+                button.onTap { [unowned self] _ in
+                    fullScreenChartManager.show()
+                }
+
+                view.addSubview(button) {
+                    $0.size.equalTo(40)
+                    $0.bottom.equalToSuperview().inset(28)
+                    $0.right.equalToSuperview().inset(8)
+                }
+            }
 
             scrollViewContent.addSubview(view) {
                 $0.top.equalTo(hlView.snp.bottom).offset(1)
@@ -169,9 +189,5 @@ extension LCWebViewController: LCWebTradeViewDelegate {
         }
 
         scrollView.contentOffset = CGPoint(x: 0, y: currentOffset)
-    }
-
-    func lcWebTradeViewControllerDidTapSizeButton(_ viewController: LCWebTradeViewController, buttonType: LCWebTradeViewController.ButtonType) {
-        fullScreenChartManager.show()
     }
 }

@@ -11,7 +11,6 @@ import SpartaHelpers
 
 protocol LCWebTradeViewDelegate: AnyObject {
     func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection)
-    func lcWebTradeViewControllerDidTapSizeButton(_ viewController: LCWebTradeViewController, buttonType: LCWebTradeViewController.ButtonType)
 }
 
 class LCWebTradeViewController: UIViewController {
@@ -22,13 +21,13 @@ class LCWebTradeViewController: UIViewController {
 
     // MARK: - UI properties
 
-    private let buttonType: ButtonType
+    private let edges: UIEdgeInsets
     private let webView: WKWebView
 
     // MARK: - Initializers
 
-    init(buttonType: ButtonType) {
-        self.buttonType = buttonType
+    init(edges: UIEdgeInsets) {
+        self.edges = edges
         webView = WKWebView()
         super.init(nibName: nil, bundle: nil)
     }
@@ -81,28 +80,7 @@ class LCWebTradeViewController: UIViewController {
             webView.scrollView.addGestureRecognizer(scrollViewPanGesture)
 
             addSubview(webView) {
-                $0.left.equalTo(view.snp.leftMargin)
-                $0.top.right.equalToSuperview()
-                $0.bottom.equalTo(view.snp.bottomMargin)
-            }
-        }
-
-        if buttonType != .none {
-            _ = TappableButton().then { button in
-
-                let imageName = buttonType == .collapse ? "ic_chart_collapse" : "ic_chart_expand"
-
-                button.backgroundColor = .neutral80
-                button.setImage(UIImage(named: imageName), for: .normal)
-                button.onTap { [unowned self] _ in
-                    delegate?.lcWebTradeViewControllerDidTapSizeButton(self, buttonType: buttonType)
-                }
-
-                view.addSubview(button) {
-                    $0.size.equalTo(40)
-                    $0.bottom.equalToSuperview().offset(-24)
-                    $0.right.equalToSuperview().inset(16)
-                }
+                $0.edges.equalTo(edges)
             }
         }
     }
@@ -111,12 +89,9 @@ class LCWebTradeViewController: UIViewController {
 
     @objc
     private func onPan(_ gesture: UIPanGestureRecognizer) {
-//        let currentOffset = scrollView.contentOffset.y
-
         let velocity = webView.scrollView.panGestureRecognizer.velocity(in: webView)
         let translation = webView.scrollView.panGestureRecognizer.translation(in: webView)
         let isVerticalGesture = abs(velocity.y) > abs(velocity.x)
-
 
         func scrollAction(direction: MovingDirection) {
             switch gesture.state {
@@ -125,17 +100,8 @@ class LCWebTradeViewController: UIViewController {
                 gesture.setTranslation(.zero, in: webView)
 
                 if direction == .up {
-//                    let newYOffset = currentOffset - translation.y
-//                    print(newYOffset)
-
-//                    scrollView.contentOffset = CGPoint(x: 0, y: newYOffset)
                     delegate?.lcWebTradeViewControllerDidChangeContentOffset(self, offset: translation.y, direction: .up)
-
                 } else if direction == .down {
-//                    let newYOffset = currentOffset + translation.y
-//                    print(newYOffset)
-
-//                    scrollView.contentOffset = CGPoint(x: 0, y: newYOffset)
                     delegate?.lcWebTradeViewControllerDidChangeContentOffset(self, offset: translation.y, direction: .down)
                 }
 
@@ -151,14 +117,6 @@ class LCWebTradeViewController: UIViewController {
                 scrollAction(direction: .up)
             }
         }
-    }
-}
-
-extension LCWebTradeViewController {
-    enum ButtonType {
-        case none
-        case expand
-        case collapse
     }
 }
 

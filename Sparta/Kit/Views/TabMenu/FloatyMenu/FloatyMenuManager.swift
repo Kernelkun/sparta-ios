@@ -6,32 +6,48 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class FloatyMenuManager {
 
     // MARK: - Private properties
 
+    private var controller: FloatyMenuViewController?
+
     private var window: UIWindow?
     private var isPresented: Bool = false
 
+    private var _onChooseClosure: TypeClosure<TabMenuItem>?
+    private var _onHideClosure: EmptyClosure?
+
     // MARK: - Public methods
+
+    func onChoose(completion: @escaping TypeClosure<TabMenuItem>) {
+        _onChooseClosure = completion
+    }
+
+    func onHide(completion: @escaping EmptyClosure) {
+        _onHideClosure = completion
+    }
 
     func show(frame: CGRect, tabs: [TabMenuItem]) {
         guard !isPresented else { return }
 
         isPresented = true
 
-        /*func close(completion: @escaping EmptyClosure) {
-            UIView.animate(withDuration: 0.1) {
-                self.window?.alpha = 0.0
-            } completion: { _ in
-                self.window?.isHidden = true
-                self.window = nil
-                completion()
-            }
-        }*/
+        controller = FloatyMenuViewController(tabs: tabs)
 
-        let controller = FloatyMenuViewController(tabs: tabs)
+        controller?.onChoose { [unowned self] menuItem in
+            _onChooseClosure?(menuItem)
+        }
+
+        controller?.onHide { [unowned self] in
+            guard isPresented else { return }
+
+            _onHideClosure?()
+            isPresented = false
+            window = nil
+        }
 
         window = UIWindow(frame: frame)
         window?.rootViewController = controller

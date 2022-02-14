@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class FloatyMenuViewController: UIViewController {
 
@@ -13,8 +14,12 @@ class FloatyMenuViewController: UIViewController {
 
     private let tabs: [TabMenuItem]
 
+    private var _onHideClosure: EmptyClosure?
+    private var _onChooseClosure: TypeClosure<TabMenuItem>?
+
     // MARK: - UI
 
+    private var backgroundContentView: UIView?
     private var menuView: FloatyMenuView!
 
     // MARK: - Initializers
@@ -36,19 +41,57 @@ class FloatyMenuViewController: UIViewController {
         setupUI()
     }
 
+    // MARK: - Public methods
+
+    func onChoose(completion: @escaping TypeClosure<TabMenuItem>) {
+        _onChooseClosure = completion
+    }
+
+    func onHide(completion: @escaping EmptyClosure) {
+        _onHideClosure = completion
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
         view.backgroundColor = .clear
 
-        menuView = FloatyMenuView().then { view in
+        backgroundContentView = UIView().then { view in
 
-            view.apply(items: tabs)
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapEvent)))
 
             addSubview(view) {
-                $0.right.equalToSuperview().inset(12)
+                $0.edges.equalToSuperview()
+            }
+        }
+
+        menuView = FloatyMenuView().then { view in
+
+            view.alpha = 0
+            view.apply(items: tabs)
+            view.onChoose { [unowned self] menuItem in
+                self._onChooseClosure?(menuItem)
+            }
+
+            addSubview(view) {
+                $0.right.equalToSuperview().inset(7)
                 $0.bottom.equalToSuperview().inset(14)
             }
+        }
+
+        UIView.animate(withDuration: 0.2) {
+            self.menuView.alpha = 1.0
+        }
+    }
+
+    // MARK: - Events
+
+    @objc
+    private func backgroundTapEvent() {
+        _onHideClosure?()
+
+        UIView.animate(withDuration: 0.2) {
+            self.menuView.alpha = 0.0
         }
     }
 }
