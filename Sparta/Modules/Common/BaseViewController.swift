@@ -17,7 +17,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     var loadingView = LoadingView()
     
     var isFirstLoad: Bool {
-        return enterCount == 1
+        return enterCount <= 1
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -55,8 +55,8 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        enterCount += 1
+
+        defer { enterCount += 1 }
     }
     
     // MARK: - Public methods

@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class LCItemsSelectorTableViewCell: UITableViewCell {
 
     // MARK: - UI
 
     private var titleLabel: UILabel!
+
+    // MARK: - Private properties
+
+    private var item: LCWebViewModel.Item?
+    private var _tapClosure: TypeClosure<LCWebViewModel.Item>?
 
     // MARK: - Initializers
 
@@ -27,8 +33,11 @@ class LCItemsSelectorTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
-    func apply(item: LCItemsSelectorViewModel.Item) {
+    func apply(item: LCWebViewModel.Item, onTap: @escaping TypeClosure<LCWebViewModel.Item>) {
+        self.item = item
+
         titleLabel.text = item.title
+        _tapClosure = onTap
     }
 
     // MARK: - Private methods
@@ -52,5 +61,18 @@ class LCItemsSelectorTableViewCell: UITableViewCell {
                 $0.left.right.equalToSuperview().offset(16)
             }
         }
+
+        // gestures
+
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTapEvent)))
+    }
+
+    // MARK: - Events
+
+    @objc
+    private func onTapEvent() {
+        guard let item = item else { return }
+
+        _tapClosure?(item)
     }
 }

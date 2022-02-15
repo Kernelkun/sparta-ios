@@ -12,6 +12,7 @@ import App
 
 enum LiveChartsEndPoint {
     case getDateSelectors(code: String)
+    case getHighlights(code: String, tenorCode: String)
 }
 
 extension LiveChartsEndPoint: EndPointType {
@@ -21,12 +22,13 @@ extension LiveChartsEndPoint: EndPointType {
     var path: String {
         switch self {
         case .getDateSelectors(let code): return "/livecharts/\(code)/dateselector"
+        case .getHighlights: return "/data-warehouse/live-charts/highlights"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getDateSelectors: return .get
+        case .getDateSelectors, .getHighlights: return .get
         }
     }
 
@@ -37,9 +39,14 @@ extension LiveChartsEndPoint: EndPointType {
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
                                                 additionHeaders: headersWithToken)
+
+        case .getHighlights(let code, let tenorCode):
+            return .requestParametersAndHeaders(bodyParameters: nil,
+                                                bodyEncoding: .urlEncoding,
+                                                urlParameters: ["spartaCode": code, "tenorName": tenorCode],
+                                                additionHeaders: headersWithToken)
         }
     }
 
     var header: HTTPHeaders? { nil }
 }
-

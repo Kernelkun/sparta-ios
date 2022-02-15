@@ -17,7 +17,7 @@ class FullScreenChartViewManager {
 
     // MARK: - Public methods
 
-    func show() {
+    func show(productCode: String) {
         guard !isPresented else { return }
 
         isPresented = true
@@ -32,6 +32,7 @@ class FullScreenChartViewManager {
         }
 
         let controller = LCWebTradeViewController(edges: edges)
+        controller.load(for: productCode)
 
         _ = TappableButton().then { button in
 

@@ -15,6 +15,7 @@ public struct LiveCurveProfileProduct: BackendModel {
     // MARK: - Public properties
 
     public let id: Int
+    public let code: String
     public let shortName: String
     public let longName: String
     public let unit: String
@@ -25,6 +26,7 @@ public struct LiveCurveProfileProduct: BackendModel {
 
     public init(json: JSON) {
         id = json["id"].intValue
+        code = json["code"].stringValue
         shortName = json["shortName"].stringValue
         longName = json["longName"].stringValue
         unit = json["unit"].stringValue

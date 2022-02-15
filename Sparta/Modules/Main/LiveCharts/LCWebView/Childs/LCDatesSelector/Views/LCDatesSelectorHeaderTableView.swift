@@ -1,13 +1,13 @@
 //
-//  LCItemsSelectorHeaderTableView.swift
+//  LCDatesSelectorHeaderTableView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 13.02.2022.
+//  Created by Yaroslav Babalich on 14.02.2022.
 //
 
 import UIKit
 
-class LCItemsSelectorHeaderTableView: UITableViewHeaderFooterView {
+class LCDatesSelectorHeaderTableView: UITableViewHeaderFooterView {
 
     // MARK: - UI
 
@@ -22,7 +22,7 @@ class LCItemsSelectorHeaderTableView: UITableViewHeaderFooterView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("LCItemsSelectorHeaderTableView")
+        fatalError("LCDatesSelectorHeaderTableView")
     }
 
     // MARK: - Public methods
@@ -35,27 +35,27 @@ class LCItemsSelectorHeaderTableView: UITableViewHeaderFooterView {
 
     private func setupUI() {
 
-        contentView.backgroundColor = .mainBackground
-
         titleLabel = UILabel().then { titleLabel in
 
-            titleLabel.font = .main(weight: .regular, size: 14)
-            titleLabel.textColor = UIColor.primaryText.withAlphaComponent(0.47)
+            titleLabel.font = .main(weight: .medium, size: 12)
+            titleLabel.textColor = .neutral10
             titleLabel.numberOfLines = 1
             titleLabel.textAlignment = .left
+            titleLabel.text = "Months"
 
             addSubview(titleLabel) {
-                $0.centerY.equalToSuperview()
-                $0.left.right.equalToSuperview().inset(16)
+                $0.left.equalToSuperview().offset(16)
+                $0.bottom.equalToSuperview().inset(6)
             }
         }
 
         _ = UIView().then { view in
 
-            view.backgroundColor = .separator
+            view.backgroundColor = .neutral10
 
             addSubview(view) {
-                $0.left.bottom.right.equalToSuperview()
+                $0.left.right.equalToSuperview().inset(16)
+                $0.bottom.equalToSuperview()
                 $0.height.equalTo(CGFloat.separatorWidth)
             }
         }

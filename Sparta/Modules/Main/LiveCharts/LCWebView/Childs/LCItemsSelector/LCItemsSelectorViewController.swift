@@ -9,18 +9,27 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-class LCItemsSelectorViewController: BaseTableVMViewController<LCItemsSelectorViewModel> {
+protocol LCItemsSelectorViewCoordinatorDelegate: AnyObject {
+    func lcItemsSelectorViewControllerDidChooseItem(_ viewController: LCItemsSelectorViewController, item: LCWebViewModel.Item)
+}
+
+class LCItemsSelectorViewController: BaseTableViewController {
+
+    // MARK: - Public properties
+
+    weak var coordinatorDelegate: LCItemsSelectorViewCoordinatorDelegate?
 
     // MARK: - Private properties
+
+    private let viewModel: LCItemsSelectorViewModel
 
     private let searchDelay = DelayObject(delayInterval: 0.5)
     private var searchController: UISearchController!
 
-    private var _onAddItemClosure: EmptyClosure?
-
     // MARK: - Initialiers
 
-    init() {
+    init(viewModel: LCItemsSelectorViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -36,16 +45,14 @@ class LCItemsSelectorViewController: BaseTableVMViewController<LCItemsSelectorVi
         // UI
 
         setupUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         // view model
 
         viewModel.loadData()
-    }
-
-    // MARK: - Public methods
-
-    func onAddItem(completion: @escaping EmptyClosure) {
-        _onAddItemClosure = completion
     }
 
     // MARK: - Private methods
@@ -89,7 +96,6 @@ class LCItemsSelectorViewController: BaseTableVMViewController<LCItemsSelectorVi
         tableView.do { tableView in
             tableView.allowsMultipleSelectionDuringEditing = true
             tableView.tableFooterView = UIView()
-            tableView.dataSource = self
             tableView.separatorColor = .separator
             tableView.separatorInset = .zero
 
@@ -156,15 +162,11 @@ extension LCItemsSelectorViewController {
         let cell: LCItemsSelectorTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         let item = viewModel.groups[indexPath.section].items[indexPath.row]
-        cell.apply(item: item)
+        cell.apply(item: item) { [unowned self] item in
+            viewModel.chooseItem(item)
+        }
 
         return cell
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = viewModel.groups[indexPath.section].items[indexPath.row]
-
-//        viewModel.addProduct(item)
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -193,8 +195,8 @@ extension LCItemsSelectorViewController: LCItemsSelectorViewModelDelegate {
         tableView.reloadData()
     }
 
-    func didSuccessChooseItem() {
-        _onAddItemClosure?()
+    func didSuccessChooseItem(_ item: LCWebViewModel.Item) {
         navigationController?.popViewController(animated: true)
+        coordinatorDelegate?.lcItemsSelectorViewControllerDidChooseItem(self, item: item)
     }
 }

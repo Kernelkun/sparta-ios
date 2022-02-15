@@ -14,15 +14,23 @@ class LiveChartsNetworkManager: BaseNetworkManager {
 
     // MARK: - Variables private
 
-    private let router = NetworkRouter<LiveCurvesEndPoint>()
+    private let router = NetworkRouter<LiveChartsEndPoint>()
 
     // MARK: - Public methods
 
-    func fetchDateSelectors(code: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveCurve>>, SpartaError>>) {
-        router.request(.getLiveCurves) { [weak self] data, response, error in
+    func fetchDateSelectors(code: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveChartDateSelector>>, SpartaError>>) {
+        router.request(.getDateSelectors(code: code)) { [weak self] data, response, error in
             guard let strongSelf = self else { return }
 
-//            completion(strongSelf.handleResult(data: data, response: response, error: error))
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
+    func fetchHighlights(code: String, tenorCode: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveChartDateSelector>>, SpartaError>>) {
+        router.request(.getHighlights(code: code, tenorCode: tenorCode)) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
         }
     }
 }

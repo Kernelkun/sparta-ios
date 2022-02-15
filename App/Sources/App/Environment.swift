@@ -53,4 +53,8 @@ public struct Environment {
     // API KEY's
 
     public static let segmentAPIKey = "JuCj6uNsMFuqveOLtDfHvdhQeriCUqLk"
+
+    // LC chart
+
+    public static let liveChartURL = "http://sparta-review-ios-iframe-page.s3-website-eu-west-1.amazonaws.com/standaloneChart/"
 }

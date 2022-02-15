@@ -8,16 +8,33 @@
 import UIKit
 import SpartaHelpers
 import PanModal
+import NetworkingModels
 
-class LCWebViewController: UIViewController {
+class LCWebViewController: BaseViewController {
+
+    // MARK: - Public methods
+
+    private(set) var viewModel: LCWebViewModelInterface!
 
     // MARK: - Private properties
 
     private var scrollView: UIScrollView!
     private var itemsField: UITextFieldSelector<PickerIdValued<String>>!
     private var selectorsField: UITextFieldSelector<PickerIdValued<String>>!
+    private var mainChartController: LCWebTradeViewController!
 
     private var fullScreenChartManager = FullScreenChartViewManager()
+
+    // MARK: - Initializers
+
+    init(viewModel: LCWebViewModelInterface) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(#function)
+    }
 
     // MARK: - Lifecycle
 
@@ -25,6 +42,7 @@ class LCWebViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
+        viewModel.loadData()
     }
 
     // MARK: - Private methods
@@ -69,9 +87,9 @@ class LCWebViewController: UIViewController {
 
             view.backgroundColor = .neutral85
             view.onTap { [unowned self] in
-                navigationController?.pushViewController(LCItemsSelectorViewController(), animated: true)
+                let wireframe = LCItemsSelectorWireframe(groups: viewModel.groups, coordinatorDelegate: self)
+                navigationController?.pushViewController(wireframe.viewController, animated: true)
             }
-            view.apply(selectedValue: .init(id: "ID", title: "Brent Swap", fullTitle: "Brent Swap"), placeholder: "Select item")
         }
 
         let selectorsFieldConfigurator = UITextFieldSelectorConfigurator(
@@ -89,9 +107,15 @@ class LCWebViewController: UIViewController {
 
             view.backgroundColor = .neutral85
             view.onTap { [unowned self] in
-                presentPanModal(DateSelectorViewController())
+                guard let configurator = viewModel.configurator else { return }
+
+                let wireframe = LCDatesSelectorWireframe(
+                    dateSelectors: configurator.dateSelectors,
+                    selectedDateSelector: configurator.selectedDateSelector,
+                    coordinatorDelegate: self)
+
+                presentPanModal(wireframe.viewController)
             }
-            view.apply(selectedValue: .init(id: "ID", title: "Jan 22", fullTitle: "Jan 22"), placeholder: "Select item")
         }
 
         let selectorsStackView = UIStackView().then { stackView in
@@ -122,16 +146,19 @@ class LCWebViewController: UIViewController {
 
         let tradeViewContent = UIView().then { view in
 
-            let tradeViewController = LCWebTradeViewController(edges: .zero)
-            tradeViewController.delegate = self
-            add(tradeViewController, to: view)
+            mainChartController = LCWebTradeViewController(edges: .zero)
+            mainChartController.delegate = self
+
+            add(mainChartController, to: view)
 
             _ = TappableButton().then { button in
 
                 button.backgroundColor = .neutral80
                 button.setImage(UIImage(named: "ic_chart_expand"), for: .normal)
                 button.onTap { [unowned self] _ in
-                    fullScreenChartManager.show()
+                    guard let item = viewModel.configurator?.item else { return }
+
+                    fullScreenChartManager.show(productCode: item.code)
                 }
 
                 view.addSubview(button) {
@@ -166,17 +193,6 @@ class LCWebViewController: UIViewController {
     }
 }
 
-extension LCWebViewController: ResultMonthSelectorDelegate {
-
-    func resultMonthSelectorDidTapLeftButton(view: ResultMonthSelector) {
-        //        contentPageVC.showPrevious()
-    }
-
-    func resultMonthSelectorDidTapRightButton(view: ResultMonthSelector) {
-        //        contentPageVC.showNext()
-    }
-}
-
 extension LCWebViewController: LCWebTradeViewDelegate {
 
     func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection) {
@@ -189,5 +205,40 @@ extension LCWebViewController: LCWebTradeViewDelegate {
         }
 
         scrollView.contentOffset = CGPoint(x: 0, y: currentOffset)
+    }
+}
+
+extension LCWebViewController: LCItemsSelectorViewCoordinatorDelegate {
+
+    func lcItemsSelectorViewControllerDidChooseItem(_ viewController: LCItemsSelectorViewController, item: LCWebViewModel.Item) {
+        viewModel.apply(configurator: LCWebViewModel.Configurator(item: item))
+    }
+}
+
+extension LCWebViewController: LCDatesSelectorViewCoordinatorDelegate {
+
+    func lcDatesSelectorViewDidChooseDate(_ viewController: LCDatesSelectorViewController, dateSelector: LiveChartDateSelector) {
+        viewModel.setDate(.init(dateSelector: dateSelector))
+    }
+}
+
+extension LCWebViewController: LCWebViewModelDelegate {
+
+    func didChangeLoadingState(_ isLoading: Bool) {
+    }
+
+    func didCatchAnError(_ error: String) {
+    }
+
+    func didSuccessUpdateConfigurator(_ configurator: LCWebViewModel.Configurator) {
+        let item = configurator.item
+
+        mainChartController.load(for: item.code)
+        itemsField.apply(selectedValue: .init(id: item.code, title: item.title, fullTitle: item.title), placeholder: "Select item")
+
+        if let dateSelector = configurator.dateSelector {
+            let name = dateSelector.name
+            selectorsField.apply(selectedValue: .init(id: name, title: name, fullTitle: name), placeholder: "Select date")
+        }
     }
 }

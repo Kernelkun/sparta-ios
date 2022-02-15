@@ -8,6 +8,7 @@
 import UIKit
 import WebKit
 import SpartaHelpers
+import App
 
 protocol LCWebTradeViewDelegate: AnyObject {
     func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection)
@@ -44,21 +45,29 @@ class LCWebTradeViewController: UIViewController {
         setupUI()
     }
 
+    // MARK: - Public methods
+
+    func load(for productCode: String) {
+        let configuration = WKWebViewConfiguration()
+        configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+
+        var urlComponents = URLComponents(string: Environment.liveChartURL)
+        urlComponents?.queryItems = [
+            URLQueryItem(name: "token", value: App.instance.token),
+            URLQueryItem(name: "product", value: productCode) // "OTREOB"
+        ]
+
+        guard let urlString = urlComponents?.url else { return }
+
+        let request = URLRequest(url: urlString)
+        webView.load(request)
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
 
         view.backgroundColor = .neutral80
-
-        let configuration = WKWebViewConfiguration()
-        configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-
-        var urlComponents = URLComponents(string: "http://sparta-review-ios-iframe-page.s3-website-eu-west-1.amazonaws.com/standaloneChart/")
-        urlComponents?.queryItems = [
-            URLQueryItem(name: "token", value: App.instance.token)
-        ]
-
-        let request = URLRequest(url: urlComponents!.url!)
 
         webView.do { webView in
 
@@ -73,7 +82,6 @@ class LCWebTradeViewController: UIViewController {
             webView.scrollView.minimumZoomScale = 1.0
             webView.scrollView.maximumZoomScale = 1.0
             webView.scrollView.panGestureRecognizer.isEnabled = false
-            webView.load(request)
 
             let scrollViewPanGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
             scrollViewPanGesture.delegate = self

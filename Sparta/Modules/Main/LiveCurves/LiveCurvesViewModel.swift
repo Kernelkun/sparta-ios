@@ -102,21 +102,6 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
                 let firstObject = value.first.required()
                 let tempSection = Section(name: firstObject.displayName, code: firstObject.code, cells: cells)
                 return tempSection
-
-                /*if let indexOfSection = collectionDataSource.firstIndex(of: tempSection) {
-
-                 var updatedSection = collectionDataSource[indexOfSection]
-
-                 for liveCurve in value {
-                 if let indexOfMonth = liveCurve.indexOfMonth {
-                 updatedSection.cells[indexOfMonth] = tempSection.cells[indexOfMonth]
-                 }
-                 }
-
-                 return updatedSection
-                 } else {
-                 return tempSection
-                 }*/
             }
     }
 

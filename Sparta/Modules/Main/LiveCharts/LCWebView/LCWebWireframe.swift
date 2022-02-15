@@ -13,7 +13,10 @@ final class LCWebWireframe: BaseWireframe<LCWebViewController> {
     // MARK: - Initializers
 
     init() {
-        let viewController = LCWebViewController()
+        let viewModel = LCWebViewModel()
+        let viewController = LCWebViewController(viewModel: viewModel)
         super.init(viewController: viewController)
+
+        viewModel.delegate = viewController
     }
 }
