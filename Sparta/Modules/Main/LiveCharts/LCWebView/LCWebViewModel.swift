@@ -81,7 +81,7 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                                                     serverItems: items.sorted(by: { $0.shortName < $1.shortName }))
             strongSelf.groups = groups
 
-            if let firstItem = items.first {
+            if let firstItem = items.first, strongSelf.configurator == nil {
                 onMainThread {
                     strongSelf.apply(configurator: Configurator(item: Item(item: firstItem)))
                 }
@@ -105,7 +105,7 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                 strongSelf.configurator?.dateSelectors = list
 
                 if let dateSelector = strongSelf.configurator?.dateSelector,
-                   let foundSelector = list.first(where: { $0.name.lowercased() == dateSelector.name.lowercased() }) {
+                   let foundSelector = list.first(where: { $0.code.lowercased() == dateSelector.code.lowercased() }) {
 
                     strongSelf.setDate(LCWebViewModel.DateSelector(dateSelector: foundSelector))
                 } else {
@@ -125,7 +125,7 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
         }
 
         let configurator = self.configurator.required()
-        liveChartsNetworkManager.fetchHighlights(code: configurator.item.code, tenorCode: configurator.dateSelector.required().name) { _ in
+        liveChartsNetworkManager.fetchHighlights(code: configurator.item.code, tenorCode: configurator.dateSelector.required().code) { _ in
 
         }
     }

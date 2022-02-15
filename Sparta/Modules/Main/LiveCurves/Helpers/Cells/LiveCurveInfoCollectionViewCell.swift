@@ -19,7 +19,9 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     // MARK: - Private properties
 
     private var lastPriceCode: String!
-    private var _tapClosure: TypeClosure<IndexPath>?
+    private var _tapClosure: TypeClosure<LiveCurveMonthInfoModel>?
+
+    private var monthInfo: LiveCurveMonthInfoModel!
     private var indexPath: IndexPath!
 
     // MARK: - Initializers
@@ -54,6 +56,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     // MARK: - Public methods
 
     func apply(monthInfo: LiveCurveMonthInfoModel, for indexPath: IndexPath) {
+        self.monthInfo = monthInfo
         self.indexPath = indexPath
 
         titleLabel.text = monthInfo.priceValue
@@ -61,7 +64,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
         observeLiveCurves(for: monthInfo.priceCode)
     }
 
-    func onTap(completion: @escaping TypeClosure<IndexPath>) {
+    func onTap(completion: @escaping TypeClosure<LiveCurveMonthInfoModel>) {
         _tapClosure = completion
     }
 
@@ -116,7 +119,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 
     @objc
     private func tapEvent() {
-        _tapClosure?(indexPath)
+        _tapClosure?(monthInfo)
     }
 }
 

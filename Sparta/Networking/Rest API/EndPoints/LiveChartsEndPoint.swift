@@ -43,7 +43,7 @@ extension LiveChartsEndPoint: EndPointType {
         case .getHighlights(let code, let tenorCode):
             return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .urlEncoding,
-                                                urlParameters: ["spartaCode": code, "tenorName": tenorCode],
+                                                urlParameters: ["spartaCode": "OTREOB", "tenorName": "Feb 22"],
                                                 additionHeaders: headersWithToken)
         }
     }

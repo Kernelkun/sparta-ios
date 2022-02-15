@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SpartaHelpers
 
-class LCWebResultHLView: UIView {
+class LCWebResultHLView: TappableView {
 
     // MARK: - Initializers
 

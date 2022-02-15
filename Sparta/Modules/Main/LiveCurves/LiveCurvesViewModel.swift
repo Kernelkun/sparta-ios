@@ -96,7 +96,11 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
                     guard let indexOfMonth = liveCurve.indexOfMonth else { return }
 
                     cells[indexOfMonth] = Cell.info(monthInfo: .init(priceValue: liveCurve.displayPrice,
-                                                                     priceCode: liveCurve.priceCode))
+                                                                     priceCode: liveCurve.priceCode,
+                                                                     monthDisplayName: liveCurve.monthDisplay,
+                                                                     lcCode: liveCurve.code,
+                                                                     lcName: liveCurve.name,
+                                                                     lcUnit: liveCurve.unit))
                 }
 
                 let firstObject = value.first.required()
@@ -157,7 +161,13 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
                let indexInDataSource = collectionDataSource.firstIndex(where: { $0.code == liveCurve.code }) {
 
                 let priceCode = liveCurve.priceCode
-                let monthInfo: LiveCurveMonthInfoModel = .init(priceValue: liveCurve.displayPrice, priceCode: priceCode)
+                let monthInfo: LiveCurveMonthInfoModel = .init(
+                    priceValue: liveCurve.displayPrice,
+                    priceCode: priceCode,
+                    monthDisplayName: liveCurve.monthDisplay,
+                    lcCode: liveCurve.code,
+                    lcName: liveCurve.name,
+                    lcUnit: liveCurve.unit)
                 collectionDataSource[indexInDataSource].cells[indexOfMonth] = .info(monthInfo: monthInfo)
             }
         }

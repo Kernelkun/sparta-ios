@@ -11,14 +11,17 @@ import NetworkingModels
 extension LCWebViewModel {
 
     struct Item {
-        let id: Int
         let title: String
         let code: String
 
         init(item: LiveCurveProfileProduct) {
-            id = item.id
-            title = item.shortName + " " + "(" + item.unit + ")"
+            title = item.shortName //+ " " + "(" + item.unit + ")"
             code = item.code
+        }
+
+        init(monthInfo: LiveCurveMonthInfoModel) {
+            title = monthInfo.lcName //+ " " + "(" + monthInfo.lcUnit + ")"
+            code = monthInfo.lcCode
         }
     }
 
@@ -36,9 +39,16 @@ extension LCWebViewModel {
 
     struct DateSelector {
         let name: String
+        let code: String
 
         init(dateSelector: LiveChartDateSelector) {
             self.name = dateSelector.name
+            self.code = dateSelector.code
+        }
+
+        init(name: String, code: String) {
+            self.name = name
+            self.code = code
         }
     }
 
@@ -51,7 +61,7 @@ extension LCWebViewModel {
             guard !dateSelectors.isEmpty else { return nil }
 
             if let dateSelector = dateSelector,
-               let dateSelectorIndex = dateSelectors.firstIndex(where: { dateSelector.name.lowercased() == $0.name.lowercased() }) {
+               let dateSelectorIndex = dateSelectors.firstIndex(where: { dateSelector.code.lowercased() == $0.code.lowercased() }) {
 
                 return dateSelectors[dateSelectorIndex]
             } else {
@@ -74,12 +84,12 @@ extension LCWebViewModel.Group: Equatable {
     }
 }
 
-extension LCWebViewModel.Item: Equatable {
+/*extension LCWebViewModel.Item: Equatable {
 
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
     }
-}
+}*/
 
 extension Array where Element == LCWebViewModel.Group {
 

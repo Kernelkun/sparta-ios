@@ -35,15 +35,16 @@ class LCDatesSelectorHeaderTableView: UITableViewHeaderFooterView {
 
     private func setupUI() {
 
+        contentView.backgroundColor = .neutral85
+
         titleLabel = UILabel().then { titleLabel in
 
             titleLabel.font = .main(weight: .medium, size: 12)
             titleLabel.textColor = .neutral10
             titleLabel.numberOfLines = 1
             titleLabel.textAlignment = .left
-            titleLabel.text = "Months"
 
-            addSubview(titleLabel) {
+            contentView.addSubview(titleLabel) {
                 $0.left.equalToSuperview().offset(16)
                 $0.bottom.equalToSuperview().inset(6)
             }
@@ -53,7 +54,7 @@ class LCDatesSelectorHeaderTableView: UITableViewHeaderFooterView {
 
             view.backgroundColor = .neutral10
 
-            addSubview(view) {
+            contentView.addSubview(view) {
                 $0.left.right.equalToSuperview().inset(16)
                 $0.bottom.equalToSuperview()
                 $0.height.equalTo(CGFloat.separatorWidth)

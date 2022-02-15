@@ -49,6 +49,8 @@ class LCDatesSelectorItemView: TappableView {
             titleLabel.numberOfLines = 1
             titleLabel.textAlignment = .left
             titleLabel.text = dateSelector.name
+            titleLabel.adjustsFontSizeToFitWidth = true
+            titleLabel.minimumScaleFactor = 0.5
 
             addSubview(titleLabel) {
                 $0.left.right.top.equalToSuperview()

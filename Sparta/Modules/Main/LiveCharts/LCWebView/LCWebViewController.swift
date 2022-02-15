@@ -137,6 +137,10 @@ class LCWebViewController: BaseViewController {
 
         let hlView = LCWebResultHLView().then { view in
 
+            view.onTap { [unowned self] _ in
+                scrollView.scrollView_scrollToBottom(animated: true)
+            }
+
             scrollViewContent.addSubview(view) {
                 $0.left.right.equalToSuperview()
                 $0.top.equalTo(selectorsStackView.snp.bottom).offset(8)

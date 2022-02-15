@@ -122,6 +122,7 @@ class MainTabsViewController: BaseViewController {
 
         if viewModel.isVisibleLivePricesBlock {
             let first = LiveCurvesViewController()
+            first.coordinatorDelegate = self
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: first)
             navigation.setKey(.liveCurves)
@@ -268,6 +269,26 @@ extension MainTabsViewController {
             case .other:
                 return "other"
             }
+        }
+    }
+}
+
+extension MainTabsViewController: LiveCurvesViewCoordinatorDelegate {
+
+    func liveCurvesViewControllerDidSelectMonthInfo(_ viewController: LiveCurvesViewController, monthInfo: LiveCurveMonthInfoModel) {
+        guard let navigationVC = tabMenuView.items[1].controller as? KeyedNavigationController<Tab>, navigationVC.key == .liveCharts else { return }
+
+        guard let lcViewController = navigationVC.viewControllers.first as? LCWebViewController else { return }
+
+        let item = LCWebViewModel.Item(monthInfo: monthInfo)
+        var configurator = LCWebViewModel.Configurator(item: item)
+        configurator.dateSelector = LCWebViewModel.DateSelector(name: monthInfo.monthDisplayName,
+                                                                code: monthInfo.monthDisplayName)
+
+        selectedTabIndex = 1
+
+        onMainThread(delay: 0.3) {
+            lcViewController.viewModel.apply(configurator: configurator)
         }
     }
 }
