@@ -49,11 +49,11 @@ class LCDatesSelectorTableViewCell: UITableViewCell {
         tintColor = .controlTintActive
         selectionStyle = .none
 
-        let elementWidth: CGFloat = 60
-        let elementsSpace: CGFloat = 20
+        let elementWidth: CGFloat = UIScreen.main.bounds.inset(by: .init(top: 0, left: 8, bottom: 0, right: 8)).width / 5
+        let elementsSpace: CGFloat = 0
 
         func elementsCountFitWidth() -> Int {
-            let screenWidthWithInsets = UIScreen.main.bounds.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)).width
+            let screenWidthWithInsets = UIScreen.main.bounds.inset(by: .init(top: 0, left: 8, bottom: 0, right: 8)).width
 
             let elementFullWidth = elementWidth + elementsSpace
 
@@ -103,7 +103,7 @@ class LCDatesSelectorTableViewCell: UITableViewCell {
                 }
 
                 contentView.addSubview(horizontalSV) {
-                    $0.left.equalToSuperview().offset(16)
+                    $0.left.equalToSuperview().offset(10)
 
                     if let previousView = previousView {
                         $0.top.equalTo(previousView.snp.bottom).offset(11)

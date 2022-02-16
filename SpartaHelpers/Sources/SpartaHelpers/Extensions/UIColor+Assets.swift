@@ -77,4 +77,6 @@ public extension UIColor {
     static var neutral80: UIColor { .assetColor(named: #function) }
 
     static var neutral85: UIColor { .assetColor(named: #function) }
+
+    static var neutral100: UIColor { .assetColor(named: #function) }
 }

@@ -280,6 +280,9 @@ extension MainTabsViewController: LiveCurvesViewCoordinatorDelegate {
 
         guard let lcViewController = navigationVC.viewControllers.first as? LCWebViewController else { return }
 
+        guard LCWebRestriction.validItemsCodes.contains(monthInfo.lcCode),
+                LCWebRestriction.validDateSelectors.contains(monthInfo.monthDisplayName) else { return }
+
         let item = LCWebViewModel.Item(monthInfo: monthInfo)
         var configurator = LCWebViewModel.Configurator(item: item)
         configurator.dateSelector = LCWebViewModel.DateSelector(name: monthInfo.monthDisplayName,

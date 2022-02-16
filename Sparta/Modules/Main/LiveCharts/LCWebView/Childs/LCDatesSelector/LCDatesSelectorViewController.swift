@@ -58,12 +58,13 @@ class LCDatesSelectorViewController: UIViewController {
                             for: .normal)
 
             addSubview(button) {
-                $0.top.equalToSuperview().offset(10)
+                $0.top.equalToSuperview().offset(7)
+                $0.size.equalTo(CGSize(width: 14.2, height: 4.3))
                 $0.centerX.equalToSuperview()
             }
         }
 
-        tableView = UITableView().then { tableView in
+        tableView = ContentSizedTableView().then { tableView in
 
             if #available(iOS 15.0, *) {
                 tableView.sectionHeaderTopPadding = 0
@@ -83,7 +84,7 @@ class LCDatesSelectorViewController: UIViewController {
             tableView.dataSource = self
 
             addSubview(tableView) {
-                $0.top.equalTo(arrowButton.snp.bottom)
+                $0.top.equalTo(arrowButton.snp.bottom).offset(20)
                 $0.left.right.bottom.equalToSuperview()
             }
         }
@@ -124,7 +125,7 @@ extension LCDatesSelectorViewController: UITableViewDataSource, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        45
+        20
     }
 }
 
@@ -139,7 +140,7 @@ extension LCDatesSelectorViewController: PanModalPresentable {
     }
 
     var longFormHeight: PanModalHeight {
-        return .maxHeight
+        return .intrinsicHeight
     }
 
     var anchorModalToLongForm: Bool {
@@ -148,6 +149,10 @@ extension LCDatesSelectorViewController: PanModalPresentable {
 
     var dragIndicatorBackgroundColor: UIColor {
         .clear
+    }
+
+    var panModalBackgroundColor: UIColor {
+        .neutral100.withAlphaComponent(0.5)
     }
 }
 

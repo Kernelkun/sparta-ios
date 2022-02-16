@@ -28,7 +28,7 @@ class LCDatesSelectorHeaderTableView: UITableViewHeaderFooterView {
     // MARK: - Public methods
 
     func apply(title: String) {
-        titleLabel.text = title.uppercased()
+        titleLabel.text = title.lowercased().capitalized + "s"
     }
 
     // MARK: - Private methods
@@ -46,13 +46,13 @@ class LCDatesSelectorHeaderTableView: UITableViewHeaderFooterView {
 
             contentView.addSubview(titleLabel) {
                 $0.left.equalToSuperview().offset(16)
-                $0.bottom.equalToSuperview().inset(6)
+                $0.bottom.equalToSuperview().inset(4)
             }
         }
 
         _ = UIView().then { view in
 
-            view.backgroundColor = .neutral10
+            view.backgroundColor = .neutral70
 
             contentView.addSubview(view) {
                 $0.left.right.equalToSuperview().inset(16)

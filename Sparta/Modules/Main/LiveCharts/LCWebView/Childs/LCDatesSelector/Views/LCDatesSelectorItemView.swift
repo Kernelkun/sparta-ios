@@ -47,7 +47,7 @@ class LCDatesSelectorItemView: TappableView {
             titleLabel.font = .main(weight: isSelected ? .medium : .regular, size: 14)
             titleLabel.textColor = isSelected ? .neutral10 : .neutral35
             titleLabel.numberOfLines = 1
-            titleLabel.textAlignment = .left
+            titleLabel.textAlignment = .center
             titleLabel.text = dateSelector.name
             titleLabel.adjustsFontSizeToFitWidth = true
             titleLabel.minimumScaleFactor = 0.5
@@ -67,7 +67,7 @@ class LCDatesSelectorItemView: TappableView {
                 $0.width.equalTo(25)
                 $0.bottom.equalToSuperview()
                 $0.height.equalTo(2)
-                $0.left.equalToSuperview().offset(8)
+                $0.centerX.equalTo(titleLabel)
             }
         }
     }
