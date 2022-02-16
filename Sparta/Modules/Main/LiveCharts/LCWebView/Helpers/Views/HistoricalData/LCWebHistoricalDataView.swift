@@ -13,17 +13,17 @@ class LCWebHistoricalDataView: UIView {
 
     init() {
         super.init(frame: .zero)
-
-        setupUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError(#function)
     }
 
-    // MARK: - Private methods
+    // MARK: - Public methods
 
-    private func setupUI() {
+    func setupUI(highlights: [LCWebViewModel.Highlight]) {
+        clear()
+
         backgroundColor = UIColor.neutral80
 
         _ = UIStackView().then { stackView in
@@ -33,8 +33,12 @@ class LCWebHistoricalDataView: UIView {
             stackView.spacing = 16
             stackView.alignment = .fill
 
-            for _ in 0..<4 {
-                stackView.addArrangedSubview(LCWebHistoricalDataLineView())
+            let elements = highlights.chunked(into: 2)
+
+            for element in elements {
+                let view = LCWebHistoricalDataLineView()
+                view.setupUI(firstHighlight: element.first, secondHighlight: element.last)
+                stackView.addArrangedSubview(view)
             }
 
             addSubview(stackView) {
@@ -42,5 +46,9 @@ class LCWebHistoricalDataView: UIView {
                 $0.left.right.equalToSuperview()
             }
         }
+    }
+
+    func clear() {
+        removeAllSubviews()
     }
 }

@@ -12,6 +12,7 @@ import App
 
 protocol LCWebTradeViewDelegate: AnyObject {
     func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection)
+    func lcWebTradeViewControllerDidTapOnHLView(_ viewController: LCWebTradeViewController)
 }
 
 class LCWebTradeViewController: UIViewController {
@@ -29,7 +30,23 @@ class LCWebTradeViewController: UIViewController {
 
     init(edges: UIEdgeInsets) {
         self.edges = edges
-        webView = WKWebView()
+
+        // Disable zoom in web view
+        let source: String = "var meta = document.createElement('meta');" +
+        "meta.name = 'viewport';" +
+        "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
+        "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);"
+        let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+
+        let contentController = WKUserContentController()
+        contentController.addUserScript(script)
+
+        let webViewConfiguration = WKWebViewConfiguration()
+        webViewConfiguration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+        webViewConfiguration.userContentController = contentController
+
+        webView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -47,15 +64,17 @@ class LCWebTradeViewController: UIViewController {
 
     // MARK: - Public methods
 
-    func load(for productCode: String) {
-        let configuration = WKWebViewConfiguration()
-        configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-
+    func load(configurator: Configurator) {
         var urlComponents = URLComponents(string: Environment.liveChartURL)
         urlComponents?.queryItems = [
             URLQueryItem(name: "token", value: App.instance.token),
-            URLQueryItem(name: "product", value: productCode) // "OTREOB"
+            URLQueryItem(name: "product", value: configurator.productCode)
         ]
+
+        if let dateCode = configurator.dateCode {
+            let dateParam = URLQueryItem(name: "date", value: dateCode)
+            urlComponents?.queryItems?.append(dateParam)
+        }
 
         guard let urlString = urlComponents?.url else { return }
 
@@ -78,7 +97,8 @@ class LCWebTradeViewController: UIViewController {
 
             webView.scrollView.contentInsetAdjustmentBehavior = .never
             webView.scrollView.bounces = false
-            webView.scrollView.isScrollEnabled = true
+            webView.scrollView.bouncesZoom = false
+            webView.scrollView.isScrollEnabled = false
             webView.scrollView.minimumZoomScale = 1.0
             webView.scrollView.maximumZoomScale = 1.0
             webView.scrollView.panGestureRecognizer.isEnabled = false
@@ -89,6 +109,19 @@ class LCWebTradeViewController: UIViewController {
 
             addSubview(webView) {
                 $0.edges.equalTo(edges)
+            }
+        }
+
+        _ = TappableView().then { view in
+
+            view.backgroundColor = .clear
+            view.onTap { [unowned self] _ in
+                self.delegate?.lcWebTradeViewControllerDidTapOnHLView(self)
+            }
+
+            addSubview(view) {
+                $0.left.top.right.equalToSuperview()
+                $0.height.equalTo(70)
             }
         }
     }
@@ -117,7 +150,7 @@ class LCWebTradeViewController: UIViewController {
                 break
             }
         }
-
+        
         if isVerticalGesture {
             if velocity.y > 0 {
                 scrollAction(direction: .down)

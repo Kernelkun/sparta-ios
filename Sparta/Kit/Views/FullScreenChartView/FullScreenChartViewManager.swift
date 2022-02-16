@@ -17,7 +17,7 @@ class FullScreenChartViewManager {
 
     // MARK: - Public methods
 
-    func show(productCode: String) {
+    func show(productCode: String, dateCode: String?) {
         guard !isPresented else { return }
 
         isPresented = true
@@ -32,7 +32,7 @@ class FullScreenChartViewManager {
         }
 
         let controller = LCWebTradeViewController(edges: edges)
-        controller.load(for: productCode)
+        controller.load(configurator: .init(productCode: productCode, dateCode: dateCode))
 
         _ = TappableButton().then { button in
 
@@ -45,8 +45,8 @@ class FullScreenChartViewManager {
 
             controller.view.addSubview(button) {
                 $0.size.equalTo(40)
-                $0.bottom.equalToSuperview().inset(edges.bottom + 32)
-                $0.right.equalToSuperview().inset(edges.right + 12)
+                $0.bottom.equalToSuperview().inset(edges.bottom + 24)
+                $0.right.equalToSuperview().inset(edges.right)
             }
         }
 

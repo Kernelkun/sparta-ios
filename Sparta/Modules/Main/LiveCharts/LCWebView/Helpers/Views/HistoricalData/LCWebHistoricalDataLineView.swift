@@ -13,19 +13,17 @@ class LCWebHistoricalDataLineView: UIView {
 
     init() {
         super.init(frame: .zero)
-
-        setupUI()
     }
 
     required init?(coder: NSCoder) {
         fatalError(#function)
     }
 
-    // MARK: - Private methods
+    // MARK: - Public methods
 
-    private func setupUI() {
-        let firstTitleString = "Last Price"
-        let secondTitleString = "Change vs Yesterday Close"
+    func setupUI(firstHighlight: LCWebViewModel.Highlight?, secondHighlight: LCWebViewModel.Highlight?) {
+        let firstTitleString = firstHighlight?.type.rawValue ?? ""
+        let secondTitleString = secondHighlight?.type.rawValue ?? ""
 
         let titleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.neutral35,
                                                               .font: UIFont.main(weight: .medium, size: 12)]
@@ -38,10 +36,10 @@ class LCWebHistoricalDataLineView: UIView {
         }
 
         let firstItemView = LCWebHistoricalDataItemView(configurator: .init(titleText: attributedString(for: firstTitleString, attributes: titleAttributes),
-                                                                            valueText: attributedString(for: "24.12", attributes: valueAttributes)))
+                                                                            valueText: attributedString(for: firstHighlight?.value ?? "", attributes: valueAttributes)))
 
         let secondItemView = LCWebHistoricalDataItemView(configurator: .init(titleText: attributedString(for: secondTitleString, attributes: titleAttributes),
-                                                                             valueText: attributedString(for: "-9.32", attributes: valueAttributes)))
+                                                                             valueText: attributedString(for: secondHighlight?.value ?? "", attributes: valueAttributes)))
 
         firstItemView.do { view in
 

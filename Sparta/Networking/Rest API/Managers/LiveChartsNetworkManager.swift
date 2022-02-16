@@ -26,7 +26,7 @@ class LiveChartsNetworkManager: BaseNetworkManager {
         }
     }
 
-    func fetchHighlights(code: String, tenorCode: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveChartDateSelector>>, SpartaError>>) {
+    func fetchHighlights(code: String, tenorCode: String, completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveChartHighlight>>, SpartaError>>) {
         router.request(.getHighlights(code: code, tenorCode: tenorCode)) { [weak self] data, response, error in
             guard let strongSelf = self else { return }
 

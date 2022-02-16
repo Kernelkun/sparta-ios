@@ -21,6 +21,7 @@ class LCWebViewController: BaseViewController {
     private var scrollView: UIScrollView!
     private var itemsField: UITextFieldSelector<PickerIdValued<String>>!
     private var selectorsField: UITextFieldSelector<PickerIdValued<String>>!
+    private var historicalView: LCWebHistoricalDataView!
     private var mainChartController: LCWebTradeViewController!
 
     private var fullScreenChartManager = FullScreenChartViewManager()
@@ -135,19 +136,6 @@ class LCWebViewController: BaseViewController {
             }
         }
 
-        let hlView = LCWebResultHLView().then { view in
-
-            view.onTap { [unowned self] _ in
-                scrollView.scrollView_scrollToBottom(animated: true)
-            }
-
-            scrollViewContent.addSubview(view) {
-                $0.left.right.equalToSuperview()
-                $0.top.equalTo(selectorsStackView.snp.bottom).offset(8)
-                $0.height.equalTo(55)
-            }
-        }
-
         let tradeViewContent = UIView().then { view in
 
             mainChartController = LCWebTradeViewController(edges: .zero)
@@ -162,24 +150,24 @@ class LCWebViewController: BaseViewController {
                 button.onTap { [unowned self] _ in
                     guard let item = viewModel.configurator?.item else { return }
 
-                    fullScreenChartManager.show(productCode: item.code)
+                    fullScreenChartManager.show(productCode: item.code, dateCode: viewModel.configurator?.dateSelector?.code)
                 }
 
                 view.addSubview(button) {
                     $0.size.equalTo(40)
-                    $0.bottom.equalToSuperview().inset(28)
-                    $0.right.equalToSuperview().inset(8)
+                    $0.bottom.equalToSuperview().inset(16)
+                    $0.right.equalToSuperview()
                 }
             }
 
             scrollViewContent.addSubview(view) {
-                $0.top.equalTo(hlView.snp.bottom).offset(1)
+                $0.top.equalTo(selectorsStackView.snp.bottom).offset(8)
                 $0.left.right.equalToSuperview()
-                $0.height.equalTo(470)
+                $0.height.equalTo(525)
             }
         }
 
-        _ = LCWebHistoricalDataView().then { view in
+        historicalView = LCWebHistoricalDataView().then { view in
 
             scrollViewContent.addSubview(view) {
                 $0.left.right.equalToSuperview()
@@ -210,6 +198,10 @@ extension LCWebViewController: LCWebTradeViewDelegate {
 
         scrollView.contentOffset = CGPoint(x: 0, y: currentOffset)
     }
+
+    func lcWebTradeViewControllerDidTapOnHLView(_ viewController: LCWebTradeViewController) {
+        scrollView.scrollView_scrollToBottom(animated: true)
+    }
 }
 
 extension LCWebViewController: LCItemsSelectorViewCoordinatorDelegate {
@@ -237,12 +229,18 @@ extension LCWebViewController: LCWebViewModelDelegate {
     func didSuccessUpdateConfigurator(_ configurator: LCWebViewModel.Configurator) {
         let item = configurator.item
 
-        mainChartController.load(for: item.code)
+        mainChartController.load(configurator: .init(productCode: item.code, dateCode: configurator.dateSelector?.code))
         itemsField.apply(selectedValue: .init(id: item.code, title: item.title, fullTitle: item.title), placeholder: "Select item")
 
         if let dateSelector = configurator.dateSelector {
             let name = dateSelector.name
             selectorsField.apply(selectedValue: .init(id: name, title: name, fullTitle: name), placeholder: "Select date")
+        }
+
+        if !configurator.highlights.isEmpty {
+            historicalView.setupUI(highlights: configurator.highlights)
+        } else {
+            historicalView.clear()
         }
     }
 }

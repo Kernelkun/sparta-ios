@@ -125,8 +125,62 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
         }
 
         let configurator = self.configurator.required()
-        liveChartsNetworkManager.fetchHighlights(code: configurator.item.code, tenorCode: configurator.dateSelector.required().code) { _ in
+        liveChartsNetworkManager.fetchHighlights(code: configurator.item.code, tenorCode: configurator.dateSelector.required().code) { [weak self] result in
+            guard let strongSelf = self else { return }
 
+            if case let .success(responseModel) = result,
+               let list = responseModel.model?.list {
+
+                var highlights: [Highlight] = []
+
+                func findHighlight(for fieldName: String) -> LiveChartHighlight? {
+                    list.first(where: { $0.field == fieldName })
+                }
+
+                for type in Highlight.HighlightType.allCases {
+                    switch type {
+                    case .open:
+                        if let highlight = findHighlight(for: "day") {
+                            highlights.append(.init(type: .open, value: highlight.open.symbols2Value))
+                        }
+
+                    case .previousClose:
+                        if let highlight = findHighlight(for: "yesterday") {
+                            highlights.append(.init(type: .previousClose, value: highlight.close.symbols2Value))
+                        }
+
+                    case .week52Low:
+                        if let highlight = findHighlight(for: "52-weeks") {
+                            highlights.append(.init(type: .week52Low, value: highlight.low.symbols2Value))
+                        }
+
+                    case .week52High:
+                        if let highlight = findHighlight(for: "52-weeks") {
+                            highlights.append(.init(type: .week52High, value: highlight.high.symbols2Value))
+                        }
+
+                    case .monthLow:
+                        if let highlight = findHighlight(for: "month") {
+                            highlights.append(.init(type: .monthLow, value: highlight.low.symbols2Value))
+                        }
+
+                    case .monthHigh:
+                        if let highlight = findHighlight(for: "month") {
+                            highlights.append(.init(type: .monthHigh, value: highlight.high.symbols2Value))
+                        }
+                    }
+                }
+
+                strongSelf.configurator?.highlights = highlights
+
+                onMainThread {
+                    strongSelf.delegate?.didSuccessUpdateConfigurator(strongSelf.configurator.required())
+                }
+            } else {
+                onMainThread {
+                    strongSelf.delegate?.didSuccessUpdateConfigurator(strongSelf.configurator.required())
+                }
+            }
         }
     }
 

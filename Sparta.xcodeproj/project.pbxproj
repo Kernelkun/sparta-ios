@@ -109,6 +109,7 @@
 		D9783EAC27BBB9520097DCE0 /* LCDatesSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EAB27BBB9520097DCE0 /* LCDatesSelectorViewModel.swift */; };
 		D9783EB027BBB9A60097DCE0 /* LCDatesSelectorViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EAF27BBB9A60097DCE0 /* LCDatesSelectorViewModel+Models.swift */; };
 		D9783EB227BBBA250097DCE0 /* LCDatesSelectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EB127BBBA250097DCE0 /* LCDatesSelectorItemView.swift */; };
+		D9783EB527BD0E9B0097DCE0 /* LCWebTradeViewController+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EB427BD0E9B0097DCE0 /* LCWebTradeViewController+Models.swift */; };
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D97926F92657C1A10004E230 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97926F82657C1A10004E230 /* BaseTableViewController.swift */; };
@@ -380,6 +381,7 @@
 		D9783EAB27BBB9520097DCE0 /* LCDatesSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCDatesSelectorViewModel.swift; sourceTree = "<group>"; };
 		D9783EAF27BBB9A60097DCE0 /* LCDatesSelectorViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCDatesSelectorViewModel+Models.swift"; sourceTree = "<group>"; };
 		D9783EB127BBBA250097DCE0 /* LCDatesSelectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCDatesSelectorItemView.swift; sourceTree = "<group>"; };
+		D9783EB427BD0E9B0097DCE0 /* LCWebTradeViewController+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCWebTradeViewController+Models.swift"; sourceTree = "<group>"; };
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D97926F82657C1A10004E230 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
@@ -1098,6 +1100,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		D9783EB327BD0E8D0097DCE0 /* LCWebTrade */ = {
+			isa = PBXGroup;
+			children = (
+				D9783EB427BD0E9B0097DCE0 /* LCWebTradeViewController+Models.swift */,
+				D906BE5E27B3D9AB002D70BB /* LCWebTradeViewController.swift */,
+			);
+			path = LCWebTrade;
+			sourceTree = "<group>";
+		};
 		D97895E0258377D1009E4A56 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1616,12 +1627,12 @@
 		D9B50E2E257413630018F3D7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D9783EB327BD0E8D0097DCE0 /* LCWebTrade */,
 				D906BE6E27B53179002D70BB /* SearchController */,
 				D9840D0A27846AB80036C374 /* CountryMobilePicker */,
 				D9B50E2F257413800018F3D7 /* PopupTextViewController.swift */,
 				D9ECEC36257A9A09005DFFD7 /* PopupViewController.swift */,
 				D9C71C1126723C20001B1924 /* UISliderViewController.swift */,
-				D906BE5E27B3D9AB002D70BB /* LCWebTradeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2230,6 +2241,7 @@
 				D9B50DFF25717F2E0018F3D7 /* KeychainManager.swift in Sources */,
 				D9BEB65427B9240A00E56E1B /* LCItemsSelectorViewModel.swift in Sources */,
 				D959C10925824EF1006CE2D1 /* AccountSettingsViewModel.swift in Sources */,
+				D9783EB527BD0E9B0097DCE0 /* LCWebTradeViewController+Models.swift in Sources */,
 				D98AF6BA25BA177E00A5BC96 /* ArbsStatusCollectionViewCell.swift in Sources */,
 				D9A839C2265E4D120074E134 /* EditPortfolioItemsViewController.swift in Sources */,
 				D9F6B6AF270DC2AC00334AFF /* ArbsUIConstants.swift in Sources */,
@@ -2440,7 +2452,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2468,7 +2480,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

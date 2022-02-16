@@ -37,6 +37,11 @@ extension LCWebViewModel {
         }
     }
 
+    struct Highlight {
+        let type: HighlightType
+        let value: String
+    }
+
     struct DateSelector {
         let name: String
         let code: String
@@ -56,6 +61,7 @@ extension LCWebViewModel {
         let item: Item
         var dateSelector: DateSelector?
         var dateSelectors: [LiveChartDateSelector] = []
+        var highlights: [Highlight] = []
 
         var selectedDateSelector: LiveChartDateSelector? {
             guard !dateSelectors.isEmpty else { return nil }
@@ -84,12 +90,16 @@ extension LCWebViewModel.Group: Equatable {
     }
 }
 
-/*extension LCWebViewModel.Item: Equatable {
-
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id
+extension LCWebViewModel.Highlight {
+    enum HighlightType: String, CaseIterable {
+        case open = "Open"
+        case previousClose = "Previous Close"
+        case week52Low = "52 Week Low"
+        case week52High = "52 Week High"
+        case monthLow = "Month Low"
+        case monthHigh = "Month High"
     }
-}*/
+}
 
 extension Array where Element == LCWebViewModel.Group {
 
