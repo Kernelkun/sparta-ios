@@ -87,6 +87,7 @@ class ContentGridView: UIView {
             collectionView.register(ArbsGradeCollectionViewCell.self)
             collectionView.register(LiveCurveGradeTableViewCell.self)
             collectionView.register(BlenderGradeCollectionViewCell.self)
+            collectionView.register(BlenderGradeNestedCollectionViewCell.self)
 
             contentView.addSubview(collectionView) {
                 $0.top.equalToSuperview()
@@ -121,6 +122,7 @@ class ContentGridView: UIView {
             // arbs
             collectionView.register(ArbsDeliveryMonthCollectionViewCell.self)
             collectionView.register(ArbsDeliveryPriceCollectionViewCell.self)
+            collectionView.register(ArbsPriceDifferentialsCollectionViewCell.self)
             collectionView.register(ArbsUserTgtCollectionViewCell.self)
             collectionView.register(ArbsUserMarginCollectionViewCell.self)
             collectionView.register(ArbsStatusCollectionViewCell.self)

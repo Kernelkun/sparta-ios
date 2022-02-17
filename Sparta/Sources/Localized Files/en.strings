@@ -86,6 +86,8 @@
 "ArbsPage.Grade.MyMargin.Title" = "My\nMargin";
 "ArbsPage.Grade.DlvPrice.Title" = "Dlv\nPrice";
 "ArbsPage.Status.InputTgt.Title" = "Input TGT";
+"ArbsPage.Status.vsARA.Title" = "vs ARA";
+"ArbsPage.Status.vsHOU.Title" = "vs HOU";
 
 "ArbsPage.Portfolio.Ara.Description" = "Prices displayed in $/mt vs Argus EBOB unless stated otherwise";
 "ArbsPage.Portfolio.Hou.Description" = "Prices displayed in cpg vs RBOB Future unless stated otherwise";

@@ -6,6 +6,7 @@
 //
 
 import UIKit.UIColor
+import UIKit
 
 public extension UIColor {
 
@@ -44,6 +45,8 @@ public extension UIColor {
     static var profileBackground: UIColor { .assetColor(named: #function) }
 
     static var profileActiveBackground: UIColor { .assetColor(named: #function) }
+
+    static var blenderNestedBackground: UIColor { .assetColor(named: #function) }
 
     // MARK: - Playground
 
