@@ -46,6 +46,18 @@ class LCWebViewController: BaseViewController {
         viewModel.loadData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        viewModel.startLive()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        viewModel.stopLive()
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
@@ -163,7 +175,7 @@ class LCWebViewController: BaseViewController {
             scrollViewContent.addSubview(view) {
                 $0.top.equalTo(selectorsStackView.snp.bottom).offset(8)
                 $0.left.right.equalToSuperview()
-                $0.height.equalTo(525)
+                $0.height.equalTo(460)
             }
         }
 
@@ -242,5 +254,9 @@ extension LCWebViewController: LCWebViewModelDelegate {
         } else {
             historicalView.clear()
         }
+    }
+
+    func didSuccessUpdateHighlights(_ highlights: [LCWebViewModel.Highlight]) {
+        historicalView.setupUI(highlights: highlights)
     }
 }

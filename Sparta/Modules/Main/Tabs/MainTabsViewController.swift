@@ -77,7 +77,6 @@ class MainTabsViewController: BaseViewController {
 
             addSubview(view) {
                 $0.left.bottom.right.equalToSuperview()
-//                $0.top.equalTo(view.snp.bottomMargin)
                 $0.height.equalTo(viewHeight())
             }
         }

@@ -39,7 +39,7 @@ extension LCWebViewModel {
 
     struct Highlight {
         let type: HighlightType
-        let value: String
+        var value: String
     }
 
     struct DateSelector {
@@ -87,6 +87,13 @@ extension LCWebViewModel.Group: Equatable {
 
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
+    }
+}
+
+extension LCWebViewModel.Highlight: Equatable {
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.type == rhs.type
     }
 }
 

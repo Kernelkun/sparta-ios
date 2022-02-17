@@ -12,6 +12,7 @@ protocol LCWebViewModelDelegate: AnyObject {
     func didChangeLoadingState(_ isLoading: Bool)
     func didCatchAnError(_ error: String)
     func didSuccessUpdateConfigurator(_ configurator: LCWebViewModel.Configurator)
+    func didSuccessUpdateHighlights(_ highlights: [LCWebViewModel.Highlight])
 }
 
 protocol LCWebViewModelInterface: AnyObject {
@@ -20,6 +21,8 @@ protocol LCWebViewModelInterface: AnyObject {
     var groups: [LCWebViewModel.Group] { get }
 
     func loadData()
+    func startLive()
+    func stopLive()
     func apply(configurator: LCWebViewModel.Configurator)
     func setDate(_ dateSelector: LCWebViewModel.DateSelector)
 }

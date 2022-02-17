@@ -37,7 +37,13 @@ class LCWebHistoricalDataView: UIView {
 
             for element in elements {
                 let view = LCWebHistoricalDataLineView()
-                view.setupUI(firstHighlight: element.first, secondHighlight: element.last)
+
+                if element.first == element.last {
+                    view.setupUI(firstHighlight: element.first, secondHighlight: nil)
+                } else {
+                    view.setupUI(firstHighlight: element.first, secondHighlight: element.last)
+                }
+
                 stackView.addArrangedSubview(view)
             }
 

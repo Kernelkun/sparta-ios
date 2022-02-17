@@ -111,6 +111,8 @@
 		D9783EB227BBBA250097DCE0 /* LCDatesSelectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EB127BBBA250097DCE0 /* LCDatesSelectorItemView.swift */; };
 		D9783EB527BD0E9B0097DCE0 /* LCWebTradeViewController+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EB427BD0E9B0097DCE0 /* LCWebTradeViewController+Models.swift */; };
 		D9783EB727BD284E0097DCE0 /* LCWeb+Restrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EB627BD284E0097DCE0 /* LCWeb+Restrictions.swift */; };
+		D9783EBE27BE85F40097DCE0 /* LiveChartsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EBD27BE85F30097DCE0 /* LiveChartsSyncManager.swift */; };
+		D9783EC027BE86090097DCE0 /* LiveChartsSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EBF27BE86090097DCE0 /* LiveChartsSyncManager+Observation.swift */; };
 		D97895E22583785B009E4A56 /* CountryCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E12583785B009E4A56 /* CountryCodeModel.swift */; };
 		D97895E42583B800009E4A56 /* PickerIdValued.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97895E32583B800009E4A56 /* PickerIdValued.swift */; };
 		D97926F92657C1A10004E230 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97926F82657C1A10004E230 /* BaseTableViewController.swift */; };
@@ -384,6 +386,8 @@
 		D9783EB127BBBA250097DCE0 /* LCDatesSelectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCDatesSelectorItemView.swift; sourceTree = "<group>"; };
 		D9783EB427BD0E9B0097DCE0 /* LCWebTradeViewController+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCWebTradeViewController+Models.swift"; sourceTree = "<group>"; };
 		D9783EB627BD284E0097DCE0 /* LCWeb+Restrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCWeb+Restrictions.swift"; sourceTree = "<group>"; };
+		D9783EBD27BE85F30097DCE0 /* LiveChartsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveChartsSyncManager.swift; sourceTree = "<group>"; };
+		D9783EBF27BE86090097DCE0 /* LiveChartsSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveChartsSyncManager+Observation.swift"; sourceTree = "<group>"; };
 		D97895E12583785B009E4A56 /* CountryCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeModel.swift; sourceTree = "<group>"; };
 		D97895E32583B800009E4A56 /* PickerIdValued.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerIdValued.swift; sourceTree = "<group>"; };
 		D97926F82657C1A10004E230 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
@@ -896,6 +900,7 @@
 				D93BC63E258CF8530026BF8E /* Blender */,
 				D91A96B9258BB56C008487A8 /* LiveCurves */,
 				D99A73E8259C7B24009E3559 /* ARBs */,
+				D9783EBB27BE85C80097DCE0 /* LiveCharts */,
 			);
 			path = "Socket API";
 			sourceTree = "<group>";
@@ -1110,6 +1115,15 @@
 				D906BE5E27B3D9AB002D70BB /* LCWebTradeViewController.swift */,
 			);
 			path = LCWebTrade;
+			sourceTree = "<group>";
+		};
+		D9783EBB27BE85C80097DCE0 /* LiveCharts */ = {
+			isa = PBXGroup;
+			children = (
+				D9783EBD27BE85F30097DCE0 /* LiveChartsSyncManager.swift */,
+				D9783EBF27BE86090097DCE0 /* LiveChartsSyncManager+Observation.swift */,
+			);
+			path = LiveCharts;
 			sourceTree = "<group>";
 		};
 		D97895E0258377D1009E4A56 /* Models */ = {
@@ -2096,6 +2110,7 @@
 				D9A2796B259352BA009D066E /* EndPointType+Token.swift in Sources */,
 				D9A91C0325A3850400423704 /* ArbsSyncManager+Observation.swift in Sources */,
 				D9E810CE273D20A6003C42C0 /* GetArbsPortfoliosRequest.swift in Sources */,
+				D9783EBE27BE85F40097DCE0 /* LiveChartsSyncManager.swift in Sources */,
 				D98AF6FE25BB36A000A5BC96 /* ArbTappableCell.swift in Sources */,
 				D906BE6527B41EDA002D70BB /* LCWebResultItemView.swift in Sources */,
 				D9840D0927844E300036C374 /* SettingsMobileField.swift in Sources */,
@@ -2308,6 +2323,7 @@
 				D9C71C1026722334001B1924 /* ArbDetailPageViewController.swift in Sources */,
 				D9A91CB525A9A81500423704 /* FreightResultViewModel.swift in Sources */,
 				D90DE03226BDC4F200D1A8D9 /* ArbPlaygroundResultInputPointView.swift in Sources */,
+				D9783EC027BE86090097DCE0 /* LiveChartsSyncManager+Observation.swift in Sources */,
 				D9B50E192571818E0018F3D7 /* BaseVMViewController.swift in Sources */,
 				D9B50E13257180B70018F3D7 /* MainFlowCoordinator.swift in Sources */,
 				D9A91CC225AC6EB800423704 /* DelayObject.swift in Sources */,
@@ -2456,7 +2472,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2484,7 +2500,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
