@@ -188,3 +188,4 @@
 // live charts
 
 "LiveCharts.ItemsField.Title" = "Select Item";
+"LiveCharts.RefreshControl.Title" = "Updating Live Charts";

@@ -99,6 +99,7 @@
 		D9700478258928DA000E4A01 /* AccountSettingsViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9700477258928DA000E4A01 /* AccountSettingsViewModel+Models.swift */; };
 		D970047A25892AEB000E4A01 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D970047925892AEB000E4A01 /* LoadingView.swift */; };
 		D9716CEC2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9716CEB2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift */; };
+		D971C30F27BFBF9B00C44122 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D971C30E27BFBF9B00C44122 /* Globals.swift */; };
 		D977B3A425C330E9009A9483 /* ArbDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977B3A325C330E9009A9483 /* ArbDetailContentView.swift */; };
 		D977B3A825C347F5009A9483 /* ArbDetailViewModel+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */; };
 		D9783EA227BAB24C0097DCE0 /* LCDatesSelectorHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9783EA127BAB24C0097DCE0 /* LCDatesSelectorHeaderTableView.swift */; };
@@ -228,7 +229,6 @@
 		D9BB5379256EF74A00AD2D1A /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB5378256EF74A00AD2D1A /* NVActivityIndicatorViewExtended */; };
 		D9BB538D256EF83D00AD2D1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB538C256EF83D00AD2D1A /* Assets.xcassets */; };
 		D9BB5390256EF85600AD2D1A /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BB538F256EF85600AD2D1A /* Colors.xcassets */; };
-		D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB53A0256EF9E400AD2D1A /* Globals.swift */; };
 		D9BB53B2256EFC6500AD2D1A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = D9BB53B1256EFC6500AD2D1A /* KeychainAccess */; };
 		D9BB53C4256EFDEA00AD2D1A /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */; };
 		D9BEB61727B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BEB61627B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift */; };
@@ -374,6 +374,7 @@
 		D9700477258928DA000E4A01 /* AccountSettingsViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSettingsViewModel+Models.swift"; sourceTree = "<group>"; };
 		D970047925892AEB000E4A01 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		D9716CEB2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemHeaderTableView.swift; sourceTree = "<group>"; };
+		D971C30E27BFBF9B00C44122 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		D977B3A325C330E9009A9483 /* ArbDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailContentView.swift; sourceTree = "<group>"; };
 		D977B3A725C347F5009A9483 /* ArbDetailViewModel+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbDetailViewModel+Models.swift"; sourceTree = "<group>"; };
 		D9783EA127BAB24C0097DCE0 /* LCDatesSelectorHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCDatesSelectorHeaderTableView.swift; sourceTree = "<group>"; };
@@ -505,7 +506,6 @@
 		D9BB538C256EF83D00AD2D1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9BB538F256EF85600AD2D1A /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D9BB539B256EF93100AD2D1A /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
-		D9BB53A0256EF9E400AD2D1A /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = ../../../CryptyTalk/Globals.swift; sourceTree = "<group>"; };
 		D9BEB61627B6EF8800E56E1B /* LCWebHistoricalDataItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebHistoricalDataItemView.swift; sourceTree = "<group>"; };
 		D9BEB61B27B7FA2800E56E1B /* FullScreenChartViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenChartViewManager.swift; sourceTree = "<group>"; };
 		D9BEB61D27B805AA00E56E1B /* InterfaceOrientationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceOrientationUtility.swift; sourceTree = "<group>"; };
@@ -1728,7 +1728,7 @@
 		D9BB5368256ECEC600AD2D1A /* Kit */ = {
 			isa = PBXGroup;
 			children = (
-				D9BB53A0256EF9E400AD2D1A /* Globals.swift */,
+				D971C30E27BFBF9B00C44122 /* Globals.swift */,
 				D9A80434257145E8000ADE6B /* Typealiases.swift */,
 				D9A1180F2579377200BB928E /* App */,
 				D9B50E2E257413630018F3D7 /* Controllers */,
@@ -2231,6 +2231,7 @@
 				D913955C270C500000867D5A /* Arb+UI.swift in Sources */,
 				D96C8BE5257650B40038175A /* ChangePasswordViewController.swift in Sources */,
 				D90160042698948D00F144F5 /* BlenderNetworkManager.swift in Sources */,
+				D971C30F27BFBF9B00C44122 /* Globals.swift in Sources */,
 				D9716CEC2657D03C0041FCEB /* LCPortfolioAddItemHeaderTableView.swift in Sources */,
 				D9B7CCDF25C305A20023FDF2 /* ResultAutoStatusView.swift in Sources */,
 				D96C8BF5257665220038175A /* AuthEndPoint.swift in Sources */,
@@ -2282,7 +2283,6 @@
 				D9ECEC34257A9391005DFFD7 /* BlenderMonthDetailModel.swift in Sources */,
 				D9A91BFA25A360D100423704 /* ArbsDeliveryPriceCollectionViewCell.swift in Sources */,
 				D9C71C1226723C20001B1924 /* UISliderViewController.swift in Sources */,
-				D9BB53A1256EF9E400AD2D1A /* Globals.swift in Sources */,
 				D959C1002582307A006CE2D1 /* SettingsTitledTableViewCell.swift in Sources */,
 				D959C0F925822F9C006CE2D1 /* SettingsViewModel.swift in Sources */,
 				D9ECEC51257D69B3005DFFD7 /* TappableUISwitch.swift in Sources */,
@@ -2472,7 +2472,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -2500,7 +2500,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

@@ -70,6 +70,20 @@ class LCWebViewController: BaseViewController {
             scrollView.showsVerticalScrollIndicator = false
             scrollView.backgroundColor = .neutral75
 
+            let refreshTitleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.primaryText,
+                                          NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 12)]
+
+            let refreshControl = UIRefreshControl(frame: .zero)
+            refreshControl.tintColor = UIColor.primaryText
+            refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            refreshControl.attributedTitle = NSAttributedString(
+                string: "LiveCharts.RefreshControl.Title".localized,
+                attributes: refreshTitleAttributes
+            )
+            refreshControl.addTarget(self, action: #selector(onPullToRefreshEvent(_:)), for: .valueChanged)
+
+            scrollView.refreshControl = refreshControl
+
             addSubview(scrollView) {
                 $0.top.equalToSuperview().offset(topBarHeight)
                 $0.left.bottom.right.equalToSuperview()
@@ -194,6 +208,25 @@ class LCWebViewController: BaseViewController {
 
         let title = "MainTabsPage.LiveCharts.Title".localized
         navigationItem.leftBarButtonItem = UIBarButtonItemFactory.logoButton(title: title)
+    }
+
+    // MARK: - Events
+
+    @objc
+    private func onPullToRefreshEvent(_ refreshControl: UIRefreshControl) {
+        guard let configurator = viewModel.configurator else {
+            refreshControl.endRefreshing()
+            return
+        }
+
+        mainChartController.load(configurator: .init(
+            productCode: configurator.item.code,
+            dateCode: configurator.dateSelector?.code)
+        )
+
+        onMainThread(delay: 1) {
+            refreshControl.endRefreshing()
+        }
     }
 }
 

@@ -78,6 +78,8 @@ class LCWebTradeViewController: UIViewController {
 
         guard let urlString = urlComponents?.url else { return }
 
+        print("CHART LOG: *** Trying to load : \(urlString.absoluteString)")
+
         let request = URLRequest(url: urlString)
         webView.load(request)
     }

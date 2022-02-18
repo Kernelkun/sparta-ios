@@ -129,7 +129,10 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
         }
 
         let configurator = self.configurator.required()
-        liveChartsNetworkManager.fetchHighlights(code: configurator.item.code, tenorCode: configurator.dateSelector.required().code) { [weak self] result in
+        liveChartsNetworkManager.fetchHighlights(
+            code: configurator.item.code,
+            tenorCode: configurator.dateSelector.required().code
+        ) { [weak self] result in
             guard let strongSelf = self else { return }
 
             if case let .success(responseModel) = result,
