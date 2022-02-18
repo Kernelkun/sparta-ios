@@ -162,7 +162,9 @@ extension LCItemsSelectorViewController {
         let cell: LCItemsSelectorTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         let item = viewModel.groups[indexPath.section].items[indexPath.row]
-        cell.apply(item: item) { [unowned self] item in
+        cell.apply(item: item, for: indexPath)
+        cell.onChoose { [unowned self] indexPath in
+            let item = viewModel.groups[indexPath.section].items[indexPath.row]
             viewModel.chooseItem(item)
         }
 

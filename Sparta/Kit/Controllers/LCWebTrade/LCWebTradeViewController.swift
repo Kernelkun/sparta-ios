@@ -31,22 +31,7 @@ class LCWebTradeViewController: UIViewController {
     init(edges: UIEdgeInsets) {
         self.edges = edges
 
-        // Disable zoom in web view
-        let source: String = "var meta = document.createElement('meta');" +
-        "meta.name = 'viewport';" +
-        "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
-        "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);"
-        let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-
-        let contentController = WKUserContentController()
-        contentController.addUserScript(script)
-
-        let webViewConfiguration = WKWebViewConfiguration()
-        webViewConfiguration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-        webViewConfiguration.userContentController = contentController
-
-        webView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
-
+        webView = WKWebViewWarmUper.liveChartsWarmUper.dequeue()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -78,10 +63,10 @@ class LCWebTradeViewController: UIViewController {
 
         guard let urlString = urlComponents?.url else { return }
 
-        print("CHART LOG: *** Trying to load : \(urlString.absoluteString)")
+        var request = URLRequest(url: urlString)
+        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
-        let request = URLRequest(url: urlString)
-        webView.load(request)
+        self.webView.load(request)
     }
 
     // MARK: - Private methods
@@ -93,6 +78,8 @@ class LCWebTradeViewController: UIViewController {
         webView.do { webView in
 
             webView.backgroundColor = .neutral80
+            webView.scrollView.backgroundColor = .neutral80
+            webView.isOpaque = false
 
             webView.navigationDelegate = self
             webView.uiDelegate = self
@@ -175,6 +162,22 @@ extension LCWebTradeViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
     }
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        print("WebView *: didFailProvisionalNavigation: \(error.localizedDescription)")
+
+        if (error as NSError).code == -999 {
+            webView.reload()
+        }
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        print("WebView *: didFail: \(error.localizedDescription)")
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("WebView *: didFinish")
+    }
 }
 
 extension LCWebTradeViewController: WKUIDelegate {
@@ -184,7 +187,7 @@ extension LCWebTradeViewController: WKUIDelegate {
            frame.isMainFrame {
             return nil
         }
-        webView.load(navigationAction.request)
+        self.webView.load(navigationAction.request)
         return nil
     }
 }

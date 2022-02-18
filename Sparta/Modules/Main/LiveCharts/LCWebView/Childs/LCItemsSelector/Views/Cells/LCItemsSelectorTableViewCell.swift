@@ -17,7 +17,8 @@ class LCItemsSelectorTableViewCell: UITableViewCell {
     // MARK: - Private properties
 
     private var item: LCWebViewModel.Item?
-    private var _tapClosure: TypeClosure<LCWebViewModel.Item>?
+    private var indexPath: IndexPath?
+    private var _onChooseClosure: TypeClosure<IndexPath>?
 
     // MARK: - Initializers
 
@@ -33,11 +34,15 @@ class LCItemsSelectorTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
-    func apply(item: LCWebViewModel.Item, onTap: @escaping TypeClosure<LCWebViewModel.Item>) {
+    func apply(item: LCWebViewModel.Item, for indexPath: IndexPath) {
         self.item = item
+        self.indexPath = indexPath
 
         titleLabel.text = item.title
-        _tapClosure = onTap
+    }
+
+    func onChoose(completion: @escaping TypeClosure<IndexPath>) {
+        _onChooseClosure = completion
     }
 
     // MARK: - Private methods
@@ -71,8 +76,8 @@ class LCItemsSelectorTableViewCell: UITableViewCell {
 
     @objc
     private func onTapEvent() {
-        guard let item = item else { return }
+        guard let indexPath = self.indexPath else { return }
 
-        _tapClosure?(item)
+        _onChooseClosure?(indexPath)
     }
 }

@@ -77,6 +77,7 @@ public extension Environment {
             case day1 = "1d"
             case week1 = "1w"
             case month1 = "1M"
+            case week52 = "52w"
         }
     }
 }

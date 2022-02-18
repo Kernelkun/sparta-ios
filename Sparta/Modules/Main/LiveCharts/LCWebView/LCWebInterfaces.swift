@@ -12,6 +12,7 @@ protocol LCWebViewModelDelegate: AnyObject {
     func didChangeLoadingState(_ isLoading: Bool)
     func didCatchAnError(_ error: String)
     func didSuccessUpdateConfigurator(_ configurator: LCWebViewModel.Configurator)
+    func didSuccessUpdateDateSelector(_ dateSelector: LCWebViewModel.DateSelector)
     func didSuccessUpdateHighlights(_ highlights: [LCWebViewModel.Highlight])
 }
 

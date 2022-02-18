@@ -7,6 +7,7 @@
 
 import UIKit
 import SpartaHelpers
+import WebKit
 
 class AppCoordinator {
 
@@ -80,6 +81,10 @@ class AppCoordinator {
             authenticationFlowCoordinator.proceedToLogin()
             return
         }
+
+        // Warming up wkwebview's
+
+        WKWebViewWarmUper.liveChartsWarmUper.prepare()
 
         guard app.isInitialDataSynced else {
             blurCoordinator.start(forced: true, status: "BlurPage.Loading.Title".localized)

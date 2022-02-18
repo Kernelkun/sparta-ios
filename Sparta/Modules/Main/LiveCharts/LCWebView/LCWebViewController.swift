@@ -23,6 +23,7 @@ class LCWebViewController: BaseViewController {
     private var selectorsField: UITextFieldSelector<PickerIdValued<String>>!
     private var historicalView: LCWebHistoricalDataView!
     private var mainChartController: LCWebTradeViewController!
+    private var loaderView: LoaderView?
 
     private var fullScreenChartManager = FullScreenChartViewManager()
 
@@ -201,6 +202,16 @@ class LCWebViewController: BaseViewController {
                 $0.bottom.equalToSuperview()
             }
         }
+
+        loaderView = LoaderView().then { view in
+
+            view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+
+            scrollViewContent.addSubview(view) {
+                $0.top.equalTo(selectorsStackView.snp.bottom).offset(8)
+                $0.left.right.bottom.equalToSuperview()
+            }
+        }
     }
 
     private func setupNavigationUI() {
@@ -266,6 +277,13 @@ extension LCWebViewController: LCDatesSelectorViewCoordinatorDelegate {
 extension LCWebViewController: LCWebViewModelDelegate {
 
     func didChangeLoadingState(_ isLoading: Bool) {
+        if isLoading {
+            loaderView?.isHidden = false
+            loaderView?.startAnimating()
+        } else {
+            loaderView?.isHidden = true
+            loaderView?.stopAnimating()
+        }
     }
 
     func didCatchAnError(_ error: String) {
@@ -274,7 +292,7 @@ extension LCWebViewController: LCWebViewModelDelegate {
     func didSuccessUpdateConfigurator(_ configurator: LCWebViewModel.Configurator) {
         let item = configurator.item
 
-        mainChartController.load(configurator: .init(productCode: item.code, dateCode: configurator.dateSelector?.code))
+//        mainChartController.load(configurator: .init(productCode: item.code, dateCode: configurator.dateSelector?.code))
         itemsField.apply(selectedValue: .init(id: item.code, title: item.title, fullTitle: item.title), placeholder: "Select item")
 
         if let dateSelector = configurator.dateSelector {
@@ -287,6 +305,15 @@ extension LCWebViewController: LCWebViewModelDelegate {
         } else {
             historicalView.clear()
         }
+    }
+
+    func didSuccessUpdateDateSelector(_ dateSelector: LCWebViewModel.DateSelector) {
+        guard let configurator = viewModel.configurator else { return }
+
+        mainChartController.load(configurator: .init(
+            productCode: configurator.item.code,
+            dateCode: configurator.dateSelector?.code
+        ))
     }
 
     func didSuccessUpdateHighlights(_ highlights: [LCWebViewModel.Highlight]) {

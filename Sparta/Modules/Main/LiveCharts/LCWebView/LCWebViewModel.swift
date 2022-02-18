@@ -89,15 +89,19 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                 onMainThread {
                     strongSelf.apply(configurator: Configurator(item: Item(item: firstItem)))
                 }
+            } else {
+                strongSelf.isLoading = false
             }
         }
     }
 
     func apply(configurator: LCWebViewModel.Configurator) {
+        isLoading = true
         self.configurator = configurator
 
+        print("CONFIGURATOR ***: \(configurator)")
+
         let item = configurator.item
-        delegate?.didSuccessUpdateConfigurator(configurator)
 
         liveChartsNetworkManager.fetchDateSelectors(code: item.code) { [weak self] result in
             guard let strongSelf = self else { return }
@@ -115,6 +119,11 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                 } else {
                     strongSelf.setDate(LCWebViewModel.DateSelector(dateSelector: firstItem))
                 }
+            } else {
+                onMainThread {
+                    strongSelf.isLoading = false
+                    strongSelf.delegate?.didSuccessUpdateConfigurator(strongSelf.configurator.required())
+                }
             }
         }
     }
@@ -125,7 +134,7 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
         self.configurator?.dateSelector = dateSelector
 
         onMainThread {
-            self.delegate?.didSuccessUpdateConfigurator(self.configurator.required())
+            self.delegate?.didSuccessUpdateDateSelector(dateSelector)
         }
 
         let configurator = self.configurator.required()
@@ -182,10 +191,12 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                 strongSelf.startLive()
 
                 onMainThread {
+                    strongSelf.isLoading = false
                     strongSelf.delegate?.didSuccessUpdateConfigurator(strongSelf.configurator.required())
                 }
             } else {
                 onMainThread {
+                    strongSelf.isLoading = false
                     strongSelf.delegate?.didSuccessUpdateConfigurator(strongSelf.configurator.required())
                 }
             }
@@ -255,13 +266,7 @@ extension LCWebViewModel: LiveChartsSyncManagerDelegate {
             break
 
         case .week1:
-            if let index = index(of: .week52Low), highlights[index].value.toDouble.required() > highlight.low {
-                highlights[index].value = highlight.low.symbols2Value
-            }
-
-            if let index = index(of: .week52High), highlights[index].value.toDouble.required() < highlight.high {
-                highlights[index].value = highlight.high.symbols2Value
-            }
+            break
 
         case .month1:
             if let index = index(of: .monthHigh) {
@@ -270,6 +275,15 @@ extension LCWebViewModel: LiveChartsSyncManagerDelegate {
 
             if let index = index(of: .monthLow) {
                 highlights[index].value = highlight.low.symbols2Value
+            }
+
+        case .week52:
+            if let index = index(of: .week52Low) {
+                highlights[index].value = highlight.low.symbols2Value
+            }
+
+            if let index = index(of: .week52High) {
+                highlights[index].value = highlight.high.symbols2Value
             }
         }
 
