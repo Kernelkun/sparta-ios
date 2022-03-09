@@ -177,7 +177,11 @@ class LCWebViewController: BaseViewController {
                 button.onTap { [unowned self] _ in
                     guard let item = viewModel.configurator?.item else { return }
 
-                    fullScreenChartManager.show(productCode: item.code, dateCode: viewModel.configurator?.dateSelector?.code)
+                    fullScreenChartManager.show(
+                        productCode: item.code,
+                        dateCode: viewModel.configurator?.dateSelector?.code,
+                        orientation: .landscapeRight
+                    )
                 }
 
                 view.addSubview(button) {
@@ -239,6 +243,19 @@ class LCWebViewController: BaseViewController {
             refreshControl.endRefreshing()
         }
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard let orientation = UIApplication.interfaceOrientation,
+              orientation.isLandscape,
+              let configurator = viewModel.configurator,
+              !fullScreenChartManager.isPresented else { return }
+
+        fullScreenChartManager.show(
+            productCode: configurator.item.code,
+            dateCode: configurator.dateSelector?.code,
+            orientation: orientation
+        )
+    }
 }
 
 extension LCWebViewController: LCWebTradeViewDelegate {
@@ -257,6 +274,9 @@ extension LCWebViewController: LCWebTradeViewDelegate {
 
     func lcWebTradeViewControllerDidTapOnHLView(_ viewController: LCWebTradeViewController) {
         scrollView.scrollView_scrollToBottom(animated: true)
+    }
+
+    func lcWebTradeViewControllerDidChangeOrientation(_ viewController: LCWebTradeViewController, interfaceOrientation: UIInterfaceOrientation) {
     }
 }
 
@@ -292,7 +312,6 @@ extension LCWebViewController: LCWebViewModelDelegate {
     func didSuccessUpdateConfigurator(_ configurator: LCWebViewModel.Configurator) {
         let item = configurator.item
 
-//        mainChartController.load(configurator: .init(productCode: item.code, dateCode: configurator.dateSelector?.code))
         itemsField.apply(selectedValue: .init(id: item.code, title: item.title, fullTitle: item.title), placeholder: "Select item")
 
         if let dateSelector = configurator.dateSelector {

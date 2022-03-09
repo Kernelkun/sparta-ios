@@ -25,6 +25,10 @@ extension UIApplication {
         return .zero
     }
 
+    public static var interfaceOrientation: UIInterfaceOrientation? {
+        UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+    }
+
     static var areRemoteNotificationsEnabled: Bool {
 
         guard shared.isRegisteredForRemoteNotifications else { return false }

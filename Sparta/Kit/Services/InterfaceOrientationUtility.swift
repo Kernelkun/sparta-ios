@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct InterfaceOrientationUtility {
+enum InterfaceOrientationUtility {
 
     static var interfaceOrientation: UIInterfaceOrientation? {
         return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
@@ -24,4 +24,3 @@ struct InterfaceOrientationUtility {
         UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
     }
 }
-

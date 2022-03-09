@@ -13,6 +13,7 @@ import App
 protocol LCWebTradeViewDelegate: AnyObject {
     func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection)
     func lcWebTradeViewControllerDidTapOnHLView(_ viewController: LCWebTradeViewController)
+    func lcWebTradeViewControllerDidChangeOrientation(_ viewController: LCWebTradeViewController, interfaceOrientation: UIInterfaceOrientation)
 }
 
 class LCWebTradeViewController: UIViewController {
@@ -147,6 +148,12 @@ class LCWebTradeViewController: UIViewController {
                 scrollAction(direction: .up)
             }
         }
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard let orientation = UIApplication.interfaceOrientation else { return }
+
+        delegate?.lcWebTradeViewControllerDidChangeOrientation(self, interfaceOrientation: orientation)
     }
 }
 

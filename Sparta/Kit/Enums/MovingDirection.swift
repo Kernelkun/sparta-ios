@@ -8,7 +8,7 @@
 import Foundation
 
 enum MovingDirection {
-    case up
+    case up //swiftlint:disable:this identifier_name
     case down
     case left
     case right

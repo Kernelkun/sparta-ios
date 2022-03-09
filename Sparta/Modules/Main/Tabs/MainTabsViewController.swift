@@ -209,7 +209,9 @@ class MainTabsViewController: BaseViewController {
 extension MainTabsViewController: TabMenuViewDelegate {
 
     func tabMenuViewDidSelectTab(_ view: TabMenuView, oldTabItem: TabMenuItem, newTabItem: TabMenuItem) {
-        if let navigationVC = newTabItem.controller as? KeyedNavigationController<Tab>, navigationVC.key == .other {
+        guard let navigationVC = newTabItem.controller as? KeyedNavigationController<Tab> else { return }
+
+        if navigationVC.key == .other {
             floatyMenuManager.show(frame: contentView.frame, tabs: generateOtherMenuItems())
 
             floatyMenuManager.onChoose { [unowned self] menuItem in
@@ -220,11 +222,19 @@ extension MainTabsViewController: TabMenuViewDelegate {
             floatyMenuManager.onHide { [unowned self] in
                 tabMenuView.forceChangeItem(oldTabItem)
             }
-        } else {
-            floatyMenuManager.hide()
-            contentView.removeAllSubviews()
-            add(newTabItem.controller, to: contentView)
+
+            return
         }
+
+        if navigationVC.key == .liveCharts {
+            InterfaceOrientationUtility.lockOrientation(.all, rotateTo: .portrait)
+        } else {
+            InterfaceOrientationUtility.lockOrientation(.portrait, rotateTo: .portrait)
+        }
+
+        floatyMenuManager.hide()
+        contentView.removeAllSubviews()
+        add(newTabItem.controller, to: contentView)
     }
 
     func tabMenuViewDidDoubleTapOnTab(_ view: TabMenuView, tabItem: TabMenuItem) {

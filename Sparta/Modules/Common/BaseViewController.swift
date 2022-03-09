@@ -23,6 +23,12 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
+
+//    override var shouldAutorotate: Bool { false }
+//
+//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        .all
+//    }
     
     // MARK: - Private accessors
     
