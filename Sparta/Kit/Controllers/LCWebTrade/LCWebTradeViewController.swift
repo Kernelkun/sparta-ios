@@ -54,7 +54,8 @@ class LCWebTradeViewController: UIViewController {
         var urlComponents = URLComponents(string: Environment.liveChartURL)
         urlComponents?.queryItems = [
             URLQueryItem(name: "token", value: App.instance.token),
-            URLQueryItem(name: "product", value: configurator.productCode)
+            URLQueryItem(name: "product", value: configurator.productCode),
+            URLQueryItem(name: "portrait", value: "\(configurator.isPortraitMode)")
         ]
 
         if let dateCode = configurator.dateCode {

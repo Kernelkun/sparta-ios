@@ -25,7 +25,7 @@ class LCWebViewController: BaseViewController {
     private var mainChartController: LCWebTradeViewController!
     private var loaderView: LoaderView?
 
-    private var fullScreenChartManager = FullScreenChartViewManager()
+    private var fullScreenChartManager = FullScreenChartViewManager() 
 
     // MARK: - Initializers
 
@@ -185,9 +185,9 @@ class LCWebViewController: BaseViewController {
                 }
 
                 view.addSubview(button) {
-                    $0.size.equalTo(40)
-                    $0.bottom.equalToSuperview().inset(16)
-                    $0.right.equalToSuperview()
+                    $0.size.equalTo(32)
+                    $0.bottom.equalToSuperview().inset(44)
+                    $0.right.equalToSuperview().inset(6)
                 }
             }
 
@@ -236,7 +236,9 @@ class LCWebViewController: BaseViewController {
 
         mainChartController.load(configurator: .init(
             productCode: configurator.item.code,
-            dateCode: configurator.dateSelector?.code)
+            dateCode: configurator.dateSelector?.code,
+            isPortraitMode: true
+        )
         )
 
         onMainThread(delay: 1) {
@@ -331,7 +333,8 @@ extension LCWebViewController: LCWebViewModelDelegate {
 
         mainChartController.load(configurator: .init(
             productCode: configurator.item.code,
-            dateCode: configurator.dateSelector?.code
+            dateCode: configurator.dateSelector?.code,
+            isPortraitMode: true
         ))
     }
 

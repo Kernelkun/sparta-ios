@@ -11,5 +11,6 @@ extension LCWebTradeViewController {
     struct Configurator {
         let productCode: String
         let dateCode: String?
+        let isPortraitMode: Bool
     }
 }

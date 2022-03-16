@@ -35,7 +35,7 @@ class FullScreenChartViewManager {
         }
 
         let controller = LCWebTradeViewController(edges: edges)
-        controller.load(configurator: .init(productCode: productCode, dateCode: dateCode))
+        controller.load(configurator: .init(productCode: productCode, dateCode: dateCode, isPortraitMode: false))
         controller.delegate = self
 
         _ = TappableButton().then { button in
@@ -48,9 +48,9 @@ class FullScreenChartViewManager {
             }
 
             controller.view.addSubview(button) {
-                $0.size.equalTo(40)
-                $0.bottom.equalToSuperview().inset(edges.bottom + 24)
-                $0.right.equalToSuperview().inset(edges.right)
+                $0.size.equalTo(32)
+                $0.bottom.equalToSuperview().inset(edges.bottom + 44)
+                $0.right.equalToSuperview().inset(edges.right + 6)
             }
         }
 
