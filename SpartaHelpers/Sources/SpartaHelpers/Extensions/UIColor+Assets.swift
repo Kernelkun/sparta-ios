@@ -6,6 +6,7 @@
 //
 
 import UIKit.UIColor
+import UIKit
 
 public extension UIColor {
 
@@ -61,7 +62,13 @@ public extension UIColor {
 
     // MARK: - New colors
 
-    static var neutral85: UIColor { .assetColor(named: #function) }
+    static var menuBorder: UIColor { .assetColor(named: #function) }
+
+    static var fip: UIColor { .assetColor(named: #function) }
+
+    static var neutral00: UIColor { .assetColor(named: #function) }
+
+    static var neutral10: UIColor { .assetColor(named: #function) }
 
     static var neutral35: UIColor { .assetColor(named: #function) }
 
@@ -69,5 +76,9 @@ public extension UIColor {
 
     static var neutral75: UIColor { .assetColor(named: #function) }
 
-    static var fip: UIColor { .assetColor(named: #function) }
+    static var neutral80: UIColor { .assetColor(named: #function) }
+
+    static var neutral85: UIColor { .assetColor(named: #function) }
+
+    static var neutral100: UIColor { .assetColor(named: #function) }
 }

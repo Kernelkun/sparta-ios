@@ -31,6 +31,11 @@ public struct User: BackendModel {
     public var primaryTradeRegion: Int?
     public var role: Int?
 
+    // HOU months
+
+    public var houBlenderMonths: Int
+    public var houArbMonths: Int
+
     // navigation sections
 
     public let freight: Bool
@@ -65,5 +70,8 @@ public struct User: BackendModel {
         blender = json["blender"].boolValue
         arbs = json["arbs"].boolValue
         liveprices = json["liveprices"].boolValue
+
+        houBlenderMonths = json["houston_blender_months"].intValue
+        houArbMonths = json["houston_arbs_months"].intValue
     }
 }

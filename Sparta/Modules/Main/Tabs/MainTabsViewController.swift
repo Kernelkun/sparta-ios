@@ -6,134 +6,9 @@
 //
 
 import UIKit
+import SpartaHelpers
 
-class MainTabsViewController: UITabBarController {
-
-    // MARK: - Private properties
-
-    private let viewModel = MainTabsViewModel()
-
-    // MARK: - Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        delegate = self
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        let setTabBarItem = { (vc: UIViewController, title: String, imageName: String) in
-
-            vc.title = title//.localized
-            vc.tabBarItem.title = vc.title
-
-            vc.tabBarItem.image = UIImage(named: imageName)
-        }
-
-        var tabs: [KeyedNavigationController<Tab>] = []
-
-        // HOTFIX: ARBs has to be second one
-        if viewModel.isVisibleArbsBlock {
-            let second = ArbsContentViewController()
-            setTabBarItem(second, "MainTabsPage.ARBs.Title".localized, "ic_tab_first")
-
-            let navigation = KeyedNavigationController<Tab>(rootViewController: second)
-            navigation.setKey(.arbs)
-
-            tabs.append(navigation)
-        }
-
-        if viewModel.isVisibleLivePricesBlock {
-            let first = LiveCurvesViewController()
-            setTabBarItem(first, "MainTabsPage.LiveCurves.Title".localized, "ic_tab_second")
-
-            let navigation = KeyedNavigationController<Tab>(rootViewController: first)
-            navigation.setKey(.liveCurves)
-
-            tabs.append(navigation)
-        }
-
-        if viewModel.isVisibleBlenderBlock {
-            let third = BlenderViewController()
-            setTabBarItem(third, "MainTabsPage.Blender.Title".localized, "ic_tab_third")
-
-            let navigation = KeyedNavigationController<Tab>(rootViewController: third)
-            navigation.setKey(.blender)
-
-            tabs.append(navigation)
-        }
-
-        if viewModel.isVisibleFreightBlock {
-            let fourth = FreightViewController()
-            setTabBarItem(fourth, "MainTabsPage.Freight.Title".localized, "ic_tab_fourth")
-
-            let navigation = KeyedNavigationController<Tab>(rootViewController: fourth)
-            navigation.setKey(.freight)
-
-            tabs.append(navigation)
-        }
-
-        let fifth = SettingsViewController()
-        setTabBarItem(fifth, "MainTabsPage.Settings.Title".localized, "ic_tab_fifth")
-
-        let navigation = KeyedNavigationController<Tab>(rootViewController: fifth)
-        navigation.setKey(.settings)
-
-        tabs.append(navigation)
-
-        tabBar.isTranslucent = false
-
-        viewControllers = tabs
-
-        // styles
-
-        setupStyles()
-    }
-
-    private func setupStyles() {
-        // tabbar
-
-        if #available(iOS 15.0, *) {
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .barBackground
-
-            tabBar.standardAppearance = appearance
-            updateTabBarAppearance()
-        } else {
-            UITabBar.appearance().tintColor = .tabBarTintActive
-            UITabBar.appearance().unselectedItemTintColor = .tabBarTintInactive
-            UITabBar.appearance().barTintColor = .barBackground
-        }
-    }
-
-    @available(iOS 15.0, *)
-    private func updateTabBarAppearance() {
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = .barBackground
-
-        updateTabBarItemAppearance(appearance: tabBarAppearance.compactInlineLayoutAppearance)
-        updateTabBarItemAppearance(appearance: tabBarAppearance.inlineLayoutAppearance)
-        updateTabBarItemAppearance(appearance: tabBarAppearance.stackedLayoutAppearance)
-
-        tabBar.standardAppearance = tabBarAppearance
-        tabBar.scrollEdgeAppearance = tabBarAppearance
-    }
-
-    @available(iOS 13.0, *)
-    private func updateTabBarItemAppearance(appearance: UITabBarItemAppearance) {
-        let tintColor: UIColor = .tabBarTintActive
-        let unselectedItemTintColor: UIColor = .tabBarTintInactive
-
-        appearance.selected.iconColor = tintColor
-        appearance.normal.iconColor = unselectedItemTintColor
-    }
-}
-
-extension MainTabsViewController: UITabBarControllerDelegate {
+/*extension MainTabsViewController: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if let oldNavigation = tabBarController.selectedViewController as? KeyedNavigationController<Tab>,
@@ -146,21 +21,247 @@ extension MainTabsViewController: UITabBarControllerDelegate {
 
         return true
     }
+}*/
+
+class MainTabsViewController: BaseViewController {
+
+    // MARK: - Public properties
+
+    var selectedTabIndex: Int = 0 {
+        didSet { updateActiveTab() }
+    }
+
+    // MARK: - Private properties
+
+    private let viewModel = MainTabsViewModel()
+
+    private var contentView: UIView!
+    private var tabMenuView: TabMenuView!
+
+    private let floatyMenuManager: FloatyMenuManager
+
+    // MARK: - Initializers
+
+    init() {
+        self.floatyMenuManager = FloatyMenuManager()
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError(#function)
+    }
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupUI()
+        navigationBar(hide: true)
+    }
+
+    // MARK: - Private methods
+
+    private func setupUI() {
+        view.backgroundColor = .mainBackground
+
+        let bottomView = UIView().then { view in
+
+            view.backgroundColor = .neutral85
+
+            func viewHeight() -> CGFloat {
+                guard UIApplication.isDeviceWithSafeArea else { return 0 }
+
+                return UIApplication.safeAreaInsets.bottom * 0.7
+            }
+
+            addSubview(view) {
+                $0.left.bottom.right.equalToSuperview()
+                $0.height.equalTo(viewHeight())
+            }
+        }
+
+        contentView = UIView().then { view in
+
+            view.backgroundColor = .mainBackground
+        }
+
+        tabMenuView = TabMenuView().then { view in
+
+            view.delegate = self
+            view.apply(items: generateMenuItems(), selectedTabIndex: selectedTabIndex)
+
+            view.snp.makeConstraints {
+                $0.height.equalTo(65)
+            }
+        }
+
+        _ = UIStackView().then { stackView in
+
+            stackView.axis = .vertical
+            stackView.distribution = .fill
+            stackView.alignment = .fill
+
+            stackView.addArrangedSubview(contentView)
+            stackView.addArrangedSubview(tabMenuView)
+
+            addSubview(stackView) {
+                $0.left.right.top.equalToSuperview()
+                $0.bottom.equalTo(bottomView.snp.top)
+            }
+        }
+    }
+
+    private func updateActiveTab() {
+        tabMenuView.selectedTabIndex = selectedTabIndex
+    }
+
+    private func generateMenuItems() -> [TabMenuItem] {
+        var tabs: [TabMenuItem] = []
+
+        if viewModel.isVisibleLivePricesBlock {
+            let first = LiveCurvesViewController()
+            first.coordinatorDelegate = self
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: first)
+            navigation.setKey(.liveCurves)
+
+            tabs.append(.init(title: "MainTabsPage.LiveCurves.Title".localized,
+                              imageName: "ic_tab_second",
+                              controller: navigation))
+        }
+
+        // live charts navigation
+
+        let lcViewController = LCWebWireframe().viewController
+
+        let lcNavigation = KeyedNavigationController<Tab>(rootViewController: lcViewController)
+        lcNavigation.setKey(.liveCharts)
+
+        tabs.append(.init(title: "MainTabsPage.LiveCharts.Title".localized,
+                          imageName: "ic_tab_lc",
+                          controller: lcNavigation))
+        // arbs navigation
+
+        if viewModel.isVisibleArbsBlock {
+            let second = ArbsViewController()
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: second)
+            navigation.setKey(.arbs)
+
+            tabs.append(.init(title: "MainTabsPage.ARBs.Title".localized,
+                              imageName: "ic_tab_first",
+                              controller: navigation))
+        }
+
+        // other navigation
+
+        let otherViewController = LCWebWireframe().viewController
+
+        let otherNavigation = KeyedNavigationController<Tab>(rootViewController: otherViewController)
+        otherNavigation.setKey(.other)
+
+        tabs.append(.init(title: "MainTabsPage.Other.Title".localized,
+                          imageName: "ic_tab_dots",
+                          controller: otherNavigation))
+
+        return tabs
+    }
+
+    func generateOtherMenuItems() -> [TabMenuItem] {
+        var tabs: [TabMenuItem] = []
+
+        if viewModel.isVisibleBlenderBlock {
+            let third = BlenderViewController()
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: third)
+            navigation.setKey(.blender)
+
+            tabs.append(.init(title: "MainTabsPage.Blender.Title".localized,
+                              imageName: "ic_tab_third",
+                              controller: navigation))
+        }
+
+        if viewModel.isVisibleFreightBlock {
+            let fourth = FreightViewController()
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: fourth)
+            navigation.setKey(.freight)
+
+            tabs.append(.init(title: "MainTabsPage.Freight.Title".localized,
+                              imageName: "ic_tab_fourth",
+                              controller: navigation))
+        }
+
+        let fifth = SettingsViewController()
+
+        let navigation = KeyedNavigationController<Tab>(rootViewController: fifth)
+        navigation.setKey(.settings)
+
+        tabs.append(.init(title: "MainTabsPage.Settings.Title".localized,
+                          imageName: "ic_tab_fifth",
+                          controller: navigation))
+
+        return tabs
+    }
+}
+
+extension MainTabsViewController: TabMenuViewDelegate {
+
+    func tabMenuViewDidSelectTab(_ view: TabMenuView, oldTabItem: TabMenuItem, newTabItem: TabMenuItem) {
+        guard let navigationVC = newTabItem.controller as? KeyedNavigationController<Tab> else { return }
+
+        if navigationVC.key == .other {
+            floatyMenuManager.show(frame: contentView.frame, tabs: generateOtherMenuItems())
+
+            floatyMenuManager.onChoose { [unowned self] menuItem in
+                floatyMenuManager.hide()
+                tabMenuViewDidSelectTab(view, oldTabItem: oldTabItem, newTabItem: menuItem)
+            }
+
+            floatyMenuManager.onHide { [unowned self] in
+                tabMenuView.forceChangeItem(oldTabItem)
+            }
+
+            return
+        }
+
+        if navigationVC.key == .liveCharts {
+            InterfaceOrientationUtility.lockOrientation(.all, rotateTo: .portrait)
+        } else {
+            InterfaceOrientationUtility.lockOrientation(.portrait, rotateTo: .portrait)
+        }
+
+        floatyMenuManager.hide()
+        contentView.removeAllSubviews()
+        add(newTabItem.controller, to: contentView)
+    }
+
+    func tabMenuViewDidDoubleTapOnTab(_ view: TabMenuView, tabItem: TabMenuItem) {
+        guard let navigationVC = tabItem.controller as? KeyedNavigationController<Tab> else { return }
+
+        navigationVC.popToRootViewController(animated: true)
+    }
 }
 
 extension MainTabsViewController {
 
     fileprivate enum Tab: Hashable {
         case arbs
+        case liveCharts
         case liveCurves
         case blender
         case freight
         case settings
+        case other
 
         var analyticsName: String {
             switch self {
             case .arbs:
                 return "arbs"
+
+            case .liveCharts:
+                return "live charts"
 
             case .liveCurves:
                 return "live curves"
@@ -173,7 +274,33 @@ extension MainTabsViewController {
 
             case .settings:
                 return "settings"
+
+            case .other:
+                return "other"
             }
+        }
+    }
+}
+
+extension MainTabsViewController: LiveCurvesViewCoordinatorDelegate {
+
+    func liveCurvesViewControllerDidSelectMonthInfo(_ viewController: LiveCurvesViewController, monthInfo: LiveCurveMonthInfoModel) {
+        guard let navigationVC = tabMenuView.items[1].controller as? KeyedNavigationController<Tab>, navigationVC.key == .liveCharts else { return }
+
+        guard let lcViewController = navigationVC.viewControllers.first as? LCWebViewController else { return }
+
+        guard LCWebRestriction.validItemsCodes.contains(monthInfo.lcCode),
+                LCWebRestriction.validDateSelectors.contains(monthInfo.monthDisplayName) else { return }
+
+        let item = LCWebViewModel.Item(monthInfo: monthInfo)
+        var configurator = LCWebViewModel.Configurator(item: item)
+        configurator.dateSelector = LCWebViewModel.DateSelector(name: monthInfo.monthDisplayName,
+                                                                code: monthInfo.monthDisplayName)
+
+        selectedTabIndex = 1
+
+        onMainThread(delay: 0.3) {
+            lcViewController.viewModel.apply(configurator: configurator)
         }
     }
 }

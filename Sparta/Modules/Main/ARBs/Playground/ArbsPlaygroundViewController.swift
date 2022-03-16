@@ -186,9 +186,9 @@ class ArbsPlaygroundViewController: BaseViewController {
         monthSelector.titleText = viewModel.formattedMonthTitle
     }
 
-    override var preferredInterfaceOrientations: UIInterfaceOrientationMask {
-        [.portrait, .landscapeLeft, .landscapeRight]
-    }
+//    override var preferredInterfaceOrientations: UIInterfaceOrientationMask {
+//        [.portrait, .landscapeLeft, .landscapeRight]
+//    }
 
     private var windowInterfaceOrientation: UIInterfaceOrientation? {
         return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation

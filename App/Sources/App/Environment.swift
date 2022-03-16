@@ -51,7 +51,34 @@ public struct Environment {
     public static let socketArbsURL = Self.baseDataURL + "/socket/arbs?arbsmonths=6&portfolioIds=1,2"
     public static let socketVisualisationsURL = Self.baseDataURL + "/socket/visualizations"
 
+    public static func socketLiveChartsURL(
+        itemCode: String,
+        tenorName: String,
+        resolutions: [LiveChart.Resolution] = LiveChart.Resolution.allCases
+    ) -> String {
+        let tenorName = tenorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
+        let resolutionsString = resolutions.compactMap { $0.rawValue }.joined(separator: ",")
+        return Self.baseDataURL + "/socket/livecharts?spartaCode=\(itemCode)&tenorName=\(tenorName)&resolution=\(resolutionsString)"
+    }
+
     // API KEY's
 
     public static let segmentAPIKey = "JuCj6uNsMFuqveOLtDfHvdhQeriCUqLk"
+
+    // LC chart
+
+    public static let liveChartURL = "http://sparta-review-ios-iframe-page.s3-website-eu-west-1.amazonaws.com/standaloneChart/"
+}
+
+public extension Environment {
+    struct LiveChart {
+        public enum Resolution: String, CaseIterable {
+            case minute1 = "1m"
+            case hour1 = "1h"
+            case day1 = "1d"
+            case week1 = "1w"
+            case month1 = "1M"
+            case week52 = "52w"
+        }
+    }
 }

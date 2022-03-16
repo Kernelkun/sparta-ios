@@ -13,10 +13,10 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
     // MARK: - UI
 
-    private var monthField: UISelector<PickerIdValued<Date>>!
-    private var portField: UISelector<PickerIdValued<Int>>!
-    private var dischargePortField: UISelector<PickerIdValued<Int>>!
-    private var vesselTypePortField: UISelector<PickerIdValued<Vessel>>!
+    private var monthField: UITextFieldSelector<PickerIdValued<Date>>!
+    private var portField: UITextFieldSelector<PickerIdValued<Int>>!
+    private var dischargePortField: UITextFieldSelector<PickerIdValued<Int>>!
+    private var vesselTypePortField: UITextFieldSelector<PickerIdValued<Vessel>>!
 
     private var vesselSpeedField: RoundedTextField!
     private var loadedQuantityField: RoundedTextField!
@@ -121,7 +121,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
     private func setupMonthViews(in contentView: UIView) -> UIView {
 
-        monthField = UISelector().then { view in
+        monthField = UITextFieldSelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedMonth = value
@@ -151,7 +151,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
     private func setupPortViews(in contentView: UIView, topAlignView: UIView) -> UIView {
 
-        portField = UISelector().then { view in
+        portField = UITextFieldSelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedFreightPort = value
@@ -181,7 +181,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
     private func setupDischargePortViews(in contentView: UIView, topAlignView: UIView) -> UIView {
 
-        dischargePortField = UISelector().then { view in
+        dischargePortField = UITextFieldSelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedDischargePort = value
@@ -211,7 +211,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
 
     private func setupVesselTypeViews(in contentView: UIView, topAlignView: UIView) -> UIView {
 
-        vesselTypePortField = UISelector().then { view in
+        vesselTypePortField = UITextFieldSelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedVesselType = value

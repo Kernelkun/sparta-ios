@@ -19,7 +19,7 @@ public struct URLParameterEncoder: ParameterURLEncoder {
             
             urlComponents.queryItems = [URLQueryItem]()
             
-            for (key,value) in parameters {
+            for (key, value) in parameters {
                 
                 var value = value
                 if let array = value as? [Int] {
@@ -29,7 +29,7 @@ public struct URLParameterEncoder: ParameterURLEncoder {
                 }
                 
                 let queryItem = URLQueryItem(name: key,
-                                             value: "\(value)".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))
+                                             value: "\(value)"/*.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)*/)
                 urlComponents.queryItems?.append(queryItem)
             }
             urlRequest.url = urlComponents.url

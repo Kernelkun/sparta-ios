@@ -9,7 +9,15 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
+protocol LiveCurvesViewCoordinatorDelegate: AnyObject {
+    func liveCurvesViewControllerDidSelectMonthInfo(_ viewController: LiveCurvesViewController, monthInfo: LiveCurveMonthInfoModel)
+}
+
 class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
+
+    // MARK: - Public methods
+
+    weak var coordinatorDelegate: LiveCurvesViewCoordinatorDelegate?
 
     // MARK: - UI
 
@@ -34,7 +42,7 @@ class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
         let gridContructor = GridView.GridViewConstructor(rowsCount: viewModel.presentationStyle.rowsCount,
                                                           gradeHeight: 30,
                                                           collectionColumnWidth: 70,
-                                                          tableColumnWidth: 130,
+                                                          tableColumnWidth: 170,
                                                           emptyView: emptyView)
 
         let profilesContructor = ProfilesViewConstructor(addButtonAvailability: true,
@@ -195,8 +203,8 @@ extension LiveCurvesViewController: GridViewDataSource {
     func cellForGradeCollectionView(_ collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
         let cell: LiveCurveGradeTableViewCell = collectionView.dequeueReusableCell(for: indexPath)
 
-        if case let LiveCurvesViewModel.Cell.grade(title) = viewModel.tableDataSource[indexPath.section] {
-            cell.apply(title: title, for: indexPath)
+        if case let LiveCurvesViewModel.Cell.gradeUnit(title, unit) = viewModel.tableDataSource[indexPath.section] {
+            cell.apply(title: title, unit: unit, for: indexPath)
         }
 
         return cell
@@ -210,6 +218,9 @@ extension LiveCurvesViewController: GridViewDataSource {
 
         if case let LiveCurvesViewModel.Cell.info(model) = row {
             cell.apply(monthInfo: model, for: indexPath)
+            cell.onTap { [unowned self] monthInfoModel in
+                coordinatorDelegate?.liveCurvesViewControllerDidSelectMonthInfo(self, monthInfo: monthInfoModel)
+            }
         }
 
         return cell

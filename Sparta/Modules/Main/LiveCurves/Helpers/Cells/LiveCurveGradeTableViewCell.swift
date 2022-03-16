@@ -11,6 +11,7 @@ class LiveCurveGradeTableViewCell: UICollectionViewCell {
 
     // MARK: - UI
 
+    private var unitsLabel: UILabel!
     private var titleLabel: UILabel!
     private var bottomLine: UIView!
 
@@ -23,7 +24,7 @@ class LiveCurveGradeTableViewCell: UICollectionViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("BlenderGradeTableViewCell")
+        fatalError("LiveCurveGradeTableViewCell")
     }
 
     // MARK: - Lifecycle
@@ -38,8 +39,9 @@ class LiveCurveGradeTableViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func apply(title: String, for indexPath: IndexPath) {
+    func apply(title: String, unit: String, for indexPath: IndexPath) {
         titleLabel.text = title
+        unitsLabel.text = unit
     }
 
     // MARK: - Private methods
@@ -49,26 +51,31 @@ class LiveCurveGradeTableViewCell: UICollectionViewCell {
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
         tintColor = .controlTintActive
 
+        unitsLabel = UILabel().then { label in
+
+            label.textAlignment = .left
+            label.textColor = .white
+            label.numberOfLines = 1
+            label.font = .main(weight: .regular, size: 14)
+
+            contentView.addSubview(label) {
+                $0.right.equalToSuperview().inset(8)
+                $0.centerY.equalToSuperview()
+                $0.width.equalTo(40)
+            }
+        }
+
         titleLabel = UILabel().then { label in
 
             label.textAlignment = .left
             label.textColor = .white
             label.numberOfLines = 2
             label.font = .main(weight: .regular, size: 14)
-        }
 
-        _ = UIStackView().then { stackView in
-
-            stackView.addArrangedSubview(titleLabel)
-
-            stackView.axis = .vertical
-            stackView.alignment = .leading
-            stackView.spacing = 8
-            stackView.distribution = .fillProportionally
-
-            contentView.addSubview(stackView) {
-                $0.right.left.equalToSuperview().inset(8)
+            contentView.addSubview(label) {
+                $0.left.equalToSuperview().offset(8)
                 $0.centerY.equalToSuperview()
+                $0.right.equalTo(unitsLabel.snp.left).offset(-4)
             }
         }
 

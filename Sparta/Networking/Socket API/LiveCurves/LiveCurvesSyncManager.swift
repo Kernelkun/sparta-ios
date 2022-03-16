@@ -181,6 +181,7 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
 
             var liveCurve = liveCurve
             liveCurve.priorityIndex = liveCurveItem.order
+            liveCurve.unit = liveCurveItem.unit
 
             return liveCurve
         }
@@ -190,7 +191,6 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
 extension LiveCurvesSyncManager: SocketActionObserver {
 
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON) {
-
         let liveCurveSocket = LiveCurveSocket(json: data)
 
         // check if app received price update

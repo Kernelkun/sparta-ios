@@ -26,6 +26,8 @@ class BlenderViewModel: NSObject, BaseViewModel {
     var tableGrade = Cell.grade(title: "Grade.Title".localized)
     lazy var collectionGrades: [Cell] = Array(repeating: .emptyGrade, count: monthsCount())
 
+    var selectedSection: Int?
+
     var tableDataSource: [Cell] = []
     var collectionDataSource: [Section] = []
 
@@ -121,13 +123,21 @@ class BlenderViewModel: NSObject, BaseViewModel {
     }
 
     func height(for section: Int) -> CGFloat {
-        guard isSeasonalityOn else { return 50 }
+        guard !isSeasonalityOn else { return 70 }
 
-        return 70
+        return selectedSection == section ? 130 : 50
     }
 
     func monthsCount() -> Int {
-        blenderManager.profile.portfolio == .ara ? 6 : 4
+        blenderManager.profile.portfolio == .ara ? 6 : blenderManager.houMonthsCount
+    }
+
+    func activateSection(_ activeSection: Int) {
+        selectedSection = activeSection
+
+        self.delegate?.didUpdateDataSourceSections(insertions: [],
+                                                   removals: [],
+                                                   updates: IndexSet([activeSection]))
     }
 
     // MARK: - Private methods

@@ -2,12 +2,12 @@
 //  InterfaceOrientationUtility.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 26.10.2021.
+//  Created by Yaroslav Babalich on 12.02.2022.
 //
 
 import UIKit
 
-struct InterfaceOrientationUtility {
+enum InterfaceOrientationUtility {
 
     static var interfaceOrientation: UIInterfaceOrientation? {
         return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation

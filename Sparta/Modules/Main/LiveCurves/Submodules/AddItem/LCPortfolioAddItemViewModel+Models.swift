@@ -17,7 +17,7 @@ extension LCPortfolioAddItemViewModel {
 
         init(item: LiveCurveProfileProduct) {
             id = item.id
-            title = item.shortName
+            title = item.shortName + " " + "(" + item.unit + ")"
             isActive = true
         }
     }

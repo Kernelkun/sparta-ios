@@ -7,6 +7,7 @@
 
 import UIKit
 import SpartaHelpers
+import PhoneNumberKit
 
 class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewModel> {
 
@@ -20,20 +21,19 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
     private var lastNameField: RoundedTextField!
     private var lastNameLabel: UILabel!
 
-    private var phoneNumberCodeField: UISelector<CountryCodeModel>!
-    private var phoneNumberField: RoundedTextField!
+    private var phoneNumberField: SettingsMobileFieldView!
     private var phoneNumberLabel: UILabel!
 
-    private var roleField: UISelector<PickerIdValued<Int>>!
+    private var roleField: UITextFieldSelector<PickerIdValued<Int>>!
     private var roleLabel: UILabel!
 
-    private var productField: UISelector<PickerIdValued<Int>>!
+    private var productField: UITextFieldSelector<PickerIdValued<Int>>!
     private var productLabel: UILabel!
 
-    private var tradeAreaField: UISelector<PickerIdValued<Int>>!
+    private var tradeAreaField: UITextFieldSelector<PickerIdValued<Int>>!
     private var tradeAreaLabel: UILabel!
 
-    private var portField: UISelector<PickerIdValued<Int>>!
+    private var portField: UITextFieldSelector<PickerIdValued<Int>>!
     private var portLabel: UILabel!
 
     private var saveButton: BorderedButton!
@@ -226,34 +226,15 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupPhoneNumberViews(in contentView: UIView) {
 
-        phoneNumberCodeField = UISelector().then { view in
+        phoneNumberField = SettingsMobileFieldView().then { textFieldView in
 
-            view.onChooseValue { [unowned self] selectedValue in
-                self.viewModel.selectedCountryCode = selectedValue
+            textFieldView.onChangeNumber { [unowned self] phoneNumber in
+                viewModel.selectedPhoneNumber = phoneNumber
             }
 
-            contentView.addSubview(view) {
-                $0.size.equalTo(CGSize(width: 95, height: 48))
+            contentView.addSubview(textFieldView) {
                 $0.top.equalTo(lastNameLabel.snp.bottom).offset(14)
-                $0.left.equalTo(lastNameField)
-            }
-        }
-
-        phoneNumberField = RoundedTextField().then { field in
-
-            field.icon = nil
-            field.textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-            field.placeholder = "SettingsPage.Account.MobileNumber.Placeholder".localized
-            field.textField.keyboardType = .phonePad
-
-            field.onTextChanged { [unowned self] text in
-                self.viewModel.selectedPhoneNumber = text
-            }
-
-            contentView.addSubview(field) {
-                $0.top.equalTo(phoneNumberCodeField)
-                $0.left.equalTo(phoneNumberCodeField.snp.right).offset(12)
-                $0.right.equalToSuperview().inset(24)
+                $0.left.right.equalToSuperview().inset(24)
                 $0.height.equalTo(48)
             }
         }
@@ -266,15 +247,15 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
             label.numberOfLines = 0
 
             contentView.addSubview(label) {
-                $0.top.equalTo(phoneNumberCodeField.snp.bottom).offset(3)
-                $0.left.equalTo(phoneNumberCodeField).offset(3)
+                $0.top.equalTo(phoneNumberField.snp.bottom).offset(3)
+                $0.left.equalTo(phoneNumberField).offset(3)
             }
         }
     }
 
     private func setupRoleViews(in contentView: UIView) {
 
-        roleField = UISelector().then { view in
+        roleField = UITextFieldSelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedUserRole = value
@@ -304,7 +285,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupProductViews(in contentView: UIView) {
 
-        productField = UISelector().then { view in
+        productField = UITextFieldSelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedPrimaryProduct = value
@@ -334,7 +315,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupTradeAreaViews(in contentView: UIView) {
 
-        tradeAreaField = UISelector().then { view in
+        tradeAreaField = UITextFieldSelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedTradeArea = value
@@ -364,7 +345,7 @@ class AccountSettingsViewController: BaseVMViewController<AccountSettingsViewMod
 
     private func setupPortViews(in contentView: UIView) {
 
-        portField = UISelector().then { view in
+        portField = UITextFieldSelector().then { view in
 
             view.onChooseValue { [unowned self] value in
                 self.viewModel.selectedPort = value
@@ -411,11 +392,7 @@ extension AccountSettingsViewController: AccountSettingsViewModelDelegate {
 
         // phone number fields
 
-        phoneNumberCodeField.inputValues = viewModel.countriesCodes
-        phoneNumberCodeField.apply(selectedValue: viewModel.selectedCountryCode,
-                                   placeholder: "SettingsPage.Account.MobileNumber.Code.Placeholder".localized)
-
-        phoneNumberField.textField.initialText = viewModel.selectedPhoneNumber
+        phoneNumberField.apply(phoneNumber: viewModel.selectedPhoneNumber)
     }
 
     func didReloadTradeOptions() {

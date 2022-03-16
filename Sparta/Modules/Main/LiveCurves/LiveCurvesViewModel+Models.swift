@@ -12,6 +12,7 @@ extension LiveCurvesViewModel {
 
     enum Cell {
         case grade(title: String)
+        case gradeUnit(title: String, unit: String)
         case info(monthInfo: LiveCurveMonthInfoModel)
 
         static func emptyGrade() -> Cell { .grade(title: "") }
@@ -19,6 +20,7 @@ extension LiveCurvesViewModel {
 
     struct Section {
         let name: String
+        let code: String
         var cells: [Cell]
     }
 

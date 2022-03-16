@@ -150,7 +150,9 @@ class LCPortfolioAddItemViewModel: NSObject, BaseViewModel {
                         }
 
                         return !liveCurvesSyncManager.profile!.liveCurves //swiftlint:disable:this force_unwrapping
-                            .contains { $0.longName.lowercased() == product.longName.lowercased() }
+                            .contains { $0.longName.lowercased() == product.longName.lowercased()
+                                && $0.unit == product.unit
+                            }
                     }
 
                     var item = LCPortfolioAddItemViewModel.Item(item: product)

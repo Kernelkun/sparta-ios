@@ -205,6 +205,7 @@ extension BlenderViewController: GridViewDataSource {
 
             cell.onTap { [unowned self] indexPath in
                 self.showDescription(for: indexPath)
+//                self.viewModel.activateSection(indexPath.section)
             }
         }
 

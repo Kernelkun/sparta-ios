@@ -17,16 +17,18 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     var loadingView = LoadingView()
     
     var isFirstLoad: Bool {
-        return enterCount == 1
+        return enterCount <= 1
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
 
-    // MARK: - Interface options
-
-    var preferredInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
+//    override var shouldAutorotate: Bool { false }
+//
+//    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        .all
+//    }
     
     // MARK: - Private accessors
     
@@ -56,23 +58,11 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 
         view.addGestureRecognizer(tapRecognizer)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        InterfaceOrientationUtility.lockOrientation(preferredInterfaceOrientations)
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        enterCount += 1
-    }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        InterfaceOrientationUtility.lockOrientation(.all)
+        defer { enterCount += 1 }
     }
     
     // MARK: - Public methods
