@@ -144,9 +144,10 @@ class MainTabsViewController: BaseViewController {
         // arbs navigation
 
         if viewModel.isVisibleArbsBlock {
-            let second = ArbsViewController()
+            let vc = ArbsContentViewController()
+            vc.mainTabsViewController = self
 
-            let navigation = KeyedNavigationController<Tab>(rootViewController: second)
+            let navigation = KeyedNavigationController<Tab>(rootViewController: vc)
             navigation.setKey(.arbs)
 
             tabs.append(.init(title: "MainTabsPage.ARBs.Title".localized,
@@ -203,6 +204,10 @@ class MainTabsViewController: BaseViewController {
                           controller: navigation))
 
         return tabs
+    }
+
+    func setTabBarHidden(_ hidden: Bool, animated: Bool) {
+        tabMenuView.isHidden = hidden
     }
 }
 

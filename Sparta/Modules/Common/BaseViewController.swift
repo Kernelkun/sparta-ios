@@ -12,17 +12,14 @@ import NVActivityIndicatorView
 class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: - Public properties
-    
+
+    weak var mainTabsViewController: MainTabsViewController?
+
     var loader: NVActivityIndicatorView!
     var loadingView = LoadingView()
-    
-    var isFirstLoad: Bool {
-        return enterCount <= 1
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
+    var isFirstLoad: Bool { enterCount <= 1 }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 
 //    override var shouldAutorotate: Bool { false }
 //

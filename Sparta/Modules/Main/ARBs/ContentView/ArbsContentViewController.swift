@@ -63,7 +63,7 @@ class ArbsContentViewController: BaseViewController {
             }
         }
 
-        setupViewState(for: .dashboard)
+        setupViewState(for: .table)
 
         setupNavigationUI()
     }
@@ -83,7 +83,8 @@ class ArbsContentViewController: BaseViewController {
             add(arbsViewController, to: contentView)
 
             // show tabBar
-            tabBarController?.setTabBarHidden(false, animated: true)
+//            tabBarController?.setTabBarHidden(false, animated: true)
+            mainTabsViewController?.setTabBarHidden(false, animated: true)
             
         case .dashboard:
             self.navigationBar(hide: true)
@@ -93,7 +94,8 @@ class ArbsContentViewController: BaseViewController {
             add(wireframeVContentWireframe.viewController, to: contentView)
 
             // show tabBar
-            tabBarController?.setTabBarHidden(true, animated: true)
+//            tabBarController?.setTabBarHidden(true, animated: true)
+            mainTabsViewController?.setTabBarHidden(true, animated: true)
         }
     }
 
