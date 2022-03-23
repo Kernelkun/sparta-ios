@@ -63,7 +63,7 @@ class ArbsComparationViewController: BaseViewController {
             }
         }
 
-        let datesHeaderView = APPCDatesHeaderView().then { view in
+        /*let datesHeaderView = APPCDatesHeaderView().then { view in
 
             contentView.addSubview(view) {
                 $0.left.top.equalToSuperview()
@@ -96,7 +96,7 @@ class ArbsComparationViewController: BaseViewController {
                 $0.left.bottom.equalToSuperview()
                 $0.top.equalTo(datesHeaderView.snp.bottom)
             }
-        }
+        }*/
     }
 }
 
@@ -111,8 +111,8 @@ extension ArbsComparationViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: APPCTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        return cell
+//        let cell: APPCTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        return UITableViewCell()
     }
 }
 

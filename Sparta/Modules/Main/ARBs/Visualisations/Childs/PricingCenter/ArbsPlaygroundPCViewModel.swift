@@ -13,6 +13,7 @@ class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
     // MARK: - Public properties
 
     weak var delegate: ArbsPlaygroundPCViewModelDelegate?
+    private(set) var arbsV: [ArbV] = []
 
     // MARK: - Private properties
 
@@ -26,10 +27,10 @@ class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
 
             var selectors: [ArbV.Selector] = []
             if case let .success(responseModel) = result,
-                let list = responseModel.model?.list {
+               let list = responseModel.model?.list {
 
                 selectors = list
-                strongSelf.chooseSelector(list.first.required())
+                strongSelf.makeActiveArbVSelector(list.first.required())
             }
 
             onMainThread {
@@ -38,17 +39,48 @@ class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
         }
     }
 
-    // MARK: - Private methods
-
-    private func chooseSelector(_ arbVSelector: ArbV.Selector) {
-        arbsNetworkManager.fetchVTableArbsInfo(request: .init(arbIds: arbVSelector.arbIds)) { [weak self] result in
+    func makeActiveArbVSelector(_ arbVSelector: ArbV.Selector) {
+        arbsNetworkManager.fetchVTableArbsInfo(
+            request: .init(arbIds: arbVSelector.arbIds)
+        ) { [weak self] result in
             guard let strongSelf = self else { return }
 
             if case let .success(responseModel) = result,
-                let list = responseModel.model?.list {
+               let arbsV = responseModel.model?.list {
 
-                print(list)
+                strongSelf.arbsV = arbsV
 
+                // fetching all months
+
+                var allValues: [ArbV.Value] = []
+                arbsV.forEach { allValues.append(contentsOf: $0.values) }
+
+                var months: [ArbsPlaygroundPCPUIModel.Month] = []
+                allValues.forEach { value in
+                    let month = ArbsPlaygroundPCPUIModel.Month(title: value.deliveryMonth)
+                    if !months.contains(month) {
+                        months.append(month)
+                    }
+                }
+
+                let model = ArbsPlaygroundPCPUIModel(headers: months.compactMap { .init(month: $0, units: "$/bbl") },
+                                                     arbsV: arbsV)
+
+//                let values: [ArbsPlaygroundPCPUIModel] = Dictionary(grouping: allValues,
+//                                                                    by: { $0.deliveryMonth })
+//                    .compactMap { value in
+//                            .init(deliveryTitle: value.key,
+//                                  units: "$/bbl",
+//                                  values: value.value)
+//                    }
+
+                /// need to create model with months count and arbs V then go through this model and present UI
+
+                // end of fetching all months
+
+                onMainThread {
+                    strongSelf.delegate?.arbsPlaygroundPCViewModelDidFetchArbsVModel(model)
+                }
             }
         }
     }

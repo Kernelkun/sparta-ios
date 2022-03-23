@@ -27,11 +27,29 @@ class ArbsVChildPCViewController: ArbsVChildViewController {
 
     override func arbsVContentControllerDidChangeScrollState(
         _ controller: ArbsVContentControllerInterface,
-        newState: AVBarController.State
+        newState: AVBarController.State,
+        page: ArbsVContentPage
     ) {
-        super.arbsVContentControllerDidChangeScrollState(controller, newState: newState)
+        super.arbsVContentControllerDidChangeScrollState(controller, newState: newState, page: page)
 
-        
+//        parrentController.airBar.topRightContentView.backgroundColor = .red
+    }
+
+    override func arbsVContentControllerDidChangePage(
+        _ controller: ArbsVContentControllerInterface,
+        newPage: ArbsVContentPage
+    ) {
+        super.arbsVContentControllerDidChangePage(controller, newPage: newPage)
+
+        guard newPage == .pricingCenter else { return }
+
+        let topContentView = parrentController.airBar.topRightContentView
+        topContentView?.removeAllSubviews()
+        topContentView?.addSubview(pcWireframe.viewController.airBarTopMenu) {
+            $0.edges.equalToSuperview()
+        }
+
+//        parrentController.airBar.topRightContentView.backgroundColor = .red
     }
 
     // MARK: - Private methods

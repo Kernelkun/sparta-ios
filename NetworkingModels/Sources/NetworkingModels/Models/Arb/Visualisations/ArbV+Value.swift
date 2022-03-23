@@ -15,6 +15,8 @@ public extension ArbV {
         // MARK: - Public properties
 
         public let loadMonth: String
+        public let deliveryMonth: String
+        public let displayedWindow: String
         public let deliveredPrice: ArbV.DeliveredPrice
         public let margins: [ArbV.Margin]
 
@@ -23,6 +25,8 @@ public extension ArbV {
 
         public init(json: JSON) {
             loadMonth = json["loadMonth"].stringValue
+            deliveryMonth = json["deliveryMonth"].stringValue
+            displayedWindow = json["displayedWindow"].stringValue
             deliveredPrice = DeliveredPrice(json: json["deliveredPrice"])
             margins = json["margins"].arrayValue.compactMap { ArbV.Margin(json: $0) }
         }

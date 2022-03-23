@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NetworkingModels
 
 class APPCLightView: UIView {
 
@@ -29,7 +30,7 @@ class APPCLightView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(#function)
     }
 
     // MARK: - Private methods
@@ -38,7 +39,6 @@ class APPCLightView: UIView {
         contentView = UIView().then { view in
 
             view.layer.cornerRadius = 4
-            view.backgroundColor = .numberGreen
 
             addSubview(view) {
                 $0.edges.equalToSuperview()
@@ -47,7 +47,6 @@ class APPCLightView: UIView {
 
         titleLabel = UILabel().then { label in
 
-            label.text = "7.87"
             label.textAlignment = .center
             label.textColor = .primaryText
             label.font = .main(weight: .medium, size: 16)
@@ -60,6 +59,15 @@ class APPCLightView: UIView {
     }
 
     private func updateUI() {
+        switch state {
+        case .inactive:
+            titleLabel.text = nil
+            contentView.backgroundColor = .black
+
+        case .active(let color, let text):
+            titleLabel.text = text
+            contentView.backgroundColor = color
+        }
     }
 }
 

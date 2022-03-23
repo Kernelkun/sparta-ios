@@ -10,24 +10,25 @@ import SpartaHelpers
 
 class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterface {
 
-    // MARK: - Private Properties
+    // MARK: - Public Properties
 
-    fileprivate var contentScrollView: UIScrollView!
-    private var scrollViewContent: UIView!
+    private(set) var currentPage: ArbsVContentPage!
     var airBar: ArbVHeaderView!
-    fileprivate var barController: BarController!
-
-    // MARK: - Private properties
-
     var configurator: Configurator!
 
     var observers: WeakSet<ArbsVContentControllerObserver> = []
 
+    // MARK: - Private properties
+
+    private var scrollViewContent: UIView!
+    private var contentScrollView: UIScrollView!
+    private var barController: BarController!
     private var aVBarController: AVBarController!
 
     // MARK: - Initializers
 
     init() {
+        currentPage = .pricingCenter
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -42,7 +43,8 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 
         view.backgroundColor = .neutral75
 
-        let sideView = UIView().then { view in
+        // side view
+        _ = UIView().then { view in
 
             view.backgroundColor = .clear
 
@@ -96,13 +98,12 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
         }
 
         aVBarController = AVBarController(scrollabe: contentScrollView, stateBarObserver: stateBarObserver)
-
-        presentController(at: 0)
+        presentContentPage(currentPage)
     }
 
-    func presentController(at index: Int) {
-        switch index {
-        case 0:
+    func presentContentPage(_ newPage: ArbsVContentPage) {
+        switch newPage {
+        case .pricingCenter:
             scrollViewContent.removeAllSubviews()
             add(configurator.pcChildController, to: scrollViewContent)
 
@@ -113,7 +114,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 
             aVBarController.setStatesConfigurator(configurator)
 
-        case 1:
+        case .arbsComparation:
             scrollViewContent.removeAllSubviews()
             add(configurator.acChhildController, to: scrollViewContent)
 
@@ -123,9 +124,12 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
             )
 
             aVBarController.setStatesConfigurator(configurator)
+        }
 
-        default:
-            break
+        currentPage = newPage
+
+        for observer in observers {
+            observer.arbsVContentControllerDidChangePage(self, newPage: newPage)
         }
     }
 
@@ -150,7 +154,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
         }
 
         for observer in observers {
-            observer.arbsVContentControllerDidChangeScrollState(self, newState: state)
+            observer.arbsVContentControllerDidChangeScrollState(self, newState: state, page: currentPage)
         }
     }
 }
@@ -160,10 +164,10 @@ extension ArbsVContentViewController: ArbVHeaderViewDelegate {
     func arbVHeaderViewDidChangeSegmentedViewValue(_ view: ArbVHeaderView, item: MainSegmentedView.MenuItem) {
         switch item {
         case .pricingCenter:
-            presentController(at: 0)
+            presentContentPage(.pricingCenter)
 
         case .arbsComparation:
-            presentController(at: 1)
+            presentContentPage(.arbsComparation)
         }
     }
 }

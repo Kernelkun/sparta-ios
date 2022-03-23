@@ -118,12 +118,12 @@ class AACTableViewCell: UITableViewCell {
 
         // mains views
 
-        let lightsView1 = APPCLightsSetView()
-        let lightsView2 = APPCLightsSetView()
-        let lightsView3 = APPCLightsSetView()
-        let lightsView4 = APPCLightsSetView()
-        let lightsView5 = APPCLightsSetView()
-        let lightsView6 = APPCLightsSetView()
+//        let lightsView1 = APPCLightsSetView()
+//        let lightsView2 = APPCLightsSetView()
+//        let lightsView3 = APPCLightsSetView()
+//        let lightsView4 = APPCLightsSetView()
+//        let lightsView5 = APPCLightsSetView()
+//        let lightsView6 = APPCLightsSetView()
 
         let numbersStackView = UIStackView().then { stackView in
 
@@ -132,12 +132,12 @@ class AACTableViewCell: UITableViewCell {
             stackView.spacing = APPCUIConstants.priceItemSpace
             stackView.alignment = .fill
 
-            stackView.addArrangedSubview(lightsView1)
-            stackView.addArrangedSubview(lightsView2)
-            stackView.addArrangedSubview(lightsView3)
-            stackView.addArrangedSubview(lightsView4)
-            stackView.addArrangedSubview(lightsView5)
-            stackView.addArrangedSubview(lightsView6)
+//            stackView.addArrangedSubview(lightsView1)
+//            stackView.addArrangedSubview(lightsView2)
+//            stackView.addArrangedSubview(lightsView3)
+//            stackView.addArrangedSubview(lightsView4)
+//            stackView.addArrangedSubview(lightsView5)
+//            stackView.addArrangedSubview(lightsView6)
 
             contentView.addSubview(stackView) {
                 $0.top.equalToSuperview().offset(8)

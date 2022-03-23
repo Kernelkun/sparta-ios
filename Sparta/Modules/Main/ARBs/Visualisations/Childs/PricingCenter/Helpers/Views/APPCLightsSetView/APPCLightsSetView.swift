@@ -6,19 +6,25 @@
 //
 
 import UIKit
+import NetworkingModels
 
 class APPCLightsSetView: UIView {
 
     // MARK: - Private properties
 
     private var contentView: UIView!
+    private var mainStackView: UIStackView!
+
+    private var margins: [ArbV.Margin]? = []
 
     // MARK: - Initializers
 
-    init() {
+    init(margins: [ArbV.Margin]?) {
+        self.margins = margins
         super.init(frame: .zero)
 
         setupUI()
+        updateUI()
     }
 
     required init?(coder: NSCoder) {
@@ -28,22 +34,12 @@ class APPCLightsSetView: UIView {
     // MARK: - Private methods
 
     private func setupUI() {
-
-        _ = UIStackView().then { stackView in
+        mainStackView = UIStackView().then { stackView in
 
             stackView.axis = .vertical
             stackView.distribution = .fill
             stackView.spacing = APPCUIConstants.priceItemsLineSpace
             stackView.alignment = .fill
-
-            for _ in 0..<3 {
-                let view = APPCLightView().then {
-                    $0.snp.makeConstraints {
-                        $0.height.equalTo(40)
-                    }
-                }
-                stackView.addArrangedSubview(view)
-            }
 
             addSubview(stackView) {
                 $0.edges.equalToSuperview()
@@ -52,5 +48,29 @@ class APPCLightsSetView: UIView {
     }
 
     private func updateUI() {
+        mainStackView.removeAllSubviews()
+
+        func generateLightView(_ model: ColoredNumber?) -> APPCLightView {
+            APPCLightView().then { view in
+
+                var state: APPCLightView.State = .inactive
+
+                if let model = model {
+                    state = .active(color: model.valueColor, text: model.value)
+                }
+
+                view.state = state
+
+                view.snp.makeConstraints {
+                    $0.size.equalTo(CGSize(width: 70, height: 40))
+                }
+            }
+        }
+
+        if let margins = margins {
+            margins.forEach { mainStackView.addArrangedSubview(generateLightView($0.price)) }
+        } else {
+            mainStackView.addArrangedSubview(generateLightView(nil))
+        }
     }
 }

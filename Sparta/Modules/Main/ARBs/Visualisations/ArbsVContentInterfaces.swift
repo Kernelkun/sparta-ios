@@ -7,8 +7,18 @@
 
 import Foundation
 
+enum ArbsVContentPage {
+    case pricingCenter
+    case arbsComparation
+}
+
 protocol ArbsVContentControllerObserver: AnyObject {
-    func arbsVContentControllerDidChangeScrollState(_ controller: ArbsVContentControllerInterface, newState: AVBarController.State)
+    func arbsVContentControllerDidChangeScrollState(
+        _ controller: ArbsVContentControllerInterface,
+        newState: AVBarController.State,
+        page: ArbsVContentPage
+    )
+    func arbsVContentControllerDidChangePage(_ controller: ArbsVContentControllerInterface, newPage: ArbsVContentPage)
 }
 
 protocol ArbsVContentControllerInterface: AnyObject {

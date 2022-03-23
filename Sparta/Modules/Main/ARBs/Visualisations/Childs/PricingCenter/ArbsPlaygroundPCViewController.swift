@@ -11,12 +11,16 @@ import SpartaHelpers
 
 class ArbsPlaygroundPCViewController: BaseViewController {
 
+    // MARK: - Public properties
+
+    var airBarTopMenu: UIView!
+
     // MARK: - Private properties
 
     private let viewModel: ArbsPlaygroundPCViewModelInterface
+    private var arbsSelector: UITextFieldSelector<ArbV.Selector>!
 
-    private var arbsSelector: UIMonthSelector<ArbV.Selector>!
-    private var tableView: UITableView!
+    private var tableView: APPCTableView!
 
     // MARK: - Initializers
 
@@ -34,9 +38,12 @@ class ArbsPlaygroundPCViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // UI
+
         setupUI()
 
         // view model
+
         viewModel.loadData()
     }
 
@@ -44,82 +51,86 @@ class ArbsPlaygroundPCViewController: BaseViewController {
 
     private func setupUI() {
 
-        arbsSelector = UIMonthSelector<ArbV.Selector>().then { selector in
-
-            addSubview(selector) {
-                $0.left.top.equalToSuperview().inset(4)
-                $0.size.equalTo(CGSize(width: 160, height: 31))
-            }
-        }
+        airBarTopMenu = generateAirBarTopMenu()
 
         let contentView = UIView().then { view in
 
-            view.backgroundColor = .secondaryBackground
+//            view.backgroundColor = .secondaryBackground
             view.layer.cornerRadius = 13
 
             addSubview(view) {
-                $0.top.equalTo(arbsSelector.snp.bottom).offset(8)
+                $0.top.equalToSuperview().offset(8)
                 $0.left.right.bottom.equalToSuperview().inset(4)
             }
         }
 
-        let datesHeaderView = APPCDatesHeaderView().then { view in
+        tableView = APPCTableView().then { view in
 
             contentView.addSubview(view) {
-                $0.left.top.equalToSuperview()
-                $0.right.equalToSuperview().inset(8)
+                $0.edges.equalToSuperview()
             }
         }
+    }
 
-        tableView = ContentSizedTableView().then { tableView in
+    private func generateAirBarTopMenu() -> UIView {
+        UIView().then { view in
 
-            if #available(iOS 15.0, *) {
-                tableView.sectionHeaderTopPadding = 0
-            }
+            let itemsFieldConfigurator = UITextFieldSelectorConfigurator(
+                leftSpace: 10,
+                imageRightSpace: 11,
+                imageLeftSpace: 3,
+                cornerRadius: 10,
+                defaultTextAttributes: [NSAttributedString.Key.foregroundColor: UIColor.primaryText,
+                                        NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 18)]
+            )
 
-            tableView.backgroundColor = .clear
-            tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 1))
-            tableView.separatorStyle = .singleLine
-            tableView.separatorColor = .secondaryText
-            tableView.separatorInset = .zero
-            tableView.showsVerticalScrollIndicator = true
-            tableView.rowHeight = UITableView.automaticDimension
-            tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -6)
+            arbsSelector = UITextFieldSelector(configurator: itemsFieldConfigurator).then { selector in
 
-            tableView.register(APPCTableViewCell.self)
+                selector.onChooseValue { [unowned self] arbVSelector in
+                    viewModel.makeActiveArbVSelector(arbVSelector)
+                }
 
-            tableView.delegate = self
-            tableView.dataSource = self
-
-            contentView.addSubview(tableView) {
-                $0.right.equalToSuperview().inset(6)
-                $0.left.bottom.equalToSuperview()
-                $0.top.equalTo(datesHeaderView.snp.bottom)
+                view.addSubview(selector) {
+                    $0.left.equalToSuperview().offset(15)
+                    $0.centerY.equalToSuperview()
+                    $0.size.equalTo(CGSize(width: 228, height: 32))
+                }
             }
         }
     }
 }
 
-extension ArbsPlaygroundPCViewController: UITableViewDelegate, UITableViewDataSource {
+/*extension ArbsPlaygroundPCViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        viewModel.arbsV.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: APPCTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+
+        let arbV = viewModel.arbsV[indexPath.row]
+        cell.apply(arbV)
+
         return cell
     }
-}
+}*/
 
 extension ArbsPlaygroundPCViewController: ArbsPlaygroundPCViewModelDelegate {
 
+    func arbsPlaygroundPCViewModelDidChangeLoadingState(_ isLoading: Bool, module: ArbsPlaygroundPCLoadingModule) {
+    }
+
     func arbsPlaygroundPCViewModelDidFetchSelectors(_ selectors: [ArbV.Selector]) {
         arbsSelector.inputValues = selectors
-        arbsSelector.apply(selectedValue: selectors.first.required())
+        arbsSelector.apply(selectedValue: selectors.first.required(), placeholder: "")
+    }
+
+    func arbsPlaygroundPCViewModelDidFetchArbsVModel(_ model: ArbsPlaygroundPCPUIModel) {
+        tableView.apply(model)
     }
 }

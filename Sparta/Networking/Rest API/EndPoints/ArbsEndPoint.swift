@@ -34,7 +34,7 @@ extension ArbsEndPoint: EndPointType {
         case .getArbPlayground: return "/arbs/playground"
         case .changePortfolioOrder(let request): return "/arbs/portfolios/\(request.portfolio.id)/destinations/order"
         case .getArbVSelectorsList: return "/arbs/visualizations/selector"
-        case .getArbsVTableInfo: return "/arbs/visualisations/table"
+        case .getArbsVTableInfo: return "/arbs/portfolios/table"
         }
     }
 

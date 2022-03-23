@@ -27,12 +27,25 @@ class ArbsVChildACViewController: ArbsVChildViewController {
 
     override func arbsVContentControllerDidChangeScrollState(
         _ controller: ArbsVContentControllerInterface,
-        newState: AVBarController.State
+        newState: AVBarController.State,
+        page: ArbsVContentPage
     ) {
-        super.arbsVContentControllerDidChangeScrollState(controller, newState: newState)
+        super.arbsVContentControllerDidChangeScrollState(controller, newState: newState, page: page)
 
 //        parrentController.airBar.applyState(isMinimized: transitionProgress < 1)
-        parrentController.airBar.topRightContentView.backgroundColor = .yellow
+//        parrentController.airBar.topRightContentView.backgroundColor = .yellow
+    }
+
+    override func arbsVContentControllerDidChangePage(
+        _ controller: ArbsVContentControllerInterface,
+        newPage: ArbsVContentPage
+    ) {
+        super.arbsVContentControllerDidChangePage(controller, newPage: newPage)
+
+        guard newPage == .arbsComparation else { return }
+
+        let topContentView = parrentController.airBar.topRightContentView
+        topContentView?.removeAllSubviews()
     }
 
     // MARK: - Private methods

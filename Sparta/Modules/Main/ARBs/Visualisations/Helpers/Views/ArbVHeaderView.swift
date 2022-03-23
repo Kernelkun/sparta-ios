@@ -112,7 +112,7 @@ class ArbVHeaderView: UIView {
 
         topRightContentView = UIView().then { view in
 
-            view.backgroundColor = .red
+//            view.backgroundColor = .red
 
             topContentView.addSubview(view) {
                 $0.left.equalTo(segmetedView.snp.right)

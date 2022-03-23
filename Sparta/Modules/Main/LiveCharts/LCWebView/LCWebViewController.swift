@@ -25,7 +25,7 @@ class LCWebViewController: BaseViewController {
     private var mainChartController: LCWebTradeViewController!
     private var loaderView: LoaderView?
 
-    private var fullScreenChartManager = FullScreenChartViewManager() 
+    private var fullScreenChartManager = FullScreenChartViewManager()
 
     // MARK: - Initializers
 

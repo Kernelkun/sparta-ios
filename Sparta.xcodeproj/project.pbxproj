@@ -61,7 +61,7 @@
 		D939CBE727E3283400BC20D2 /* ArbsPlaygroundPCInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939CBC427E3283400BC20D2 /* ArbsPlaygroundPCInterfaces.swift */; };
 		D939CBE827E3283400BC20D2 /* ArbsPlaygroundPCWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939CBC527E3283400BC20D2 /* ArbsPlaygroundPCWireframe.swift */; };
 		D939CBE927E3283400BC20D2 /* ArbsPlaygroundPCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939CBC627E3283400BC20D2 /* ArbsPlaygroundPCViewController.swift */; };
-		D939CBEA27E3283400BC20D2 /* APPCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939CBC927E3283400BC20D2 /* APPCTableViewCell.swift */; };
+		D939CBEA27E3283400BC20D2 /* APPCTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939CBC927E3283400BC20D2 /* APPCTableView.swift */; };
 		D939CBEB27E3283400BC20D2 /* APPCUIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939CBCA27E3283400BC20D2 /* APPCUIConstants.swift */; };
 		D939CBEC27E3283400BC20D2 /* APPCIdentifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939CBCC27E3283400BC20D2 /* APPCIdentifierView.swift */; };
 		D939CBED27E3283400BC20D2 /* APPCLightsSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939CBCE27E3283400BC20D2 /* APPCLightsSetView.swift */; };
@@ -301,6 +301,7 @@
 		D9C71C1A26734C76001B1924 /* FreightResultPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1926734C76001B1924 /* FreightResultPageViewController.swift */; };
 		D9C71C1C26735EB5001B1924 /* LiveCurvesPageConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1B26735EB5001B1924 /* LiveCurvesPageConfigurator.swift */; };
 		D9C71C522678A46E001B1924 /* UIAlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C512678A46E001B1924 /* UIAlertFactory.swift */; };
+		D9C941ED27E9F1C2007ABA27 /* ArbsPlaygroundPCInterfaces+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C941EC27E9F1C2007ABA27 /* ArbsPlaygroundPCInterfaces+Models.swift */; };
 		D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D170D32587880F0059A1F1 /* LineButtonView.swift */; };
 		D9D2EC722705BE37007AF869 /* ArbDetailWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2EC712705BE37007AF869 /* ArbDetailWireframe.swift */; };
 		D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */; };
@@ -387,7 +388,7 @@
 		D939CBC427E3283400BC20D2 /* ArbsPlaygroundPCInterfaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundPCInterfaces.swift; sourceTree = "<group>"; };
 		D939CBC527E3283400BC20D2 /* ArbsPlaygroundPCWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundPCWireframe.swift; sourceTree = "<group>"; };
 		D939CBC627E3283400BC20D2 /* ArbsPlaygroundPCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArbsPlaygroundPCViewController.swift; sourceTree = "<group>"; };
-		D939CBC927E3283400BC20D2 /* APPCTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPCTableViewCell.swift; sourceTree = "<group>"; };
+		D939CBC927E3283400BC20D2 /* APPCTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPCTableView.swift; sourceTree = "<group>"; };
 		D939CBCA27E3283400BC20D2 /* APPCUIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPCUIConstants.swift; sourceTree = "<group>"; };
 		D939CBCC27E3283400BC20D2 /* APPCIdentifierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPCIdentifierView.swift; sourceTree = "<group>"; };
 		D939CBCE27E3283400BC20D2 /* APPCLightsSetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APPCLightsSetView.swift; sourceTree = "<group>"; };
@@ -625,6 +626,7 @@
 		D9C71C1926734C76001B1924 /* FreightResultPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreightResultPageViewController.swift; sourceTree = "<group>"; };
 		D9C71C1B26735EB5001B1924 /* LiveCurvesPageConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesPageConfigurator.swift; sourceTree = "<group>"; };
 		D9C71C512678A46E001B1924 /* UIAlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertFactory.swift; sourceTree = "<group>"; };
+		D9C941EC27E9F1C2007ABA27 /* ArbsPlaygroundPCInterfaces+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsPlaygroundPCInterfaces+Models.swift"; sourceTree = "<group>"; };
 		D9D170D32587880F0059A1F1 /* LineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineButtonView.swift; sourceTree = "<group>"; };
 		D9D2EC712705BE37007AF869 /* ArbDetailWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailWireframe.swift; sourceTree = "<group>"; };
 		D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewController.swift; sourceTree = "<group>"; };
@@ -932,11 +934,11 @@
 		D939CBB827E3283400BC20D2 /* ArbsComparation */ = {
 			isa = PBXGroup;
 			children = (
-				D939CBB927E3283400BC20D2 /* ArbsComparationWireframe.swift */,
-				D939CBBA27E3283400BC20D2 /* ArbsComparationViewController.swift */,
-				D939CBBB27E3283400BC20D2 /* ArbsComparationViewModel.swift */,
-				D939CBBC27E3283400BC20D2 /* ArbsComparationInterfaces.swift */,
 				D939CBBD27E3283400BC20D2 /* Helpers */,
+				D939CBB927E3283400BC20D2 /* ArbsComparationWireframe.swift */,
+				D939CBBB27E3283400BC20D2 /* ArbsComparationViewModel.swift */,
+				D939CBBA27E3283400BC20D2 /* ArbsComparationViewController.swift */,
+				D939CBBC27E3283400BC20D2 /* ArbsComparationInterfaces.swift */,
 			);
 			path = ArbsComparation;
 			sourceTree = "<group>";
@@ -970,11 +972,12 @@
 		D939CBC327E3283400BC20D2 /* PricingCenter */ = {
 			isa = PBXGroup;
 			children = (
-				D939CBC427E3283400BC20D2 /* ArbsPlaygroundPCInterfaces.swift */,
-				D939CBC527E3283400BC20D2 /* ArbsPlaygroundPCWireframe.swift */,
-				D939CBC627E3283400BC20D2 /* ArbsPlaygroundPCViewController.swift */,
 				D939CBC727E3283400BC20D2 /* Helpers */,
+				D9C941EC27E9F1C2007ABA27 /* ArbsPlaygroundPCInterfaces+Models.swift */,
+				D939CBC427E3283400BC20D2 /* ArbsPlaygroundPCInterfaces.swift */,
 				D939CBD327E3283400BC20D2 /* ArbsPlaygroundPCViewModel.swift */,
+				D939CBC627E3283400BC20D2 /* ArbsPlaygroundPCViewController.swift */,
+				D939CBC527E3283400BC20D2 /* ArbsPlaygroundPCWireframe.swift */,
 			);
 			path = PricingCenter;
 			sourceTree = "<group>";
@@ -982,25 +985,17 @@
 		D939CBC727E3283400BC20D2 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				D939CBC827E3283400BC20D2 /* Cells */,
 				D939CBCA27E3283400BC20D2 /* APPCUIConstants.swift */,
 				D939CBCB27E3283400BC20D2 /* Views */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		D939CBC827E3283400BC20D2 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				D939CBC927E3283400BC20D2 /* APPCTableViewCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
 		D939CBCB27E3283400BC20D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				D939CBCC27E3283400BC20D2 /* APPCIdentifierView.swift */,
+				D939CBC927E3283400BC20D2 /* APPCTableView.swift */,
 				D939CBCD27E3283400BC20D2 /* APPCLightsSetView */,
 				D939CBD027E3283400BC20D2 /* APPCDatesHeaderView */,
 			);
@@ -2472,6 +2467,7 @@
 				D939CBDF27E3283400BC20D2 /* ArbsVContentViewController+Configurator.swift in Sources */,
 				D9BEB64927B9172E00E56E1B /* LiveChartsEndPoint.swift in Sources */,
 				D9E810D0273E8E66003C42C0 /* GetArbsTableRequest.swift in Sources */,
+				D9C941ED27E9F1C2007ABA27 /* ArbsPlaygroundPCInterfaces+Models.swift in Sources */,
 				D954722527BFFB0A00CB2BEF /* WebViewWarmuper.swift in Sources */,
 				D939CBE127E3283400BC20D2 /* ArbsComparationViewController.swift in Sources */,
 				D9783EA827BB8F480097DCE0 /* LCItemsSelectorWireframe.swift in Sources */,
@@ -2539,7 +2535,7 @@
 				D939CC1D27E3A4F700BC20D2 /* ArbsMenuItemView.swift in Sources */,
 				D98AF6CA25BADA4C00A5BC96 /* ArbsViewModel+Models.swift in Sources */,
 				D96F47AF26BC5E540063AB90 /* StepperView.swift in Sources */,
-				D939CBEA27E3283400BC20D2 /* APPCTableViewCell.swift in Sources */,
+				D939CBEA27E3283400BC20D2 /* APPCTableView.swift in Sources */,
 				D9B50E0325717F4D0018F3D7 /* Keychain+Keys.swift in Sources */,
 				D96C8BF12576651C0038175A /* BaseNetworkManager.swift in Sources */,
 				D939CC3727E3A5B000BC20D2 /* IgnoreBottomDeltaYTransformer.swift in Sources */,
