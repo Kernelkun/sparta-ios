@@ -7,8 +7,9 @@
 
 import UIKit
 import SpartaHelpers
+import NetworkingModels
 
-class MainSegmentedView: UIControl {
+class MainSegmentedView<I: DisplayableItem & CaseIterable>: UIControl {
 
     // MARK: - Public properties
 
@@ -18,15 +19,15 @@ class MainSegmentedView: UIControl {
 
     // MARK: - Private properties
 
-    private let items: [MenuItem]
-    private var _onChooseClosure: TypeClosure<MenuItem>?
+    private let items: [I]
+    private var _onChooseClosure: TypeClosure<I>?
     private var mainStackView: UIStackView!
     private var selectionView: UIView!
     private var oldFrame: CGRect = .zero
 
     // MARK: - Initializers
 
-    init(items: [MenuItem], selectedIndex: Int) {
+    init(items: [I], selectedIndex: Int) {
         self.items = items
         super.init(frame: .zero)
 
@@ -51,7 +52,7 @@ class MainSegmentedView: UIControl {
 
     // MARK: - Public methods
 
-    func onSelect(completion: @escaping TypeClosure<MenuItem>) {
+    func onSelect(completion: @escaping TypeClosure<I>) {
         _onChooseClosure = completion
     }
 
@@ -70,7 +71,7 @@ class MainSegmentedView: UIControl {
             items.forEach { item in
                 let itemView = ItemView(item: item)
                 itemView.onTap { [unowned self] view in
-                    guard let view = view as? ItemView,
+                    guard let view = view as? ItemView<I>,
                           let indexOfView = mainStackView.arrangedSubviews
                             .firstIndex(of: view) else { return }
 
@@ -100,12 +101,12 @@ class MainSegmentedView: UIControl {
 
     private func updateUI(animated: Bool) {
         guard selectedIndex < mainStackView.arrangedSubviews.count,
-              let selectedItem = mainStackView.arrangedSubviews[selectedIndex] as? ItemView else { return }
+              let selectedItem = mainStackView.arrangedSubviews[selectedIndex] as? ItemView<I> else { return }
 
         selectLineToView(selectedItem, animated: animated)
     }
 
-    private func selectLineToView(_ view: ItemView, animated: Bool) {
+    private func selectLineToView(_ view: ItemView<I>, animated: Bool) {
         guard let frame = getFrameOfView(view) else { return }
 
         func makeSelectedFrame() {
@@ -124,18 +125,11 @@ class MainSegmentedView: UIControl {
         }
     }
 
-    private func getFrameOfView(_ alignView: ItemView) -> CGRect? {
+    private func getFrameOfView(_ alignView: ItemView<I>) -> CGRect? {
         mainStackView.arrangedSubviews.first { view in
-            guard let view = view as? ItemView else { return false }
+            guard let view = view as? ItemView<I> else { return false }
 
             return alignView == view
         }?.frame
-    }
-}
-
-extension MainSegmentedView {
-    enum MenuItem: String, CaseIterable {
-        case pricingCenter = "Pricing center"
-        case arbsComparation = "ARBs comparation"
     }
 }

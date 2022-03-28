@@ -22,6 +22,7 @@ class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
     // MARK: - Public methods
 
     func loadData() {
+
         arbsNetworkManager.fetchVArbsSelectorList(request: .init(type: .pricingCenter)) { [weak self] result in
             guard let strongSelf = self else { return }
 

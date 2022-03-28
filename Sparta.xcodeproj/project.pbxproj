@@ -302,6 +302,10 @@
 		D9C71C1C26735EB5001B1924 /* LiveCurvesPageConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C1B26735EB5001B1924 /* LiveCurvesPageConfigurator.swift */; };
 		D9C71C522678A46E001B1924 /* UIAlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C71C512678A46E001B1924 /* UIAlertFactory.swift */; };
 		D9C941ED27E9F1C2007ABA27 /* ArbsPlaygroundPCInterfaces+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C941EC27E9F1C2007ABA27 /* ArbsPlaygroundPCInterfaces+Models.swift */; };
+		D9C9420127EE3D42007ABA27 /* ArbsVisSyncInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9420027EE3D42007ABA27 /* ArbsVisSyncInterface.swift */; };
+		D9C9420327EE3E62007ABA27 /* ArbsVisSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9420227EE3E62007ABA27 /* ArbsVisSyncManager.swift */; };
+		D9C9420527EE3E6E007ABA27 /* ArbsVisSyncManager+Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9420427EE3E6E007ABA27 /* ArbsVisSyncManager+Observation.swift */; };
+		D9C9420727F21D7C007ABA27 /* ArbsVContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9420627F21D7C007ABA27 /* ArbsVContentViewModel.swift */; };
 		D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D170D32587880F0059A1F1 /* LineButtonView.swift */; };
 		D9D2EC722705BE37007AF869 /* ArbDetailWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2EC712705BE37007AF869 /* ArbDetailWireframe.swift */; };
 		D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */; };
@@ -627,6 +631,10 @@
 		D9C71C1B26735EB5001B1924 /* LiveCurvesPageConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCurvesPageConfigurator.swift; sourceTree = "<group>"; };
 		D9C71C512678A46E001B1924 /* UIAlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertFactory.swift; sourceTree = "<group>"; };
 		D9C941EC27E9F1C2007ABA27 /* ArbsPlaygroundPCInterfaces+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsPlaygroundPCInterfaces+Models.swift"; sourceTree = "<group>"; };
+		D9C9420027EE3D42007ABA27 /* ArbsVisSyncInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVisSyncInterface.swift; sourceTree = "<group>"; };
+		D9C9420227EE3E62007ABA27 /* ArbsVisSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVisSyncManager.swift; sourceTree = "<group>"; };
+		D9C9420427EE3E6E007ABA27 /* ArbsVisSyncManager+Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArbsVisSyncManager+Observation.swift"; sourceTree = "<group>"; };
+		D9C9420627F21D7C007ABA27 /* ArbsVContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVContentViewModel.swift; sourceTree = "<group>"; };
 		D9D170D32587880F0059A1F1 /* LineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineButtonView.swift; sourceTree = "<group>"; };
 		D9D2EC712705BE37007AF869 /* ArbDetailWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailWireframe.swift; sourceTree = "<group>"; };
 		D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewController.swift; sourceTree = "<group>"; };
@@ -912,6 +920,7 @@
 				D939CBB727E3283400BC20D2 /* Childs */,
 				D939CBD827E3283400BC20D2 /* Helpers */,
 				D939CBD727E3283400BC20D2 /* ArbsVContentInterfaces.swift */,
+				D9C9420627F21D7C007ABA27 /* ArbsVContentViewModel.swift */,
 				D939CBB627E3283400BC20D2 /* ArbsVContentViewController+Configurator.swift */,
 				D939CBB527E3283400BC20D2 /* ArbsVContentViewController.swift */,
 				D939CBB427E3283400BC20D2 /* ArbsVContentWireframe.swift */,
@@ -1634,6 +1643,7 @@
 		D99A73E8259C7B24009E3559 /* ARBs */ = {
 			isa = PBXGroup;
 			children = (
+				D9C941FE27EE3CEF007ABA27 /* Visualisations */,
 				D9E810CB273D1276003C42C0 /* ArbsSyncInterface.swift */,
 				D99A73E9259C7B35009E3559 /* ArbsSyncManager.swift */,
 				D9A91C0225A3850400423704 /* ArbsSyncManager+Observation.swift */,
@@ -2161,6 +2171,16 @@
 			path = Childs;
 			sourceTree = "<group>";
 		};
+		D9C941FE27EE3CEF007ABA27 /* Visualisations */ = {
+			isa = PBXGroup;
+			children = (
+				D9C9420027EE3D42007ABA27 /* ArbsVisSyncInterface.swift */,
+				D9C9420227EE3E62007ABA27 /* ArbsVisSyncManager.swift */,
+				D9C9420427EE3E6E007ABA27 /* ArbsVisSyncManager+Observation.swift */,
+			);
+			path = Visualisations;
+			sourceTree = "<group>";
+		};
 		D9D170D2258788060059A1F1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2435,6 +2455,7 @@
 				D939CBE727E3283400BC20D2 /* ArbsPlaygroundPCInterfaces.swift in Sources */,
 				D9D4FC2C264ED53F00A2A1DA /* BaseViewController.swift in Sources */,
 				D980119E2652A99B00B8AA70 /* ProfilesView.swift in Sources */,
+				D9C9420527EE3E6E007ABA27 /* ArbsVisSyncManager+Observation.swift in Sources */,
 				D98011A02652AE5400B8AA70 /* ProfileElementView.swift in Sources */,
 				D9F996E425BECF110075F1A9 /* ResultKeyInputView.swift in Sources */,
 				D9B7CCD925C1C9590023FDF2 /* ProgressView.swift in Sources */,
@@ -2478,6 +2499,7 @@
 				D9264BE52574F0F2001477DA /* ForgotPasswordViewModel.swift in Sources */,
 				D9A91BF825A3470000423704 /* ArbsDeliveryMonthCollectionViewCell.swift in Sources */,
 				D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */,
+				D9C9420727F21D7C007ABA27 /* ArbsVContentViewModel.swift in Sources */,
 				D939CC3227E3A5B000BC20D2 /* GestureStateObservable.swift in Sources */,
 				D94ACF19266529FB003BCC14 /* UIActionSheetFactory.swift in Sources */,
 				D959C0E225822969006CE2D1 /* ArbsViewModel.swift in Sources */,
@@ -2557,6 +2579,8 @@
 				D939CC1927E3A4F700BC20D2 /* ArbPlaygroundInputDataView.swift in Sources */,
 				D9ECEC37257A9A09005DFFD7 /* PopupViewController.swift in Sources */,
 				D9A91C2025A5CF3B00423704 /* KeyedNavigationController.swift in Sources */,
+				D9C9420327EE3E62007ABA27 /* ArbsVisSyncManager.swift in Sources */,
+				D9C9420127EE3D42007ABA27 /* ArbsVisSyncInterface.swift in Sources */,
 				D9254DAB27E24AB3001D958F /* ArbVSelectorsRequest.swift in Sources */,
 				D986AD3A26936139007B679E /* LiveCurvesSyncManagerProtocol.swift in Sources */,
 				D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */,

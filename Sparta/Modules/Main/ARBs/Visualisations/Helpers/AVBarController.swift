@@ -115,7 +115,7 @@ extension AVBarController {
 
         static func == (lhs: Self, rhs: Self) -> Bool {
             lhs.visibleRange == rhs.visibleRange
-            && lhs.height == rhs.height
+                && lhs.height == rhs.height
         }
     }
 

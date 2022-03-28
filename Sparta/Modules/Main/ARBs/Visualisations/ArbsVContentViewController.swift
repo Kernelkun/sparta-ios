@@ -20,6 +20,8 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 
     // MARK: - Private properties
 
+    private let viewModel: ArbsVContentViewModelInterface
+
     private var scrollViewContent: UIView!
     private var contentScrollView: UIScrollView!
     private var barController: BarController!
@@ -27,7 +29,8 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 
     // MARK: - Initializers
 
-    init() {
+    init(viewModel: ArbsVContentViewModelInterface) {
+        self.viewModel = viewModel
         currentPage = .pricingCenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -65,7 +68,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
                 $0.top.equalToSuperview()
                 $0.right.equalTo(self.view.safeAreaLayoutGuide.snp.right)
                 $0.left.equalTo(self.view.safeAreaLayoutGuide.snp.left)
-                $0.height.equalTo(55)
+                $0.height.equalTo(100)
             }
         }
 
@@ -74,7 +77,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
             scrollView.showsVerticalScrollIndicator = false
 
             view.addSubview(scrollView) {
-                $0.top.equalToSuperview().offset(55)
+                $0.top.equalTo(airBar.snp.bottom)//.offset(55)
                 $0.bottom.equalToSuperview()
                 $0.right.equalTo(view.safeAreaLayoutGuide.snp.right)
                 $0.left.equalTo(view.safeAreaLayoutGuide.snp.left)
@@ -114,16 +117,22 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 
             aVBarController.setStatesConfigurator(configurator)
 
+            // starting loading data through sockets
+            viewModel.startLoadDataForPC()
+
         case .arbsComparation:
             scrollViewContent.removeAllSubviews()
             add(configurator.acChhildController, to: scrollViewContent)
 
             let configurator = AVBarController.StatesConfigurator(
                 expandPosition: .init(visibleRange: -1000 ... 0, height: 100),
-                collapsedPosition: .init(visibleRange: 0 ... CGFloat.infinity, height: 55)
+                collapsedPosition: .init(visibleRange: 0 ... CGFloat.infinity, height: 100)
             )
 
             aVBarController.setStatesConfigurator(configurator)
+
+            // starting loading data through sockets
+            viewModel.startLoadDataForAC()
         }
 
         currentPage = newPage
@@ -148,10 +157,14 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
     private func handleBarControllerStateChanged(state: AVBarController.State) {
         print("isCollapsed: \(state.isCollapsed), height: \(state.position.height), contentOffset: \(state.contentOffset)")
 
-        airBar.applyState(isMinimized: state.isCollapsed)
+//        airBar.applyState(isMinimized: state.isCollapsed)
         airBar.snp.updateConstraints {
             $0.height.equalTo(state.position.height)
         }
+
+//        contentScrollView.snp.updateConstraints {
+//            $0.top.equalToSuperview().offset(state.position.height)
+//        }
 
         for observer in observers {
             observer.arbsVContentControllerDidChangeScrollState(self, newState: state, page: currentPage)
@@ -161,13 +174,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 
 extension ArbsVContentViewController: ArbVHeaderViewDelegate {
 
-    func arbVHeaderViewDidChangeSegmentedViewValue(_ view: ArbVHeaderView, item: MainSegmentedView.MenuItem) {
-        switch item {
-        case .pricingCenter:
-            presentContentPage(.pricingCenter)
-
-        case .arbsComparation:
-            presentContentPage(.arbsComparation)
-        }
+    func arbVHeaderViewDidChangeSegmentedViewValue(_ view: ArbVHeaderView, item: ArbsVContentPage) {
+        presentContentPage(item)
     }
 }

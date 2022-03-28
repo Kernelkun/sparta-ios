@@ -9,7 +9,7 @@ import UIKit
 import SpartaHelpers
 
 protocol ArbVHeaderViewDelegate: AnyObject {
-    func arbVHeaderViewDidChangeSegmentedViewValue(_ view: ArbVHeaderView, item: MainSegmentedView.MenuItem)
+    func arbVHeaderViewDidChangeSegmentedViewValue(_ view: ArbVHeaderView, item: ArbsVContentPage)
 }
 
 class ArbVHeaderView: UIView {
@@ -21,12 +21,14 @@ class ArbVHeaderView: UIView {
     private(set) var topRightContentView: UIView!
     private(set) var bottomContentView: UIView!
 
+    var middleContentView: UIView!
+
     // MARK: - Private properties
 
     private let configurator: Configurator
     private var topContentView: UIView!
     private var mainStackView: UIStackView!
-    private var segmetedView: MainSegmentedView!
+    private var segmetedView: MainSegmentedView<ArbsVContentPage>!
 
     // MARK: - Initializers
 
@@ -61,6 +63,32 @@ class ArbVHeaderView: UIView {
             }
         }
 
+        middleContentView = UIView().then { view in
+
+            view.backgroundColor = .red
+            view.isHidden = true
+
+            view.snp.makeConstraints {
+                $0.height.equalTo(35)
+            }
+        }
+
+        let topStackView = UIStackView().then { stackView in
+
+            stackView.spacing = 10
+            stackView.axis = .vertical
+            stackView.alignment = .fill
+            stackView.distribution = .equalSpacing
+
+            stackView.addArrangedSubview(topContentView)
+            stackView.addArrangedSubview(middleContentView)
+
+            addSubview(stackView) {
+                $0.top.equalToSuperview().offset(10)
+                $0.left.right.equalToSuperview()
+            }
+        }
+
         bottomContentView = UIView().then { view in
 
             view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
@@ -77,7 +105,7 @@ class ArbVHeaderView: UIView {
             stackView.alignment = .fill
             stackView.distribution = .equalSpacing
 
-            stackView.addArrangedSubview(topContentView)
+            stackView.addArrangedSubview(topStackView)
             stackView.addArrangedSubview(bottomContentView)
 
             addSubview(stackView) {
@@ -87,7 +115,7 @@ class ArbVHeaderView: UIView {
         }
 
         segmetedView = MainSegmentedView(
-            items: MainSegmentedView.MenuItem.allCases,
+            items: ArbsVContentPage.allCases,
             selectedIndex: configurator.selectedIndexOfMenuItem
         ).then { view in
 

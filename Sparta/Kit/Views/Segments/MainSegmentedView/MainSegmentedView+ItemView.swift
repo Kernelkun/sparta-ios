@@ -7,14 +7,15 @@
 
 import UIKit
 import SpartaHelpers
+import NetworkingModels
 
 extension MainSegmentedView {
 
-    class ItemView: TappableView {
+    class ItemView<I: DisplayableItem>: TappableView {
 
         // MARK: - Public properties
 
-        let item: MainSegmentedView.MenuItem
+        let item: I
 
         // MARK: - Private properties
 
@@ -22,7 +23,7 @@ extension MainSegmentedView {
 
         // MARK: - Initializers
 
-        init(item: MainSegmentedView.MenuItem) {
+        init(item: I) {
             self.item = item
             super.init(frame: .zero)
 
@@ -40,7 +41,7 @@ extension MainSegmentedView {
 
                 label.textAlignment = .center
                 label.numberOfLines = 0
-                label.text = item.rawValue.capitalizedFirst
+                label.text = item.title.capitalizedFirst
                 label.isUserInteractionEnabled = false
                 label.font = .main(weight: .semibold, size: 12)
 

@@ -63,6 +63,7 @@ class APPCTableView: UIView {
             view.showsHorizontalScrollIndicator = false
             view.showsVerticalScrollIndicator = false
             view.bounces = false
+            view.clipsToBounds = false
 //            view.contentSize = scrollViewContentSize()
 
                 addSubview(view) {
@@ -75,6 +76,7 @@ class APPCTableView: UIView {
         let scrollViewContent = UIView().then { view in
 
             view.backgroundColor = UIColor.red.withAlphaComponent(0.1)
+            view.clipsToBounds = false
 
             scrollView.addSubview(view) {
                 $0.left.top.equalToSuperview()
@@ -91,15 +93,14 @@ class APPCTableView: UIView {
             }
         }
 
-        var leftPreviousView: UIView?
         var prevStackView: UIStackView?
         var prevLineView: UIView?
 
-        for (index, model) in model.arbsV.enumerated() {
+        for (index, arbV) in model.arbsV.enumerated() {
 
             let identifierView = APPCIdentifierView(
-                title: model.loadRegion.uppercased(),
-                subTitle: model.vesselType.uppercased()
+                title: arbV.loadRegion.uppercased(),
+                subTitle: arbV.vesselType.uppercased()
             )
 
             let labelsStackView = UIStackView().then { stackView in
@@ -109,7 +110,7 @@ class APPCTableView: UIView {
                 stackView.spacing = APPCUIConstants.priceItemsLineSpace
                 stackView.alignment = .fill
 
-                if let firstValue = model.values.first {
+                if let firstValue = arbV.values.first {
                     firstValue.margins.forEach { margin in
                         stackView.addArrangedSubview(generateLabel(with: margin.type))
                     }
@@ -148,8 +149,6 @@ class APPCTableView: UIView {
                 }
             }
 
-            leftPreviousView = leftContentView
-
             // light views
 
             let numbersStackView = UIStackView().then { stackView in
@@ -159,11 +158,28 @@ class APPCTableView: UIView {
                 stackView.spacing = APPCUIConstants.priceItemSpace
                 stackView.alignment = .fill
 
-                self.model.headers.forEach { header in
-                    let margins = model.values.first(where: { $0.deliveryMonth == header.month.title })?.margins
+                func makeUnactiveViews() {
+                    stackView.arrangedSubviews.forEach { view in
+                        guard let view = view as? APPCLightsSetView else { return }
+                        view.isActive = false
+                    }
+                }
 
-                    _ = APPCLightsSetView(margins: margins).then { view in
-//                        view.apply(value.margins)
+                self.model.headers.forEach { header in
+                    guard let value = arbV.values.first(where: { $0.deliveryMonth == header.month.title }) else { return }
+
+                    let margins = value.margins
+                    let uniqueIdentifier = arbV.uniqueIdentifier(from: value)
+
+                    _ = APPCLightsSetView(margins: margins, uniqueIdentifier: uniqueIdentifier).then { view in
+
+                        view.onTap { view in
+                            guard let view = view as? APPCLightsSetView else { return }
+
+                            makeUnactiveViews()
+                            view.isActive = true
+                        }
+
                         stackView.addArrangedSubview(view)
                     }
                 }
@@ -191,8 +207,8 @@ class APPCTableView: UIView {
 
             if index != (self.model.arbsV.count - 1),
                 self.model.arbsV.count > 1,
-                let prevStackView = prevStackView
-            {
+                let prevStackView = prevStackView {
+                
                 let lineView = UIView().then { view in
 
                     view.backgroundColor = .gray

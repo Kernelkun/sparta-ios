@@ -11,3 +11,7 @@ public protocol DisplayableItem {
     var title: String { get }
     var longTitle: String { get }
 }
+
+public extension DisplayableItem {
+    var longTitle: String { title }
+}

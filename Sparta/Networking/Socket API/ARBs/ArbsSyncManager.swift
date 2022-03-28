@@ -225,6 +225,7 @@ class ArbsSyncManager: ArbsSyncInterface {
         }
     }
 }
+
 extension ArbsSyncManager: SocketActionObserver {
 
     func socketDidReceiveResponse(for server: SocketAPI.Server, data: JSON) {

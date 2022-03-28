@@ -49,7 +49,10 @@ public struct Environment {
     public static let socketBlenderURL = Self.baseDataURL + "/blender?regions=ARA,HOU&portfolioIds=1,2,3"
     public static let socketLiveCurvesURL = Self.baseDataURL + "/socket/v2/curves"
     public static let socketArbsURL = Self.baseDataURL + "/socket/arbs?arbsmonths=6&portfolioIds=1,2"
-    public static let socketVisualisationsURL = Self.baseDataURL + "/socket/visualizations"
+
+    public static func socketVisualisationsURL(dateRange: Visualisations.DateRange) -> String {
+        Self.baseDataURL + "/socket/visualizations?dateRange=\(dateRange.rawValue)"
+    }
 
     public static func socketLiveChartsURL(
         itemCode: String,
@@ -68,17 +71,4 @@ public struct Environment {
     // LC chart
 
     public static let liveChartURL = "http://sparta-review-ios-iframe-page.s3-website-eu-west-1.amazonaws.com/standaloneChart/"
-}
-
-public extension Environment {
-    struct LiveChart {
-        public enum Resolution: String, CaseIterable {
-            case minute1 = "1m"
-            case hour1 = "1h"
-            case day1 = "1d"
-            case week1 = "1w"
-            case month1 = "1M"
-            case week52 = "52w"
-        }
-    }
 }

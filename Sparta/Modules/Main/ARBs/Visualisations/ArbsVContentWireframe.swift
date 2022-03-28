@@ -13,7 +13,8 @@ final class ArbsVContentWireframe: BaseWireframe<ArbsVContentViewController> {
     // MARK: - Initializers
 
     init() {
-        let viewController = ArbsVContentViewController()
+        let viewModel = ArbsVContentViewModel()
+        let viewController = ArbsVContentViewController(viewModel: viewModel)
 
         let configurator = ArbsVContentViewController.Configurator(
             pcChildController: ArbsVChildPCViewController(parrentController: viewController),

@@ -6,11 +6,7 @@
 //
 
 import Foundation
-
-enum ArbsVContentPage {
-    case pricingCenter
-    case arbsComparation
-}
+import NetworkingModels
 
 protocol ArbsVContentControllerObserver: AnyObject {
     func arbsVContentControllerDidChangeScrollState(
@@ -18,7 +14,11 @@ protocol ArbsVContentControllerObserver: AnyObject {
         newState: AVBarController.State,
         page: ArbsVContentPage
     )
-    func arbsVContentControllerDidChangePage(_ controller: ArbsVContentControllerInterface, newPage: ArbsVContentPage)
+
+    func arbsVContentControllerDidChangePage(
+        _ controller: ArbsVContentControllerInterface,
+        newPage: ArbsVContentPage
+    )
 }
 
 protocol ArbsVContentControllerInterface: AnyObject {
@@ -26,4 +26,31 @@ protocol ArbsVContentControllerInterface: AnyObject {
 
     func addObserver(_ observer: ArbsVContentControllerObserver)
     func removeObserver(_ observer: ArbsVContentControllerObserver)
+}
+
+enum ArbsVContentPage: DisplayableItem, CaseIterable {
+    case pricingCenter
+    case arbsComparation
+
+    var title: String {
+        switch self {
+        case .pricingCenter:
+            return "Pricing center"
+
+        case .arbsComparation:
+            return "ARBs comparation"
+        }
+    }
+}
+//
+//protocol ArbsVContentViewModelDelegate: AnyObject {
+//    func arbsPlaygroundPCViewModelDidFetchSelectors(_ selectors: [ArbV.Selector])
+//}
+
+protocol ArbsVContentViewModelInterface {
+//    var delegate: ArbsVContentViewModelDelegate? { get set }
+
+    func startLoadDataForPC()
+    func startLoadDataForAC()
+    func stopLoadData()
 }

@@ -6,29 +6,49 @@
 //
 
 import UIKit
+import SpartaHelpers
 import NetworkingModels
 
-class APPCLightsSetView: UIView {
+class APPCLightsSetView: TappableView {
+
+    // MARK: - Public methods
+
+    var isActive: Bool {
+        didSet { updateActiveStateUI() }
+    }
 
     // MARK: - Private properties
 
     private var contentView: UIView!
     private var mainStackView: UIStackView!
+    private var activeView: UIView?
 
+    private let uniqueIdentifier: String
     private var margins: [ArbV.Margin]? = []
 
     // MARK: - Initializers
 
-    init(margins: [ArbV.Margin]?) {
+    init(margins: [ArbV.Margin]?, uniqueIdentifier: String) {
         self.margins = margins
+        self.uniqueIdentifier = uniqueIdentifier
+        self.isActive = false
         super.init(frame: .zero)
 
         setupUI()
         updateUI()
+        updateActiveStateUI()
+
+        // observe for sockets
+
+        observeArbsVis(for: uniqueIdentifier)
     }
 
     required init?(coder: NSCoder) {
         fatalError(#function)
+    }
+
+    deinit {
+        stopObservingAllArbsVisEvents()
     }
 
     // MARK: - Private methods
@@ -72,5 +92,33 @@ class APPCLightsSetView: UIView {
         } else {
             mainStackView.addArrangedSubview(generateLightView(nil))
         }
+    }
+
+    private func updateActiveStateUI() {
+        if isActive {
+            activeView = UIView().then { view in
+                view.layer.borderColor = UIColor.controlTintActive.cgColor
+                view.layer.borderWidth = 2
+                view.layer.cornerRadius = 6
+                view.frame = self.bounds.insetBy(dx: -2, dy: -2)
+                addSubview(view)
+            }
+
+            mainStackView.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        } else {
+            activeView?.removeFromSuperview()
+            mainStackView.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }
+    }
+}
+
+extension APPCLightsSetView: ArbsVisSyncObserver {
+
+    func arbsVisSyncManagerDidReceiveArbMonth(manager: ArbsVisSyncInterface, arbVMonth: ArbVMonthSocket) {
+        guard arbVMonth.uniqueIdentifier == uniqueIdentifier else { return }
+
+        self.margins = arbVMonth.margins
+        self.updateUI()
+        self.isActive = true
     }
 }

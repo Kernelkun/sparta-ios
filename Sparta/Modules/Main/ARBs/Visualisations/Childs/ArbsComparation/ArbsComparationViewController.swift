@@ -60,6 +60,7 @@ class ArbsComparationViewController: BaseViewController {
             addSubview(view) {
                 $0.top.equalToSuperview().offset(4)
                 $0.left.right.bottom.equalToSuperview().inset(4)
+                $0.height.equalTo(300)
             }
         }
 

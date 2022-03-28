@@ -45,9 +45,10 @@ public struct ArbV: BackendModel {
     }
 }
 
-/*extension Arb: Equatable {
+extension ArbV {
 
-    public static func ==(lhs: Arb, rhs: Arb) -> Bool {
-        lhs.uniqueIdentifier == rhs.uniqueIdentifier
+    // use this unique identifier for receiving data from sockets
+    public func uniqueIdentifier(from value: Value) -> String {
+        (self.arbId.toString + value.deliveryMonth).trimmed.lowercased()
     }
-}*/
+}

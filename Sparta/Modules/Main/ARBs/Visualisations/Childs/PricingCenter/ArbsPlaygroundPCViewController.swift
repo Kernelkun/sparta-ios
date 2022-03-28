@@ -55,7 +55,6 @@ class ArbsPlaygroundPCViewController: BaseViewController {
 
         let contentView = UIView().then { view in
 
-//            view.backgroundColor = .secondaryBackground
             view.layer.cornerRadius = 13
 
             addSubview(view) {
@@ -99,26 +98,6 @@ class ArbsPlaygroundPCViewController: BaseViewController {
         }
     }
 }
-
-/*extension ArbsPlaygroundPCViewController: UITableViewDelegate, UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.arbsV.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: APPCTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-
-        let arbV = viewModel.arbsV[indexPath.row]
-        cell.apply(arbV)
-
-        return cell
-    }
-}*/
 
 extension ArbsPlaygroundPCViewController: ArbsPlaygroundPCViewModelDelegate {
 

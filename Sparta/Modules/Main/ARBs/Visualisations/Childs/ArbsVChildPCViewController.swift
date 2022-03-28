@@ -32,6 +32,17 @@ class ArbsVChildPCViewController: ArbsVChildViewController {
     ) {
         super.arbsVContentControllerDidChangeScrollState(controller, newState: newState, page: page)
 
+        guard page == .arbsComparation else { return }
+
+        print("Direction: " + "\(newState.direction)" + " " + "contentOffset.y" + "\(newState.contentOffset.y)")
+
+        if newState.direction == .down
+            && newState.contentOffset.y > 0 {
+
+//            parrentController.airBar.middleContentView.isHidden = false
+        }
+
+//        parrentController.airBar.applyState(isMinimized: false)
 //        parrentController.airBar.topRightContentView.backgroundColor = .red
     }
 
