@@ -21,21 +21,21 @@ protocol ArbsVisSyncObserver: AnyObject {
 
 extension ArbsVisSyncObserver {
 
-    func observeArbsVis(for uniqueIdentifier: String...) {
+    func observeArbsVis(for uniqueIdentifier: Identifier<String>...) {
 
         for code in uniqueIdentifier {
-            let observers = ArbsVisSyncManager.observers[code] ?? .init()
+            let observers = ArbsVisSyncManager.observers[code.identifier] ?? .init()
             observers.insert(self)
-            ArbsVisSyncManager.observers[code] = observers
+            ArbsVisSyncManager.observers[code.identifier] = observers
         }
     }
 
-    func stopObservingArbsVis(for uniqueIdentifiers: String...) {
+    func stopObservingArbsVis(for uniqueIdentifiers: Identifier<String>...) {
 
         for code in uniqueIdentifiers {
-            guard let observers = ArbsVisSyncManager.observers[code] else { continue }
+            guard let observers = ArbsVisSyncManager.observers[code.identifier] else { continue }
             observers.remove(self)
-            ArbsVisSyncManager.observers[code] = observers
+            ArbsVisSyncManager.observers[code.identifier] = observers
         }
     }
 
@@ -55,7 +55,7 @@ extension ArbsVisSyncManager {
     fileprivate static var observers: [String: WeakSet<ArbsVisSyncObserver>] = [:]
 
     func notifyObservers(about arbVMonth: ArbVMonthSocket, queue: OperationQueue = .main) {
-        guard let observers = ArbsVisSyncManager.observers[arbVMonth.uniqueIdentifier]?.allObjects else { return }
+        guard let observers = ArbsVisSyncManager.observers[arbVMonth.uniqueIdentifier.identifier]?.allObjects else { return }
         queue.addOperation { observers.forEach { $0.arbsVisSyncManagerDidReceiveArbMonth(manager: self, arbVMonth: arbVMonth) } }
     }
 }

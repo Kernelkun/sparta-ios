@@ -38,7 +38,8 @@ public struct ArbVMonthSocket: BackendModel {
 extension ArbVMonthSocket {
 
     // use this unique identifier for receiving data from sockets
-    public var uniqueIdentifier: String {
-        (arbId.toString + deliveryMonth).trimmed.lowercased()
+    public var uniqueIdentifier: Identifier<String> {
+        let stringIdentifier = (arbId.toString + deliveryMonth).trimmed.lowercased()
+        return Identifier(id: stringIdentifier)
     }
 }

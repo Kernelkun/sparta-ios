@@ -13,34 +13,39 @@ class APPCLightsSetView: TappableView {
 
     // MARK: - Public methods
 
-    var isActive: Bool {
-        didSet { updateActiveStateUI() }
-    }
+    private(set) var arbVValue: ArbV.Value?
 
     // MARK: - Private properties
 
     private var contentView: UIView!
     private var mainStackView: UIStackView!
-    private var activeView: UIView?
+    private var activeView: UIView!
+    private var isActive: Bool = false
 
-    private let uniqueIdentifier: String
-    private var margins: [ArbV.Margin]? = []
+    private let uniqueIdentifier: Identifier<String>?
+    private var margins: [ArbV.Margin]?
 
     // MARK: - Initializers
 
-    init(margins: [ArbV.Margin]?, uniqueIdentifier: String) {
-        self.margins = margins
+    init(
+        arbVValue: ArbV.Value?,
+        uniqueIdentifier: Identifier<String>?,
+        isActive: Bool
+    ) {
         self.uniqueIdentifier = uniqueIdentifier
-        self.isActive = false
+        self.margins = arbVValue?.margins
+        self.arbVValue = arbVValue
         super.init(frame: .zero)
 
         setupUI()
         updateUI()
-        updateActiveStateUI()
+        setIsActive(isActive, animated: false)
 
         // observe for sockets
 
-        observeArbsVis(for: uniqueIdentifier)
+        if let uniqueIdentifier = uniqueIdentifier {
+            observeArbsVis(for: uniqueIdentifier)
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -49,6 +54,21 @@ class APPCLightsSetView: TappableView {
 
     deinit {
         stopObservingAllArbsVisEvents()
+    }
+
+    // MARK: - Public methods
+
+    func setIsActive(_ isActive: Bool, animated: Bool) {
+        self.isActive = isActive
+
+        let duration = animated ? 0.1 : 0.0
+        let alpha = isActive ? 1.0 : 0.0
+        let transform: CGAffineTransform = isActive ? .init(scaleX: 0.97, y: 0.95) : .identity
+
+        UIView.animate(withDuration: duration) {
+            self.activeView.alpha = alpha
+            self.mainStackView.transform = transform
+        }
     }
 
     // MARK: - Private methods
@@ -63,6 +83,18 @@ class APPCLightsSetView: TappableView {
 
             addSubview(stackView) {
                 $0.edges.equalToSuperview()
+            }
+        }
+
+        activeView = UIView().then { view in
+
+            view.layer.borderColor = UIColor.controlTintActive.cgColor
+            view.layer.borderWidth = 2
+            view.layer.cornerRadius = 6
+            view.alpha = 0
+
+            addSubview(view) {
+                $0.edges.equalToSuperview().inset(-2)
             }
         }
     }
@@ -93,32 +125,15 @@ class APPCLightsSetView: TappableView {
             mainStackView.addArrangedSubview(generateLightView(nil))
         }
     }
-
-    private func updateActiveStateUI() {
-        if isActive {
-            activeView = UIView().then { view in
-                view.layer.borderColor = UIColor.controlTintActive.cgColor
-                view.layer.borderWidth = 2
-                view.layer.cornerRadius = 6
-                view.frame = self.bounds.insetBy(dx: -2, dy: -2)
-                addSubview(view)
-            }
-
-            mainStackView.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-        } else {
-            activeView?.removeFromSuperview()
-            mainStackView.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }
-    }
 }
 
 extension APPCLightsSetView: ArbsVisSyncObserver {
 
     func arbsVisSyncManagerDidReceiveArbMonth(manager: ArbsVisSyncInterface, arbVMonth: ArbVMonthSocket) {
-        guard arbVMonth.uniqueIdentifier == uniqueIdentifier else { return }
+        guard let uniqueIdentifier = uniqueIdentifier,
+                arbVMonth.uniqueIdentifier == uniqueIdentifier else { return }
 
         self.margins = arbVMonth.margins
         self.updateUI()
-        self.isActive = true
     }
 }

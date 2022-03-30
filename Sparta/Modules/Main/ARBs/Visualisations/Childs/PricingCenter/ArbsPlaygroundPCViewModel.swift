@@ -64,20 +64,17 @@ class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
                     }
                 }
 
-                let model = ArbsPlaygroundPCPUIModel(headers: months.compactMap { .init(month: $0, units: "$/bbl") },
-                                                     arbsV: arbsV)
-
-//                let values: [ArbsPlaygroundPCPUIModel] = Dictionary(grouping: allValues,
-//                                                                    by: { $0.deliveryMonth })
-//                    .compactMap { value in
-//                            .init(deliveryTitle: value.key,
-//                                  units: "$/bbl",
-//                                  values: value.value)
-//                    }
-
-                /// need to create model with months count and arbs V then go through this model and present UI
-
                 // end of fetching all months
+
+                var uniqueIdentifier: Identifier<String>?
+
+                if let arbV = arbsV.first, let value = arbV.values.first {
+                    uniqueIdentifier = arbV.uniqueIdentifier(from: value)
+                }
+
+                let model = ArbsPlaygroundPCPUIModel(headers: months.compactMap { .init(month: $0, units: "$/bbl") },
+                                                     arbsV: arbsV.sorted { $0.order < $1.order },
+                                                     selectedValueIdentifier: uniqueIdentifier)
 
                 onMainThread {
                     strongSelf.delegate?.arbsPlaygroundPCViewModelDidFetchArbsVModel(model)

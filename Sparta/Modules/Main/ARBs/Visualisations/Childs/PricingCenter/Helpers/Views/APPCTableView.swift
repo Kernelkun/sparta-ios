@@ -7,6 +7,7 @@
 
 import UIKit
 import NetworkingModels
+import SpartaHelpers
 
 class APPCTableView: UIView {
 
@@ -14,6 +15,11 @@ class APPCTableView: UIView {
 
     private var titleLabel: UILabel!
     private var model: ArbsPlaygroundPCPUIModel!
+    private var lightSetViews: [APPCLightsSetView] = []
+
+    // MARK: - Private properties
+
+    private var _onChooseClosure: TypeClosure<ArbV.Value>?
 
     // MARK: - Initializers
 
@@ -32,6 +38,10 @@ class APPCTableView: UIView {
         updateUI()
     }
 
+    func onChoose(completion: @escaping TypeClosure<ArbV.Value>) {
+        _onChooseClosure = completion
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
@@ -41,21 +51,7 @@ class APPCTableView: UIView {
 
     private func updateUI() {
         removeAllSubviews()
-
-        func generateLabel(with title: String) -> UILabel {
-            UILabel().then { label in
-
-                label.text = title
-                label.textAlignment = .right
-                label.textColor = .primaryText
-                label.font = .main(weight: .regular, size: 11)
-                label.numberOfLines = 0
-
-                label.snp.makeConstraints {
-                    $0.height.equalTo(40)
-                }
-            }
-        }
+        lightSetViews = []
 
         let scrollView = UIScrollView().then { view in
 
@@ -64,7 +60,6 @@ class APPCTableView: UIView {
             view.showsVerticalScrollIndicator = false
             view.bounces = false
             view.clipsToBounds = false
-//            view.contentSize = scrollViewContentSize()
 
                 addSubview(view) {
                     $0.left.equalToSuperview().offset(APPCUIConstants.leftMenuWidth)
@@ -75,14 +70,13 @@ class APPCTableView: UIView {
 
         let scrollViewContent = UIView().then { view in
 
-            view.backgroundColor = UIColor.red.withAlphaComponent(0.1)
+            view.backgroundColor = .clear
             view.clipsToBounds = false
 
             scrollView.addSubview(view) {
                 $0.left.top.equalToSuperview()
                 $0.bottom.equalToSuperview()
                 $0.right.lessThanOrEqualToSuperview().priority(.high)
-//                $0.centerY.equalToSuperview()
             }
         }
 
@@ -117,7 +111,7 @@ class APPCTableView: UIView {
                 }
             }
 
-            let leftContentView = UIView().then { view in
+            _ = UIView().then { view in
 
                 view.addSubview(identifierView) {
                     $0.top.equalToSuperview()
@@ -158,29 +152,34 @@ class APPCTableView: UIView {
                 stackView.spacing = APPCUIConstants.priceItemSpace
                 stackView.alignment = .fill
 
-                func makeUnactiveViews() {
-                    stackView.arrangedSubviews.forEach { view in
-                        guard let view = view as? APPCLightsSetView else { return }
-                        view.isActive = false
-                    }
-                }
-
                 self.model.headers.forEach { header in
-                    guard let value = arbV.values.first(where: { $0.deliveryMonth == header.month.title }) else { return }
+                    let value = arbV.values.first(where: { $0.deliveryMonth == header.month.title })
+                    let uniqueIdentifier: Identifier<String>?
 
-                    let margins = value.margins
-                    let uniqueIdentifier = arbV.uniqueIdentifier(from: value)
+                    if let value = value {
+                        uniqueIdentifier = arbV.uniqueIdentifier(from: value)
+                    } else {
+                        uniqueIdentifier = nil
+                    }
 
-                    _ = APPCLightsSetView(margins: margins, uniqueIdentifier: uniqueIdentifier).then { view in
+                    let isActive: Bool = uniqueIdentifier == self.model.selectedValueIdentifier
 
-                        view.onTap { view in
-                            guard let view = view as? APPCLightsSetView else { return }
+                    _ = APPCLightsSetView(
+                        arbVValue: value,
+                        uniqueIdentifier: uniqueIdentifier,
+                        isActive: isActive
+                    ).then { view in
 
-                            makeUnactiveViews()
-                            view.isActive = true
+                        view.onTap { [unowned self] view in
+                            guard let view = view as? APPCLightsSetView, let arbVValue = view.arbVValue else { return }
+
+                            makeInactiveSetViews()
+                            view.setIsActive(true, animated: true)
+                            _onChooseClosure?(arbVValue)
                         }
 
                         stackView.addArrangedSubview(view)
+                        lightSetViews.append(view)
                     }
                 }
 
@@ -223,61 +222,25 @@ class APPCTableView: UIView {
                 prevLineView = lineView
             }
         }
+    }
 
-        // identifier view
+    private func generateLabel(with title: String) -> UILabel {
+        UILabel().then { label in
 
-        /*let identifierView = APPCIdentifierView(
-            title: "ARA", //arbV.loadRegion.uppercased(),
-            subTitle: "LR1" //arbV.vesselType.uppercased()
-        )
+            label.text = title
+            label.textAlignment = .right
+            label.textColor = .primaryText
+            label.font = .main(weight: .regular, size: 11)
+            label.numberOfLines = 0
 
-        // fetch categories
-
-        // end of fetching categories
-
-        // labels
-
-
-
-        let labelsStackView = UIStackView().then { stackView in
-
-            stackView.axis = .vertical
-            stackView.distribution = .equalSpacing
-            stackView.spacing = APPCUIConstants.priceItemsLineSpace
-            stackView.alignment = .fill
-
-            if let firstValue = arbV.values.first {
-                firstValue.margins.forEach { margin in
-                    stackView.addArrangedSubview(generateLabel(with: margin.type))
-                }
+            label.snp.makeConstraints {
+                $0.height.equalTo(40)
             }
         }
+    }
 
-        let leftContentView = UIView().then { view in
-
-            view.addSubview(identifierView) {
-                $0.top.equalToSuperview().offset(8)
-                $0.left.equalToSuperview().offset(8)
-                $0.size.equalTo(CGSize(width: 50, height: 38))
-            }
-
-            view.addSubview(labelsStackView) {
-                $0.left.equalTo(identifierView.snp.right).offset(8)
-                $0.bottom.equalToSuperview()
-                $0.top.equalToSuperview().offset(8)
-                $0.right.equalToSuperview().inset(8)
-            }
-
-            contentView.addSubview(view) {
-                $0.top.left.equalToSuperview()
-                $0.bottom.equalToSuperview().inset(16)
-                $0.width.equalTo(APPCUIConstants.leftMenuWidth)
-            }
-        }
-
-        /// mains views
-
-        // dates view*/
+    func makeInactiveSetViews() {
+        lightSetViews.forEach { $0.setIsActive(false, animated: true) }
     }
 
     private func clearUI() {

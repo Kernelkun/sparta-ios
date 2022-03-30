@@ -32,3 +32,12 @@ public extension ArbV {
         }
     }
 }
+
+extension ArbV.Value: Equatable {
+
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.loadMonth == rhs.loadMonth
+        && lhs.deliveryMonth == rhs.deliveryMonth
+        && lhs.deliveryWindow == rhs.deliveryWindow
+    }
+}

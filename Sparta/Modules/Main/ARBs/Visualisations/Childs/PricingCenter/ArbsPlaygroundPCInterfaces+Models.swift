@@ -11,6 +11,7 @@ import NetworkingModels
 struct ArbsPlaygroundPCPUIModel {
     let headers: [Header]
     let arbsV: [ArbV]
+    let selectedValueIdentifier: Identifier<String>?
 }
 
 extension ArbsPlaygroundPCPUIModel {

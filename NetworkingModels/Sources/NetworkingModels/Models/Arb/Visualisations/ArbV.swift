@@ -48,7 +48,8 @@ public struct ArbV: BackendModel {
 extension ArbV {
 
     // use this unique identifier for receiving data from sockets
-    public func uniqueIdentifier(from value: Value) -> String {
-        (self.arbId.toString + value.deliveryMonth).trimmed.lowercased()
+    public func uniqueIdentifier(from value: Value) -> Identifier<String> {
+        let stringIdentifier = (self.arbId.toString + value.deliveryMonth).trimmed.lowercased()
+        return Identifier(id: stringIdentifier)
     }
 }
