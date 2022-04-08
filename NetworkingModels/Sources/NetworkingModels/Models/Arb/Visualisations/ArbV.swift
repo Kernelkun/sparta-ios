@@ -24,6 +24,7 @@ public struct ArbV: BackendModel {
     public let visible: Bool
     public let relatedArbIds: [Int]
     public let units: String
+    public let basis: String
     public let values: [ArbV.Value]
 
     //
@@ -41,6 +42,7 @@ public struct ArbV: BackendModel {
         visible = json["visible"].boolValue
         relatedArbIds = json["relatedArbIds"].arrayValue.compactMap { $0.intValue }
         units = json["units"].stringValue
+        basis = json["basis"].stringValue
         values = json["values"].arrayValue.compactMap { ArbV.Value(json: $0) }
     }
 }

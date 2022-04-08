@@ -8,6 +8,21 @@
 import Foundation
 import NetworkingModels
 
+enum ArbsVContentPage: DisplayableItem, CaseIterable {
+    case pricingCenter
+    case arbsComparation
+
+    var title: String {
+        switch self {
+        case .pricingCenter:
+            return "Pricing center"
+
+        case .arbsComparation:
+            return "ARBs comparation"
+        }
+    }
+}
+
 protocol ArbsVContentControllerObserver: AnyObject {
     func arbsVContentControllerDidChangeScrollState(
         _ controller: ArbsVContentControllerInterface,
@@ -28,20 +43,6 @@ protocol ArbsVContentControllerInterface: AnyObject {
     func removeObserver(_ observer: ArbsVContentControllerObserver)
 }
 
-enum ArbsVContentPage: DisplayableItem, CaseIterable {
-    case pricingCenter
-    case arbsComparation
-
-    var title: String {
-        switch self {
-        case .pricingCenter:
-            return "Pricing center"
-
-        case .arbsComparation:
-            return "ARBs comparation"
-        }
-    }
-}
 //
 //protocol ArbsVContentViewModelDelegate: AnyObject {
 //    func arbsPlaygroundPCViewModelDidFetchSelectors(_ selectors: [ArbV.Selector])

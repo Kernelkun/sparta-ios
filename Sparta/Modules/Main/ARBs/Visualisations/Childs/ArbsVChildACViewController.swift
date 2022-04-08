@@ -44,8 +44,21 @@ class ArbsVChildACViewController: ArbsVChildViewController {
 
         guard newPage == .arbsComparation else { return }
 
+        // adding top menu
+
         let topContentView = parrentController.airBar.topRightContentView
         topContentView?.removeAllSubviews()
+        topContentView?.addSubview(acWireframe.viewController.airBarTopMenu) {
+            $0.edges.equalToSuperview()
+        }
+
+        // adding bottom menu
+
+        let bottomContentView = parrentController.airBar.bottomContentView
+        bottomContentView?.removeAllSubviews()
+        bottomContentView?.addSubview(acWireframe.viewController.airBarBottomMenu) {
+            $0.edges.equalToSuperview()
+        }
     }
 
     // MARK: - Private methods

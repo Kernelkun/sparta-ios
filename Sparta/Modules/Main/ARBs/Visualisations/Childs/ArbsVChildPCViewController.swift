@@ -32,7 +32,7 @@ class ArbsVChildPCViewController: ArbsVChildViewController {
     ) {
         super.arbsVContentControllerDidChangeScrollState(controller, newState: newState, page: page)
 
-        guard page == .arbsComparation else { return }
+        guard page == .pricingCenter else { return }
 
         print("Direction: " + "\(newState.direction)" + " " + "contentOffset.y" + "\(newState.contentOffset.y)")
 

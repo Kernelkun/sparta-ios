@@ -1,15 +1,15 @@
 //
-//  APPCLightsSetView.swift
+//  AVACLightsSetView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 28.10.2021.
+//  Created by Yaroslav Babalich on 27.12.2021.
 //
 
 import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class APPCLightsSetView: TappableView {
+class AVACLightsSetView: TappableView {
 
     // MARK: - Public methods
 
@@ -127,7 +127,7 @@ class APPCLightsSetView: TappableView {
     }
 }
 
-extension APPCLightsSetView: ArbsVisSyncObserver {
+extension AVACLightsSetView: ArbsVisSyncObserver {
 
     func arbsVisSyncManagerDidReceiveArbMonth(manager: ArbsVisSyncInterface, arbVMonth: ArbVMonthSocket) {
         guard let uniqueIdentifier = uniqueIdentifier,

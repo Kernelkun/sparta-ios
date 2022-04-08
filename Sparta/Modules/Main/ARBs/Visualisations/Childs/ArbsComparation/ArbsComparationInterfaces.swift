@@ -9,11 +9,13 @@ import Foundation
 import NetworkingModels
 
 protocol ArbsComparationViewModelDelegate: AnyObject {
-    func arbsPlaygroundPCViewModelDidFetchSelectors(_ selectors: [ArbV.Selector])
+    func arbsComparationViewModelDidFetchDestinationSelectors(_ selectors: [ArbV.Selector])
+    func arbsComparationViewModelDidFetchArbsVModel(_ model: ArbsComparationPCPUIModel)
 }
 
 protocol ArbsComparationViewModelInterface {
     var delegate: ArbsComparationViewModelDelegate? { get set }
 
     func loadData()
+    func makeActiveArbVSelector(_ arbVSelector: ArbV.Selector)
 }

@@ -22,10 +22,10 @@ class LCWebViewController: BaseViewController {
     private var itemsField: UITextFieldSelector<PickerIdValued<String>>!
     private var selectorsField: UITextFieldSelector<PickerIdValued<String>>!
     private var historicalView: LCWebHistoricalDataView!
-    private var mainChartController: LCWebTradeViewController!
     private var loaderView: LoaderView?
+    private var tradeChartContentView: UIView!
 
-    private var fullScreenChartManager = FullScreenChartViewManager()
+    private var lcTradeChartPresenter = LCTradeChartPresenter()
 
     // MARK: - Initializers
 
@@ -163,33 +163,7 @@ class LCWebViewController: BaseViewController {
             }
         }
 
-        let tradeViewContent = UIView().then { view in
-
-            mainChartController = LCWebTradeViewController(edges: .zero)
-            mainChartController.delegate = self
-
-            add(mainChartController, to: view)
-
-            _ = TappableButton().then { button in
-
-                button.backgroundColor = .neutral80
-                button.setImage(UIImage(named: "ic_chart_expand"), for: .normal)
-                button.onTap { [unowned self] _ in
-                    guard let item = viewModel.configurator?.item else { return }
-
-                    fullScreenChartManager.show(
-                        productCode: item.code,
-                        dateCode: viewModel.configurator?.dateSelector?.code,
-                        orientation: .landscapeRight
-                    )
-                }
-
-                view.addSubview(button) {
-                    $0.size.equalTo(32)
-                    $0.bottom.equalToSuperview().inset(44)
-                    $0.right.equalToSuperview().inset(6)
-                }
-            }
+        tradeChartContentView = UIView().then { view in
 
             scrollViewContent.addSubview(view) {
                 $0.top.equalTo(selectorsStackView.snp.bottom).offset(8)
@@ -202,7 +176,7 @@ class LCWebViewController: BaseViewController {
 
             scrollViewContent.addSubview(view) {
                 $0.left.right.equalToSuperview()
-                $0.top.equalTo(tradeViewContent.snp.bottom).offset(1)
+                $0.top.equalTo(tradeChartContentView.snp.bottom).offset(1)
                 $0.bottom.equalToSuperview()
             }
         }
@@ -229,17 +203,12 @@ class LCWebViewController: BaseViewController {
 
     @objc
     private func onPullToRefreshEvent(_ refreshControl: UIRefreshControl) {
-        guard let configurator = viewModel.configurator else {
+        guard viewModel.configurator != nil else {
             refreshControl.endRefreshing()
             return
         }
 
-        mainChartController.load(configurator: .init(
-            productCode: configurator.item.code,
-            dateCode: configurator.dateSelector?.code,
-            isPortraitMode: true
-        )
-        )
+        lcTradeChartPresenter.reloadContent()
 
         onMainThread(delay: 1) {
             refreshControl.endRefreshing()
@@ -249,14 +218,9 @@ class LCWebViewController: BaseViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         guard let orientation = UIApplication.interfaceOrientation,
               orientation.isLandscape,
-              let configurator = viewModel.configurator,
-              !fullScreenChartManager.isPresented else { return }
+              viewModel.configurator != nil else { return }
 
-        fullScreenChartManager.show(
-            productCode: configurator.item.code,
-            dateCode: configurator.dateSelector?.code,
-            orientation: orientation
-        )
+        lcTradeChartPresenter.presentFullScreen(orientation: orientation)
     }
 }
 
@@ -331,11 +295,17 @@ extension LCWebViewController: LCWebViewModelDelegate {
     func didSuccessUpdateDateSelector(_ dateSelector: LCWebViewModel.DateSelector) {
         guard let configurator = viewModel.configurator else { return }
 
-        mainChartController.load(configurator: .init(
+        let presenterConfigurator = LCTradeChartPresenter.Configurator(
+            parrentViewController: self,
+            contentView: tradeChartContentView,
+            state: .minimized
+        )
+
+        lcTradeChartPresenter.present(
+            configurator: presenterConfigurator,
             productCode: configurator.item.code,
-            dateCode: configurator.dateSelector?.code,
-            isPortraitMode: true
-        ))
+            dateCode: configurator.dateSelector?.code
+        )
     }
 
     func didSuccessUpdateHighlights(_ highlights: [LCWebViewModel.Highlight]) {

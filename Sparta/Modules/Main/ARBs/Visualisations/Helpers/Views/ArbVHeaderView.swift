@@ -21,8 +21,6 @@ class ArbVHeaderView: UIView {
     private(set) var topRightContentView: UIView!
     private(set) var bottomContentView: UIView!
 
-    var middleContentView: UIView!
-
     // MARK: - Private properties
 
     private let configurator: Configurator
@@ -63,32 +61,6 @@ class ArbVHeaderView: UIView {
             }
         }
 
-        middleContentView = UIView().then { view in
-
-            view.backgroundColor = .red
-            view.isHidden = true
-
-            view.snp.makeConstraints {
-                $0.height.equalTo(35)
-            }
-        }
-
-        let topStackView = UIStackView().then { stackView in
-
-            stackView.spacing = 10
-            stackView.axis = .vertical
-            stackView.alignment = .fill
-            stackView.distribution = .equalSpacing
-
-            stackView.addArrangedSubview(topContentView)
-            stackView.addArrangedSubview(middleContentView)
-
-            addSubview(stackView) {
-                $0.top.equalToSuperview().offset(10)
-                $0.left.right.equalToSuperview()
-            }
-        }
-
         bottomContentView = UIView().then { view in
 
             view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
@@ -105,7 +77,7 @@ class ArbVHeaderView: UIView {
             stackView.alignment = .fill
             stackView.distribution = .equalSpacing
 
-            stackView.addArrangedSubview(topStackView)
+            stackView.addArrangedSubview(topContentView)
             stackView.addArrangedSubview(bottomContentView)
 
             addSubview(stackView) {

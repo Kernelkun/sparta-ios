@@ -1,5 +1,5 @@
 //
-//  APPCLightView.swift
+//  AVTableLightView.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 28.10.2021.
@@ -8,7 +8,7 @@
 import UIKit
 import NetworkingModels
 
-class APPCLightView: UIView {
+class AVTableLightView: UIView {
 
     // MARK: - Public properties
 
@@ -71,7 +71,7 @@ class APPCLightView: UIView {
     }
 }
 
-extension APPCLightView {
+extension AVTableLightView {
     enum State {
         case inactive
         case active(color: UIColor, text: String)

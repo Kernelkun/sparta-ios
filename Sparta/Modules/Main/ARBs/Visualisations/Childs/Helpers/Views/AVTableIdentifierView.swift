@@ -1,5 +1,5 @@
 //
-//  APPCIdentifierView.swift
+//  AVTableIdentifierView.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 28.10.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class APPCIdentifierView: UIView {
+class AVTableIdentifierView: UIView {
 
     // MARK: - Private properties
 

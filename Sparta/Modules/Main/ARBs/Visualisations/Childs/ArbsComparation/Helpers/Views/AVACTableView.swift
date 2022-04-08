@@ -1,21 +1,21 @@
 //
-//  APPCTableView.swift
+//  AVACTableView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 28.10.2021.
+//  Created by Yaroslav Babalich on 31.03.2022.
 //
 
 import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-class APPCTableView: UIView {
+class AVACTableView: UIView {
 
     // MARK: - UI
 
     private var titleLabel: UILabel!
-    private var model: ArbsPlaygroundPCPUIModel!
-    private var lightSetViews: [APPCLightsSetView] = []
+    private var model: ArbsComparationPCPUIModel!
+    private var lightSetViews: [AVACLightsSetView] = []
 
     // MARK: - Private properties
 
@@ -33,7 +33,7 @@ class APPCTableView: UIView {
 
     // MARK: - Public methods
 
-    func apply(_ model: ArbsPlaygroundPCPUIModel) {
+    func apply(_ model: ArbsComparationPCPUIModel) {
         self.model = model
         updateUI()
     }
@@ -80,10 +80,12 @@ class APPCTableView: UIView {
             }
         }
 
-        let datesHeaderView = APPCDatesHeaderView(headers: model.headers).then { view in
+//        APPCDatesHeaderView(headers: model.headers)
+        let datesHeaderView = UIView().then { view in
 
             scrollViewContent.addSubview(view) {
                 $0.left.top.equalToSuperview()
+                $0.height.equalTo(58) // need to remove
             }
         }
 
@@ -164,7 +166,7 @@ class APPCTableView: UIView {
 
                     let isActive: Bool = uniqueIdentifier == self.model.selectedValueIdentifier
 
-                    _ = APPCLightsSetView(
+                    _ = AVACLightsSetView(
                         arbVValue: value,
                         uniqueIdentifier: uniqueIdentifier,
                         isActive: isActive
@@ -207,7 +209,7 @@ class APPCTableView: UIView {
             if index != (self.model.arbsV.count - 1),
                 self.model.arbsV.count > 1,
                 let prevStackView = prevStackView {
-                
+
                 let lineView = UIView().then { view in
 
                     view.backgroundColor = .gray
@@ -247,3 +249,4 @@ class APPCTableView: UIView {
 //        contentView.removeAllSubviews()
     }
 }
+

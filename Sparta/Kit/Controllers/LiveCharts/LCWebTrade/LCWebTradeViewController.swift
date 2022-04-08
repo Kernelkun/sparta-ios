@@ -24,7 +24,7 @@ class LCWebTradeViewController: UIViewController {
 
     // MARK: - UI properties
 
-    private let edges: UIEdgeInsets
+    private var edges: UIEdgeInsets
     private let webView: WKWebView
 
     // MARK: - Initializers
@@ -71,10 +71,21 @@ class LCWebTradeViewController: UIViewController {
         self.webView.load(request)
     }
 
+    func reloadContent() {
+        self.webView.reload()
+    }
+
+    func updateEdges(_ edges: UIEdgeInsets) {
+        self.edges = edges
+
+        webView.snp.updateConstraints {
+            $0.edges.equalTo(edges)
+        }
+    }
+
     // MARK: - Private methods
 
     private func setupUI() {
-
         view.backgroundColor = .neutral80
 
         webView.do { webView in

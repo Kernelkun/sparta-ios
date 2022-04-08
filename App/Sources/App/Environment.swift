@@ -9,15 +9,17 @@ import Foundation
 
 public struct Environment {
 
-    public static let environment: EnvironmentType = .stage
+    public static let environment: EnvironmentType = .dev
 
     public enum EnvironmentType: String {
         case stage
+        case dev
         case production
 
         public init(rawValue: String) {
             switch rawValue {
             case Self.stage.rawValue: self = .stage
+            case Self.dev.rawValue: self = .dev
             case Self.production.rawValue: self = .production
             default: self = .stage
             }
@@ -30,6 +32,8 @@ public struct Environment {
         switch Self.environment {
         case .stage:
             return "https://strapi.staging.sparta.app"
+        case .dev:
+            return "https://dev.sparta.app"
         case .production:
             return "https://strapi.sparta.app"
         }
@@ -40,6 +44,8 @@ public struct Environment {
     public static var baseDataURL: String {
         switch Self.environment {
         case .stage:
+            return "https://backend.staging.sparta.app"
+        case .dev:
             return "https://backend.staging.sparta.app"
         case .production:
             return "https://backend.sparta.app"

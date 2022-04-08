@@ -13,6 +13,6 @@ extension ArbV.Selector: PickerValued {
     //
     // MARK: - PickerValued
 
-    public var title: String { shortName }
+    public var title: String { gradeName + " " + portName }
 	public var fullTitle: String { title }
 }
