@@ -102,7 +102,6 @@ class FreightViewModel: NSObject, BaseViewModel {
     }
 
     func reloadMainOptions() {
-
         if let selectedFreightPort = selectedFreightPort,
            let freightPort = app.syncService.freightPorts?.first(where: { $0.id == selectedFreightPort.id }) {
 
@@ -212,7 +211,7 @@ class FreightViewModel: NSObject, BaseViewModel {
 
     private func selectVessel(_ vessel: PickerIdValued<Vessel>) {
         selectedVesselType = vessel
-        selectedVesselSpeed = vessel.id.speed.toFormattedString
-        selectedLoadedQuantity = vessel.id.loadedQuantity.toFormattedString
+        selectedVesselSpeed = vessel.id.speed.toString
+        selectedLoadedQuantity = vessel.id.loadedQuantity.toString
     }
 }
