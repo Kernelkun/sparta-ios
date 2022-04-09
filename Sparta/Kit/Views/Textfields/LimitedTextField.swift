@@ -124,12 +124,8 @@ class LimitedTextField: UITextField {
     }
 
     private func replaceToNumberText() {
-        if let text = self.text, !text.isEmpty, let numberString = text.numberString {
-            if numberString.last != "."
-                && !numberString.hasSuffix(".0") {
-
-                self.text = numberString.toNumberFormattedString
-            }
+        if let text = self.text, !text.isEmpty, let numberString = text.numberString, !self.isFirstResponder {
+            self.text = numberString.toNumberFormattedString
         }
     }
 
@@ -151,8 +147,8 @@ class LimitedTextField: UITextField {
         case .formatted(let replacement, let format):
             replaceText(replacementCharacter: replacement, format: format)
 
-        case .numbers:
-            replaceToNumberText()
+//        case .numbers:
+//            replaceToNumberText()
 
         default: return
         }
@@ -274,5 +270,14 @@ extension LimitedTextField: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         actionDelegate?.textFieldDidEndEditing(textField)
+
+
+        switch self.enterType {
+        case .numbers(let symbolsAfterDot):
+            replaceToNumberText()
+
+        default:
+            break
+        }
     }
 }

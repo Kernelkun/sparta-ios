@@ -293,7 +293,7 @@ class FreightViewController: BaseVMViewController<FreightViewModel> {
                 $0.left.right.equalToSuperview().inset(24)
                 $0.height.equalTo(48)
             }
-        }     
+        }
 
         return UILabel().then { label in
 
@@ -370,11 +370,11 @@ extension FreightViewController: FreightViewModelDelegate {
 
         // speed
 
-        vesselSpeedField.textField.text = viewModel.selectedVesselSpeed
+        vesselSpeedField.textField.text = viewModel.selectedVesselSpeed?.toNumberFormattedString
 
         // loaded quantity
 
-        loadedQuantityField.textField.text = viewModel.selectedLoadedQuantity
+        loadedQuantityField.textField.text = viewModel.selectedLoadedQuantity?.toNumberFormattedString
     }
 
     func didReloadMainOptions() {
@@ -399,11 +399,11 @@ extension FreightViewController: FreightViewModelDelegate {
 
         // speed
 
-        vesselSpeedField.textField.text = viewModel.selectedVesselSpeed
+        vesselSpeedField.textField.text = viewModel.selectedVesselSpeed?.toNumberFormattedString
 
         // loaded quantity
 
-        loadedQuantityField.textField.text = viewModel.selectedLoadedQuantity
+        loadedQuantityField.textField.text = viewModel.selectedLoadedQuantity?.toNumberFormattedString
     }
 
     func didCatchAnError(_ error: String) {
