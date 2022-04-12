@@ -119,11 +119,15 @@ class AVACLightsSetView: TappableView {
             }
         }
 
-        if let margins = margins {
-            margins.forEach { mainStackView.addArrangedSubview(generateLightView($0.price)) }
-        } else {
-            mainStackView.addArrangedSubview(generateLightView(nil))
+
+        var model: ColoredNumber?
+
+        if let arbVValue = arbVValue {
+            model = ColoredNumber(value: arbVValue.deliveredPrice.displayedValue,
+                                  color: "gray")
         }
+
+        mainStackView.addArrangedSubview(generateLightView(model))
     }
 }
 
@@ -131,7 +135,7 @@ extension AVACLightsSetView: ArbsVisSyncObserver {
 
     func arbsVisSyncManagerDidReceiveArbMonth(manager: ArbsVisSyncInterface, arbVMonth: ArbVMonthSocket) {
         guard let uniqueIdentifier = uniqueIdentifier,
-                arbVMonth.uniqueIdentifier == uniqueIdentifier else { return }
+              arbVMonth.uniqueIdentifier == uniqueIdentifier else { return }
 
         self.margins = arbVMonth.margins
         self.updateUI()

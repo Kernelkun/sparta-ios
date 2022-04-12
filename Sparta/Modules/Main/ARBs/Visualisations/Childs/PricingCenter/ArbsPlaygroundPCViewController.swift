@@ -21,6 +21,7 @@ class ArbsPlaygroundPCViewController: BaseViewController {
     private var arbsSelector: UITextFieldSelector<ArbV.Selector>!
 
     private var tableView: APPCTableView!
+    private var tradeChartVC: ACWebTradeViewController!
 
     // MARK: - Initializers
 
@@ -55,10 +56,8 @@ class ArbsPlaygroundPCViewController: BaseViewController {
 
         let contentView = UIView().then { view in
 
-            view.layer.cornerRadius = 13
-
             addSubview(view) {
-                $0.top.equalToSuperview().offset(8)
+                $0.top.equalToSuperview()
                 $0.left.right.bottom.equalToSuperview().inset(4)
             }
         }
@@ -66,7 +65,20 @@ class ArbsPlaygroundPCViewController: BaseViewController {
         tableView = APPCTableView().then { view in
 
             contentView.addSubview(view) {
-                $0.edges.equalToSuperview()
+                $0.left.top.right.equalToSuperview()
+            }
+        }
+
+        let tradeChartContentView = UIView().then { view in
+
+            tradeChartVC = ACWebTradeViewController(edges: .zero)
+            tradeChartVC.delegate = self
+            add(tradeChartVC, to: view)
+
+            contentView.addSubview(view) {
+                $0.top.equalTo(tableView.snp.bottom).offset(8)
+                $0.height.equalTo(302)
+                $0.left.bottom.right.equalToSuperview()
             }
         }
     }
@@ -99,6 +111,29 @@ class ArbsPlaygroundPCViewController: BaseViewController {
     }
 }
 
+extension ArbsPlaygroundViewController: ACWebTradeViewDelegate {
+
+    func acWebTradeViewControllerDidChangeContentOffset(_ viewController: ACWebTradeViewController, offset: CGFloat, direction: MovingDirection) {
+        func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection) {
+            var currentOffset = scrollView.contentOffset.y
+
+            if direction == .up {
+                currentOffset -= offset
+            } else {
+                currentOffset += offset
+            }
+
+            scrollView.contentOffset = CGPoint(x: 0, y: currentOffset)
+        }
+    }
+
+    func acWebTradeViewControllerDidTapOnHLView(_ viewController: ACWebTradeViewController) {
+    }
+
+    func acWebTradeViewControllerDidChangeOrientation(_ viewController: ACWebTradeViewController, interfaceOrientation: UIInterfaceOrientation) {
+    }
+}
+
 extension ArbsPlaygroundPCViewController: ArbsPlaygroundPCViewModelDelegate {
 
     func arbsPlaygroundPCViewModelDidChangeLoadingState(_ isLoading: Bool, module: ArbsPlaygroundPCLoadingModule) {
@@ -111,5 +146,13 @@ extension ArbsPlaygroundPCViewController: ArbsPlaygroundPCViewModelDelegate {
 
     func arbsPlaygroundPCViewModelDidFetchArbsVModel(_ model: ArbsPlaygroundPCPUIModel) {
         tableView.apply(model)
+
+        let configurator = ACWebTradeViewController.Configurator(
+            arbIds: model.arbsV.compactMap { $0.arbId },
+            dateRange: .month,
+            deliveryWindow: nil,
+            deliveryMonth: "May 22"
+        )
+        tradeChartVC.load(configurator: configurator)
     }
 }

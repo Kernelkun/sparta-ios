@@ -80,17 +80,16 @@ class AVACTableView: UIView {
             }
         }
 
-//        APPCDatesHeaderView(headers: model.headers)
-        let datesHeaderView = UIView().then { view in
+        let headers = model.headers.compactMap { AVDatesHeaderView.Header(title: $0.month.title, subTitle: $0.units) }
+        let configurator = AVDatesHeaderView.Configurator(headers: headers)
+        let datesHeaderView = AVDatesHeaderView(configurator: configurator).then { view in
 
             scrollViewContent.addSubview(view) {
                 $0.left.top.equalToSuperview()
-                $0.height.equalTo(58) // need to remove
             }
         }
 
         var prevStackView: UIStackView?
-        var prevLineView: UIView?
 
         for (index, arbV) in model.arbsV.enumerated() {
 
@@ -99,39 +98,22 @@ class AVACTableView: UIView {
                 subTitle: arbV.vesselType.uppercased()
             )
 
-            let labelsStackView = UIStackView().then { stackView in
-
-                stackView.axis = .vertical
-                stackView.distribution = .equalSpacing
-                stackView.spacing = APPCUIConstants.priceItemsLineSpace
-                stackView.alignment = .fill
-
-                if let firstValue = arbV.values.first {
-                    firstValue.margins.forEach { margin in
-                        stackView.addArrangedSubview(generateLabel(with: margin.type))
-                    }
-                }
-            }
-
             _ = UIView().then { view in
+
+                view.backgroundColor = .clear
 
                 view.addSubview(identifierView) {
                     $0.top.equalToSuperview()
                     $0.left.equalToSuperview().offset(8)
                     $0.size.equalTo(CGSize(width: 50, height: 38))
-                }
-
-                view.addSubview(labelsStackView) {
-                    $0.left.equalTo(identifierView.snp.right).offset(8)
+//                    $0.right.equalToSuperview().inset(8)
                     $0.bottom.equalToSuperview()
-                    $0.top.equalToSuperview()
-                    $0.right.equalToSuperview().inset(8)
                 }
 
                 addSubview(view) {
 
-                    if let prevLineView = prevLineView {
-                        $0.top.equalTo(prevLineView.snp.bottom).offset(20)
+                    if let prevStackView = prevStackView {
+                        $0.top.equalTo(prevStackView.snp.bottom).offset(8)
                     } else {
                         $0.top.equalToSuperview().offset(58)
                     }
@@ -187,14 +169,14 @@ class AVACTableView: UIView {
 
                 scrollViewContent.addSubview(stackView) {
 
-                    if let prevLineView = prevLineView {
-                        $0.top.equalTo(prevLineView.snp.bottom).offset(20)
+                    if let prevStackView = prevStackView {
+                        $0.top.equalTo(prevStackView.snp.bottom).offset(8)
                     } else {
                         $0.top.equalTo(datesHeaderView.snp.bottom)
                     }
 
                     if index == (self.model.arbsV.count - 1) {
-                        $0.bottom.equalToSuperview().inset(16)
+//                        $0.bottom.equalToSuperview().inset(16)
                         $0.right.equalToSuperview()
                     }
 
@@ -203,26 +185,6 @@ class AVACTableView: UIView {
             }
 
             prevStackView = numbersStackView
-
-            // draw line
-
-            if index != (self.model.arbsV.count - 1),
-                self.model.arbsV.count > 1,
-                let prevStackView = prevStackView {
-
-                let lineView = UIView().then { view in
-
-                    view.backgroundColor = .gray
-
-                    scrollViewContent.addSubview(view) {
-                        $0.height.equalTo(1)
-                        $0.left.right.equalToSuperview()
-                        $0.top.equalTo(prevStackView.snp.bottom).offset(20)
-                    }
-                }
-
-                prevLineView = lineView
-            }
         }
     }
 
@@ -249,4 +211,3 @@ class AVACTableView: UIView {
 //        contentView.removeAllSubviews()
     }
 }
-

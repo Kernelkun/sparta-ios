@@ -9,16 +9,16 @@ import Foundation
 import NetworkingModels
 
 enum ArbsVACSortType: DisplayableItem, CaseIterable {
-    case month
+    case deliveryDate
     case destination
 
     var title: String {
         switch self {
-        case .month:
-            return "By Month"
+        case .deliveryDate:
+            return "By Delivery Date"
 
         case .destination:
-            return "ARBs comparation"
+            return "By Destination"
         }
     }
 }

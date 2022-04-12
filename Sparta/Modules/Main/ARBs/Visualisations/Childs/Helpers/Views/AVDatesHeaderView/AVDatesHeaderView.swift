@@ -1,5 +1,5 @@
 //
-//  APPCDatesHeaderView.swift
+//  AVDatesHeaderView.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 28.10.2021.
@@ -7,16 +7,16 @@
 
 import UIKit
 
-class APPCDatesHeaderView: UIView {
+class AVDatesHeaderView: UIView {
 
     // MARK: - Private properties
 
-    private let headers: [ArbsPlaygroundPCPUIModel.Header]
+    private let configurator: Configurator
 
     // MARK: - Initializers
 
-    init(headers: [ArbsPlaygroundPCPUIModel.Header]) {
-        self.headers = headers
+    init(configurator: Configurator) {
+        self.configurator = configurator
         super.init(frame: .zero)
 
         setupUI()
@@ -27,7 +27,7 @@ class APPCDatesHeaderView: UIView {
     }
 
     // MARK: - Private methods
-        
+
     private func setupUI() {
 
         _ = UIStackView().then { stackView in
@@ -37,10 +37,11 @@ class APPCDatesHeaderView: UIView {
             stackView.spacing = APPCUIConstants.priceItemSpace
             stackView.alignment = .fill
 
-            headers.forEach { header in
-                _ = APPCDatesHeaderItemView(title: header.month.title,
-                                            subTitle: header.units).then { view in
-
+            configurator.headers.forEach { header in
+                _ = AVDatesHeaderItemView(
+                    title: header.title,
+                    subTitle: header.subTitle
+                ).then { view in
                     view.snp.makeConstraints {
                         $0.width.equalTo(70)
                     }

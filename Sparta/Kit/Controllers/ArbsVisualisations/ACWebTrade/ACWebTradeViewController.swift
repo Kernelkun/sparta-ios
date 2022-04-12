@@ -1,8 +1,8 @@
 //
-//  LCWebTradeViewController.swift
+//  ACWebTradeViewController.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 09.02.2022.
+//  Created by Yaroslav Babalich on 12.04.2022.
 //
 
 import UIKit
@@ -10,17 +10,17 @@ import WebKit
 import SpartaHelpers
 import App
 
-protocol LCWebTradeViewDelegate: AnyObject {
-    func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection)
-    func lcWebTradeViewControllerDidTapOnHLView(_ viewController: LCWebTradeViewController)
-    func lcWebTradeViewControllerDidChangeOrientation(_ viewController: LCWebTradeViewController, interfaceOrientation: UIInterfaceOrientation)
+protocol ACWebTradeViewDelegate: AnyObject {
+    func acWebTradeViewControllerDidChangeContentOffset(_ viewController: ACWebTradeViewController, offset: CGFloat, direction: MovingDirection)
+    func acWebTradeViewControllerDidTapOnHLView(_ viewController: ACWebTradeViewController)
+    func acWebTradeViewControllerDidChangeOrientation(_ viewController: ACWebTradeViewController, interfaceOrientation: UIInterfaceOrientation)
 }
 
-class LCWebTradeViewController: UIViewController {
+class ACWebTradeViewController: UIViewController {
 
     // MARK: - Public properties
 
-    weak var delegate: LCWebTradeViewDelegate?
+    weak var delegate: ACWebTradeViewDelegate?
 
     // MARK: - UI properties
 
@@ -51,21 +51,24 @@ class LCWebTradeViewController: UIViewController {
     // MARK: - Public methods
 
     func load(configurator: Configurator) {
-        var urlComponents = URLComponents(string: Environment.liveChartURL)
+        var urlComponents = URLComponents(string: Environment.avTradeChartURL)
         urlComponents?.queryItems = [
             URLQueryItem(name: "token", value: App.instance.token),
-            URLQueryItem(name: "product", value: configurator.productCode),
-            URLQueryItem(name: "portrait", value: "\(configurator.isPortraitMode)")
+            URLQueryItem(name: "arbIds", value: "\(configurator.arbIds)"),
+            URLQueryItem(name: "dateRange", value: configurator.dateRange.rawValue)
         ]
 
-        if let dateCode = configurator.dateCode {
-            let dateParam = URLQueryItem(name: "date", value: dateCode)
-            urlComponents?.queryItems?.append(dateParam)
+        if let deliveryWindow = configurator.deliveryWindow {
+            let deliveryWindowParam = URLQueryItem(name: "deliveryWindow", value: deliveryWindow)
+            urlComponents?.queryItems?.append(deliveryWindowParam)
+        }
+
+        if let deliveryMonth = configurator.deliveryMonth {
+            let deliveryMonthParam = URLQueryItem(name: "deliveryMonth", value: deliveryMonth)
+            urlComponents?.queryItems?.append(deliveryMonthParam)
         }
 
         guard let urlString = urlComponents?.url else { return }
-
-        print(urlString.absoluteString)
 
         var request = URLRequest(url: urlString)
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
@@ -120,7 +123,7 @@ class LCWebTradeViewController: UIViewController {
 
             view.backgroundColor = .clear
             view.onTap { [unowned self] _ in
-                self.delegate?.lcWebTradeViewControllerDidTapOnHLView(self)
+                self.delegate?.acWebTradeViewControllerDidTapOnHLView(self)
             }
 
             addSubview(view) {
@@ -145,16 +148,16 @@ class LCWebTradeViewController: UIViewController {
                 gesture.setTranslation(.zero, in: webView)
 
                 if direction == .up {
-                    delegate?.lcWebTradeViewControllerDidChangeContentOffset(self, offset: translation.y, direction: .up)
+                    delegate?.acWebTradeViewControllerDidChangeContentOffset(self, offset: translation.y, direction: .up)
                 } else if direction == .down {
-                    delegate?.lcWebTradeViewControllerDidChangeContentOffset(self, offset: translation.y, direction: .down)
+                    delegate?.acWebTradeViewControllerDidChangeContentOffset(self, offset: translation.y, direction: .down)
                 }
 
             @unknown default:
                 break
             }
         }
-        
+
         if isVerticalGesture {
             if velocity.y > 0 {
                 scrollAction(direction: .down)
@@ -167,18 +170,18 @@ class LCWebTradeViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         guard let orientation = UIApplication.interfaceOrientation else { return }
 
-        delegate?.lcWebTradeViewControllerDidChangeOrientation(self, interfaceOrientation: orientation)
+        delegate?.acWebTradeViewControllerDidChangeOrientation(self, interfaceOrientation: orientation)
     }
 }
 
-extension LCWebTradeViewController: UIGestureRecognizerDelegate {
+extension ACWebTradeViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         true
     }
 }
 
-extension LCWebTradeViewController: WKNavigationDelegate {
+extension ACWebTradeViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
@@ -201,7 +204,7 @@ extension LCWebTradeViewController: WKNavigationDelegate {
     }
 }
 
-extension LCWebTradeViewController: WKUIDelegate {
+extension ACWebTradeViewController: WKUIDelegate {
 
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if let frame = navigationAction.targetFrame,

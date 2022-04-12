@@ -1,5 +1,5 @@
 //
-//  APPCDatesHeaderItemView.swift
+//  AVDatesHeaderItemView.swift
 //  Sparta
 //
 //  Created by Yaroslav Babalich on 28.10.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class APPCDatesHeaderItemView: UIView {
+class AVDatesHeaderItemView: UIView {
 
     // MARK: - Private properties
 
@@ -28,7 +28,7 @@ class APPCDatesHeaderItemView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(#function)
     }
 
     // MARK: - Private methods

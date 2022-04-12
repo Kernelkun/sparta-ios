@@ -8,6 +8,13 @@
 import Foundation
 
 enum LCWebRestriction {
-    static let validItemsCodes: [String] = ["OTREOB", "ISPEOB", "SPDMEB", "ISPENW"]
-    static let validDateSelectors: [String] = ["Apr 22"]
+    static let validItemsCodes: [String] = ["OTRBSW", "OTREOB", "OTRROB",
+                                            "OTRMPS", "OTRNWE", "TSDEOB",
+                                            "TSDROB", "SPDROB", "TSDMPS",
+                                            "ISPEOB", "SPDMEB", "ISPENW",
+                                            "ISPMPS", "TSDNWE", "ISPNWE",
+                                            "PSDREB", "SPDMEN", "SPDMJN",
+                                            "OTRWTS", "OB-DIFGCPMLF", "OB-DIFGCPALF",
+                                            "MB5ROB", "MB4ROB"]
+    static let validDateSelectors: [String] = []
 }

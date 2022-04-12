@@ -107,7 +107,7 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
             guard let strongSelf = self else { return }
 
             if case let .success(responseModel) = result,
-               let list = responseModel.model?.list.filter({ LCWebRestriction.validDateSelectors.contains($0.code) }),
+               let list = responseModel.model?.list,//.filter({ LCWebRestriction.validDateSelectors.contains($0.code) }),
                let firstItem = list.first {
 
                 strongSelf.configurator?.dateSelectors = list

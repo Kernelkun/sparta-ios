@@ -53,9 +53,10 @@ class APPCTableView: UIView {
         removeAllSubviews()
         lightSetViews = []
 
-        let scrollView = UIScrollView().then { view in
+        backgroundColor = .neutral75
+        layer.cornerRadius = 13
 
-            view.backgroundColor = .clear
+        let scrollView = UIScrollView().then { view in
             view.showsHorizontalScrollIndicator = false
             view.showsVerticalScrollIndicator = false
             view.bounces = false
@@ -80,7 +81,9 @@ class APPCTableView: UIView {
             }
         }
 
-        let datesHeaderView = APPCDatesHeaderView(headers: model.headers).then { view in
+        let headers = model.headers.compactMap { AVDatesHeaderView.Header(title: $0.month.title, subTitle: $0.units) }
+        let configurator = AVDatesHeaderView.Configurator(headers: headers)
+        let datesHeaderView = AVDatesHeaderView(configurator: configurator).then { view in
 
             scrollViewContent.addSubview(view) {
                 $0.left.top.equalToSuperview()

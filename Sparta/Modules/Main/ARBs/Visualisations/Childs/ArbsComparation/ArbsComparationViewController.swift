@@ -112,7 +112,7 @@ class ArbsComparationViewController: BaseViewController {
                 }
 
                 view.addSubview(selector) {
-                    $0.left.equalToSuperview().offset(15)
+                    $0.left.equalToSuperview()
                     $0.centerY.equalToSuperview()
                     $0.size.equalTo(CGSize(width: 228, height: 32))
                 }

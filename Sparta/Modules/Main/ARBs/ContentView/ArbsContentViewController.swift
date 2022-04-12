@@ -45,8 +45,7 @@ class ArbsContentViewController: BaseViewController {
         menuView = ArbsMenuView(items: ArbsMenuView.MenuItem.allCases).then { view in
 
             view.onSelect { [unowned self] menuItem in
-                return
-//                setupViewState(for: menuItem)
+                setupViewState(for: menuItem)
             }
 
             addSubview(view) {

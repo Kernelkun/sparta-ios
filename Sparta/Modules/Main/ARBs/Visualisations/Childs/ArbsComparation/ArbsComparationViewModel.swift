@@ -66,12 +66,13 @@ class ArbsComparationViewModel: ArbsComparationViewModelInterface {
                 // end of fetching all months
 
                 var uniqueIdentifier: Identifier<String>?
+                let units = arbsV.first?.units ?? ""
 
                 if let arbV = arbsV.first, let value = arbV.values.first {
                     uniqueIdentifier = arbV.uniqueIdentifier(from: value)
                 }
 
-                let model = ArbsComparationPCPUIModel(headers: months.compactMap { .init(month: $0, units: "$/bbl") },
+                let model = ArbsComparationPCPUIModel(headers: months.compactMap { .init(month: $0, units: units) },
                                                       arbsV: arbsV.sorted { $0.order < $1.order },
                                                       selectedValueIdentifier: uniqueIdentifier)
                 
