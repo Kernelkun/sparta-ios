@@ -13,7 +13,8 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
     // MARK: - Public Properties
 
     private(set) var currentPage: ArbsVContentPage!
-    var airBar: ArbVHeaderView!
+    private(set) var contentScrollView: UIScrollView!
+    private(set) var airBar: ArbVHeaderView!
     var configurator: Configurator!
 
     var observers: WeakSet<ArbsVContentControllerObserver> = []
@@ -21,9 +22,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
     // MARK: - Private properties
 
     private let viewModel: ArbsVContentViewModelInterface
-
     private var scrollViewContent: UIView!
-    private var contentScrollView: UIScrollView!
     private var barController: BarController!
     private var aVBarController: AVBarController!
 
@@ -58,7 +57,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
             }
         }
 
-        let arbHeaderConfigurator = ArbVHeaderView.Configurator(selectedIndexOfMenuItem: 0)
+        let arbHeaderConfigurator = ArbVHeaderView.Configurator(selectedItem: .pricingCenter)
 
         airBar = ArbVHeaderView(configurator: arbHeaderConfigurator).then { barView in
 
@@ -68,7 +67,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
                 $0.top.equalToSuperview()
                 $0.right.equalTo(self.view.safeAreaLayoutGuide.snp.right)
                 $0.left.equalTo(self.view.safeAreaLayoutGuide.snp.left)
-                $0.height.equalTo(100)
+                $0.height.equalTo(45)
             }
         }
 
@@ -158,9 +157,6 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
         print("isCollapsed: \(state.isCollapsed), height: \(state.position.height), contentOffset: \(state.contentOffset)")
 
 //        airBar.applyState(isMinimized: state.isCollapsed)
-        airBar.snp.updateConstraints {
-            $0.height.equalTo(state.position.height)
-        }
 
 //        contentScrollView.snp.updateConstraints {
 //            $0.top.equalToSuperview().offset(state.position.height)

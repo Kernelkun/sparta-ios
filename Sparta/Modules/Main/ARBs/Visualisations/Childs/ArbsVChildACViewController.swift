@@ -32,8 +32,8 @@ class ArbsVChildACViewController: ArbsVChildViewController {
     ) {
         super.arbsVContentControllerDidChangeScrollState(controller, newState: newState, page: page)
 
-//        parrentController.airBar.applyState(isMinimized: transitionProgress < 1)
-//        parrentController.airBar.topRightContentView.backgroundColor = .yellow
+        //        parrentController.airBar.applyState(isMinimized: transitionProgress < 1)
+        //        parrentController.airBar.topRightContentView.backgroundColor = .yellow
     }
 
     override func arbsVContentControllerDidChangePage(
@@ -43,6 +43,12 @@ class ArbsVChildACViewController: ArbsVChildViewController {
         super.arbsVContentControllerDidChangePage(controller, newPage: newPage)
 
         guard newPage == .arbsComparation else { return }
+
+        parrentController.airBar.applyState(isMinimized: false)
+
+        parrentController.airBar.snp.updateConstraints {
+            $0.height.equalTo(100)
+        }
 
         // adding top menu
 
@@ -64,6 +70,7 @@ class ArbsVChildACViewController: ArbsVChildViewController {
     // MARK: - Private methods
 
     private func setupUI() {
+        view.backgroundColor = .clear
         add(acWireframe.viewController, to: view)
     }
 }

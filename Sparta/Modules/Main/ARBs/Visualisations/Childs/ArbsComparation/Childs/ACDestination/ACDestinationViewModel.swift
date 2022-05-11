@@ -1,30 +1,42 @@
 //
-//  ArbsPlaygroundPCViewModel.swift
+//  ACDestinationViewModel.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 28.10.2021.
+//  Created by Yaroslav Babalich on 30.04.2022.
 //
 
 import Foundation
 import NetworkingModels
 
-class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
+class ACDestinationViewModel: ACDestinationViewModelInterface {
 
     // MARK: - Public properties
 
-    weak var delegate: ArbsPlaygroundPCViewModelDelegate?
+    weak var delegate: ACDestinationViewModelDelegate?
     private(set) var arbsV: [ArbV] = []
 
     // MARK: - Private properties
 
+    private var isLoading: Bool = false {
+        didSet {
+            onMainThread {
+                self.delegate?.acDestinationViewModelDidChangeLoadingState(self.isLoading)
+            }
+        }
+    }
+
     private let arbsNetworkManager = ArbsNetworkManager()
-    private var selectedModel: ArbsPlaygroundPCPUIModel?
+    private var selectedModel: ArbsComparationPCPUIModel?
 
     // MARK: - Public methods
 
     func loadData() {
-        arbsNetworkManager.fetchVArbsSelectorList(request: .init(type: .pricingCenter)) { [weak self] result in
+        isLoading = true
+
+        arbsNetworkManager.fetchVArbsSelectorList(request: .init(type: .comparisonByDestination)) { [weak self] result in
             guard let strongSelf = self else { return }
+
+            strongSelf.isLoading = false
 
             var selectors: [ArbV.Selector] = []
             if case let .success(responseModel) = result,
@@ -35,16 +47,20 @@ class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
             }
 
             onMainThread {
-                strongSelf.delegate?.arbsPlaygroundPCViewModelDidFetchSelectors(selectors)
+                strongSelf.delegate?.acDestinationViewModelDidFetchDestinationSelectors(selectors)
             }
         }
     }
 
     func makeActiveArbVSelector(_ arbVSelector: ArbV.Selector) {
+        isLoading = true
+
         arbsNetworkManager.fetchVTableArbsInfo(
             request: .init(arbIds: arbVSelector.arbIds)
         ) { [weak self] result in
             guard let strongSelf = self else { return }
+
+            strongSelf.isLoading = false
 
             if case let .success(responseModel) = result,
                let arbsV = responseModel.model?.list {
@@ -56,9 +72,9 @@ class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
                 var allValues: [ArbV.Value] = []
                 arbsV.forEach { allValues.append(contentsOf: $0.values) }
 
-                var months: [ArbsPlaygroundPCPUIModel.Month] = []
+                var months: [ArbsComparationPCPUIModel.Month] = []
                 allValues.forEach { value in
-                    let month = ArbsPlaygroundPCPUIModel.Month(title: value.deliveryMonth)
+                    let month = ArbsComparationPCPUIModel.Month(title: value.deliveryMonth)
                     if !months.contains(month) {
                         months.append(month)
                     }
@@ -66,30 +82,32 @@ class ArbsPlaygroundPCViewModel: ArbsPlaygroundPCViewModelInterface {
 
                 // end of fetching all months
 
-                var activeModel: ArbsPlaygroundPCPUIModel.Active!
+                let units = arbsV.first?.units ?? ""
+
+                var activeModel: ArbsComparationPCPUIModel.Active!
 
                 if let arbV = arbsV.first, let value = arbV.values.first {
-                    activeModel = ArbsPlaygroundPCPUIModel.Active(arbV: arbV, arbVValue: value)
+                    activeModel = ArbsComparationPCPUIModel.Active(arbV: arbV, arbVValue: value)
                 }
 
-                let model = ArbsPlaygroundPCPUIModel(headers: months.compactMap { .init(month: $0, units: "$/bbl") },
-                                                     arbsV: arbsV.sorted { $0.order < $1.order },
-                                                     active: activeModel)
+                let model = ArbsComparationPCPUIModel(headers: months.compactMap { .init(month: $0, units: units) },
+                                                      arbsV: arbsV.sorted { $0.order < $1.order },
+                                                      active: activeModel)
 
                 strongSelf.selectedModel = model
 
                 onMainThread {
-                    strongSelf.delegate?.arbsPlaygroundPCViewModelDidFetchArbsVModel(model)
+                    strongSelf.delegate?.acDestinationViewModelDidFetchArbsVModel(model)
                 }
             }
         }
     }
 
-    func makeActiveModel(_ activeModel: ArbsPlaygroundPCPUIModel.Active) {
+    func makeActiveModel(_ activeModel: ArbsComparationPCPUIModel.Active) {
         self.selectedModel?.active = activeModel
 
         onMainThread {
-            self.delegate?.arbsPlaygroundPCViewModelDidChangeActiveArbVValue(self.selectedModel.required())
+            self.delegate?.acDestinationViewModelDidChangeActiveArbVValue(self.selectedModel.required())
         }
     }
 }

@@ -8,21 +8,6 @@
 import UIKit
 import SpartaHelpers
 
-/*extension MainTabsViewController: UITabBarControllerDelegate {
-
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if let oldNavigation = tabBarController.selectedViewController as? KeyedNavigationController<Tab>,
-           let selectedNavigation = viewController as? KeyedNavigationController<Tab>,
-           oldNavigation != selectedNavigation {
-
-            viewModel.sendAnalyticsEventMenuClicked(from: oldNavigation.key?.analyticsName ?? "",
-                                                    to: selectedNavigation.key?.analyticsName ?? "")
-        }
-
-        return true
-    }
-}*/
-
 class MainTabsViewController: BaseViewController {
 
     // MARK: - Public properties
@@ -213,6 +198,16 @@ class MainTabsViewController: BaseViewController {
 
 extension MainTabsViewController: TabMenuViewDelegate {
 
+    func notifyAnalytics(oldTabItem: TabMenuItem, newTabItem: TabMenuItem) {
+        if let oldNavigation = oldTabItem.controller as? KeyedNavigationController<Tab>,
+           let selectedNavigation = newTabItem.controller as? KeyedNavigationController<Tab>,
+           oldNavigation != selectedNavigation {
+
+            viewModel.sendAnalyticsEventMenuClicked(from: oldNavigation.key?.analyticsName ?? "",
+                                                    to: selectedNavigation.key?.analyticsName ?? "")
+        }
+    }
+
     func tabMenuViewDidSelectTab(_ view: TabMenuView, oldTabItem: TabMenuItem, newTabItem: TabMenuItem) {
         guard let navigationVC = newTabItem.controller as? KeyedNavigationController<Tab> else { return }
 
@@ -222,6 +217,8 @@ extension MainTabsViewController: TabMenuViewDelegate {
             floatyMenuManager.onChoose { [unowned self] menuItem in
                 floatyMenuManager.hide()
                 tabMenuViewDidSelectTab(view, oldTabItem: oldTabItem, newTabItem: menuItem)
+
+                notifyAnalytics(oldTabItem: oldTabItem, newTabItem: menuItem)
             }
 
             floatyMenuManager.onHide { [unowned self] in
@@ -239,7 +236,9 @@ extension MainTabsViewController: TabMenuViewDelegate {
 
         floatyMenuManager.hide()
         contentView.removeAllSubviews()
+
         add(newTabItem.controller, to: contentView)
+        notifyAnalytics(oldTabItem: oldTabItem, newTabItem: newTabItem)
     }
 
     func tabMenuViewDidDoubleTapOnTab(_ view: TabMenuView, tabItem: TabMenuItem) {

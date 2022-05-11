@@ -5,7 +5,7 @@
 //  Created by Yaroslav Babalich on 11.04.2022.
 //
 
-import Foundation
+import UIKit
 
 extension AVDatesHeaderView {
     struct Header {
@@ -15,5 +15,7 @@ extension AVDatesHeaderView {
 
     struct Configurator {
         let headers: [Header]
+        let itemWidth: CGFloat
+        let itemSpace: CGFloat
     }
 }

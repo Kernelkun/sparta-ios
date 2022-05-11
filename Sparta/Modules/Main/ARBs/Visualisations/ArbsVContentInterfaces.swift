@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkingModels
+import UIKit
 
 enum ArbsVContentPage: DisplayableItem, CaseIterable {
     case pricingCenter
@@ -38,6 +39,7 @@ protocol ArbsVContentControllerObserver: AnyObject {
 
 protocol ArbsVContentControllerInterface: AnyObject {
     var airBar: ArbVHeaderView! { get }
+    var contentScrollView: UIScrollView! { get }
 
     func addObserver(_ observer: ArbsVContentControllerObserver)
     func removeObserver(_ observer: ArbsVContentControllerObserver)

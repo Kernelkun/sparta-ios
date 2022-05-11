@@ -12,11 +12,12 @@ class ArbsPlaygroundPCWireframe: BaseWireframe<ArbsPlaygroundPCViewController> {
 
     // MARK: - Initializers
 
-    init() {
+    init(actionsDelegate: ArbsPlaygroundPCActionDelegate?) {
         let viewModel = ArbsPlaygroundPCViewModel()
         let viewController = ArbsPlaygroundPCViewController(viewModel: viewModel)
         super.init(viewController: viewController)
 
+        viewController.actionsDelegate = actionsDelegate
         viewModel.delegate = viewController
     }
 }

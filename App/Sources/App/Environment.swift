@@ -76,8 +76,9 @@ public struct Environment {
 
     // LC chart
 
-    public static let liveChartURL = "https://dev.sparta.app/standaloneChart/"
+    public static let liveChartURL = "http://sparta-review-ios-visualizations-iframe.s3-website-eu-west-1.amazonaws.com/standaloneChart/"
+    //"https://dev.sparta.app/standaloneChart/"
 //    "http://sparta-review-ios-iframe-page.s3-website-eu-west-1.amazonaws.com/standaloneChart/"
 
-    public static let avTradeChartURL = "http://sparta-review-ios-visualizations-iframe.s3-website-eu-west-1.amazonaws.com/visualizationsChart/"
+    public static let avTradeChartURL = "http://sparta-review-ios-visualizations-iframe.s3-website-eu-west-1.amazonaws.com/visualizationsChart"
 }

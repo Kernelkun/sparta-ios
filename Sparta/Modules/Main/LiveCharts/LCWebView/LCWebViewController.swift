@@ -43,7 +43,12 @@ class LCWebViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // UI
+
         setupUI()
+
+        // load data
+
         viewModel.loadData()
     }
 
@@ -240,6 +245,10 @@ extension LCWebViewController: LCWebTradeViewDelegate {
 
     func lcWebTradeViewControllerDidTapOnHLView(_ viewController: LCWebTradeViewController) {
         scrollView.scrollView_scrollToBottom(animated: true)
+    }
+
+    func lcWebTradeViewControllerDidChangeMenuState(_ viewController: LCWebTradeViewController, isMenuOpen: Bool) {
+
     }
 
     func lcWebTradeViewControllerDidChangeOrientation(_ viewController: LCWebTradeViewController, interfaceOrientation: UIInterfaceOrientation) {

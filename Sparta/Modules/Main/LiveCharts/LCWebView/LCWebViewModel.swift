@@ -107,8 +107,8 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
             guard let strongSelf = self else { return }
 
             if case let .success(responseModel) = result,
-               let list = responseModel.model?.list,//.filter({ LCWebRestriction.validDateSelectors.contains($0.code) }),
-               let firstItem = list.first {
+                let list = responseModel.model?.list,
+                let firstItem = list.first {
 
                 strongSelf.configurator?.dateSelectors = list
 
@@ -161,7 +161,7 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                         }
 
                     case .previousClose:
-                        if let highlight = findHighlight(for: "yesterday"), !highlights.contains(where: { $0.type == .previousClose }) {
+                        if let highlight = findHighlight(for: "previous"), !highlights.contains(where: { $0.type == .previousClose }) {
                             highlights.append(.init(type: .previousClose, value: highlight.close.symbols2Value))
                         }
 

@@ -1,19 +1,19 @@
 //
-//  APPCLightsSetView.swift
+//  ACDestinationLightsSetView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 28.10.2021.
+//  Created by Yaroslav Babalich on 27.12.2021.
 //
 
 import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class APPCLightsSetView: TappableView {
+class ACDestinationLightsSetView: TappableView {
 
     // MARK: - Public methods
 
-    private(set) var arbV: ArbV?
+    let arbV: ArbV
     private(set) var arbVValue: ArbV.Value?
 
     // MARK: - Private properties
@@ -117,24 +117,27 @@ class APPCLightsSetView: TappableView {
                 view.state = state
 
                 view.snp.makeConstraints {
-                    $0.size.equalTo(CGSize(width: 70, height: 40))
+                    $0.size.equalTo(CGSize(width: 85, height: 50))
                 }
             }
         }
 
-        if let margins = margins {
-            margins.forEach { mainStackView.addArrangedSubview(generateLightView($0.price)) }
-        } else {
-            mainStackView.addArrangedSubview(generateLightView(nil))
+        var model: ColoredNumber?
+
+        if let arbVValue = arbVValue {
+            model = ColoredNumber(value: arbVValue.deliveredPrice.displayedValue,
+                                  color: "gray")
         }
+
+        mainStackView.addArrangedSubview(generateLightView(model))
     }
 }
 
-extension APPCLightsSetView: ArbsVisSyncObserver {
+extension ACDestinationLightsSetView: ArbsVisSyncObserver {
 
     func arbsVisSyncManagerDidReceiveArbMonth(manager: ArbsVisSyncInterface, arbVMonth: ArbVMonthSocket) {
         guard let uniqueIdentifier = uniqueIdentifier,
-                arbVMonth.uniqueIdentifier == uniqueIdentifier else { return }
+              arbVMonth.uniqueIdentifier == uniqueIdentifier else { return }
 
         self.margins = arbVMonth.margins
         self.updateUI()

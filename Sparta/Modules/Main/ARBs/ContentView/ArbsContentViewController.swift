@@ -68,11 +68,6 @@ class ArbsContentViewController: BaseViewController {
         setupNavigationUI()
     }
 
-    private func setupTestWireframe() {
-        let wireframe = ArbsPlaygroundPCWireframe()
-        add(wireframe.viewController, to: mainContentView)
-    }
-
     private func setupViewState(for selectedItem: ArbsMenuView.MenuItem) {
         switch selectedItem {
         case .table:

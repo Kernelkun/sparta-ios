@@ -25,7 +25,7 @@ public struct ArbV: BackendModel {
     public let relatedArbIds: [Int]
     public let units: String
     public let basis: String
-    public let values: [ArbV.Value]
+    public let values: [Value]
 
     //
     // MARK: - Default Initializers

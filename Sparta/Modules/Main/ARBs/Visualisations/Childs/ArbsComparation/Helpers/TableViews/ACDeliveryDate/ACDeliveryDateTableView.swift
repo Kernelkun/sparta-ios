@@ -1,30 +1,31 @@
 //
-//  AVACTableView.swift
+//  ACDeliveryDateTableView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 31.03.2022.
+//  Created by Yaroslav Babalich on 29.04.2022.
 //
 
 import UIKit
 import NetworkingModels
 import SpartaHelpers
 
-class AVACTableView: UIView {
+class ACDeliveryDateTableView: UIView {
 
     // MARK: - UI
 
     private var titleLabel: UILabel!
-    private var model: ArbsComparationPCPUIModel!
-    private var lightSetViews: [AVACLightsSetView] = []
+    private var model: ACDeliveryDateUIModel!
+    private var lightSetViews: [ACDeliveryDateLightsSetView] = []
 
     // MARK: - Private properties
 
-    private var _onChooseClosure: TypeClosure<ArbV.Value>?
+    private var _onChooseClosure: TypeClosure<ArbsComparationPCPUIModel.Active>?
 
     // MARK: - Initializers
 
     init() {
         super.init(frame: .zero)
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
@@ -33,25 +34,24 @@ class AVACTableView: UIView {
 
     // MARK: - Public methods
 
-    func apply(_ model: ArbsComparationPCPUIModel) {
+    func apply(_ model: ACDeliveryDateUIModel) {
         self.model = model
         updateUI()
     }
 
-    func onChoose(completion: @escaping TypeClosure<ArbV.Value>) {
+    func onChoose(completion: @escaping TypeClosure<ArbsComparationPCPUIModel.Active>) {
         _onChooseClosure = completion
     }
 
     // MARK: - Private methods
 
     private func setupUI() {
-        backgroundColor = .clear
-        tintColor = .controlTintActive
+        backgroundColor = .neutral85
+        layer.cornerRadius = 13
     }
 
     private func updateUI() {
-        removeAllSubviews()
-        lightSetViews = []
+        clearUI()
 
         let scrollView = UIScrollView().then { view in
 
@@ -61,11 +61,11 @@ class AVACTableView: UIView {
             view.bounces = false
             view.clipsToBounds = false
 
-                addSubview(view) {
-                    $0.left.equalToSuperview().offset(APPCUIConstants.leftMenuWidth)
-                    $0.top.bottom.equalToSuperview()
-                    $0.right.equalToSuperview().inset(8)
-                }
+            addSubview(view) {
+                $0.left.equalToSuperview().offset(AVACUIConstants.leftMenuWidth + 8)
+                $0.top.bottom.equalToSuperview()
+                $0.right.equalToSuperview().inset(8)
+            }
         }
 
         let scrollViewContent = UIView().then { view in
@@ -80,8 +80,12 @@ class AVACTableView: UIView {
             }
         }
 
-        let headers = model.headers.compactMap { AVDatesHeaderView.Header(title: $0.month.title, subTitle: $0.units) }
-        let configurator = AVDatesHeaderView.Configurator(headers: headers)
+        let headers = model.headers.compactMap { AVDatesHeaderView.Header(title: $0.title, subTitle: $0.units) }
+        let configurator = AVDatesHeaderView.Configurator(
+            headers: headers,
+            itemWidth: 85,
+            itemSpace: APPCUIConstants.priceItemSpace + 2
+        )
         let datesHeaderView = AVDatesHeaderView(configurator: configurator).then { view in
 
             scrollViewContent.addSubview(view) {
@@ -91,23 +95,24 @@ class AVACTableView: UIView {
 
         var prevStackView: UIStackView?
 
-        for (index, arbV) in model.arbsV.enumerated() {
+        for (index, row) in model.rows.enumerated() {
 
-            let identifierView = AVTableIdentifierView(
-                title: arbV.loadRegion.uppercased(),
-                subTitle: arbV.vesselType.uppercased()
-            )
+            let identifierView = UILabel().then { label in
+
+                label.textColor = .primaryText
+                label.textAlignment = .center
+                label.font = .main(weight: .medium, size: 14)
+                label.text = row.title
+            }
 
             _ = UIView().then { view in
 
-                view.backgroundColor = .clear
+                view.backgroundColor = .red
 
                 view.addSubview(identifierView) {
-                    $0.top.equalToSuperview()
-                    $0.left.equalToSuperview().offset(8)
-                    $0.size.equalTo(CGSize(width: 50, height: 38))
-//                    $0.right.equalToSuperview().inset(8)
-                    $0.bottom.equalToSuperview()
+                    $0.centerY.equalToSuperview()
+                    $0.left.equalToSuperview().offset(4)
+                    $0.size.equalTo(CGSize(width: 42, height: 65))
                 }
 
                 addSubview(view) {
@@ -118,12 +123,13 @@ class AVACTableView: UIView {
                         $0.top.equalToSuperview().offset(58)
                     }
 
-                    if index == (self.model.arbsV.count - 1) {
+                    if index == (self.model.rows.count - 1) {
                         $0.bottom.equalToSuperview().inset(16)
                     }
 
                     $0.left.equalToSuperview()
-                    $0.width.equalTo(APPCUIConstants.leftMenuWidth)
+                    $0.width.equalTo(AVACUIConstants.leftMenuWidth)
+                    $0.height.equalTo(50)
                 }
             }
 
@@ -133,11 +139,11 @@ class AVACTableView: UIView {
 
                 stackView.axis = .horizontal
                 stackView.distribution = .fillEqually
-                stackView.spacing = APPCUIConstants.priceItemSpace
+                stackView.spacing = AVACUIConstants.priceItemSpace
                 stackView.alignment = .fill
 
                 self.model.headers.forEach { header in
-                    let value = arbV.values.first(where: { $0.deliveryMonth == header.month.title })
+                    /*let value = row.groups.first(where: { $0.grade == header.title })?.arbsV.first?.values.first(where: { $0.deliveryMonth == header.month.title })
                     let uniqueIdentifier: Identifier<String>?
 
                     if let value = value {
@@ -146,25 +152,26 @@ class AVACTableView: UIView {
                         uniqueIdentifier = nil
                     }
 
-                    let isActive: Bool = uniqueIdentifier == self.model.selectedValueIdentifier
+                    let isActive: Bool = uniqueIdentifier == self.model.active.identifier
 
-                    _ = AVACLightsSetView(
+                    _ = ACDeliveryDateLightsSetView(
+                        arbV: arbV,
                         arbVValue: value,
                         uniqueIdentifier: uniqueIdentifier,
                         isActive: isActive
                     ).then { view in
 
                         view.onTap { [unowned self] view in
-                            guard let view = view as? APPCLightsSetView, let arbVValue = view.arbVValue else { return }
+                            guard let view = view as? ACDeliveryDateLightsSetView, let arbVValue = view.arbVValue else { return }
 
                             makeInactiveSetViews()
                             view.setIsActive(true, animated: true)
-                            _onChooseClosure?(arbVValue)
+                            _onChooseClosure?(ArbsComparationPCPUIModel.Active(arbV: view.arbV, arbVValue: arbVValue))
                         }
 
                         stackView.addArrangedSubview(view)
                         lightSetViews.append(view)
-                    }
+                    }*/
                 }
 
                 scrollViewContent.addSubview(stackView) {
@@ -175,9 +182,9 @@ class AVACTableView: UIView {
                         $0.top.equalTo(datesHeaderView.snp.bottom)
                     }
 
-                    if index == (self.model.arbsV.count - 1) {
-//                        $0.bottom.equalToSuperview().inset(16)
+                    if index == (self.model.rows.count - 1) {
                         $0.right.equalToSuperview()
+                        $0.bottom.equalToSuperview().inset(16)
                     }
 
                     $0.left.equalToSuperview()
@@ -188,26 +195,13 @@ class AVACTableView: UIView {
         }
     }
 
-    private func generateLabel(with title: String) -> UILabel {
-        UILabel().then { label in
-
-            label.text = title
-            label.textAlignment = .right
-            label.textColor = .primaryText
-            label.font = .main(weight: .regular, size: 11)
-            label.numberOfLines = 0
-
-            label.snp.makeConstraints {
-                $0.height.equalTo(40)
-            }
-        }
-    }
-
     func makeInactiveSetViews() {
         lightSetViews.forEach { $0.setIsActive(false, animated: true) }
     }
 
     private func clearUI() {
-//        contentView.removeAllSubviews()
+        removeAllSubviews()
+        lightSetViews = []
     }
 }
+

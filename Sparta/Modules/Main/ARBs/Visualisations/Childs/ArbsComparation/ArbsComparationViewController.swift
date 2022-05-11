@@ -9,6 +9,14 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
+protocol ArbsComparationActionDelegate: AnyObject {
+    func arbsComparationViewControllerDidChangeContentOffset(
+        _ viewController: ArbsComparationViewController,
+        offset: CGFloat,
+        direction: MovingDirection
+    )
+}
+
 class ArbsComparationViewController: BaseViewController {
 
     // MARK: - Public properties
@@ -16,14 +24,23 @@ class ArbsComparationViewController: BaseViewController {
     private(set) var airBarTopMenu: UIView!
     private(set) var airBarBottomMenu: UIView!
 
+    weak var actionsDelegate: ArbsComparationActionDelegate?
+
     // MARK: - Private properties
 
     private let viewModel: ArbsComparationViewModelInterface
 
     private var sortSegmentedView: MainSegmentedView<ArbsVACSortType>!
-    private var arbsSelector: UITextFieldSelector<ArbV.Selector>!
+    
 
-    private var tableView: AVACTableView!
+    private var activeController: ACChildControllerInterface?
+
+    private var airBarBottomContentView: UIView!
+
+    // MARK: - Wireframes
+
+    private var acDestinationVC: ACChildControllerInterface?
+    private var acDeliveryDateVC: ACChildControllerInterface?
 
     // MARK: - Initializers
 
@@ -44,32 +61,20 @@ class ArbsComparationViewController: BaseViewController {
         setupUI()
 
         // view model
+
         viewModel.loadData()
     }
 
     // MARK: - Private methods
 
     private func setupUI() {
-
         airBarTopMenu = generateAirBarTopMenu()
         airBarBottomMenu = generateAirBarBottomMenu()
 
-        let contentView = UIView().then { view in
+        acDestinationVC = ACDestinationWireframe().viewController
+        acDeliveryDateVC = ACDeliveryDateWireframe().viewController
 
-            view.layer.cornerRadius = 13
-
-            addSubview(view) {
-                $0.top.equalToSuperview().offset(8)
-                $0.left.right.bottom.equalToSuperview().inset(4)
-            }
-        }
-
-        tableView = AVACTableView().then { view in
-
-            contentView.addSubview(view) {
-                $0.edges.equalToSuperview()
-            }
-        }
+        updateUI(for: .deliveryDate)
     }
 
     private func generateAirBarTopMenu() -> UIView {
@@ -77,11 +82,11 @@ class ArbsComparationViewController: BaseViewController {
 
             sortSegmentedView = MainSegmentedView(
                 items: ArbsVACSortType.allCases,
-                selectedIndex: 1 /*configurator.selectedIndexOfMenuItem*/
+                selectedItem: viewModel.selectedSortType
             ).then { segmentedView in
 
                 segmentedView.onSelect { [unowned self] item in
-//                    self.delegate?.arbVHeaderViewDidChangeSegmentedViewValue(self, item: item)
+                    updateUI(for: item)
                 }
 
                 view.addSubview(segmentedView) {
@@ -94,41 +99,61 @@ class ArbsComparationViewController: BaseViewController {
     }
 
     private func generateAirBarBottomMenu() -> UIView {
-        UIView().then { view in
+        airBarBottomContentView = UIView()
+        return airBarBottomContentView
+    }
 
-            let itemsFieldConfigurator = UITextFieldSelectorConfigurator(
-                leftSpace: 10,
-                imageRightSpace: 11,
-                imageLeftSpace: 3,
-                cornerRadius: 10,
-                defaultTextAttributes: [NSAttributedString.Key.foregroundColor: UIColor.primaryText,
-                                        NSAttributedString.Key.font: UIFont.main(weight: .regular, size: 18)]
-            )
+    private func updateUI(for type: ArbsVACSortType) {
+        activeController?.remove()
 
-            arbsSelector = UITextFieldSelector(configurator: itemsFieldConfigurator).then { selector in
+        switch type {
+        case .deliveryDate:
+            guard let controller = acDeliveryDateVC else { return }
 
-                selector.onChooseValue { [unowned self] arbVSelector in
-                    viewModel.makeActiveArbVSelector(arbVSelector)
-                }
+            add(controller, to: view)
+            activeController = controller
 
-                view.addSubview(selector) {
-                    $0.left.equalToSuperview()
-                    $0.centerY.equalToSuperview()
-                    $0.size.equalTo(CGSize(width: 228, height: 32))
-                }
+            airBarBottomContentView.removeAllSubviews()
+            airBarBottomContentView.addSubview(controller.bottomAirBarContentView) {
+                $0.edges.equalToSuperview()
+            }
+
+        case .destination:
+            guard let controller = acDestinationVC else { return }
+
+            add(controller, to: view)
+            activeController = controller
+
+            airBarBottomContentView.removeAllSubviews()
+            airBarBottomContentView.addSubview(controller.bottomAirBarContentView) {
+                $0.edges.equalToSuperview()
             }
         }
+    }
+
+    private func generateAirBarBottomDeliveryDateView(in view: UIView) {
+        
+    }
+
+
+}
+
+extension ArbsComparationViewController: ACWebTradeViewDelegate {
+
+    func acWebTradeViewControllerDidChangeContentOffset(_ viewController: ACWebTradeViewController, offset: CGFloat, direction: MovingDirection) {
+        actionsDelegate?.arbsComparationViewControllerDidChangeContentOffset(
+            self,
+            offset: offset,
+            direction: direction
+        )
+    }
+
+    func acWebTradeViewControllerDidTapOnHLView(_ viewController: ACWebTradeViewController) {
+    }
+
+    func acWebTradeViewControllerDidChangeOrientation(_ viewController: ACWebTradeViewController, interfaceOrientation: UIInterfaceOrientation) {
     }
 }
 
 extension ArbsComparationViewController: ArbsComparationViewModelDelegate {
-
-    func arbsComparationViewModelDidFetchDestinationSelectors(_ selectors: [ArbV.Selector]) {
-        arbsSelector.inputValues = selectors
-        arbsSelector.apply(selectedValue: selectors.first.required(), placeholder: "")
-    }
-
-    func arbsComparationViewModelDidFetchArbsVModel(_ model: ArbsComparationPCPUIModel) {
-        tableView.apply(model)
-    }
 }

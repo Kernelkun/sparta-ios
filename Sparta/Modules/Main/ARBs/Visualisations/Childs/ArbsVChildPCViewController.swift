@@ -11,7 +11,7 @@ class ArbsVChildPCViewController: ArbsVChildViewController {
 
     // MARK: - Private properties
 
-    private let pcWireframe = ArbsPlaygroundPCWireframe()
+    private lazy var pcWireframe = ArbsPlaygroundPCWireframe(actionsDelegate: self)
 
     // MARK: - Lifecycle
 
@@ -41,8 +41,6 @@ class ArbsVChildPCViewController: ArbsVChildViewController {
 
 //            parrentController.airBar.middleContentView.isHidden = false
         }
-
-//        parrentController.airBar.applyState(isMinimized: false)
 //        parrentController.airBar.topRightContentView.backgroundColor = .red
     }
 
@@ -54,18 +52,41 @@ class ArbsVChildPCViewController: ArbsVChildViewController {
 
         guard newPage == .pricingCenter else { return }
 
+        parrentController.airBar.applyState(isMinimized: true)
+
+        parrentController.airBar.snp.updateConstraints {
+            $0.height.equalTo(55)
+        }
+
         let topContentView = parrentController.airBar.topRightContentView
         topContentView?.removeAllSubviews()
         topContentView?.addSubview(pcWireframe.viewController.airBarTopMenu) {
             $0.edges.equalToSuperview()
         }
-
-//        parrentController.airBar.topRightContentView.backgroundColor = .red
     }
 
     // MARK: - Private methods
 
     private func setupUI() {
+        view.backgroundColor = .clear
         add(pcWireframe.viewController, to: view)
+    }
+}
+
+extension ArbsVChildPCViewController: ArbsPlaygroundPCActionDelegate {
+
+    func arbsPlaygroundPCViewControllerDidChangeContentOffset(_ viewController: ArbsPlaygroundPCViewController, offset: CGFloat, direction: MovingDirection) {
+        var currentOffset = parrentController.contentScrollView.contentOffset.y
+
+        if direction == .up {
+            currentOffset += offset
+        } else {
+            currentOffset -= offset
+        }
+
+        parrentController.contentScrollView.contentOffset = CGPoint(x: 0, y: currentOffset)
+
+        if parrentController.contentScrollView.contentSize.height < currentOffset {
+        }
     }
 }

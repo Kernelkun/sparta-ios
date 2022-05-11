@@ -13,7 +13,7 @@ class MainSegmentedView<I: DisplayableItem & CaseIterable>: UIControl {
 
     // MARK: - Public properties
 
-    var selectedIndex = 0 {
+    var selectedItem: I {
         didSet { updateUI(animated: true) }
     }
 
@@ -27,12 +27,12 @@ class MainSegmentedView<I: DisplayableItem & CaseIterable>: UIControl {
 
     // MARK: - Initializers
 
-    init(items: [I], selectedIndex: Int) {
+    init(items: [I], selectedItem: I) {
         self.items = items
+        self.selectedItem = selectedItem
         super.init(frame: .zero)
 
         setupUI()
-        self.selectedIndex = selectedIndex
     }
 
     required init?(coder: NSCoder) {
@@ -71,11 +71,9 @@ class MainSegmentedView<I: DisplayableItem & CaseIterable>: UIControl {
             items.forEach { item in
                 let itemView = ItemView(item: item)
                 itemView.onTap { [unowned self] view in
-                    guard let view = view as? ItemView<I>,
-                          let indexOfView = mainStackView.arrangedSubviews
-                            .firstIndex(of: view) else { return }
+                    guard let view = view as? ItemView<I> else { return }
 
-                    self.selectedIndex = indexOfView
+                    self.selectedItem = view.item
                     _onChooseClosure?(view.item)
                 }
                 stackView.addArrangedSubview(itemView)
@@ -100,8 +98,8 @@ class MainSegmentedView<I: DisplayableItem & CaseIterable>: UIControl {
     }
 
     private func updateUI(animated: Bool) {
-        guard selectedIndex < mainStackView.arrangedSubviews.count,
-              let selectedItem = mainStackView.arrangedSubviews[selectedIndex] as? ItemView<I> else { return }
+        guard let selectedItem = (mainStackView.arrangedSubviews as? [ItemView<I>])?
+            .first(where: { $0.item.title.lowercased() == selectedItem.title.lowercased() }) else { return }
 
         selectLineToView(selectedItem, animated: animated)
     }

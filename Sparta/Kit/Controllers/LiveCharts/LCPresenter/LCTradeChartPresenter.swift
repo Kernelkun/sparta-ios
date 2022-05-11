@@ -17,14 +17,18 @@ class LCTradeChartPresenter {
     private var dateCode: String?
 
     private var window: UIWindow?
-    private var lcWebTradeController = LCWebTradeViewController(edges: .zero)
-    private var resizeButton: TappableButton
+    private let lcWebTradeController = LCWebTradeViewController(edges: .zero)
 
     // MARK: - Initializers
 
     init() {
-        resizeButton = TappableButton()
         lcWebTradeController.delegate = self
+
+        lcWebTradeController.resizeButton = TappableButton().then { button in
+
+            button.backgroundColor = .neutral80
+            button.setImage(UIImage(named: "ic_chart_collapse"), for: .normal)
+        }
     }
 
     // MARK: - Public methods
@@ -50,7 +54,7 @@ class LCTradeChartPresenter {
         configurator.state = .fullScreen(orientation: orientation)
 
         // remove from parrent
-        resizeButton.removeFromSuperview()
+        lcWebTradeController.resizeButton.removeFromSuperview()
         lcWebTradeController.remove()
 
         // rotate screen
@@ -67,26 +71,24 @@ class LCTradeChartPresenter {
         lcWebTradeController.updateEdges(edges)
         lcWebTradeController.load(configurator: .init(productCode: productCode, dateCode: dateCode, isPortraitMode: false))
 
-        resizeButton = TappableButton().then { button in
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = lcWebTradeController
+        window?.windowLevel = UIWindow.Level.normal + 2
+        window?.makeKeyAndVisible()
 
-            button.backgroundColor = .neutral80
-            button.setImage(UIImage(named: "ic_chart_collapse"), for: .normal)
+        lcWebTradeController.resizeButton.do { button in
+
             button.onTap { [unowned self] _ in
                 InterfaceOrientationUtility.lockOrientation(.all, rotateTo: .portrait)
                 presentMinimized()
             }
 
-            lcWebTradeController.view.addSubview(button) {
+            window?.addSubview(button) {
                 $0.size.equalTo(32)
                 $0.bottom.equalToSuperview().inset(edges.bottom + 44)
                 $0.right.equalToSuperview().inset(edges.right + 6)
             }
         }
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = lcWebTradeController
-        window?.windowLevel = UIWindow.Level.normal + 2
-        window?.makeKeyAndVisible()
     }
 
     func presentMinimized() {
@@ -94,7 +96,7 @@ class LCTradeChartPresenter {
         configurator.state = .minimized
 
         // remove from parrent
-        resizeButton.removeFromSuperview()
+        lcWebTradeController.resizeButton.removeFromSuperview()
         window?.rootViewController = nil
         window = nil
 
@@ -108,10 +110,8 @@ class LCTradeChartPresenter {
         lcWebTradeController.updateEdges(.zero)
         lcWebTradeController.load(configurator: .init(productCode: productCode, dateCode: dateCode, isPortraitMode: true))
 
-        resizeButton = TappableButton().then { button in
+        lcWebTradeController.resizeButton.do { button in
 
-            button.backgroundColor = .neutral80
-            button.setImage(UIImage(named: "ic_chart_collapse"), for: .normal)
             button.onTap { [unowned self] _ in
                 presentFullScreen(orientation: .landscapeRight)
             }
@@ -135,6 +135,11 @@ extension LCTradeChartPresenter: LCWebTradeViewDelegate {
     }
 
     func lcWebTradeViewControllerDidTapOnHLView(_ viewController: LCWebTradeViewController) {
+    }
+
+    func lcWebTradeViewControllerDidChangeMenuState(_ viewController: LCWebTradeViewController, isMenuOpen: Bool) {
+        self.lcWebTradeController.resizeButton.isHidden = isMenuOpen
+        viewController.resizeButton.isHidden = isMenuOpen
     }
 
     func lcWebTradeViewControllerDidChangeOrientation(_ viewController: LCWebTradeViewController, interfaceOrientation: UIInterfaceOrientation) {

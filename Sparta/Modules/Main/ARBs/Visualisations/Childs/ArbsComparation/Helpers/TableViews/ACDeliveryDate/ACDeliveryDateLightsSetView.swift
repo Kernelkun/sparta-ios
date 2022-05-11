@@ -1,18 +1,19 @@
 //
-//  AVACLightsSetView.swift
+//  ACDeliveryDateLightsSetView.swift
 //  Sparta
 //
-//  Created by Yaroslav Babalich on 27.12.2021.
+//  Created by Yaroslav Babalich on 30.04.2022.
 //
 
 import UIKit
 import SpartaHelpers
 import NetworkingModels
 
-class AVACLightsSetView: TappableView {
+class ACDeliveryDateLightsSetView: TappableView {
 
     // MARK: - Public methods
 
+    let arbV: ArbV
     private(set) var arbVValue: ArbV.Value?
 
     // MARK: - Private properties
@@ -28,10 +29,12 @@ class AVACLightsSetView: TappableView {
     // MARK: - Initializers
 
     init(
+        arbV: ArbV,
         arbVValue: ArbV.Value?,
         uniqueIdentifier: Identifier<String>?,
         isActive: Bool
     ) {
+        self.arbV = arbV
         self.uniqueIdentifier = uniqueIdentifier
         self.margins = arbVValue?.margins
         self.arbVValue = arbVValue
@@ -102,10 +105,10 @@ class AVACLightsSetView: TappableView {
     private func updateUI() {
         mainStackView.removeAllSubviews()
 
-        func generateLightView(_ model: ColoredNumber?) -> AVTableLightView {
-            AVTableLightView().then { view in
+        func generateLightView(_ model: ColoredNumber?) -> ACDeliveryDateTableLightView {
+            ACDeliveryDateTableLightView().then { view in
 
-                var state: AVTableLightView.State = .inactive
+                var state: ACDeliveryDateTableLightView.State = .inactive
 
                 if let model = model {
                     state = .active(color: model.valueColor, text: model.value)
@@ -114,24 +117,23 @@ class AVACLightsSetView: TappableView {
                 view.state = state
 
                 view.snp.makeConstraints {
-                    $0.size.equalTo(CGSize(width: 70, height: 40))
+                    $0.size.equalTo(CGSize(width: 65, height: 50))
                 }
             }
         }
-
 
         var model: ColoredNumber?
 
         if let arbVValue = arbVValue {
             model = ColoredNumber(value: arbVValue.deliveredPrice.displayedValue,
-                                  color: "gray")
+                                  color: "red")
         }
 
         mainStackView.addArrangedSubview(generateLightView(model))
     }
 }
 
-extension AVACLightsSetView: ArbsVisSyncObserver {
+extension ACDeliveryDateLightsSetView: ArbsVisSyncObserver {
 
     func arbsVisSyncManagerDidReceiveArbMonth(manager: ArbsVisSyncInterface, arbVMonth: ArbVMonthSocket) {
         guard let uniqueIdentifier = uniqueIdentifier,
@@ -141,3 +143,4 @@ extension AVACLightsSetView: ArbsVisSyncObserver {
         self.updateUI()
     }
 }
+

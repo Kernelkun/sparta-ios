@@ -27,6 +27,8 @@ class ACWebTradeViewController: UIViewController {
     private var edges: UIEdgeInsets
     private let webView: WKWebView
 
+    private var scrollViewPanGesture: UIPanGestureRecognizer!
+
     // MARK: - Initializers
 
     init(edges: UIEdgeInsets) {
@@ -110,16 +112,16 @@ class ACWebTradeViewController: UIViewController {
             webView.scrollView.maximumZoomScale = 1.0
             webView.scrollView.panGestureRecognizer.isEnabled = false
 
-            let scrollViewPanGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+            scrollViewPanGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
             scrollViewPanGesture.delegate = self
-            webView.scrollView.addGestureRecognizer(scrollViewPanGesture)
+            webView.addGestureRecognizer(scrollViewPanGesture)
 
             addSubview(webView) {
                 $0.edges.equalTo(edges)
             }
         }
 
-        _ = TappableView().then { view in
+        /*_ = TappableView().then { view in
 
             view.backgroundColor = .clear
             view.onTap { [unowned self] _ in
@@ -130,15 +132,15 @@ class ACWebTradeViewController: UIViewController {
                 $0.left.top.right.equalToSuperview()
                 $0.height.equalTo(70)
             }
-        }
+        }*/
     }
 
     // MARK: - Events
 
     @objc
     private func onPan(_ gesture: UIPanGestureRecognizer) {
-        let velocity = webView.scrollView.panGestureRecognizer.velocity(in: webView)
-        let translation = webView.scrollView.panGestureRecognizer.translation(in: webView)
+        let velocity = scrollViewPanGesture.velocity(in: webView)
+        let translation = scrollViewPanGesture.translation(in: webView)
         let isVerticalGesture = abs(velocity.y) > abs(velocity.x)
 
         func scrollAction(direction: MovingDirection) {

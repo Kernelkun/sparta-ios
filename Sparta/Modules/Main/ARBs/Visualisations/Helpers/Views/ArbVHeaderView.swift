@@ -88,7 +88,7 @@ class ArbVHeaderView: UIView {
 
         segmetedView = MainSegmentedView(
             items: ArbsVContentPage.allCases,
-            selectedIndex: configurator.selectedIndexOfMenuItem
+            selectedItem: configurator.selectedItem
         ).then { view in
 
             view.onSelect { [unowned self] item in
@@ -141,6 +141,6 @@ class ArbVHeaderView: UIView {
 extension ArbVHeaderView {
 
     struct Configurator {
-        let selectedIndexOfMenuItem: Int
+        let selectedItem: ArbsVContentPage
     }
 }

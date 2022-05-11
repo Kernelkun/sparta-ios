@@ -26,7 +26,7 @@ enum ArbsVACSortType: DisplayableItem, CaseIterable {
 struct ArbsComparationPCPUIModel {
     let headers: [Header]
     let arbsV: [ArbV]
-    let selectedValueIdentifier: Identifier<String>?
+    var active: Active
 }
 
 extension ArbsComparationPCPUIModel {
@@ -37,5 +37,15 @@ extension ArbsComparationPCPUIModel {
 
     struct Month: Equatable {
         let title: String
+    }
+
+    struct Active {
+        let arbV: ArbV
+        let arbVValue: ArbV.Value
+
+        var month: String { arbVValue.deliveryMonth }
+        var identifier: Identifier<String> {
+            arbV.uniqueIdentifier(from: arbVValue)
+        }
     }
 }

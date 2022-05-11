@@ -33,8 +33,8 @@ class AVDatesHeaderView: UIView {
         _ = UIStackView().then { stackView in
 
             stackView.axis = .horizontal
-            stackView.distribution = .fillEqually
-            stackView.spacing = APPCUIConstants.priceItemSpace
+            stackView.distribution = .equalSpacing
+            stackView.spacing = configurator.itemSpace
             stackView.alignment = .fill
 
             configurator.headers.forEach { header in
@@ -43,7 +43,7 @@ class AVDatesHeaderView: UIView {
                     subTitle: header.subTitle
                 ).then { view in
                     view.snp.makeConstraints {
-                        $0.width.equalTo(70)
+                        $0.width.equalTo(configurator.itemWidth)
                     }
                     stackView.addArrangedSubview(view)
                 }

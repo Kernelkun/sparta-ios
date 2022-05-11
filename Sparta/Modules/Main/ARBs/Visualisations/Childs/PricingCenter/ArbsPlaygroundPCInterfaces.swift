@@ -17,6 +17,7 @@ protocol ArbsPlaygroundPCViewModelDelegate: AnyObject {
     func arbsPlaygroundPCViewModelDidChangeLoadingState(_ isLoading: Bool, module: ArbsPlaygroundPCLoadingModule)
     func arbsPlaygroundPCViewModelDidFetchSelectors(_ selectors: [ArbV.Selector])
     func arbsPlaygroundPCViewModelDidFetchArbsVModel(_ model: ArbsPlaygroundPCPUIModel)
+    func arbsPlaygroundPCViewModelDidChangeActiveArbVValue(_ model: ArbsPlaygroundPCPUIModel)
 }
 
 protocol ArbsPlaygroundPCViewModelInterface {
@@ -25,4 +26,5 @@ protocol ArbsPlaygroundPCViewModelInterface {
 
     func loadData()
     func makeActiveArbVSelector(_ arbVSelector: ArbV.Selector)
+    func makeActiveModel(_ activeModel: ArbsPlaygroundPCPUIModel.Active)
 }

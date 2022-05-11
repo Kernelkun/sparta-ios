@@ -13,6 +13,7 @@ import App
 protocol LCWebTradeViewDelegate: AnyObject {
     func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection)
     func lcWebTradeViewControllerDidTapOnHLView(_ viewController: LCWebTradeViewController)
+    func lcWebTradeViewControllerDidChangeMenuState(_ viewController: LCWebTradeViewController, isMenuOpen: Bool)
     func lcWebTradeViewControllerDidChangeOrientation(_ viewController: LCWebTradeViewController, interfaceOrientation: UIInterfaceOrientation)
 }
 
@@ -22,17 +23,24 @@ class LCWebTradeViewController: UIViewController {
 
     weak var delegate: LCWebTradeViewDelegate?
 
+    var resizeButton: TappableButton!
+
+    // MARK: - Private properties
+
+    private static let menuEventKey = "isMenuOpen"
+
     // MARK: - UI properties
 
-    private var edges: UIEdgeInsets
+    private var tappableView: UIView!
     private let webView: WKWebView
+    private var edges: UIEdgeInsets
 
     // MARK: - Initializers
 
     init(edges: UIEdgeInsets) {
         self.edges = edges
+        self.webView = WKWebViewWarmUper.liveChartsWarmUper.dequeue()
 
-        webView = WKWebViewWarmUper.liveChartsWarmUper.dequeue()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -63,14 +71,16 @@ class LCWebTradeViewController: UIViewController {
             urlComponents?.queryItems?.append(dateParam)
         }
 
-        guard let urlString = urlComponents?.url else { return }
+        guard let url = urlComponents?.url else { return }
 
-        print(urlString.absoluteString)
-
-        var request = URLRequest(url: urlString)
+        var request = URLRequest(url: url)
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
-        self.webView.load(request)
+        let contentController = webView.configuration.userContentController
+        contentController.removeScriptMessageHandler(forName: Self.menuEventKey)
+        contentController.add(self, name: Self.menuEventKey)
+
+        webView.load(request)
     }
 
     func reloadContent() {
@@ -107,10 +117,6 @@ class LCWebTradeViewController: UIViewController {
             webView.scrollView.maximumZoomScale = 1.0
             webView.scrollView.panGestureRecognizer.isEnabled = false
 
-            let scrollViewPanGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-            scrollViewPanGesture.delegate = self
-            webView.scrollView.addGestureRecognizer(scrollViewPanGesture)
-
             addSubview(webView) {
                 $0.edges.equalTo(edges)
             }
@@ -118,7 +124,6 @@ class LCWebTradeViewController: UIViewController {
 
         _ = TappableView().then { view in
 
-            view.backgroundColor = .clear
             view.onTap { [unowned self] _ in
                 self.delegate?.lcWebTradeViewControllerDidTapOnHLView(self)
             }
@@ -168,6 +173,18 @@ class LCWebTradeViewController: UIViewController {
         guard let orientation = UIApplication.interfaceOrientation else { return }
 
         delegate?.lcWebTradeViewControllerDidChangeOrientation(self, interfaceOrientation: orientation)
+    }
+}
+
+extension LCWebTradeViewController: WKScriptMessageHandler {
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard message.name == Self.menuEventKey, let isMenuOpen = message.body as? Bool else { return }
+
+        Alert.showOk(title: message.name, message: "\(message.body)", show: self, completion: nil)
+        onMainThread {
+            self.delegate?.lcWebTradeViewControllerDidChangeMenuState(self, isMenuOpen: isMenuOpen)
+        }
     }
 }
 

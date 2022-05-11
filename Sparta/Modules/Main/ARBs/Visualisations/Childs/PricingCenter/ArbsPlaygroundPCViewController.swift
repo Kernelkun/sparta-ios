@@ -9,11 +9,20 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
+protocol ArbsPlaygroundPCActionDelegate: AnyObject {
+    func arbsPlaygroundPCViewControllerDidChangeContentOffset(
+        _ viewController: ArbsPlaygroundPCViewController,
+        offset: CGFloat,
+        direction: MovingDirection
+    )
+}
+
 class ArbsPlaygroundPCViewController: BaseViewController {
 
     // MARK: - Public properties
 
     var airBarTopMenu: UIView!
+    weak var actionsDelegate: ArbsPlaygroundPCActionDelegate?
 
     // MARK: - Private properties
 
@@ -39,6 +48,8 @@ class ArbsPlaygroundPCViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .clear
+
         // UI
 
         setupUI()
@@ -57,12 +68,15 @@ class ArbsPlaygroundPCViewController: BaseViewController {
         let contentView = UIView().then { view in
 
             addSubview(view) {
-                $0.top.equalToSuperview()
-                $0.left.right.bottom.equalToSuperview().inset(4)
+                $0.edges.equalToSuperview()
             }
         }
 
         tableView = APPCTableView().then { view in
+
+            view.onChoose { [unowned self] activeModel in
+                self.viewModel.makeActiveModel(activeModel)
+            }
 
             contentView.addSubview(view) {
                 $0.left.top.right.equalToSuperview()
@@ -109,22 +123,26 @@ class ArbsPlaygroundPCViewController: BaseViewController {
             }
         }
     }
+
+    private func loadHistoricalChart(_ model: ArbsPlaygroundPCPUIModel) {
+        let configurator = ACWebTradeViewController.Configurator(
+            arbIds: model.arbsV.compactMap { $0.arbId },
+            dateRange: .month,
+            deliveryWindow: nil,
+            deliveryMonth: model.active.month
+        )
+        tradeChartVC.load(configurator: configurator)
+    }
 }
 
-extension ArbsPlaygroundViewController: ACWebTradeViewDelegate {
+extension ArbsPlaygroundPCViewController: ACWebTradeViewDelegate {
 
     func acWebTradeViewControllerDidChangeContentOffset(_ viewController: ACWebTradeViewController, offset: CGFloat, direction: MovingDirection) {
-        func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection) {
-            var currentOffset = scrollView.contentOffset.y
-
-            if direction == .up {
-                currentOffset -= offset
-            } else {
-                currentOffset += offset
-            }
-
-            scrollView.contentOffset = CGPoint(x: 0, y: currentOffset)
-        }
+        actionsDelegate?.arbsPlaygroundPCViewControllerDidChangeContentOffset(
+            self,
+            offset: offset,
+            direction: direction
+        )
     }
 
     func acWebTradeViewControllerDidTapOnHLView(_ viewController: ACWebTradeViewController) {
@@ -146,13 +164,10 @@ extension ArbsPlaygroundPCViewController: ArbsPlaygroundPCViewModelDelegate {
 
     func arbsPlaygroundPCViewModelDidFetchArbsVModel(_ model: ArbsPlaygroundPCPUIModel) {
         tableView.apply(model)
+        loadHistoricalChart(model)
+    }
 
-        let configurator = ACWebTradeViewController.Configurator(
-            arbIds: model.arbsV.compactMap { $0.arbId },
-            dateRange: .month,
-            deliveryWindow: nil,
-            deliveryMonth: "May 22"
-        )
-        tradeChartVC.load(configurator: configurator)
+    func arbsPlaygroundPCViewModelDidChangeActiveArbVValue(_ model: ArbsPlaygroundPCPUIModel) {
+        loadHistoricalChart(model)
     }
 }

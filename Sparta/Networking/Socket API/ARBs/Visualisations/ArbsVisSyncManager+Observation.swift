@@ -59,4 +59,3 @@ extension ArbsVisSyncManager {
         queue.addOperation { observers.forEach { $0.arbsVisSyncManagerDidReceiveArbMonth(manager: self, arbVMonth: arbVMonth) } }
     }
 }
-

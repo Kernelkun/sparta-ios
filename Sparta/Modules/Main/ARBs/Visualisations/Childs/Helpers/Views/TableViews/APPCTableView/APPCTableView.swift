@@ -19,12 +19,13 @@ class APPCTableView: UIView {
 
     // MARK: - Private properties
 
-    private var _onChooseClosure: TypeClosure<ArbV.Value>?
+    private var _onChooseClosure: TypeClosure<ArbsPlaygroundPCPUIModel.Active>?
 
     // MARK: - Initializers
 
     init() {
         super.init(frame: .zero)
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
@@ -38,23 +39,19 @@ class APPCTableView: UIView {
         updateUI()
     }
 
-    func onChoose(completion: @escaping TypeClosure<ArbV.Value>) {
+    func onChoose(completion: @escaping TypeClosure<ArbsPlaygroundPCPUIModel.Active>) {
         _onChooseClosure = completion
     }
 
     // MARK: - Private methods
 
     private func setupUI() {
-        backgroundColor = .clear
-        tintColor = .controlTintActive
+        backgroundColor = .neutral85
+        layer.cornerRadius = 13
     }
 
     private func updateUI() {
-        removeAllSubviews()
-        lightSetViews = []
-
-        backgroundColor = .neutral75
-        layer.cornerRadius = 13
+        clearUI()
 
         let scrollView = UIScrollView().then { view in
             view.showsHorizontalScrollIndicator = false
@@ -82,7 +79,11 @@ class APPCTableView: UIView {
         }
 
         let headers = model.headers.compactMap { AVDatesHeaderView.Header(title: $0.month.title, subTitle: $0.units) }
-        let configurator = AVDatesHeaderView.Configurator(headers: headers)
+        let configurator = AVDatesHeaderView.Configurator(
+            headers: headers,
+            itemWidth: 70,
+            itemSpace: AVACUIConstants.priceItemSpace - 2
+        )
         let datesHeaderView = AVDatesHeaderView(configurator: configurator).then { view in
 
             scrollViewContent.addSubview(view) {
@@ -165,20 +166,23 @@ class APPCTableView: UIView {
                         uniqueIdentifier = nil
                     }
 
-                    let isActive: Bool = uniqueIdentifier == self.model.selectedValueIdentifier
+                    let isActive: Bool = uniqueIdentifier == self.model.active.identifier
 
                     _ = APPCLightsSetView(
+                        arbV: arbV,
                         arbVValue: value,
                         uniqueIdentifier: uniqueIdentifier,
                         isActive: isActive
                     ).then { view in
 
                         view.onTap { [unowned self] view in
-                            guard let view = view as? APPCLightsSetView, let arbVValue = view.arbVValue else { return }
+                            guard let view = view as? APPCLightsSetView,
+                                    let arbV = view.arbV,
+                                    let arbVValue = view.arbVValue else { return }
 
                             makeInactiveSetViews()
                             view.setIsActive(true, animated: true)
-                            _onChooseClosure?(arbVValue)
+                            _onChooseClosure?(ArbsPlaygroundPCPUIModel.Active(arbV: arbV, arbVValue: arbVValue))
                         }
 
                         stackView.addArrangedSubview(view)
@@ -247,6 +251,7 @@ class APPCTableView: UIView {
     }
 
     private func clearUI() {
-//        contentView.removeAllSubviews()
+        removeAllSubviews()
+        lightSetViews = []
     }
 }
