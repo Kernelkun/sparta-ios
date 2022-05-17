@@ -105,7 +105,11 @@ class ACDeliveryDateViewModel: ACDeliveryDateViewModelInterface {
                 /// MONTHS
 
                 var finalMonths: [String] = []
-                list.forEach { $0.values.forEach { finalMonths.append($0.deliveryMonth)  } }
+                list.forEach {
+                    $0.values.forEach {
+                        finalMonths.append($0.deliveryMonth)
+                    }
+                }
 
                 let months = Array(Set(finalMonths)).sorted(by: { dateString1, dateString2 in
                     guard let date1 = DateFormatter.mmmYY.date(from: dateString1),
@@ -116,7 +120,7 @@ class ACDeliveryDateViewModel: ACDeliveryDateViewModelInterface {
                 let monthsSelector = MonthsSelector(months: months)
                 strongSelf.monthsSelector = monthsSelector
 
-                /// END OF FETCHING MONTHS
+                /// END OF SORTING MONTHS
 
                 onMainThread {
                     strongSelf.delegate?.acDeliveryDateViewModelDidFetchMonthsSelector(monthsSelector)

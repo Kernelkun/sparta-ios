@@ -30,7 +30,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
 
     init(viewModel: ArbsVContentViewModelInterface) {
         self.viewModel = viewModel
-        currentPage = .pricingCenter
+        currentPage = .arbsComparation
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -57,7 +57,7 @@ class ArbsVContentViewController: UIViewController, ArbsVContentControllerInterf
             }
         }
 
-        let arbHeaderConfigurator = ArbVHeaderView.Configurator(selectedItem: .pricingCenter)
+        let arbHeaderConfigurator = ArbVHeaderView.Configurator(selectedItem: currentPage)
 
         airBar = ArbVHeaderView(configurator: arbHeaderConfigurator).then { barView in
 

@@ -40,7 +40,7 @@ class AVDatesHeaderItemView: UIView {
             label.textAlignment = .center
             label.textColor = .primaryText
             label.font = .main(weight: .regular, size: 10)
-            label.numberOfLines = 0
+            label.numberOfLines = 3
         }
 
         subTitleLabel = UILabel().then { label in
@@ -63,7 +63,8 @@ class AVDatesHeaderItemView: UIView {
             stackView.addArrangedSubview(subTitleLabel)
 
             addSubview(stackView) {
-                $0.center.equalToSuperview()
+                $0.left.right.equalToSuperview()
+                $0.centerY.equalToSuperview()
             }
         }
     }

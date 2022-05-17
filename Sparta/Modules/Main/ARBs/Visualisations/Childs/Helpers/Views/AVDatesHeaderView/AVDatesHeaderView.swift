@@ -50,7 +50,7 @@ class AVDatesHeaderView: UIView {
             }
 
             addSubview(stackView) {
-                $0.left.top.bottom.equalToSuperview()
+                $0.edges.equalToSuperview()
                 $0.height.equalTo(58)
             }
         }
