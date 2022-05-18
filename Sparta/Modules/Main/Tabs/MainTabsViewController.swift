@@ -129,7 +129,8 @@ class MainTabsViewController: BaseViewController {
         // arbs navigation
 
         if viewModel.isVisibleArbsBlock {
-            let vc = ArbsContentViewController()
+//            let vc = ArbsContentViewController()
+            let vc = ArbsViewController()
             vc.mainTabsViewController = self
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: vc)

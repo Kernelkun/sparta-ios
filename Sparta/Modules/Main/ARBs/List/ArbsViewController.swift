@@ -41,7 +41,7 @@ class ArbsViewController: BaseVMViewController<ArbsViewModel> {
                 }
 
                 view.addSubview(profilesView) {
-                    $0.top.equalToSuperview()
+                    $0.top.equalToSuperview().offset(topBarHeight)
                     $0.left.right.equalToSuperview()
                     $0.height.equalTo(45)
                 }

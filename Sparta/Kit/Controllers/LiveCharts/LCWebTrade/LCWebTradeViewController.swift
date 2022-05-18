@@ -77,8 +77,8 @@ class LCWebTradeViewController: UIViewController {
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
         let contentController = webView.configuration.userContentController
-        contentController.removeScriptMessageHandler(forName: Self.menuEventKey)
-        contentController.add(self, name: Self.menuEventKey)
+        /*contentController.removeScriptMessageHandler(forName: Self.menuEventKey)
+        contentController.add(self, name: Self.menuEventKey)*/
 
         webView.load(request)
     }
@@ -179,12 +179,12 @@ class LCWebTradeViewController: UIViewController {
 extension LCWebTradeViewController: WKScriptMessageHandler {
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard message.name == Self.menuEventKey, let isMenuOpen = message.body as? Bool else { return }
+        /*guard message.name == Self.menuEventKey, let isMenuOpen = message.body as? Bool else { return }
 
         Alert.showOk(title: message.name, message: "\(message.body)", show: self, completion: nil)
         onMainThread {
             self.delegate?.lcWebTradeViewControllerDidChangeMenuState(self, isMenuOpen: isMenuOpen)
-        }
+        }*/
     }
 }
 
