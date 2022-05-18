@@ -121,8 +121,8 @@ class FreightCalculator {
         let journeyDistance = inputData.vessel.distance
         let vesselSpeed = inputData.vesselSpeed
 
-        let totalJourneyHours = Int(journeyDistance / vesselSpeed) + inputData.vessel.canalDays
-        var days = Int(totalJourneyHours / 24)
+        let totalJourneyHours = Int(round(journeyDistance / vesselSpeed))
+        var days = totalJourneyHours / 24 + inputData.vessel.canalDays
         var hours = totalJourneyHours % 24
 
         if hours > 24 {
