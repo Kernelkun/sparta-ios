@@ -27,7 +27,6 @@ class LCTradeChartPresenter {
         lcWebTradeController.resizeButton = TappableButton().then { button in
 
             button.backgroundColor = .neutral80
-            button.setImage(UIImage(named: "ic_chart_collapse"), for: .normal)
         }
     }
 
@@ -78,6 +77,7 @@ class LCTradeChartPresenter {
 
         lcWebTradeController.resizeButton.do { button in
 
+            button.setImage(UIImage(named: "ic_chart_collapse"), for: .normal)
             button.onTap { [unowned self] _ in
                 InterfaceOrientationUtility.lockOrientation(.all, rotateTo: .portrait)
                 presentMinimized()
@@ -112,14 +112,15 @@ class LCTradeChartPresenter {
 
         lcWebTradeController.resizeButton.do { button in
 
+            button.setImage(UIImage(named: "ic_chart_expand"), for: .normal)
             button.onTap { [unowned self] _ in
                 presentFullScreen(orientation: .landscapeRight)
             }
 
             lcWebTradeController.view.addSubview(button) {
                 $0.size.equalTo(32)
-                $0.bottom.equalToSuperview().inset(44)
-                $0.right.equalToSuperview().inset(6)
+                $0.top.equalToSuperview().inset(70)
+                $0.left.equalToSuperview().offset(6)
             }
         }
     }
