@@ -29,6 +29,8 @@ public struct Vessel: BackendModel, Hashable {
     public let routeType: String
     public let routeTypeValue: Double
     public let flatRate: Double
+    public let journeyTime: JourneyTime
+    public let canalDays: Int
 
     //
     // MARK: - Default Initializers
@@ -50,6 +52,8 @@ public struct Vessel: BackendModel, Hashable {
         routeType = json["routeType"].stringValue
         routeTypeValue = json["routeTypeValue"].doubleValue
         flatRate = json["flatRate"].doubleValue
+        journeyTime = JourneyTime(json: json["journeyTime"])
+        canalDays = json["canalDays"].intValue
     }
 }
 

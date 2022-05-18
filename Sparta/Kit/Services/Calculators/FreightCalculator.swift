@@ -118,15 +118,29 @@ class FreightCalculator {
     // MARK: - Private methods
 
     private func formattedJourneyTime() -> String {
-
         let journeyDistance = inputData.vessel.distance
         let vesselSpeed = inputData.vesselSpeed
 
-        let totalJourneyHours = Int(journeyDistance / vesselSpeed)
-        let days = Int(totalJourneyHours / 24)
-        let hours = totalJourneyHours % 24
+        let totalJourneyHours = Int(round(journeyDistance / vesselSpeed))
+        var days = totalJourneyHours / 24 + inputData.vessel.canalDays
+        var hours = totalJourneyHours % 24
 
-        return "\(days) days \(hours) hours"
+        if hours > 24 {
+            days += 1
+            hours = 0
+        }
+
+        var dateString: String = ""
+
+        if days != 0 {
+            dateString.append("\(days) days ")
+        }
+
+        if hours != 0 {
+            dateString.append("\(hours) hours")
+        }
+
+        return dateString
     }
 
     private func calculatedRate() -> Double {
