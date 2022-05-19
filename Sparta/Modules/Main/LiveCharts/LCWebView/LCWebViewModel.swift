@@ -85,7 +85,14 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                                                     serverItems: items.sorted(by: { $0.shortName < $1.shortName }))
             strongSelf.groups = groups
 
-            if let firstItem = items.first, strongSelf.configurator == nil {
+            if let defaultItem = items.first(where: { LCWebRestriction.defaultItemCode == $0.code }),
+               strongSelf.configurator == nil {
+
+                onMainThread {
+                    strongSelf.apply(configurator: Configurator(item: Item(item: defaultItem)))
+                }
+            } else if let firstItem = items.first, strongSelf.configurator == nil {
+
                 onMainThread {
                     strongSelf.apply(configurator: Configurator(item: Item(item: firstItem)))
                 }

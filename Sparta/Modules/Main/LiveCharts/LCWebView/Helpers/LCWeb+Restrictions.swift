@@ -8,6 +8,7 @@
 import Foundation
 
 enum LCWebRestriction {
+    static let defaultItemCode: String = "SPDMEB"
     static let validItemsCodes: [String] = ["OTRBSW", "OTREOB", "OTRROB",
                                             "OTRMPS", "OTRNWE", "TSDEOB",
                                             "TSDROB", "SPDROB", "TSDMPS",
