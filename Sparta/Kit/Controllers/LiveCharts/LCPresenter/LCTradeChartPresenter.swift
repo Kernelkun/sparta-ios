@@ -85,8 +85,8 @@ class LCTradeChartPresenter {
 
             window?.addSubview(button) {
                 $0.size.equalTo(32)
-                $0.bottom.equalToSuperview().inset(edges.bottom + 44)
-                $0.right.equalToSuperview().inset(edges.right + 6)
+                $0.left.equalToSuperview().offset(edges.left + 6)
+                $0.top.equalToSuperview().inset(70)
             }
         }
     }
