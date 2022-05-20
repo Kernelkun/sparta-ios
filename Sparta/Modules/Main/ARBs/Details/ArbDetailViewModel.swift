@@ -158,7 +158,7 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
         if let deliveredPrice = selectedArbMonth.deliveredPrice {
             cells.append(.dlvPrice(value: deliveredPrice.value.value,
                                    color: deliveredPrice.value.valueColor,
-                                   units: mainUnitValue))
+                                   units: deliveredPrice.units)) // mainUnitValue
             cells.append(.dlvPriceBasis(value: deliveredPrice.basis, color: .gray))
             cells.append(.emptySpace)
         }
@@ -218,7 +218,11 @@ class ArbDetailViewModel: NSObject, BaseViewModel {
     }
 
     private func blendCostUnit(for month: ArbMonth) -> String {
-        "$/mt"
+        if arb.portfolio.isAra {
+            return "$/mt"
+        } else {
+            return "cpg"
+        }
     }
 
     private func gasNapUnit(for month: ArbMonth) -> String {
