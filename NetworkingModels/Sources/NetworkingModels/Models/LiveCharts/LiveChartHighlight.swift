@@ -14,20 +14,20 @@ public struct LiveChartHighlight: BackendModel {
     // MARK: - Public properties
 
     public let field: String
-    public let high: Double
-    public let low: Double
-    public let open: Double
-    public let close: Double
+    public let high: Double?
+    public let low: Double?
+    public let open: Double?
+    public let close: Double?
 
     //
     // MARK: - Default Initializers
 
     public init(json: JSON) {
         field = json["field"].stringValue
-        high = json["high"].doubleValue
-        low = json["low"].doubleValue
-        open = json["open"].doubleValue
-        close = json["close"].doubleValue
+        high = json["high"].double
+        low = json["low"].double
+        open = json["open"].double
+        close = json["close"].double
     }
 }
 

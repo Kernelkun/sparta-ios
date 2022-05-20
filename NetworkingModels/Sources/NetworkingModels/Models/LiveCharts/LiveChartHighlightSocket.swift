@@ -16,10 +16,10 @@ public struct LiveChartHighlightSocket: BackendModel {
     public let spartaCode: String
     public let tenorName: String
     public let resolution: String
-    public let open: Double
-    public let close: Double
-    public let high: Double
-    public let low: Double
+    public let open: Double?
+    public let close: Double?
+    public let high: Double?
+    public let low: Double?
 
     //
     // MARK: - Default Initializers
@@ -28,10 +28,10 @@ public struct LiveChartHighlightSocket: BackendModel {
         spartaCode = json["sc"].stringValue
         tenorName = json["tn"].stringValue
         resolution = json["r"].stringValue
-        high = json["h"].doubleValue
-        low = json["l"].doubleValue
-        open = json["o"].doubleValue
-        close = json["c"].doubleValue
+        high = json["h"].double
+        low = json["l"].double
+        open = json["o"].double
+        close = json["c"].double
     }
 }
 

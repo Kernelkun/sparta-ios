@@ -127,6 +127,8 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                     strongSelf.setDate(LCWebViewModel.DateSelector(dateSelector: firstItem))
                 }
             } else {
+                strongSelf.presentHighlightsSkeleton()
+
                 onMainThread {
                     strongSelf.isLoading = false
                     strongSelf.delegate?.didSuccessUpdateConfigurator(strongSelf.configurator.required())
@@ -163,33 +165,63 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                 for type in Highlight.HighlightType.allCases {
                     switch type {
                     case .open:
-                        if let highlight = findHighlight(for: "day"), !highlights.contains(where: { $0.type == .open }) {
-                            highlights.append(.init(type: .open, value: highlight.open.symbols2Value))
+                        if let highlight = findHighlight(for: "day"),
+                            !highlights.contains(where: { $0.type == .open }),
+                            let value = highlight.open?.symbols2Value {
+
+                            highlights.append(.init(type: .open, value: value))
+                        } else {
+                            highlights.append(.init(type: .open, value: "-"))
                         }
 
                     case .previousClose:
-                        if let highlight = findHighlight(for: "previous"), !highlights.contains(where: { $0.type == .previousClose }) {
-                            highlights.append(.init(type: .previousClose, value: highlight.close.symbols2Value))
+                        if let highlight = findHighlight(for: "previous"),
+                            !highlights.contains(where: { $0.type == .previousClose }),
+                            let value = highlight.close?.symbols2Value {
+
+                            highlights.append(.init(type: .previousClose, value: value))
+                        } else {
+                            highlights.append(.init(type: .previousClose, value: "-"))
                         }
 
                     case .week52Low:
-                        if let highlight = findHighlight(for: "52-weeks"), !highlights.contains(where: { $0.type == .week52Low }) {
-                            highlights.append(.init(type: .week52Low, value: highlight.low.symbols2Value))
+                        if let highlight = findHighlight(for: "52-weeks"),
+                            !highlights.contains(where: { $0.type == .week52Low }),
+                            let value = highlight.low?.symbols2Value {
+
+                            highlights.append(.init(type: .week52Low, value: value))
+                        } else {
+                            highlights.append(.init(type: .week52Low, value: "-"))
                         }
 
                     case .week52High:
-                        if let highlight = findHighlight(for: "52-weeks"), !highlights.contains(where: { $0.type == .week52High }) {
-                            highlights.append(.init(type: .week52High, value: highlight.high.symbols2Value))
+                        if let highlight = findHighlight(for: "52-weeks"),
+                            !highlights.contains(where: { $0.type == .week52High }),
+                            let value = highlight.high?.symbols2Value {
+
+                            highlights.append(.init(type: .week52High, value: value))
+                        } else {
+                            highlights.append(.init(type: .week52High, value: "-"))
                         }
 
                     case .monthLow:
-                        if let highlight = findHighlight(for: "month"), !highlights.contains(where: { $0.type == .monthLow }) {
-                            highlights.append(.init(type: .monthLow, value: highlight.low.symbols2Value))
+                        if let highlight = findHighlight(for: "month"),
+                            !highlights.contains(where: { $0.type == .monthLow }),
+                            let value = highlight.low?.symbols2Value {
+
+                            highlights.append(.init(type: .monthLow, value: value))
+                        } else {
+                            highlights.append(.init(type: .monthLow, value: "-"))
                         }
 
                     case .monthHigh:
-                        if let highlight = findHighlight(for: "month"), !highlights.contains(where: { $0.type == .monthHigh }) {
-                            highlights.append(.init(type: .monthHigh, value: highlight.high.symbols2Value))
+                        if let highlight = findHighlight(for: "month"),
+                            !highlights.contains(where: { $0.type == .monthHigh }),
+                            let value = highlight.high?.symbols2Value {
+
+                            highlights.append(.init(type: .monthHigh, value: value))
+                        } else {
+                            highlights.append(.init(type: .monthHigh, value: "-"))
                         }
                     }
                 }
@@ -202,6 +234,8 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                     strongSelf.delegate?.didSuccessUpdateConfigurator(strongSelf.configurator.required())
                 }
             } else {
+                strongSelf.presentHighlightsSkeleton()
+
                 onMainThread {
                     strongSelf.isLoading = false
                     strongSelf.delegate?.didSuccessUpdateConfigurator(strongSelf.configurator.required())
@@ -245,6 +279,40 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
 
         return groups.filter { !$0.items.isEmpty }
     }
+
+    private func presentHighlightsSkeleton() {
+        var highlights: [Highlight] = []
+
+        for type in Highlight.HighlightType.allCases {
+            switch type {
+            case .open:
+                highlights.append(.init(type: .open, value: "-"))
+
+            case .previousClose:
+                highlights.append(.init(type: .previousClose, value: "-"))
+
+            case .week52Low:
+                highlights.append(.init(type: .week52Low, value: "-"))
+
+            case .week52High:
+                highlights.append(.init(type: .week52High, value: "-"))
+
+            case .monthLow:
+                highlights.append(.init(type: .monthLow, value: "-"))
+
+            case .monthHigh:
+                highlights.append(.init(type: .monthHigh, value: "-"))
+            }
+        }
+
+        configurator?.highlights = highlights
+        startLive()
+
+        onMainThread {
+            self.isLoading = false
+            self.delegate?.didSuccessUpdateConfigurator(self.configurator.required())
+        }
+    }
 }
 
 extension LCWebViewModel: LiveChartsSyncManagerDelegate {
@@ -270,27 +338,39 @@ extension LCWebViewModel: LiveChartsSyncManagerDelegate {
             break
 
         case .day1:
-            break
+            if let index = index(of: .open),
+                let value = highlight.open?.symbols2Value {
+
+                highlights[index].value = value
+            }
 
         case .week1:
             break
 
         case .month1:
-            if let index = index(of: .monthHigh) {
-                highlights[index].value = highlight.high.symbols2Value
+            if let index = index(of: .monthHigh),
+                let value = highlight.high?.symbols2Value {
+
+                highlights[index].value = value
             }
 
-            if let index = index(of: .monthLow) {
-                highlights[index].value = highlight.low.symbols2Value
+            if let index = index(of: .monthLow),
+                let value = highlight.low?.symbols2Value {
+
+                highlights[index].value = value
             }
 
         case .week52:
-            if let index = index(of: .week52Low) {
-                highlights[index].value = highlight.low.symbols2Value
+            if let index = index(of: .week52Low),
+                let value = highlight.low?.symbols2Value {
+
+                highlights[index].value = value
             }
 
-            if let index = index(of: .week52High) {
-                highlights[index].value = highlight.high.symbols2Value
+            if let index = index(of: .week52High),
+                let value = highlight.high?.symbols2Value {
+
+                highlights[index].value = value
             }
         }
 
