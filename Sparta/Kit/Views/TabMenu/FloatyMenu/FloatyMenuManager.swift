@@ -30,12 +30,12 @@ class FloatyMenuManager {
         _onHideClosure = completion
     }
 
-    func show(frame: CGRect, tabs: [TabMenuItem]) {
+    func show(frame: CGRect, menuItemsCount: Int, tabs: [TabMenuItem]) {
         guard !isPresented else { return }
 
         isPresented = true
 
-        controller = FloatyMenuViewController(tabs: tabs)
+        controller = FloatyMenuViewController(tabs: tabs, menuItemsCount: menuItemsCount)
 
         controller?.onChoose { [unowned self] menuItem in
             _onChooseClosure?(menuItem)

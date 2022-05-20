@@ -42,6 +42,7 @@ public struct User: BackendModel {
     public let blender: Bool
     public let arbs: Bool
     public let liveprices: Bool
+    public let liveCharts: Bool
 
     //
     // MARK: - Default Initializers
@@ -70,6 +71,7 @@ public struct User: BackendModel {
         blender = json["blender"].boolValue
         arbs = json["arbs"].boolValue
         liveprices = json["liveprices"].boolValue
+        liveCharts = json["live_charts"].boolValue
 
         houBlenderMonths = json["houston_blender_months"].intValue
         houArbMonths = json["houston_arbs_months"].intValue

@@ -118,14 +118,17 @@ class MainTabsViewController: BaseViewController {
 
         // live charts navigation
 
-        let lcViewController = LCWebWireframe().viewController
+        if viewModel.isVisibleLiveChartsBlock {
+            let lcViewController = LCWebWireframe().viewController
 
-        let lcNavigation = KeyedNavigationController<Tab>(rootViewController: lcViewController)
-        lcNavigation.setKey(.liveCharts)
+            let lcNavigation = KeyedNavigationController<Tab>(rootViewController: lcViewController)
+            lcNavigation.setKey(.liveCharts)
 
-        tabs.append(.init(title: "MainTabsPage.LiveCharts.Title".localized,
-                          imageName: "ic_tab_lc",
-                          controller: lcNavigation))
+            tabs.append(.init(title: "MainTabsPage.LiveCharts.Title".localized,
+                              imageName: "ic_tab_lc",
+                              controller: lcNavigation))
+        }
+
         // arbs navigation
 
         if viewModel.isVisibleArbsBlock {
@@ -213,7 +216,11 @@ extension MainTabsViewController: TabMenuViewDelegate {
         guard let navigationVC = newTabItem.controller as? KeyedNavigationController<Tab> else { return }
 
         if navigationVC.key == .other {
-            floatyMenuManager.show(frame: contentView.frame, tabs: generateOtherMenuItems())
+            floatyMenuManager.show(
+                frame: contentView.frame,
+                menuItemsCount: view.items.count,
+                tabs: generateOtherMenuItems()
+            )
 
             floatyMenuManager.onChoose { [unowned self] menuItem in
                 floatyMenuManager.hide()

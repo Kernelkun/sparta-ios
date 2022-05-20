@@ -13,6 +13,7 @@ class FloatyMenuViewController: UIViewController {
     // MARK: - Private properties
 
     private let tabs: [TabMenuItem]
+    private let menuItemsCount: Int
 
     private var _onHideClosure: EmptyClosure?
     private var _onChooseClosure: TypeClosure<TabMenuItem>?
@@ -24,8 +25,9 @@ class FloatyMenuViewController: UIViewController {
 
     // MARK: - Initializers
 
-    init(tabs: [TabMenuItem]) {
+    init(tabs: [TabMenuItem], menuItemsCount: Int) {
         self.tabs = tabs
+        self.menuItemsCount = menuItemsCount
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -65,6 +67,20 @@ class FloatyMenuViewController: UIViewController {
             }
         }
 
+        let alignView = UIView().then { view in
+
+            view.backgroundColor = .clear
+
+            addSubview(view) {
+                let screenWidth = UIScreen.main.bounds.width
+                let viewWidth = screenWidth / Double(menuItemsCount)
+
+                $0.right.bottom.equalToSuperview()
+                $0.width.equalTo(viewWidth)
+                $0.height.equalTo(1)
+            }
+        }
+
         menuView = FloatyMenuView().then { view in
 
             view.alpha = 0
@@ -74,7 +90,7 @@ class FloatyMenuViewController: UIViewController {
             }
 
             addSubview(view) {
-                $0.right.equalToSuperview().inset(7)
+                $0.centerX.equalTo(alignView).offset(-6)
                 $0.bottom.equalToSuperview().inset(14)
             }
         }
