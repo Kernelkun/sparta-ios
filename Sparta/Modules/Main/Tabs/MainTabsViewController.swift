@@ -144,7 +144,7 @@ class MainTabsViewController: BaseViewController {
                               controller: navigation))
         }
 
-        if viewModel.isVisibleBlenderBlock {
+        if !viewModel.isVisibleLiveChartsBlock && viewModel.isVisibleBlenderBlock {
             let third = BlenderViewController()
 
             let navigation = KeyedNavigationController<Tab>(rootViewController: third)
@@ -155,22 +155,58 @@ class MainTabsViewController: BaseViewController {
                               controller: navigation))
         }
 
+        if !viewModel.isVisibleLiveChartsBlock && viewModel.isVisibleFreightBlock {
+            let fourth = FreightViewController()
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: fourth)
+            navigation.setKey(.freight)
+
+            tabs.append(.init(title: "MainTabsPage.Freight.Title".localized,
+                              imageName: "ic_tab_fourth",
+                              controller: navigation))
+        }
+
+        if !viewModel.isVisibleLiveChartsBlock {
+            // settings
+            let fifth = SettingsViewController()
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: fifth)
+            navigation.setKey(.settings)
+
+            tabs.append(.init(title: "MainTabsPage.Settings.Title".localized,
+                              imageName: "ic_tab_fifth",
+                              controller: navigation))
+        }
+
         // other navigation
 
-        let otherViewController = LCWebWireframe().viewController
+        if viewModel.isVisibleLiveChartsBlock {
+            let otherViewController = LCWebWireframe().viewController
 
-        let otherNavigation = KeyedNavigationController<Tab>(rootViewController: otherViewController)
-        otherNavigation.setKey(.other)
+            let otherNavigation = KeyedNavigationController<Tab>(rootViewController: otherViewController)
+            otherNavigation.setKey(.other)
 
-        tabs.append(.init(title: "MainTabsPage.Other.Title".localized,
-                          imageName: "ic_tab_dots",
-                          controller: otherNavigation))
+            tabs.append(.init(title: "MainTabsPage.Other.Title".localized,
+                              imageName: "ic_tab_dots",
+                              controller: otherNavigation))
+        }
 
         return tabs
     }
 
     func generateOtherMenuItems() -> [TabMenuItem] {
         var tabs: [TabMenuItem] = []
+
+        if viewModel.isVisibleBlenderBlock {
+            let third = BlenderViewController()
+
+            let navigation = KeyedNavigationController<Tab>(rootViewController: third)
+            navigation.setKey(.blender)
+
+            tabs.append(.init(title: "MainTabsPage.Blender.Title".localized,
+                              imageName: "ic_tab_third",
+                              controller: navigation))
+        }
 
         if viewModel.isVisibleFreightBlock {
             let fourth = FreightViewController()
