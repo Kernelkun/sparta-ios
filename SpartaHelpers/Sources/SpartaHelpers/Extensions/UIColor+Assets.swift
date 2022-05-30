@@ -61,4 +61,26 @@ public extension UIColor {
     static var plResultBlockBackground: UIColor { .assetColor(named: #function) }
 
     static var plSearchPlaceholder: UIColor { .assetColor(named: #function) }
+
+    // MARK: - New colors
+
+    static var menuBorder: UIColor { .assetColor(named: #function) }
+
+    static var fip: UIColor { .assetColor(named: #function) }
+
+    static var neutral00: UIColor { .assetColor(named: #function) }
+
+    static var neutral10: UIColor { .assetColor(named: #function) }
+
+    static var neutral35: UIColor { .assetColor(named: #function) }
+
+    static var neutral70: UIColor { .assetColor(named: #function) }
+
+    static var neutral75: UIColor { .assetColor(named: #function) }
+
+    static var neutral80: UIColor { .assetColor(named: #function) }
+
+    static var neutral85: UIColor { .assetColor(named: #function) }
+
+    static var neutral100: UIColor { .assetColor(named: #function) }
 }

@@ -146,15 +146,14 @@ extension LCPortfolioAddItemViewController {
         let cell: LCPortfolioAddItemTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
         let item = viewModel.groups[indexPath.section].items[indexPath.row]
-        cell.apply(item: item)
+        cell.apply(item: item, for: indexPath)
+
+        cell.onChoose { [unowned self] itemIndexPath in
+            let item = viewModel.groups[itemIndexPath.section].items[itemIndexPath.row]
+            viewModel.addProduct(item)
+        }
 
         return cell
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = viewModel.groups[indexPath.section].items[indexPath.row]
-
-        viewModel.addProduct(item)
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -185,12 +185,39 @@ class ArbsPlaygroundViewController: BaseViewController {
         monthSelector.isEnabledRightButton = viewModel.ableToSwitchNextMonth
         monthSelector.titleText = viewModel.formattedMonthTitle
     }
+
+//    override var preferredInterfaceOrientations: UIInterfaceOrientationMask {
+//        [.portrait, .landscapeLeft, .landscapeRight]
+//    }
+
+    private var windowInterfaceOrientation: UIInterfaceOrientation? {
+        return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+    }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { _ in
+            guard let windowInterfaceOrientation = InterfaceOrientationUtility.interfaceOrientation else { return }
+
+            if windowInterfaceOrientation.isLandscape {
+                // activate landscape changes
+//                Alert.showOk(title: "Landscape", message: "Changed", show: self, completion: nil)
+                self.navigationBar(hide: true)
+            } else {
+                // activate portrait changes
+//                Alert.showOk(title: "Portrait", message: "Changed", show: self, completion: nil)
+
+                self.navigationBar(hide: false)
+            }
+        })
+    }
 }
 
 extension ArbsPlaygroundViewController: UISliderViewControllerDelegate {
 
     func uiSliderViewControllerDidShowController(at index: Int) {
-         viewModel.switchToMonth(at: index)
+        viewModel.switchToMonth(at: index)
     }
 }
 
