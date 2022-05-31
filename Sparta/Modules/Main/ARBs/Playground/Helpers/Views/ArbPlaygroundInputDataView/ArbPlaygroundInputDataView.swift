@@ -172,8 +172,8 @@ class ArbPlaygroundInputDataView: UIView, ArbPlaygroundPointViewDelegate, ArbPla
             stackView.distribution = .fill
 
             addSubview(stackView) {
-                $0.left.equalToSuperview().offset(16)
-                $0.right.equalToSuperview().inset(22)
+                $0.left.equalToSuperview()//.offset(16)
+                $0.right.equalToSuperview()//.inset(22)
                 $0.bottom.equalToSuperview()
                 $0.top.equalTo(statusView.snp.bottom)
             }

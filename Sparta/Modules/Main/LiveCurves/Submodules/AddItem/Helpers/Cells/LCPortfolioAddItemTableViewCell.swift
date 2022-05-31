@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import SpartaHelpers
 
 class LCPortfolioAddItemTableViewCell: UITableViewCell {
 
     // MARK: - UI
 
     private var titleLabel: UILabel!
+
+    // MARK: - Private properties
+
+    private var _onChooseClosure: TypeClosure<IndexPath>?
+    private var indexPath: IndexPath!
 
     // MARK: - Initializers
 
@@ -25,17 +31,30 @@ class LCPortfolioAddItemTableViewCell: UITableViewCell {
         fatalError("LCPortfolioAddItemTableViewCell")
     }
 
+    // MARK: - Lifecycle
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        clearUI()
+    }
+
     // MARK: - Public methods
 
-    func apply(item: LCPortfolioAddItemViewModel.Item) {
+    func apply(item: LCPortfolioAddItemViewModel.Item, for indexPath: IndexPath) {
+        self.indexPath = indexPath
+
         titleLabel.text = item.title
         titleLabel.textColor = item.isActive ? .primaryText : UIColor.primaryText.withAlphaComponent(0.47)
+    }
+
+    func onChoose(completion: @escaping TypeClosure<IndexPath>) {
+        _onChooseClosure = completion
     }
 
     // MARK: - Private methods
 
     private func setupUI() {
-
         backgroundColor = .clear
         selectedBackgroundView = UIView().then { $0.backgroundColor = .mainBackground }
         tintColor = .controlTintActive
@@ -53,5 +72,21 @@ class LCPortfolioAddItemTableViewCell: UITableViewCell {
                 $0.left.right.equalToSuperview().offset(16)
             }
         }
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTapClosure))
+        contentView.addGestureRecognizer(tapGesture)
+    }
+
+    private func clearUI() {
+        indexPath = nil
+    }
+
+    // MARK: - Events
+
+    @objc
+    private func onTapClosure() {
+        guard let indexPath = indexPath else { return }
+
+        _onChooseClosure?(indexPath)
     }
 }

@@ -135,9 +135,9 @@ extension ArbsEditPortfolioItemsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: EditPortfolioItemsTableViewCell = tableView.dequeueReusableCell(for: indexPath)
 
-        let blender = viewModel.selectedPortfolio.arbs[indexPath.row]
+        let arbs = viewModel.selectedPortfolio.arbs[indexPath.row]
 
-        cell.textLabel?.text = blender.grade
+        cell.textLabel?.text = arbs.grade + " " + arbs.freight.vessel.type
 
         return cell
     }

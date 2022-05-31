@@ -43,7 +43,7 @@ class UIMonthSelector<M: PickerValued>: UIView, UIPickerViewDelegate, UIPickerVi
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(#function)
     }
 
     // MARK: - Public methods
@@ -104,7 +104,6 @@ class UIMonthSelector<M: PickerValued>: UIView, UIPickerViewDelegate, UIPickerVi
             label.font = .main(weight: .regular, size: 18)
             label.textAlignment = .center
             label.textColor = UIColor.plMainText
-            label.text = "Sep 21"
 
             addSubview(label) {
                 $0.centerY.equalTo(leftArrowImageView).offset(-1)

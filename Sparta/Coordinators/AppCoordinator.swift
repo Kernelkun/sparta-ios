@@ -7,6 +7,7 @@
 
 import UIKit
 import SpartaHelpers
+import WebKit
 
 class AppCoordinator {
 
@@ -50,7 +51,7 @@ class AppCoordinator {
 
         do {
             let window = UIWindow(frame: UIScreen.main.bounds)
-            window.windowLevel = .init(UIWindow.Level.normal.rawValue + 1)
+            window.windowLevel = .init(UIWindow.Level.normal.rawValue + 2)
             window.backgroundColor = .clear
             if #available(iOS 13.0, *) {
                 window.overrideUserInterfaceStyle = .dark
@@ -80,6 +81,10 @@ class AppCoordinator {
             authenticationFlowCoordinator.proceedToLogin()
             return
         }
+
+        // Warming up wkwebview's
+
+        WKWebViewWarmUper.liveChartsWarmUper.prepare()
 
         guard app.isInitialDataSynced else {
             blurCoordinator.start(forced: true, status: "BlurPage.Loading.Title".localized)

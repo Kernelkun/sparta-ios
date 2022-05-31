@@ -17,6 +17,8 @@ enum ArbsEndPoint {
     case updateArbUserTarget(parameters: Parameters)
     case deleteArbUserTarget(parameters: Parameters)
     case getArbPlayground(parameters: Parameters)
+    case getArbVSelectorsList(parameters: NetworkParameters)
+    case getArbsVTableInfo(parameters: NetworkParameters)
 }
 
 extension ArbsEndPoint: EndPointType {
@@ -31,12 +33,15 @@ extension ArbsEndPoint: EndPointType {
         case .deleteArbUserTarget: return "/arbs/user/target"
         case .getArbPlayground: return "/arbs/playground"
         case .changePortfolioOrder(let request): return "/arbs/portfolios/\(request.portfolio.id)/destinations/order"
+        case .getArbVSelectorsList: return "/arbs/visualizations/selector"
+        case .getArbsVTableInfo: return "/arbs/portfolios/table"
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getArbsTable, .getArbPlayground, .getArbsPortfolios: return .get
+        case .getArbsTable, .getArbPlayground, .getArbsPortfolios,
+                .getArbVSelectorsList, .getArbsVTableInfo: return .get
         case .updateArbUserTarget: return .post
         case .deleteArbUserTarget: return .delete
         case .changePortfolioOrder: return .put
@@ -45,7 +50,8 @@ extension ArbsEndPoint: EndPointType {
 
     var task: HTTPTask {
         switch self {
-        case .getArbsPortfolios(let parameters), .getArbsTable(let parameters):
+        case .getArbsPortfolios(let parameters), .getArbsTable(let parameters),
+                .getArbVSelectorsList(let parameters), .getArbsVTableInfo(let parameters):
             return .requestParametersAndHeaders(bodyParameters: parameters.bodyParameters,
                                                 bodyEncoding: parameters.bodyEncoding,
                                                 urlParameters: parameters.urlParameters,
