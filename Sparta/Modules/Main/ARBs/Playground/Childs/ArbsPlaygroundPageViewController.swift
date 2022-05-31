@@ -22,11 +22,13 @@ class ArbsPlaygroundPageViewController: BaseViewController {
 
     weak var delegate: ArbsPlaygroundPageViewControllerDelegate?
 
-    // MARK: - Private properties
-
     private(set) var contentScrollView: UIScrollView!
     private(set) var inputDataView: ArbPlaygroundInputDataView!
     private(set) var resultDataView: ArbPlaygroundResultDataView!
+
+    // MARK: - Private properties
+
+    private var mainStackView: UIStackView!
 
     // MARK: - Lifecycle
 
@@ -87,7 +89,9 @@ class ArbsPlaygroundPageViewController: BaseViewController {
             view.backgroundColor = .clear
 
             contentScrollView.addSubview(view) {
-                $0.left.top.right.equalToSuperview()
+                $0.left.equalTo(self.view.snp.leftMargin)
+                $0.right.equalTo(self.view.snp.rightMargin)
+                $0.top.equalToSuperview()
                 $0.bottom.lessThanOrEqualToSuperview().priority(.high)
                 $0.centerX.equalToSuperview()
             }
@@ -97,10 +101,10 @@ class ArbsPlaygroundPageViewController: BaseViewController {
 
             view.delegate = self
 
-            scrollViewContent.addSubview(view) {
-                $0.left.right.equalToSuperview()
-                $0.top.equalToSuperview()
-            }
+//            scrollViewContent.addSubview(view) {
+//                $0.left.right.equalToSuperview()
+//                $0.top.equalToSuperview()
+//            }
         }
 
         // result block
@@ -110,11 +114,11 @@ class ArbsPlaygroundPageViewController: BaseViewController {
             view.backgroundColor = .plResultBlockBackground
             view.layer.cornerRadius = 10
 
-            scrollViewContent.addSubview(view) {
-                $0.top.equalTo(inputDataView.snp.bottom)
-                $0.left.right.equalToSuperview().inset(16)
-                $0.bottom.equalToSuperview().inset(8)
-            }
+//            scrollViewContent.addSubview(view) {
+//                $0.top.equalTo(inputDataView.snp.bottom)
+//                $0.left.right.equalToSuperview().inset(16)
+//                $0.bottom.equalToSuperview().inset(8)
+//            }
         }
 
         resultDataView = ArbPlaygroundResultDataView().then { view in
@@ -127,8 +131,38 @@ class ArbsPlaygroundPageViewController: BaseViewController {
             }
         }
 
+        mainStackView = UIStackView().then { stackView in
+
+            stackView.addArrangedSubview(inputDataView)
+            stackView.addArrangedSubview(resultView)
+
+            stackView.axis = .vertical
+            stackView.alignment = .fill
+            stackView.spacing = 0
+            stackView.distribution = .fill
+
+            scrollViewContent.addSubview(stackView) {
+                $0.left.right.equalToSuperview()
+                $0.top.equalToSuperview()
+//                $0.left.right.equalToSuperview().inset(16)
+                $0.bottom.equalToSuperview().inset(8)
+            }
+        }
+
         inputDataView.state = .inactive
         resultDataView.state = .inactive
+    }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { _ in
+            guard let windowInterfaceOrientation = InterfaceOrientationUtility.interfaceOrientation else { return }
+
+            self.mainStackView.axis = windowInterfaceOrientation.isLandscape ? .horizontal : .vertical
+            self.mainStackView.distribution = windowInterfaceOrientation.isLandscape ? .fillEqually : .fillProportionally
+            self.mainStackView.alignment = windowInterfaceOrientation.isLandscape ? .leading : .fill
+        })
     }
 }
 

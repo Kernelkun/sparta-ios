@@ -10,7 +10,8 @@ import UIKit
 public extension UIFont {
 
     static func main(weight: UIFont.Weight, size: CGFloat) -> UIFont {
-        return UIFont(name: Self.fontName(from: weight), size: size)! //swiftlint:disable:this force_unwrapping
+        UIFont.systemFont(ofSize: size, weight: weight)
+         //UIFont(name: Self.fontName(from: weight), size: size)! //swiftlint:disable:this force_unwrapping
     }
 
     private static func fontName(from weight: UIFont.Weight) -> String {

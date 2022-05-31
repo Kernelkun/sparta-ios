@@ -9,7 +9,15 @@ import UIKit
 import NetworkingModels
 import SpartaHelpers
 
+protocol LiveCurvesViewCoordinatorDelegate: AnyObject {
+    func liveCurvesViewControllerDidSelectMonthInfo(_ viewController: LiveCurvesViewController, monthInfo: LiveCurveMonthInfoModel)
+}
+
 class LiveCurvesViewController: BaseVMViewController<LiveCurvesViewModel> {
+
+    // MARK: - Public methods
+
+    weak var coordinatorDelegate: LiveCurvesViewCoordinatorDelegate?
 
     // MARK: - UI
 
@@ -210,6 +218,9 @@ extension LiveCurvesViewController: GridViewDataSource {
 
         if case let LiveCurvesViewModel.Cell.info(model) = row {
             cell.apply(monthInfo: model, for: indexPath)
+            cell.onTap { [unowned self] monthInfoModel in
+                coordinatorDelegate?.liveCurvesViewControllerDidSelectMonthInfo(self, monthInfo: monthInfoModel)
+            }
         }
 
         return cell
