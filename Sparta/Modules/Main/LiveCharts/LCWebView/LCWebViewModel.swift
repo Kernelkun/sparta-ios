@@ -23,7 +23,7 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
 
     // MARK: - Private properties
 
-    var isLoading: Bool = false {
+    private var isLoading: Bool = false {
         didSet {
             onMainThread {
                 self.delegate?.didChangeLoadingState(self.isLoading)
@@ -31,6 +31,7 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
         }
     }
 
+    private let itemsSaver = LCWebSaver()
     private let liveCurvesNetworkManager = LiveCurvesNetworkManager()
     private let liveChartsNetworkManager = LiveChartsNetworkManager()
     private let liveChartsSyncManager = LiveChartsSyncManager()
@@ -123,6 +124,8 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                    let foundSelector = list.first(where: { $0.code.lowercased() == dateSelector.code.lowercased() }) {
 
                     strongSelf.setDate(LCWebViewModel.DateSelector(dateSelector: foundSelector))
+                } else if let savedDateSelector = strongSelf.itemsSaver.dateSelector(of: strongSelf.configurator.required().item.code) {
+                    strongSelf.setDate(savedDateSelector)
                 } else {
                     strongSelf.setDate(LCWebViewModel.DateSelector(dateSelector: firstItem))
                 }
@@ -141,6 +144,13 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
         guard self.configurator != nil else { return }
 
         self.configurator?.dateSelector = dateSelector
+
+        let item = LCWebSaver.Item(
+            item: self.configurator.required().item,
+            dateSelector: dateSelector
+        )
+
+        itemsSaver.saveItem(item)
 
         onMainThread {
             self.delegate?.didSuccessUpdateDateSelector(dateSelector)
