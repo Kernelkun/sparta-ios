@@ -73,8 +73,7 @@ class LCWebTradeViewController: UIViewController {
 
         guard let url = urlComponents?.url else { return }
 
-        var request = URLRequest(url: url)
-//        request.cachePolicy = .
+        let request = URLRequest(url: url)
 
         let contentController = webView.configuration.userContentController
         /*contentController.removeScriptMessageHandler(forName: Self.menuEventKey)
