@@ -133,6 +133,7 @@
 		D944CEFA2577B89B009115FD /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEF92577B89B009115FD /* GridLayout.swift */; };
 		D944CEFD2577B8E1009115FD /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CEFC2577B8E1009115FD /* GridCell.swift */; };
 		D944CF052577E096009115FD /* BlenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944CF042577E096009115FD /* BlenderViewModel.swift */; };
+		D94AB0CC284F40E8003CBA09 /* LCWebSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94AB0CB284F40E8003CBA09 /* LCWebSaver.swift */; };
 		D94ACF19266529FB003BCC14 /* UIActionSheetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94ACF18266529FB003BCC14 /* UIActionSheetFactory.swift */; };
 		D94BCA4B2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */; };
 		D94BD1D527FCA50200CDF871 /* LCPresenter+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94BD1D427FCA50200CDF871 /* LCPresenter+Models.swift */; };
@@ -488,6 +489,7 @@
 		D944CEF92577B89B009115FD /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		D944CEFC2577B8E1009115FD /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
 		D944CF042577E096009115FD /* BlenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderViewModel.swift; sourceTree = "<group>"; };
+		D94AB0CB284F40E8003CBA09 /* LCWebSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCWebSaver.swift; sourceTree = "<group>"; };
 		D94ACF18266529FB003BCC14 /* UIActionSheetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionSheetFactory.swift; sourceTree = "<group>"; };
 		D94BCA4A2577FFFF0076C2AB /* BlenderInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D94BD1D427FCA50200CDF871 /* LCPresenter+Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LCPresenter+Models.swift"; sourceTree = "<group>"; };
@@ -759,8 +761,9 @@
 		D906BE5827B276F9002D70BB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				D906BE6327B41EB9002D70BB /* Views */,
 				D9783EB627BD284E0097DCE0 /* LCWeb+Restrictions.swift */,
+				D906BE6327B41EB9002D70BB /* Views */,
+				D94AB0CA284F3E92003CBA09 /* Services */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1398,6 +1401,14 @@
 				D92A379525E261E200C0F9C8 /* BlenderViewModel+Models.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D94AB0CA284F3E92003CBA09 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D94AB0CB284F40E8003CBA09 /* LCWebSaver.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		D94BCA4D25792A9D0076C2AB /* Rest API */ = {
@@ -2850,6 +2861,7 @@
 				D9ECEC55257E62B6005DFFD7 /* AppStateService.swift in Sources */,
 				D99A73EA259C7B35009E3559 /* ArbsSyncManager.swift in Sources */,
 				D959C0E725822D09006CE2D1 /* LiveCurvesViewController.swift in Sources */,
+				D94AB0CC284F40E8003CBA09 /* LCWebSaver.swift in Sources */,
 				D9783EB227BBBA250097DCE0 /* LCDatesSelectorItemView.swift in Sources */,
 				D9840D13278608E40036C374 /* MobileParser.swift in Sources */,
 				D9919640273ED57F00A45363 /* UpdateArbsPIOrderRequest.swift in Sources */,
@@ -3096,7 +3108,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3104,7 +3116,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.8;
+				MARKETING_VERSION = 1.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3124,7 +3136,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3132,7 +3144,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.8;
+				MARKETING_VERSION = 1.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spartacommodities.sparta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

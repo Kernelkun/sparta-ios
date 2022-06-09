@@ -9,7 +9,7 @@ import Foundation
 
 public struct Environment {
 
-    public static let environment: EnvironmentType = .production
+    public static let environment: EnvironmentType = .stage
 
     public enum EnvironmentType: String {
         case stage
@@ -79,7 +79,7 @@ public struct Environment {
     public static var liveChartURL: String {
         switch Self.environment {
         case .stage, .dev:
-            return "https://dev.sparta.app/standaloneChart/"
+            return "https://staging.sparta.app/standaloneChart/"
 
         case .production:
             return "https://sparta.app/standaloneChart/"
