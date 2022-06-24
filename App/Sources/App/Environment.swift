@@ -9,7 +9,7 @@ import Foundation
 
 public struct Environment {
 
-    public static let environment: EnvironmentType = .stage
+    public static let environment: EnvironmentType = .production
 
     public enum EnvironmentType: String {
         case stage
@@ -27,6 +27,17 @@ public struct Environment {
     }
 
     // REST API URL's
+
+    public static var baseAuthURL: String {
+        switch Self.environment {
+        case .stage:
+            return "https://auth.staging.sparta.app"
+        case .dev:
+            return "https://auth.staging.sparta.app"
+        case .production:
+            return "https://auth.backend.sparta.app"
+        }
+    }
 
     public static var baseAPIURL: String {
         switch Self.environment {
@@ -79,7 +90,7 @@ public struct Environment {
     public static var liveChartURL: String {
         switch Self.environment {
         case .stage, .dev:
-            return "https://staging.sparta.app/standaloneChart/"
+            return "http://sparta-review-fix-core-10.s3-website-eu-west-1.amazonaws.com/standaloneChart/" //"https://staging.sparta.app/standaloneChart/"
 
         case .production:
             return "https://sparta.app/standaloneChart/"

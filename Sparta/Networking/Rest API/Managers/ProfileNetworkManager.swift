@@ -36,15 +36,6 @@ class ProfileNetworkManager: BaseNetworkManager {
         }
     }
 
-    func fetchPhonePrefixes(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<PhonePrefix>>, SpartaError>>) {
-
-        router.request(.getPhonePrefixes) { [weak self] data, response, error in
-            guard let strongSelf = self else { return }
-
-            completion(strongSelf.handleResult(data: data, response: response, error: error))
-        }
-    }
-
     func fetchPrimaryTradeAreas(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<TradeArea>>, SpartaError>>) {
 
         router.request(.getPrimaryTradeAreas) { [weak self] data, response, error in

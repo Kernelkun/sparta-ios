@@ -20,16 +20,14 @@ class SyncService {
     // MARK: - Public properties
 
     var isInitialDataSynced: Bool {
-        phonePrefixes != nil
-            && currentUser != nil
-            && userRoles != nil
-            && tradeAreas != nil
-            && freightPorts != nil
+        currentUser != nil
+        && userRoles != nil
+        && tradeAreas != nil
+        && freightPorts != nil
     }
 
     var userRoles: [UserRole]?
     var tradeAreas: [TradeArea]?
-    var phonePrefixes: [PhonePrefix]?
     var freightPorts: [FreightPort]?
     var currentUser: User?
 
@@ -47,25 +45,10 @@ class SyncService {
 
         var tradeAreas: [TradeArea] = []
         var userRoles: [UserRole] = []
-        var prefixes: [PhonePrefix] = []
         var freightPorts: [FreightPort] = []
         var user: User?
 
         let group = DispatchGroup()
-
-        group.enter()
-        profileNetworkManager.fetchPhonePrefixes { result in
-
-            switch result {
-            case .success(let responseModel) where responseModel.model != nil:
-                prefixes = responseModel.model?.list ?? []
-
-            case .failure, .success:
-                prefixes = []
-            }
-
-            group.leave()
-        }
 
         group.enter()
         profileNetworkManager.fetchProfile { result in
@@ -84,11 +67,11 @@ class SyncService {
         group.enter()
         profileNetworkManager.fetchPrimaryTradeAreas { result in
 
-            switch result {
-            case .success(let responseModel) where responseModel.model != nil:
-                tradeAreas = responseModel.model!.list //swiftlint:disable:this force_unwrapping
+            if case let .success(responseModel) = result,
+               let list = responseModel.model?.list {
 
-            default:
+                tradeAreas = list
+            } else {
                 tradeAreas = []
             }
 
@@ -126,7 +109,6 @@ class SyncService {
         }
 
         group.notify(queue: .global(qos: .default)) {
-            self.phonePrefixes = prefixes
             self.currentUser = user
             self.tradeAreas = tradeAreas
             self.userRoles = userRoles

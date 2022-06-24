@@ -25,7 +25,7 @@ public struct UserRole: BackendModel {
         id = json["id"].intValue
         name = json["name"].stringValue
 
-        primaryProducts = json["primary_products"].arrayValue.compactMap { PrimaryProduct(json: $0) }
+        primaryProducts = json["primaryProducts"].arrayValue.compactMap { PrimaryProduct(json: $0) }
     }
 }
 

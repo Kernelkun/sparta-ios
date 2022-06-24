@@ -25,10 +25,6 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
     //
     // MARK: - Public properties
 
-    var countriesCodes: [CountryCodeModel] {
-        _phonePrefixes.compactMap { createCountryCodeModel(from: $0) }
-    }
-
     var tradeAreas: [PickerIdValued<Int>] = []
     var ports: [PickerIdValued<Int>] = []
     var products: [PickerIdValued<Int>] = []
@@ -52,10 +48,6 @@ class AccountSettingsViewModel: NSObject, BaseViewModel {
     private let app = App.instance
     private let phoneNumberKit = PhoneNumberKit()
     private let profileNetworkManager = ProfileNetworkManager()
-
-    private var _phonePrefixes: [PhonePrefix] {
-        app.syncService.phonePrefixes ?? []
-    }
 
     private var _userRoles: [UserRole] {
         app.syncService.userRoles ?? []
