@@ -331,6 +331,8 @@
 		D9C9420727F21D7C007ABA27 /* ArbsVContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9420627F21D7C007ABA27 /* ArbsVContentViewModel.swift */; };
 		D9D170D42587880F0059A1F1 /* LineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D170D32587880F0059A1F1 /* LineButtonView.swift */; };
 		D9D2EC722705BE37007AF869 /* ArbDetailWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D2EC712705BE37007AF869 /* ArbDetailWireframe.swift */; };
+		D9D43EBC286861B700EEEF7F /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D43EBB286861B700EEEF7F /* AsynchronousOperation.swift */; };
+		D9D43EC62869B22600EEEF7F /* CellAnimateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D43EC52869B22600EEEF7F /* CellAnimateOperation.swift */; };
 		D9D4FC22264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */; };
 		D9D4FC24264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */; };
 		D9D4FC2B264ED4ED00A2A1DA /* BaseTableVMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D4FC2A264ED4ED00A2A1DA /* BaseTableVMViewController.swift */; };
@@ -684,6 +686,8 @@
 		D9C9420627F21D7C007ABA27 /* ArbsVContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbsVContentViewModel.swift; sourceTree = "<group>"; };
 		D9D170D32587880F0059A1F1 /* LineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineButtonView.swift; sourceTree = "<group>"; };
 		D9D2EC712705BE37007AF869 /* ArbDetailWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArbDetailWireframe.swift; sourceTree = "<group>"; };
+		D9D43EBB286861B700EEEF7F /* AsynchronousOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
+		D9D43EC52869B22600EEEF7F /* CellAnimateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAnimateOperation.swift; sourceTree = "<group>"; };
 		D9D4FC21264ED21D00A2A1DA /* LCPortfolioAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewController.swift; sourceTree = "<group>"; };
 		D9D4FC23264ED22B00A2A1DA /* LCPortfolioAddItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCPortfolioAddItemViewModel.swift; sourceTree = "<group>"; };
 		D9D4FC29264ED4D600A2A1DA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -2286,6 +2290,7 @@
 				D906BE6027B3E006002D70BB /* Enums */,
 				D906BE7427B5928E002D70BB /* Protocols */,
 				D9F0905828251350004E0D1F /* Formatters */,
+				D9D43EBA286861A200EEEF7F /* Operations */,
 			);
 			path = Kit;
 			sourceTree = "<group>";
@@ -2371,6 +2376,23 @@
 				D9D170D32587880F0059A1F1 /* LineButtonView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D9D43EBA286861A200EEEF7F /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				D9D43EC42869B21C00EEEF7F /* View */,
+				D9D43EBB286861B700EEEF7F /* AsynchronousOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		D9D43EC42869B21C00EEEF7F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D9D43EC52869B22600EEEF7F /* CellAnimateOperation.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D9D4FC20264ED1F600A2A1DA /* Submodules */ = {
@@ -2916,6 +2938,7 @@
 				D9C71C522678A46E001B1924 /* UIAlertFactory.swift in Sources */,
 				D9B50E3F257431F90018F3D7 /* BorderedButton.swift in Sources */,
 				D9783EAC27BBB9520097DCE0 /* LCDatesSelectorViewModel.swift in Sources */,
+				D9D43EBC286861B700EEEF7F /* AsynchronousOperation.swift in Sources */,
 				D9EE1C8C26AAC8BE00306566 /* ArbsPlaygroundViewController.swift in Sources */,
 				D9783EA227BAB24C0097DCE0 /* LCDatesSelectorHeaderTableView.swift in Sources */,
 				D92A374325DD60D800C0F9C8 /* StarButton.swift in Sources */,
@@ -2924,6 +2947,7 @@
 				D9377231281B153F00B3A233 /* ACDestinationWireframe.swift in Sources */,
 				D9D4FC34264EE0A300A2A1DA /* LiveCurvesNetworkManager.swift in Sources */,
 				D939CBF827E3283400BC20D2 /* ArbsVPlaygroundButton.swift in Sources */,
+				D9D43EC62869B22600EEEF7F /* CellAnimateOperation.swift in Sources */,
 				D944CEF62577B7C9009115FD /* BlenderViewController.swift in Sources */,
 				D9BEB64D27B9217500E56E1B /* SearchViewModel.swift in Sources */,
 				D939CC3327E3A5B000BC20D2 /* Observable.swift in Sources */,
@@ -3108,7 +3132,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3136,7 +3160,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = B43G48R3CR;
 				INFOPLIST_FILE = Sparta/Sources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

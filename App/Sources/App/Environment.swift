@@ -9,7 +9,7 @@ import Foundation
 
 public struct Environment {
 
-    public static let environment: EnvironmentType = .production
+    public static let environment: EnvironmentType = .stage
 
     public enum EnvironmentType: String {
         case stage
@@ -31,11 +31,11 @@ public struct Environment {
     public static var baseAuthURL: String {
         switch Self.environment {
         case .stage:
-            return "https://auth.staging.sparta.app"
+            return "https://strapi.staging.sparta.app"
         case .dev:
-            return "https://auth.staging.sparta.app"
+            return "https://strapi.staging.sparta.app"
         case .production:
-            return "https://auth.backend.sparta.app"
+            return "https://strapi.sparta.app"
         }
     }
 

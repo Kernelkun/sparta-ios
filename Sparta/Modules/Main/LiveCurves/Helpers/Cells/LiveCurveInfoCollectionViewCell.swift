@@ -23,6 +23,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 
     private var monthInfo: LiveCurveMonthInfoModel!
     private var indexPath: IndexPath!
+    private var queue: OperationQueue!
 
     // MARK: - Initializers
 
@@ -34,7 +35,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(#function)
     }
 
     // MARK: - Lifecycle
@@ -42,6 +43,7 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
+//        queue.cancelAllOperations()
         stopObservingAllLiveCurvesEvents()
     }
 
@@ -55,9 +57,10 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func apply(monthInfo: LiveCurveMonthInfoModel, for indexPath: IndexPath) {
+    func apply(monthInfo: LiveCurveMonthInfoModel, for indexPath: IndexPath, animationQueue: OperationQueue) {
         self.monthInfo = monthInfo
         self.indexPath = indexPath
+        self.queue = animationQueue
 
         titleLabel.text = monthInfo.priceValue
         lastPriceCode = monthInfo.priceCode
@@ -71,7 +74,6 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
     // MARK: - Private methods
 
     private func setupUI() {
-
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         selectedBackgroundView = UIView().then { $0.backgroundColor = .clear }
@@ -126,17 +128,32 @@ class LiveCurveInfoCollectionViewCell: UICollectionViewCell {
 extension LiveCurveInfoCollectionViewCell: LiveCurvesObserver {
 
     func liveCurvesDidReceiveResponse(for liveCurve: LiveCurve) {
-        onMainThread {
-            self.titleLabel.text = liveCurve.displayPrice
+//        onMainThread {
+//            self.titleLabel.text = liveCurve.displayPrice
+//
+//            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
+//                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
+//            } completion: { _ in
+//                UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
+//                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
+//                } completion: { _ in
+//                }
+//            }
+//        }
 
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                self.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
-            } completion: { _ in
-                UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveLinear, .allowUserInteraction]) {
-                    self.contentView.layer.backgroundColor = UIColor.clear.cgColor
-                } completion: { _ in
-                }
+        let operation = CellAnimateOperation(duration: 1, delay: 0.0) { [weak self] in
+            guard let strongSelf = self else { return }
+
+            strongSelf.titleLabel.text = liveCurve.displayPrice
+
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.5) {
+                strongSelf.contentView.layer.backgroundColor = liveCurve.state.color.withAlphaComponent(0.2).cgColor
+            }
+
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+                strongSelf.contentView.layer.backgroundColor = UIColor.clear.cgColor
             }
         }
+        queue.addOperation(operation)
     }
 }

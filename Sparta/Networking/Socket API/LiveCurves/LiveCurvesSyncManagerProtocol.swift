@@ -24,7 +24,7 @@ protocol LiveCurvesSyncManagerProtocol {
     /// Current selected profile
     var profile: LiveCurveProfileCategory? { get }
 
-    /// Launch service. To receive any updates need to use this method
+    /// Launch service. To receive any updates need to use this method. ForcedUpdate - means anyway update UI even we haven't data to update.
     func start()
 
     /// Change profile setting
