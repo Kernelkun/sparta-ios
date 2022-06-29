@@ -10,6 +10,7 @@ import NetworkingModels
 import Segment
 import Segment_Amplitude
 import App
+import Datadog
 
 class AnalyticsManager {
 
@@ -33,6 +34,10 @@ class AnalyticsManager {
         configuration.use(SEGAmplitudeIntegrationFactory.instance())
 
         Analytics.setup(with: configuration)
+
+        // setup data dog service
+
+        setupDatadogService()
     }
 
     func track(_ track: AnalyticsTrack) {
@@ -50,5 +55,35 @@ class AnalyticsManager {
         analytics.identify(user.id.toString, traits: parameters)
 
         print("***Analytics: Identity: \(user.id.toString), traits: \(parameters)")
+    }
+
+    // MARK: - Private methods
+
+    private func setupDatadogService() {
+        let validEnvironments: [Environment.EnvironmentType] = [.stage, .dev]
+
+        guard validEnvironments.contains(Environment.environment) else { return }
+
+        let appID = "0f0ea7f7-5b06-44cd-8c5d-56eaa2f85d63"
+        let clientToken = "pub438b388561a0dd7051ed033654a408c3"
+        let environment = "staging"
+
+        Datadog.initialize(
+            appContext: .init(),
+            trackingConsent: .granted,
+            configuration: Datadog.Configuration
+                .builderUsing(
+                    rumApplicationID: appID,
+                    clientToken: clientToken,
+                    environment: environment
+                )
+                .set(endpoint: .eu1)
+                .trackUIKitRUMViews()
+                .trackUIKitRUMActions()
+                .trackRUMLongTasks()
+                .build()
+        )
+
+        Global.rum = RUMMonitor.initialize()
     }
 }

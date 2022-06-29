@@ -13,7 +13,6 @@ import App
 enum ProfileEndPoint {
     case updateUser(id: Int, parameters: Parameters)
     case getProfile
-    case getPhonePrefixes
     case getPrimaryTradeAreas
     case getUserRoles
 
@@ -32,12 +31,22 @@ enum ProfileEndPoint {
 
 extension ProfileEndPoint: EndPointType {
 
-    var baseURL: URL { Environment.baseAPIURL.forcedURL }
+    var baseURL: URL {
+        switch self {
+        case .getPrimaryTradeAreas, .getUserRoles, .getProfile:
+            return Environment.baseDataURL.forcedURL
+
+        case .updateUser:
+            return Environment.baseAuthURL.forcedURL
+
+        default:
+            return Environment.baseAPIURL.forcedURL
+        }
+    }
 
     var path: String {
         switch self {
         case .updateUser(let id, _): return "/users/\(id)"
-        case .getPhonePrefixes: return "/mobile-prefixes"
         case .getProfile: return "/users/me"
         case .getPrimaryTradeAreas: return "/primary-trade-areas"
         case .getUserRoles: return "/user-roles"
@@ -60,7 +69,7 @@ extension ProfileEndPoint: EndPointType {
         case .deleteArbFromFavouritesList, .deleteBlenderFromFavouritesList: return .delete
         case .addArbToFavouritesList, .addBlenderToFavouritesList: return .post
         case .updateUser: return .put
-        case .getPhonePrefixes, .getProfile, .getPrimaryTradeAreas,
+        case .getProfile, .getPrimaryTradeAreas,
              .getUserRoles, .getArbsFavouritesList, .getBlenderFavouritesList: return .get
         }
     }
@@ -80,7 +89,7 @@ extension ProfileEndPoint: EndPointType {
                                                 additionHeaders: headersWithToken)
 
         case .getPrimaryTradeAreas, .getUserRoles, .getProfile,
-             .getPhonePrefixes, .getArbsFavouritesList, .getBlenderFavouritesList:
+             .getArbsFavouritesList, .getBlenderFavouritesList:
             return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,

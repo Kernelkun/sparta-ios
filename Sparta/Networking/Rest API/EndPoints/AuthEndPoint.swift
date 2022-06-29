@@ -18,7 +18,7 @@ enum AuthEndPoint {
 
 extension AuthEndPoint: EndPointType {
     
-    var baseURL: URL { Environment.baseAPIURL.forcedURL }
+    var baseURL: URL { Environment.baseAuthURL.forcedURL }
     
     var path: String {
         switch self {

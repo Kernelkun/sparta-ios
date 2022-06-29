@@ -38,6 +38,14 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
         return liveCurvesCount < AppFormatter.Restrictions.maxPortfolioItemsNumbers
     }
 
+    let cellAnimationQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.name = "uiAnimation"
+        queue.qualityOfService = .userInteractive
+        queue.maxConcurrentOperationCount = 100
+        return queue
+    }()
+
     // MARK: - Private properties
 
     private var liveCurvesSyncManager = App.instance.liveCurvesSyncManager
@@ -138,7 +146,11 @@ class LiveCurvesViewModel: NSObject, BaseViewModel {
 
 extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 
-    func liveCurvesSyncManagerDidFetch(liveCurves: [LiveCurve], profiles: [LiveCurveProfileCategory], selectedProfile: LiveCurveProfileCategory?) {
+    func liveCurvesSyncManagerDidFetch(
+        liveCurves: [LiveCurve],
+        profiles: [LiveCurveProfileCategory],
+        selectedProfile: LiveCurveProfileCategory?
+    ) {
         delegate?.didReceiveProfilesInfo(profiles: profiles, selectedProfile: selectedProfile)
 
         updateDataSource(liveCurves)
@@ -185,7 +197,6 @@ extension LiveCurvesViewModel: LiveCurvesSyncManagerDelegate {
 extension LiveCurvesViewModel {
 
     private func updateDataSource(_ newLiveCurves: [LiveCurve]) {
-
         let newLiveCurves = filtered(newLiveCurves)
 
         let newTableDataSource = createTableDataSource(from: newLiveCurves)

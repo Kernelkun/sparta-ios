@@ -46,8 +46,8 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
 
     private var operationQueue: OperationQueue = {
         let operationQueue = OperationQueue()
-        operationQueue.maxConcurrentOperationCount = 10
-        operationQueue.qualityOfService = .background
+        operationQueue.maxConcurrentOperationCount = 100
+        operationQueue.qualityOfService = .userInteractive
         return operationQueue
     }()
     private var _liveCurves = SynchronizedArray<LiveCurve>()
@@ -157,9 +157,16 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
 
     private func updateLiveCurves(for profile: LiveCurveProfileCategory) {
         onMainThread {
-            self.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: self.filteredProfileLiveCurves(),
+            let liveCurves = self.filteredProfileLiveCurves()
+            self.delegate?.liveCurvesSyncManagerDidFetch(liveCurves: liveCurves,
                                                          profiles: self._profiles.arrayValue,
                                                          selectedProfile: profile)
+
+            onMainThread(delay: 0.5) {
+                for liveCurve in liveCurves {
+                    self.notifyObservers(about: liveCurve, queue: self.operationQueue)
+                }
+            }
         }
     }
 

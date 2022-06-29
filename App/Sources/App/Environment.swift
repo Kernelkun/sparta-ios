@@ -28,6 +28,17 @@ public struct Environment {
 
     // REST API URL's
 
+    public static var baseAuthURL: String {
+        switch Self.environment {
+        case .stage:
+            return "https://strapi.staging.sparta.app"
+        case .dev:
+            return "https://strapi.staging.sparta.app"
+        case .production:
+            return "https://strapi.sparta.app"
+        }
+    }
+
     public static var baseAPIURL: String {
         switch Self.environment {
         case .stage:
@@ -79,7 +90,7 @@ public struct Environment {
     public static var liveChartURL: String {
         switch Self.environment {
         case .stage, .dev:
-            return "https://dev.sparta.app/standaloneChart/"
+            return "http://sparta-review-fix-core-10.s3-website-eu-west-1.amazonaws.com/standaloneChart/" //"https://staging.sparta.app/standaloneChart/"
 
         case .production:
             return "https://sparta.app/standaloneChart/"

@@ -1,12 +1,16 @@
 PODS:
-  - Amplitude (7.0.1)
-  - Analytics (4.1.3)
+  - Amplitude (8.10.0):
+    - AnalyticsConnector (~> 1.0.0)
+  - Analytics (4.1.6)
+  - AnalyticsConnector (1.0.0)
+  - DatadogSDK (1.10.0)
   - LightweightCharts (3.2.0)
-  - Segment-Amplitude (3.2.4):
-    - Amplitude (~> 7.0.1)
+  - Segment-Amplitude (3.4.0):
+    - Amplitude (~> 8.3)
     - Analytics
 
 DEPENDENCIES:
+  - DatadogSDK
   - LightweightCharts (~> 3.2.0)
   - Segment-Amplitude
 
@@ -14,15 +18,19 @@ SPEC REPOS:
   trunk:
     - Amplitude
     - Analytics
+    - AnalyticsConnector
+    - DatadogSDK
     - LightweightCharts
     - Segment-Amplitude
 
 SPEC CHECKSUMS:
-  Amplitude: 31a9038dca905b78294418ed277da9c2e07658ad
-  Analytics: 4c01e3e19d4be86705bad6581a1c2aa5a15a9d22
+  Amplitude: 2904f346250510b9e19a4e2262017bcf1d4368f9
+  Analytics: eefe524436f904b8bb3f8c8c3425280e43b34efc
+  AnalyticsConnector: 4c386d5972ac9da86e22d668564dbbac97558754
+  DatadogSDK: ffeb11d1b70bfae8f29c570be5d3222f96d00bc0
   LightweightCharts: 04cf1c18f24019889976b0de40bef2329916e020
-  Segment-Amplitude: f75f5fd7ba25f95914a4e93139c0a1737d17e44f
+  Segment-Amplitude: 5f56556d1ab809ce41b675ff7b31f7516e6d2b97
 
-PODFILE CHECKSUM: 6bbe136e88d95497c22a910e0f35902151968a7a
+PODFILE CHECKSUM: da231c981b79edaebfdb0d812a8b3d41c7eac94e
 
 COCOAPODS: 1.10.1
