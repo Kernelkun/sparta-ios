@@ -35,13 +35,17 @@ class LCWebTradeViewController: UIViewController {
     private let webView: WKWebView
     private var edges: UIEdgeInsets
 
+    private let stateService: AppStateService
+
     // MARK: - Initializers
 
     init(edges: UIEdgeInsets) {
         self.edges = edges
+        self.stateService = AppStateService()
         self.webView = WKWebViewWarmUper.liveChartsWarmUper.dequeue()
-
         super.init(nibName: nil, bundle: nil)
+
+        self.stateService.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -172,6 +176,15 @@ class LCWebTradeViewController: UIViewController {
         guard let orientation = UIApplication.interfaceOrientation else { return }
 
         delegate?.lcWebTradeViewControllerDidChangeOrientation(self, interfaceOrientation: orientation)
+    }
+}
+
+extension LCWebTradeViewController: AppStateServiceDelegate {
+
+    func appStateServiceDidUpdateState() {
+        guard stateService.isActiveApp else { return }
+
+        reloadContent()
     }
 }
 

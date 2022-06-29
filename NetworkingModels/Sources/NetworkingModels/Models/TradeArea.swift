@@ -15,7 +15,6 @@ public struct TradeArea: BackendModel {
 
     public let id: Int
     public let name: String
-
     public let primaryPorts: [Port]
 
     //
@@ -25,7 +24,7 @@ public struct TradeArea: BackendModel {
         id = json["id"].intValue
         name = json["name"].stringValue
 
-        primaryPorts = json["primary_ports"].arrayValue.compactMap { Port(json: $0) }
+        primaryPorts = json["primaryPorts"].arrayValue.compactMap { Port(json: $0) }
     }
 }
 

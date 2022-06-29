@@ -217,7 +217,7 @@ extension LiveCurvesViewController: GridViewDataSource {
         let row = section.cells[indexPath.row]
 
         if case let LiveCurvesViewModel.Cell.info(model) = row {
-            cell.apply(monthInfo: model, for: indexPath)
+            cell.apply(monthInfo: model, for: indexPath, animationQueue: viewModel.cellAnimationQueue)
             cell.onTap { [unowned self] monthInfoModel in
                 coordinatorDelegate?.liveCurvesViewControllerDidSelectMonthInfo(self, monthInfo: monthInfoModel)
             }
