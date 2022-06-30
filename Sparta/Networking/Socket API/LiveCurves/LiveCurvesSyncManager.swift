@@ -34,13 +34,8 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
 
     private(set) var profile: LiveCurveProfileCategory?
 
-    var liveCurves: [LiveCurve] {
-        _liveCurves.arrayValue
-    }
-
-    var profileLiveCurves: [LiveCurve] {
-        filteredProfileLiveCurves()
-    }
+    var liveCurves: [LiveCurve] { _liveCurves }
+    var profileLiveCurves: [LiveCurve] { filteredProfileLiveCurves() }
 
     // MARK: - Private properties
 
@@ -50,7 +45,7 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
         operationQueue.qualityOfService = .userInteractive
         return operationQueue
     }()
-    private var _liveCurves = SynchronizedArray<LiveCurve>()
+    private var _liveCurves: [LiveCurve] = []
     private var _profiles = SynchronizedArray<LiveCurveProfileCategory>()
     private let networkManager = LiveCurvesNetworkManager()
 
@@ -100,7 +95,7 @@ class LiveCurvesSyncManager: LiveCurvesSyncManagerProtocol {
             guard let strongSelf = self else { return }
 
             strongSelf._profiles = SynchronizedArray(fetchedProfiles)
-            strongSelf._liveCurves = SynchronizedArray(fetchedLiveCurves)
+            strongSelf._liveCurves = fetchedLiveCurves
             strongSelf.updateProfiles()
 
             // socket connection
@@ -208,9 +203,11 @@ extension LiveCurvesSyncManager: SocketActionObserver {
         let liveCurvePrice = LiveCurvePrice(json: liveCurveSocket.payload)
 
         // check if current array consist live curve with specific code
-        guard let liveCurveIndex = _liveCurves.index(where: { $0.code == liveCurvePrice.code
-                                                        && $0.monthCode == liveCurvePrice.periodCode }),
-              var liveCurve = _liveCurves[liveCurveIndex] else { return }
+        guard let liveCurveIndex = _liveCurves.firstIndex(
+            where: { $0.code == liveCurvePrice.code && $0.monthCode == liveCurvePrice.periodCode }
+        ) else { return }
+
+        var liveCurve = _liveCurves[liveCurveIndex]
 
         let oldPrice = liveCurve.priceValue
         let newPrice = liveCurvePrice.priceValue
