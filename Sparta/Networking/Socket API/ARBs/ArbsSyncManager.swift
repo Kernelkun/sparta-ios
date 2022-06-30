@@ -214,6 +214,14 @@ class ArbsSyncManager: ArbsSyncInterface {
             self.notifyObserversAboutDidFetch(arbs: portfolio.arbs,
                                               profiles: self._portfolios.arrayValue,
                                               selectedProfile: portfolio)
+
+            onMainThread(delay: 0.5) {
+                for arb in portfolio.arbs {
+                    arb.months.forEach { month in
+                        self.notifyAboutUpdated(arbMonth: month)
+                    }
+                }
+            }
         }
     }
 

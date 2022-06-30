@@ -36,7 +36,7 @@ public struct ArbMonth: BackendModel {
     public private(set) var pseudoCifRefinery: ColoredNumber?
     public var userTarget: Double?
 
-    public let deliveredPriceDifferentials: [PriceDifferentials]
+    public var deliveredPriceDifferentials: [PriceDifferentials]
 
     // use this identifier to identify this object as unique
     public var uniqueIdentifier: String {
@@ -109,6 +109,7 @@ public struct ArbMonth: BackendModel {
         pseudoCifRefinery = newMonth.pseudoCifRefinery
         ew = newMonth.ew
         userTarget = newMonth.userTarget
+        deliveredPriceDifferentials = newMonth.deliveredPriceDifferentials
     }
 }
 
