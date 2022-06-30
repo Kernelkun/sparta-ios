@@ -14,13 +14,13 @@ public extension ArbMonth {
 
         // MARK: - Public properties
 
-        public let name: Int
+        public let name: String
         public let value: ColoredNumber?
 
         // MARK: - Initialziers
 
         public init(json: JSON) {
-            name = json["id"].intValue
+            name = json["name"].stringValue
 
             if json["value"].dictionary != nil {
                 value = ColoredNumber(json: json["value"])

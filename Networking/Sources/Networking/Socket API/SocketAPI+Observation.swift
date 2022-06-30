@@ -67,6 +67,7 @@ extension SocketAPI {
     public func notifyObservers(about server: Server, with data: JSON, queue: OperationQueue = .main) {
 
         guard let observers = SocketAPI.observers[server]?.allObjects else { return }
-        queue.addOperation { observers.forEach { $0.socketDidReceiveResponse(for: server, data: data) } }
+        observers.forEach { $0.socketDidReceiveResponse(for: server, data: data) }
+//        queue.addOperation {  }
     }
 }
