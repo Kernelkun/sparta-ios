@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import SpartaHelpers
 import App
+import Datadog
 
 protocol LCWebTradeViewDelegate: AnyObject {
     func lcWebTradeViewControllerDidChangeContentOffset(_ viewController: LCWebTradeViewController, offset: CGFloat, direction: MovingDirection)
@@ -37,12 +38,13 @@ class LCWebTradeViewController: UIViewController {
 
     private let stateService: AppStateService
 
-    // MARK: - Initializers
+    // MARK: - Initializers & deinit
 
     init(edges: UIEdgeInsets) {
         self.edges = edges
         self.stateService = AppStateService()
         self.webView = WKWebViewWarmUper.liveChartsWarmUper.dequeue()
+        self.webView.configuration.userContentController.trackDatadogEvents(in: ["sparta.ios"])
         super.init(nibName: nil, bundle: nil)
 
         self.stateService.delegate = self
@@ -50,6 +52,10 @@ class LCWebTradeViewController: UIViewController {
 
     required init?(coder: NSCoder) {
         fatalError(#function)
+    }
+
+    deinit {
+        self.webView.configuration.userContentController.stopTrackingDatadogEvents()
     }
 
     // MARK: - Lifecycle
