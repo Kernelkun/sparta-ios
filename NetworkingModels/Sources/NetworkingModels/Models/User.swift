@@ -48,7 +48,6 @@ public struct User: BackendModel {
     // MARK: - Default Initializers
 
     public init(json: JSON) {
-
         id = json["id"].intValue
         email = json["email"].stringValue
 

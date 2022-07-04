@@ -11,7 +11,7 @@ public class ResponseModel<T: BackendModel> {
 
     // MARK: - Public accessors
 
-    public let statusCode: Int?
+    public var statusCode: Int?
     public let model: T?
     public let error: String?
     public let message: String?

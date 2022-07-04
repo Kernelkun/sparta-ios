@@ -52,6 +52,7 @@ class BaseNetworkManager {
             
             let responseModel = ResponseModel<T>(json: JSON(responseData),
                                                  modelPrimaryKey: modelPrimaryKey)
+            responseModel.statusCode = response.statusCode
             
             switch result {
             case .success:
@@ -66,9 +67,11 @@ class BaseNetworkManager {
                 
             case .failure:
 
-                if responseModel.error == "Unauthorized" {
+                if responseModel.statusCode == 401 {
                     App.instance.logout()
                 }
+
+                /*{"message":"'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsImlhdCI6MTY1NjU3ODY2NCwiZXhwIjoxNjU5MTcwNjY0fQ.MZkTHa79qgk4ATQk7ZasY-E-V8WMcqBSU_xq4PVR8rw' not a valid key=value pair (missing equal-sign) in Authorization header: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTEsImlhdCI6MTY1NjU3ODY2NCwiZXhwIjoxNjU5MTcwNjY0fQ.MZkTHa79qgk4ATQk7ZasY-E-V8WMcqBSU_xq4PVR8rw'."}*/ // swiftlint:disable:this line_length
 
                 return .failure(SpartaError(code: responseModel.statusCode ?? -1))
             }
