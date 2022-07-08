@@ -13,15 +13,20 @@ extension LCWebViewModel {
     struct Item {
         let title: String
         let code: String
+        let unit: String
+
+        var fullTitle: String { title + " " + "(\(unit))" }
 
         init(item: LiveCurveProfileProduct) {
             title = item.shortName //+ " " + "(" + item.unit + ")"
             code = item.code
+            unit = item.unit
         }
 
         init(monthInfo: LiveCurveMonthInfoModel) {
             title = monthInfo.lcName //+ " " + "(" + monthInfo.lcUnit + ")"
             code = monthInfo.lcCode
+            unit = monthInfo.lcUnit
         }
     }
 

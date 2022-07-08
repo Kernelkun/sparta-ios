@@ -145,7 +145,8 @@ class LCWebViewController: BaseViewController {
                 let wireframe = LCDatesSelectorWireframe(
                     dateSelectors: configurator.dateSelectors,
                     selectedDateSelector: configurator.selectedDateSelector,
-                    coordinatorDelegate: self)
+                    coordinatorDelegate: self
+                )
 
                 presentPanModal(wireframe.viewController)
             }
@@ -286,11 +287,17 @@ extension LCWebViewController: LCWebViewModelDelegate {
     func didSuccessUpdateConfigurator(_ configurator: LCWebViewModel.Configurator) {
         let item = configurator.item
 
-        itemsField.apply(selectedValue: .init(id: item.code, title: item.title, fullTitle: item.title), placeholder: "Select item")
+        itemsField.apply(
+            selectedValue: .init(id: item.code, title: item.fullTitle, fullTitle: item.fullTitle),
+            placeholder: "Select item"
+        )
 
         if let dateSelector = configurator.dateSelector {
             let name = dateSelector.name
-            selectorsField.apply(selectedValue: .init(id: name, title: name, fullTitle: name), placeholder: "Select date")
+            selectorsField.apply(
+                selectedValue: .init(id: name, title: name, fullTitle: name),
+                placeholder: "Select date"
+            )
         }
 
         if !configurator.highlights.isEmpty {

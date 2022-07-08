@@ -15,6 +15,7 @@ enum LiveCurvesEndPoint {
     case getPortfolios
     case getProductGroups
     case getProducts
+    case getLiveChartsProducts
     case addPortfolio(name: String)
     case deletePortfolio(id: Int)
     case changePortfoliosOrder(parameters: Parameters)
@@ -33,6 +34,7 @@ extension LiveCurvesEndPoint: EndPointType {
         case .getPortfolios: return "/livecurves/portfolios"
         case .getProductGroups: return "/livecurves/productgroups"
         case .getProducts: return "/livecurves/products"
+        case .getLiveChartsProducts: return "/livecharts/products"
         case .addPortfolio: return "/livecurves/portfolios/"
         case .deletePortfolio(let id): return "/livecurves/portfolios/\(id)"
         case .changePortfoliosOrder: return "/livecurves/portfolios/order"
@@ -44,7 +46,7 @@ extension LiveCurvesEndPoint: EndPointType {
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .getLiveCurves, .getPortfolios, .getProductGroups, .getProducts: return .get
+        case .getLiveCurves, .getPortfolios, .getProductGroups, .getProducts, .getLiveChartsProducts: return .get
         case .addPortfolio, .addProduct, .changePortfolioOrder, .changePortfoliosOrder: return .post
         case .deletePortfolioItem, .deletePortfolio: return .delete
         }
@@ -58,7 +60,7 @@ extension LiveCurvesEndPoint: EndPointType {
                                                 urlParameters: ["includeQuarters": true, "includeYears": true],
                                                 additionHeaders: headersWithToken)
 
-        case .getPortfolios, .getProductGroups, .getProducts, .deletePortfolioItem, .deletePortfolio:
+        case .getPortfolios, .getProductGroups, .getProducts, .deletePortfolioItem, .deletePortfolio, .getLiveChartsProducts:
             return .requestParametersAndHeaders(bodyParameters: nil,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,

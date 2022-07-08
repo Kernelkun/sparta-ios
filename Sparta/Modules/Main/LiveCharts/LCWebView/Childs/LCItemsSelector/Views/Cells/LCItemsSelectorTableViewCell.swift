@@ -29,7 +29,7 @@ class LCItemsSelectorTableViewCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("LCItemsSelectorTableViewCell")
+        fatalError(#function)
     }
 
     // MARK: - Public methods
@@ -38,7 +38,7 @@ class LCItemsSelectorTableViewCell: UITableViewCell {
         self.item = item
         self.indexPath = indexPath
 
-        titleLabel.text = item.title
+        titleLabel.text = item.fullTitle
     }
 
     func onChoose(completion: @escaping TypeClosure<IndexPath>) {

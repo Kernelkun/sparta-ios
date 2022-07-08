@@ -55,7 +55,10 @@ class LCDatesSelectorViewController: UIViewController {
         let arrowButton = TappableButton().then { button in
 
             button.setImage(
-                UIImage(systemName: "chevron.compact.down")?.withTintColor(.controlTintActive, renderingMode: .alwaysTemplate),
+                UIImage(systemName: "chevron.compact.down")?.withTintColor(
+                    .controlTintActive,
+                    renderingMode: .alwaysTemplate
+                ),
                 for: .normal
             )
 

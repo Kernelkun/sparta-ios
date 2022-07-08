@@ -30,10 +30,11 @@ class LCDatesSelectorTableViewCell: UITableViewCell {
 
     // MARK: - Public methods
 
-    func apply(dateSelectors: [LiveChartDateSelector],
-               selectedDateSelector: LiveChartDateSelector?,
-               preferredRowsCount: Int,
-               onTap: @escaping TypeClosure<LiveChartDateSelector>) {
+    func apply(
+        dateSelectors: [LiveChartDateSelector],
+        selectedDateSelector: LiveChartDateSelector?,
+        preferredRowsCount: Int, onTap: @escaping TypeClosure<LiveChartDateSelector>
+    ) {
 
         self.dateSelectors = dateSelectors
         self.selectedDateSelector = selectedDateSelector

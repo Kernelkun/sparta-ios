@@ -49,13 +49,16 @@ class LCDatesSelectorItemView: TappableView {
             titleLabel.numberOfLines = 1
             titleLabel.textAlignment = .center
             titleLabel.text = dateSelector.name
-            titleLabel.adjustsFontSizeToFitWidth = true
-//            titleLabel.minimumScaleFactor = 0.9
 
             addSubview(titleLabel) {
                 $0.left.right.top.equalToSuperview()
             }
         }
+
+        let textWidth = dateSelector.name.size(
+            constrained: 200,
+            attributes: [.font: UIFont.main(weight: isSelected ? .medium : .regular, size: 14)]
+        ).width * 0.8
 
         _ = UIView().then { view in
 
@@ -64,7 +67,7 @@ class LCDatesSelectorItemView: TappableView {
 
             addSubview(view) {
                 $0.top.equalTo(titleLabel.snp.bottom).offset(3)
-                $0.width.equalTo(25)
+                $0.width.equalTo(textWidth)
                 $0.bottom.equalToSuperview()
                 $0.height.equalTo(2)
                 $0.centerX.equalTo(titleLabel)

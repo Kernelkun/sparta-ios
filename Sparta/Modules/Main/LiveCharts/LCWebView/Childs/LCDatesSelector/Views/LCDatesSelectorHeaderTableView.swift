@@ -22,7 +22,7 @@ class LCDatesSelectorHeaderTableView: UITableViewHeaderFooterView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("LCDatesSelectorHeaderTableView")
+        fatalError(#function)
     }
 
     // MARK: - Public methods

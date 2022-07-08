@@ -42,6 +42,14 @@ class LiveCurvesNetworkManager: BaseNetworkManager {
         }
     }
 
+    func fetchLiveChartsProducts(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveCurveProfileProduct>>, SpartaError>>) {
+        router.request(.getLiveChartsProducts) { [weak self] data, response, error in
+            guard let strongSelf = self else { return }
+
+            completion(strongSelf.handleResult(data: data, response: response, error: error))
+        }
+    }
+
     func fetchProductGroups(completion: @escaping TypeClosure<Swift.Result<ResponseModel<List<LiveCurveProfileGroup>>, SpartaError>>) {
         router.request(.getProductGroups) { [weak self] data, response, error in
             guard let strongSelf = self else { return }

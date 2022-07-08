@@ -90,7 +90,7 @@ public struct Environment {
     public static var liveChartURL: String {
         switch Self.environment {
         case .stage, .dev:
-            return "http://sparta-review-fix-core-10.s3-website-eu-west-1.amazonaws.com/standaloneChart/" //"https://staging.sparta.app/standaloneChart/"
+            return "https://staging.sparta.app/standaloneChart/"
 
         case .production:
             return "https://sparta.app/standaloneChart/"

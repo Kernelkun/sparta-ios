@@ -24,6 +24,10 @@ extension LCDatesSelectorViewModel.Group {
             return 5
         }
 
+        if isMultipleTitle {
+            return 2
+        }
+
         return 4
     }
 
@@ -34,5 +38,12 @@ extension LCDatesSelectorViewModel.Group {
         let elementsCount = firstItem.name.components(separatedBy: "/").count
 
         return isMonthsGroup && elementsCount == 1
+    }
+    var isMultipleTitle: Bool {
+        guard let firstItem = dateSelectors.first else { return false }
+
+        let elementsCount = firstItem.name.components(separatedBy: "/").count
+
+        return elementsCount >= 3
     }
 }

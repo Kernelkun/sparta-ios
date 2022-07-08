@@ -58,11 +58,11 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
         var items: [LiveCurveProfileProduct] = []
 
         group.enter()
-        liveCurvesNetworkManager.fetchProducts { result in
+        liveCurvesNetworkManager.fetchLiveChartsProducts { result in
             if case let .success(responseModel) = result,
                let list = responseModel.model?.list {
                 
-                items = list.filter({ LCWebRestriction.validItemsCodes.contains($0.code) })
+                items = list//.filter({ LCWebRestriction.validItemsCodes.contains($0.code) })
             }
 
             group.leave()
@@ -126,6 +126,9 @@ class LCWebViewModel: NSObject, BaseViewModel, LCWebViewModelInterface {
                     strongSelf.setDate(LCWebViewModel.DateSelector(dateSelector: foundSelector))
                 } else if let savedDateSelector = strongSelf.itemsSaver.dateSelector(of: strongSelf.configurator.required().item.code) {
                     strongSelf.setDate(savedDateSelector)
+                } else if list.count >= 1 {
+                    let secondItem = list[1]
+                    strongSelf.setDate(LCWebViewModel.DateSelector(dateSelector: secondItem))
                 } else {
                     strongSelf.setDate(LCWebViewModel.DateSelector(dateSelector: firstItem))
                 }
